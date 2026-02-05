@@ -26,6 +26,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
+import ShareButton from './components/ShareButton';
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -243,6 +244,11 @@ function AppContent() {
           } />
         </Routes>
       </AnimatePresence>
+
+      {/* Global Share Button */}
+      <div className="fixed bottom-24 right-4 z-40 md:bottom-8 md:right-8">
+        <ShareButton />
+      </div>
 
       <UpdateToast 
         show={needRefresh} 

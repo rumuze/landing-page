@@ -112,6 +112,18 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
     schemas.push(breadcrumbSchema);
   }
 
+  // Dynamic OG Image based on Language
+  const ogImage = image || (currentLang === 'ar' ? `${baseUrl}/og-image-ar.png?v=1.0` : `${baseUrl}/og-image-en.png?v=1.0`);
+
+  // Dynamic Title based on Path/Lang
+  const cleanPath = path ? path.replace(/^\/+/, '') : '';
+  const isServices = cleanPath.includes('services');
+  const isLabs = cleanPath.includes('labs');
+
+  let dynamicOgTitle = title ? fullTitle : t('seo.ogTitle');
+  if (isServices) dynamicOgTitle = t('seo.titles.services') + ` | ${siteName}`;
+  if (isLabs) dynamicOgTitle = t('seo.titles.labs') + ` | ${siteName}`;
+
   return (
     <Helmet>
       {/* Search Engine Optimization */}
@@ -126,13 +138,11 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
       <link rel="alternate" hreflang="ar" href={`${baseUrl}${path}`} />
       <link rel="alternate" hreflang="x-default" href={`${baseUrl}${path}`} />
 
-      <link rel="alternate" hreflang="x-default" href={`${baseUrl}${path}`} />
-
       {/* Open Graph / Social Media */}
       <meta property="og:type" content={type} />
-      <meta property="og:title" content={title ? fullTitle : t('seo.ogTitle')} />
+      <meta property="og:title" content={dynamicOgTitle} />
       <meta property="og:description" content={description ? metaDescription : t('seo.ogDescription')} />
-      <meta property="og:image" content={`${baseUrl}/og-image.png?v=1.0`} />
+      <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:url" content={canonicalUrl} />
@@ -141,9 +151,9 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
 
       {/* Twitter Mastery */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:title" content={dynamicOgTitle} />
       <meta name="twitter:description" content={metaDescription} />
-      <meta name="twitter:image" content={`${baseUrl}/og-image.png?v=1.0`} />
+      <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:site" content="@rumuze" />
 
       {/* JSON-LD Payload Injection */}

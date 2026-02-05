@@ -5,7 +5,11 @@
         "orgDescription": "High-Authority Digital Engineering & Strategy Corporation.",
         "keywords": "Scalable Ecosystems, Enterprise Architecture, AI R&D, Search Dominance, Digital Authority, Fintech Core",
         "ogTitle": "Rumuze | The Digital Powerhouse",
-        "ogDescription": "Engineering Digital Legacies. We don't just build code; we architect the future of industries."
+        "ogDescription": "Engineering Digital Legacies. We don't just build code; we architect the future of industries.",
+        "titles": {
+            "services": "Our Services",
+            "labs": "Rumuze Labs"
+        }
     },
     "faq": {
         "title": "Strategic Partnerships",
