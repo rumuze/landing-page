@@ -109,37 +109,43 @@ const Contact = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-gray-400">{t('contact.labels.name')}</label>
-                  <input 
-                    type="text" 
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan text-slate-900 dark:text-white transition-colors"
-                  />
+                  <motion.div animate={formData.name === '' && loading ? { x: [-10, 10, -10, 10, 0] } : {}}>
+                    <input 
+                      type="text" 
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan text-slate-900 dark:text-white transition-colors"
+                    />
+                  </motion.div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-gray-400">{t('contact.labels.email')}</label>
-                  <input 
-                    type="email" 
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan text-slate-900 dark:text-white transition-colors"
-                  />
+                  <motion.div animate={formData.email === '' && loading ? { x: [-10, 10, -10, 10, 0] } : {}}>
+                    <input 
+                      type="email" 
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan text-slate-900 dark:text-white transition-colors"
+                    />
+                  </motion.div>
                 </div>
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-gray-400">{t('contact.labels.message')}</label>
-                <textarea 
-                  name="message"
-                  required
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows="5"
-                  className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan text-slate-900 dark:text-white transition-colors resize-none"
-                ></textarea>
+                <motion.div animate={formData.message === '' && loading ? { x: [-10, 10, -10, 10, 0] } : {}}>
+                  <textarea 
+                    name="message"
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows="5"
+                    className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan text-slate-900 dark:text-white transition-colors resize-none"
+                  ></textarea>
+                </motion.div>
               </div>
               <button 
                 type="submit" 

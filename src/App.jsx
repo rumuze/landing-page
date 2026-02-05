@@ -1,4 +1,4 @@
-import { useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { useScroll, useSpring, AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { useRegisterSW } from 'virtual:pwa-register/react';
 import UpdateToast from './components/UpdateToast';
 import InstallPrompt from './components/InstallPrompt';
 import OfflineFallback from './pages/OfflineFallback';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Lazy load components
 const Hero = lazy(() => import('./components/Hero'));
@@ -253,25 +254,27 @@ function App() {
 
   return (
     <HelmetProvider>
-      <ThemeProvider>
-        <AnimatePresence>
-          {isInitialLoading && (
-            <motion.div
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="fixed inset-0 z-[10000]"
-            >
-              <LoadingSpinner fullScreen />
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <Router>
-          <SEO />
-          <ScrollToTop />
-          <AppContent />
-        </Router>
-      </ThemeProvider>
+      <ErrorBoundary>
+        <ThemeProvider>
+          <AnimatePresence>
+            {isInitialLoading && (
+              <motion.div
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="fixed inset-0 z-[10000]"
+              >
+                <LoadingSpinner fullScreen />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <Router>
+            <SEO />
+            <ScrollToTop />
+            <AppContent />
+          </Router>
+        </ThemeProvider>
+      </ErrorBoundary>
     </HelmetProvider>
   );
 }

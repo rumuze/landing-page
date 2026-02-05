@@ -81,7 +81,7 @@ const Navbar = () => {
             {/* Logo */}
             <Link to="/" className={`flex items-center gap-2 group ${isAr ? 'flex-row-reverse' : ''}`}>
               <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-white shadow-lg shadow-cyan/20 group-hover:scale-110 transition-transform overflow-hidden">
-                <img src="/rumuze.svg" alt="Rumuze Logo" className="w-6 h-6 z-10" />
+                <img src="/rumuze.svg" alt="Rumuze Logo" width="24" height="24" className="w-6 h-6 z-10" />
                 <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
               </div>
               <span className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">RUMUZE</span>
@@ -176,34 +176,46 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Bottom Navigation */}
+      {/* Mobile Bottom Navigation */}
       <nav className="fixed bottom-6 left-4 right-4 z-50 md:hidden">
-        <div className="glass-card !rounded-full !p-2 flex justify-between items-center shadow-2xl bg-white/90 dark:bg-background/90 border-slate-200 dark:border-white/10">
-          <Link to="/" className="p-3 bg-gradient-to-br from-cyan to-purple text-white rounded-full shadow-lg shadow-cyan/20">
-            <img src="/rumuze.svg" alt="Rumuze" className="w-5 h-5" />
-          </Link>
-          
-          <div className={`flex items-center gap-1 ${isAr ? 'flex-row-reverse' : ''}`}>
-             <button 
-                onClick={toggleTheme}
-                className="p-3 rounded-full text-slate-600 dark:text-gray-300 active:scale-90 transition-transform"
-              >
-                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-             </button>
-             
-             <button 
-                onClick={() => changeLanguage(isAr ? 'en' : 'ar')}
-                className="px-3 py-1 rounded-full text-xs font-bold text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5"
-              >
-                {isAr ? 'EN' : 'AR'}
-             </button>
+        <div className="glass-card !rounded-2xl !p-2 flex justify-around items-center shadow-2xl bg-white/90 dark:bg-background/90 border-slate-200 dark:border-white/10 backdrop-blur-xl">
+           <Link to={isAr ? '/ar/' : '/'} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/' : '/') ? 'text-cyan' : 'text-slate-500 dark:text-gray-400'}`}>
+              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/' : '/') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </motion.div>
+              <span className="text-[10px] font-bold">{t('navbar.home')}</span>
+           </Link>
 
-             <button 
-                onClick={() => setIsOpen(true)}
-                className="p-3 rounded-full bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white ml-2 active:scale-90 transition-transform"
-              >
-                <Menu size={20} />
-             </button>
-          </div>
+           <Link to={isAr ? '/ar/services' : '/services'} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/services' : '/services') ? 'text-cyan' : 'text-slate-500 dark:text-gray-400'}`}>
+              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/services' : '/services') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </motion.div>
+              <span className="text-[10px] font-bold">{t('navbar.services')}</span>
+           </Link>
+
+           <Link to={isAr ? '/ar/labs' : '/labs'} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/labs' : '/labs') ? 'text-cyan' : 'text-slate-500 dark:text-gray-400'}`}>
+              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/labs' : '/labs') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+                 <FlaskConical size={20} />
+              </motion.div>
+              <span className="text-[10px] font-bold">{t('navbar.labs')}</span>
+           </Link>
+
+           <a href={isAr ? '/ar/contact' : '/contact'} onClick={(e) => { e.preventDefault(); navigate(isAr ? '/ar/contact' : '/contact'); }} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/contact' : '/contact') ? 'text-cyan' : 'text-slate-500 dark:text-gray-400'}`}>
+              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/contact' : '/contact') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </motion.div>
+              <span className="text-[10px] font-bold">{t('navbar.contact', 'Contact')}</span>
+           </a>
+
+           <button 
+              onClick={() => setIsOpen(true)}
+              className="p-2 rounded-xl flex flex-col items-center gap-1 text-slate-500 dark:text-gray-400"
+            >
+              <motion.div whileTap={{ scale: 0.9 }} className="p-1.5">
+                 <Menu size={20} />
+              </motion.div>
+              <span className="text-[10px] font-bold">{t('navbar.more', 'More')}</span>
+           </button>
         </div>
       </nav>
 
