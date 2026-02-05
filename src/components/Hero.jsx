@@ -36,15 +36,15 @@ const Hero = () => {
               </>
             )}
           </h1>
-          <p className="text-lg text-slate-500 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
+          <p className="text-lg text-slate-600 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
             {t('hero.subheadline')}
           </p>
           <div className="flex flex-wrap gap-4">
-            <button className="btn-primary flex items-center gap-2 group">
+            <button className="btn-primary flex items-center gap-2 group shadow-lg shadow-cyan/20">
               {t('hero.ctaExplore')}
               <ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="px-8 py-4 rounded-xl font-bold border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-all">
+            <button className="px-8 py-4 rounded-xl font-bold border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-all shadow-sm">
               {t('hero.ctaServices')}
             </button>
           </div>

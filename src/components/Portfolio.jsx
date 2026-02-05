@@ -36,11 +36,11 @@ const Portfolio = () => {
             <h2 className="text-4xl md:text-5xl font-black mb-4 text-slate-900 dark:text-white">
               {t('portfolio.title').split(' ')[0]} <span className="text-purple">{t('portfolio.title').split(' ').slice(1).join(' ')}</span>
             </h2>
-            <p className="text-slate-500 dark:text-gray-400">
+            <p className="text-slate-600 dark:text-gray-400">
               {t('portfolio.description')}
             </p>
           </div>
-          <button className="px-6 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-white dark:hover:bg-white/5 transition-all text-sm font-bold">
+          <button className="px-6 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-white dark:hover:bg-white/5 transition-all text-sm font-bold shadow-sm">
             {t('portfolio.viewAll')}
           </button>
         </div>

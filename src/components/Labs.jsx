@@ -55,8 +55,8 @@ const Labs = () => {
           <ArrowLeft size={18} className={isAr ? 'rotate-180' : ''} />
           <span>{isAr ? 'العودة' : 'BACK TO CORE'}</span>
         </Link>
-        <div className="text-[10px] text-slate-500 dark:text-white/40 tracking-[0.3em]">
-          SYSTEM STATUS: <span className="text-green-500 dark:text-green-400">NOMINAL</span>
+        <div className="text-[10px] text-slate-600 dark:text-white/40 tracking-[0.3em]">
+          SYSTEM STATUS: <span className="text-green-600 dark:text-green-400">NOMINAL</span>
         </div>
       </nav>
 
@@ -109,12 +109,12 @@ const Labs = () => {
               </div>
               <div className="text-[10px] text-cyan/60 font-bold mb-2 tracking-widest">{exp.tag}</div>
               <h3 className="text-xl font-bold mb-4 text-slate-800 dark:text-white">{exp.title}</h3>
-              <p className="text-sm text-slate-500 dark:text-white/40 mb-8 leading-relaxed">
+              <p className="text-sm text-slate-600 dark:text-white/40 mb-8 leading-relaxed">
                 {exp.description}
               </p>
               <div className="flex justify-between items-center text-[10px] tracking-widest">
-                <span className="flex items-center gap-2 text-slate-500 dark:text-white/40">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 dark:bg-green-400 animate-pulse"></span>
+                <span className="flex items-center gap-2 text-slate-600 dark:text-white/40">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-600 dark:bg-green-400 animate-pulse"></span>
                   {exp.status}
                 </span>
                 <button className="text-slate-700 dark:text-white hover:text-cyan flex items-center gap-1 transition-colors">
@@ -134,7 +134,7 @@ const Labs = () => {
           <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
             <div>
               <h2 className="text-2xl font-bold mb-2 tracking-tight text-slate-900 dark:text-white">LATEST PUBLICATIONS</h2>
-              <p className="text-sm text-slate-500 dark:text-white/40">Technical deep-dives into our core research.</p>
+              <p className="text-sm text-slate-600 dark:text-white/40">Technical deep-dives into our core research.</p>
             </div>
             <button className="text-xs border border-slate-200 dark:border-white/10 px-6 py-2 hover:bg-white dark:hover:bg-white/5 tracking-[0.2em] transition-colors text-slate-700 dark:text-white">
               VIEW ARCHIVE

@@ -34,6 +34,7 @@
         "services": "Services",
         "portfolio": "Portfolio",
         "techStack": "Tech Stack",
+        "labs": "Labs",
         "contact": "Contact",
         "startProject": "Start Project"
     },
@@ -119,7 +120,16 @@
         "sections": {
             "solutions": "Solutions",
             "services": "Services",
-            "company": "Company"
+            "company": "Company",
+            "links": {
+                "cloud": "Cloud Architecture",
+                "about": "About Us",
+                "cases": "Case Studies",
+                "careers": "Careers",
+                "contact": "Contact",
+                "privacy": "Privacy Policy",
+                "terms": "Terms of Service"
+            }
         }
     }
 }

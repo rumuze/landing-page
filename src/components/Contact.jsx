@@ -63,7 +63,7 @@ const Contact = () => {
             <h2 className="text-4xl md:text-5xl font-black mb-8 text-slate-900 dark:text-white">
               {t('contact.title').split(' ').slice(0, -1).join(' ')} <span className="text-cyan">{t('contact.title').split(' ').slice(-1)}</span>
             </h2>
-            <p className="text-slate-500 dark:text-gray-400 mb-12 max-w-md">
+            <p className="text-slate-600 dark:text-gray-400 mb-12 max-w-md">
               {t('contact.description')}
             </p>
 
@@ -74,7 +74,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900 dark:text-white">{t('contact.info.hq')}</h3>
-                  <p className="text-sm text-slate-500 dark:text-gray-400">Silicon Valley, CA • Lagos, NG</p>
+                  <p className="text-sm text-slate-600 dark:text-gray-400">Silicon Valley, CA • Lagos, NG</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -83,7 +83,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900 dark:text-white">{t('contact.info.email')}</h3>
-                  <p className="text-sm text-slate-500 dark:text-gray-400">connect@rumuze.com</p>
+                  <p className="text-sm text-slate-600 dark:text-gray-400">connect@rumuze.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -92,7 +92,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900 dark:text-white">{t('contact.info.phone')}</h3>
-                  <p className="text-sm text-slate-500 dark:text-gray-400">+1 (555) 123-4567</p>
+                  <p className="text-sm text-slate-600 dark:text-gray-400">+1 (555) 123-4567</p>
                 </div>
               </div>
             </div>
@@ -107,7 +107,7 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-gray-400">{t('contact.labels.name')}</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-gray-400">{t('contact.labels.name')}</label>
                   <input 
                     type="text" 
                     name="name"
@@ -118,7 +118,7 @@ const Contact = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-gray-400">{t('contact.labels.email')}</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-gray-400">{t('contact.labels.email')}</label>
                   <input 
                     type="email" 
                     name="email"
@@ -130,7 +130,7 @@ const Contact = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-gray-400">{t('contact.labels.message')}</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-gray-400">{t('contact.labels.message')}</label>
                 <textarea 
                   name="message"
                   required
@@ -143,7 +143,7 @@ const Contact = () => {
               <button 
                 type="submit" 
                 disabled={loading}
-                className={`btn-primary w-full flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                className={`btn-primary w-full flex items-center justify-center gap-2 shadow-lg shadow-cyan/20 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
                 {loading ? 'SENDING...' : t('contact.labels.send')}
                 {!loading && <Send size={18} className="rtl-flip" />}
