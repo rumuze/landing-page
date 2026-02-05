@@ -54,17 +54,17 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      "serviceType": "Software Development",
+      "serviceType": "Architecting Scalable Ecosystems",
       "provider": { "@type": "LocalBusiness", "name": siteName },
-      "description": "Bespoke enterprise software, Laravel excellence, and high-performance API architectures.",
+      "description": "Bespoke digital ecosystems, high-availability architectures, and enterprise-grade software engineering.",
       "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
     },
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      "serviceType": "Digital Growth Marketing",
+      "serviceType": "Behavioral Data & Market Dominance",
       "provider": { "@type": "LocalBusiness", "name": siteName },
-      "description": "Data-driven marketing, growth hacking, and high-conversion social campaigns.",
+      "description": "Data-driven authority construction, algorithmic acquisition, and search dominance strategies.",
       "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
     }
   ];

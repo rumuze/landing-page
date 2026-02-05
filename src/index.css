@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&family=Cairo:wght@400;600;700;900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -12,6 +12,10 @@
   body {
     @apply bg-white dark:bg-background text-slate-900 dark:text-white font-sans antialiased;
     scroll-behavior: smooth;
+  }
+
+  [dir="rtl"] body {
+    font-family: "Cairo", sans-serif;
   }
 
   h1,

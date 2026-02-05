@@ -1,4 +1,4 @@
-import { useScroll, useSpring, AnimatePresence, motion } from 'framer-motion';
+import { useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
