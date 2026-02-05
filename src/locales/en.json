@@ -27,7 +27,11 @@
     "breadcrumbs": {
         "home": "Home",
         "labs": "Labs",
-        "services": "Services"
+        "services": "Services",
+        "about": "About",
+        "blog": "Insights",
+        "privacy": "Privacy",
+        "terms": "Terms"
     },
     "navbar": {
         "home": "Home",
@@ -130,6 +134,104 @@
                 "privacy": "Privacy Policy",
                 "terms": "Terms of Service"
             }
+        }
+    },
+    "about": {
+        "title": "The Bridge Between Code and Creative",
+        "subtitle": "Rumuze was founded to solve a single problem: the friction between high-performance engineering and exponential brand growth.",
+        "story": {
+            "title": "Our Story",
+            "content": "Born from a deep-rooted passion for Computer Science and a sharp eye for market dynamics, Rumuze represents the evolution of digital craft. We don't just write code; we architect experiences that scale. Our founder's academic influence drives a culture of precision, while our marketing engine ensures that innovation never goes unnoticed."
+        },
+        "values": {
+            "innovation": {
+                "title": "Innovation",
+                "text": "Exploring the boundaries of AI and software to find what's next."
+            },
+            "precision": {
+                "title": "Precision",
+                "text": "Every line of code and every ad set is optimized for peak performance."
+            },
+            "scalability": {
+                "title": "Scalability",
+                "text": "Architecting systems that thrive as you grow from zero to enterprise."
+            }
+        },
+        "cto": {
+            "name": "Mohamed Ashraf",
+            "role": "Founder & Lead Architect",
+            "bio": "CS Master's background with a focus on scalable systems and digital growth. Architecting the future of Rumuze."
+        }
+    },
+    "services_page": {
+        "title": "Specialized Solutions",
+        "software": {
+            "title": "Enterprise Software",
+            "process": [
+                "Discovery",
+                "Architecture",
+                "Deployment",
+                "Optimization"
+            ],
+            "tech": [
+                "Laravel",
+                "React",
+                "Node.js",
+                "PostgreSQL"
+            ],
+            "description": "We build robust, secure, and highly scalable software tailored for modern enterprise needs."
+        },
+        "ai": {
+            "title": "AI & Automation",
+            "process": [
+                "Data Analysis",
+                "Model Training",
+                "Integration",
+                "Monitoring"
+            ],
+            "tech": [
+                "Python",
+                "PyTorch",
+                "TensorFlow",
+                "OpenAI"
+            ],
+            "description": "Integrating cutting-edge intelligence into your business workflows to drive unprecedented efficiency."
+        },
+        "growth": {
+            "title": "Growth Marketing",
+            "process": [
+                "Audit",
+                "Strategy",
+                "Execution",
+                "Scaling"
+            ],
+            "tech": [
+                "GADS",
+                "Meta",
+                "Analytics",
+                "SEO"
+            ],
+            "description": "Data-driven marketing strategies that don't just generate clicks, but build sustainable revenue."
+        }
+    },
+    "blog": {
+        "title": "Case Studies & Insights",
+        "subtitle": "Technical deep-dives and strategic growth analysis.",
+        "categories": {
+            "tech": "Technology",
+            "marketing": "Growth",
+            "ai": "Artificial Intelligence"
+        },
+        "readTime": "min read"
+    },
+    "legal": {
+        "privacy": {
+            "title": "Privacy Policy",
+            "lastUpdated": "Last Updated: February 2026"
+        },
+        "terms": {
+            "title": "Terms of Service",
+            "lastUpdated": "Last Updated: February 2026"
         }
     }
 }

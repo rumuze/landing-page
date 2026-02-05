@@ -1,0 +1,120 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import SEO from '../components/SEO';
+
+const BlogPage = () => {
+  const { t, i18n } = useTranslation();
+  const isAr = i18n.language === 'ar';
+
+  const posts = [
+    {
+      id: 1,
+      title: "The Future of Scalable Backend Architectures",
+      category: "tech",
+      date: "Feb 10, 2026",
+      author: "Mohamed Ashraf",
+      readTime: "8",
+      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=2000&auto=format&fit=crop"
+    },
+    {
+      id: 2,
+      title: "Data-Driven Growth: Beyond Simple Metrics",
+      category: "marketing",
+      date: "Feb 05, 2026",
+      author: "Growth Team",
+      readTime: "5",
+      image: "https://images.unsplash.com/photo-1551288049-bbda38a5f85d?q=80&w=2000&auto=format&fit=crop"
+    },
+    {
+      id: 3,
+      title: "AI Integration: Transitioning from Theory to Profit",
+      category: "ai",
+      date: "Jan 28, 2026",
+      author: "Mohamed Ashraf",
+      readTime: "12",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop"
+    }
+  ];
+
+  return (
+    <div className="pt-32 pb-20">
+      <SEO 
+        title={t('blog.title')} 
+        description={t('blog.subtitle')}
+        path={isAr ? '/ar/blog' : '/blog'}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-6xl font-black mb-6 text-slate-900 dark:text-white">
+            {t('blog.title')}
+          </h1>
+          <p className="text-xl text-slate-600 dark:text-gray-400 max-w-3xl mx-auto">
+            {t('blog.subtitle')}
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {posts.map((post, index) => (
+            <motion.article 
+              key={post.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="group bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 flex flex-col"
+            >
+              <div className="relative h-64 overflow-hidden">
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute top-6 left-6 rtl:left-auto rtl:right-6">
+                  <span className="px-4 py-2 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-xs font-black uppercase tracking-widest text-cyan shadow-lg">
+                    {t(`blog.categories.${post.category}`)}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-8 flex flex-col flex-1">
+                <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-gray-400 mb-6 font-bold">
+                  <div className="flex items-center gap-1">
+                    <Calendar size={14} />
+                    <span>{post.date}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Clock size={14} />
+                    <span>{post.readTime} {t('blog.readTime')}</span>
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white group-hover:text-cyan transition-colors leading-tight">
+                  {post.title}
+                </h3>
+
+                <div className="mt-auto pt-6 border-t border-slate-100 dark:border-white/5 flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-cyan/20 flex items-center justify-center text-[10px] font-black text-cyan">
+                      {post.author.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <span className="text-sm font-bold text-slate-700 dark:text-gray-300">{post.author}</span>
+                  </div>
+                  <ArrowRight size={20} className="text-slate-400 group-hover:text-cyan group-hover:translate-x-2 rtl:group-hover:-translate-x-2 transition-all" />
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BlogPage;

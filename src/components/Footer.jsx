@@ -1,10 +1,12 @@
-import React from 'react';
 import { Cpu, Github, Twitter, Linkedin, Instagram } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const { t, i18n } = useTranslation();
+  const isAr = i18n.language === 'ar';
   const isRtl = i18n.dir() === 'rtl';
+  const pathPrefix = isAr ? '/ar' : '';
 
   return (
     <footer className={`bg-white dark:bg-background pt-20 pb-10 border-t border-slate-200 dark:border-white/5 ${isRtl ? 'text-right' : 'text-left'}`}>
@@ -31,30 +33,30 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-slate-900 dark:text-white mb-6 uppercase tracking-widest text-xs">{t('footer.sections.solutions')}</h4>
             <ul className="space-y-4 text-sm text-slate-600 dark:text-gray-400">
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.software.items.erp.name')}</a></li>
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.software.items.mobile.name')}</a></li>
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.cloud')}</a></li>
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.software.items.api.name')}</a></li>
+              <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.software.items.erp.name')}</Link></li>
+              <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.software.items.mobile.name')}</Link></li>
+              <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.cloud')}</Link></li>
+              <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.software.items.api.name')}</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-slate-900 dark:text-white mb-6 uppercase tracking-widest text-xs">{t('footer.sections.services')}</h4>
             <ul className="space-y-4 text-sm text-slate-600 dark:text-gray-400">
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.marketing.items.growth.name')}</a></li>
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.marketing.items.brand.name')}</a></li>
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.marketing.items.ads.name')}</a></li>
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">SEO</a></li>
+              <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.marketing.items.growth.name')}</Link></li>
+              <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.marketing.items.brand.name')}</Link></li>
+              <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.marketing.items.ads.name')}</Link></li>
+              <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">SEO</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-slate-900 dark:text-white mb-6 uppercase tracking-widest text-xs">{t('footer.sections.company')}</h4>
             <ul className="space-y-4 text-sm text-slate-600 dark:text-gray-400">
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.about')}</a></li>
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.cases')}</a></li>
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.careers')}</a></li>
-              <li><a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.contact')}</a></li>
+              <li><Link to={`${pathPrefix}/about`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.about')}</Link></li>
+              <li><Link to={`${pathPrefix}/blog`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.cases')}</Link></li>
+              <li><Link to={`${pathPrefix}/blog`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.careers')}</Link></li>
+              <li><Link to={`${pathPrefix}/#contact`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.contact')}</Link></li>
             </ul>
           </div>
         </div>
@@ -64,8 +66,8 @@ const Footer = () => {
             {t('footer.rights')}
           </p>
           <div className={`flex gap-8 text-slate-500 text-xs ${isRtl ? 'flex-row-reverse' : ''}`}>
-            <a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.privacy')}</a>
-            <a href="#" className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.terms')}</a>
+            <Link to={`${pathPrefix}/privacy`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.privacy')}</Link>
+            <Link to={`${pathPrefix}/terms`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.terms')}</Link>
           </div>
         </div>
       </div>

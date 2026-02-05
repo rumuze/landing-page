@@ -25,12 +25,12 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: t('navbar.home'), href: isAr ? '/ar' : '/' },
-    { name: t('navbar.services'), href: isAr ? '/ar#services' : '/#services' },
-    { name: t('navbar.portfolio'), href: isAr ? '/ar#portfolio' : '/#portfolio' },
-    { name: t('navbar.techStack'), href: isAr ? '/ar#tech-stack' : '/#tech-stack' },
+    { name: t('navbar.home'), href: isAr ? '/ar/' : '/' },
+    { name: t('navbar.services'), href: isAr ? '/ar/services' : '/services' },
+    { name: t('navbar.portfolio'), href: isAr ? '/ar/#portfolio' : '/#portfolio' },
+    { name: t('navbar.blog'), href: isAr ? '/ar/blog' : '/blog' },
+    { name: t('navbar.about'), href: isAr ? '/ar/about' : '/about' },
     { name: t('navbar.labs'), href: isAr ? '/ar/labs' : '/labs', highlight: true, icon: <FlaskConical size={14} /> },
-    { name: t('navbar.contact'), href: isAr ? '/ar#contact' : '/#contact' },
   ];
 
   const changeLanguage = (lng) => {
