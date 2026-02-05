@@ -1,12 +1,13 @@
 import { useScroll, useSpring, AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useEffect, Suspense, lazy } from 'react';
+import { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import SEO from './components/SEO';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import LoadingSpinner from './components/LoadingSpinner';
 
 // Lazy load components
 const Hero = lazy(() => import('./components/Hero'));
@@ -40,6 +41,35 @@ const ScrollToTop = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
+};
+
+// Global Loading Provider
+const LoadingProvider = ({ children }) => {
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+
+  useEffect(() => {
+    // Initial load simulation
+    const timer = setTimeout(() => setIsInitialLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <>
+      <AnimatePresence>
+        {isInitialLoading && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-[9999]"
+          >
+            <LoadingSpinner fullScreen />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {children}
+    </>
+  );
 };
 
 function AppContent() {
@@ -180,9 +210,29 @@ function AppContent() {
 }
 
 function App() {
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+
+  useEffect(() => {
+    // Initial load simulation or actual asset checking
+    const timer = setTimeout(() => setIsInitialLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <HelmetProvider>
       <ThemeProvider>
+        <AnimatePresence>
+          {isInitialLoading && (
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="fixed inset-0 z-[10000]"
+            >
+              <LoadingSpinner fullScreen />
+            </motion.div>
+          )}
+        </AnimatePresence>
         <Router>
           <SEO />
           <ScrollToTop />

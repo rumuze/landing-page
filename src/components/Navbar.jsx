@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, Cpu, Globe, ChevronDown, FlaskConical, Sun, Moon } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, FlaskConical, Sun, Moon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
@@ -79,8 +79,8 @@ const Navbar = () => {
         <div className={`flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
           {/* Logo */}
           <Link to="/" className={`flex items-center gap-2 group ${isAr ? 'flex-row-reverse' : ''}`}>
-            <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-white shadow-lg shadow-cyan/20 group-hover:scale-110 transition-transform">
-              <Cpu size={24} />
+            <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-white shadow-lg shadow-cyan/20 group-hover:scale-110 transition-transform overflow-hidden">
+              <img src="/rumuze.svg" alt="Rumuze Logo" className="w-6 h-6 z-10" />
               <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
             </div>
             <span className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">RUMUZE</span>

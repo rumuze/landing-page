@@ -17,7 +17,7 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'humans.txt'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'humans.txt', 'rumuze.png', 'rumuze.svg'],
       manifest: {
         name: 'Rumuze | Digital Agency',
         short_name: 'Rumuze',
@@ -27,17 +27,17 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: 'rumuze.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'rumuze.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'rumuze.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'

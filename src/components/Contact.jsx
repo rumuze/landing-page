@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MapPin, Phone, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import LoadingSpinner from './LoadingSpinner';
 
 const Contact = () => {
   const { t, i18n } = useTranslation();
@@ -145,8 +146,17 @@ const Contact = () => {
                 disabled={loading}
                 className={`btn-primary w-full flex items-center justify-center gap-2 shadow-lg shadow-cyan/20 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                {loading ? 'SENDING...' : t('contact.labels.send')}
-                {!loading && <Send size={18} className="rtl-flip" />}
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>SENDING...</span>
+                  </div>
+                ) : (
+                  <>
+                    {t('contact.labels.send')}
+                    <Send size={18} className="rtl-flip" />
+                  </>
+                )}
               </button>
             </form>
           </motion.div>

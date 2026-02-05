@@ -1,4 +1,4 @@
-import { Cpu, Github, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Github, Twitter, Linkedin, Instagram } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -14,8 +14,8 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
             <div className={`flex items-center gap-2 mb-6 ${isRtl ? 'flex-row-reverse' : ''}`}>
-              <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-br from-cyan to-purple">
-                <Cpu className="text-white w-5 h-5" />
+              <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-br from-cyan to-purple overflow-hidden">
+                <img src="/rumuze.svg" alt="Rumuze Logo" className="w-5 h-5 z-10" />
               </div>
               <span className="text-xl font-black text-slate-900 dark:text-white">RUMUZE</span>
             </div>
