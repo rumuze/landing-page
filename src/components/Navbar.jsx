@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Cpu, Globe, ChevronDown } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, X, Cpu, Globe, ChevronDown, FlaskConical } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,11 +21,12 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: t('navbar.home'), href: '#' },
-    { name: t('navbar.services'), href: '#services' },
-    { name: t('navbar.portfolio'), href: '#portfolio' },
-    { name: t('navbar.techStack'), href: '#tech-stack' },
-    { name: t('navbar.contact'), href: '#contact' },
+    { name: t('navbar.home'), href: '/' },
+    { name: t('navbar.services'), href: '/#services' },
+    { name: t('navbar.portfolio'), href: '/#portfolio' },
+    { name: t('navbar.techStack'), href: '/#tech-stack' },
+    { name: t('navbar.labs') || 'Labs', href: '/labs', highlight: true, icon: <FlaskConical size={14} /> },
+    { name: t('navbar.contact'), href: '/#contact' },
   ];
 
   const changeLanguage = (lng) => {
@@ -48,25 +50,30 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
           {/* Logo */}
-          <div className={`flex items-center gap-2 ${isAr ? 'flex-row-reverse' : ''}`}>
+          <Link to="/" className={`flex items-center gap-2 ${isAr ? 'flex-row-reverse' : ''}`}>
             <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-background">
               <Cpu size={24} />
               <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
             </div>
             <span className="text-2xl font-black tracking-tighter text-white">RUMUZE</span>
-          </div>
+          </Link>
 
           {/* Desktop Nav */}
           <div className={`hidden md:flex items-center gap-8 ${isAr ? 'flex-row-reverse' : ''}`}>
-            <div className={`flex items-center gap-8 ${isAr ? 'flex-row-reverse' : ''}`}>
+            <div className={`flex items-center gap-6 ${isAr ? 'flex-row-reverse' : ''}`}>
               {navLinks.map((link) => (
-                <a 
+                <Link 
                   key={link.name} 
-                  href={link.href}
-                  className="text-sm font-medium text-gray-300 hover:text-cyan transition-colors"
+                  to={link.href}
+                  className={`text-sm font-medium transition-all flex items-center gap-2 ${
+                    link.highlight 
+                    ? 'text-cyan px-3 py-1 bg-cyan/10 border border-cyan/20 rounded-lg hover:bg-cyan/20' 
+                    : 'text-gray-300 hover:text-cyan'
+                  }`}
                 >
+                  {link.icon}
                   {link.name}
-                </a>
+                </Link>
               ))}
             </div>
 
@@ -138,14 +145,17 @@ const Navbar = () => {
           >
             <div className="px-4 py-8 flex flex-col gap-6 items-center">
               {navLinks.map((link) => (
-                <a 
+                <Link 
                   key={link.name} 
-                  href={link.href}
+                  to={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-lg font-semibold text-white hover:text-cyan transition-colors"
+                  className={`text-lg font-semibold transition-colors flex items-center gap-2 ${
+                    link.highlight ? 'text-cyan' : 'text-white hover:text-cyan'
+                  }`}
                 >
+                  {link.icon}
                   {link.name}
-                </a>
+                </Link>
               ))}
               <button className="btn-primary w-full max-w-xs">
                 {t('navbar.startProject')}
