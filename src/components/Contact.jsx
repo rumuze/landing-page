@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, MapPin, Phone, Mail, CheckCircle, Linkedin, Github, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import LoadingSpinner from './LoadingSpinner';
 
 const Contact = () => {
   const { t, i18n } = useTranslation();
@@ -244,7 +245,7 @@ const Contact = () => {
                 >
                   {loading ? (
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                       <LoadingSpinner size="sm" color="white" />
                       <span className="text-sm">PROCESSING...</span>
                     </div>
                   ) : (
