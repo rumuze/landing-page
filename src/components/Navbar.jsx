@@ -68,172 +68,203 @@ const Navbar = () => {
   };
 
   return (
-    <nav 
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled 
-        ? 'py-4 bg-white/80 dark:bg-background/80 backdrop-blur-md border-b border-slate-200/50 dark:border-white/5 shadow-sm' 
-        : 'py-6 bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
-          {/* Logo */}
-          <Link to="/" className={`flex items-center gap-2 group ${isAr ? 'flex-row-reverse' : ''}`}>
-            <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-white shadow-lg shadow-cyan/20 group-hover:scale-110 transition-transform overflow-hidden">
-              <img src="/rumuze.svg" alt="Rumuze Logo" className="w-6 h-6 z-10" />
-              <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
-            </div>
-            <span className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">RUMUZE</span>
-          </Link>
+    <>
+      <nav 
+        className={`fixed w-full z-50 transition-all duration-500 hidden md:block ${
+          scrolled 
+          ? 'py-4 bg-white/80 dark:bg-background/80 backdrop-blur-md border-b border-slate-200/50 dark:border-white/5 shadow-sm' 
+          : 'py-6 bg-transparent'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
+            {/* Logo */}
+            <Link to="/" className={`flex items-center gap-2 group ${isAr ? 'flex-row-reverse' : ''}`}>
+              <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-white shadow-lg shadow-cyan/20 group-hover:scale-110 transition-transform overflow-hidden">
+                <img src="/rumuze.svg" alt="Rumuze Logo" className="w-6 h-6 z-10" />
+                <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
+              </div>
+              <span className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">RUMUZE</span>
+            </Link>
 
-          {/* Desktop Nav */}
-          <div className={`hidden md:flex items-center gap-8 ${isAr ? 'flex-row-reverse' : ''}`}>
-            <div className={`flex items-center gap-6 ${isAr ? 'flex-row-reverse' : ''}`}>
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.name} 
-                  to={link.href}
-                  className={`text-sm font-semibold transition-all flex items-center gap-2 relative py-1 ${
-                    link.highlight 
-                    ? 'text-cyan px-3 bg-cyan/10 border border-cyan/20 rounded-lg hover:bg-cyan/20' 
-                    : 'text-slate-700 dark:text-gray-300 hover:text-cyan dark:hover:text-cyan'
-                  }`}
-                >
-                  {link.icon}
-                  {link.name}
-                  {isActive(link.href) && !link.highlight && (
-                    <motion.div 
-                      layoutId="navUnderline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan rounded-full"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              ))}
-            </div>
-
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-800 dark:text-yellow-400 hover:scale-110 transition-all duration-300 border border-slate-200 dark:border-white/10 shadow-sm"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={theme}
-                  initial={{ rotate: -45, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 45, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-                </motion.div>
-              </AnimatePresence>
-            </button>
-
-            {/* Language Switcher */}
-            <div className="relative">
-              <button 
-                onClick={() => setShowLangMenu(!showLangMenu)}
-                className="flex items-center gap-2 text-sm font-bold text-slate-800 dark:text-gray-300 hover:text-cyan border border-slate-200 dark:border-white/10 px-3 py-1.5 rounded-lg transition-all bg-slate-50 dark:bg-transparent shadow-sm"
-              >
-                <Globe size={16} className="text-cyan" />
-                <span>{currentLang.name}</span>
-                <ChevronDown size={14} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
-              </button>
-              
-              <AnimatePresence>
-                {showLangMenu && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className={`absolute top-full mt-2 bg-white/95 dark:bg-background/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px] ${isAr ? 'left-0' : 'right-0'}`}
+            {/* Desktop Nav */}
+            <div className={`flex items-center gap-8 ${isAr ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center gap-6 ${isAr ? 'flex-row-reverse' : ''}`}>
+                {navLinks.map((link) => (
+                  <Link 
+                    key={link.name} 
+                    to={link.href}
+                    className={`text-sm font-semibold transition-all flex items-center gap-2 relative py-1 ${
+                      link.highlight 
+                      ? 'text-cyan px-3 bg-cyan/10 border border-cyan/20 rounded-lg hover:bg-cyan/20' 
+                      : 'text-slate-700 dark:text-gray-300 hover:text-cyan dark:hover:text-cyan'
+                    }`}
                   >
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => changeLanguage(lang.code)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors ${
-                          i18n.language === lang.code ? 'text-cyan bg-slate-50 dark:bg-white/5' : 'text-slate-800 dark:text-gray-300'
-                        } ${isAr ? 'flex-row-reverse text-right' : 'text-left'}`}
-                      >
-                        <span className="text-lg">{lang.flag}</span>
-                        <span className="font-bold">{lang.name}</span>
-                      </button>
-                    ))}
+                    {link.icon}
+                    {link.name}
+                    {isActive(link.href) && !link.highlight && (
+                      <motion.div 
+                        layoutId="navUnderline"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan rounded-full"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-800 dark:text-yellow-400 hover:scale-110 transition-all duration-300 border border-slate-200 dark:border-white/10 shadow-sm"
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={theme}
+                    initial={{ rotate: -45, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 45, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                   </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                </AnimatePresence>
+              </button>
 
-            <button className="btn-primary text-sm px-5 py-2 shadow-lg shadow-cyan/20">
-              {t('navbar.startProject')}
-            </button>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <div className={`md:hidden flex items-center gap-4 ${isAr ? 'flex-row-reverse' : ''}`}>
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={theme}
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+              {/* Language Switcher */}
+              <div className="relative">
+                <button 
+                  onClick={() => setShowLangMenu(!showLangMenu)}
+                  className="flex items-center gap-2 text-sm font-bold text-slate-800 dark:text-gray-300 hover:text-cyan border border-slate-200 dark:border-white/10 px-3 py-1.5 rounded-lg transition-all bg-slate-50 dark:bg-transparent shadow-sm"
                 >
-                  {theme === 'dark' ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-slate-700" />}
-                </motion.div>
-              </AnimatePresence>
-            </button>
-            <button 
-               onClick={() => changeLanguage(isAr ? 'en' : 'ar')}
-               className="p-2 text-slate-700 dark:text-gray-300 bg-slate-50 dark:bg-white/5 rounded-lg flex items-center gap-2 border border-slate-200 dark:border-white/10 shadow-sm"
-            >
-              <Globe size={18} className="text-cyan" />
-              <span className="text-xs font-bold">{isAr ? 'EN' : 'AR'}</span>
-            </button>
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-slate-900 dark:text-white">
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+                  <Globe size={16} className="text-cyan" />
+                  <span>{currentLang.name}</span>
+                  <ChevronDown size={14} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
+                </button>
+                
+                <AnimatePresence>
+                  {showLangMenu && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className={`absolute top-full mt-2 bg-white/95 dark:bg-background/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px] ${isAr ? 'left-0' : 'right-0'}`}
+                    >
+                      {languages.map((lang) => (
+                        <button
+                          key={lang.code}
+                          onClick={() => changeLanguage(lang.code)}
+                          className={`w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors ${
+                            i18n.language === lang.code ? 'text-cyan bg-slate-50 dark:bg-white/5' : 'text-slate-800 dark:text-gray-300'
+                          } ${isAr ? 'flex-row-reverse text-right' : 'text-left'}`}
+                        >
+                          <span className="text-lg">{lang.flag}</span>
+                          <span className="font-bold">{lang.name}</span>
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <button className="btn-primary text-sm px-5 py-2 shadow-lg shadow-cyan/20">
+                {t('navbar.startProject')}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Nav */}
+      {/* Mobile Bottom Navigation */}
+      <nav className="fixed bottom-6 left-4 right-4 z-50 md:hidden">
+        <div className="glass-card !rounded-full !p-2 flex justify-between items-center shadow-2xl bg-white/90 dark:bg-background/90 border-slate-200 dark:border-white/10">
+          <Link to="/" className="p-3 bg-gradient-to-br from-cyan to-purple text-white rounded-full shadow-lg shadow-cyan/20">
+            <img src="/rumuze.svg" alt="Rumuze" className="w-5 h-5" />
+          </Link>
+          
+          <div className={`flex items-center gap-1 ${isAr ? 'flex-row-reverse' : ''}`}>
+             <button 
+                onClick={toggleTheme}
+                className="p-3 rounded-full text-slate-600 dark:text-gray-300 active:scale-90 transition-transform"
+              >
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+             </button>
+             
+             <button 
+                onClick={() => changeLanguage(isAr ? 'en' : 'ar')}
+                className="px-3 py-1 rounded-full text-xs font-bold text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5"
+              >
+                {isAr ? 'EN' : 'AR'}
+             </button>
+
+             <button 
+                onClick={() => setIsOpen(true)}
+                className="p-3 rounded-full bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white ml-2 active:scale-90 transition-transform"
+              >
+                <Menu size={20} />
+             </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Full Screen Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-white/95 dark:bg-background/95 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 md:hidden shadow-2xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-white/98 dark:bg-background/98 backdrop-blur-xl flex flex-col md:hidden"
           >
-            <div className="px-4 py-8 flex flex-col gap-6 items-center">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.name} 
-                  to={link.href}
+            {/* Header */}
+            <div className="p-6 flex justify-between items-center">
+               <div className="flex items-center gap-2">
+                  <img src="/rumuze.svg" alt="Logo" className="w-8 h-8" />
+                  <span className="font-black text-xl text-slate-900 dark:text-white">RUMUZE</span>
+               </div>
+               <button 
                   onClick={() => setIsOpen(false)}
-                  className={`text-lg font-bold transition-all flex items-center gap-2 ${
-                    link.highlight ? 'text-cyan' : 'text-slate-900 dark:text-white hover:text-cyan'
-                  }`}
+                  className="p-2 rounded-full bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white"
                 >
-                  {link.icon}
-                  {link.name}
-                </Link>
+                  <X size={24} />
+               </button>
+            </div>
+
+            {/* Links */}
+            <div className="flex-1 flex flex-col justify-center px-8 gap-6">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <Link 
+                    to={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`text-4xl font-black ${
+                      isActive(link.href) ? 'text-cyan' : 'text-slate-900 dark:text-white'
+                    } ${isAr ? 'text-right' : 'text-left'}`}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
               ))}
-              <button className="btn-primary w-full max-w-xs shadow-lg shadow-cyan/20">
+            </div>
+
+            {/* Footer */}
+            <div className="p-8">
+              <button 
+                onClick={() => { setIsOpen(false); navigate(isAr ? '/ar/contact' : '/contact'); }}
+                className="w-full btn-primary py-4 text-lg shadow-xl shadow-cyan/20"
+              >
                 {t('navbar.startProject')}
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 };
 

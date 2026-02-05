@@ -1,39 +1,46 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, X, ZoomIn } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Portfolio = () => {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === 'rtl';
+  const [selectedId, setSelectedId] = useState(null);
 
   const projects = [
     {
+      id: 1,
       title: t('portfolio.items.fintech'),
       category: t('services.software.title'),
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
-      description: "A high-performance analytics platform for real-time market tracking."
+      description: "A high-performance analytics platform for real-time market tracking.",
+      longDesc: "Full-scale implementation of a real-time analytics dashboard handling over 1M transactions per second."
     },
     {
+      id: 2,
       title: t('portfolio.items.ecommerce'),
       category: t('services.marketing.title'),
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-      description: "Scaling a lifestyle brand from zero to 1M+ monthly recurring revenue."
+      description: "Scaling a lifestyle brand from zero to 1M+ monthly recurring revenue.",
+      longDesc: "Strategic growth hacking combined with a headless commerce architecture."
     },
     {
+      id: 3,
       title: t('portfolio.items.logistics'),
       category: t('services.software.title'),
       image: "https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?auto=format&fit=crop&q=80&w=800",
-      description: "Automating supply chain workflows with cloud-native microservices."
+      description: "Automating supply chain workflows with cloud-native microservices.",
+      longDesc: "IoT integration and predictive logistics driven by machine learning models."
     }
   ];
 
   return (
-    <section id="portfolio" className="py-24 bg-slate-50 dark:bg-white/5">
+    <section id="portfolio" className="py-24 bg-slate-50 dark:bg-white/5 min-h-[50vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex flex-col md:flex-row justify-between items-end mb-16 gap-6 ${isRtl ? 'md:flex-row-reverse' : ''}`}>
           <div className={`max-w-xl ${isRtl ? 'text-right' : 'text-left'}`}>
-            <h2 className="text-4xl md:text-5xl font-black mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-fluid-h2 font-black mb-4 text-slate-900 dark:text-white">
               {t('portfolio.title').split(' ')[0]} <span className="text-purple">{t('portfolio.title').split(' ').slice(1).join(' ')}</span>
             </h2>
             <p className="text-slate-600 dark:text-gray-400">
@@ -48,15 +55,17 @@ const Portfolio = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {projects.map((project, idx) => (
             <motion.div
-              key={project.title}
+              layoutId={project.id}
+              onClick={() => setSelectedId(project.id)}
+              key={project.id}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="group relative overflow-hidden rounded-3xl bg-white dark:bg-background border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-500"
+              className="group relative overflow-hidden rounded-3xl bg-white dark:bg-background border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-500 cursor-pointer"
             >
               <div className="aspect-[4/3] overflow-hidden">
-                <img 
+                <motion.img 
                   src={project.image} 
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -67,7 +76,7 @@ const Portfolio = () => {
                 <span className="text-purple text-xs font-bold tracking-widest uppercase mb-2">{project.category}</span>
                 <h3 className="text-2xl font-bold mb-2 flex items-center gap-2 text-slate-900 dark:text-white">
                   {project.title}
-                  <ExternalLink size={18} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple" />
+                  <ZoomIn size={18} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple" />
                 </h3>
                 <p className="text-slate-600 dark:text-gray-300 text-sm line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   {project.description}
@@ -76,6 +85,39 @@ const Portfolio = () => {
             </motion.div>
           ))}
         </div>
+
+        <AnimatePresence>
+          {selectedId && (
+            <div className="fixed inset-0 z-[100] grid place-items-center bg-black/60 backdrop-blur-sm p-4">
+               {projects.map(item => item.id === selectedId && (
+                  <motion.div 
+                    layoutId={selectedId} 
+                    className="w-full max-w-lg bg-white dark:bg-[#1a1a2e] rounded-3xl overflow-hidden shadow-2xl relative"
+                    key={item.id}
+                  >
+                     <motion.button 
+                        onClick={() => setSelectedId(null)}
+                        className="absolute top-4 right-4 p-2 bg-black/50 text-white rounded-full z-10 hover:bg-black/70 transition-colors"
+                     >
+                        <X size={20} />
+                     </motion.button>
+                     <motion.div className="aspect-video relative">
+                        <motion.img src={item.image} className="w-full h-full object-cover" />
+                     </motion.div>
+                     <motion.div className="p-8">
+                        <span className="text-purple text-xs font-bold tracking-widest uppercase">{item.category}</span>
+                        <motion.h2 className="text-3xl font-black text-slate-900 dark:text-white my-2">{item.title}</motion.h2>
+                        <motion.p className="text-slate-600 dark:text-gray-300 mb-6">{item.description}</motion.p>
+                        <motion.div className="bg-slate-50 dark:bg-white/5 p-4 rounded-xl border border-slate-100 dark:border-white/10">
+                           <h4 className="font-bold text-sm mb-2 text-slate-900 dark:text-white">Project Impact</h4>
+                           <p className="text-sm text-slate-600 dark:text-gray-400">{item.longDesc}</p>
+                        </motion.div>
+                     </motion.div>
+                  </motion.div>
+               ))}
+            </div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
