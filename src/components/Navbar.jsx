@@ -1,0 +1,154 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Cpu, Globe, ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showLangMenu, setShowLangMenu] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: t('navbar.home'), href: '#' },
+    { name: t('navbar.services'), href: '#services' },
+    { name: t('navbar.portfolio'), href: '#portfolio' },
+    { name: t('navbar.techStack'), href: '#tech-stack' },
+    { name: t('navbar.contact'), href: '#contact' },
+  ];
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setShowLangMenu(false);
+  };
+
+  const languages = [
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'ar', name: 'العربية', flag: '🇦🇪' }
+  ];
+
+  return (
+    <nav 
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled ? 'py-4 glass border-b' : 'py-6 bg-transparent'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-background">
+              <Cpu size={24} />
+              <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
+            </div>
+            <span className="text-2xl font-black tracking-tighter text-white">RUMUZE</span>
+          </div>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href}
+                className="text-sm font-medium text-gray-300 hover:text-cyan transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
+
+            {/* Language Switcher */}
+            <div className="relative">
+              <button 
+                onClick={() => setShowLangMenu(!showLangMenu)}
+                className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-cyan border border-white/10 px-3 py-1.5 rounded-lg transition-all"
+              >
+                <Globe size={16} />
+                <span>{i18n.language.toUpperCase()}</span>
+                <ChevronDown size={14} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <AnimatePresence>
+                {showLangMenu && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full mt-2 right-0 bg-background/95 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px]"
+                  >
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => changeLanguage(lang.code)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-white/5 transition-colors ${
+                          i18n.language === lang.code ? 'text-cyan bg-white/5' : 'text-gray-300'
+                        }`}
+                      >
+                        <span className="text-lg">{lang.flag}</span>
+                        <span className="font-medium">{lang.name}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <button className="btn-primary text-sm px-5 py-2">
+              {t('navbar.startProject')}
+            </button>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden flex items-center gap-4">
+            <button 
+               onClick={() => changeLanguage(i18n.language === 'en' ? 'ar' : 'en')}
+               className="p-2 text-gray-300 glass rounded-lg"
+            >
+              <Globe size={20} />
+            </button>
+            <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-white">
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Nav */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-full left-0 w-full glass border-b md:hidden"
+          >
+            <div className="px-4 py-8 flex flex-col gap-6 items-center">
+              {navLinks.map((link) => (
+                <a 
+                  key={link.name} 
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="text-lg font-semibold text-white hover:text-cyan transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
+              <button className="btn-primary w-full max-w-xs">
+                {t('navbar.startProject')}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+};
+
+export default Navbar;

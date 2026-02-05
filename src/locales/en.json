@@ -1,0 +1,95 @@
+{
+    "navbar": {
+        "home": "Home",
+        "services": "Services",
+        "portfolio": "Portfolio",
+        "techStack": "Tech Stack",
+        "contact": "Contact",
+        "startProject": "Start Project"
+    },
+    "hero": {
+        "badge": "Next-Gen Digital Agency",
+        "headline": "Decoding Technology, Scaling Brands.",
+        "subheadline": "We bridge the gap between high-performance code and exponential growth. Rumuze delivers bespoke software solutions and data-driven marketing strategies for modern enterprises.",
+        "ctaExplore": "Explore Our Work",
+        "ctaServices": "Our Services"
+    },
+    "services": {
+        "title": "Our Core expertise",
+        "description": "From architecture to acquisition, we provide the full spectrum of digital services to ensure your business stays ahead in a competitive landscape.",
+        "software": {
+            "title": "Software Solutions",
+            "description": "Enterprise-grade software designed for efficiency and scale.",
+            "items": {
+                "erp": {
+                    "name": "Custom ERP",
+                    "text": "Streamline operations with bespoke resource planning systems."
+                },
+                "api": {
+                    "name": "API Development",
+                    "text": "Robust and secure backend architectures for seamless connectivity."
+                },
+                "mobile": {
+                    "name": "Mobile Apps",
+                    "text": "High-performance iOS and Android applications."
+                }
+            }
+        },
+        "marketing": {
+            "title": "Digital Marketing",
+            "description": "Data-driven strategies to amplify your brand's reach.",
+            "items": {
+                "growth": {
+                    "name": "Growth Hacking",
+                    "text": "Rapid experimentation to identify the most effective ways to grow."
+                },
+                "brand": {
+                    "name": "Brand Identity",
+                    "text": "Crafting a unique voice and visual language for your company."
+                },
+                "ads": {
+                    "name": "Social Media Ads",
+                    "text": "Targeted campaigns that convert visitors into loyal customers."
+                }
+            }
+        }
+    },
+    "portfolio": {
+        "title": "Selected Works",
+        "description": "A glimpse into how we help our partners transform their industries through cutting-edge technology and brilliant marketing.",
+        "viewAll": "View All Projects",
+        "items": {
+            "fintech": "FinTech Dashboard",
+            "ecommerce": "E-Commerce Rebrand",
+            "logistics": "Logistics SaaS"
+        }
+    },
+    "techStack": {
+        "badge": "The Power Behind Rumuze"
+    },
+    "contact": {
+        "title": "Let's Build Something Great",
+        "description": "Ready to take your project to the next level? Fill out the form or reach out via our contact details. Our team usually responds within 24 hours.",
+        "labels": {
+            "name": "Full Name",
+            "email": "Email Address",
+            "message": "Project Details",
+            "send": "Send Message"
+        },
+        "info": {
+            "hq": "Our Headquarters",
+            "email": "Email Us",
+            "phone": "Call Us"
+        },
+        "success": "Thank you for contacting Rumuze. We will get back to you soon!"
+    },
+    "footer": {
+        "tagline": "Pioneering the intersection of elite software development and disruptive digital marketing.",
+        "rights": "© 2026 Rumuze Agency. All rights reserved. Decoding Technology, Scaling Brands.",
+        "sections": {
+            "solutions": "Solutions",
+            "services": "Services",
+            "company": "Company"
+        }
+    }
+}
