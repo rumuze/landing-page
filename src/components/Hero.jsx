@@ -32,8 +32,7 @@ const Hero = () => {
               </>
             ) : (
               <>
-                فك شفرة <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-purple">التكنولوجيا</span>،<br /> 
-                تمكين العلامات التجارية.
+                {t('hero.headline').split('..')[0]}.. <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-purple">{t('hero.headline').split('..')[1]}</span>
               </>
             )}
           </h1>
@@ -43,7 +42,7 @@ const Hero = () => {
           <div className="flex flex-wrap gap-4">
             <button className="btn-primary flex items-center gap-2 group">
               {t('hero.ctaExplore')}
-              <ArrowRight size={18} className={`transition-transform ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} />
+              <ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" />
             </button>
             <button className="btn-outline">
               {t('hero.ctaServices')}

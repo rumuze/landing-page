@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MapPin, Phone, Mail } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.dir() === 'rtl';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,7 +16,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    alert('Thank you for contacting Rumuze. We will get back to you soon!');
+    alert(t('contact.success'));
   };
 
   const handleChange = (e) => {
@@ -22,12 +26,13 @@ const Contact = () => {
   return (
     <section id="contact" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 order-last lg:order-first">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-black mb-8">Let's Build Something <span className="text-cyan">Great</span></h2>
+        <div className={`grid lg:grid-cols-2 gap-16 ${isRtl ? 'text-right' : 'text-left'}`}>
+          <div className={`${isRtl ? 'lg:order-last' : ''}`}>
+            <h2 className="text-4xl md:text-5xl font-black mb-8">
+              {t('contact.title').split(' ').slice(0, -1).join(' ')} <span className="text-cyan">{t('contact.title').split(' ').slice(-1)}</span>
+            </h2>
             <p className="text-gray-400 mb-12 max-w-md">
-              Ready to take your project to the next level? Fill out the form or reach out via our contact details. 
-              Our team usually responds within 24 hours.
+              {t('contact.description')}
             </p>
 
             <div className="space-y-6">
@@ -36,7 +41,7 @@ const Contact = () => {
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold">Our Headquarters</h4>
+                  <h4 className="font-bold">{t('contact.info.hq')}</h4>
                   <p className="text-sm text-gray-400">Silicon Valley, CA • Lagos, NG</p>
                 </div>
               </div>
@@ -45,7 +50,7 @@ const Contact = () => {
                   <Mail size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold">Email Us</h4>
+                  <h4 className="font-bold">{t('contact.info.email')}</h4>
                   <p className="text-sm text-gray-400">connect@rumuze.com</p>
                 </div>
               </div>
@@ -54,7 +59,7 @@ const Contact = () => {
                   <Phone size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold">Call Us</h4>
+                  <h4 className="font-bold">{t('contact.info.phone')}</h4>
                   <p className="text-sm text-gray-400">+1 (555) 123-4567</p>
                 </div>
               </div>
@@ -62,7 +67,7 @@ const Contact = () => {
           </div>
 
           <motion.div 
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: isRtl ? -30 : 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="glass-card cyan-glow p-8 md:p-10"
@@ -70,7 +75,7 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Full Name</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.labels.name')}</label>
                   <input 
                     type="text" 
                     name="name"
@@ -78,11 +83,10 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan transition-colors"
-                    placeholder="John Doe"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Email Address</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.labels.email')}</label>
                   <input 
                     type="email" 
                     name="email"
@@ -90,12 +94,11 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan transition-colors"
-                    placeholder="john@example.com"
                   />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Project Details</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.labels.message')}</label>
                 <textarea 
                   name="message"
                   required
@@ -103,12 +106,11 @@ const Contact = () => {
                   onChange={handleChange}
                   rows="5"
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan transition-colors resize-none"
-                  placeholder="Tell us about your project..."
                 ></textarea>
               </div>
               <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2">
-                Send Message
-                <Send size={18} />
+                {t('contact.labels.send')}
+                <Send size={18} className="rtl-flip" />
               </button>
             </form>
           </motion.div>

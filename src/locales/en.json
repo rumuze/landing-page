@@ -1,4 +1,9 @@
 {
+    "seo": {
+        "defaultTitle": "Rumuze | Decoding Technology, Scaling Brands",
+        "defaultDescription": "Rumuze is a premier digital agency specializing in high-end software development and data-driven marketing growth strategies.",
+        "orgDescription": "A leading provider of custom enterprise software and digital growth hacking solutions."
+    },
     "navbar": {
         "home": "Home",
         "services": "Services",

@@ -9,6 +9,8 @@ const Navbar = () => {
   const [showLangMenu, setShowLangMenu] = useState(false);
   const { t, i18n } = useTranslation();
 
+  const isAr = i18n.language === 'ar';
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -35,6 +37,8 @@ const Navbar = () => {
     { code: 'ar', name: 'العربية', flag: '🇦🇪' }
   ];
 
+  const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
+
   return (
     <nav 
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -42,9 +46,9 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
+        <div className={`flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <div className={`flex items-center gap-2 ${isAr ? 'flex-row-reverse' : ''}`}>
             <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-background">
               <Cpu size={24} />
               <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
@@ -53,16 +57,18 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href}
-                className="text-sm font-medium text-gray-300 hover:text-cyan transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
+          <div className={`hidden md:flex items-center gap-8 ${isAr ? 'flex-row-reverse' : ''}`}>
+            <div className={`flex items-center gap-8 ${isAr ? 'flex-row-reverse' : ''}`}>
+              {navLinks.map((link) => (
+                <a 
+                  key={link.name} 
+                  href={link.href}
+                  className="text-sm font-medium text-gray-300 hover:text-cyan transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
 
             {/* Language Switcher */}
             <div className="relative">
@@ -70,8 +76,8 @@ const Navbar = () => {
                 onClick={() => setShowLangMenu(!showLangMenu)}
                 className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-cyan border border-white/10 px-3 py-1.5 rounded-lg transition-all"
               >
-                <Globe size={16} />
-                <span>{i18n.language.toUpperCase()}</span>
+                <Globe size={16} className="text-cyan" />
+                <span>{currentLang.name}</span>
                 <ChevronDown size={14} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
               </button>
               
@@ -81,15 +87,15 @@ const Navbar = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full mt-2 right-0 bg-background/95 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px]"
+                    className={`absolute top-full mt-2 bg-background/95 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px] ${isAr ? 'left-0' : 'right-0'}`}
                   >
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
                         onClick={() => changeLanguage(lang.code)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-white/5 transition-colors ${
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-white/5 transition-colors ${
                           i18n.language === lang.code ? 'text-cyan bg-white/5' : 'text-gray-300'
-                        }`}
+                        } ${isAr ? 'flex-row-reverse text-right' : 'text-left'}`}
                       >
                         <span className="text-lg">{lang.flag}</span>
                         <span className="font-medium">{lang.name}</span>
@@ -106,12 +112,13 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className={`md:hidden flex items-center gap-4 ${isAr ? 'flex-row-reverse' : ''}`}>
             <button 
-               onClick={() => changeLanguage(i18n.language === 'en' ? 'ar' : 'en')}
-               className="p-2 text-gray-300 glass rounded-lg"
+               onClick={() => changeLanguage(isAr ? 'en' : 'ar')}
+               className="p-2 text-gray-300 glass rounded-lg flex items-center gap-2"
             >
-              <Globe size={20} />
+              <Globe size={20} className="text-cyan" />
+              <span className="text-xs font-bold">{isAr ? 'EN' : 'AR'}</span>
             </button>
             <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-white">
               {isOpen ? <X size={28} /> : <Menu size={28} />}

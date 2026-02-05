@@ -71,3 +71,7 @@
   display: inline-block;
   animation: marquee 30s linear infinite;
 }
+/* RTL Support Utilities */
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
