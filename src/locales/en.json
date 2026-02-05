@@ -39,6 +39,8 @@
         "portfolio": "Portfolio",
         "techStack": "Tech Stack",
         "labs": "Labs",
+        "blog": "Insights",
+        "about": "About",
         "contact": "Contact",
         "startProject": "Start Project"
     },
