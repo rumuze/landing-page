@@ -8,10 +8,10 @@ const Hero = () => {
   const isRtl = i18n.dir() === 'rtl';
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white dark:bg-transparent">
       {/* Background Orbs */}
-      <div className={`absolute top-1/4 w-96 h-96 bg-cyan/20 rounded-full blur-[120px] animate-pulse ${isRtl ? '-right-20' : '-left-20'}`}></div>
-      <div className={`absolute bottom-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[120px] animate-pulse delay-1000 ${isRtl ? '-left-20' : '-right-20'}`}></div>
+      <div className={`absolute top-1/4 w-96 h-96 bg-cyan/10 dark:bg-cyan/20 rounded-full blur-[120px] animate-pulse ${isRtl ? '-right-20' : '-left-20'}`}></div>
+      <div className={`absolute bottom-1/4 w-96 h-96 bg-purple/10 dark:bg-purple/20 rounded-full blur-[120px] animate-pulse delay-1000 ${isRtl ? '-left-20' : '-right-20'}`}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid lg:grid-cols-2 gap-12 items-center">
         <motion.div
@@ -20,11 +20,11 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className={isRtl ? 'text-right' : 'text-left'}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-cyan text-xs font-bold mb-6 tracking-wider uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-cyan text-xs font-bold mb-6 tracking-wider uppercase">
             <Sparkles size={14} />
             {t('hero.badge')}
           </div>
-          <h1 className="text-5xl md:text-7xl font-black leading-tight mb-6">
+          <h1 className="text-5xl md:text-7xl font-black leading-tight mb-6 text-slate-900 dark:text-white">
             {i18n.language === 'en' ? (
               <>
                 Decoding <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-purple">Technology</span>,<br /> 
@@ -36,7 +36,7 @@ const Hero = () => {
               </>
             )}
           </h1>
-          <p className="text-lg text-gray-400 mb-10 max-w-xl leading-relaxed">
+          <p className="text-lg text-slate-500 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
             {t('hero.subheadline')}
           </p>
           <div className="flex flex-wrap gap-4">
@@ -44,7 +44,7 @@ const Hero = () => {
               {t('hero.ctaExplore')}
               <ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="btn-outline">
+            <button className="px-8 py-4 rounded-xl font-bold border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-all">
               {t('hero.ctaServices')}
             </button>
           </div>

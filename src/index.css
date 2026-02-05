@@ -5,8 +5,12 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply transition-colors duration-300;
+  }
+
   body {
-    @apply bg-background text-white font-sans antialiased;
+    @apply bg-white dark:bg-background text-slate-900 dark:text-white font-sans antialiased;
     scroll-behavior: smooth;
   }
 
@@ -14,7 +18,7 @@
   h2,
   h3,
   h4 {
-    @apply font-display;
+    @apply font-display text-slate-900 dark:text-white;
   }
 }
 

@@ -1,8 +1,9 @@
-import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { useScroll, useSpring, AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState, Suspense, lazy } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { ThemeProvider } from './context/ThemeContext';
 import SEO from './components/SEO';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -112,11 +113,13 @@ function AppContent() {
 
 function App() {
   return (
-    <HelmetProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </HelmetProvider>
+    <ThemeProvider>
+      <HelmetProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </HelmetProvider>
+    </ThemeProvider>
   );
 }
 

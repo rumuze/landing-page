@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, Cpu, Globe, ChevronDown, FlaskConical } from 'lucide-react';
+import { Menu, X, Cpu, Globe, ChevronDown, FlaskConical, Sun, Moon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
   const { t, i18n } = useTranslation();
+  const { theme, toggleTheme } = useTheme();
 
   const isAr = i18n.language === 'ar';
 
@@ -77,11 +79,29 @@ const Navbar = () => {
               ))}
             </div>
 
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-800 dark:text-yellow-400 hover:scale-110 transition-all duration-300 border border-slate-200 dark:border-white/10"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={theme}
+                  initial={{ y: -10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 10, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                </motion.div>
+              </AnimatePresence>
+            </button>
+
             {/* Language Switcher */}
             <div className="relative">
               <button 
                 onClick={() => setShowLangMenu(!showLangMenu)}
-                className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-cyan border border-white/10 px-3 py-1.5 rounded-lg transition-all"
+                className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-gray-300 hover:text-cyan border border-slate-200 dark:border-white/10 px-3 py-1.5 rounded-lg transition-all"
               >
                 <Globe size={16} className="text-cyan" />
                 <span>{currentLang.name}</span>
@@ -94,14 +114,14 @@ const Navbar = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className={`absolute top-full mt-2 bg-background/95 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px] ${isAr ? 'left-0' : 'right-0'}`}
+                    className={`absolute top-full mt-2 bg-white dark:bg-background/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px] ${isAr ? 'left-0' : 'right-0'}`}
                   >
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
                         onClick={() => changeLanguage(lang.code)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-white/5 transition-colors ${
-                          i18n.language === lang.code ? 'text-cyan bg-white/5' : 'text-gray-300'
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors ${
+                          i18n.language === lang.code ? 'text-cyan bg-slate-50 dark:bg-white/5' : 'text-slate-700 dark:text-gray-300'
                         } ${isAr ? 'flex-row-reverse text-right' : 'text-left'}`}
                       >
                         <span className="text-lg">{lang.flag}</span>
@@ -120,14 +140,30 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <div className={`md:hidden flex items-center gap-4 ${isAr ? 'flex-row-reverse' : ''}`}>
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={theme}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {theme === 'dark' ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-slate-700" />}
+                </motion.div>
+              </AnimatePresence>
+            </button>
             <button 
                onClick={() => changeLanguage(isAr ? 'en' : 'ar')}
-               className="p-2 text-gray-300 glass rounded-lg flex items-center gap-2"
+               className="p-2 text-slate-700 dark:text-gray-300 glass rounded-lg flex items-center gap-2 border border-slate-200 dark:border-white/10"
             >
               <Globe size={20} className="text-cyan" />
               <span className="text-xs font-bold">{isAr ? 'EN' : 'AR'}</span>
             </button>
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-white">
+            <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-slate-900 dark:text-white">
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
