@@ -65,12 +65,20 @@ function AppContent() {
   const isAr = i18n.language === 'ar';
 
   useEffect(() => {
+    const isPathAr = location.pathname.startsWith('/ar');
+    if (isPathAr && i18n.language !== 'ar') {
+      i18n.changeLanguage('ar');
+    } else if (!isPathAr && i18n.language !== 'en' && !location.pathname.includes('/labs')) {
+      // Default to English if not in labs and not /ar
+      i18n.changeLanguage('en');
+    }
+    
     document.documentElement.dir = isAr ? 'rtl' : 'ltr';
     document.documentElement.lang = i18n.language;
     window.scrollTo(0, 0);
-  }, [i18n.language, isAr, location.pathname]);
+  }, [i18n, i18n.language, isAr, location.pathname]);
 
-  const isLabs = location.pathname === '/labs';
+  const isLabs = location.pathname.includes('/labs');
 
   return (
     <div className={`bg-white dark:bg-background min-h-screen text-slate-900 dark:text-white font-sans transition-all duration-300 ${isAr ? 'text-[1.05rem] leading-relaxed' : 'text-base'}`}>
@@ -79,28 +87,27 @@ function AppContent() {
       
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
+          {/* Home Routes */}
           <Route path="/" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Suspense fallback={<Skeleton />}>
-                <LandingPage />
-              </Suspense>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+              <Suspense fallback={<Skeleton />}><LandingPage /></Suspense>
             </motion.div>
           } />
+          <Route path="/ar" element={
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+              <Suspense fallback={<Skeleton />}><LandingPage /></Suspense>
+            </motion.div>
+          } />
+
+          {/* Labs Routes */}
           <Route path="/labs" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Suspense fallback={<Skeleton />}>
-                <Labs />
-              </Suspense>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+              <Suspense fallback={<Skeleton />}><Labs /></Suspense>
+            </motion.div>
+          } />
+          <Route path="/ar/labs" element={
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+              <Suspense fallback={<Skeleton />}><Labs /></Suspense>
             </motion.div>
           } />
         </Routes>

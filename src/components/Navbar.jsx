@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, Cpu, Globe, ChevronDown, FlaskConical, Sun, Moon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
@@ -12,6 +12,7 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isAr = i18n.language === 'ar';
 
@@ -24,17 +25,32 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: t('navbar.home'), href: '/' },
-    { name: t('navbar.services'), href: '/#services' },
-    { name: t('navbar.portfolio'), href: '/#portfolio' },
-    { name: t('navbar.techStack'), href: '/#tech-stack' },
-    { name: t('navbar.labs'), href: '/labs', highlight: true, icon: <FlaskConical size={14} /> },
-    { name: t('navbar.contact'), href: '/#contact' },
+    { name: t('navbar.home'), href: isAr ? '/ar' : '/' },
+    { name: t('navbar.services'), href: isAr ? '/ar#services' : '/#services' },
+    { name: t('navbar.portfolio'), href: isAr ? '/ar#portfolio' : '/#portfolio' },
+    { name: t('navbar.techStack'), href: isAr ? '/ar#tech-stack' : '/#tech-stack' },
+    { name: t('navbar.labs'), href: isAr ? '/ar/labs' : '/labs', highlight: true, icon: <FlaskConical size={14} /> },
+    { name: t('navbar.contact'), href: isAr ? '/ar#contact' : '/#contact' },
   ];
 
   const changeLanguage = (lng) => {
+    const currentPath = location.pathname;
+    let newPath = currentPath;
+    
+    if (lng === 'ar') {
+      if (!currentPath.startsWith('/ar')) {
+        newPath = '/ar' + (currentPath === '/' ? '' : currentPath);
+      }
+    } else {
+      if (currentPath.startsWith('/ar')) {
+        newPath = currentPath.replace('/ar', '') || '/';
+      }
+    }
+    
+    navigate(newPath);
     i18n.changeLanguage(lng);
     setShowLangMenu(false);
+    setIsOpen(false);
   };
 
   const languages = [
