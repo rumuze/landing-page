@@ -10,7 +10,7 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
   const baseUrl = "https://rumuze.com";
   const fullTitle = title ? `${title} | ${siteName}` : t('seo.defaultTitle');
   const metaDescription = description || t('seo.defaultDescription');
-  const metaImage = image || `${baseUrl}/og-image.jpg`;
+  const metaImage = image || `${baseUrl}/rumuze.png`;
   const canonicalUrl = `${baseUrl}${path}`;
 
   // 1. Organization & Local Business Schema
