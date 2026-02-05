@@ -40,29 +40,29 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: 'rumuze-192.png',
+            src: 'rumuze.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'rumuze-512.png',
+            src: 'rumuze.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: 'rumuze-512.png',
+            src: 'rumuze.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'maskable'
+            purpose: 'any maskable'
           }
         ],
         screenshots: [
           {
-            src: 'rumuze-512.png',
-            sizes: '512x512',
+            src: 'og-image.png',
+            sizes: '1200x630',
             type: 'image/png',
             form_factor: 'wide',
-            label: 'Rumuze Landing'
+            label: 'Rumuze Experience'
           }
         ]
       }

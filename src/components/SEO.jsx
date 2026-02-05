@@ -126,11 +126,15 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
       <link rel="alternate" hreflang="ar" href={`${baseUrl}${path}`} />
       <link rel="alternate" hreflang="x-default" href={`${baseUrl}${path}`} />
 
+      <link rel="alternate" hreflang="x-default" href={`${baseUrl}${path}`} />
+
       {/* Open Graph / Social Media */}
       <meta property="og:type" content={type} />
       <meta property="og:title" content={title ? fullTitle : t('seo.ogTitle')} />
       <meta property="og:description" content={description ? metaDescription : t('seo.ogDescription')} />
-      <meta property="og:image" content={metaImage} />
+      <meta property="og:image" content={`${baseUrl}/og-image.png?v=1.0`} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content={currentLang === 'ar' ? 'ar_EG' : 'en_US'} />
@@ -139,7 +143,7 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={metaDescription} />
-      <meta name="twitter:image" content={metaImage} />
+      <meta name="twitter:image" content={`${baseUrl}/og-image.png?v=1.0`} />
       <meta name="twitter:site" content="@rumuze" />
 
       {/* JSON-LD Payload Injection */}
