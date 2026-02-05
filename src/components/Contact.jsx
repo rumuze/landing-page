@@ -56,43 +56,43 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative">
+    <section id="contact" className="py-24 bg-white dark:bg-transparent transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`grid lg:grid-cols-2 gap-16 ${isRtl ? 'text-right' : 'text-left'}`}>
           <div className={`${isRtl ? 'lg:order-last' : ''}`}>
-            <h2 className="text-4xl md:text-5xl font-black mb-8">
+            <h2 className="text-4xl md:text-5xl font-black mb-8 text-slate-900 dark:text-white">
               {t('contact.title').split(' ').slice(0, -1).join(' ')} <span className="text-cyan">{t('contact.title').split(' ').slice(-1)}</span>
             </h2>
-            <p className="text-gray-400 mb-12 max-w-md">
+            <p className="text-slate-500 dark:text-gray-400 mb-12 max-w-md">
               {t('contact.description')}
             </p>
 
             <div className="space-y-6">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 glass rounded-xl flex items-center justify-center text-cyan">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-cyan bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold">{t('contact.info.hq')}</h3>
-                  <p className="text-sm text-gray-400">Silicon Valley, CA • Lagos, NG</p>
+                  <h3 className="font-bold text-slate-900 dark:text-white">{t('contact.info.hq')}</h3>
+                  <p className="text-sm text-slate-500 dark:text-gray-400">Silicon Valley, CA • Lagos, NG</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 glass rounded-xl flex items-center justify-center text-purple">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-purple bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
                   <Mail size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold">{t('contact.info.email')}</h3>
-                  <p className="text-sm text-gray-400">connect@rumuze.com</p>
+                  <h3 className="font-bold text-slate-900 dark:text-white">{t('contact.info.email')}</h3>
+                  <p className="text-sm text-slate-500 dark:text-gray-400">connect@rumuze.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 glass rounded-xl flex items-center justify-center text-green-400">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-green-500 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
                   <Phone size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold">{t('contact.info.phone')}</h3>
-                  <p className="text-sm text-gray-400">+1 (555) 123-4567</p>
+                  <h3 className="font-bold text-slate-900 dark:text-white">{t('contact.info.phone')}</h3>
+                  <p className="text-sm text-slate-500 dark:text-gray-400">+1 (555) 123-4567</p>
                 </div>
               </div>
             </div>
@@ -102,42 +102,42 @@ const Contact = () => {
             initial={{ opacity: 0, x: isRtl ? -30 : 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="glass-card cyan-glow p-8 md:p-10"
+            className="p-8 md:p-10 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.labels.name')}</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-gray-400">{t('contact.labels.name')}</label>
                   <input 
                     type="text" 
                     name="name"
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan transition-colors"
+                    className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan text-slate-900 dark:text-white transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.labels.email')}</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-gray-400">{t('contact.labels.email')}</label>
                   <input 
                     type="email" 
                     name="email"
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan transition-colors"
+                    className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan text-slate-900 dark:text-white transition-colors"
                   />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.labels.message')}</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-gray-400">{t('contact.labels.message')}</label>
                 <textarea 
                   name="message"
                   required
                   value={formData.message}
                   onChange={handleChange}
                   rows="5"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan transition-colors resize-none"
+                  className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan text-slate-900 dark:text-white transition-colors resize-none"
                 ></textarea>
               </div>
               <button 

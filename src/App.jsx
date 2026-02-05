@@ -18,7 +18,7 @@ const Labs = lazy(() => import('./components/Labs'));
 
 // Skeleton Loader
 const Skeleton = () => (
-  <div className="min-h-screen bg-background p-8 space-y-8 animate-pulse">
+  <div className="min-h-screen bg-white dark:bg-background p-8 space-y-8 animate-pulse">
     <div className="h-20 bg-white/5 rounded-2xl w-full"></div>
     <div className="h-[500px] bg-white/5 rounded-3xl w-full"></div>
     <div className="grid grid-cols-3 gap-8">
@@ -73,7 +73,7 @@ function AppContent() {
   const isLabs = location.pathname === '/labs';
 
   return (
-    <div className={`bg-background min-h-screen text-white font-sans transition-all duration-300 ${isAr ? 'text-[1.05rem] leading-relaxed' : 'text-base'}`}>
+    <div className={`bg-white dark:bg-background min-h-screen text-slate-900 dark:text-white font-sans transition-all duration-300 ${isAr ? 'text-[1.05rem] leading-relaxed' : 'text-base'}`}>
       <SEO />
       {!isLabs && <Navbar />}
       
