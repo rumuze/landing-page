@@ -16,8 +16,18 @@ export default defineConfig({
       ext: '.br',
     }),
     VitePWA({
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.js',
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'humans.txt', 'rumuze.png', 'rumuze.svg'],
+      injectRegister: 'auto',
+      includeAssets: [
+        'favicon.ico',
+        'apple-touch-icon.png',
+        'masked-icon.svg',
+        'rumuze.svg',
+        'rumuze.png'
+      ],
       manifest: {
         name: 'Rumuze | Digital Agency',
         short_name: 'Rumuze',
@@ -25,22 +35,34 @@ export default defineConfig({
         theme_color: '#000B18',
         background_color: '#000B18',
         display: 'standalone',
+        orientation: 'portrait',
+        scope: '/',
+        start_url: '/',
         icons: [
           {
-            src: 'rumuze.png',
+            src: 'rumuze-192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'rumuze.png',
+            src: 'rumuze-512.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: 'rumuze.png',
+            src: 'rumuze-512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'maskable'
+          }
+        ],
+        screenshots: [
+          {
+            src: 'rumuze-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            form_factor: 'wide',
+            label: 'Rumuze Landing'
           }
         ]
       }

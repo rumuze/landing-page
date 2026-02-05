@@ -8,6 +8,10 @@ import SEO from './components/SEO';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
+import { useRegisterSW } from 'virtual:pwa-register/react';
+import UpdateToast from './components/UpdateToast';
+import InstallPrompt from './components/InstallPrompt';
+import OfflineFallback from './pages/OfflineFallback';
 
 // Lazy load components
 const Hero = lazy(() => import('./components/Hero'));
@@ -43,39 +47,11 @@ const ScrollToTop = () => {
   return null;
 };
 
-// Global Loading Provider
-const LoadingProvider = ({ children }) => {
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
-
-  useEffect(() => {
-    // Initial load simulation
-    const timer = setTimeout(() => setIsInitialLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <>
-      <AnimatePresence>
-        {isInitialLoading && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-[9999]"
-          >
-            <LoadingSpinner fullScreen />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {children}
-    </>
-  );
-};
-
 function AppContent() {
   const { i18n } = useTranslation();
   const location = useLocation();
   const isAr = i18n.language === 'ar';
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -83,6 +59,32 @@ function AppContent() {
     damping: 30,
     restDelta: 0.001
   });
+
+  // PWA Register Logic
+  const {
+    needRefresh: [needRefresh, setNeedRefresh],
+    updateServiceWorker,
+  } = useRegisterSW({
+    onRegistered() {
+      console.log('SW Registered');
+    },
+    onRegisterError(error) {
+      console.log('SW registration error', error);
+    },
+  });
+
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   // Language Synchronizer with Path
   useEffect(() => {
@@ -95,6 +97,12 @@ function AppContent() {
 
     document.documentElement.dir = isAr ? 'rtl' : 'ltr';
     document.documentElement.lang = i18n.language;
+    
+    // Set theme color dynamically for mobile status bar
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) {
+      themeColor.setAttribute('content', '#000B18');
+    }
   }, [i18n, location.pathname, isAr]);
 
   return (
@@ -131,6 +139,10 @@ function AppContent() {
               </Suspense>
             </motion.div>
           } />
+
+          {/* Offline Page */}
+          <Route path="/offline" element={<OfflineFallback />} />
+          <Route path="/ar/offline" element={<OfflineFallback />} />
 
           {/* Labs Routes */}
           <Route path="/labs" element={
@@ -204,6 +216,13 @@ function AppContent() {
         </Routes>
       </AnimatePresence>
 
+      <UpdateToast 
+        show={needRefresh} 
+        onUpdate={() => updateServiceWorker(true)} 
+        onClose={() => setNeedRefresh(false)} 
+      />
+      {/* Conditionally show InstallPrompt if online */}
+      {!isOffline && <InstallPrompt />}
       <Footer />
     </div>
   );
@@ -214,7 +233,7 @@ function App() {
 
   useEffect(() => {
     // Initial load simulation or actual asset checking
-    const timer = setTimeout(() => setIsInitialLoading(false), 1500);
+    const timer = setTimeout(() => setIsInitialLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 

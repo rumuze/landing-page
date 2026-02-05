@@ -4,26 +4,32 @@ import { motion } from 'framer-motion';
 const LoadingSpinner = ({ fullScreen = false }) => {
   return (
     <div 
-      className={`flex items-center justify-center ${fullScreen ? 'fixed inset-0 z-[9999] bg-white dark:bg-background' : 'w-full h-full'}`}
+      className={`flex items-center justify-center ${fullScreen ? 'fixed inset-0 z-[9999] bg-[#000B18]' : 'w-full h-full'}`}
       role="alert"
       aria-live="polite"
     >
       <div className="relative flex items-center justify-center">
-        {/* Outer Spinner Ring */}
+        {/* Outer Pulsing/Rotating Ring */}
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="w-32 h-32 border-4 border-slate-200 dark:border-white/5 border-t-cyan rounded-full"
+          animate={{
+            rotate: 360,
+            scale: [1, 1.05, 1],
+          }}
+          transition={{
+            rotate: { duration: 2, repeat: Infinity, ease: "linear" },
+            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          }}
+          className="w-32 h-32 border-4 border-slate-200/10 border-t-cyan-500 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.2)]"
         />
         
         {/* Middle Pulse Ring */}
         <motion.div
           animate={{ 
-            scale: [1, 1.2, 1],
+            scale: [0.8, 1.2, 0.8],
             opacity: [0.1, 0.3, 0.1]
           }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute w-24 h-24 bg-cyan rounded-full"
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute w-24 h-24 bg-cyan-500/20 rounded-full blur-xl"
         />
 
         {/* Logo Center */}
@@ -31,7 +37,7 @@ const LoadingSpinner = ({ fullScreen = false }) => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ 
             opacity: 1, 
-            scale: [1, 1.05, 1],
+            scale: [1, 1.1, 1],
           }}
           transition={{ 
             opacity: { duration: 0.5 },
@@ -39,7 +45,7 @@ const LoadingSpinner = ({ fullScreen = false }) => {
           }}
           className="absolute w-16 h-16 flex items-center justify-center"
         >
-          <img src="/rumuze.svg" alt="Rumuze Logo" className="w-full h-full" />
+          <img src="/rumuze.svg" alt="Rumuze Logo" className="w-12 h-12" />
         </motion.div>
       </div>
     </div>
