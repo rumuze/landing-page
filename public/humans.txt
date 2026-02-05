@@ -1,0 +1,16 @@
+/* TEAM */
+  Founder: Rumuze Core Group
+  Contact: connect@rumuze.com
+  Twitter: @rumuze
+  From: Silicon Valley, Cairo, Lagos
+
+/* THANKS */
+  The Open Source Community
+  React & Vite Teams
+  Tailwind CSS Authors
+
+/* SITE */
+  Last update: 2026/02/05
+  Language: English, Arabic
+  Doctype: HTML5
+  IDE: VS Code, Antigravity AI

@@ -2,7 +2,32 @@
     "seo": {
         "defaultTitle": "Rumuze | Decoding Technology, Scaling Brands",
         "defaultDescription": "Rumuze is a premier digital agency specializing in high-end software development and data-driven marketing growth strategies.",
-        "orgDescription": "A leading provider of custom enterprise software and digital growth hacking solutions."
+        "orgDescription": "A leading provider of custom enterprise software and digital growth hacking solutions.",
+        "keywords": "Laravel experts, AI-driven marketing, Scalable Backend Architecture, Custom Software Development, Digital Growth Agency, Fintech Solutions",
+        "ogTitle": "Rumuze | Elite Technology & Digital Growth",
+        "ogDescription": "We bridge the gap between high-performance code and exponential growth."
+    },
+    "faq": {
+        "title": "Why Choose Rumuze?",
+        "items": [
+            {
+                "question": "What technologies do you specialize in?",
+                "answer": "We specialize in Laravel development, scalable backend architectures, React/Vite frontends, and AI-driven marketing automation."
+            },
+            {
+                "question": "How do you ensure project scalability?",
+                "answer": "We use industry-standard cloud architectures and microservices patterns to ensure your software grows with your user base."
+            },
+            {
+                "question": "Do you provide post-launch support?",
+                "answer": "Yes, we offer comprehensive maintenance and growth hacking packages to ensure continuous optimization."
+            }
+        ]
+    },
+    "breadcrumbs": {
+        "home": "Home",
+        "labs": "Labs",
+        "services": "Services"
     },
     "navbar": {
         "home": "Home",

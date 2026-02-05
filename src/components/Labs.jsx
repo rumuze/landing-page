@@ -41,6 +41,8 @@ const Labs = () => {
       <SEO 
         title="Rumuze Labs | AI & Research"
         description="The scientific division of Rumuze where we build self-evolving AI and future-tech experiments."
+        path="/labs"
+        type="article"
       />
       
       {/* Terminal Backdrop Effect */}
@@ -83,7 +85,8 @@ const Labs = () => {
             className="text-slate-600 dark:text-white/60 max-w-2xl leading-relaxed"
           >
             Welcome to the Rumuze Research & Development division. This is where we break things, build things, 
-            and explore the intersection of self-evolving AI, quantum computing architecture, and decentralized ecosystems.
+            and explore the intersection of self-evolving AI, quantum computing architecture, and decentralized ecosystems. 
+            Our lab experiments directly inform our <Link to="/#services" className="text-cyan hover:underline">enterprise software solutions</Link> and data-driven marketing frameworks.
           </motion.p>
         </div>
 

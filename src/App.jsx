@@ -74,7 +74,7 @@ function AppContent() {
 
   return (
     <div className={`bg-white dark:bg-background min-h-screen text-slate-900 dark:text-white font-sans transition-all duration-300 ${isAr ? 'text-[1.05rem] leading-relaxed' : 'text-base'}`}>
-      <SEO />
+      <SEO path={location.pathname} />
       {!isLabs && <Navbar />}
       
       <AnimatePresence mode="wait">
