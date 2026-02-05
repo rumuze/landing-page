@@ -41,7 +41,7 @@ const Contact = () => {
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold">{t('contact.info.hq')}</h4>
+                  <h3 className="font-bold">{t('contact.info.hq')}</h3>
                   <p className="text-sm text-gray-400">Silicon Valley, CA • Lagos, NG</p>
                 </div>
               </div>
@@ -50,7 +50,7 @@ const Contact = () => {
                   <Mail size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold">{t('contact.info.email')}</h4>
+                  <h3 className="font-bold">{t('contact.info.email')}</h3>
                   <p className="text-sm text-gray-400">connect@rumuze.com</p>
                 </div>
               </div>
@@ -59,7 +59,7 @@ const Contact = () => {
                   <Phone size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold">{t('contact.info.phone')}</h4>
+                  <h3 className="font-bold">{t('contact.info.phone')}</h3>
                   <p className="text-sm text-gray-400">+1 (555) 123-4567</p>
                 </div>
               </div>
