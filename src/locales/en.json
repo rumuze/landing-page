@@ -109,9 +109,11 @@
         "description": "If you are ready to lead your industry, we are ready to engineer the path. Let's discuss your legacy.",
         "labels": {
             "name": "Full Name",
-            "email": "Corporate Email",
-            "message": "Strategic Objectives",
-            "send": "Initiate Dialogue"
+            "company": "Company Name",
+            "email": "Work Email",
+            "subject": "Subject",
+            "message": "Project Details",
+            "send": "Send Message"
         },
         "info": {
             "hq": "Global Headquarters",

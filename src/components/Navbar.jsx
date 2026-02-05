@@ -242,6 +242,46 @@ const Navbar = () => {
                </button>
             </div>
 
+            {/* Preferences (Language & Theme) */}
+            <div className="px-8 pb-4">
+              <div className="p-1.5 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-between">
+                {/* Language Toggle */}
+                <div className="flex-1 flex gap-1 p-1">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      className={`flex-1 relative py-2 rounded-xl text-xs font-bold transition-all ${
+                         i18n.language === lang.code ? 'text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-gray-400'
+                      }`}
+                    >
+                      {i18n.language === lang.code && (
+                        <motion.div 
+                          layoutId="langActive"
+                          className="absolute inset-0 bg-white dark:bg-white/10 rounded-xl shadow-sm"
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-10 flex items-center justify-center gap-1">
+                         {lang.flag} {lang.name.split(' ')[0]}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Divider */}
+                <div className="w-px h-8 bg-slate-200 dark:bg-white/10 mx-2"></div>
+
+                {/* Theme Toggle */}
+                <button
+                  onClick={toggleTheme}
+                  className="p-3 rounded-xl bg-white dark:bg-white/10 shadow-sm border border-slate-200 dark:border-white/5 text-slate-800 dark:text-yellow-400"
+                >
+                  {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                </button>
+              </div>
+            </div>
+
             {/* Links */}
             <div className="flex-1 flex flex-col justify-center px-8 gap-6">
               {navLinks.map((link, i) => (

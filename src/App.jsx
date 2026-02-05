@@ -25,6 +25,7 @@ const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -226,6 +227,18 @@ function AppContent() {
           <Route path="/ar/terms" element={
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
+            </motion.div>
+          } />
+
+          {/* Contact Routes */}
+          <Route path="/contact" element={
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
+            </motion.div>
+          } />
+          <Route path="/ar/contact" element={
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
             </motion.div>
           } />
         </Routes>
