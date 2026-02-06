@@ -87,8 +87,8 @@ const Portfolio = () => {
                   <OptimizedImage
                     src={project.image}
                     alt={project.title}
-                    width={800}
-                    height={600}
+                    width={744}
+                    height={496}
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="w-full h-full"
                   />

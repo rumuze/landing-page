@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Terminal, Code2, Cpu, Sparkles, Server, Shield, Activity, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -171,51 +171,12 @@ const Labs = () => {
            </motion.div>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-           {projects.map((project, idx) => (
-               <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="group relative p-8 bg-white/50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-xl dark:shadow-none hover:border-blue-300/50 dark:hover:border-cyan/50 hover:bg-white dark:hover:bg-white/[0.04] transition-all duration-300 rounded-2xl overflow-hidden backdrop-blur-sm"
-              >
-                 {/* Hover Glow Effect */}
-                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent dark:from-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                 <div className="relative z-10 flex flex-col h-full">
-                    <div className="flex justify-between items-start mb-6">
-                       <div className="p-3 bg-slate-100 dark:bg-white/5 rounded-xl group-hover:scale-110 transition-transform duration-300 border border-slate-200 dark:border-white/5 group-hover:border-blue-400/30 dark:group-hover:border-cyan/30">
-                          {project.icon}
-                       </div>
-                       <span className={`text-[10px] font-bold px-2 py-1 rounded border tracking-widest ${
-                          project.status === 'LIVE ALPHA' ? 'text-emerald-700 dark:text-green-400 border-emerald-200 dark:border-green-500/30 bg-emerald-50 dark:bg-green-500/10' :
-                          project.status === 'BETA' ? 'text-amber-700 dark:text-yellow-400 border-amber-200 dark:border-yellow-500/30 bg-amber-50 dark:bg-yellow-500/10' :
-                          'text-blue-700 dark:text-cyan border-blue-200 dark:border-cyan/30 bg-blue-50 dark:bg-cyan/10'
-                       }`}>
-                          {project.status}
-                       </span>
-                    </div>
-
-                    <div className="mb-1 text-[10px] text-slate-500 dark:text-gray-500 font-bold tracking-widest uppercase">{project.category}</div>
-                    <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-cyan transition-colors">{project.title}</h3>
-                    <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow">
-                       {project.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mt-auto border-t border-slate-100 dark:border-white/5 pt-4">
-                       {project.tech.map(t => (
-                          <span key={t} className="text-[10px] text-slate-500 dark:text-gray-500 px-2 py-1 bg-slate-100 dark:bg-white/5 rounded">
-                             {t}
-                          </span>
-                       ))}
-                    </div>
-                 </div>
-              </motion.div>
-           ))}
-        </div>
+         {/* Projects Grid */}
+         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project, idx) => (
+                <ProjectCard key={project.id} project={project} idx={idx} />
+            ))}
+         </div>
         
         {/* Footer Link */}
         <div className="mt-20 text-center">
@@ -227,6 +188,53 @@ const Labs = () => {
 
       </div>
     </div>
+  );
+};
+
+const ProjectCard = ({ project, idx }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: idx * 0.1, duration: 0.5 }}
+      className="group relative p-8 bg-white/50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-xl dark:shadow-none hover:border-blue-300/50 dark:hover:border-cyan/50 hover:bg-white dark:hover:bg-white/[0.04] transition-all duration-300 rounded-2xl overflow-hidden backdrop-blur-sm"
+    >
+        {/* Hover Glow Effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent dark:from-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <div className="relative z-10 flex flex-col h-full">
+          <div className="flex justify-between items-start mb-6">
+              <div className="p-3 bg-slate-100 dark:bg-white/5 rounded-xl group-hover:scale-110 transition-transform duration-300 border border-slate-200 dark:border-white/5 group-hover:border-blue-400/30 dark:group-hover:border-cyan/30">
+                {project.icon}
+              </div>
+              <span className={`text-[10px] font-bold px-2 py-1 rounded border tracking-widest ${
+                project.status === 'LIVE ALPHA' ? 'text-emerald-700 dark:text-green-400 border-emerald-200 dark:border-green-500/30 bg-emerald-50 dark:bg-green-500/10' :
+                project.status === 'BETA' ? 'text-amber-700 dark:text-yellow-400 border-amber-200 dark:border-yellow-500/30 bg-amber-50 dark:bg-yellow-500/10' :
+                'text-blue-700 dark:text-cyan border-blue-200 dark:border-cyan/30 bg-blue-50 dark:bg-cyan/10'
+              }`}>
+                {project.status}
+              </span>
+          </div>
+
+          <div className="mb-1 text-[10px] text-slate-500 dark:text-gray-500 font-bold tracking-widest uppercase">{project.category}</div>
+          <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-cyan transition-colors">{project.title}</h3>
+          <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow">
+              {project.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mt-auto border-t border-slate-100 dark:border-white/5 pt-4">
+              {project.tech.map(t => (
+                <span key={t} className="text-[10px] text-slate-500 dark:text-gray-500 px-2 py-1 bg-slate-100 dark:bg-white/5 rounded">
+                    {t}
+                </span>
+              ))}
+          </div>
+        </div>
+    </motion.div>
   );
 };
 

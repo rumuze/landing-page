@@ -204,6 +204,7 @@ const Navbar = () => {
 
            <button 
               onClick={() => setIsOpen(true)}
+              aria-label="Open menu"
               className="p-2 rounded-xl flex flex-col items-center gap-1 text-slate-700 dark:text-gray-400"
             >
               <motion.div whileTap={{ scale: 0.9 }} className="p-1.5">
