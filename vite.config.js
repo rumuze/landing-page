@@ -41,11 +41,6 @@ export default defineConfig({
         icons: [
           {
             src: 'rumuze.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'rumuze.png',
             sizes: '512x512',
             type: 'image/png'
           },
@@ -59,8 +54,8 @@ export default defineConfig({
         screenshots: [
           {
             src: 'og-image.png',
-            sizes: '1200x630',
-            type: 'image/png',
+            sizes: '640x640',
+            type: 'image/jpeg',
             form_factor: 'wide',
             label: 'Rumuze Experience'
           }
