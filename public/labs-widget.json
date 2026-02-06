@@ -1,0 +1,42 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.5",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Rumuze Labs",
+                    "weight": "Bolder",
+                    "size": "Medium",
+                    "color": "Accent"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Discover our latest R&D projects and experimental interfaces.",
+                    "wrap": true,
+                    "size": "Default",
+                    "spacing": "Small"
+                }
+            ]
+        },
+        {
+            "type": "Image",
+            "url": "https://rumuze.com/og-image-en.png",
+            "size": "Stretch",
+            "altText": "Rumuze Labs Preview"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "Explore Labs",
+                    "url": "https://rumuze.com/labs"
+                }
+            ]
+        }
+    ]
+}

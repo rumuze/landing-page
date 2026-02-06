@@ -5,6 +5,7 @@ import viteCompression from 'vite-plugin-compression';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/',
   plugins: [
     react(),
     viteCompression({
@@ -40,7 +41,7 @@ export default defineConfig({
           home_tab: {
             images: [
               {
-                src: 'rumuze-192.png',
+                src: '/rumuze-192.png',
                 sizes: '192x192',
                 type: 'image/png'
               }
@@ -50,7 +51,7 @@ export default defineConfig({
             url: '/',
             icons: [
               {
-                src: 'rumuze-192.png',
+                src: '/rumuze-192.png',
                 sizes: '192x192',
                 type: 'image/png'
               }
@@ -80,12 +81,12 @@ export default defineConfig({
 
         icons: [
           {
-            src: 'rumuze-512.png',
+            src: '/rumuze-512.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: 'rumuze-512.png',
+            src: '/rumuze-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
@@ -98,27 +99,51 @@ export default defineConfig({
             short_name: 'Services',
             description: 'Explore our digital solutions',
             url: '/services',
-            icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
+            icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }]
           },
           {
             name: 'Innovation Labs',
             short_name: 'Labs',
             description: 'Experimental projects and R&D',
             url: '/labs',
-            icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
+            icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }]
           },
           {
             name: 'Get in Touch',
             short_name: 'Contact',
             description: 'Start your project today',
             url: '/contact',
-            icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
+            icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }]
           }
         ],
 
         // System Integration
         note_taking: { new_note_url: "/contact" },
-        widgets: [], // Placeholder for future implementation
+        widgets: [
+          {
+            name: "Rumuze Labs",
+            description: "Latest projects",
+            tag: "labs",
+            msAcTemplate: "labs-widget.json",
+            data: "labs-widget.json",
+            type: "application/json",
+            screenshots: [
+              {
+                src: "/og-image.png",
+                sizes: "640x640",
+                type: "image/jpeg",
+                label: "Labs Widget Preview"
+              }
+            ],
+            icons: [
+              {
+                src: "/rumuze-192.png",
+                sizes: "192x192",
+                type: "image/png"
+              }
+            ]
+          }
+        ],
         file_handlers: [{ action: "/portfolio", accept: { "image/*": [".png", ".jpg", ".webp"] } }],
 
         // Security & Scope
