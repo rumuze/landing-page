@@ -18,6 +18,7 @@
    ============================================================================ */
 
 /* inter-400 - latin */
+/*
 @font-face {
   font-display: swap;
   font-family: "Inter";
@@ -25,8 +26,10 @@
   font-weight: 400;
   src: url("/fonts/inter-v13-latin-regular.woff2") format("woff2");
 }
+*/
 
 /* inter-500 - latin */
+/*
 @font-face {
   font-display: swap;
   font-family: "Inter";
@@ -34,8 +37,10 @@
   font-weight: 500;
   src: url("/fonts/inter-v13-latin-500.woff2") format("woff2");
 }
+*/
 
 /* inter-600 - latin */
+/*
 @font-face {
   font-display: swap;
   font-family: "Inter";
@@ -43,8 +48,10 @@
   font-weight: 600;
   src: url("/fonts/inter-v13-latin-600.woff2") format("woff2");
 }
+*/
 
 /* inter-700 - latin */
+/*
 @font-face {
   font-display: swap;
   font-family: "Inter";
@@ -52,12 +59,14 @@
   font-weight: 700;
   src: url("/fonts/inter-v13-latin-700.woff2") format("woff2");
 }
+*/
 
 /* ============================================================================
    MONTSERRAT - Display Font (Latin)
    ============================================================================ */
 
 /* montserrat-700 - latin */
+/*
 @font-face {
   font-display: swap;
   font-family: "Montserrat";
@@ -65,8 +74,10 @@
   font-weight: 700;
   src: url("/fonts/montserrat-v26-latin-700.woff2") format("woff2");
 }
+*/
 
 /* montserrat-800 - latin */
+/*
 @font-face {
   font-display: swap;
   font-family: "Montserrat";
@@ -74,12 +85,14 @@
   font-weight: 800;
   src: url("/fonts/montserrat-v26-latin-800.woff2") format("woff2");
 }
+*/
 
 /* ============================================================================
    CAIRO - Arabic Font
    ============================================================================ */
 
 /* cairo-400 - arabic */
+/*
 @font-face {
   font-display: swap;
   font-family: "Cairo";
@@ -87,8 +100,10 @@
   font-weight: 400;
   src: url("/fonts/cairo-v28-arabic-regular.woff2") format("woff2");
 }
+*/
 
 /* cairo-600 - arabic */
+/*
 @font-face {
   font-display: swap;
   font-family: "Cairo";
@@ -96,8 +111,10 @@
   font-weight: 600;
   src: url("/fonts/cairo-v28-arabic-600.woff2") format("woff2");
 }
+*/
 
 /* cairo-700 - arabic */
+/*
 @font-face {
   font-display: swap;
   font-family: "Cairo";
@@ -105,8 +122,10 @@
   font-weight: 700;
   src: url("/fonts/cairo-v28-arabic-700.woff2") format("woff2");
 }
+*/
 
 /* cairo-900 - arabic */
+/*
 @font-face {
   font-display: swap;
   font-family: "Cairo";
@@ -114,3 +133,4 @@
   font-weight: 900;
   src: url("/fonts/cairo-v28-arabic-900.woff2") format("woff2");
 }
+*/

@@ -62,7 +62,7 @@ const InstallPrompt = () => {
             
             <button
               onClick={() => setShow(false)}
-              className="absolute right-3 top-3 rounded-full p-2 text-slate-400 hover:bg-white/5"
+              className="absolute right-3 top-3 rounded-full p-2 text-slate-200 hover:bg-white/5"
             >
               <X className="h-4 w-4" />
             </button>
@@ -81,7 +81,7 @@ const InstallPrompt = () => {
                 </div>
               </div>
 
-              <p className="mb-6 text-sm text-slate-400">
+              <p className="mb-6 text-sm text-slate-200">
                 Install Rumuze on your home screen for instant access and a seamless experience even offline.
               </p>
 

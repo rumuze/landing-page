@@ -90,7 +90,7 @@ const BlogPage = () => {
               </div>
 
               <div className="p-8 flex flex-col flex-1">
-                <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-gray-400 mb-6 font-bold">
+                <div className="flex items-center gap-4 text-xs text-slate-700 dark:text-gray-400 mb-6 font-bold">
                   <div className="flex items-center gap-1">
                     <Calendar size={14} />
                     <span>{post.date}</span>
@@ -112,7 +112,7 @@ const BlogPage = () => {
                     </div>
                     <span className="text-sm font-bold text-slate-700 dark:text-gray-300">{post.author}</span>
                   </div>
-                  <ArrowRight size={20} className="text-slate-400 group-hover:text-cyan group-hover:translate-x-2 rtl:group-hover:-translate-x-2 transition-all" />
+                  <ArrowRight size={20} className="text-slate-200 group-hover:text-cyan group-hover:translate-x-2 rtl:group-hover:-translate-x-2 transition-all" />
                 </div>
               </div>
             </motion.article>

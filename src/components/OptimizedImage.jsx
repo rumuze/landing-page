@@ -52,9 +52,10 @@ const OptimizedImage = ({
     
     return widths
       .map(w => {
-        // Aggressive compression: q=65 (sweet spot for quality vs size)
-        // Saves 30-40% compared to q=80 with minimal visual difference
-        const url = `${cleanUrl}?auto=format&fit=crop&q=65&w=${w}&fm=webp`;
+        // Aggressive compression for mobile (w <= 600): q=50
+        // Standard compression for desktop: q=65
+        const quality = w <= 600 ? 50 : 65;
+        const url = `${cleanUrl}?auto=format&fit=crop&q=${quality}&w=${w}&fm=webp`;
         return `${url} ${w}w`;
       })
       .join(', ');

@@ -98,7 +98,7 @@ const ServicesPage = () => {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     {service.process.map((step, sIdx) => (
                       <div key={step} className="relative group">
-                        <div className="text-xs font-black text-slate-400 dark:text-gray-600 mb-2">0{sIdx + 1}</div>
+                        <div className="text-xs font-black text-slate-200 dark:text-gray-600 mb-2">0{sIdx + 1}</div>
                         <div className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan transition-colors">{step}</div>
                         {sIdx < service.process.length - 1 && (
                           <div className={`absolute top-0 right-0 h-full w-px bg-slate-200 dark:bg-white/5 hidden sm:block ${isAr ? 'left-0 right-auto' : ''}`} />

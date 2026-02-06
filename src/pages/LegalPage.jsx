@@ -36,7 +36,7 @@ const LegalPage = ({ type }) => {
           <h1 className="text-4xl md:text-5xl font-black mb-4 text-slate-900 dark:text-white">
             {content.title}
           </h1>
-          <p className="text-sm font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest">
+          <p className="text-sm font-bold text-slate-700 dark:text-gray-400 uppercase tracking-widest">
             {content.lastUpdated}
           </p>
         </motion.div>

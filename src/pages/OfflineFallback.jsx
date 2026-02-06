@@ -33,7 +33,7 @@ const OfflineFallback = () => {
         <h1 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
           You're Offline
         </h1>
-        <p className="mb-8 text-lg text-slate-400">
+        <p className="mb-8 text-lg text-slate-200">
           It seems you've lost your connection. Don't worry, Rumuze is ready for you as soon as you're back online.
         </p>
 
@@ -45,7 +45,7 @@ const OfflineFallback = () => {
           <span>Try Again</span>
         </button>
 
-        <p className="mt-8 text-sm text-slate-500">
+        <p className="mt-8 text-sm text-slate-700">
           Any forms you submitted while offline will be sent automatically once reconnected.
         </p>
       </motion.div>

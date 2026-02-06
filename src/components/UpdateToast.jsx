@@ -19,7 +19,7 @@ const UpdateToast = ({ show, onUpdate, onClose }) => {
             
             <div className="flex flex-col">
               <p className="text-sm font-semibold text-white">Update Available</p>
-              <p className="text-xs text-slate-400">A new version of Rumuze is ready.</p>
+              <p className="text-xs text-slate-200">A new version of Rumuze is ready.</p>
             </div>
 
             <div className="flex items-center gap-2">
@@ -31,7 +31,7 @@ const UpdateToast = ({ show, onUpdate, onClose }) => {
               </button>
               <button
                 onClick={onClose}
-                className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-white/5 hover:text-white"
+                className="rounded-lg p-2 text-slate-200 transition-colors hover:bg-white/5 hover:text-white"
               >
                 <X className="h-4 w-4" />
               </button>

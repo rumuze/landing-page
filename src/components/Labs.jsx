@@ -145,13 +145,13 @@ const Labs = () => {
              {[1, 2].map(i => (
                <div key={i} className="flex justify-between items-center p-6 border border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.01] hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors group cursor-pointer shadow-sm dark:shadow-none">
                  <div className="flex items-center gap-6">
-                    <span className="text-slate-400 dark:text-white/20 text-sm">0{i}</span>
+                    <span className="text-slate-200 dark:text-white/20 text-sm">0{i}</span>
                     <div>
                        <h4 className="font-bold text-slate-800 dark:text-white/80 group-hover:text-cyan transition-colors">Recursive Neural Optimization in Distributed Environments</h4>
-                       <span className="text-[10px] text-slate-500 dark:text-white/40">RELEASED: 12.01.2026 // READ TIME: 12 MIN</span>
+                       <span className="text-[10px] text-slate-700 dark:text-white/40">RELEASED: 12.01.2026 // READ TIME: 12 MIN</span>
                     </div>
                  </div>
-                 <ArrowUpRight className="text-slate-400 dark:text-white/20 group-hover:text-cyan transition-all group-hover:translate-x-1 group-hover:-translate-y-1" />
+                 <ArrowUpRight className="text-slate-200 dark:text-white/20 group-hover:text-cyan transition-all group-hover:translate-x-1 group-hover:-translate-y-1" />
                </div>
              ))}
           </div>

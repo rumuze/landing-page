@@ -142,6 +142,7 @@ export async function onRequest(context) {
 
     // Add all security headers
     secureResponse.headers.set('Content-Security-Policy', cspHeader);
+    secureResponse.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
     secureResponse.headers.set('X-Content-Type-Options', 'nosniff');
     secureResponse.headers.set('X-Frame-Options', 'DENY');
     secureResponse.headers.set('X-XSS-Protection', '1; mode=block');

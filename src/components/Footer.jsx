@@ -23,10 +23,10 @@ const Footer = () => {
               {t('footer.tagline')}
             </p>
             <div className={`flex gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
-              <a href="https://twitter.com/rumuze" aria-label="Follow us on Twitter" className="text-slate-400 hover:text-cyan transition-colors"><Twitter size={20} /></a>
-              <a href="https://linkedin.com/company/rumuze" aria-label="Connect with us on LinkedIn" className="text-slate-400 hover:text-cyan transition-colors"><Linkedin size={20} /></a>
-              <a href="https://github.com/rumuze" aria-label="View our GitHub projects" className="text-slate-400 hover:text-cyan transition-colors"><Github size={20} /></a>
-              <a href="https://instagram.com/rumuze" aria-label="Follow us on Instagram" className="text-slate-400 hover:text-cyan transition-colors"><Instagram size={20} /></a>
+              <a href="https://twitter.com/rumuze" aria-label="Follow us on Twitter" className="text-slate-200 hover:text-cyan transition-colors"><Twitter size={20} /></a>
+              <a href="https://linkedin.com/company/rumuze" aria-label="Connect with us on LinkedIn" className="text-slate-200 hover:text-cyan transition-colors"><Linkedin size={20} /></a>
+              <a href="https://github.com/rumuze" aria-label="View our GitHub projects" className="text-slate-200 hover:text-cyan transition-colors"><Github size={20} /></a>
+              <a href="https://instagram.com/rumuze" aria-label="Follow us on Instagram" className="text-slate-200 hover:text-cyan transition-colors"><Instagram size={20} /></a>
             </div>
           </div>
 
@@ -62,10 +62,10 @@ const Footer = () => {
         </div>
 
         <div className={`border-t border-slate-200 dark:border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 ${isRtl ? 'md:flex-row-reverse' : ''}`}>
-          <p className="text-slate-500 text-xs text-center md:text-left">
+          <p className="text-slate-700 text-xs text-center md:text-left">
             {t('footer.rights')}
           </p>
-          <div className={`flex gap-8 text-slate-500 text-xs ${isRtl ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex gap-8 text-slate-700 text-xs ${isRtl ? 'flex-row-reverse' : ''}`}>
             <Link to={`${pathPrefix}/privacy`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.privacy')}</Link>
             <Link to={`${pathPrefix}/terms`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.terms')}</Link>
           </div>
