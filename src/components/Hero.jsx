@@ -126,7 +126,7 @@ const Hero = () => {
         <div className="lg:hidden mt-8 w-full">
            <div className="glass-card p-4 overflow-hidden relative min-h-[160px] flex items-center justify-center bg-slate-900/95 border-slate-700 shadow-xl">
               <Code2 className="absolute top-4 right-4 text-white/10 w-12 h-12" />
-              <div className="font-mono text-sm w-full" dir="ltr">
+              <div className="font-mono text-sm w-full break-all whitespace-pre-wrap" dir="ltr">
                 <AnimatePresence mode="wait">
                   {codeSteps.map((step, idx) => (
                     idx === activeCodeStep && (

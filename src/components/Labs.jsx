@@ -32,7 +32,7 @@ const TerminalBlock = () => {
   }, []);
 
   return (
-    <div className="font-mono text-xs md:text-sm p-6 rounded-xl bg-black/90 border border-green-500/30 text-green-400 shadow-[0_0_30px_-10px_rgba(34,197,94,0.3)] backdrop-blur-md">
+    <div className="font-mono text-xs md:text-sm p-6 rounded-xl bg-black/90 border border-green-500/30 text-green-400 shadow-[0_0_30px_-10px_rgba(34,197,94,0.3)] backdrop-blur-md break-all whitespace-pre-wrap">
        <div className="flex items-center gap-2 mb-4 border-b border-green-500/20 pb-2">
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500"></div>

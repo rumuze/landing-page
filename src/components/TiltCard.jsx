@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 export const TiltCard = ({ children, className = "" }) => {
@@ -14,6 +14,8 @@ export const TiltCard = ({ children, className = "" }) => {
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
 
   const handleMouseMove = (e) => {
+    if (window.matchMedia("(hover: none)").matches) return;
+
     const rect = ref.current.getBoundingClientRect();
 
     const width = rect.width;
@@ -51,7 +53,7 @@ export const TiltCard = ({ children, className = "" }) => {
           transform: "translateZ(50px)",
           transformStyle: "preserve-3d",
         }}
-        className="absolute inset-0 grid place-content-center"
+        className="absolute inset-0 grid place-content-center pointer-events-none"
       >
         {children}
       </div>

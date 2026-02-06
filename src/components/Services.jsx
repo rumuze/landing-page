@@ -48,7 +48,7 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-8 overflow-x-auto snap-x snap-mandatory pb-4 md:pb-0 no-scrollbar">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {correctedCategories.map((category, idx) => (
             <motion.div
               key={category.title}
@@ -56,7 +56,7 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.2 }}
-              className="min-w-[85vw] md:min-w-0 snap-center p-8 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-cyan/30 transition-all group shadow-sm hover:shadow-xl dark:shadow-none mx-2 md:mx-0"
+              className="p-8 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-cyan/30 transition-all group shadow-sm hover:shadow-xl dark:shadow-none"
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-100 dark:border-white/5 group-hover:scale-110 transition-transform">

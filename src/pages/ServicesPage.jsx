@@ -110,9 +110,9 @@ const ServicesPage = () => {
 
       {/* Services Cards with Tilt Effect */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="space-y-32">
+        <div className="space-y-16 md:space-y-32">
           {services.map((service, index) => (
-             <div key={service.id} className={`flex flex-col lg:flex-row gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+             <div key={service.id} className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
                 
                 {/* Text Content */}
                 <motion.div 
@@ -122,7 +122,7 @@ const ServicesPage = () => {
                   transition={{ duration: 0.8 }}
                   className="flex-1 space-y-8"
                 >
-                   <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center`}>
+                   <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center`}>
                       {service.icon}
                    </div>
                    
@@ -154,13 +154,13 @@ const ServicesPage = () => {
                    initial={{ opacity: 0, scale: 0.8 }}
                    whileInView={{ opacity: 1, scale: 1 }}
                    viewport={{ once: true }}
-                   className="flex-1 w-full h-[500px]"
+                   className="flex-1 w-full h-auto aspect-square md:aspect-auto md:h-[500px]"
                 >
-                   <TiltCard className={`group relative rounded-3xl bg-gradient-to-br ${service.color} border border-transparent ${service.border} transition-all duration-500`}>
+                   <TiltCard className={`group relative rounded-3xl bg-gradient-to-br ${service.color} border border-transparent ${service.border} transition-all duration-500 overflow-hidden`}>
                       <div className={`absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl ${service.glow}`}></div>
                       
                       {/* Floating Elements inside Tilt Card */}
-                      <div className="relative z-10 flex flex-col items-center justify-center text-center p-10 h-full">
+                      <div className="relative z-10 flex flex-col items-center justify-center text-center p-6 md:p-10 h-full">
                          <div className="p-8 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 shadow-2xl mb-8 group-hover:scale-110 transition-transform duration-500">
                             {service.icon}
                          </div>
