@@ -69,6 +69,42 @@ export async function onRequest(context) {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    // =========================================================================
+    // CRITICAL: PWA Asset Passthrough
+    // These files MUST be served without any modification for PWA audit tools
+    // (PWABuilder, Lighthouse) to detect the Service Worker correctly
+    // =========================================================================
+    const pwaAssets = [
+        '/sw.js',
+        '/manifest.webmanifest',
+        '/manifest.json',
+    ];
+
+    // Passthrough for PWA assets and Workbox chunks
+    if (pwaAssets.includes(path) || path.startsWith('/workbox-')) {
+        const response = await next();
+
+        // Ensure correct MIME types for Service Worker files
+        const headers = new Headers(response.headers);
+        if (path.endsWith('.js')) {
+            headers.set('Content-Type', 'application/javascript; charset=utf-8');
+        }
+        if (path.endsWith('.webmanifest') || path.endsWith('.json')) {
+            headers.set('Content-Type', 'application/manifest+json; charset=utf-8');
+        }
+
+        // Add Service-Worker-Allowed header for maximum compatibility
+        if (path === '/sw.js') {
+            headers.set('Service-Worker-Allowed', '/');
+        }
+
+        return new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers
+        });
+    }
+
     // Detect if request is from a social media crawler
     const userAgent = request.headers.get('user-agent') || '';
     const isCrawler = isSocialCrawler(userAgent);

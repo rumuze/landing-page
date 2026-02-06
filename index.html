@@ -13,6 +13,10 @@
   <link rel="apple-touch-icon" href="/rumuze-192.png">
 
   <title>Rumuze</title>
+
+  <!-- PWA Manifest - CRITICAL for PWA detection -->
+  <link rel="manifest" href="/manifest.webmanifest">
+
   <!-- SEO and Social Meta are dynamically injected by Cloudflare Middleware based on language (/ar) -->
 
   <!-- CRITICAL: High-priority font preloading for LCP optimization -->
@@ -70,6 +74,22 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
+
+  <!-- CRITICAL: Explicit SW Registration for PWA Audit Tools (PWABuilder/Lighthouse) -->
+  <!-- This inline script ensures crawlers detect SW without executing full JS bundle -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+          .then(function (reg) {
+            console.log('SW registered:', reg.scope);
+          })
+          .catch(function (err) {
+            console.log('SW registration failed:', err);
+          });
+      });
+    }
+  </script>
 </body>
 
 </html>
