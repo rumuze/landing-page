@@ -26,7 +26,7 @@ const Hero = () => {
   }, [codeSteps.length]);
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white dark:bg-transparent">
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-transparent">
       {/* Mesh Gradient Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div 
@@ -35,7 +35,7 @@ const Hero = () => {
              rotate: [0, 90, 0],
            }}
            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-           className={`absolute top-[-20%] w-[1000px] h-[1000px] bg-gradient-to-br from-cyan/10 to-purple/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-70 ${isRtl ? '-right-[30%]' : '-left-[30%]'}`}
+           className={`absolute top-[-20%] w-[1000px] h-[1000px] bg-gradient-to-br from-indigo-300/20 to-purple-300/20 dark:from-cyan/10 dark:to-purple/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-70 ${isRtl ? '-right-[30%]' : '-left-[30%]'}`}
         />
         <motion.div 
            animate={{ 
@@ -43,7 +43,7 @@ const Hero = () => {
              rotate: [0, -60, 0],
            }}
            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-           className={`absolute bottom-[-10%] w-[800px] h-[800px] bg-gradient-to-tr from-purple/10 to-pink-500/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen opacity-60 ${isRtl ? '-left-[20%]' : '-right-[20%]'}`}
+           className={`absolute bottom-[-10%] w-[800px] h-[800px] bg-gradient-to-tr from-purple-300/20 to-pink-300/20 dark:from-purple/10 dark:to-pink-500/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen opacity-60 ${isRtl ? '-left-[20%]' : '-right-[20%]'}`}
         />
       </div>
 

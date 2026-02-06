@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply bg-white dark:bg-background text-slate-900 dark:text-white font-sans antialiased overflow-x-hidden;
+    @apply bg-slate-50 dark:bg-background text-slate-900 dark:text-white font-sans antialiased overflow-x-hidden;
     scroll-behavior: smooth;
     letter-spacing: -0.015em; /* Premium tight tracking */
     line-height: 1.6; /* Editorial readability */
@@ -19,13 +19,13 @@
 
   /* Premium Glow Effect for Glass Cards */
   .cyan-glow:hover {
-    box-shadow: 0 0 40px -10px rgba(34, 211, 238, 0.3);
-    border-color: rgba(34, 211, 238, 0.4);
+    @apply shadow-[0_0_30px_-5px_rgba(99,102,241,0.2)] dark:shadow-[0_0_40px_-10px_rgba(34,211,238,0.3)];
+    @apply border-indigo-200 dark:border-cyan/40;
   }
 
   .purple-glow:hover {
-    box-shadow: 0 0 40px -10px rgba(192, 132, 252, 0.3);
-    border-color: rgba(192, 132, 252, 0.4);
+    @apply shadow-[0_0_30px_-5px_rgba(168,85,247,0.2)] dark:shadow-[0_0_40px_-10px_rgba(192,132,252,0.3)];
+    @apply border-purple-200 dark:border-purple/40;
   }
 
   [dir="rtl"] body {
@@ -64,7 +64,7 @@
 
 @layer components {
   .glass {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+    @apply bg-white/70 dark:bg-white/10 backdrop-blur-2xl border border-white/50 dark:border-white/20 shadow-xl shadow-indigo-500/5;
   }
 
   .glass-card {
@@ -72,23 +72,23 @@
   }
 
   .btn-primary {
-    @apply px-6 py-3 rounded-full bg-cyan text-background font-bold hover:scale-105 transition-transform duration-300 shadow-[0_0_15px_rgba(0,229,255,0.4)];
+    @apply px-6 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-cyan dark:to-cyan text-white dark:text-background font-bold hover:scale-105 transition-transform duration-300 shadow-lg shadow-indigo-500/20 dark:shadow-[0_0_15px_rgba(0,229,255,0.4)];
   }
 
   .btn-outline {
-    @apply px-6 py-3 rounded-full border border-white/30 hover:bg-white/10 transition-colors duration-300;
+    @apply px-6 py-3 rounded-full border border-slate-200 dark:border-white/30 text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors duration-300;
   }
 
   .text-glow {
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+    @apply drop-shadow-[0_0_10px_rgba(99,102,241,0.3)] dark:drop-shadow-[0_0_10px_rgba(0,229,255,0.5)];
   }
 
   .cyan-glow {
-    @apply shadow-[0_0_20px_rgba(0,229,255,0.3)];
+    @apply shadow-[0_0_20px_rgba(99,102,241,0.1)] dark:shadow-[0_0_20px_rgba(0,229,255,0.3)];
   }
 
   .purple-glow {
-    @apply shadow-[0_0_20px_rgba(139,92,246,0.3)];
+    @apply shadow-[0_0_20px_rgba(168,85,247,0.1)] dark:shadow-[0_0_20px_rgba(139,92,246,0.3)];
   }
 }
 
@@ -98,7 +98,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-background;
+  @apply bg-slate-50 dark:bg-background;
 }
 
 ::-webkit-scrollbar-thumb {

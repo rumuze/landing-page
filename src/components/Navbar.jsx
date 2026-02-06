@@ -79,7 +79,7 @@ const Navbar = () => {
       <nav 
         className={`fixed w-full z-50 transition-all duration-500 hidden md:block ${
           scrolled 
-          ? 'py-4 bg-white/80 dark:bg-background/80 backdrop-blur-md border-b border-slate-200/50 dark:border-white/5 shadow-sm' 
+          ? 'py-4 bg-white/70 dark:bg-background/80 backdrop-blur-2xl border-b border-white/40 dark:border-white/5 shadow-sm shadow-purple-500/5' 
           : 'py-6 bg-transparent'
         }`}
         dir={isAr ? 'rtl' : 'ltr'}

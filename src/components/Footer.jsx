@@ -9,7 +9,7 @@ const Footer = () => {
   const pathPrefix = isAr ? '/ar' : '';
 
   return (
-    <footer className={`bg-white dark:bg-background pt-20 pb-10 border-t border-slate-200 dark:border-white/5 ${isRtl ? 'text-right' : 'text-left'}`}>
+    <footer className={`bg-white dark:bg-background pt-20 pb-10 border-t border-slate-200 dark:border-white/5 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.03)] ${isRtl ? 'text-right' : 'text-left'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">

@@ -34,10 +34,23 @@ export default defineConfig({
         theme_color: '#000B18',
         background_color: '#000B18',
         display: 'standalone',
+        display_override: ['window-controls-overlay', 'standalone'],
         orientation: 'portrait',
         scope: '/',
         start_url: '/',
         id: '/',
+        dir: 'auto',
+        lang: 'en-US',
+        categories: ['productivity', 'business', 'developer tools'],
+
+        launch_handler: {
+          client_mode: 'navigate-new'
+        },
+
+        edge_side_panel: {
+          preferred_width: 400
+        },
+
         icons: [
           {
             src: 'rumuze.png',
@@ -51,6 +64,49 @@ export default defineConfig({
             purpose: 'any maskable'
           }
         ],
+
+        shortcuts: [
+          {
+            name: 'Our Services',
+            short_name: 'Services',
+            description: 'Explore our digital solutions',
+            url: '/services',
+            icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
+          },
+          {
+            name: 'Rumuze Labs',
+            short_name: 'Labs',
+            description: 'Experimental projects and R&D',
+            url: '/labs',
+            icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
+          },
+          {
+            name: 'Contact Us',
+            short_name: 'Contact',
+            description: 'Start your project today',
+            url: '/contact',
+            icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
+          }
+        ],
+
+        share_target: {
+          action: '/contact',
+          method: 'GET',
+          enctype: 'application/x-www-form-urlencoded',
+          params: {
+            title: 'title',
+            text: 'text',
+            url: 'url'
+          }
+        },
+
+        protocol_handlers: [
+          {
+            protocol: 'web+rumuze',
+            url: '/%s'
+          }
+        ],
+
         screenshots: [
           {
             src: 'og-image.png',
@@ -58,6 +114,13 @@ export default defineConfig({
             type: 'image/jpeg',
             form_factor: 'wide',
             label: 'Rumuze Experience'
+          },
+          {
+            src: 'rumuze-192.png', // Fallback/Mobile screenshot placeholder
+            sizes: '192x192',
+            type: 'image/png',
+            form_factor: 'narrow',
+            label: 'Mobile View'
           }
         ]
       },
