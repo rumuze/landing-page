@@ -53,12 +53,12 @@ export default defineConfig({
 
         icons: [
           {
-            src: 'rumuze.png',
+            src: 'rumuze-512.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: 'rumuze.png',
+            src: 'rumuze-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
@@ -71,21 +71,21 @@ export default defineConfig({
             short_name: 'Services',
             description: 'Explore our digital solutions',
             url: '/services',
-            icons: [{ src: 'rumuze-192.png', sizes: '96x96', type: 'image/png' }]
+            icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
           },
           {
             name: 'Innovation Labs',
             short_name: 'Labs',
             description: 'Experimental projects and R&D',
             url: '/labs',
-            icons: [{ src: 'rumuze-192.png', sizes: '96x96', type: 'image/png' }]
+            icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
           },
           {
             name: 'Get in Touch',
             short_name: 'Contact',
             description: 'Start your project today',
             url: '/contact',
-            icons: [{ src: 'rumuze-192.png', sizes: '96x96', type: 'image/png' }]
+            icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
           }
         ],
 
