@@ -21,71 +21,7 @@
     sans-serif;
 }
 
-/* inter-400 - latin */
-@font-face {
-  font-display: swap;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  src:
-    local("Inter Regular"),
-    local("Inter-Regular"),
-    url("/fonts/inter-v13-latin-regular.woff2") format("woff2");
-}
-@font-face {
-  font-display: swap;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  src:
-    local("Inter SemiBold"),
-    local("Inter-SemiBold"),
-    url("/fonts/inter-v13-latin-600.woff2") format("woff2");
-}
-@font-face {
-  font-display: swap;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  src:
-    local("Inter Bold"),
-    local("Inter-Bold"),
-    url("/fonts/inter-v13-latin-700.woff2") format("woff2");
-}
-
-/* montserrat-700 - latin */
-@font-face {
-  font-display: swap;
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 700;
-  src:
-    local("Montserrat Bold"),
-    local("Montserrat-Bold"),
-    url("/fonts/montserrat-v26-latin-700.woff2") format("woff2");
-}
-
-/* cairo-regular - arabic */
-@font-face {
-  font-display: swap;
-  font-family: "Cairo";
-  font-style: normal;
-  font-weight: 400;
-  src:
-    local("Cairo Regular"),
-    local("Cairo-Regular"),
-    url("/fonts/cairo-v28-arabic-regular.woff2") format("woff2");
-}
-@font-face {
-  font-display: swap;
-  font-family: "Cairo";
-  font-style: normal;
-  font-weight: 700;
-  src:
-    local("Cairo Bold"),
-    local("Cairo-Bold"),
-    url("/fonts/cairo-v28-arabic-700.woff2") format("woff2");
-}
+/* Fonts are loaded via Google Fonts CDN in index.html to ensure availability and performance */
 
 /* Pre-load state: Use system fonts immediately */
 html {
