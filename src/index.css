@@ -17,20 +17,6 @@
     line-height: 1.6; /* Editorial readability */
   }
 
-  /* Hide default cursor only on fine pointers (desktop) */
-  @media (pointer: fine) {
-    body {
-      cursor: none;
-    }
-    a,
-    button,
-    input,
-    textarea,
-    select {
-      cursor: none;
-    }
-  }
-
   /* Premium Glow Effect for Glass Cards */
   .cyan-glow:hover {
     box-shadow: 0 0 40px -10px rgba(34, 211, 238, 0.3);
