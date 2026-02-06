@@ -32,8 +32,8 @@ const TerminalBlock = () => {
   }, []);
 
   return (
-    <div className="font-mono text-xs md:text-sm p-6 rounded-xl bg-black/90 border border-green-500/30 text-green-400 shadow-[0_0_30px_-10px_rgba(34,197,94,0.3)] backdrop-blur-md break-all whitespace-pre-wrap">
-       <div className="flex items-center gap-2 mb-4 border-b border-green-500/20 pb-2">
+    <div className="font-mono text-xs md:text-sm p-6 rounded-xl bg-slate-50 dark:bg-black/90 border border-slate-200 dark:border-green-500/30 text-slate-800 dark:text-green-400 shadow-2xl dark:shadow-[0_0_30px_-10px_rgba(34,197,94,0.3)] backdrop-blur-md break-all whitespace-pre-wrap">
+       <div className="flex items-center gap-2 mb-4 border-b border-slate-200 dark:border-green-500/20 pb-2">
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
           <div className="w-3 h-3 rounded-full bg-green-500"></div>
@@ -56,7 +56,7 @@ const TerminalBlock = () => {
           <motion.div 
             animate={{ opacity: [0, 1, 0] }} 
             transition={{ repeat: Infinity, duration: 0.8 }}
-            className="w-2 h-4 bg-green-400 mt-2"
+            className="w-2 h-4 bg-slate-800 dark:bg-green-400 mt-2"
           />
        </div>
     </div>
@@ -125,7 +125,7 @@ const Labs = () => {
   ];
 
   return (
-    <div className={`min-h-screen bg-[#050505] text-white overflow-hidden relative selection:bg-cyan selection:text-black font-mono ${isAr ? 'rtl' : 'ltr'}`}>
+    <div className={`min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white overflow-hidden relative selection:bg-cyan selection:text-black font-mono ${isAr ? 'rtl' : 'ltr'}`}>
       <SEO 
         title="Rumuze Labs | Engineering the Future"
         description="Rumuze's R&D division. Where code meets quantum theory and AI evolution."
@@ -133,9 +133,9 @@ const Labs = () => {
       />
 
       {/* Cyberpunk Grid Background */}
-      <div className="fixed inset-0 pointer-events-none opacity-20">
-         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-cyan/20 blur-[100px]"></div>
+      <div className="fixed inset-0 pointer-events-none">
+         <div className="absolute inset-0 opacity-20 dark:opacity-20 bg-[linear-gradient(to_right,#cbd5e1_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e1_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-purple-500/10 dark:bg-cyan/20 blur-[100px]"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative z-10">
@@ -147,18 +147,18 @@ const Labs = () => {
              animate={{ opacity: 1, x: 0 }}
              className="space-y-6"
            >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-cyan/10 border border-cyan/30 text-cyan text-xs font-bold tracking-[0.2em] uppercase">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-blue-50 dark:bg-cyan/10 border border-blue-200 dark:border-cyan/30 text-blue-700 dark:text-cyan text-xs font-bold tracking-[0.2em] uppercase">
                  <Terminal size={14} />
                  <span>Research Division</span>
               </div>
               
-              <h1 className="text-5xl md:text-7xl font-black leading-none tracking-tighter">
-                 THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-purple to-cyan bg-[length:200%_auto] animate-gradient-x">LABORATORY</span>
+              <h1 className="text-5xl md:text-7xl font-black leading-none tracking-tighter text-slate-900 dark:text-white">
+                 THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-cyan dark:via-purple dark:to-cyan bg-[length:200%_auto] animate-gradient-x">LABORATORY</span>
               </h1>
               
-              <p className="text-gray-400 text-lg max-w-xl leading-relaxed">
+              <p className="text-slate-600 dark:text-gray-400 text-lg max-w-xl leading-relaxed">
                  Welcome to the bleeding edge. Here, we build the technologies that will define the next decade. 
-                 <span className="text-white font-bold ml-1">No clients. No deadlines. Just raw innovation.</span>
+                 <span className="text-slate-900 dark:text-white font-bold ml-1">No clients. No deadlines. Just raw innovation.</span>
               </p>
            </motion.div>
 
@@ -174,40 +174,40 @@ const Labs = () => {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
            {projects.map((project, idx) => (
-              <motion.div
+               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="group relative p-8 bg-white/[0.02] border border-white/5 hover:border-cyan/50 hover:bg-white/[0.04] transition-all duration-300 rounded-2xl overflow-hidden backdrop-blur-sm"
+                className="group relative p-8 bg-white/50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-xl dark:shadow-none hover:border-blue-300/50 dark:hover:border-cyan/50 hover:bg-white dark:hover:bg-white/[0.04] transition-all duration-300 rounded-2xl overflow-hidden backdrop-blur-sm"
               >
                  {/* Hover Glow Effect */}
-                 <div className="absolute inset-0 bg-gradient-to-br from-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent dark:from-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                  <div className="relative z-10 flex flex-col h-full">
                     <div className="flex justify-between items-start mb-6">
-                       <div className="p-3 bg-white/5 rounded-xl group-hover:scale-110 transition-transform duration-300 border border-white/5 group-hover:border-cyan/30">
+                       <div className="p-3 bg-slate-100 dark:bg-white/5 rounded-xl group-hover:scale-110 transition-transform duration-300 border border-slate-200 dark:border-white/5 group-hover:border-blue-400/30 dark:group-hover:border-cyan/30">
                           {project.icon}
                        </div>
                        <span className={`text-[10px] font-bold px-2 py-1 rounded border tracking-widest ${
-                          project.status === 'LIVE ALPHA' ? 'text-green-400 border-green-500/30 bg-green-500/10' :
-                          project.status === 'BETA' ? 'text-yellow-400 border-yellow-500/30 bg-yellow-500/10' :
-                          'text-cyan border-cyan/30 bg-cyan/10'
+                          project.status === 'LIVE ALPHA' ? 'text-emerald-700 dark:text-green-400 border-emerald-200 dark:border-green-500/30 bg-emerald-50 dark:bg-green-500/10' :
+                          project.status === 'BETA' ? 'text-amber-700 dark:text-yellow-400 border-amber-200 dark:border-yellow-500/30 bg-amber-50 dark:bg-yellow-500/10' :
+                          'text-blue-700 dark:text-cyan border-blue-200 dark:border-cyan/30 bg-blue-50 dark:bg-cyan/10'
                        }`}>
                           {project.status}
                        </span>
                     </div>
 
-                    <div className="mb-1 text-[10px] text-gray-500 font-bold tracking-widest uppercase">{project.category}</div>
-                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-cyan transition-colors">{project.title}</h3>
-                    <p className="text-sm text-gray-400 leading-relaxed mb-6 flex-grow">
+                    <div className="mb-1 text-[10px] text-slate-500 dark:text-gray-500 font-bold tracking-widest uppercase">{project.category}</div>
+                    <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-cyan transition-colors">{project.title}</h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow">
                        {project.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 mt-auto border-t border-white/5 pt-4">
+                    <div className="flex flex-wrap gap-2 mt-auto border-t border-slate-100 dark:border-white/5 pt-4">
                        {project.tech.map(t => (
-                          <span key={t} className="text-[10px] text-gray-500 px-2 py-1 bg-white/5 rounded">
+                          <span key={t} className="text-[10px] text-slate-500 dark:text-gray-500 px-2 py-1 bg-slate-100 dark:bg-white/5 rounded">
                              {t}
                           </span>
                        ))}
@@ -219,7 +219,7 @@ const Labs = () => {
         
         {/* Footer Link */}
         <div className="mt-20 text-center">
-           <Link to="/contact" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-cyan transition-colors tracking-widest uppercase group">
+           <Link to="/contact" className="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-gray-500 hover:text-blue-600 dark:hover:text-cyan transition-colors tracking-widest uppercase group">
               <span>Interested in our beta program?</span>
               <ArrowUpRight size={14} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
            </Link>
