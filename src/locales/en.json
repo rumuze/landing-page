@@ -50,6 +50,7 @@
     },
     "hero": {
         "badge": "Global Technology Authority",
+        "success": "We've received your signal! Rumuze team will reach out within 24 hours.",
         "headline": "Complexity Decoded. Potential Unleashed.",
         "subheadline": "Engineering Digital Legacies. We don't just build code; we architect the future of industries through bespoke digital ecosystems and self-evolving intelligence.",
         "ctaExplore": "View Our Impact",

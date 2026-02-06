@@ -3,11 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, ZoomIn } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import OptimizedImage from './OptimizedImage';
+import { CardSkeleton } from './SkeletonLoader';
 
 const Portfolio = () => {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === 'rtl';
   const [selectedId, setSelectedId] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Simulate loading effect
+  React.useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const projects = [
     {
@@ -54,7 +62,14 @@ const Portfolio = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
+          {loading ? (
+             <>
+               <CardSkeleton />
+               <CardSkeleton />
+               <CardSkeleton />
+             </>
+          ) : (
+            projects.map((project, idx) => (
             <motion.div
               layoutId={project.id}
               onClick={() => setSelectedId(project.id)}
@@ -91,7 +106,8 @@ const Portfolio = () => {
                 </p>
               </div>
             </motion.div>
-          ))}
+          ))
+          )}
         </div>
 
         <AnimatePresence>

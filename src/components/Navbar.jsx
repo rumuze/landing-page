@@ -4,6 +4,7 @@ import { Menu, X, Globe, ChevronDown, FlaskConical, Sun, Moon } from 'lucide-rea
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -115,23 +116,7 @@ const Navbar = () => {
               </div>
 
               {/* Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-800 dark:text-yellow-400 hover:scale-110 transition-all duration-300 border border-slate-200 dark:border-white/10 shadow-sm"
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={theme}
-                    initial={{ rotate: -45, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 45, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {theme === 'dark' ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
-                  </motion.div>
-                </AnimatePresence>
-              </button>
+              <ThemeToggle className="ml-2" />
 
               {/* Language Switcher */}
               <div className="relative">

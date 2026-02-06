@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import SEO from '../components/SEO';
 import OptimizedImage from '../components/OptimizedImage';
+import { ArticleSkeleton } from '../components/SkeletonLoader';
 
 const BlogPage = () => {
   const { t, i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const posts = [
     {
@@ -62,7 +69,14 @@ const BlogPage = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {posts.map((post, index) => (
+          {loading ? (
+             <>
+               <ArticleSkeleton />
+               <ArticleSkeleton />
+               <ArticleSkeleton />
+             </>
+          ) : (
+            posts.map((post, index) => (
             <motion.article 
               key={post.id}
               initial={{ opacity: 0, y: 30 }}
@@ -116,7 +130,8 @@ const BlogPage = () => {
                 </div>
               </div>
             </motion.article>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

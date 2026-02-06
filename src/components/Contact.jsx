@@ -46,22 +46,38 @@ const Contact = () => {
 
     setLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-      setFormData({
-        name: "",
-        company: "",
-        email: "",
-        subject: "",
-        message: "",
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      setErrors({});
 
-      // Auto-hide success message after 5 seconds
-      setTimeout(() => setSuccess(false), 5000);
-    }, 1500);
+      const result = await response.json();
+
+      if (response.ok) {
+        setSuccess(true);
+        setFormData({
+          name: "",
+          company: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+        setErrors({});
+        // Auto-hide success message after 8 seconds for new copy read time
+        setTimeout(() => setSuccess(false), 8000);
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+       console.error("Submission error:", error);
+       alert("Failed to send message. Please try again or email us directly.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
