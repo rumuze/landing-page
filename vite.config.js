@@ -74,15 +74,55 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        passes: 2, // Additional compression pass
       },
     },
+    cssCodeSplit: false, // CRITICAL: Inline all CSS into single bundle for inlining
     rollupOptions: {
       output: {
+        // Optimize chunk naming for better caching
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
+
+        // Manual chunks for optimal code splitting
         manualChunks: {
-          vendor: ['react', 'react-dom', 'framer-motion', 'lucide-react', 'react-router-dom'],
+          // Core React bundle (loaded on every page)
+          'react-core': ['react', 'react-dom', 'react/jsx-runtime'],
+
+          // Router (needed for navigation)
+          'react-router': ['react-router-dom'],
+
+          // Animation library (heavy, split separately)
+          'framer': ['framer-motion'],
+
+          // i18n bundle (needed for all pages)
+          'i18n': ['i18next', 'react-i18next', 'i18next-browser-languagedetector'],
+
+          // Icons (lazy loadable)
+          'icons': ['lucide-react'],
         },
       },
     },
+    // Increase chunk size warning limit for vendor bundles
     chunkSizeWarningLimit: 1000,
-  }
+
+    // Enable source maps for production debugging (optional, disable for max performance)
+    sourcemap: false,
+
+    // Optimize asset inlining threshold
+    assetsInlineLimit: 4096, // Inline assets < 4KB as base64
+  },
+
+  // Optimize dev server for faster HMR
+  server: {
+    hmr: {
+      overlay: true,
+    },
+  },
+
+  // CSS optimization
+  css: {
+    devSourcemap: false,
+  },
 });

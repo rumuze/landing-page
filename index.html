@@ -9,15 +9,23 @@
   <title>Rumuze</title>
   <!-- SEO and Social Meta are dynamically injected by Cloudflare Middleware based on language (/ar) -->
 
-  <!-- Preload critical fonts for optimal FCP -->
+  <!-- CRITICAL: High-priority font preloading for LCP optimization -->
+  <!-- Inter: Primary Latin font (Hero H1, body text) -->
   <link rel="preload" href="/fonts/inter-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-v13-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v13-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Cairo: Primary Arabic font -->
   <link rel="preload" href="/fonts/cairo-v28-arabic-regular.woff2" as="font" type="font/woff2" crossorigin>
-  
-  <!-- Preconnect to external resources -->
+  <link rel="preload" href="/fonts/cairo-v28-arabic-700.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Montserrat: Headings only (lower priority) -->
+  <link rel="preload" href="/fonts/montserrat-v26-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Preconnect to external image CDN (Unsplash) -->
   <link rel="dns-prefetch" href="https://images.unsplash.com">
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  
+
   <link rel="author" href="/humans.txt" />
 </head>
 

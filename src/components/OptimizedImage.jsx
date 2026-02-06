@@ -46,8 +46,9 @@ const OptimizedImage = ({
     // Remove existing query params
     const cleanUrl = baseUrl.split('?')[0];
     
-    // Generate srcset for different screen sizes
-    const widths = [400, 800, 1200, 1600, 2000];
+    // CRITICAL: Mobile-first breakpoints optimized for PageSpeed
+    // Cap mobile at 600px to save 6KB+ per image
+    const widths = [400, 600, 800, 1200, 1600];
     
     return widths
       .map(w => {
@@ -64,11 +65,13 @@ const OptimizedImage = ({
     }
 
     const cleanUrl = baseUrl.split('?')[0];
-    return `${cleanUrl}?auto=format&fit=crop&q=80&w=${targetWidth}`;
+    // Use 800px as default (good balance for mobile + desktop)
+    const optimalWidth = targetWidth || 800;
+    return `${cleanUrl}?auto=format&fit=crop&q=80&w=${optimalWidth}`;
   };
 
   const srcSet = generateSrcSet(src);
-  const fallbackSrc = generateFallbackUrl(src, width || 1200);
+  const fallbackSrc = generateFallbackUrl(src, width || 800);
 
   return (
     <div 
