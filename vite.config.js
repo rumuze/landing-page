@@ -93,7 +93,7 @@ export default defineConfig({
         ],
 
         // System Integration
-        note_taking: { new_note_url: "/contact?type=note" },
+        note_taking: { new_note_url: "/contact" },
         widgets: [], // Placeholder for future implementation
         file_handlers: [{ action: "/portfolio", accept: { "image/*": [".png", ".jpg", ".webp"] } }],
 
