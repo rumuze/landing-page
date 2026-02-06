@@ -17,6 +17,12 @@ const Navbar = () => {
 
   const isAr = i18n.language === 'ar';
 
+  // Force RTL/LTR update on location change
+  useEffect(() => {
+    document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+    document.documentElement.lang = isAr ? 'ar' : 'en';
+  }, [isAr, location.pathname]);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -28,7 +34,7 @@ const Navbar = () => {
   const navLinks = [
     { name: t('navbar.home'), href: isAr ? '/ar/' : '/' },
     { name: t('navbar.services'), href: isAr ? '/ar/services' : '/services' },
-    { name: t('navbar.portfolio'), href: isAr ? '/ar/#portfolio' : '/#portfolio' },
+    { name: t('navbar.portfolio'), href: isAr ? '/ar/portfolio' : '/portfolio' },
     { name: t('navbar.blog'), href: isAr ? '/ar/blog' : '/blog' },
     { name: t('navbar.about'), href: isAr ? '/ar/about' : '/about' },
     { name: t('navbar.labs'), href: isAr ? '/ar/labs' : '/labs', highlight: true, icon: <FlaskConical size={14} /> },
@@ -76,11 +82,12 @@ const Navbar = () => {
           ? 'py-4 bg-white/80 dark:bg-background/80 backdrop-blur-md border-b border-slate-200/50 dark:border-white/5 shadow-sm' 
           : 'py-6 bg-transparent'
         }`}
+        dir={isAr ? 'rtl' : 'ltr'}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
+          <div className="flex justify-between items-center w-full">
             {/* Logo */}
-            <Link to="/" className={`flex items-center gap-2 group ${isAr ? 'flex-row-reverse' : ''}`}>
+            <Link to={isAr ? '/ar/' : '/'} className="flex items-center gap-2 group shrink-0">
               <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-white shadow-lg shadow-cyan/20 group-hover:scale-110 transition-transform overflow-hidden">
                 <img src="/rumuze.svg" alt="Rumuze Logo" width="24" height="24" className="w-6 h-6 z-10" />
                 <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
@@ -89,8 +96,8 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Nav */}
-            <div className={`flex items-center gap-8 ${isAr ? 'flex-row-reverse' : ''}`}>
-              <div className={`flex items-center gap-6 ${isAr ? 'flex-row-reverse' : ''}`}>
+            <div className="flex items-center gap-8">
+              <div className="flex items-center gap-6">
                 {navLinks.map((link) => (
                   <Link 
                     key={link.name} 
@@ -116,7 +123,7 @@ const Navbar = () => {
               </div>
 
               {/* Theme Toggle */}
-              <ThemeToggle className="ml-2" />
+              <ThemeToggle className="ltr:ml-2 rtl:mr-2" />
 
               {/* Language Switcher */}
               <div className="relative">
@@ -137,7 +144,7 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className={`absolute top-full mt-2 bg-white/95 dark:bg-background/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px] ${isAr ? 'left-0' : 'right-0'}`}
+                      className={`absolute top-full mt-2 bg-white/95 dark:bg-background/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px] z-[60] ${isAr ? 'left-0' : 'right-0'}`}
                     >
                       {languages.map((lang) => (
                         <button
@@ -145,7 +152,7 @@ const Navbar = () => {
                           onClick={() => changeLanguage(lang.code)}
                           className={`w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors ${
                             i18n.language === lang.code ? 'text-cyan bg-slate-50 dark:bg-white/5' : 'text-slate-800 dark:text-gray-300'
-                          } ${isAr ? 'flex-row-reverse text-right' : 'text-left'}`}
+                          } ${isAr ? 'text-right flex-row-reverse' : 'text-left'}`}
                         >
                           <span className="text-lg">{lang.flag}</span>
                           <span className="font-bold">{lang.name}</span>
@@ -164,7 +171,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Bottom Navigation */}
       {/* Mobile Bottom Navigation */}
       <nav className="fixed bottom-6 left-4 right-4 z-50 md:hidden">
         <div className="glass-card !rounded-2xl !p-2 flex justify-around items-center shadow-2xl bg-white/90 dark:bg-background/90 border-slate-200 dark:border-white/10 backdrop-blur-xl">
@@ -218,7 +224,7 @@ const Navbar = () => {
             className="fixed inset-0 z-[60] bg-white/98 dark:bg-background/98 backdrop-blur-xl flex flex-col md:hidden"
           >
             {/* Header */}
-            <div className="p-6 flex justify-between items-center">
+            <div className={`p-6 flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
                <div className="flex items-center gap-2">
                   <img src="/rumuze.svg" alt="Logo" className="w-8 h-8" />
                   <span className="font-black text-xl text-slate-900 dark:text-white">RUMUZE</span>

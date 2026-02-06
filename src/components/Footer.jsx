@@ -43,7 +43,7 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-slate-900 dark:text-white mb-6 uppercase tracking-widest text-xs">{t('footer.sections.services')}</h4>
             <ul className="space-y-4 text-sm text-slate-600 dark:text-gray-400">
-              <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.marketing.items.growth.name')}</Link></li>
+              <li><Link to={`${pathPrefix}/portfolio`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('navbar.portfolio')}</Link></li>
               <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.marketing.items.brand.name')}</Link></li>
               <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('services.marketing.items.ads.name')}</Link></li>
               <li><Link to={`${pathPrefix}/services`} className="hover:text-cyan dark:hover:text-white transition-colors">SEO</Link></li>

@@ -27,6 +27,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
+const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 import ShareButton from './components/ShareButton';
 
@@ -149,6 +150,7 @@ function AppContent() {
                   <TechStack />
                   <Contact />
                 </Suspense>
+
               </motion.div>
             } />
             <Route path="/ar" element={
@@ -160,6 +162,18 @@ function AppContent() {
                   <TechStack />
                   <Contact />
                 </Suspense>
+              </motion.div>
+            } />
+
+            {/* Portfolio Page Routes */}
+            <Route path="/portfolio" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>
+              </motion.div>
+            } />
+            <Route path="/ar/portfolio" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>
               </motion.div>
             } />
 
