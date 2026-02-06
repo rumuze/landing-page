@@ -34,13 +34,37 @@ export default defineConfig({
         theme_color: '#000B18',
         background_color: '#000B18',
         display: 'standalone',
-        display_override: ['window-controls-overlay', 'standalone'],
+        display_override: ['tabbed', 'standalone', 'window-controls-overlay'],
+        // Tabbed Application Mode
+        tab_strip: {
+          home_tab: {
+            images: [
+              {
+                src: 'rumuze-192.png',
+                sizes: '192x192',
+                type: 'image/png'
+              }
+            ]
+          },
+          new_tab_button: {
+            url: '/',
+            icons: [
+              {
+                src: 'rumuze-192.png',
+                sizes: '192x192',
+                type: 'image/png'
+              }
+            ]
+          }
+        },
         orientation: 'any',
         scope: '/',
         start_url: '/',
         id: '/',
         dir: 'auto',
         lang: 'en-US',
+        // Push Notifications
+        gcm_sender_id: "103953800507", // Example ID - User should replace with real one if needed, or rely on VAPID
         categories: ['productivity', 'business', 'developer tools'],
         iarc_rating_id: "e58c735d-9967-466d-9477-d933748e0000",
         related_applications: [],
