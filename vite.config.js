@@ -42,6 +42,9 @@ export default defineConfig({
         dir: 'auto',
         lang: 'en-US',
         categories: ['productivity', 'business', 'developer tools'],
+        iarc_rating_id: "",
+        related_applications: [],
+        prefer_related_applications: false,
 
         launch_handler: {
           client_mode: 'navigate-new'
@@ -88,6 +91,14 @@ export default defineConfig({
             icons: [{ src: 'rumuze-192.png', sizes: '192x192', type: 'image/png' }]
           }
         ],
+
+        // System Integration
+        note_taking: { new_note_url: "/contact?type=note" },
+        widgets: [], // Placeholder for future implementation
+        file_handlers: [{ action: "/portfolio", accept: { "image/*": [".png", ".jpg", ".webp"] } }],
+
+        // Security & Scope
+        scope_extensions: [{ origin: "*.rumuze.com" }],
 
         share_target: {
           action: '/contact',
