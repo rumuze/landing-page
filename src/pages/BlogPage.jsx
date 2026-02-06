@@ -24,7 +24,7 @@ const BlogPage = () => {
       date: "Feb 10, 2026",
       author: "Mohamed Ashraf",
       readTime: "8",
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=2000&auto=format&fit=crop"
+      image: "/assets/images/blog-1.webp"
     },
     {
       id: 2,
@@ -33,7 +33,7 @@ const BlogPage = () => {
       date: "Feb 05, 2026",
       author: "Growth Team",
       readTime: "5",
-      image: "https://images.unsplash.com/photo-1551288049-bbda38a5f85d?q=80&w=2000&auto=format&fit=crop"
+      image: "/assets/images/blog-2.webp"
     },
     {
       id: 3,
@@ -42,7 +42,7 @@ const BlogPage = () => {
       date: "Jan 28, 2026",
       author: "Mohamed Ashraf",
       readTime: "12",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop"
+      image: "/assets/images/blog-3.webp"
     }
   ];
 

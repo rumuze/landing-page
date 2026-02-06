@@ -22,7 +22,7 @@ const Portfolio = () => {
       id: 1,
       title: t('portfolio.items.fintech'),
       category: t('services.software.title'),
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+      image: "/assets/images/portfolio-1.webp",
       description: "A high-performance analytics platform for real-time market tracking.",
       longDesc: "Full-scale implementation of a real-time analytics dashboard handling over 1M transactions per second."
     },
@@ -30,7 +30,7 @@ const Portfolio = () => {
       id: 2,
       title: t('portfolio.items.ecommerce'),
       category: t('services.marketing.title'),
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+      image: "/assets/images/portfolio-2.webp",
       description: "Scaling a lifestyle brand from zero to 1M+ monthly recurring revenue.",
       longDesc: "Strategic growth hacking combined with a headless commerce architecture."
     },
@@ -38,7 +38,7 @@ const Portfolio = () => {
       id: 3,
       title: t('portfolio.items.logistics'),
       category: t('services.software.title'),
-      image: "https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?auto=format&fit=crop&q=80&w=800",
+      image: "/assets/images/portfolio-3.webp",
       description: "Automating supply chain workflows with cloud-native microservices.",
       longDesc: "IoT integration and predictive logistics driven by machine learning models."
     }
