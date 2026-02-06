@@ -187,7 +187,12 @@
                 "Node.js Cluster",
                 "PostgreSQL Scale"
             ],
-            "description": "We engineer the digital nervous systems for modern corporations. Robust, secure, and infinitely scalable."
+            "description": "We engineer the digital nervous systems for modern corporations. Robust, secure, and infinitely scalable.",
+            "benefits": [
+                "99.99% Uptime Architecture",
+                "Micro-services Scalability",
+                "Bank-Grade Security"
+            ]
         },
         "ai": {
             "title": "Pioneering Self-Evolving Intelligence",
@@ -203,7 +208,12 @@
                 "TensorFlow",
                 "Decision Transformers"
             ],
-            "description": "Deploying self-evolving AI agents that automate complex decisions and forecast market shifts."
+            "description": "Deploying self-evolving AI agents that automate complex decisions and forecast market shifts.",
+            "benefits": [
+                "Self-Learning Algorithms",
+                "Predictive Analytics Core",
+                "Automated Decision Making"
+            ]
         },
         "growth": {
             "title": "Behavioral Data & Market Dominance",
@@ -219,7 +229,12 @@
                 "Semantic SEO",
                 "Conversion Science"
             ],
-            "description": "We use behavioral data to not just compete, but to dominate your search landscape and market share."
+            "description": "We use behavioral data to not just compete, but to dominate your search landscape and market share.",
+            "benefits": [
+                "Search Sovereignty",
+                "Conversion Rate Optimization",
+                "High-ROAS Acquisition"
+            ]
         }
     },
     "blog": {

@@ -1,165 +1,231 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Beaker, Code2, Cpu, Sparkles, Terminal, ArrowLeft, ArrowUpRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Terminal, Code2, Cpu, Sparkles, Server, Shield, Activity, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEO from './SEO';
+
+const TerminalBlock = () => {
+  const [lines, setLines] = useState([
+    "> INITIALIZING RUMUZE_CORE_V2.0...",
+    "> LOADING NEURAL_NETWORKS...",
+    "> CONNECTING TO QUANTUM_NODES..."
+  ]);
+
+  useEffect(() => {
+    const sequence = [
+      { text: "> SYSTEM_STATUS: ONLINE", delay: 1000 },
+      { text: "> DETECTING USER_LOCATION...", delay: 2000 },
+      { text: "> OPTIMIZING ASSETS FOR ENTROPY REDUCTION...", delay: 3500 },
+      { text: "> ACCESS GRANTED: WELCOME TO THE LAB.", delay: 5000 },
+    ];
+
+    let timeouts = [];
+    sequence.forEach(({ text, delay }) => {
+      const timeout = setTimeout(() => {
+        setLines(prev => [...prev.slice(-4), text]); // Keep last 5 lines
+      }, delay);
+      timeouts.push(timeout);
+    });
+
+    return () => timeouts.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div className="font-mono text-xs md:text-sm p-6 rounded-xl bg-black/90 border border-green-500/30 text-green-400 shadow-[0_0_30px_-10px_rgba(34,197,94,0.3)] backdrop-blur-md">
+       <div className="flex items-center gap-2 mb-4 border-b border-green-500/20 pb-2">
+          <div className="w-3 h-3 rounded-full bg-red-500"></div>
+          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <span className="ml-auto opacity-50">Authorized Personnel Only</span>
+       </div>
+       <div className="space-y-1 h-[120px] overflow-hidden">
+          <AnimatePresence>
+            {lines.map((line, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex items-center gap-2"
+              >
+                 <span className="opacity-50">{(new Date()).toLocaleTimeString('en-US', {hour12: false})}</span>
+                 <span>{line}</span>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+          <motion.div 
+            animate={{ opacity: [0, 1, 0] }} 
+            transition={{ repeat: Infinity, duration: 0.8 }}
+            className="w-2 h-4 bg-green-400 mt-2"
+          />
+       </div>
+    </div>
+  );
+};
 
 const Labs = () => {
   const { i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
 
-  const experiments = [
+  const projects = [
     {
-      id: "ai-evolution",
-      title: "Self-Evolving AI Core",
-      tag: "AI / RESEARCH",
-      description: "Exploring recursive neural networks that optimize their own architecture in real-time.",
-      status: "Active Research",
-      icon: <Cpu className="text-cyan" />
+      id: "holo-ui",
+      title: "Holo-Interface V1",
+      category: "UX / SPATIAL",
+      status: "BETA",
+      description: "Experimental spatial UI patterns for Apple Vision Pro and Meta Quest 3.",
+      tech: ["Unity", "SwiftUI", "Hand Tracking"],
+      icon: <Sparkles className="text-purple-400" />
     },
     {
-      id: "quantum-ui",
-      title: "Quantum State Management",
-      tag: "FRONTEND / EXP",
-      description: "A theoretical approach to state synchronization using entangled data nodes.",
-      status: "Prototype",
-      icon: <Sparkles className="text-purple" />
+      id: "quantum-encryption",
+      title: "Post-Quantum Cryptography",
+      category: "SECURITY",
+      status: "R&D",
+      description: "Lattice-based cryptography implementation resistant to quantum decryption attacks.",
+      tech: ["Rust", "WASM", "Kyber-512"],
+      icon: <Shield className="text-cyan" />
     },
     {
-      id: "eco-block",
-      title: "Eco-Friendly Blockchain",
-      tag: "WEB3 / SUSTAIN",
-      description: "Consensus algorithm designed for 99% less energy consumption than PoW.",
-      status: "Whitepaper",
-      icon: <Beaker className="text-green-400" />
+      id: "neural-search",
+      title: "Neural Search Engine",
+      category: "AI / BACKEND",
+      status: "LIVE ALPHA",
+      description: "Semantic search engine using vector embeddings for context-aware query resolution.",
+      tech: ["Pinecone", "OpenAI", "Python"],
+      icon: <Cpu className="text-orange-400" />
+    },
+    {
+      id: "edge-compute",
+      title: "Edge Mesh Network",
+      category: "INFRASTRUCTURE",
+      status: "PROTOTYPE",
+      description: "Decentralized CDN logic running entirely on client-side service workers.",
+      tech: ["Cloudflare Workers", "P2P", "WebRTC"],
+      icon: <Server className="text-green-400" />
+    },
+    {
+      id: "generative-branding",
+      title: "Generative Branding",
+      category: "DESIGN",
+      status: "CONCEPT",
+      description: "AI model generating real-time brand assets based on user behavioral sentiment.",
+      tech: ["Stable Diffusion", "React Three Fiber"],
+      icon: <Activity className="text-pink-400" />
+    },
+    {
+      id: "autonomous-dao",
+      title: "Autonomous Enterprise DAO",
+      category: "WEB3",
+      status: "CLOSED BETA",
+      description: "Smart contract system for fully automated corporate treasury management.",
+      tech: ["Solidity", "Ethereum", "IPFS"],
+      icon: <Code2 className="text-blue-400" />
     }
   ];
 
   return (
-    <div className="min-h-screen bg-slate-100 dark:bg-[#00050a] font-mono selection:bg-cyan selection:text-background overflow-hidden relative transition-colors duration-300">
+    <div className={`min-h-screen bg-[#050505] text-white overflow-hidden relative selection:bg-cyan selection:text-black font-mono ${isAr ? 'rtl' : 'ltr'}`}>
       <SEO 
-        title="Rumuze Labs | AI & Research"
-        description="The scientific division of Rumuze where we build self-evolving AI and future-tech experiments."
+        title="Rumuze Labs | Engineering the Future"
+        description="Rumuze's R&D division. Where code meets quantum theory and AI evolution."
         path="/labs"
-        type="article"
       />
-      
-      {/* Terminal Backdrop Effect */}
-      <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03] pointer-events-none">
-        <div className="h-full w-full bg-[radial-gradient(#00e5ff_1px,transparent_1px)] [background-size:32px_32px]"></div>
+
+      {/* Cyberpunk Grid Background */}
+      <div className="fixed inset-0 pointer-events-none opacity-20">
+         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-cyan/20 blur-[100px]"></div>
       </div>
 
-      <nav className="p-6 relative z-10 flex justify-between items-center max-w-7xl mx-auto">
-        <Link to="/" className="flex items-center gap-2 text-cyan hover:gap-4 transition-all">
-          <ArrowLeft size={18} className={isAr ? 'rotate-180' : ''} />
-          <span>{isAr ? 'العودة' : 'BACK TO CORE'}</span>
-        </Link>
-        <div className="text-[10px] text-slate-600 dark:text-white/40 tracking-[0.3em]">
-          SYSTEM STATUS: <span className="text-green-600 dark:text-green-400">NOMINAL</span>
-        </div>
-      </nav>
-
-      <main className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-        <div className="mb-20">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="inline-flex items-center gap-2 px-3 py-1 bg-cyan/10 border border-cyan/20 text-cyan text-[10px] font-bold tracking-[0.2em] uppercase mb-6"
-          >
-            <Terminal size={12} />
-            RUMUZE LABS // EXPERIMENTAL MODULE
-          </motion.div>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tighter text-slate-900 dark:text-white"
-          >
-            PUSHING THE <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-purple to-cyan bg-[length:200%_auto] animate-gradient">BOUNDARY OF POSSIBLE.</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-600 dark:text-white/60 max-w-2xl leading-relaxed"
-          >
-            Welcome to the Rumuze Research & Development division. This is where we break things, build things, 
-            and explore the intersection of self-evolving AI, quantum computing architecture, and decentralized ecosystems. 
-            Our lab experiments directly inform our <Link to="/#services" className="text-cyan hover:underline">enterprise software solutions</Link> and data-driven marketing frameworks.
-          </motion.p>
-        </div>
-
-        {/* Research Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {experiments.map((exp, idx) => (
-            <motion.div
-              key={exp.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="group border border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-8 hover:bg-slate-50 dark:hover:bg-white/[0.05] hover:border-cyan/30 transition-all duration-500 relative overflow-hidden shadow-sm dark:shadow-none"
-            >
-              <div className="absolute top-0 right-0 p-4 opacity-[0.05] dark:opacity-10 group-hover:opacity-100 transition-opacity text-slate-900 dark:text-white">
-                <Code2 size={40} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative z-10">
+        
+        {/* Header Section with Live Terminal */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+           <motion.div 
+             initial={{ opacity: 0, x: -50 }}
+             animate={{ opacity: 1, x: 0 }}
+             className="space-y-6"
+           >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-cyan/10 border border-cyan/30 text-cyan text-xs font-bold tracking-[0.2em] uppercase">
+                 <Terminal size={14} />
+                 <span>Research Division</span>
               </div>
-              <div className="w-12 h-12 flex items-center justify-center bg-slate-100 dark:bg-white/5 rounded-lg mb-6 group-hover:scale-110 transition-transform">
-                {exp.icon}
-              </div>
-              <div className="text-[10px] text-cyan/60 font-bold mb-2 tracking-widest">{exp.tag}</div>
-              <h3 className="text-xl font-bold mb-4 text-slate-800 dark:text-white">{exp.title}</h3>
-              <p className="text-sm text-slate-600 dark:text-white/40 mb-8 leading-relaxed">
-                {exp.description}
+              
+              <h1 className="text-5xl md:text-7xl font-black leading-none tracking-tighter">
+                 THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-purple to-cyan bg-[length:200%_auto] animate-gradient-x">LABORATORY</span>
+              </h1>
+              
+              <p className="text-gray-400 text-lg max-w-xl leading-relaxed">
+                 Welcome to the bleeding edge. Here, we build the technologies that will define the next decade. 
+                 <span className="text-white font-bold ml-1">No clients. No deadlines. Just raw innovation.</span>
               </p>
-              <div className="flex justify-between items-center text-[10px] tracking-widest">
-                <span className="flex items-center gap-2 text-slate-600 dark:text-white/40">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-600 dark:bg-green-400 animate-pulse"></span>
-                  {exp.status}
-                </span>
-                <button className="text-slate-700 dark:text-white hover:text-cyan flex items-center gap-1 transition-colors">
-                  READ CASE <ArrowUpRight size={12} />
-                </button>
-              </div>
-            </motion.div>
-          ))}
+           </motion.div>
+
+           <motion.div
+             initial={{ opacity: 0, scale: 0.9 }}
+             animate={{ opacity: 1, scale: 1 }}
+             transition={{ delay: 0.2 }}
+           >
+              <TerminalBlock />
+           </motion.div>
         </div>
 
-        {/* Technical Deep Dive Mockup */}
-        <motion.div 
-           initial={{ opacity: 0 }}
-           whileInView={{ opacity: 1 }}
-           className="mt-32 border-t border-slate-200 dark:border-white/10 pt-20"
-        >
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
-            <div>
-              <h2 className="text-2xl font-bold mb-2 tracking-tight text-slate-900 dark:text-white">LATEST PUBLICATIONS</h2>
-              <p className="text-sm text-slate-600 dark:text-white/40">Technical deep-dives into our core research.</p>
-            </div>
-            <button className="text-xs border border-slate-200 dark:border-white/10 px-6 py-2 hover:bg-white dark:hover:bg-white/5 tracking-[0.2em] transition-colors text-slate-700 dark:text-white">
-              VIEW ARCHIVE
-            </button>
-          </div>
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+           {projects.map((project, idx) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="group relative p-8 bg-white/[0.02] border border-white/5 hover:border-cyan/50 hover:bg-white/[0.04] transition-all duration-300 rounded-2xl overflow-hidden backdrop-blur-sm"
+              >
+                 {/* Hover Glow Effect */}
+                 <div className="absolute inset-0 bg-gradient-to-br from-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-          <div className="space-y-4">
-             {[1, 2].map(i => (
-               <div key={i} className="flex justify-between items-center p-6 border border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.01] hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors group cursor-pointer shadow-sm dark:shadow-none">
-                 <div className="flex items-center gap-6">
-                    <span className="text-slate-200 dark:text-white/20 text-sm">0{i}</span>
-                    <div>
-                       <h4 className="font-bold text-slate-800 dark:text-white/80 group-hover:text-cyan transition-colors">Recursive Neural Optimization in Distributed Environments</h4>
-                       <span className="text-[10px] text-slate-700 dark:text-white/40">RELEASED: 12.01.2026 // READ TIME: 12 MIN</span>
+                 <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex justify-between items-start mb-6">
+                       <div className="p-3 bg-white/5 rounded-xl group-hover:scale-110 transition-transform duration-300 border border-white/5 group-hover:border-cyan/30">
+                          {project.icon}
+                       </div>
+                       <span className={`text-[10px] font-bold px-2 py-1 rounded border tracking-widest ${
+                          project.status === 'LIVE ALPHA' ? 'text-green-400 border-green-500/30 bg-green-500/10' :
+                          project.status === 'BETA' ? 'text-yellow-400 border-yellow-500/30 bg-yellow-500/10' :
+                          'text-cyan border-cyan/30 bg-cyan/10'
+                       }`}>
+                          {project.status}
+                       </span>
+                    </div>
+
+                    <div className="mb-1 text-[10px] text-gray-500 font-bold tracking-widest uppercase">{project.category}</div>
+                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-cyan transition-colors">{project.title}</h3>
+                    <p className="text-sm text-gray-400 leading-relaxed mb-6 flex-grow">
+                       {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mt-auto border-t border-white/5 pt-4">
+                       {project.tech.map(t => (
+                          <span key={t} className="text-[10px] text-gray-500 px-2 py-1 bg-white/5 rounded">
+                             {t}
+                          </span>
+                       ))}
                     </div>
                  </div>
-                 <ArrowUpRight className="text-slate-200 dark:text-white/20 group-hover:text-cyan transition-all group-hover:translate-x-1 group-hover:-translate-y-1" />
-               </div>
-             ))}
-          </div>
-        </motion.div>
-      </main>
+              </motion.div>
+           ))}
+        </div>
+        
+        {/* Footer Link */}
+        <div className="mt-20 text-center">
+           <Link to="/contact" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-cyan transition-colors tracking-widest uppercase group">
+              <span>Interested in our beta program?</span>
+              <ArrowUpRight size={14} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+           </Link>
+        </div>
 
-      {/* Grid Pattern Bottom */}
-      <div className="absolute bottom-0 left-0 w-full h-[300px] bg-gradient-to-t from-cyan/5 to-transparent pointer-events-none opacity-20"></div>
+      </div>
     </div>
   );
 };
