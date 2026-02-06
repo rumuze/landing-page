@@ -1,9 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Award, Zap, ShieldCheck, Database, Layout, Server, Cpu, Globe } from 'lucide-react';
+import { Github, Linkedin, Mail, Award, Zap, ShieldCheck, Database, Layout, Server, Cpu, Globe, ArrowUpRight } from 'lucide-react';
 import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
+import MagneticButton from '../components/MagneticButton';
 
 const AboutPage = () => {
   const { t, i18n } = useTranslation();
@@ -40,6 +41,25 @@ const AboutPage = () => {
     { category: "Global Edge", icon: <Globe />, items: ["Cloudflare Workers", "Edge Caching", "Global CDN", "WASM"] }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
   return (
     <div className={`pt-32 pb-20 overflow-hidden ${isAr ? 'rtl' : 'ltr'}`}>
       <SEO 
@@ -66,11 +86,12 @@ const AboutPage = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-32 relative"
         >
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan/5 rounded-full blur-[100px] -z-10 animate-pulse"></div>
 
-          <h1 className="text-5xl md:text-7xl font-black mb-8 text-slate-900 dark:text-white leading-tight">
+          <h1 className="text-5xl md:text-7xl font-black mb-8 text-slate-900 dark:text-white leading-tight tracking-tight">
             {isAr ? "نفك شفرة " : "DECODING "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-purple to-cyan bg-[length:200%_auto] animate-gradient-x">
               {isAr ? "التعقيد" : "COMPLEXITY"}
@@ -82,14 +103,17 @@ const AboutPage = () => {
         </motion.div>
 
         {/* Mission & Values Grid */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-32">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid lg:grid-cols-3 gap-8 mb-32"
+        >
           {values.map((value, idx) => (
              <motion.div 
                key={value.id}
-               initial={{ opacity: 0, y: 30 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true }}
-               transition={{ delay: idx * 0.1 }}
+               variants={itemVariants}
                className="p-8 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-cyan/30 transition-all group relative overflow-hidden"
              >
                 <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
@@ -104,27 +128,30 @@ const AboutPage = () => {
                 </div>
              </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Tech Stack Visualization */}
         <div className="mb-32">
            <motion.h2 
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
              className="text-3xl md:text-4xl font-black text-center mb-16 text-slate-900 dark:text-white"
            >
               {t('techStack.badge')}
            </motion.h2>
 
-           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+           <motion.div 
+             variants={containerVariants}
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true, margin: "-50px" }}
+             className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+           >
               {techStack.map((stack, idx) => (
                  <motion.div
                    key={stack.category}
-                   initial={{ opacity: 0, scale: 0.9 }}
-                   whileInView={{ opacity: 1, scale: 1 }}
-                   viewport={{ once: true }}
-                   transition={{ delay: idx * 0.1 }}
+                   variants={itemVariants}
                    className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-purple/40 transition-colors"
                  >
                     <div className="flex items-center gap-3 mb-6">
@@ -140,7 +167,7 @@ const AboutPage = () => {
                     </div>
                  </motion.div>
               ))}
-           </div>
+           </motion.div>
         </div>
 
         {/* Founder Section */}
@@ -167,15 +194,20 @@ const AboutPage = () => {
                 <p className="text-xl text-gray-400 mb-10 leading-relaxed italic">
                    "{t('about.cto.bio')}"
                 </p>
-                <div className="flex justify-center lg:justify-start gap-4">
-                  <a href="https://github.com/mohamedashraf" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-cyan hover:text-white transition-colors text-white">
-                     <Github size={20} />
-                  </a>
-                  <a href="https://linkedin.com/in/mohamedashraf" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-cyan hover:text-white transition-colors text-white">
-                     <Linkedin size={20} />
-                  </a>
-                  <Link to="/contact" className="px-8 py-3 rounded-full bg-cyan text-black font-bold hover:bg-white transition-colors">
-                     {isAr ? "تواصل معي" : "Get in Touch"}
+                <div className="flex justify-center lg:justify-start gap-6 items-center">
+                  <div className="flex gap-4">
+                    <a href="https://github.com/mohamedashraf" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-cyan hover:text-white transition-colors text-white">
+                       <Github size={20} />
+                    </a>
+                    <a href="https://linkedin.com/in/mohamedashraf" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-cyan hover:text-white transition-colors text-white">
+                       <Linkedin size={20} />
+                    </a>
+                  </div>
+                  
+                  <Link to={isAr ? "/ar/contact" : "/contact"}>
+                    <MagneticButton className="px-8 py-3 shadow-lg shadow-cyan/20">
+                       {t('hero.ctaExplore')} <ArrowUpRight size={18} className="rtl-flip" />
+                    </MagneticButton>
                   </Link>
                 </div>
              </div>

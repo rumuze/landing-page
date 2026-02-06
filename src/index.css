@@ -13,6 +13,19 @@
   body {
     @apply bg-white dark:bg-background text-slate-900 dark:text-white font-sans antialiased;
     scroll-behavior: smooth;
+    letter-spacing: -0.015em; /* Premium tight tracking */
+    line-height: 1.6; /* Editorial readability */
+  }
+
+  /* Premium Glow Effect for Glass Cards */
+  .cyan-glow:hover {
+    box-shadow: 0 0 40px -10px rgba(34, 211, 238, 0.3);
+    border-color: rgba(34, 211, 238, 0.4);
+  }
+
+  .purple-glow:hover {
+    box-shadow: 0 0 40px -10px rgba(192, 132, 252, 0.3);
+    border-color: rgba(192, 132, 252, 0.4);
   }
 
   [dir="rtl"] body {
