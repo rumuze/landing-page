@@ -13,6 +13,7 @@ import UpdateToast from './components/UpdateToast';
 import InstallPrompt from './components/InstallPrompt';
 import OfflineFallback from './pages/OfflineFallback';
 import ErrorBoundary from './components/ErrorBoundary';
+import CustomCursor from './components/CustomCursor';
 
 // Lazy load components
 const Hero = lazy(() => import('./components/Hero'));
@@ -81,7 +82,6 @@ function AppContent() {
   // PWA Register Logic
   const {
     needRefresh: [needRefresh, setNeedRefresh],
-    offlineReady: [offlineReady, setOfflineReady],
     updateServiceWorker,
   } = useRegisterSW({
     onRegistered() {
@@ -303,6 +303,7 @@ function App() {
           </AnimatePresence>
           <Router>
             <SEO />
+            <CustomCursor />
             <ScrollToTop />
             <AppContent />
           </Router>
