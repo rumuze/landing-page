@@ -180,3 +180,24 @@ self.addEventListener('install', (event) => {
     caches.open('offline-fallback').then((cache) => cache.add(offlinePage))
   );
 });
+// 6. Periodic Background Sync
+// Fetch fresh data in the background (e.g., daily news/projects)
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'update-labs-data') {
+    event.waitUntil(updateLabsData());
+  }
+});
+
+async function updateLabsData() {
+  const cache = await caches.open('api-cache');
+  try {
+    // Attempt to fetch fresh data for critical dynamic content
+    // Adjust endpoint as needed for your specific data source
+    const response = await fetch('/api/labs/featured');
+    if (response.ok) {
+      await cache.put('/api/labs/featured', response);
+    }
+  } catch (error) {
+    console.log('Periodic sync failed:', error);
+  }
+}

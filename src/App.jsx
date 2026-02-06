@@ -30,6 +30,7 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 import ShareButton from './components/ShareButton';
+import OfflineToast from './components/OfflineToast';
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -128,6 +129,30 @@ function AppContent() {
     }
   }, [i18n, location.pathname, isAr]);
 
+  // Periodic Sync Registration
+  useEffect(() => {
+    async function registerPeriodicSync() {
+      if ('serviceWorker' in navigator && 'periodicSync' in navigator.serviceWorker.registration) {
+        const registration = await navigator.serviceWorker.ready;
+        try {
+          // Check if already registered to avoid redundant calls
+          const tags = await registration.periodicSync.getTags();
+          if (!tags.includes('update-labs-data')) {
+            await registration.periodicSync.register('update-labs-data', {
+              // Minimum interval in milliseconds (24 hours)
+              minInterval: 24 * 60 * 60 * 1000,
+            });
+            console.log('Periodic Sync registered: update-labs-data');
+          }
+        } catch (error) {
+          console.error('Periodic Sync registration failed:', error);
+        }
+      }
+    }
+
+    registerPeriodicSync();
+  }, []);
+
   return (
     <div className={`min-h-screen bg-white dark:bg-background transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
       <motion.div
@@ -135,6 +160,7 @@ function AppContent() {
         style={{ scaleX }}
       />
       
+      <OfflineToast />
       <Navbar />
       
       <main>

@@ -1,0 +1,46 @@
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { WifiOff } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
+const OfflineToast = () => {
+  const { t } = useTranslation();
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {isOffline && (
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          className="fixed bottom-6 left-6 z-50 flex items-center gap-3 px-6 py-3 bg-slate-900/90 dark:bg-white/10 backdrop-blur-md border border-red-500/30 text-white rounded-full shadow-2xl"
+        >
+          <div className="relative">
+            <WifiOff size={20} className="text-red-400" />
+            <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-bold">{t('offline.title', 'You are offline')}</span>
+            <span className="text-xs text-gray-300">{t('offline.message', 'Viewing cached version')}</span>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default OfflineToast;
