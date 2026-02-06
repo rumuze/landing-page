@@ -1,136 +1,223 @@
 /**
- * Self-Hosted Fonts Configuration
+ * Bulletproof Font Configuration
  * 
- * Fonts are self-hosted to eliminate render-blocking requests to Google Fonts.
- * This improves FCP (First Contentful Paint) by ~400-800ms.
+ * STRATEGY: Progressive Enhancement with System Font Fallback
  * 
- * Fonts included:
- * - Inter: Latin (400, 500, 600, 700)
- * - Montserrat: Latin (700, 800)
- * - Cairo: Arabic (400, 600, 700, 900)
+ * 1. System fonts load INSTANTLY (no FOIT/FOUT)
+ * 2. Custom fonts load in background via font-display: swap
+ * 3. If custom fonts fail, system fonts remain (graceful degradation)
  * 
- * Note: Download fonts from https://google-webfonts-helper.herokuapp.com/
- * or use @fontsource packages for automatic optimization
+ * SYSTEM FONT STACKS:
+ * - Latin: system-ui → San Francisco → Segoe UI → Roboto → Ubuntu → Cantarell
+ * - Arabic: Segoe UI Arabic → Tahoma → Arial → system-ui
+ * 
+ * Note: Physical font files in /public/fonts are optional.
+ * If missing, the system stack provides excellent fallback.
  */
 
 /* ============================================================================
-   INTER - Primary Font (Latin)
+   SYSTEM FONT STACK DEFINITIONS
+   ============================================================================ */
+
+:root {
+  /* Latin System Font Stack (similar to Inter) */
+  --font-system-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Display Font Stack (similar to Montserrat) */
+  --font-system-display:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  /* Arabic System Font Stack (similar to Cairo) */
+  --font-system-arabic:
+    "Segoe UI Arabic", Tahoma, "Noto Sans Arabic", "Droid Arabic Naskh", Arial,
+    sans-serif;
+}
+
+/* ============================================================================
+   INTER - Primary Font (Latin) with Progressive Enhancement
    ============================================================================ */
 
 /* inter-400 - latin */
-/*
 @font-face {
-  font-display: swap;
+  font-display: swap; /* CRITICAL: Show text immediately with fallback */
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  src: url("/fonts/inter-v13-latin-regular.woff2") format("woff2");
+  src:
+    local("Inter Regular"),
+    local("Inter-Regular"),
+    url("/fonts/inter-v13-latin-regular.woff2") format("woff2");
 }
-*/
 
 /* inter-500 - latin */
-/*
 @font-face {
   font-display: swap;
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
-  src: url("/fonts/inter-v13-latin-500.woff2") format("woff2");
+  src:
+    local("Inter Medium"),
+    local("Inter-Medium"),
+    url("/fonts/inter-v13-latin-500.woff2") format("woff2");
 }
-*/
 
 /* inter-600 - latin */
-/*
 @font-face {
   font-display: swap;
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  src: url("/fonts/inter-v13-latin-600.woff2") format("woff2");
+  src:
+    local("Inter SemiBold"),
+    local("Inter-SemiBold"),
+    url("/fonts/inter-v13-latin-600.woff2") format("woff2");
 }
-*/
 
 /* inter-700 - latin */
-/*
 @font-face {
   font-display: swap;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  src: url("/fonts/inter-v13-latin-700.woff2") format("woff2");
+  src:
+    local("Inter Bold"),
+    local("Inter-Bold"),
+    url("/fonts/inter-v13-latin-700.woff2") format("woff2");
 }
-*/
 
 /* ============================================================================
    MONTSERRAT - Display Font (Latin)
    ============================================================================ */
 
 /* montserrat-700 - latin */
-/*
 @font-face {
   font-display: swap;
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 700;
-  src: url("/fonts/montserrat-v26-latin-700.woff2") format("woff2");
+  src:
+    local("Montserrat Bold"),
+    local("Montserrat-Bold"),
+    url("/fonts/montserrat-v26-latin-700.woff2") format("woff2");
 }
-*/
 
 /* montserrat-800 - latin */
-/*
 @font-face {
   font-display: swap;
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 800;
-  src: url("/fonts/montserrat-v26-latin-800.woff2") format("woff2");
+  src:
+    local("Montserrat ExtraBold"),
+    local("Montserrat-ExtraBold"),
+    url("/fonts/montserrat-v26-latin-800.woff2") format("woff2");
 }
-*/
 
 /* ============================================================================
    CAIRO - Arabic Font
    ============================================================================ */
 
 /* cairo-400 - arabic */
-/*
 @font-face {
   font-display: swap;
   font-family: "Cairo";
   font-style: normal;
   font-weight: 400;
-  src: url("/fonts/cairo-v28-arabic-regular.woff2") format("woff2");
+  src:
+    local("Cairo Regular"),
+    local("Cairo-Regular"),
+    url("/fonts/cairo-v28-arabic-regular.woff2") format("woff2");
 }
-*/
 
 /* cairo-600 - arabic */
-/*
 @font-face {
   font-display: swap;
   font-family: "Cairo";
   font-style: normal;
   font-weight: 600;
-  src: url("/fonts/cairo-v28-arabic-600.woff2") format("woff2");
+  src:
+    local("Cairo SemiBold"),
+    local("Cairo-SemiBold"),
+    url("/fonts/cairo-v28-arabic-600.woff2") format("woff2");
 }
-*/
 
 /* cairo-700 - arabic */
-/*
 @font-face {
   font-display: swap;
   font-family: "Cairo";
   font-style: normal;
   font-weight: 700;
-  src: url("/fonts/cairo-v28-arabic-700.woff2") format("woff2");
+  src:
+    local("Cairo Bold"),
+    local("Cairo-Bold"),
+    url("/fonts/cairo-v28-arabic-700.woff2") format("woff2");
 }
-*/
 
 /* cairo-900 - arabic */
-/*
 @font-face {
   font-display: swap;
   font-family: "Cairo";
   font-style: normal;
   font-weight: 900;
-  src: url("/fonts/cairo-v28-arabic-900.woff2") format("woff2");
+  src:
+    local("Cairo Black"),
+    local("Cairo-Black"),
+    url("/fonts/cairo-v28-arabic-900.woff2") format("woff2");
 }
-*/
+
+/* ============================================================================
+   FONT LOADING STATE (Optional: Font Loading Observer)
+   ============================================================================ */
+
+/**
+ * Font Loading Strategy:
+ * 
+ * 1. .fonts-loading: Applied by JS when fonts are loading
+ * 2. .fonts-loaded: Applied when fonts have loaded successfully
+ * 3. .fonts-failed: Applied if fonts fail to load
+ * 
+ * Usage in JS:
+ * document.fonts.ready.then(() => {
+ *   document.documentElement.classList.add('fonts-loaded');
+ * }).catch(() => {
+ *   document.documentElement.classList.add('fonts-failed');
+ * });
+ */
+
+/* Pre-load state: Use system fonts immediately (no FOIT) */
+html {
+  font-family: "Inter", var(--font-system-sans);
+}
+
+/* RTL languages use Cairo with Arabic system fallback */
+[dir="rtl"] {
+  font-family: "Cairo", var(--font-system-arabic);
+}
+
+/* Display fonts for headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", var(--font-system-display);
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: "Cairo", var(--font-system-arabic);
+}
+
+/* Optional: Subtle transition when fonts load */
+.fonts-loaded body {
+  transition: font-family 0.1s ease-out;
+}

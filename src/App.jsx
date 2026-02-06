@@ -26,6 +26,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 import ShareButton from './components/ShareButton';
 
 // Skeleton Loader
@@ -245,6 +246,13 @@ function AppContent() {
             <Route path="/ar/contact" element={
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
+              </motion.div>
+            } />
+
+            {/* 404 Catch-All Route */}
+            <Route path="*" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><NotFound /></Suspense>
               </motion.div>
             } />
           </Routes>

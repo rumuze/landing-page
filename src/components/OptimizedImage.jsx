@@ -114,25 +114,15 @@ const OptimizedImage = ({
         />
       )}
 
-      {/* Error fallback */}
+      {/* Error fallback - Branded glassmorphism placeholder */}
       {hasError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/5 backdrop-blur-sm">
-          <div className="text-center text-white/50">
-            <svg 
-              className="w-12 h-12 mx-auto mb-2" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" 
-              />
-            </svg>
-            <p className="text-sm">Image unavailable</p>
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-md">
+          <div className="text-center">
+            {/* Branded "R" Logo Placeholder */}
+            <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-br from-cyan/20 to-purple/20 border border-white/10 flex items-center justify-center">
+              <span className="text-2xl font-black bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent">R</span>
+            </div>
+            <p className="text-sm text-white/40 font-medium">Image unavailable</p>
           </div>
         </div>
       )}
