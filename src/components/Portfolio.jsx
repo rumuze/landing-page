@@ -91,6 +91,7 @@ const Portfolio = () => {
                     height={496}
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="w-full h-full"
+                    fetchpriority={idx === 0 ? "high" : "auto"}
                   />
                 </motion.div>
               </div>
