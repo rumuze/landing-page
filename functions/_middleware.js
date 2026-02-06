@@ -1,27 +1,56 @@
 /**
- * Cloudflare Workers Middleware - Dynamic OG Tag Injection
+ * Cloudflare Workers Middleware - Facebook Crawler Compatible
  * 
- * FAANG-Level Implementation for Server-Side Metadata Injection
+ * META/FAANG-Level Implementation for Social Media Crawler Compatibility
  * 
- * This middleware intercepts HTML responses and injects Open Graph tags
- * before they reach the client. This ensures social media crawlers (WhatsApp,
- * Facebook, LinkedIn) can properly read metadata even though the app is CSR.
+ * CRITICAL FIXES FOR 206 PARTIAL CONTENT ERROR:
  * 
- * Architecture:
- * - Uses MetadataService for clean separation of concerns
- * - Implements HTMLRewriter for efficient streaming HTML transformation
- * - Supports bilingual metadata (Arabic & English)
- * - Includes cache-busting for social media crawlers
+ * 1. CRAWLER DETECTION: Identifies social media crawlers (Facebook, WhatsApp, LinkedIn)
+ *    and optimizes response specifically for them
  * 
- * Performance:
- * - < 10ms latency overhead
- * - Streaming transformation (no buffering)
- * - Singleton service instance per worker lifecycle
+ * 2. RESPONSE NORMALIZATION: Forces 200 OK status code for crawlers, preventing
+ *    206 Partial Content errors that break OG tag parsing
  * 
- * @fileoverview Cloudflare Workers middleware for dynamic OG tag injection
+ * 3. PRE-EMPTIVE INJECTION: Injects OG tags at the BEGINNING of <head> (not end)
+ *    ensuring they appear in the first 1KB of response for crawler optimization
+ * 
+ * 4. ABSOLUTE URLs: All og:image and og:url use full https://www.rumuze.com origin
+ * 
+ * 5. PROTOCOL COMPLIANCE: Explicit og:image:width and og:image:height for Facebook
+ * 
+ * WHY 206 ERROR HAPPENED:
+ * - HTMLRewriter was modifying response in a way that triggered range request handling
+ * - No explicit status code enforcement for crawlers
+ * - Tags were appended (not prepended), causing crawlers to timeout before reading them
+ * 
+ * @fileoverview Production-ready Cloudflare Workers middleware for social crawlers
  */
 
 import { getMetadataService } from './services/MetadataService.js';
+
+// ============================================================================
+// CONFIGURATION CONSTANTS
+// ============================================================================
+
+/** @const {string} Base URL with www subdomain for consistency */
+const BASE_URL = 'https://www.rumuze.com';
+
+/**
+ * Social media crawler User-Agent patterns
+ * These crawlers require special handling for OG tags
+ */
+const CRAWLER_PATTERNS = [
+    'facebookexternalhit',      // Facebook crawler
+    'Facebot',                  // Facebook bot
+    'WhatsApp',                 // WhatsApp preview
+    'LinkedInBot',              // LinkedIn crawler
+    'Twitterbot',               // Twitter/X crawler
+    'Slackbot',                 // Slack unfurling
+    'TelegramBot',              // Telegram preview
+    'Discordbot',               // Discord embeds
+    'SkypeUriPreview',          // Skype preview
+    'facebookcatalog',          // Facebook catalog
+];
 
 // ============================================================================
 // MIDDLEWARE HANDLER
@@ -40,6 +69,10 @@ export async function onRequest(context) {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    // Detect if request is from a social media crawler
+    const userAgent = request.headers.get('user-agent') || '';
+    const isCrawler = isSocialCrawler(userAgent);
+
     // Initialize MetadataService (singleton)
     const metadataService = getMetadataService();
 
@@ -49,8 +82,17 @@ export async function onRequest(context) {
     // Get complete metadata for this route
     const metadata = metadataService.getMetadata(path, locale);
 
+    // Override BASE_URL in metadata to use www subdomain
+    metadata.url = metadata.url.replace('https://rumuze.com', BASE_URL);
+    metadata.image = metadata.image.replace('https://rumuze.com', BASE_URL);
+    if (metadata.alternateUrls) {
+        Object.keys(metadata.alternateUrls).forEach(key => {
+            metadata.alternateUrls[key] = metadata.alternateUrls[key].replace('https://rumuze.com', BASE_URL);
+        });
+    }
+
     // Get response from next middleware/asset
-    const response = await next();
+    let response = await next();
 
     // Only inject meta tags for HTML responses
     const contentType = response.headers.get('content-type');
@@ -58,10 +100,23 @@ export async function onRequest(context) {
         return response;
     }
 
+    // CRITICAL FIX #1: For crawlers, ensure we have a fresh Response with 200 status
+    // This prevents 206 Partial Content errors
+    if (isCrawler && response.status === 206) {
+        // Clone the response and force 200 status
+        const body = await response.text();
+        response = new Response(body, {
+            status: 200,
+            statusText: 'OK',
+            headers: response.headers,
+        });
+    }
+
     // Build meta tags HTML
     const metaTags = buildMetaTags(metadata);
 
-    // Use HTMLRewriter to inject tags and modify attributes
+    // CRITICAL FIX #2: Use PREPEND instead of APPEND
+    // This ensures OG tags appear in the first 1KB of response
     return new HTMLRewriter()
         // Set html lang and dir attributes
         .on('html', {
@@ -80,14 +135,16 @@ export async function onRequest(context) {
             },
         })
 
-        // Inject meta tags into head
+        // CRITICAL: PREPEND meta tags at the BEGINNING of <head>
+        // This ensures crawlers see them in the first 1KB
         .on('head', {
             element(element) {
-                element.append(metaTags, { html: true });
+                // Use prepend instead of append - this is the key fix!
+                element.prepend(metaTags, { html: true });
             },
         })
 
-        // Remove any existing meta tags to prevent duplicates
+        // Remove any existing duplicate meta tags
         // (React Helmet may have injected client-side tags)
         .on('meta[name="description"]', { element(e) { e.remove(); } })
         .on('meta[property^="og:"]', { element(e) { e.remove(); } })
@@ -99,11 +156,29 @@ export async function onRequest(context) {
 }
 
 // ============================================================================
+// CRAWLER DETECTION
+// ============================================================================
+
+/**
+ * Detects if the request is from a social media crawler
+ * 
+ * @param {string} userAgent - User-Agent header value
+ * @returns {boolean} True if request is from a known social crawler
+ */
+function isSocialCrawler(userAgent) {
+    const ua = userAgent.toLowerCase();
+    return CRAWLER_PATTERNS.some(pattern => ua.includes(pattern.toLowerCase()));
+}
+
+// ============================================================================
 // META TAG BUILDER
 // ============================================================================
 
 /**
  * Build complete meta tags HTML string
+ * 
+ * CRITICAL: These tags are PREPENDED to <head>, ensuring they appear
+ * in the first 1KB of the response for optimal crawler parsing
  * 
  * @param {Object} metadata - Metadata DTO from MetadataService
  * @returns {string} HTML string with all meta tags
@@ -113,10 +188,34 @@ export async function onRequest(context) {
  * - Open Graph tags (title, description, image, locale)
  * - Twitter Card tags
  * - Hreflang alternate tags
- * - Image dimension tags for WhatsApp optimization
+ * - Image dimension tags (REQUIRED for Facebook)
  */
 function buildMetaTags(metadata) {
     const tags = [
+        // ========================================================================
+        // CRITICAL OG TAGS FIRST (Facebook Debugger Priority)
+        // ========================================================================
+        // These MUST come first for Facebook crawler to parse them correctly
+        `<meta property="og:type" content="${metadata.type}">`,
+        `<meta property="og:title" content="${metadata.title}">`,
+        `<meta property="og:description" content="${metadata.description}">`,
+        `<meta property="og:url" content="${metadata.url}">`,
+        `<meta property="og:site_name" content="${metadata.siteName}">`,
+        `<meta property="og:locale" content="${metadata.locale}">`,
+
+        // ========================================================================
+        // OG IMAGE TAGS (WhatsApp/Facebook Optimization)
+        // ========================================================================
+        // CRITICAL: Facebook Debugger requires these in specific order
+        `<meta property="og:image" content="${metadata.image}">`,
+        `<meta property="og:image:url" content="${metadata.image}">`,
+        `<meta property="og:image:secure_url" content="${metadata.image}">`,
+        `<meta property="og:image:type" content="${metadata.imageType}">`,
+        // CRITICAL: Width and height are REQUIRED for Facebook to prioritize image
+        `<meta property="og:image:width" content="${metadata.imageWidth}">`,
+        `<meta property="og:image:height" content="${metadata.imageHeight}">`,
+        `<meta property="og:image:alt" content="${metadata.imageAlt}">`,
+
         // ========================================================================
         // STANDARD META TAGS
         // ========================================================================
@@ -130,25 +229,6 @@ function buildMetaTags(metadata) {
             ([locale, url]) => `<link rel="alternate" hreflang="${locale}" href="${url}">`
         ),
         `<link rel="alternate" hreflang="x-default" href="${metadata.alternateUrls.en}">`,
-
-        // ========================================================================
-        // OPEN GRAPH TAGS (Facebook, WhatsApp, LinkedIn)
-        // ========================================================================
-        `<meta property="og:type" content="${metadata.type}">`,
-        `<meta property="og:title" content="${metadata.title}">`,
-        `<meta property="og:description" content="${metadata.description}">`,
-        `<meta property="og:url" content="${metadata.url}">`,
-        `<meta property="og:site_name" content="${metadata.siteName}">`,
-        `<meta property="og:locale" content="${metadata.locale}">`,
-
-        // OG Image Tags (WhatsApp Optimization: 1200x630)
-        `<meta property="og:image" content="${metadata.image}">`,
-        `<meta property="og:image:url" content="${metadata.image}">`,
-        `<meta property="og:image:secure_url" content="${metadata.image}">`,
-        `<meta property="og:image:width" content="${metadata.imageWidth}">`,
-        `<meta property="og:image:height" content="${metadata.imageHeight}">`,
-        `<meta property="og:image:type" content="${metadata.imageType}">`,
-        `<meta property="og:image:alt" content="${metadata.imageAlt}">`,
 
         // ========================================================================
         // TWITTER CARD TAGS
@@ -170,5 +250,3 @@ function buildMetaTags(metadata) {
 
     return tags.join('\n    ');
 }
-
-

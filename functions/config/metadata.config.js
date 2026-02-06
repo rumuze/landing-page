@@ -31,8 +31,8 @@
 // CONFIGURATION CONSTANTS
 // ============================================================================
 
-/** @const {string} Base URL for the application */
-export const BASE_URL = 'https://rumuze.com';
+/** @const {string} Base URL for the application (with www for crawler consistency) */
+export const BASE_URL = 'https://www.rumuze.com';
 
 /** @const {string} Site name */
 export const SITE_NAME = 'Rumuze';
