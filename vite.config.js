@@ -30,7 +30,7 @@ export default defineConfig({
       manifest: {
         name: 'Rumuze | Digital Agency',
         short_name: 'Rumuze',
-        description: 'Elite Software Development & Growth Marketing Agency',
+        description: 'Elite Software Development & Growth Marketing Agency v1',
         theme_color: '#000B18',
         background_color: '#000B18',
         display: 'standalone',
