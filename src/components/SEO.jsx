@@ -112,8 +112,12 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
     schemas.push(breadcrumbSchema);
   }
 
-  // Dynamic OG Image based on Language
-  const ogImage = image || (currentLang === 'ar' ? `${baseUrl}/og-image-ar.png?v=1.0` : `${baseUrl}/og-image-en.png?v=1.0`);
+  // Dynamic OG Image based on Language (WhatsApp Optimized: 1200x630)
+  const ogImageVersion = '2026-02'; // Update this when images change for cache busting
+  const ogImage = image || `${baseUrl}/og-image-${currentLang}.png?v=${ogImageVersion}`;
+  const ogImageAlt = currentLang === 'ar' 
+    ? 'روموز - نفك شفرة التعقيد.. نطلق العنان للمستقبل'
+    : 'Rumuze - Complexity Decoded. Potential Unleashed.';
 
   // Dynamic Title based on Path/Lang
   const cleanPath = path ? path.replace(/^\/+/, '') : '';
@@ -145,6 +149,7 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={ogImageAlt} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content={currentLang === 'ar' ? 'ar_EG' : 'en_US'} />
@@ -154,6 +159,7 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
       <meta name="twitter:title" content={dynamicOgTitle} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image:alt" content={ogImageAlt} />
       <meta name="twitter:site" content="@rumuze" />
 
       {/* JSON-LD Payload Injection */}
