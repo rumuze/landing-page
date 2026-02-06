@@ -60,10 +60,14 @@ export default defineConfig({
         },
         orientation: 'any',
         scope: '/',
-        start_url: '/',
+        start_url: '/?utm_source=pwa',
         id: '/',
         dir: 'auto',
         lang: 'en-US',
+        scope_extensions: [
+          { origin: "*.rumuze.com" },
+          { origin: "rumuze.com" }
+        ],
         // Push Notifications
         gcm_sender_id: "103953800507", // Example ID - User should replace with real one if needed, or rely on VAPID
         categories: ['productivity', 'business', 'developer tools'],
@@ -147,7 +151,8 @@ export default defineConfig({
         file_handlers: [{ action: "/portfolio", accept: { "image/*": [".png", ".jpg", ".webp"] } }],
 
         // Security & Scope
-        scope_extensions: [{ origin: "*.rumuze.com" }],
+        // scope_extensions moved to top level for better visibility
+
 
         share_target: {
           action: '/contact',
