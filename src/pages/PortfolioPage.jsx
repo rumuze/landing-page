@@ -55,10 +55,19 @@ const PortfolioPage = () => {
         path={isRtl ? '/ar/portfolio' : '/portfolio'}
       />
       
-      <div className={`pt-32 pb-20 min-h-screen bg-slate-50 dark:bg-background ${isRtl ? 'rtl' : 'ltr'}`}>
+      {/* 
+        RTL Fix: 
+        1. Explicit dir prop
+        2. Logical properties (text-start, ms-auto, me-auto) 
+        3. Removed physical text alignment (text-left/right) favor of text-start
+      */}
+      <div 
+        className="pt-32 pb-20 min-h-screen bg-slate-50 dark:bg-background"
+        dir={isRtl ? 'rtl' : 'ltr'}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`flex flex-col md:flex-row justify-between items-end mb-16 gap-6 ${isRtl ? 'md:flex-row-reverse text-right' : 'text-left'}`}>
-            <div className={`max-w-xl ${isRtl ? 'text-right' : 'text-left'}`}>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div className="max-w-xl text-start">
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -94,7 +103,7 @@ const PortfolioPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className="group relative overflow-hidden rounded-3xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 cursor-pointer"
+                className="group relative overflow-hidden rounded-3xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 cursor-pointer text-start"
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <motion.div
@@ -111,7 +120,7 @@ const PortfolioPage = () => {
                   </motion.div>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                <div className={`absolute inset-0 p-8 flex flex-col justify-end transform transition-transform duration-500 group-hover:translate-y-[-8px] ${isRtl ? 'text-right' : 'text-left'}`}>
+                <div className="absolute inset-0 p-8 flex flex-col justify-end transform transition-transform duration-500 group-hover:translate-y-[-8px]">
                   <span className="text-cyan text-xs font-bold tracking-widest uppercase mb-2">{project.category}</span>
                   <h3 className="text-2xl font-bold mb-2 flex items-center gap-2 text-white">
                     {project.title}
@@ -128,7 +137,10 @@ const PortfolioPage = () => {
 
           <AnimatePresence>
             {selectedId && (
-              <div className="fixed inset-0 z-[100] grid place-items-center p-4">
+              <div 
+                className="fixed inset-0 z-[100] grid place-items-center p-4"
+                dir={isRtl ? 'rtl' : 'ltr'}
+              >
                  <motion.div 
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
@@ -139,12 +151,12 @@ const PortfolioPage = () => {
                  {projects.map(item => item.id === selectedId && (
                     <motion.div 
                       layoutId={selectedId} 
-                      className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-2xl relative z-10"
+                      className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-2xl relative z-10 text-start"
                       key={item.id}
                     >
                        <motion.button 
                           onClick={() => setSelectedId(null)}
-                          className="absolute top-4 right-4 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full z-20 transition-colors backdrop-blur-sm"
+                          className={`absolute top-4 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full z-20 transition-colors backdrop-blur-sm ${isRtl ? 'left-4' : 'right-4'}`}
                        >
                           <X size={20} />
                        </motion.button>
@@ -159,7 +171,7 @@ const PortfolioPage = () => {
                             className="w-full h-full object-cover"
                           />
                        </motion.div>
-                       <motion.div className={`p-8 ${isRtl ? 'text-right' : 'text-left'}`}>
+                       <motion.div className="p-8">
                           <div className="flex items-center gap-3 mb-4">
                             <span className="px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-bold tracking-widest uppercase">{item.category}</span>
                           </div>

@@ -4,7 +4,11 @@ import { motion } from 'framer-motion';
 const LoadingSpinner = ({ fullScreen = false }) => {
   return (
     <div 
-      className={`flex items-center justify-center ${fullScreen ? 'fixed inset-0 z-[9999] bg-[#000B18]' : 'w-full h-full'}`}
+      className={`flex items-center justify-center transition-colors duration-300 ${
+        fullScreen 
+        ? 'fixed inset-0 z-[9999] bg-white dark:bg-[#000B18]' 
+        : 'w-full h-full'
+      }`}
       role="alert"
       aria-live="polite"
     >
@@ -19,7 +23,7 @@ const LoadingSpinner = ({ fullScreen = false }) => {
             rotate: { duration: 2, repeat: Infinity, ease: "linear" },
             scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
           }}
-          className="w-32 h-32 border-4 border-slate-200/10 border-t-cyan-500 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.2)]"
+          className="w-32 h-32 border-4 rounded-full border-slate-200 dark:border-slate-200/10 border-t-purple-600 dark:border-t-cyan-500 shadow-lg dark:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-colors duration-300"
         />
         
         {/* Middle Pulse Ring */}
@@ -29,7 +33,7 @@ const LoadingSpinner = ({ fullScreen = false }) => {
             opacity: [0.1, 0.3, 0.1]
           }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute w-24 h-24 bg-cyan-500/20 rounded-full blur-xl"
+          className="absolute w-24 h-24 rounded-full blur-xl bg-purple-500/20 dark:bg-cyan-500/20 transition-colors duration-300"
         />
 
         {/* Logo Center */}
@@ -43,9 +47,9 @@ const LoadingSpinner = ({ fullScreen = false }) => {
             opacity: { duration: 0.5 },
             scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
           }}
-          className="absolute w-16 h-16 flex items-center justify-center"
+          className="absolute w-16 h-16 flex items-center justify-center p-2 bg-white dark:bg-transparent rounded-full shadow-sm dark:shadow-none transition-all duration-300"
         >
-          <img src="/rumuze.svg" alt="Rumuze Logo" className="w-12 h-12" />
+          <img src="/rumuze.svg" alt="Rumuze Logo" className="w-10 h-10 object-contain drop-shadow-md dark:drop-shadow-none" />
         </motion.div>
       </div>
     </div>
