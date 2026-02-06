@@ -23,11 +23,9 @@ export default defineConfig({
       injectRegister: 'auto',
       includeAssets: [
         'favicon.ico',
-        'apple-touch-icon.png',
-        'masked-icon.svg',
-        'rumuze.svg',
-        'rumuze.png',
-        'fonts/*.woff2' // Pre-cache critical fonts
+        'rumuze-192.png',     // Small icon for manifest (36KB)
+        'offline.html',       // Critical for offline fallback
+        'fonts/*.woff2'       // Pre-cache critical fonts
       ],
       manifest: {
         name: 'Rumuze | Digital Agency',
@@ -69,10 +67,14 @@ export default defineConfig({
         ]
       },
       workbox: {
-        // Critical: Pre-cache these file types for offline 100% availability
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-        // Increase limit for caching large assets (e.g. hero images)
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        // OPTIMIZED: Exclude large images from precache to keep under 2MB
+        globPatterns: ['**/*.{js,css,html,ico,woff2}'],
+        // Strict limit: only cache files under 512KB
+        maximumFileSizeToCacheInBytes: 512 * 1024,
+        // Ensure offline.html is always precached
+        additionalManifestEntries: [
+          { url: '/offline.html', revision: null }
+        ],
       }
     })
   ],

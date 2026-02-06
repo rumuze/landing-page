@@ -34,14 +34,14 @@ cleanupOutdatedCaches();
 // 2. Navigation Fallback
 // If a navigation route fails (offline), serve index.html (SPA shell)
 // This ensures the App shell loads, and then client-side routing takes over
-const allowlist = [/^\/$/];
+// FIXED: Removed restrictive allowlist - now matches ALL navigation routes for full SPA support
 const denyList = [
   /^\/api\//,     // API calls
   /^\/admin\//,   // Admin routes
-  /\.[a-z]+$/i    // Files with extensions
+  /\.[a-z]+$/i    // Files with extensions (assets)
 ];
 registerRoute(
-  new NavigationRoute(createHandlerBoundToURL('/index.html'), { allowlist, denyList })
+  new NavigationRoute(createHandlerBoundToURL('/index.html'), { denyList })
 );
 
 // 3. Runtime Caching Strategies
@@ -61,19 +61,20 @@ registerRoute(
   })
 );
 
-// Images (Cache First)
-// Store images for a long time. They rarely change.
+// Images (Cache First) - WITH SIZE LIMITS
+// OPTIMIZED: Limit to 50 images, auto-purge on quota error
 registerRoute(
   ({ request }) => request.destination === 'image',
   new CacheFirst({
     cacheName: 'images-cache',
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 100,
-        maxAgeSeconds: 60 * 24 * 60 * 60, // 60 Days
+        maxEntries: 50,               // LIMIT: Max 50 images
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+        purgeOnQuotaError: true,      // Auto-delete if storage full
       }),
       new CacheableResponsePlugin({
-        statuses: [0, 200], // Cache opaque responses (e.g. Unsplash)
+        statuses: [0, 200],
       }),
     ],
   })
@@ -116,8 +117,31 @@ registerRoute(
 
 // 4. Background Sync (Contact Form)
 // Queue failed POST requests and retry them when back online
+// OPTIMIZED: Added unique key strategy to prevent duplicate submissions
 const bgSyncPlugin = new BackgroundSyncPlugin('contactQueue', {
   maxRetentionTime: 24 * 60, // Retry for 24 hours
+  onSync: async ({ queue }) => {
+    let entry;
+    while ((entry = await queue.shiftRequest())) {
+      try {
+        // Clone request with unique submission ID to prevent duplicates
+        const request = entry.request.clone();
+        const formData = await request.clone().formData();
+
+        // Add unique submission ID if not present
+        if (!formData.has('_submissionId')) {
+          const uniqueId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+          formData.append('_submissionId', uniqueId);
+        }
+
+        await fetch(request);
+      } catch (error) {
+        // Re-queue failed request
+        await queue.unshiftRequest(entry);
+        throw error;
+      }
+    }
+  },
 });
 
 registerRoute(

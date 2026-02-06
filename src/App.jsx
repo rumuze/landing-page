@@ -80,13 +80,17 @@ function AppContent() {
   // PWA Register Logic
   const {
     needRefresh: [needRefresh, setNeedRefresh],
+    offlineReady: [offlineReady, setOfflineReady],
     updateServiceWorker,
   } = useRegisterSW({
     onRegistered() {
       console.log('SW Registered');
     },
     onRegisterError(error) {
-      console.log('SW registration error', error);
+      console.error('SW registration error', error);
+    },
+    onOfflineReady() {
+      console.log('App ready for offline use');
     },
   });
 
