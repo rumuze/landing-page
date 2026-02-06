@@ -26,7 +26,8 @@ export default defineConfig({
         'apple-touch-icon.png',
         'masked-icon.svg',
         'rumuze.svg',
-        'rumuze.png'
+        'rumuze.png',
+        'fonts/*.woff2' // Pre-cache critical fonts
       ],
       manifest: {
         name: 'Rumuze | Digital Agency',
@@ -38,6 +39,7 @@ export default defineConfig({
         orientation: 'portrait',
         scope: '/',
         start_url: '/',
+        id: '/',
         icons: [
           {
             src: 'rumuze.png',
@@ -65,6 +67,12 @@ export default defineConfig({
             label: 'Rumuze Experience'
           }
         ]
+      },
+      workbox: {
+        // Critical: Pre-cache these file types for offline 100% availability
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        // Increase limit for caching large assets (e.g. hero images)
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       }
     })
   ],
