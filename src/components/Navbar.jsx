@@ -94,13 +94,14 @@ const Navbar = () => {
                   <Link 
                     key={link.name} 
                     to={link.href}
+                    aria-current={isActive(link.href) ? 'page' : undefined}
                     className={`text-sm font-semibold transition-all flex items-center gap-2 relative py-1 ${
                       link.highlight 
                       ? 'text-cyan px-3 bg-cyan/10 border border-cyan/20 rounded-lg hover:bg-cyan/20' 
                       : 'text-slate-700 dark:text-gray-300 hover:text-cyan dark:hover:text-cyan'
                     }`}
                   >
-                    {link.icon}
+                    {link.icon && <span aria-hidden="true">{link.icon}</span>}
                     {link.name}
                     {isActive(link.href) && !link.highlight && (
                       <motion.div 
@@ -116,6 +117,7 @@ const Navbar = () => {
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
                 className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-800 dark:text-yellow-400 hover:scale-110 transition-all duration-300 border border-slate-200 dark:border-white/10 shadow-sm"
               >
                 <AnimatePresence mode="wait" initial={false}>
@@ -126,7 +128,7 @@ const Navbar = () => {
                     exit={{ rotate: 45, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                    {theme === 'dark' ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
                   </motion.div>
                 </AnimatePresence>
               </button>
@@ -135,11 +137,13 @@ const Navbar = () => {
               <div className="relative">
                 <button 
                   onClick={() => setShowLangMenu(!showLangMenu)}
+                  aria-label="Change language"
+                  aria-expanded={showLangMenu}
                   className="flex items-center gap-2 text-sm font-bold text-slate-800 dark:text-gray-300 hover:text-cyan border border-slate-200 dark:border-white/10 px-3 py-1.5 rounded-lg transition-all bg-slate-50 dark:bg-transparent shadow-sm"
                 >
-                  <Globe size={16} className="text-cyan" />
+                  <Globe size={16} className="text-cyan" aria-hidden="true" />
                   <span>{currentLang.name}</span>
-                  <ChevronDown size={14} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
+                  <ChevronDown size={14} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} aria-hidden="true" />
                 </button>
                 
                 <AnimatePresence>

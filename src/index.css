@@ -32,6 +32,21 @@
   h4 {
     @apply font-display text-slate-900 dark:text-white;
   }
+
+  /* WCAG AA Focus States for Perfect Accessibility */
+  *:focus-visible {
+    outline: 3px solid #00e5ff;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 3px solid #00e5ff;
+    outline-offset: 3px;
+  }
 }
 
 @layer components {

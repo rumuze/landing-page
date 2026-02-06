@@ -115,6 +115,39 @@ export async function onRequest(context) {
     // Build meta tags HTML
     const metaTags = buildMetaTags(metadata);
 
+    // ============================================================================
+    // SECURITY HEADERS FOR PERFECT BEST PRACTICES SCORE
+    // ============================================================================
+
+    // Content Security Policy (CSP)
+    const cspHeader = [
+        "default-src 'self'",
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // unsafe-inline/eval needed for Vite + React
+        "style-src 'self' 'unsafe-inline'",  // unsafe-inline for critical CSS
+        "img-src 'self' https://images.unsplash.com data: blob:",
+        "font-src 'self' data:",
+        "connect-src 'self'",
+        "frame-ancestors 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "upgrade-insecure-requests"
+    ].join('; ');
+
+    // Clone response to add security headers
+    const secureResponse = new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: new Headers(response.headers)
+    });
+
+    // Add all security headers
+    secureResponse.headers.set('Content-Security-Policy', cspHeader);
+    secureResponse.headers.set('X-Content-Type-Options', 'nosniff');
+    secureResponse.headers.set('X-Frame-Options', 'DENY');
+    secureResponse.headers.set('X-XSS-Protection', '1; mode=block');
+    secureResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    secureResponse.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+
     // CRITICAL FIX #2: Use PREPEND instead of APPEND
     // This ensures OG tags appear in the first 1KB of response
     return new HTMLRewriter()
@@ -152,7 +185,7 @@ export async function onRequest(context) {
         .on('link[rel="canonical"]', { element(e) { e.remove(); } })
         .on('link[rel="alternate"]', { element(e) { e.remove(); } })
 
-        .transform(response);
+        .transform(secureResponse);
 }
 
 // ============================================================================

@@ -52,7 +52,9 @@ const OptimizedImage = ({
     
     return widths
       .map(w => {
-        const url = `${cleanUrl}?auto=format&fit=crop&q=80&w=${w}&fm=webp`;
+        // Aggressive compression: q=65 (sweet spot for quality vs size)
+        // Saves 30-40% compared to q=80 with minimal visual difference
+        const url = `${cleanUrl}?auto=format&fit=crop&q=65&w=${w}&fm=webp`;
         return `${url} ${w}w`;
       })
       .join(', ');
@@ -67,7 +69,8 @@ const OptimizedImage = ({
     const cleanUrl = baseUrl.split('?')[0];
     // Use 800px as default (good balance for mobile + desktop)
     const optimalWidth = targetWidth || 800;
-    return `${cleanUrl}?auto=format&fit=crop&q=80&w=${optimalWidth}`;
+    // Match srcset compression: q=65
+    return `${cleanUrl}?auto=format&fit=crop&q=65&w=${optimalWidth}`;
   };
 
   const srcSet = generateSrcSet(src);
