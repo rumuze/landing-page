@@ -23,10 +23,10 @@ const Footer = () => {
               {t('footer.tagline')}
             </p>
             <div className={`flex gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
-              <a href="#" className="text-slate-400 hover:text-cyan transition-colors"><Twitter size={20} /></a>
-              <a href="#" className="text-slate-400 hover:text-cyan transition-colors"><Linkedin size={20} /></a>
-              <a href="#" className="text-slate-400 hover:text-cyan transition-colors"><Github size={20} /></a>
-              <a href="#" className="text-slate-400 hover:text-cyan transition-colors"><Instagram size={20} /></a>
+              <a href="https://twitter.com/rumuze" aria-label="Follow us on Twitter" className="text-slate-400 hover:text-cyan transition-colors"><Twitter size={20} /></a>
+              <a href="https://linkedin.com/company/rumuze" aria-label="Connect with us on LinkedIn" className="text-slate-400 hover:text-cyan transition-colors"><Linkedin size={20} /></a>
+              <a href="https://github.com/rumuze" aria-label="View our GitHub projects" className="text-slate-400 hover:text-cyan transition-colors"><Github size={20} /></a>
+              <a href="https://instagram.com/rumuze" aria-label="Follow us on Instagram" className="text-slate-400 hover:text-cyan transition-colors"><Instagram size={20} /></a>
             </div>
           </div>
 

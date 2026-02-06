@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, ZoomIn } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import OptimizedImage from './OptimizedImage';
 
 const Portfolio = () => {
   const { t, i18n } = useTranslation();
@@ -65,11 +66,18 @@ const Portfolio = () => {
               className="group relative overflow-hidden rounded-3xl bg-white dark:bg-background border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-500 cursor-pointer"
             >
               <div className="aspect-[4/3] overflow-hidden">
-                <motion.img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+                <motion.div
+                  className="w-full h-full transition-transform duration-700 group-hover:scale-110"
+                >
+                  <OptimizedImage
+                    src={project.image}
+                    alt={project.title}
+                    width={800}
+                    height={600}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="w-full h-full"
+                  />
+                </motion.div>
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-background via-white/40 dark:via-background/40 to-transparent opacity-80"></div>
               <div className={`absolute inset-0 p-8 flex flex-col justify-end transform transition-transform duration-500 group-hover:translate-y-[-10px] ${isRtl ? 'text-right' : 'text-left'}`}>
@@ -102,7 +110,15 @@ const Portfolio = () => {
                         <X size={20} />
                      </motion.button>
                      <motion.div className="aspect-video relative">
-                        <motion.img src={item.image} className="w-full h-full object-cover" />
+                        <OptimizedImage
+                          src={item.image}
+                          alt={item.title}
+                          width={1200}
+                          height={675}
+                          priority={true}
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="w-full h-full"
+                        />
                      </motion.div>
                      <motion.div className="p-8">
                         <span className="text-purple text-xs font-bold tracking-widest uppercase">{item.category}</span>

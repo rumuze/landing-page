@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import SEO from '../components/SEO';
+import OptimizedImage from '../components/OptimizedImage';
 
 const BlogPage = () => {
   const { t, i18n } = useTranslation();
@@ -71,11 +72,16 @@ const BlogPage = () => {
               className="group bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 flex flex-col"
             >
               <div className="relative h-64 overflow-hidden">
-                <img 
-                  src={post.image} 
-                  alt={post.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
+                <div className="w-full h-full group-hover:scale-110 transition-transform duration-700">
+                  <OptimizedImage
+                    src={post.image}
+                    alt={post.title}
+                    width={800}
+                    height={600}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="w-full h-full"
+                  />
+                </div>
                 <div className="absolute top-6 left-6 rtl:left-auto rtl:right-6">
                   <span className="px-4 py-2 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-xs font-black uppercase tracking-widest text-cyan shadow-lg">
                     {t(`blog.categories.${post.category}`)}

@@ -131,119 +131,121 @@ function AppContent() {
       
       <Navbar />
       
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          {/* Home Routes */}
-          <Route path="/" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}>
-                <Hero />
-                <Services />
-                <Portfolio />
-                <TechStack />
-                <Contact />
-              </Suspense>
-            </motion.div>
-          } />
-          <Route path="/ar" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}>
-                <Hero />
-                <Services />
-                <Portfolio />
-                <TechStack />
-                <Contact />
-              </Suspense>
-            </motion.div>
-          } />
+      <main>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            {/* Home Routes */}
+            <Route path="/" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}>
+                  <Hero />
+                  <Services />
+                  <Portfolio />
+                  <TechStack />
+                  <Contact />
+                </Suspense>
+              </motion.div>
+            } />
+            <Route path="/ar" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}>
+                  <Hero />
+                  <Services />
+                  <Portfolio />
+                  <TechStack />
+                  <Contact />
+                </Suspense>
+              </motion.div>
+            } />
 
-          {/* Offline Page */}
-          <Route path="/offline" element={<OfflineFallback />} />
-          <Route path="/ar/offline" element={<OfflineFallback />} />
+            {/* Offline Page */}
+            <Route path="/offline" element={<OfflineFallback />} />
+            <Route path="/ar/offline" element={<OfflineFallback />} />
 
-          {/* Labs Routes */}
-          <Route path="/labs" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><Labs /></Suspense>
-            </motion.div>
-          } />
-          <Route path="/ar/labs" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><Labs /></Suspense>
-            </motion.div>
-          } />
+            {/* Labs Routes */}
+            <Route path="/labs" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><Labs /></Suspense>
+              </motion.div>
+            } />
+            <Route path="/ar/labs" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><Labs /></Suspense>
+              </motion.div>
+            } />
 
-          {/* Services Routes */}
-          <Route path="/services" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
-            </motion.div>
-          } />
-          <Route path="/ar/services" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
-            </motion.div>
-          } />
+            {/* Services Routes */}
+            <Route path="/services" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
+              </motion.div>
+            } />
+            <Route path="/ar/services" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
+              </motion.div>
+            } />
 
-          {/* About Routes */}
-          <Route path="/about" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><AboutPage /></Suspense>
-            </motion.div>
-          } />
-          <Route path="/ar/about" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><AboutPage /></Suspense>
-            </motion.div>
-          } />
+            {/* About Routes */}
+            <Route path="/about" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Suspense />}><AboutPage /></Suspense>
+              </motion.div>
+            } />
+            <Route path="/ar/about" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><AboutPage /></Suspense>
+              </motion.div>
+            } />
 
-          {/* Blog Routes */}
-          <Route path="/blog" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
-            </motion.div>
-          } />
-          <Route path="/ar/blog" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
-            </motion.div>
-          } />
+            {/* Blog Routes */}
+            <Route path="/blog" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
+              </motion.div>
+            } />
+            <Route path="/ar/blog" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
+              </motion.div>
+            } />
 
-          {/* Legal Routes */}
-          <Route path="/privacy" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
-            </motion.div>
-          } />
-          <Route path="/ar/privacy" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
-            </motion.div>
-          } />
-          <Route path="/terms" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
-            </motion.div>
-          } />
-          <Route path="/ar/terms" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
-            </motion.div>
-          } />
+            {/* Legal Routes */}
+            <Route path="/privacy" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
+              </motion.div>
+            } />
+            <Route path="/ar/privacy" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
+              </motion.div>
+            } />
+            <Route path="/terms" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
+              </motion.div>
+            } />
+            <Route path="/ar/terms" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
+              </motion.div>
+            } />
 
-          {/* Contact Routes */}
-          <Route path="/contact" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
-            </motion.div>
-          } />
-          <Route path="/ar/contact" element={
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
-            </motion.div>
-          } />
-        </Routes>
-      </AnimatePresence>
+            {/* Contact Routes */}
+            <Route path="/contact" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
+              </motion.div>
+            } />
+            <Route path="/ar/contact" element={
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
+              </motion.div>
+            } />
+          </Routes>
+        </AnimatePresence>
+      </main>
 
       {/* Global Share Button */}
       <div className="fixed bottom-24 right-4 z-40 md:bottom-8 md:right-8">

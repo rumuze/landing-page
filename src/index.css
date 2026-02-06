@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&family=Cairo:wght@400;600;700;900&display=swap");
+/* Self-hosted fonts for optimal performance */
+@import "./styles/fonts.css";
 
 @tailwind base;
 @tailwind components;
@@ -35,7 +36,7 @@
 
 @layer components {
   .glass {
-    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
   }
 
   .glass-card {
@@ -47,7 +48,7 @@
   }
 
   .btn-outline {
-    @apply px-6 py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors duration-300;
+    @apply px-6 py-3 rounded-full border border-white/30 hover:bg-white/10 transition-colors duration-300;
   }
 
   .text-glow {
