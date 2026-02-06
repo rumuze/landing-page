@@ -58,7 +58,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-cyan text-xs font-bold mb-6 tracking-wider uppercase backdrop-blur-sm"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-cyan text-xs font-bold mb-6 tracking-wider uppercase backdrop-blur-sm"
           >
             <Sparkles size={14} />
             {t('hero.badge')}

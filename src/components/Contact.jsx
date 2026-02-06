@@ -173,18 +173,21 @@ const Contact = () => {
               <div className="flex gap-4">
                 <a
                   href="#"
+                  aria-label="LinkedIn"
                   className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
                 >
                   <Linkedin size={20} />
                 </a>
                 <a
                   href="#"
+                  aria-label="GitHub"
                   className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
                 >
                   <Github size={20} />
                 </a>
                 <a
                   href="#"
+                  aria-label="Website"
                   className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
                 >
                   <Globe size={20} />
