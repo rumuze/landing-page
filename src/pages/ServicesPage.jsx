@@ -64,11 +64,7 @@ const ServicesPage = () => {
 
   return (
     <div ref={containerRef} className={`min-h-screen bg-slate-50 dark:bg-[#000B18] overflow-hidden ${isAr ? 'rtl' : 'ltr'}`}>
-      <SEO 
-        title={t('services_page.title')} 
-        description={t('services.description')}
-        path={isAr ? '/ar/services' : '/services'}
-      />
+      <SEO path={isAr ? '/ar/services' : '/services'} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">

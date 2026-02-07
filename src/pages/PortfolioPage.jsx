@@ -49,11 +49,7 @@ const PortfolioPage = () => {
 
   return (
     <>
-      <SEO 
-        title={t('portfolio.title')} 
-        description={t('portfolio.description')}
-        path={isRtl ? '/ar/portfolio' : '/portfolio'}
-      />
+      <SEO path={isRtl ? '/ar/portfolio' : '/portfolio'} />
       
       {/* 
         RTL Fix: 

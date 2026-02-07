@@ -48,11 +48,7 @@ const BlogPage = () => {
 
   return (
     <div className="pt-32 pb-20">
-      <SEO 
-        title={t('blog.title')} 
-        description={t('blog.subtitle')}
-        path={isAr ? '/ar/blog' : '/blog'}
-      />
+      <SEO path={isAr ? '/ar/blog' : '/blog'} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 

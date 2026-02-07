@@ -178,6 +178,7 @@ function AppContent() {
             {/* Home Routes */}
             <Route path="/" element={
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <SEO path="/" />
                 <Suspense fallback={<Skeleton />}>
                   <Hero />
                   <Services />
@@ -190,6 +191,7 @@ function AppContent() {
             } />
             <Route path="/ar" element={
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <SEO path="/ar" />
                 <Suspense fallback={<Skeleton />}>
                   <Hero />
                   <Services />
@@ -351,7 +353,6 @@ function App() {
             )}
           </AnimatePresence>
           <Router>
-            <SEO />
             <CustomCursor />
             <ScrollToTop />
             <AppContent />

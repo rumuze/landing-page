@@ -142,11 +142,7 @@ const Labs = () => {
     <div
       className={`min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white overflow-hidden relative selection:bg-cyan selection:text-black font-mono ${isAr ? "rtl" : "ltr"}`}
     >
-      <SEO
-        title={t("labs.title")}
-        description={t("labs.description")}
-        path="/labs"
-      />
+      <SEO path={isAr ? '/ar/labs' : '/labs'} />
 
       {/* Cyberpunk Grid Background */}
       <div className="fixed inset-0 pointer-events-none">

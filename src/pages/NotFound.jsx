@@ -6,12 +6,14 @@
  * - Framer Motion animations
  * - Auto-detects locale from URL
  * - Language-aware navigation
+ * - Centralized SEO metadata
  */
 
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Home, ArrowLeft, Search } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const NotFound = () => {
   const location = useLocation();
@@ -47,6 +49,8 @@ const NotFound = () => {
       className={`min-h-screen bg-background flex items-center justify-center p-6 ${isArabic ? 'rtl' : 'ltr'}`}
       dir={isArabic ? 'rtl' : 'ltr'}
     >
+      <SEO path="/404" />
+      
       {/* Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-cyan/10 rounded-full blur-3xl" />

@@ -10,11 +10,7 @@ const ContactPage = () => {
 
   return (
     <>
-      <SEO 
-        title={t('contact.title')}
-        description={t('contact.description')}
-        path={isAr ? '/ar/contact' : '/contact'}
-      />
+      <SEO path={isAr ? '/ar/contact' : '/contact'} />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

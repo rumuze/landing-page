@@ -1,17 +1,47 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
+import { getMetaForRoute, validateMetadata } from '../utils/MetaConfig';
 
-const SEO = ({ title, description, image, type = 'website', path = '' }) => {
+const SEO = ({ title, description, image, type, path }) => {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
   const currentLang = i18n.language;
   
   const siteName = "Rumuze";
   const baseUrl = "https://rumuze.com";
-  const fullTitle = title ? `${title} | ${siteName}` : t('seo.defaultTitle');
-  const metaDescription = description || t('seo.defaultDescription');
-  const metaImage = image || `${baseUrl}/rumuze.png`;
-  const canonicalUrl = `${baseUrl}${path}`;
+  
+  // Use provided path or current location
+  const currentPath = path || location.pathname;
+  
+  // Get metadata from centralized config
+  const configMeta = getMetaForRoute(currentPath, currentLang);
+  
+  // Allow manual overrides via props, but prefer config
+  const metaTitle = title || configMeta.title;
+  const metaDescription = description || configMeta.description;
+  const metaImage = image || configMeta.image;
+  const metaType = type || configMeta.type || 'website';
+  const canonicalUrl = configMeta.url;
+  const metaKeywords = configMeta.keywords || t('seo.keywords');
+  const imageAlt = configMeta.imageAlt || metaTitle;
+  
+  // Validate metadata in development
+  if (import.meta.env.DEV) {
+    const validationMeta = {
+      title: metaTitle,
+      description: metaDescription,
+      image: metaImage,
+      url: canonicalUrl,
+      type: metaType
+    };
+    
+    const missing = validateMetadata(validationMeta);
+    if (missing.length > 0) {
+      console.warn(`[SEO] Missing required fields for ${currentPath}:`, missing);
+    }
+  }
 
   // 1. Organization & Local Business Schema
   const schemas = [
@@ -89,78 +119,91 @@ const SEO = ({ title, description, image, type = 'website', path = '' }) => {
   }
 
   // 4. Breadcrumb Schema (Dynamic)
-  if (path && path !== '/') {
-    const segments = path.split('/').filter(Boolean);
-    const breadcrumbSchema = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": t('breadcrumbs.home'),
-          "item": baseUrl
-        },
-        ...segments.map((segment, idx) => ({
-          "@type": "ListItem",
-          "position": idx + 2,
-          "name": t(`breadcrumbs.${segment}`) || segment.toUpperCase(),
-          "item": `${baseUrl}/${segments.slice(0, idx + 1).join('/')}`
-        }))
-      ]
-    };
-    schemas.push(breadcrumbSchema);
+  if (currentPath && currentPath !== '/') {
+    const segments = currentPath.split('/').filter(Boolean).filter(s => s !== 'ar');
+    if (segments.length > 0) {
+      const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": t('breadcrumbs.home'),
+            "item": baseUrl
+          },
+          ...segments.map((segment, idx) => ({
+            "@type": "ListItem",
+            "position": idx + 2,
+            "name": t(`breadcrumbs.${segment}`) || segment.toUpperCase(),
+            "item": `${baseUrl}/${segments.slice(0, idx + 1).join('/')}`
+          }))
+        ]
+      };
+      schemas.push(breadcrumbSchema);
+    }
   }
 
-  // Dynamic OG Image based on Language (WhatsApp Optimized: 1200x630)
-  const ogImageVersion = '2026-02'; // Update this when images change for cache busting
-  const ogImage = image || `${baseUrl}/og-image-${currentLang}.png?v=${ogImageVersion}`;
-  const ogImageAlt = currentLang === 'ar' 
-    ? 'روموز - نفك شفرة التعقيد.. نطلق العنان للمستقبل'
-    : 'Rumuze - Complexity Decoded. Potential Unleashed.';
-
-  // Dynamic Title based on Path/Lang
-  const cleanPath = path ? path.replace(/^\/+/, '') : '';
-  const isServices = cleanPath.includes('services');
-  const isLabs = cleanPath.includes('labs');
-
-  let dynamicOgTitle = title ? fullTitle : t('seo.ogTitle');
-  if (isServices) dynamicOgTitle = t('seo.titles.services') + ` | ${siteName}`;
-  if (isLabs) dynamicOgTitle = t('seo.titles.labs') + ` | ${siteName}`;
+  // 5. WebPage Schema
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": metaTitle,
+    "description": metaDescription,
+    "url": canonicalUrl,
+    "image": metaImage,
+    "inLanguage": currentLang === 'ar' ? 'ar-EG' : 'en-US',
+    "publisher": {
+      "@type": "Organization",
+      "name": siteName,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${baseUrl}/rumuze.png`
+      }
+    }
+  };
+  schemas.push(webPageSchema);
 
   return (
     <Helmet>
       {/* Search Engine Optimization */}
-      <title>{fullTitle}</title>
+      <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} />
-      <meta name="keywords" content={t('seo.keywords')} />
+      <meta name="keywords" content={metaKeywords} />
       <link rel="canonical" href={canonicalUrl} />
       <html lang={currentLang} dir={i18n.dir()} />
 
       {/* Multilingual Hreflang Tags */}
-      <link rel="alternate" hreflang="en" href={`${baseUrl}${path}`} />
-      <link rel="alternate" hreflang="ar" href={`${baseUrl}${path}`} />
-      <link rel="alternate" hreflang="x-default" href={`${baseUrl}${path}`} />
+      <link rel="alternate" hreflang="en" href={`${baseUrl}${currentPath.replace('/ar', '')}`} />
+      <link rel="alternate" hreflang="ar" href={`${baseUrl}/ar${currentPath.replace('/ar', '')}`} />
+      <link rel="alternate" hreflang="x-default" href={`${baseUrl}${currentPath.replace('/ar', '')}`} />
 
-      {/* Open Graph / Social Media */}
-      <meta property="og:type" content={type} />
-      <meta property="og:title" content={dynamicOgTitle} />
-      <meta property="og:description" content={description ? metaDescription : t('seo.ogDescription')} />
-      <meta property="og:image" content={ogImage} />
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content={metaType} />
+      <meta property="og:title" content={metaTitle} />
+      <meta property="og:description" content={metaDescription} />
+      <meta property="og:image" content={metaImage} />
+      <meta property="og:image:secure_url" content={metaImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={ogImageAlt} />
+      <meta property="og:image:alt" content={imageAlt} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content={currentLang === 'ar' ? 'ar_EG' : 'en_US'} />
 
-      {/* Twitter Mastery */}
+      {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={dynamicOgTitle} />
+      <meta name="twitter:title" content={metaTitle} />
       <meta name="twitter:description" content={metaDescription} />
-      <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:image:alt" content={ogImageAlt} />
+      <meta name="twitter:image" content={metaImage} />
+      <meta name="twitter:image:alt" content={imageAlt} />
       <meta name="twitter:site" content="@rumuze" />
+      <meta name="twitter:creator" content="@rumuze" />
+
+      {/* Additional Meta Tags for Better Indexing */}
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="author" content="Rumuze" />
+      <meta name="publisher" content="Rumuze" />
 
       {/* JSON-LD Payload Injection */}
       {schemas.map((schema, index) => (
