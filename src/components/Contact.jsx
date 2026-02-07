@@ -9,6 +9,7 @@ import {
   Linkedin,
   Github,
   Globe,
+  Facebook,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./LoadingSpinner";
@@ -179,11 +180,18 @@ const Contact = () => {
                   <Linkedin size={20} />
                 </a>
                 <a
-                  href="#"
+                  href="https://github.com/rumuze"
                   aria-label="GitHub"
                   className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
                 >
                   <Github size={20} />
+                </a>
+                <a
+                  href="https://www.facebook.com/rumuze"
+                  aria-label="Facebook"
+                  className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
+                >
+                  <Facebook size={20} />
                 </a>
                 <a
                   href="#"

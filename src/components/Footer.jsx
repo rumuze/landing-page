@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Github, Twitter, Linkedin, Instagram, Facebook } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -26,6 +26,7 @@ const Footer = () => {
               <a href="https://twitter.com/rumuze" aria-label="Follow us on Twitter" className="text-slate-200 hover:text-cyan transition-colors"><Twitter size={20} /></a>
               <a href="https://linkedin.com/company/rumuze" aria-label="Connect with us on LinkedIn" className="text-slate-200 hover:text-cyan transition-colors"><Linkedin size={20} /></a>
               <a href="https://github.com/rumuze" aria-label="View our GitHub projects" className="text-slate-200 hover:text-cyan transition-colors"><Github size={20} /></a>
+              <a href="https://www.facebook.com/rumuze" aria-label="Follow us on Facebook" className="text-slate-200 hover:text-cyan transition-colors"><Facebook size={20} /></a>
               <a href="https://instagram.com/rumuze" aria-label="Follow us on Instagram" className="text-slate-200 hover:text-cyan transition-colors"><Instagram size={20} /></a>
             </div>
           </div>
