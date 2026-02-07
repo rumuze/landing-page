@@ -265,6 +265,59 @@
     "labs": {
         "title": "Rumuze Labs: Where Research Meets Reality",
         "subtitle": "The R&D division dedicated to the edge of possibility.",
-        "description": "Rumuze Labs is our dedicated research facility. Here, we transform academic theories into industrial-grade reality. From self-healing networks to generative design, Labs is where we engineer the tools of tomorrow, ensuring our partners are always a decade ahead."
+        "description": "Rumuze Labs is our dedicated research facility. Here, we transform academic theories into industrial-grade reality. From self-healing networks to generative design, Labs is where we engineer the tools of tomorrow, ensuring our partners are always a decade ahead.",
+        "badge": "Research Division",
+        "heading": "THE LABORATORY",
+        "intro": "Welcome to the bleeding edge. Here, we build the technologies that will define the next decade.",
+        "intro_highlight": "No clients. No deadlines. Just raw innovation.",
+        "cta_beta": "Interested in our beta program?",
+        "terminal": {
+            "init": "> INITIALIZING RUMUZE_CORE_V2.0...",
+            "neural": "> LOADING NEURAL_NETWORKS...",
+            "quantum": "> CONNECTING TO QUANTUM_NODES...",
+            "status": "> SYSTEM_STATUS: ONLINE",
+            "location": "> DETECTING USER_LOCATION...",
+            "optimize": "> OPTIMIZING ASSETS FOR ENTROPY REDUCTION...",
+            "access": "> ACCESS GRANTED: WELCOME TO THE LAB.",
+            "authorized": "Authorized Personnel Only"
+        },
+        "projects": {
+            "holo_ui": {
+                "title": "Holo-Interface V1",
+                "category": "UX / SPATIAL",
+                "status": "BETA",
+                "description": "Experimental spatial UI patterns for Apple Vision Pro and Meta Quest 3."
+            },
+            "quantum_encryption": {
+                "title": "Post-Quantum Cryptography",
+                "category": "SECURITY",
+                "status": "R&D",
+                "description": "Lattice-based cryptography implementation resistant to quantum decryption attacks."
+            },
+            "neural_search": {
+                "title": "Neural Search Engine",
+                "category": "AI / BACKEND",
+                "status": "LIVE ALPHA",
+                "description": "Semantic search engine using vector embeddings for context-aware query resolution."
+            },
+            "edge_compute": {
+                "title": "Edge Mesh Network",
+                "category": "INFRASTRUCTURE",
+                "status": "PROTOTYPE",
+                "description": "Decentralized CDN logic running entirely on client-side service workers."
+            },
+            "generative_branding": {
+                "title": "Generative Branding",
+                "category": "DESIGN",
+                "status": "CONCEPT",
+                "description": "AI model generating real-time brand assets based on user behavioral sentiment."
+            },
+            "autonomous_dao": {
+                "title": "Autonomous Enterprise DAO",
+                "category": "WEB3",
+                "status": "CLOSED BETA",
+                "description": "Smart contract system for fully automated corporate treasury management."
+            }
+        }
     }
 }

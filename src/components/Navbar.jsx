@@ -17,11 +17,7 @@ const Navbar = () => {
 
   const isAr = i18n.language === 'ar';
 
-  // Force RTL/LTR update on location change
-  useEffect(() => {
-    document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-    document.documentElement.lang = isAr ? 'ar' : 'en';
-  }, [isAr, location.pathname]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,8 +50,8 @@ const Navbar = () => {
       }
     }
     
+    // Just navigate. App.jsx will handle the i18n switch.
     navigate(newPath);
-    i18n.changeLanguage(lng);
     setShowLangMenu(false);
     setIsOpen(false);
   };

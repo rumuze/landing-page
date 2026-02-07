@@ -111,23 +111,32 @@ function AppContent() {
   }, []);
 
   // Language Synchronizer with Path
+  // Language Synchronizer with Path
   useEffect(() => {
+    // 1. Determine target language from URL
     const isPathAr = location.pathname.startsWith('/ar');
-    if (isPathAr && i18n.language !== 'ar') {
-      i18n.changeLanguage('ar');
-    } else if (!isPathAr && i18n.language !== 'en' && !location.pathname.includes('/labs')) {
-      i18n.changeLanguage('en');
+    const targetLang = isPathAr ? 'ar' : 'en';
+
+    // 2. Sync i18n instance if mismatched
+    if (i18n.language !== targetLang) {
+      i18n.changeLanguage(targetLang);
     }
 
-    document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-    document.documentElement.lang = i18n.language;
+    // 3. Update document attributes
+    const dir = targetLang === 'ar' ? 'rtl' : 'ltr';
+    if (document.documentElement.dir !== dir) {
+       document.documentElement.dir = dir;
+    }
+    if (document.documentElement.lang !== targetLang) {
+       document.documentElement.lang = targetLang;
+    }
     
     // Set theme color dynamically for mobile status bar
     const themeColor = document.querySelector('meta[name="theme-color"]');
     if (themeColor) {
       themeColor.setAttribute('content', '#000B18');
     }
-  }, [i18n, location.pathname, isAr]);
+  }, [i18n, location.pathname]);
 
   // Periodic Sync Registration
   useEffect(() => {

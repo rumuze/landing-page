@@ -39,9 +39,6 @@ if (!localStorage.getItem('i18nextLng')) {
     }
 }
 
-// Global initial setup
-const dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
-document.documentElement.dir = dir;
-document.documentElement.lang = i18n.language;
+
 
 export default i18n;
