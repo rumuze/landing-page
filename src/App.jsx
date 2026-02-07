@@ -154,7 +154,7 @@ function AppContent() {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-white dark:bg-background transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
+    <div className={`min-h-screen bg-white dark:bg-background tech-grid transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan to-purple origin-left z-[100]"
         style={{ scaleX }}

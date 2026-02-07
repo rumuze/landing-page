@@ -79,7 +79,7 @@ const OptimizedImage = ({
 
   return (
     <div 
-      className={`relative overflow-hidden ${className}`}
+      className={`rumuze-signature relative overflow-hidden ${className}`}
       style={{ 
         aspectRatio: width && height ? `${width} / ${height}` : undefined 
       }}

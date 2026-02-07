@@ -87,9 +87,9 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center w-full">
             {/* Logo */}
-            <Link to={isAr ? '/ar/' : '/'} className="flex items-center gap-2 group shrink-0">
-              <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-white shadow-lg shadow-cyan/20 group-hover:scale-110 transition-transform overflow-hidden">
-                <img src="/rumuze.svg" alt="Rumuze Logo" width="24" height="24" className="w-6 h-6 z-10" />
+            <Link to={isAr ? '/ar/' : '/'} className="flex items-center gap-3 group shrink-0">
+              <div className="relative w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-white shadow-lg shadow-cyan/20 group-hover:scale-110 transition-transform overflow-hidden">
+                <img src="/rumuze-logo-master.png" alt="Rumuze Logo" className="w-10 h-10 z-10" />
                 <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
               </div>
               <span className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">RUMUZE</span>
