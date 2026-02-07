@@ -279,31 +279,76 @@
                     "content": "Your data stays within our ecosystem, except when:\n\n• **Strategic Partners:** We collaborate with cloud providers (AWS, Vercel) and media platforms (Meta, Google) to execute your projects.\n• **Legal Mandates:** We comply with strict legal requirements to protect our agency and clients."
                 },
                 {
+                    "id": "sovereignty",
+                    "title": "5. International Data Transfers",
+                    "content": "As a global entity, Rumuze may process your data in multiple jurisdictions. We rely on Standard Contractual Clauses (SCCs) and adequacy decisions to ensure your data remains protected regardless of borders, in full compliance with GDPR and CCPA frameworks."
+                },
+                {
+                    "id": "retention",
+                    "title": "6. Data Retention",
+                    "content": "We retain client data only as long as necessary to fulfill contractual obligations or legal requirements. \n\n• **Active Projects:** Retained for the duration of the service agreement + 1 year.\n• **Financial Records:** Retained for 7 years for tax and audit compliance.\n• **Marketing Data:** Anonymized or deleted upon contract termination."
+                },
+                {
                     "id": "security",
-                    "title": "5. Data Security",
+                    "title": "7. Data Security",
                     "content": "We employ military-grade encryption for all client assets. Source code is stored in secure, private repositories. Marketing data is handled with strict role-based access controls (RBAC) to ensure confidentiality."
                 },
                 {
                     "id": "rights",
-                    "title": "6. Your Privacy Rights",
+                    "title": "8. Your Privacy Rights",
                     "content": "You retain full ownership of your intellectual property. You have the right to:\n\n• **Access:** Review the data we hold on your projects.\n• **Portability:** Request a transfer of your brand assets and code repositories.\n• **Deletion:** Request removal of sensitive data upon contract termination, subject to retention laws."
                 },
                 {
                     "id": "contact",
-                    "title": "7. Contact Us",
+                    "title": "9. Contact Us",
                     "content": "For privacy concerns regarding your software or brand assets, contact our Legal Team:\n\n**Email:** legal@rumuze.com\n**Address:** Rumuze HQ, Global Tech Park."
                 }
             ]
         },
         "terms": {
-            "title": "Terms of Service",
-            "lastUpdated": "Last Updated: February 2026",
-            "intro": "By accessing Rumuze, you agree to abide by these terms of service and to comply with all applicable laws and regulations.",
+            "title": "Master Services Agreement",
+            "lastUpdated": "Last Updated: February 7, 2026",
+            "intro": "These Terms constitute a binding Master Services Agreement (MSA) between Rumuze ('The Agency') and you ('The Client'). By engaging our services, you agree to these terms governing intellectual property, liability, and performance standards.",
             "sections": [
                 {
                     "id": "acceptance",
-                    "title": "1. Acceptance of Terms",
-                    "content": "By accessing our website, you confirm that you have read, understood, and agreed to be bound by these terms."
+                    "title": "1. Scope of Engagement",
+                    "content": "Rumuze agrees to provide software development, design, and marketing services as detailed in specific Statements of Work (SOW). This MSA governs all such SOWs and prevails over any conflicting terms in purchase orders."
+                },
+                {
+                    "id": "ip",
+                    "title": "2. Intellectual Property Rights",
+                    "content": "To ensure mutual protection of assets:\n\n• **Client Ownership:** Upon full payment, the Client owns all 'Deliverables' created specifically for them (e.g., custom code, logos, campaign strategies).\n• **Agency Background IP:** Rumuze retains all rights to its pre-existing code libraries, tools, frameworks, and methodologies used to create the Deliverables. The Client is granted a perpetual, non-exclusive license to use this Background IP within the scope of the project."
+                },
+                {
+                    "id": "confidentiality",
+                    "title": "3. Confidentiality",
+                    "content": "Both parties agree to hold all 'Confidential Information' (trade secrets, strategy documents, code repositories) in strict confidence. This obligation survives the termination of this Agreement for a period of five (5) years."
+                },
+                {
+                    "id": "payment",
+                    "title": "4. Payment & Commercial Terms",
+                    "content": "• **Invoicing:** Services are billed according to the SOW schedule. Invoices are due Net-30 from receipt.\n• **Late Fees:** Overdue payments shall accrue interest at the lesser of 1.5% per month or the maximum rate permitted by law.\n• **Suspension:** Rumuze reserves the right to suspend services for accounts more than 15 days overdue."
+                },
+                {
+                    "id": "warranties",
+                    "title": "5. Warranties & Disclaimers",
+                    "content": "Rumuze warrants that services will be performed in a professional manner in accordance with industry standards. EXCEPT AS EXPRESSLY STATED, ALL DELIVERABLES ARE PROVIDED 'AS IS'. WE DISCLAIM ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE."
+                },
+                {
+                    "id": "liability",
+                    "title": "6. Limitation of Liability",
+                    "content": "IN NO EVENT SHALL RUMUZE BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES. OUR TOTAL AGGREGATE LIABILITY ARISING OUT OF THIS AGREEMENT SHALL NOT EXCEED THE TOTAL FEES PAID BY THE CLIENT IN THE SIX (6) MONTHS PRECEDING THE CLAIM."
+                },
+                {
+                    "id": "termination",
+                    "title": "7. Termination",
+                    "content": "• **For Convenience:** Either party may terminate an SOW with 30 days written notice, subject to payment for work completed.\n• **For Cause:** Immediate termination permitted for material breach uncured after 10 days notice."
+                },
+                {
+                    "id": "jurisdiction",
+                    "title": "8. Governing Law",
+                    "content": "This Agreement shall be governed by international commercial standards and the laws of the jurisdiction where Rumuze's invoicing entity is registered. Disputes shall be resolved through binding arbitration."
                 }
             ]
         }
