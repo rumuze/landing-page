@@ -125,18 +125,18 @@ export default defineConfig({
         note_taking: { new_note_url: "/contact" },
         widgets: [
           {
-            name: "Rumuze Labs",
-            description: "Latest projects",
-            tag: "labs",
-            msAcTemplate: "labs-widget.json",
-            data: "labs-widget.json",
+            name: "Rumuze Insights",
+            description: "Stay updated with our latest Lab experiments and software solutions.",
+            tag: "rumuze-news",
+            msAcTemplate: "widgets/labs-template.json",
+            data: "widgets/labs-template.json",
             type: "application/json",
             screenshots: [
               {
                 src: "/og-image.png",
                 sizes: "640x640",
                 type: "image/jpeg",
-                label: "Labs Widget Preview"
+                label: "Insights Widget Preview"
               }
             ],
             icons: [
