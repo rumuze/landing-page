@@ -87,12 +87,31 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center w-full">
             {/* Logo */}
-            <Link to={isAr ? '/ar/' : '/'} className="flex items-center gap-3 group shrink-0">
-              <div className="relative w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan to-purple text-white shadow-lg shadow-cyan/20 group-hover:scale-110 transition-transform overflow-hidden">
-                <img src="/rumuze-logo-master.png" alt="Rumuze Logo" className="w-10 h-10 z-10" />
-                <div className="absolute inset-0 bg-cyan blur-md opacity-20 animate-pulse"></div>
+            <Link to={isAr ? '/ar/' : '/'} className="flex items-center gap-4 group shrink-0">
+              {/* Symbol Container with Scanning Effect */}
+              <div className="relative w-12 h-12 flex items-center justify-center rounded-xl bg-slate-900/50 dark:bg-white/5 backdrop-blur-md border border-white/10 shadow-lg shadow-cyan/10 group-hover:border-cyan/50 transition-all duration-500 overflow-hidden">
+                <img src="/rumuze-symbol.png" alt="Rumuze Symbol" className="w-9 h-9 z-10 filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-transform group-hover:scale-110" />
+                
+                {/* Scanning Line Animation */}
+                <motion.div 
+                  initial={{ top: "-10%" }}
+                  animate={{ top: "110%" }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  className="absolute left-0 right-0 h-[2px] bg-cyan/40 shadow-[0_0_15px_rgba(0,229,255,0.8)] z-20 opacity-0 group-hover:opacity-100 transition-opacity"
+                />
+                
+                {/* Circuit Activation Glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               </div>
-              <span className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">RUMUZE</span>
+
+              {/* Text Brand Image */}
+              <div className="h-6 flex items-center overflow-hidden">
+                <img 
+                  src="/rumuze-text.png" 
+                  alt="RUMUZE" 
+                  className="h-full object-contain filter dark:invert-0 invert opacity-90 group-hover:opacity-100 transition-opacity" 
+                />
+              </div>
             </Link>
 
             {/* Desktop Nav */}
@@ -226,9 +245,11 @@ const Navbar = () => {
           >
             {/* Header */}
             <div className={`p-6 flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
-               <div className="flex items-center gap-2">
-                  <img src="/rumuze.svg" alt="Logo" className="w-8 h-8" />
-                  <span className="font-black text-xl text-slate-900 dark:text-white">RUMUZE</span>
+               <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-white/5 border border-white/10">
+                    <img src="/rumuze-symbol.png" alt="Logo" className="w-7 h-7" />
+                  </div>
+                  <img src="/rumuze-text.png" alt="RUMUZE" className="h-5 object-contain dark:invert-0 invert" />
                </div>
                <button 
                   onClick={() => setIsOpen(false)}
