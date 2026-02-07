@@ -36,10 +36,11 @@ import { getMetadataService } from './services/MetadataService.js';
 const BASE_URL = 'https://www.rumuze.com';
 
 /**
- * Social media crawler User-Agent patterns
- * These crawlers require special handling for OG tags
+ * Social media and Search Engine crawler User-Agent patterns
+ * These crawlers require special handling for OG tags OR full pre-rendered content
  */
 const CRAWLER_PATTERNS = [
+    // Social Media
     'facebookexternalhit',      // Facebook crawler
     'Facebot',                  // Facebook bot
     'WhatsApp',                 // WhatsApp preview
@@ -50,6 +51,14 @@ const CRAWLER_PATTERNS = [
     'Discordbot',               // Discord embeds
     'SkypeUriPreview',          // Skype preview
     'facebookcatalog',          // Facebook catalog
+
+    // Search Engines (New for Phase 2)
+    'Googlebot',
+    'Bingbot',
+    'baiduspider',
+    'ia_archiver',
+    'DuckDuckBot',
+    'YandexBot'
 ];
 
 // ============================================================================
@@ -65,7 +74,7 @@ const CRAWLER_PATTERNS = [
  * @returns {Promise<Response>} Modified response with injected meta tags
  */
 export async function onRequest(context) {
-    const { request, next } = context;
+    const { request, next, env } = context; // Added env for caching/KV if needed later
     const url = new URL(request.url);
     const path = url.pathname;
 
@@ -76,7 +85,8 @@ export async function onRequest(context) {
         path === '/sw.js' ||
         path === '/manifest.webmanifest' ||
         path.startsWith('/workbox-') ||
-        path.startsWith('/assets/') // Optional: pass through static assets if needed
+        path.startsWith('/assets/') || // Optional: pass through static assets if needed
+        path.startsWith('/snapshots/') // CRITICAL: Prevent infinite loop if snapshot requested directly
     ) {
         return next();
     }
@@ -84,6 +94,58 @@ export async function onRequest(context) {
     // Detect if request is from a social media crawler
     const userAgent = request.headers.get('user-agent') || '';
     const isCrawler = isSocialCrawler(userAgent);
+
+    // ========================================================================
+    // PHASE 2: HYBRID PRE-RENDERING (SNAPSHOT SERVING)
+    // ========================================================================
+
+    if (isCrawler && isValidSnapshotRoute(path)) {
+        // Construct snapshot URL
+        // / -> /snapshots/index.html
+        // /services -> /snapshots/services.html
+        // /ar/services -> /snapshots/ar_services.html
+
+        let snapshotPath;
+        if (path === '/' || path === '') {
+            snapshotPath = '/snapshots/index.html';
+        } else {
+            // Remove leading slash, replace remaining slashes with underscores
+            const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+            // Remove trailing slash if present
+            const pathKey = cleanPath.endsWith('/') ? cleanPath.slice(0, -1) : cleanPath;
+            snapshotPath = `/snapshots/${pathKey.replace(/\//g, '_')}.html`;
+        }
+
+        // Try to fetch the snapshot
+        // We use the same origin to fetch the static asset from Cloudflare Pages
+        const snapshotUrl = new URL(snapshotPath, url.origin);
+
+        try {
+            // Fetch the snapshot from the static assets
+            const snapshotResponse = await fetch(snapshotUrl);
+
+            // If snapshot exists (200 OK), serve it
+            if (snapshotResponse.ok) {
+                // Add a header to indicate it was served from snapshot
+                const newHeaders = new Headers(snapshotResponse.headers);
+                newHeaders.set('X-Rumuze-Prerender', 'hit');
+
+                return new Response(snapshotResponse.body, {
+                    status: 200, // Force 200 OK
+                    statusText: 'OK',
+                    headers: newHeaders
+                });
+            }
+            // If not found, fall through to normal metadata injection (graceful degradation)
+        } catch (e) {
+            // Ignore error and fall through
+            console.error('Snapshot fetch failed:', e);
+        }
+    }
+
+    // ========================================================================
+    // NORMAL METADATA INJECTION (FALLBACK & HUMANS)
+    // ========================================================================
 
     // Initialize MetadataService (singleton)
     const metadataService = getMetadataService();
@@ -214,6 +276,15 @@ export async function onRequest(context) {
 function isSocialCrawler(userAgent) {
     const ua = userAgent.toLowerCase();
     return CRAWLER_PATTERNS.some(pattern => ua.includes(pattern.toLowerCase()));
+}
+
+/**
+ * Checks if the route is valid for a snapshot
+ * (excludes static assets, API calls, etc.)
+ */
+function isValidSnapshotRoute(path) {
+    if (path.includes('.')) return path === '/'; // Only allow root if it has no extension
+    return true; // All other extension-less paths are potentially valid routes
 }
 
 // ============================================================================
