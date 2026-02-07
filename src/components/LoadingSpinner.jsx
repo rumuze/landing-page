@@ -1,56 +1,90 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+const loadingMessages = [
+  "DECODING TECHNOLOGY...",
+  "SCALING BRANDS...",
+  "ENGINEERING SOVEREIGNTY...",
+  "INITIALIZING LABS..."
+];
+
 const LoadingSpinner = ({ fullScreen = false }) => {
+  const [currentMessage, setCurrentMessage] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentMessage((prev) => (prev + 1) % loadingMessages.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div 
       className={`flex items-center justify-center transition-colors duration-300 ${
         fullScreen 
-        ? 'fixed inset-0 z-[9999] bg-white dark:bg-[#000B18]' 
+        ? 'fixed inset-0 z-[9999] bg-white dark:bg-[#000B18] tech-grid' 
         : 'w-full h-full'
       }`}
       role="alert"
       aria-live="polite"
     >
-      <div className="relative flex items-center justify-center">
-        {/* Outer Pulsing/Rotating Ring */}
-        <motion.div
-          animate={{
-            rotate: 360,
-            scale: [1, 1.05, 1],
-          }}
-          transition={{
-            rotate: { duration: 2, repeat: Infinity, ease: "linear" },
-            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-          }}
-          className="w-32 h-32 border-4 rounded-full border-slate-200 dark:border-slate-200/10 border-t-purple-600 dark:border-t-cyan-500 shadow-lg dark:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-colors duration-300"
-        />
-        
-        {/* Middle Pulse Ring */}
-        <motion.div
-          animate={{ 
-            scale: [0.8, 1.2, 0.8],
-            opacity: [0.1, 0.3, 0.1]
-          }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute w-24 h-24 rounded-full blur-xl bg-purple-500/20 dark:bg-cyan-500/20 transition-colors duration-300"
-        />
+      <div className="relative flex flex-col items-center justify-center">
+        {/* Radar/Scanner Technical Rings */}
+        <div className="relative w-48 h-48 flex items-center justify-center">
+          {/* Outer Notch Ring */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 border-[1px] border-dashed border-cyan/20 rounded-full"
+          />
+          
+          {/* Inner Rotating Notches */}
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="absolute w-40 h-40 border-t-2 border-r-2 border-cyan/40 rounded-full"
+          />
 
-        {/* Logo Center */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ 
-            opacity: 1, 
-            scale: [1, 1.1, 1],
-          }}
-          transition={{ 
-            opacity: { duration: 0.5 },
-            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-          }}
-          className="absolute w-16 h-16 flex items-center justify-center p-2 bg-white dark:bg-transparent rounded-full shadow-sm dark:shadow-none transition-all duration-300"
-        >
-          <img src="/rumuze.svg" alt="Rumuze Logo" className="w-10 h-10 object-contain drop-shadow-md dark:drop-shadow-none" />
-        </motion.div>
+          {/* Pulsing Core Shadow */}
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute w-24 h-24 bg-cyan/20 blur-2xl rounded-full"
+          />
+
+          {/* Logo Symbol */}
+          <motion.div 
+            animate={{ scale: [0.95, 1.05, 0.95] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="relative w-16 h-16 z-10"
+          >
+            <img 
+              src="/rumuze-symbol.png" 
+              alt="Rumuze Symbol" 
+              className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,229,255,0.6)]" 
+            />
+          </motion.div>
+        </div>
+
+        {/* Intelligent Progress Text */}
+        <div className="mt-8 text-center min-h-[1.5rem]">
+          <motion.p
+            key={currentMessage}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            className="text-[10px] font-black tracking-[0.3em] text-cyan uppercase"
+          >
+            {loadingMessages[currentMessage]}
+          </motion.p>
+          <div className="mt-2 w-32 h-[1px] bg-slate-200 dark:bg-white/10 mx-auto overflow-hidden">
+            <motion.div 
+              animate={{ x: ['-100%', '100%'] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1/2 h-full bg-cyan shadow-[0_0_10px_rgba(0,229,255,0.8)]"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
