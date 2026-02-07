@@ -31,6 +31,7 @@ const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 import ShareButton from './components/ShareButton';
 import OfflineToast from './components/OfflineToast';
+const HomePage = lazy(() => import('./pages/HomePage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -176,31 +177,8 @@ function AppContent() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             {/* Home Routes */}
-            <Route path="/" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <SEO path="/" />
-                <Suspense fallback={<Skeleton />}>
-                  <Hero />
-                  <Services />
-                  <Portfolio />
-                  <TechStack />
-                  <Contact />
-                </Suspense>
-
-              </motion.div>
-            } />
-            <Route path="/ar" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <SEO path="/ar" />
-                <Suspense fallback={<Skeleton />}>
-                  <Hero />
-                  <Services />
-                  <Portfolio />
-                  <TechStack />
-                  <Contact />
-                </Suspense>
-              </motion.div>
-            } />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/ar" element={<HomePage isAr={true} />} />
 
             {/* Portfolio Page Routes */}
             <Route path="/portfolio" element={

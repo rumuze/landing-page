@@ -158,11 +158,65 @@ const SEO = ({ title, description, image, type, path }) => {
       "name": siteName,
       "logo": {
         "@type": "ImageObject",
-        "url": `${baseUrl}/rumuze.png`
       }
     }
   };
   schemas.push(webPageSchema);
+
+  // Debugging Log
+  if (import.meta.env.DEV) {
+    console.log(`[SEO Debug] Rendering for path: ${currentPath} (Lang: ${currentLang})`);
+    console.log(`[SEO Debug] Title: ${metaTitle}`);
+    console.log(`[SEO Debug] Description: ${metaDescription}`);
+    console.log(`[SEO Debug] OG Image: ${metaImage}`);
+  }
+
+  // Manual Fallback for React 19 / Helmet Async Issues
+  React.useEffect(() => {
+    // Helper to update or create meta tags
+    const updateMeta = (selector, content, attributeName = 'name', attributeValue) => {
+      let element = document.querySelector(selector);
+      if (!element && content) {
+        element = document.createElement('meta');
+        element.setAttribute(attributeName, attributeValue);
+        document.head.appendChild(element);
+      }
+      if (element) {
+        if (content) {
+          element.setAttribute('content', content);
+        } else {
+          element.remove();
+        }
+      }
+    };
+
+    // Update Title
+    if (metaTitle) document.title = metaTitle;
+
+    // Update Meta Tags
+    updateMeta('meta[name="description"]', metaDescription, 'name', 'description');
+    updateMeta('meta[property="og:title"]', metaTitle, 'property', 'og:title');
+    updateMeta('meta[property="og:description"]', metaDescription, 'property', 'og:description');
+    updateMeta('meta[property="og:image"]', metaImage, 'property', 'og:image');
+    updateMeta('meta[name="twitter:card"]', 'summary_large_image', 'name', 'twitter:card');
+
+    // Update JSON-LD Schemas
+    // Remove old schemas
+    const oldSchemas = document.querySelectorAll('script[data-seo-schema="true"]');
+    oldSchemas.forEach(el => el.remove());
+
+    // Inject new schemas
+    schemas.forEach(schema => {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.setAttribute('data-seo-schema', 'true');
+      script.textContent = JSON.stringify(schema);
+      document.head.appendChild(script);
+    });
+
+    // Cleanup function not strictly necessary for simple meta tags as they get overwritten, 
+    // but good practice if we were rigorous.
+  }, [metaTitle, metaDescription, metaImage, schemas]);
 
   return (
     <Helmet>
