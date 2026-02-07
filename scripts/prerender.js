@@ -1,10 +1,15 @@
 /**
  * eslint-env node
  * 
- * Rumuze Hybrid Pre-renderer
+ * Rumuze Hybrid Pre-renderer (Sitemap-Driven)
  * 
- * Generates static HTML snapshots for critical routes during build time.
- * These snapshots are served to search engine bots for perfect SEO.
+ * Automatically discovers routes from dist/sitemap.xml and generates 
+ * static HTML snapshots for Search Engine Bots.
+ * 
+ * Features:
+ * - Auto-discovery: No hardcoded routes
+ * - Smart Filtering: Excludes private/admin routes
+ * - Consistency: Single source of truth (sitemap.xml)
  * 
  * Usage: node scripts/prerender.js
  */
@@ -12,37 +17,94 @@
 import puppeteer from 'puppeteer';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { spawn } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const DIST_DIR = join(__dirname, '..', 'dist');
 const SNAPSHOT_DIR = join(DIST_DIR, 'snapshots');
+const SITEMAP_PATH = join(DIST_DIR, 'sitemap.xml');
 const PORT = 4173; // Vite preview port
 
-// Critical routes to pre-render
-const ROUTES = [
-    '/',
-    '/services',
-    '/about',
-    '/labs',
-    '/blog',
-    '/portfolio',
-    '/contact',
-    '/privacy',
-    '/terms',
-    // Arabic routes
-    '/ar',
-    '/ar/services',
-    '/ar/about',
-    '/ar/labs',
-    '/ar/blog',
-    '/ar/portfolio',
-    '/ar/contact',
-    '/ar/privacy',
-    '/ar/terms'
+// ============================================================================
+// CONFIGURATION: EXCLUSION RULES
+// ============================================================================
+
+/**
+ * Routes to explicitly exclude from pre-rendering
+ * Even if they appear in sitemap (which they shouldn't), we skip them.
+ */
+const EXCLUDED_ROUTES = [
+    '/login',
+    '/dashboard',
+    '/admin',
+    '/api',
+    '/private',
+    '/404'
 ];
+
+/**
+ * Checks if a route should be pre-rendered
+ * @param {string} route - The path component (e.g., '/services')
+ * @returns {boolean} True if safe to render
+ */
+function isSafeRoute(route) {
+    // 1. Check against excluded prefixes
+    if (EXCLUDED_ROUTES.some(prefix => route.startsWith(prefix))) {
+        return false;
+    }
+
+    // 2. Exclude file extensions (assets, images)
+    // Only allow root '/' or paths without dots (likely HTML routes)
+    if (route !== '/' && route.includes('.')) {
+        return false;
+    }
+
+    return true;
+}
+
+// ============================================================================
+// SITEMAP PARSER
+// ============================================================================
+
+/**
+ * Parses sitemap.xml to extract all URLs
+ * @returns {Array<string>} List of paths (e.g., ['/', '/services', '/ar/about'])
+ */
+function getRoutesFromSitemap() {
+    if (!existsSync(SITEMAP_PATH)) {
+        throw new Error('❌ sitemap.xml not found in dist/. Run build first.');
+    }
+
+    const sitemapContent = readFileSync(SITEMAP_PATH, 'utf8');
+    const locationRegex = /<loc>(.*?)<\/loc>/g;
+    const routes = [];
+    let match;
+
+    while ((match = locationRegex.exec(sitemapContent)) !== null) {
+        const fullUrl = match[1];
+        try {
+            const urlObj = new URL(fullUrl);
+            const path = urlObj.pathname; // Extract /path from https://domain.com/path
+
+            if (isSafeRoute(path)) {
+                routes.push(path);
+            } else {
+                console.log(`⚠️  Skipping excluded route: ${path}`);
+            }
+        } catch (e) {
+            console.warn(`⚠️  Invalid URL in sitemap: ${fullUrl}`);
+        }
+    }
+
+    // Remove duplicates
+    return [...new Set(routes)];
+}
+
+// ============================================================================
+// SERVER CONTROL
+// ============================================================================
 
 async function startServer() {
     console.log('🚀 Starting preview server...');
@@ -57,6 +119,10 @@ async function startServer() {
     return server;
 }
 
+// ============================================================================
+// MAIN EXECUTION
+// ============================================================================
+
 async function prerender() {
     // Ensure dist exists
     if (!existsSync(DIST_DIR)) {
@@ -69,11 +135,30 @@ async function prerender() {
         mkdirSync(SNAPSHOT_DIR, { recursive: true });
     }
 
-    // Start local server
+    // 1. Discover Routes
+    console.log('🔍 Discovering routes from sitemap.xml...');
+    let routes;
+    try {
+        routes = getRoutesFromSitemap();
+        console.log(`✅ Found ${routes.length} valid routes to pre-render.`);
+    } catch (error) {
+        console.error(error.message);
+        process.exit(1);
+    }
+
+    if (routes.length === 0) {
+        console.warn('⚠️  No routes found. Exiting.');
+        process.exit(0);
+    }
+
+    // 2. Start Server
     const serverProcess = await startServer();
 
+    // 3. Launch Puppeteer
     console.log('📸 Starting snapshot generation...');
     console.log('   - Launching Puppeteer...');
+
+    // Use default launch, Puppeteer should find the installed Chrome now
     const browser = await puppeteer.launch({
         headless: 'new',
         args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -82,40 +167,51 @@ async function prerender() {
     try {
         const page = await browser.newPage();
 
-        // Set viewport to desktop size
+        // Set viewport to standard desktop size for consistent rendering
         await page.setViewport({ width: 1280, height: 800 });
 
-        for (const route of ROUTES) {
+        // 4. Render Loop
+        for (const route of routes) {
             const url = `http://localhost:${PORT}${route}`;
-            console.log(`Rendering: ${route}...`);
+            const label = route === '/' ? '(home)' : route;
 
-            await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
+            process.stdout.write(`Rendering: ${label.padEnd(30)} `);
 
-            // Wait for specific elements if needed
-            // await page.waitForSelector('#root');
+            try {
+                // Navigate and wait for network to be idle (ensures huge parts of JS load)
+                await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
 
-            const content = await page.content();
+                // OPTIONAL: Wait for specific critical selectors if needed
+                // await page.waitForSelector('main'); 
 
-            // Construct file path
-            // e.g., / -> index.html
-            // /services -> services.html
-            // /ar/services -> ar-services.html (flattened structure for simplicity)
+                const content = await page.content();
 
-            let fileName;
-            if (route === '/') {
-                fileName = 'index.html';
-            } else {
-                // Flatten path: /ar/services -> ar_services.html
-                fileName = route.replace(/^\//, '').replace(/\//g, '_') + '.html';
+                // Calculate file path
+                // / -> index.html
+                // /services -> services.html
+                // /ar/services -> ar_services.html
+
+                let fileName;
+                if (route === '/') {
+                    fileName = 'index.html';
+                } else {
+                    const cleanPath = route.startsWith('/') ? route.substring(1) : route;
+                    const pathKey = cleanPath.endsWith('/') ? cleanPath.slice(0, -1) : cleanPath;
+                    fileName = pathKey.replace(/\//g, '_') + '.html';
+                }
+
+                const filePath = join(SNAPSHOT_DIR, fileName);
+                writeFileSync(filePath, content);
+                console.log(`✅ Saved`);
+
+            } catch (err) {
+                console.log(`❌ Failed: ${err.message}`);
             }
-
-            const filePath = join(SNAPSHOT_DIR, fileName);
-            writeFileSync(filePath, content);
-            console.log(`✅ Saved: ${fileName}`);
         }
 
     } catch (error) {
-        console.error('❌ Prerendering failed:', error);
+        console.error('❌ Prerendering critical error:', error);
+        process.exit(1);
     } finally {
         await browser.close();
         serverProcess.kill();
