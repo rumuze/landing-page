@@ -22,27 +22,27 @@ export const blogPosts = [
                 <p><strong>Microservices are a premature optimization for 95% of businesses.</strong> Establishing physical network boundaries between logical components before understanding domain boundaries is architectural suicide.</p>
 
                 <h3>Context</h3>
-                <p>The tech industry spent the last decade fragmenting perfectly functional systems into distributed nightmares. Inspired by Netflix and Uber, teams with 5 engineers attempted to build architectures designed for 5,000. The result was not scale; it was "distributed friction."</p>
+                <p>The industry spent a decade fragmenting functional systems into distributed nightmares. Teams with 5 engineers attempted Facebook-scale architectures. The result was not scale; it was <strong>Distributed Friction</strong>.</p>
 
                 <h3>Explanation</h3>
-                <p>Complexity is the silent killer of velocity. Every network call is a potential failure point. Every distributed transaction is a consistency headache. A <strong>Modular Monolith</strong> offers the strict boundary enforcement of microservices (via namespaces and private modules) with the transactional integrity and deployment simplicity of a single unit. It allows you to refactor domain boundaries in seconds (IDE rename) rather than months (API versioning).</p>
+                <p>Complexity kills velocity. Network calls fail. Latency obeys physics, not desire. A <strong>Modular Monolith</strong> enforces strict boundaries (namespaces) without the operational tax of orchestration. It allows you to refactor domain boundaries in seconds (IDE rename) rather than months (API versioning).</p>
 
                 <h3>Common Industry Mistakes</h3>
                 <ul>
                     <li><strong>Premature Decomposition:</strong> Splitting services by database table rather than domain context.</li>
-                    <li><strong>Resume-Driven Development:</strong> Choosing Kubernetes and gRPC for a simple CRUD app to pad CVs.</li>
-                    <li><strong>Ignoring Observability:</strong> Deploying distributed systems without distributed tracing (Jaeger/Zipkin).</li>
+                    <li><strong>Resume-Driven Development:</strong> Choosing Kubernetes for CRUD apps to pad CVs.</li>
+                    <li><strong>Blind Observability:</strong> Distributed systems without distributed tracing are black holes.</li>
                 </ul>
 
                 <h3>Company Perspective</h3>
-                <p><strong>RUMUZE engineers for cohesion.</strong> We build systems that are logically modular but physically unified. We reserve the right to split services <em>only</em> when independent scaling is mathematically justified by metrics, not feelings.</p>
+                <p><strong>RUMUZE engineers for cohesion.</strong> We build logically modular, physically unified systems. We split services <em>only</em> when independent scaling is mathematically justified.</p>
             `
         },
         ar: {
             title: 'الكتلة المعيارية: لماذا تفشل الخدمات المصغرة',
             excerpt: 'الخدمات المصغرة هي تحسين سابق لأوانه لـ 95% من الشركات. السرعة تتطلب التماسك، وليس التجزئة.',
             content: `
-                <h2>البيان</h2>
+    < h2 > البيان</h2 >
                 <p><strong>الخدمات المصغرة (Microservices) هي تحسين سابق لأوانه لـ 95% من الشركات.</strong> وضع حدود شبكية مادية بين المكونات المنطقية قبل فهم حدود المجال هو انتحار معماري.</p>
 
                 <h3>السياق</h3>
@@ -75,7 +75,7 @@ export const blogPosts = [
             title: 'Vanity Metrics vs. Value: Why Retention is King',
             excerpt: 'Acquisition is vanity. Retention is sanity. If you ignore churn, you do not have a growth strategy; you have a waste management problem.',
             content: `
-                <h2>Statement</h2>
+    < h2 > Statement</h2 >
                 <p><strong>Retention is the only metric that correlates strictly with product-market fit.</strong> All other metrics are lagging indicators or vanity signals designed to impress naive investors.</p>
 
                 <h3>Context</h3>
@@ -99,7 +99,7 @@ export const blogPosts = [
             title: 'مقاييس الغرور مقابل القيمة: لماذا الاحتفاظ هو الملك',
             excerpt: 'الاستحواذ هو غرور. الاحتفاظ هو تعقل. إذا تجاهلت التسرب، فأنت لا تملك استراتيجية نمو؛ بل تملك مشكلة إدارة نفايات.',
             content: `
-                <h2>البيان</h2>
+    < h2 > البيان</h2 >
                 <p><strong>الاحتفاظ (Retention) هو المقياس الوحيد الذي يرتبط بشكل صارم بملاءمة المنتج للسوق.</strong> جميع المقاييس الأخرى هي مؤشرات متأخرة أو إشارات غرور مصممة لإبهار المستثمرين السذج.</p>
 
                 <h3>السياق</h3>
@@ -132,7 +132,7 @@ export const blogPosts = [
             title: 'Deterministic AI: Configuring Probabilities',
             excerpt: 'Enterprise AI fails when it treats probabilistic models as database queries. Success requires strict guardrails and structured outputs.',
             content: `
-                <h2>Statement</h2>
+    < h2 > Statement</h2 >
                 <p><strong>Enterprise AI fails because it treats probabilistic models as database queries.</strong> Large Language Models (LLMs) are reasoning engines, not knowledge bases. They hallucinate by design.</p>
 
                 <h3>Context</h3>
@@ -156,7 +156,7 @@ export const blogPosts = [
             title: 'الذكاء الاصطناعي الحتمي: تكوين الاحتمالات',
             excerpt: 'يفشل الذكاء الاصطناعي المؤسسي عندما يعامل النماذج الاحتمالية كاستعلامات قواعد بيانات. النجاح يتطلب حواجز صارمة ومخرجات مهيكلة.',
             content: `
-                <h2>البيان</h2>
+    < h2 > البيان</h2 >
                 <p><strong>يفشل الذكاء الاصطناعي المؤسسي لأنه يعامل النماذج الاحتمالية كاستعلامات قواعد بيانات.</strong> النماذج اللغوية الكبيرة (LLMs) هي محركات استنتاج، وليست قواعد معرفة. إنها تهلوس بطبيعة تصميمها.</p>
 
                 <h3>السياق</h3>

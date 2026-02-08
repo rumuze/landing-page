@@ -14,11 +14,11 @@ const ManifestoPage = () => {
       sections: [
         {
           heading: "1. Value ≠ Time",
-          text: "We reject the billable hour. It encourages inefficiency. We sell outcomes, architectures, and market dominance. Our value is measured in impact, not minutes."
+          text: "We reject the billable hour. It subsidizes inefficiency. We sell outcomes, architectures, and market dominance. Our value is measured in impact, not minutes."
         },
         {
           heading: "2. The Code is a Liability",
-          text: "Every line of code is a future bug. We do not write code for the sake of it. We engineered systems that do more with less. Minimum Viable Code for Maximum Viable Product."
+          text: "Every line of code is a future bug. Code is debt. We minimize surface area. We engineer systems that do more with less. Minimum Viable Code for Maximum Viable Product."
         },
         {
           heading: "3. AI is not a Feature",
