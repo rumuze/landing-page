@@ -1,51 +1,60 @@
-# 🛡️ SPA 404 Fix Walkthrough
+# 📦 Vercel Build Fix Walkthrough
 
 ## Overview
 
-We have permanently fixed the **File Masking Directory** issue that was causing 404 errors on deep routes (e.g., `/ar/services`). The fix involves enforcing a strict "Clean Dist Root" policy where only `index.html` and `404.html` are allowed in the build output root.
+We have resolved the Vercel build failure by **Decoupling** the pre-rendering process from the Vercel environment. Puppeteer now runs exclusively in a GitHub Actions workflow, generating snapshots that are committed to the repository. Vercel acts purely as a static host for these pre-generated files.
 
 ## Changes Implemented
 
-### 1. Build Verification Script
+### 1. Script Guard (`scripts/prerender.js`)
 
-Created `scripts/verify-build.js` which scans the `dist/` directory after every build.
+Added an environment variable check to prevent Puppeteer from running unless explicitly enabled.
 
-- **Passes**: If `dist/` contains only `index.html`, `404.html`, `offline.html`, and `google*.html`.
-- **Fails**: If any other `.html` file (e.g., `dist/ar.html`) is found in the root.
-
-### 2. Package.json Update
-
-Updated the `build` script to:
-
-1.  **Clean**: `rm -rf dist` before starting (removes stale artifacts).
-2.  **Verify**: Run `node scripts/verify-build.js` after build completion.
-
-```json
-"build": "rm -rf dist && vite build && ... && node scripts/verify-build.js"
+```javascript
+// scripts/prerender.js
+if (process.env.ENABLE_PRERENDER !== "true") {
+  console.log("⏭️  Skipping prerender (ENABLE_PRERENDER not set to true)");
+  process.exit(0);
+}
 ```
+
+### 2. Snapshot Location
+
+Changed output directory from `dist/snapshots` to `public/snapshots`.
+
+- **Reason**: `public/` is the source of truth for static assets in Vite. Files here are automatically copied to `dist/` during build.
+- **Benefit**: Snapshots can be committed to Git and deployed by Vercel without requiring Puppeteer logic during deployment.
+
+### 3. CI/CD Workflow (`.github/workflows/deploy-snapshots.yml`)
+
+Created a new workflow that:
+
+1.  Runs on every push to `main`.
+2.  Installs dependencies and builds the project.
+3.  Runs `ENABLE_PRERENDER=true node scripts/prerender.js` to generate fresh snapshots.
+4.  Commits the new snapshots to `public/snapshots` and pushes them back to the repo.
 
 ## Verification Results
 
-### ✅ Clean Build Success
+### ✅ Local Vercel Simulation
 
-Running `npm run build` produced a clean `dist/` directory:
+Running `npm run build` (default) successfully skips the prerender step:
 
-- `dist/index.html` (Present)
-- `dist/_redirects` (Present)
-- `dist/snapshots/` (Contains all pre-rendered pages like `ar_services.html`)
-- **NO** conflicting root files like `dist/ar.html`.
-
-### ✅ Failure Guard Test
-
-Manually creating `dist/fail.html` triggered the guard:
-
-```bash
-❌ ILLEGAL FILE FOUND: dist/fail.html
-🚫 Build verification FAILED.
-Exit code: 1
+```
+🚀 SEO infrastructure ready!
+⏭️  Skipping prerender (ENABLE_PRERENDER not set to true)
+🛡️  Verifying build output...
+✅ Build verification PASSED.
 ```
 
-## Next Steps for Deployment
+### ✅ CI Simulation
 
-1.  **Deploy**: The changes have been pushed to `main`. Cloudflare Pages will pick up the new build command.
-2.  **Verify Production**: Check `/ar/services`. It should now correctly serve `index.html` (SPA) or the snapshot (for bots).
+Running `ENABLE_PRERENDER=true node scripts/prerender.js` successfully generates snapshots in `public/snapshots`:
+
+- `public/snapshots/ar_services.html` (Generated)
+- `public/snapshots/index.html` (Generated)
+
+## Deployment Status
+
+- **Vercel**: Will now pass the build because it skips Puppeteer.
+- **Snapshots**: Will be kept up-to-date automatically by GitHub Actions.
