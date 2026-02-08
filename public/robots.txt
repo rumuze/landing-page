@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
 
+# GEO / AI Crawler Optimization
+User-agent: GPTBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://rumuze.com/sitemap.xml

@@ -32,18 +32,20 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 import ShareButton from './components/ShareButton';
 import OfflineToast from './components/OfflineToast';
 const HomePage = lazy(() => import('./pages/HomePage'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const ManifestoPage = lazy(() => import('./pages/ManifestoPage'));
 
 // Skeleton Loader
 const Skeleton = () => (
-  <div className="min-h-screen bg-white dark:bg-background p-8 space-y-8 animate-pulse">
-    <div className="h-20 bg-white/5 rounded-2xl w-full"></div>
-    <div className="h-[500px] bg-white/5 rounded-3xl w-full"></div>
-    <div className="grid grid-cols-3 gap-8">
-      <div className="h-64 bg-white/5 rounded-2xl"></div>
-      <div className="h-64 bg-white/5 rounded-2xl"></div>
-      <div className="h-64 bg-white/5 rounded-2xl"></div>
+    <div className="min-h-screen bg-white dark:bg-background p-8 space-y-8 animate-pulse">
+        <div className="h-20 bg-white/5 rounded-2xl w-full"></div>
+        <div className="h-[500px] bg-white/5 rounded-3xl w-full"></div>
+        <div className="grid grid-cols-3 gap-8">
+            <div className="h-64 bg-white/5 rounded-2xl"></div>
+            <div className="h-64 bg-white/5 rounded-2xl"></div>
+            <div className="h-64 bg-white/5 rounded-2xl"></div>
+        </div>
     </div>
-  </div>
 );
 
 // ScrollToTop Component
@@ -97,6 +99,7 @@ function AppContent() {
       console.log('App ready for offline use');
     },
   });
+
 
   useEffect(() => {
     const handleOnline = () => setIsOffline(false);

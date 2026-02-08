@@ -288,21 +288,199 @@ export function validateMetadata(meta) {
 }
 
 /**
- * Get structured data (JSON-LD) for the current page
- * Can be extended for page-specific schemas
+ * Generate comprehensive structured data (JSON-LD) for the Knowledge Graph
+ * 
+ * Implements:
+ * - Organization: Core entity definition
+ * - WebSite: Sitelinks search box
+ * - BreadcrumbList: Site navigation structure
+ * - Service: For services pages
+ * - Article: For blog posts (placeholder structure)
  */
 export function getStructuredData(path, lang = 'en') {
     const meta = getMetaForRoute(path, lang);
+    const normalizedPath = normalizePath(path);
+    const isArabic = lang === 'ar';
+    const locale = isArabic ? 'ar-EG' : 'en-US';
 
-    return {
+    const baseSchema = {
         '@context': 'https://schema.org',
+        '@graph': []
+    };
+
+    // 1. Organization Schema (The Entity)
+    // Critical for Knowledge Graph establishment
+    const organizationSchema = {
+        '@type': 'Organization',
+        '@id': `${BASE_URL}/#organization`,
+        name: isArabic ? 'روموز' : 'Rumuze',
+        url: BASE_URL,
+        logo: {
+            '@type': 'ImageObject',
+            url: `${BASE_URL}/rumuze.png`,
+            width: 512,
+            height: 512,
+            caption: 'Rumuze Logo'
+        },
+        image: {
+            '@id': `${BASE_URL}/#logo`
+        },
+        description: isArabic
+            ? 'وكالة برمجيات وتسويق رائدة في منطقة الشرق الأوسط وشمال أفريقيا، متخصصة في الأنظمة الرقمية والذكاء الاصطناعي.'
+            : 'A leading Software and Marketing agency operating in the MENA region, specializing in digital ecosystems and AI systems.',
+        sameAs: [
+            'https://www.linkedin.com/company/rumuze',
+            'https://twitter.com/rumuze',
+            'https://github.com/rumuze',
+            'https://clutch.co/profile/rumuze'
+        ],
+        contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+971-50-000-0000', // Placeholder - update with real number if available
+            contactType: 'sales',
+            areaServed: ['AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'EG'],
+            availableLanguage: ['en', 'ar']
+        }
+    };
+    baseSchema['@graph'].push(organizationSchema);
+
+    // 2. WebSite Schema
+    const websiteSchema = {
+        '@type': 'WebSite',
+        '@id': `${BASE_URL}/#website`,
+        url: BASE_URL,
+        name: BRAND_NAME,
+        publisher: {
+            '@id': `${BASE_URL}/#organization`
+        },
+        inLanguage: locale
+    };
+    baseSchema['@graph'].push(websiteSchema);
+
+    // 3. WebPage Schema (Current Page)
+    const webpageSchema = {
         '@type': 'WebPage',
+        '@id': `${BASE_URL}${path}#webpage`,
+        url: `${BASE_URL}${path}`,
         name: meta.title,
         description: meta.description,
-        url: meta.url,
-        image: meta.image,
-        inLanguage: lang === 'ar' ? 'ar-EG' : 'en-US'
+        inLanguage: locale,
+        isPartOf: {
+            '@id': `${BASE_URL}/#website`
+        },
+        about: {
+            '@id': `${BASE_URL}/#organization`
+        },
+        primaryImageOfPage: {
+            '@type': 'ImageObject',
+            url: meta.image
+        }
     };
+    baseSchema['@graph'].push(webpageSchema);
+
+    // 4. BreadcrumbList Schema
+    const breadcrumbSchema = {
+        '@type': 'BreadcrumbList',
+        '@id': `${BASE_URL}${path}#breadcrumb`,
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: isArabic ? 'الرئيسية' : 'Home',
+                item: `${BASE_URL}/${isArabic ? 'ar' : ''}`
+            }
+        ]
+    };
+
+    // Add current page to breadcrumb if not home
+    if (normalizedPath !== '/') {
+        // Simple mapping for demonstration; can be enhanced for nested routes
+        const pageName = meta.title.split('|')[0].trim();
+
+        breadcrumbSchema.itemListElement.push({
+            '@type': 'ListItem',
+            position: 2,
+            name: pageName,
+            item: `${BASE_URL}${path}`
+        });
+    }
+    baseSchema['@graph'].push(breadcrumbSchema);
+
+    // 5. Context-Specific Schemas (Services, etc.)
+    if (normalizedPath === '/services') {
+        const serviceSchema = {
+            '@type': 'Service',
+            serviceType: isArabic ? 'تطوير برمجيات وذكاء اصطناعي' : 'Software Development & AI',
+            provider: {
+                '@id': `${BASE_URL}/#organization`
+            },
+            areaServed: {
+                '@type': 'Place',
+                name: 'MENA Region'
+            },
+            hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: isArabic ? 'خدمات روموز' : 'Rumuze Services',
+                itemListElement: [
+                    {
+                        '@type': 'Offer',
+                        itemOffered: {
+                            '@type': 'Service',
+                            name: isArabic ? 'حلول الذكاء الاصطناعي' : 'AI Solutions'
+                        }
+                    },
+                    {
+                        '@type': 'Offer',
+                        itemOffered: {
+                            '@type': 'Service',
+                            name: isArabic ? 'التحول الرقمي' : 'Digital Transformation'
+                        }
+                    },
+                    {
+                        '@type': 'Offer',
+                        itemOffered: {
+                            '@type': 'Service',
+                            name: isArabic ? 'تصميم تجربة المستخدم' : 'UX/UI Design'
+                        }
+                    }
+                ]
+            }
+        };
+        baseSchema['@graph'].push(serviceSchema);
+    }
+
+    // 6. Article Schema
+    if (meta.type === 'article') {
+        const articleSchema = {
+            '@type': 'Article',
+            '@id': `${BASE_URL}${path}#article`,
+            isPartOf: {
+                '@id': `${BASE_URL}${path}#webpage`
+            },
+            headline: meta.title,
+            description: meta.description,
+            image: {
+                '@type': 'ImageObject',
+                url: meta.image
+            },
+            datePublished: meta.publishedTime,
+            dateModified: meta.publishedTime, // Ideally track modification date too
+            author: {
+                '@type': 'Person',
+                name: meta.author || (isArabic ? 'فريق روموز' : 'Rumuze Team')
+            },
+            publisher: {
+                '@id': `${BASE_URL}/#organization`
+            },
+            mainEntityOfPage: {
+                '@type': 'WebPage',
+                '@id': `${BASE_URL}${path}`
+            }
+        };
+        baseSchema['@graph'].push(articleSchema);
+    }
+
+    return baseSchema;
 }
 
 export default {

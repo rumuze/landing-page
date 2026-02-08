@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import OptimizedImage from '../components/OptimizedImage';
 import { ArticleSkeleton } from '../components/SkeletonLoader';
+import { getAllPosts } from '../data/blogPosts';
 
 const BlogPage = () => {
   const { t, i18n } = useTranslation();
@@ -16,35 +18,23 @@ const BlogPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const posts = [
-    {
-      id: 1,
-      title: "The Future of Scalable Backend Architectures",
-      category: "tech",
-      date: "Feb 10, 2026",
-      author: "Mohamed Ashraf",
-      readTime: "8",
-      image: "/assets/images/blog-1.webp"
-    },
-    {
-      id: 2,
-      title: "Data-Driven Growth: Beyond Simple Metrics",
-      category: "marketing",
-      date: "Feb 05, 2026",
-      author: "Growth Team",
-      readTime: "5",
-      image: "/assets/images/blog-2.webp"
-    },
-    {
-      id: 3,
-      title: "AI Integration: Transitioning from Theory to Profit",
-      category: "ai",
-      date: "Jan 28, 2026",
-      author: "Mohamed Ashraf",
-      readTime: "12",
-      image: "/assets/images/blog-3.webp"
-    }
-  ];
+  // Fetch posts from centralized data
+  const rawPosts = getAllPosts();
+  
+  // Map internal data structure to UI component expectation
+  const posts = rawPosts.map(post => {
+      const content = isAr ? post.ar : post.en;
+      return {
+          id: post.id,
+          title: content.title,
+          category: post.category,
+          date: post.date,
+          author: post.author,
+          readTime: post.readTime.toString(),
+          image: post.image,
+          slug: post.slug // Add slug for linking
+      };
+  });
 
   return (
     <div className="pt-32 pb-20">
@@ -73,13 +63,17 @@ const BlogPage = () => {
              </>
           ) : (
             posts.map((post, index) => (
+            <Link 
+              key={post.id} 
+              to={isAr ? `/ar/blog/${post.slug}` : `/blog/${post.slug}`}
+              className="block h-full group"
+            >
             <motion.article 
-              key={post.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 flex flex-col"
+              className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 flex flex-col h-full"
             >
               <div className="relative h-64 overflow-hidden">
                 <div className="w-full h-full group-hover:scale-110 transition-transform duration-700">
@@ -126,6 +120,7 @@ const BlogPage = () => {
                 </div>
               </div>
             </motion.article>
+            </Link>
             ))
           )}
         </div>
