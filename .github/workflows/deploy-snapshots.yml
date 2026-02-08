@@ -1,0 +1,53 @@
+name: Deploy Snapshots
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prerender:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Project (Generate Sitemap)
+        run: npm run build
+        env:
+          # Explicitly disable prerender during build step to avoid redundant/failed attempts
+          ENABLE_PRERENDER: false
+
+      - name: Run Prerender (Puppeteer)
+        run: node scripts/prerender.js
+        env:
+          ENABLE_PRERENDER: true
+
+      - name: Commit Snapshots
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Force add the snapshots directory
+          git add public/snapshots/
+
+          # Commit if there are changes
+          if git diff --staged --quiet; then
+            console.log("No changes to snapshots.")
+          else
+            git commit -m "chore: update pre-rendered snapshots [skip ci]"
+            git push
+          fi

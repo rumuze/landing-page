@@ -22,10 +22,20 @@ import { spawn } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const DIST_DIR = join(__dirname, '..', 'dist');
-const SNAPSHOT_DIR = join(DIST_DIR, 'snapshots');
+const PUBLIC_DIR = join(__dirname, '..', 'public');
+const SNAPSHOT_DIR = join(PUBLIC_DIR, 'snapshots');
+const DIST_DIR = join(__dirname, '..', 'dist'); // Still needed for sitemap
 const SITEMAP_PATH = join(DIST_DIR, 'sitemap.xml');
 const PORT = 4173; // Vite preview port
+
+// ============================================================================
+// ENVIRONMENT GUARD
+// ============================================================================
+
+if (process.env.ENABLE_PRERENDER !== 'true') {
+    console.log('⏭️  Skipping prerender (ENABLE_PRERENDER not set to true)');
+    process.exit(0);
+}
 
 // ============================================================================
 // CONFIGURATION: EXCLUSION RULES
@@ -124,9 +134,9 @@ async function startServer() {
 // ============================================================================
 
 async function prerender() {
-    // Ensure dist exists
-    if (!existsSync(DIST_DIR)) {
-        console.error('❌ dist/ directory not found. Run build first.');
+    // Ensure public exists
+    if (!existsSync(PUBLIC_DIR)) {
+        console.error('❌ public/ directory not found.');
         process.exit(1);
     }
 
