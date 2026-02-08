@@ -10,7 +10,7 @@ const SEO = ({ title, description, image, type, path }) => {
   const currentLang = i18n.language;
   
   const siteName = "Rumuze";
-  const baseUrl = "https://rumuze.com";
+  const baseUrl = "https://www.rumuze.com";
   
   // Use provided path or current location
   const currentPath = path || location.pathname;
@@ -43,125 +43,129 @@ const SEO = ({ title, description, image, type, path }) => {
     }
   }
 
-  // 1. Organization & Local Business Schema
-  const schemas = [
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": siteName,
-      "image": metaImage,
-      "url": baseUrl,
-      "telephone": "+20123456789",
-      "priceRange": "$$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Obour City",
-        "addressLocality": "Cairo",
-        "addressRegion": "Qalyubia",
-        "postalCode": "12345",
-        "addressCountry": "EG"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "30.2289",
-        "longitude": "31.4722"
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
-        "opens": "09:00",
-        "closes": "18:00"
-      },
-      "sameAs": [
-        "https://linkedin.com/company/rumuze",
-        "https://twitter.com/rumuze"
-      ]
-    }
-  ];
-
-  // 2. Service Schemas
-  const serviceSchemas = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "serviceType": "Architecting Scalable Ecosystems",
-      "provider": { "@type": "LocalBusiness", "name": siteName },
-      "description": "Bespoke digital ecosystems, high-availability architectures, and enterprise-grade software engineering.",
-      "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "serviceType": "Behavioral Data & Market Dominance",
-      "provider": { "@type": "LocalBusiness", "name": siteName },
-      "description": "Data-driven authority construction, algorithmic acquisition, and search dominance strategies.",
-      "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
-    }
-  ];
-  schemas.push(...serviceSchemas);
-
-  // 3. FAQ Schema
-  const faqData = t('faq.items', { returnObjects: true });
-  if (Array.isArray(faqData)) {
-    const faqSchema = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqData.map(item => ({
-        "@type": "Question",
-        "name": item.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.answer
-        }
-      }))
-    };
-    schemas.push(faqSchema);
-  }
-
-  // 4. Breadcrumb Schema (Dynamic)
-  if (currentPath && currentPath !== '/') {
-    const segments = currentPath.split('/').filter(Boolean).filter(s => s !== 'ar');
-    if (segments.length > 0) {
-      const breadcrumbSchema = {
+  const schemas = React.useMemo(() => {
+    // 1. Organization & Local Business Schema
+    const baseSchemas = [
+      {
         "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": t('breadcrumbs.home'),
-            "item": baseUrl
-          },
-          ...segments.map((segment, idx) => ({
-            "@type": "ListItem",
-            "position": idx + 2,
-            "name": t(`breadcrumbs.${segment}`) || segment.toUpperCase(),
-            "item": `${baseUrl}/${segments.slice(0, idx + 1).join('/')}`
-          }))
+        "@type": "ProfessionalService",
+        "name": siteName,
+        "image": metaImage,
+        "url": baseUrl,
+        "telephone": "+20123456789",
+        "priceRange": "$$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Obour City",
+          "addressLocality": "Cairo",
+          "addressRegion": "Qalyubia",
+          "postalCode": "12345",
+          "addressCountry": "EG"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "30.2289",
+          "longitude": "31.4722"
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        "sameAs": [
+          "https://linkedin.com/company/rumuze",
+          "https://twitter.com/rumuze"
         ]
-      };
-      schemas.push(breadcrumbSchema);
-    }
-  }
+      }
+    ];
 
-  // 5. WebPage Schema
-  const webPageSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": metaTitle,
-    "description": metaDescription,
-    "url": canonicalUrl,
-    "image": metaImage,
-    "inLanguage": currentLang === 'ar' ? 'ar-EG' : 'en-US',
-    "publisher": {
-      "@type": "Organization",
-      "name": siteName,
-      "logo": {
-        "@type": "ImageObject",
+    // 2. Service Schemas
+    const serviceSchemas = [
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Architecting Scalable Ecosystems",
+        "provider": { "@type": "LocalBusiness", "name": siteName },
+        "description": "Bespoke digital ecosystems, high-availability architectures, and enterprise-grade software engineering.",
+        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Behavioral Data & Market Dominance",
+        "provider": { "@type": "LocalBusiness", "name": siteName },
+        "description": "Data-driven authority construction, algorithmic acquisition, and search dominance strategies.",
+        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
+      }
+    ];
+    baseSchemas.push(...serviceSchemas);
+
+    // 3. FAQ Schema
+    const faqData = t('faq.items', { returnObjects: true });
+    if (Array.isArray(faqData)) {
+      const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqData.map(item => ({
+          "@type": "Question",
+          "name": item.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.answer
+          }
+        }))
+      };
+      baseSchemas.push(faqSchema);
+    }
+
+    // 4. Breadcrumb Schema (Dynamic)
+    if (currentPath && currentPath !== '/') {
+      const segments = currentPath.split('/').filter(Boolean).filter(s => s !== 'ar');
+      if (segments.length > 0) {
+        const breadcrumbSchema = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": t('breadcrumbs.home'),
+              "item": baseUrl
+            },
+            ...segments.map((segment, idx) => ({
+              "@type": "ListItem",
+              "position": idx + 2,
+              "name": t(`breadcrumbs.${segment}`) || segment.toUpperCase(),
+              "item": `${baseUrl}/${segments.slice(0, idx + 1).join('/')}`
+            }))
+          ]
+        };
+        baseSchemas.push(breadcrumbSchema);
       }
     }
-  };
-  schemas.push(webPageSchema);
+
+    // 5. WebPage Schema
+    const webPageSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": metaTitle,
+      "description": metaDescription,
+      "url": canonicalUrl,
+      "image": metaImage,
+      "inLanguage": currentLang === 'ar' ? 'ar-EG' : 'en-US',
+      "publisher": {
+        "@type": "Organization",
+        "name": siteName,
+        "logo": {
+          "@type": "ImageObject",
+        }
+      }
+    };
+    baseSchemas.push(webPageSchema);
+
+    return baseSchemas;
+  }, [siteName, metaImage, baseUrl, t, currentPath, metaTitle, metaDescription, canonicalUrl, currentLang]);
 
   // Debugging Log
   if (import.meta.env.DEV) {
@@ -228,9 +232,10 @@ const SEO = ({ title, description, image, type, path }) => {
       <html lang={currentLang} dir={i18n.dir()} />
 
       {/* Multilingual Hreflang Tags */}
-      <link rel="alternate" hreflang="en" href={`${baseUrl}${currentPath.replace('/ar', '')}`} />
-      <link rel="alternate" hreflang="ar" href={`${baseUrl}/ar${currentPath.replace('/ar', '')}`} />
-      <link rel="alternate" hreflang="x-default" href={`${baseUrl}${currentPath.replace('/ar', '')}`} />
+      {/* Multilingual Hreflang Tags */}
+      <link rel="alternate" hreflang="en" href={`${baseUrl}${currentPath.replace(/^\/ar/, '')}`} />
+      <link rel="alternate" hreflang="ar" href={`${baseUrl}/ar${currentPath.replace(/^\/ar/, '')}`} />
+      <link rel="alternate" hreflang="x-default" href={`${baseUrl}${currentPath.replace(/^\/ar/, '')}`} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={metaType} />

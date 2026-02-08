@@ -8,7 +8,7 @@
  * - Marketing-oriented descriptions (120-160 chars)
  */
 
-const BASE_URL = 'https://rumuze.com';
+const BASE_URL = 'https://www.rumuze.com';
 const BRAND_NAME = 'Rumuze';
 const OG_IMAGE_VERSION = '2026-02';
 
