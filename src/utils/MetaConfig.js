@@ -205,14 +205,38 @@ const FALLBACK_META = {
  */
 function normalizePath(path) {
     if (!path) return '/';
+    if (path === '/') return '/';
+    if (path === '/ar') return '/'; // Special case for AR home
 
     // Remove trailing slash
-    let normalized = path.replace(/\/$/, '') || '/';
+    let normalized = path.replace(/\/$/, '');
 
-    // Remove /ar prefix for lookup
-    normalized = normalized.replace(/^\/ar/, '') || '/';
+    // Remove /ar prefix for lookup (but we might need it for the final URL)
+    // The lookup key in META_CONFIG is always clean (e.g. '/services')
+    const withoutAr = normalized.replace(/^\/ar/, '') || '/';
 
-    return normalized;
+    return withoutAr;
+}
+
+/**
+ * Filter and format query parameters for canonical URLs
+ * Only allows specific parameters that change page content significantly
+ */
+function getCanonicalQueryString(searchParams) {
+    if (!searchParams) return '';
+
+    const ALLOWED_PARAMS = ['page'];
+    const params = new URLSearchParams(searchParams);
+    const filteredParams = new URLSearchParams();
+
+    ALLOWED_PARAMS.forEach(key => {
+        if (params.has(key)) {
+            filteredParams.set(key, params.get(key));
+        }
+    });
+
+    const queryString = filteredParams.toString();
+    return queryString ? `?${queryString}` : '';
 }
 
 /**
@@ -220,17 +244,30 @@ function normalizePath(path) {
  * 
  * @param {string} path - Current route path
  * @param {string} lang - Language code ('en' or 'ar')
+ * @param {string} queryString - URL query string (optional, e.g. '?page=2')
  * @returns {Object} Metadata object with title, description, image, etc.
  */
-export function getMetaForRoute(path, lang = 'en') {
-    const normalizedPath = normalizePath(path);
+export function getMetaForRoute(path, lang = 'en', queryString = '') {
+    const normalizedKey = normalizePath(path); // Key for config lookup (e.g. '/services')
     const language = lang === 'ar' ? 'ar' : 'en';
 
+
+
+    // Special handling for root to avoid double slash if not needed, 
+    // but normalizePath above handles logic.
+    // Let's simplify:
+    // 1. Strip trailing slash
+    let cleanUrlPath = path === '/' ? '/' : path.replace(/\/$/, '');
+
+    // 2. Add query params
+    const canonicalQuery = getCanonicalQueryString(queryString);
+    const fullCanonicalUrl = `${BASE_URL}${cleanUrlPath}${canonicalQuery}`;
+
     // Try exact match first
-    if (META_CONFIG[normalizedPath]) {
+    if (META_CONFIG[normalizedKey]) {
         return {
-            ...META_CONFIG[normalizedPath][language],
-            url: `${BASE_URL}${path}`,
+            ...META_CONFIG[normalizedKey][language],
+            url: fullCanonicalUrl,
             type: 'website'
         };
     }
@@ -238,13 +275,13 @@ export function getMetaForRoute(path, lang = 'en') {
     // Try partial matches for dynamic routes
     const matchingRoute = Object.keys(META_CONFIG).find(route => {
         if (route === '/') return false;
-        return normalizedPath.startsWith(route);
+        return normalizedKey.startsWith(route);
     });
 
     if (matchingRoute) {
         return {
             ...META_CONFIG[matchingRoute][language],
-            url: `${BASE_URL}${path}`,
+            url: fullCanonicalUrl,
             type: 'website'
         };
     }
@@ -252,7 +289,7 @@ export function getMetaForRoute(path, lang = 'en') {
     // Fallback to default metadata
     return {
         ...FALLBACK_META[language],
-        url: `${BASE_URL}${path}`,
+        url: fullCanonicalUrl,
         type: 'website'
     };
 }

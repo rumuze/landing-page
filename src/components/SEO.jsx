@@ -16,7 +16,7 @@ const SEO = ({ title, description, image, type, path }) => {
   const currentPath = path || location.pathname;
   
   // Get metadata from centralized config
-  const configMeta = getMetaForRoute(currentPath, currentLang);
+  const configMeta = getMetaForRoute(currentPath, currentLang, location.search);
   
   // Allow manual overrides via props, but prefer config
   const metaTitle = title || configMeta.title;
