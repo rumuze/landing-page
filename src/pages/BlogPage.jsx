@@ -6,7 +6,15 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import OptimizedImage from '../components/OptimizedImage';
 import { ArticleSkeleton } from '../components/SkeletonLoader';
-import { getAllPosts } from '../data/blogPosts';
+
+// Defensive import: Fallback to empty array if blog data is unavailable
+let getAllPosts = () => [];
+try {
+  const blogData = await import('../data/blogPosts');
+  getAllPosts = blogData.getAllPosts || (() => []);
+} catch {
+  console.warn('[BlogPage] Blog data unavailable, falling back to empty posts.');
+}
 
 const BlogPage = () => {
   const { t, i18n } = useTranslation();
