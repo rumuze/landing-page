@@ -149,6 +149,22 @@ describe('MetadataService', () => {
             expect(metadata.locale).toBe('ar_AR');
             expect(metadata.lang).toBe('ar');
         });
+
+        test('resolves blog article metadata for known slug', () => {
+            const metadata = service.getMetadata('/blog/modular-monolith-architecture', 'en');
+            expect(metadata.type).toBe('article');
+            expect(metadata.author).toBe('Mohamed Ashraf');
+            expect(metadata.publishedTime).toBe('2026-02-12');
+            expect(metadata.title).toContain('Modular Monolith');
+            expect(metadata.image).toContain('/assets/images/blog-1.webp');
+        });
+
+        test('resolves Arabic blog article metadata for known slug', () => {
+            const metadata = service.getMetadata('/ar/blog/modular-monolith-architecture', 'ar');
+            expect(metadata.type).toBe('article');
+            expect(metadata.lang).toBe('ar');
+            expect(metadata.title).toContain('الكتلة المعيارية');
+        });
     });
 
     // ==========================================================================

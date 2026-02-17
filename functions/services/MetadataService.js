@@ -23,6 +23,7 @@ import {
     DEFAULT_METADATA,
     ROUTE_METADATA,
     SUPPORTED_LOCALES,
+    getBlogArticleMetadata,
     sanitizeMetaString,
     isValidMetadata,
 } from '../config/metadata.config.js';
@@ -69,6 +70,12 @@ export class MetadataService {
     getMetadata(path, locale = null) {
         // Auto-detect locale if not provided
         const detectedLocale = locale || this.detectLocale(path);
+
+        // Blog article routes (/blog/:slug, /ar/blog/:slug) get dedicated article metadata
+        const blogArticleMetadata = getBlogArticleMetadata(path, detectedLocale);
+        if (blogArticleMetadata) {
+            return this.buildMetadataDTO(blogArticleMetadata, detectedLocale, path);
+        }
 
         // Normalize path (remove locale prefix and trailing slashes)
         const normalizedPath = this.normalizePath(path);
@@ -279,7 +286,7 @@ export class MetadataService {
             description: sanitizeMetaString(routeMetadata.description),
 
             // Image metadata
-            image: this.getOGImage(locale),
+            image: routeMetadata.image || this.getOGImage(locale),
             imageAlt: routeMetadata.imageAlt || this.getOGImageAlt(locale),
             imageWidth: '1200',
             imageHeight: '630',
@@ -297,6 +304,15 @@ export class MetadataService {
             // Additional metadata
             direction: locale === 'ar' ? 'rtl' : 'ltr',
             lang: locale,
+
+            // Article metadata (optional)
+            author: routeMetadata.author ? sanitizeMetaString(routeMetadata.author) : '',
+            publishedTime: routeMetadata.publishedTime || '',
+            modifiedTime: routeMetadata.modifiedTime || routeMetadata.publishedTime || '',
+            section: routeMetadata.section ? sanitizeMetaString(routeMetadata.section) : '',
+            tags: Array.isArray(routeMetadata.tags)
+                ? routeMetadata.tags.map(tag => sanitizeMetaString(String(tag)))
+                : [],
         };
 
         return metadata;

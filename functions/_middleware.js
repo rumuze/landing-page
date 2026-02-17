@@ -308,6 +308,18 @@ function isValidSnapshotRoute(path) {
  * - Image dimension tags (REQUIRED for Facebook)
  */
 function buildMetaTags(metadata) {
+    const articleTags = metadata.type === 'article'
+        ? [
+            metadata.author ? `<meta property="article:author" content="${metadata.author}">` : '',
+            metadata.publishedTime ? `<meta property="article:published_time" content="${metadata.publishedTime}">` : '',
+            metadata.modifiedTime ? `<meta property="article:modified_time" content="${metadata.modifiedTime}">` : '',
+            metadata.section ? `<meta property="article:section" content="${metadata.section}">` : '',
+            ...(Array.isArray(metadata.tags)
+                ? metadata.tags.map(tag => `<meta property="article:tag" content="${tag}">`)
+                : []),
+        ].filter(Boolean)
+        : [];
+
     const tags = [
         // ========================================================================
         // CRITICAL OG TAGS FIRST (Facebook Debugger Priority)
@@ -319,6 +331,7 @@ function buildMetaTags(metadata) {
         `<meta property="og:url" content="${metadata.url}">`,
         `<meta property="og:site_name" content="${metadata.siteName}">`,
         `<meta property="og:locale" content="${metadata.locale}">`,
+        ...articleTags,
 
         // ========================================================================
         // OG IMAGE TAGS (WhatsApp/Facebook Optimization)

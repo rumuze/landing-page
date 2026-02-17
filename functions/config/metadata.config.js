@@ -16,15 +16,20 @@
  * @typedef {Object} MetadataDTO
  * @property {string} title - Page title (max 60 chars recommended)
  * @property {string} description - Meta description (max 160 chars recommended)
- * @property {string} image - Absolute URL to OG image (1200x630px recommended)
+ * @property {string} [image] - Absolute URL to OG image (1200x630px recommended)
  * @property {string} [imageAlt] - Alt text for OG image (accessibility)
  * @property {'website'|'article'|'product'} [type] - OG content type
+ * @property {string} [author] - Content author (for article pages)
+ * @property {string} [publishedTime] - ISO publish date (for article pages)
+ * @property {string} [modifiedTime] - ISO modified date (for article pages)
+ * @property {string} [section] - Article category/section
+ * @property {string[]} [tags] - Article tags
  */
 
 /**
  * @typedef {Object} LocalizedMetadata
- * @property {Omit<MetadataDTO, 'image'>} en - English metadata
- * @property {Omit<MetadataDTO, 'image'>} ar - Arabic metadata
+ * @property {MetadataDTO} en - English metadata
+ * @property {MetadataDTO} ar - Arabic metadata
  */
 
 // ============================================================================
@@ -203,6 +208,81 @@ export const ROUTE_METADATA = {
     },
 };
 
+/**
+ * Blog article metadata (slug-based) for dynamic post routes.
+ * Used for /blog/:slug and /ar/blog/:slug.
+ * 
+ * @const {Object<string, {shared: Object, en: MetadataDTO, ar: MetadataDTO}>}
+ */
+export const BLOG_ARTICLE_METADATA = {
+    'modular-monolith-architecture': {
+        shared: {
+            author: 'Mohamed Ashraf',
+            publishedTime: '2026-02-12',
+            modifiedTime: '2026-02-12',
+            section: 'Engineering',
+            tags: ['Architecture', 'Microservices', 'Scalability'],
+            image: `${BASE_URL}/assets/images/blog-1.webp`,
+        },
+        en: {
+            title: 'The Modular Monolith: Why Microservices Fail | Rumuze',
+            description: 'Microservices are a premature optimization for most teams. Learn when a modular monolith outperforms distributed complexity.',
+            imageAlt: 'The Modular Monolith article cover',
+            type: 'article',
+        },
+        ar: {
+            title: 'الكتلة المعيارية: لماذا تفشل الخدمات المصغرة | روموز',
+            description: 'لماذا تكون الخدمات المصغرة تحسينًا سابقًا لأوانه، ومتى تصبح الكتلة المعيارية خيارًا أكثر كفاءة واستدامة.',
+            imageAlt: 'غلاف مقال الكتلة المعيارية',
+            type: 'article',
+        },
+    },
+    'retention-is-king': {
+        shared: {
+            author: 'Strategy Team',
+            publishedTime: '2026-02-08',
+            modifiedTime: '2026-02-08',
+            section: 'Growth Strategy',
+            tags: ['Retention', 'LTV', 'Growth'],
+            image: `${BASE_URL}/assets/images/blog-2.webp`,
+        },
+        en: {
+            title: 'Vanity Metrics vs. Value: Why Retention is King | Rumuze',
+            description: 'Acquisition without retention burns budget. Understand why retention is the clearest signal of sustainable product growth.',
+            imageAlt: 'Retention is King article cover',
+            type: 'article',
+        },
+        ar: {
+            title: 'مقاييس الغرور مقابل القيمة: لماذا الاحتفاظ هو الملك | روموز',
+            description: 'الاستحواذ وحده لا يبني نموًا صحيًا. تعرّف كيف يصبح الاحتفاظ بالمستخدمين أساس التوسع الحقيقي طويل المدى.',
+            imageAlt: 'غلاف مقال لماذا الاحتفاظ هو الملك',
+            type: 'article',
+        },
+    },
+    'deterministic-ai-engineering': {
+        shared: {
+            author: 'Mohamed Ashraf',
+            publishedTime: '2026-02-01',
+            modifiedTime: '2026-02-01',
+            section: 'AI Engineering',
+            tags: ['AI', 'Deterministic Systems', 'LLM'],
+            image: `${BASE_URL}/assets/images/blog-3.webp`,
+        },
+        en: {
+            title: 'Deterministic AI: Configuring Probabilities | Rumuze',
+            description: 'Enterprise AI needs guardrails. See how deterministic wrappers turn probabilistic models into reliable production systems.',
+            imageAlt: 'Deterministic AI article cover',
+            type: 'article',
+        },
+        ar: {
+            title: 'الذكاء الاصطناعي الحتمي: تكوين الاحتمالات | روموز',
+            description: 'النجاح المؤسسي في الذكاء الاصطناعي يتطلب حواجز صارمة. تعرّف كيف نضبط النماذج الاحتمالية لتعمل بثقة في الإنتاج.',
+            imageAlt: 'غلاف مقال الذكاء الاصطناعي الحتمي',
+            type: 'article',
+        },
+    },
+};
+
 // ============================================================================
 // LOCALE MAPPING
 // ============================================================================
@@ -221,6 +301,39 @@ export const OG_LOCALE_MAP = {
  * @const {string[]}
  */
 export const SUPPORTED_LOCALES = ['en', 'ar'];
+
+// ============================================================================
+// BLOG HELPERS
+// ============================================================================
+
+/**
+ * Resolve blog article metadata from a request path.
+ * Supports `/blog/:slug` and `/ar/blog/:slug`.
+ * 
+ * @param {string} path - Request path
+ * @param {'en'|'ar'} locale - Locale code
+ * @returns {MetadataDTO|null} Article metadata or null
+ */
+export function getBlogArticleMetadata(path, locale) {
+    if (typeof path !== 'string') return null;
+
+    const cleanPath = path.split('?')[0].split('#')[0];
+    const match = cleanPath.match(/^\/(?:ar\/)?blog\/([^/]+)\/?$/);
+    if (!match) return null;
+
+    const slug = decodeURIComponent(match[1]);
+    const entry = BLOG_ARTICLE_METADATA[slug];
+
+    if (!entry || !entry[locale]) {
+        return null;
+    }
+
+    return {
+        ...entry[locale],
+        ...entry.shared,
+        type: 'article',
+    };
+}
 
 // ============================================================================
 // HELPER FUNCTIONS
