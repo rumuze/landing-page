@@ -1,3 +1,4 @@
+/* eslint-env node */
 import { getStructuredData } from '../src/utils/MetaConfig.js';
 import { blogPosts } from '../src/data/blogPosts.js';
 
@@ -5,7 +6,7 @@ import { blogPosts } from '../src/data/blogPosts.js';
 // checking MetaConfig dependencies... 
 // It uses `window.location.origin` in BASE_URL if not hardcoded. 
 // Let's mock it.
-global.window = {
+globalThis.window = {
     location: {
         origin: 'https://rumuze.com'
     }

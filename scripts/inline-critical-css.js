@@ -32,7 +32,9 @@ try {
 
     if (!cssFile) {
         console.log('⚠️  No CSS file found, skipping inlining');
-        process.exit(0);
+        if (globalThis.process && typeof globalThis.process.exit === 'function') {
+          globalThis.process.exit(0);
+        }
     }
 
     const cssPath = join(assetsDir, cssFile);
@@ -43,7 +45,7 @@ try {
     // Replace the CSS link tag with inline style
     const cssLinkRegex = /<link[^>]*rel="stylesheet"[^>]*href="[^"]*\.css"[^>]*>/g;
 
-    html = html.replace(cssLinkRegex, (match) => {
+    html = html.replace(cssLinkRegex, () => {
         console.log('✅ Replaced CSS link with inline styles');
         return `<style>${cssContent}</style>`;
     });
@@ -56,5 +58,7 @@ try {
 
 } catch (error) {
     console.error('❌ Error inlining CSS:', error.message);
-    process.exit(1);
+    if (globalThis.process && typeof globalThis.process.exit === 'function') {
+      globalThis.process.exit(1);
+    }
 }

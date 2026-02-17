@@ -32,9 +32,11 @@ const PORT = 4173; // Vite preview port
 // ENVIRONMENT GUARD
 // ============================================================================
 
-if (process.env.ENABLE_PRERENDER !== 'true') {
+if ((globalThis.process?.env?.ENABLE_PRERENDER) !== 'true') {
     console.log('⏭️  Skipping prerender (ENABLE_PRERENDER not set to true)');
-    process.exit(0);
+    if (globalThis.process && typeof globalThis.process.exit === 'function') {
+      globalThis.process.exit(0);
+    }
 }
 
 // ============================================================================
@@ -103,7 +105,7 @@ function getRoutesFromSitemap() {
             } else {
                 console.log(`⚠️  Skipping excluded route: ${path}`);
             }
-        } catch (e) {
+        } catch {
             console.warn(`⚠️  Invalid URL in sitemap: ${fullUrl}`);
         }
     }
@@ -137,7 +139,9 @@ async function prerender() {
     // Ensure public exists
     if (!existsSync(PUBLIC_DIR)) {
         console.error('❌ public/ directory not found.');
-        process.exit(1);
+        if (globalThis.process && typeof globalThis.process.exit === 'function') {
+          globalThis.process.exit(1);
+        }
     }
 
     // Create snapshots directory
@@ -153,12 +157,16 @@ async function prerender() {
         console.log(`✅ Found ${routes.length} valid routes to pre-render.`);
     } catch (error) {
         console.error(error.message);
-        process.exit(1);
+        if (globalThis.process && typeof globalThis.process.exit === 'function') {
+          globalThis.process.exit(1);
+        }
     }
 
     if (routes.length === 0) {
         console.warn('⚠️  No routes found. Exiting.');
-        process.exit(0);
+        if (globalThis.process && typeof globalThis.process.exit === 'function') {
+          globalThis.process.exit(0);
+        }
     }
 
     // 2. Start Server
@@ -185,7 +193,11 @@ async function prerender() {
             const url = `http://localhost:${PORT}${route}`;
             const label = route === '/' ? '(home)' : route;
 
-            process.stdout.write(`Rendering: ${label.padEnd(30)} `);
+            if (globalThis.process && globalThis.process.stdout && typeof globalThis.process.stdout.write === 'function') {
+              globalThis.process.stdout.write(`Rendering: ${label.padEnd(30)} `);
+            } else {
+              console.log(`Rendering: ${label.padEnd(30)} `);
+            }
 
             try {
                 // Navigate and wait for network to be idle (ensures huge parts of JS load)
@@ -221,12 +233,16 @@ async function prerender() {
 
     } catch (error) {
         console.error('❌ Prerendering critical error:', error);
-        process.exit(1);
+        if (globalThis.process && typeof globalThis.process.exit === 'function') {
+          globalThis.process.exit(1);
+        }
     } finally {
         await browser.close();
         serverProcess.kill();
         console.log('🏁 Prerendering complete.');
-        process.exit(0);
+        if (globalThis.process && typeof globalThis.process.exit === 'function') {
+          globalThis.process.exit(0);
+        }
     }
 }
 

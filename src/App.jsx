@@ -1,6 +1,6 @@
-import { useScroll, useSpring, AnimatePresence, motion } from 'framer-motion';
+ 
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState, Suspense, lazy } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
@@ -8,12 +8,10 @@ import SEO from './components/SEO';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
-import { useRegisterSW } from 'virtual:pwa-register/react';
-import UpdateToast from './components/UpdateToast';
-import InstallPrompt from './components/InstallPrompt';
+ 
 import OfflineFallback from './pages/OfflineFallback';
 import ErrorBoundary from './components/ErrorBoundary';
-import CustomCursor from './components/CustomCursor';
+ 
 
 // Lazy load components
 const Hero = lazy(() => import('./components/Hero'));
@@ -21,7 +19,7 @@ const Services = lazy(() => import('./components/Services'));
 const Portfolio = lazy(() => import('./components/Portfolio'));
 const TechStack = lazy(() => import('./components/TechStack'));
 const Contact = lazy(() => import('./components/Contact'));
-const Labs = lazy(() => import('./components/Labs'));
+ 
 const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
@@ -29,11 +27,11 @@ const LegalPage = lazy(() => import('./pages/LegalPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
-import ShareButton from './components/ShareButton';
-import OfflineToast from './components/OfflineToast';
+ 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const ManifestoPage = lazy(() => import('./pages/ManifestoPage'));
+const LabsPage = lazy(() => import('./pages/LabsPage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -75,44 +73,7 @@ function AppContent() {
   const { i18n } = useTranslation();
   const location = useLocation();
   const isAr = i18n.language === 'ar';
-  const [isOffline, setIsOffline] = useState(!navigator.onLine);
-
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  // PWA Register Logic
-  const {
-    needRefresh: [needRefresh, setNeedRefresh],
-    updateServiceWorker,
-  } = useRegisterSW({
-    onRegistered() {
-      console.log('SW Registered');
-    },
-    onRegisterError(error) {
-      console.error('SW registration error', error);
-    },
-    onOfflineReady() {
-      console.log('App ready for offline use');
-    },
-  });
-
-
-  useEffect(() => {
-    const handleOnline = () => setIsOffline(false);
-    const handleOffline = () => setIsOffline(true);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
+ 
 
   // Language Synchronizer with Path
   // Language Synchronizer with Path
@@ -168,173 +129,68 @@ function AppContent() {
 
   return (
     <div className={`min-h-screen bg-white dark:bg-background tech-grid transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan to-purple origin-left z-[100]"
-        style={{ scaleX }}
-      />
-      
-      <OfflineToast />
+     
       <Navbar />
       
-      <main>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
+      <main className="pb-24 md:pb-0">
+        <Routes location={location} key={location.pathname}>
             {/* Home Routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/ar" element={<HomePage isAr={true} />} />
 
             {/* Portfolio Page Routes */}
-            <Route path="/portfolio" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>
-              </motion.div>
-            } />
-            <Route path="/ar/portfolio" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>
-              </motion.div>
-            } />
+            <Route path="/portfolio" element={<Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>} />
+            <Route path="/ar/portfolio" element={<Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>} />
 
             {/* Offline Page */}
             <Route path="/offline" element={<OfflineFallback />} />
             <Route path="/ar/offline" element={<OfflineFallback />} />
 
             {/* Labs Routes */}
-            <Route path="/labs" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><Labs /></Suspense>
-              </motion.div>
-            } />
-            <Route path="/ar/labs" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><Labs /></Suspense>
-              </motion.div>
-            } />
+            <Route path="/labs" element={<Suspense fallback={<Skeleton />}><LabsPage /></Suspense>} />
+            <Route path="/ar/labs" element={<Suspense fallback={<Skeleton />}><LabsPage /></Suspense>} />
 
             {/* Services Routes */}
-            <Route path="/services" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
-              </motion.div>
-            } />
-            <Route path="/ar/services" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
-              </motion.div>
-            } />
+            <Route path="/services" element={<Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>} />
+            <Route path="/ar/services" element={<Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>} />
 
             {/* About Routes */}
-            <Route path="/about" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Suspense />}><AboutPage /></Suspense>
-              </motion.div>
-            } />
-            <Route path="/ar/about" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><AboutPage /></Suspense>
-              </motion.div>
-            } />
+            <Route path="/about" element={<Suspense fallback={<Skeleton />}><AboutPage /></Suspense>} />
+            <Route path="/ar/about" element={<Suspense fallback={<Skeleton />}><AboutPage /></Suspense>} />
+
 
             {/* Blog Routes */}
-            <Route path="/blog" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
-              </motion.div>
-            } />
-            <Route path="/ar/blog" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
-              </motion.div>
-            } />
+            <Route path="/blog" element={<Suspense fallback={<Skeleton />}><BlogPage /></Suspense>} />
+            <Route path="/ar/blog" element={<Suspense fallback={<Skeleton />}><BlogPage /></Suspense>} />
 
             {/* Legal Routes */}
-            <Route path="/privacy" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
-              </motion.div>
-            } />
-            <Route path="/ar/privacy" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
-              </motion.div>
-            } />
-            <Route path="/terms" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
-              </motion.div>
-            } />
-            <Route path="/ar/terms" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
-              </motion.div>
-            } />
+            <Route path="/privacy" element={<Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>} />
+            <Route path="/ar/privacy" element={<Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>} />
+            <Route path="/terms" element={<Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>} />
+            <Route path="/ar/terms" element={<Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>} />
 
             {/* Contact Routes */}
-            <Route path="/contact" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
-              </motion.div>
-            } />
-            <Route path="/ar/contact" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
-              </motion.div>
-            } />
+            <Route path="/contact" element={<Suspense fallback={<Skeleton />}><ContactPage /></Suspense>} />
+            <Route path="/ar/contact" element={<Suspense fallback={<Skeleton />}><ContactPage /></Suspense>} />
 
             {/* 404 Catch-All Route */}
-            <Route path="*" element={
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Suspense fallback={<Skeleton />}><NotFound /></Suspense>
-              </motion.div>
-            } />
+            <Route path="*" element={<Suspense fallback={<Skeleton />}><NotFound /></Suspense>} />
           </Routes>
-        </AnimatePresence>
       </main>
 
-      {/* Global Share Button */}
-      <div className="fixed bottom-24 right-4 z-40 md:bottom-8 md:right-8">
-        <ShareButton />
-      </div>
-
-      <UpdateToast 
-        show={needRefresh} 
-        onUpdate={() => updateServiceWorker(true)} 
-        onClose={() => setNeedRefresh(false)} 
-      />
-      {/* Conditionally show InstallPrompt if online */}
-      {!isOffline && <InstallPrompt />}
+      
       <Footer />
     </div>
   );
 }
 
 function App() {
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
-
-  useEffect(() => {
-    // Initial load simulation or actual asset checking
-    const timer = setTimeout(() => setIsInitialLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <HelmetProvider>
       <ErrorBoundary>
         <ThemeProvider>
-          <AnimatePresence>
-            {isInitialLoading && (
-              <motion.div
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="fixed inset-0 z-[10000]"
-              >
-                <LoadingSpinner fullScreen />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          
           <Router>
-            <CustomCursor />
             <ScrollToTop />
             <AppContent />
           </Router>

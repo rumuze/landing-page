@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+ 
 import { Calendar, Clock, ArrowLeft, ArrowRight, User } from 'lucide-react';
 import SEO from '../components/SEO';
 import OptimizedImage from '../components/OptimizedImage';
@@ -42,9 +42,7 @@ const BlogPost = () => {
 
             <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Back Link */}
-                <motion.div 
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
+                <div 
                     className="mb-8"
                 >
                     <Link 
@@ -54,14 +52,11 @@ const BlogPost = () => {
                         {isAr ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
                         <span>{isAr ? 'العودة للمدونة' : 'Back to Blog'}</span>
                     </Link>
-                </motion.div>
+                </div>
 
                 {/* Header */}
                 <header className="mb-12 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                    >
+                    <div>
                         <span className="inline-block px-4 py-1 mb-6 rounded-full bg-cyan/10 text-cyan text-sm font-bold uppercase tracking-wider">
                             {t(`blog.categories.${post.category}`)}
                         </span>
@@ -83,14 +78,11 @@ const BlogPost = () => {
                                 <span>{post.readTime} {t('blog.readTime')}</span>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 </header>
 
                 {/* Hero Image */}
-                <motion.div 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.2 }}
+                <div 
                     className="mb-16 rounded-3xl overflow-hidden shadow-2xl relative aspect-video"
                 >
                     <OptimizedImage
@@ -99,13 +91,10 @@ const BlogPost = () => {
                         priority={true}
                         className="w-full h-full object-cover"
                     />
-                </motion.div>
+                </div>
 
                 {/* Content */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
+                <div 
                     className="prose prose-lg dark:prose-invert max-w-none 
                         prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white
                         prose-p:text-slate-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed

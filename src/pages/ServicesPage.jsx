@@ -1,23 +1,17 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, useScroll, useTransform } from 'framer-motion';
+ 
 import { Code2, BrainCircuit, Rocket, ArrowRight, CheckCircle2, Zap } from 'lucide-react';
 import SEO from '../components/SEO';
-import { TiltCard } from '../components/TiltCard';
+ 
 import { Link } from 'react-router-dom';
 
 const ServicesPage = () => {
   const { t, i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
   
-  // Parallax Scroll Hook
+  // Removed motion-based parallax for static rendering
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-  
-  const yBackend = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   const services = [
     {
@@ -66,58 +60,34 @@ const ServicesPage = () => {
     <div ref={containerRef} className={`min-h-screen bg-slate-50 dark:bg-[#000B18] overflow-hidden ${isAr ? 'rtl' : 'ltr'}`}>
       <SEO path={isAr ? '/ar/services' : '/services'} />
 
-      {/* Hero Section */}
+      {/* Hero Section (static) */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-         <motion.div 
-            style={{ y: yBackend }}
-            className="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-cyan/5 via-purple/5 to-transparent pointer-events-none"
-         />
+         <div className="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-cyan/5 via-purple/5 to-transparent pointer-events-none" />
          
          <div className="max-w-7xl mx-auto text-center relative z-10">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan/30 bg-cyan/5 text-cyan text-sm font-bold tracking-widest mb-8 uppercase"
-            >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan/30 bg-cyan/5 text-cyan text-sm font-bold tracking-widest mb-8 uppercase">
               <Zap size={16} />
               {t('hero.badge')}
-            </motion.div>
+            </div>
             
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-5xl md:text-7xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-cyan via-purple to-cyan bg-[length:200%_auto] animate-gradient-x leading-tight"
-            >
+            <h1 className="text-5xl md:text-7xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-cyan via-purple to-cyan bg-[length:200%_auto] leading-tight">
               {t('services_page.title')}
-            </motion.h1>
+            </h1>
             
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-xl md:text-2xl text-slate-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
-            >
+            <p className="text-xl md:text-2xl text-slate-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
               {t('services.description')}
-            </motion.p>
+            </p>
          </div>
       </section>
 
-      {/* Services Cards with Tilt Effect */}
+      {/* Services Cards (static) */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="space-y-16 md:space-y-32">
           {services.map((service, index) => (
              <div key={service.id} className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
                 
                 {/* Text Content */}
-                <motion.div 
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8 }}
-                  className="flex-1 space-y-8"
-                >
+                <div className="flex-1 space-y-8">
                    <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center`}>
                       {service.icon}
                    </div>
@@ -143,37 +113,16 @@ const ServicesPage = () => {
                          </span>
                       ))}
                    </div>
-                </motion.div>
+                </div>
 
-                {/* Tilt Card Visual */}
-                <motion.div 
-                   initial={{ opacity: 0, scale: 0.8 }}
-                   whileInView={{ opacity: 1, scale: 1 }}
-                   viewport={{ once: true }}
-                   className="flex-1 w-full h-auto aspect-square md:aspect-auto md:h-[500px]"
-                >
-                   <TiltCard className={`group relative rounded-3xl bg-gradient-to-br ${service.color} border border-transparent ${service.border} transition-all duration-500 overflow-hidden`}>
-                      <div className={`absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl ${service.glow}`}></div>
-                      
-                      {/* Floating Elements inside Tilt Card */}
-                      <div className="relative z-10 flex flex-col items-center justify-center text-center p-6 md:p-10 h-full">
-                         <div className="p-8 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 shadow-2xl mb-8 group-hover:scale-110 transition-transform duration-500">
-                            {service.icon}
-                         </div>
-                         <h3 className="text-2xl font-black text-white mb-2">{service.title}</h3>
-                         <span className="text-white/60 text-sm tracking-widest uppercase">High-Performance Implementation</span>
-                      </div>
-                      
-                      {/* Decorative Background Pattern */}
-                      <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
-                   </TiltCard>
-                </motion.div>
+                {/* Visual placeholder removed for static rendering */}
+                <div className="flex-1 w-full h-auto md:h-[500px] rounded-3xl bg-gradient-to-br from-white/10 to-white/0 border border-slate-200 dark:border-white/10" />
              </div>
           ))}
         </div>
       </section>
 
-      {/* Animated Work Process Timeline */}
+      {/* Work Process Timeline (static) */}
       <section className="py-32 relative bg-slate-900 text-white overflow-hidden">
          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900 to-slate-900"></div>
          <div className="max-w-7xl mx-auto px-4 relative z-10">
@@ -187,14 +136,7 @@ const ServicesPage = () => {
                <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-cyan/20 via-purple/20 to-cyan/20"></div>
                
                {processSteps.map((step, idx) => (
-                  <motion.div 
-                    key={idx}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.2 }}
-                    className="relative text-center group"
-                  >
+                  <div key={idx} className="relative text-center group">
                      <div className="w-24 h-24 mx-auto bg-slate-800 rounded-full border-4 border-slate-900 flex items-center justify-center relative z-10 group-hover:border-cyan transition-colors duration-300">
                         <span className="text-2xl font-black text-white/20 group-hover:text-cyan transition-colors duration-300">{step.num}</span>
                      </div>
@@ -202,7 +144,7 @@ const ServicesPage = () => {
                         <h3 className="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">{step.title}</h3>
                         <p className="text-sm text-gray-500">{step.desc}</p>
                      </div>
-                  </motion.div>
+                  </div>
                ))}
             </div>
          </div>

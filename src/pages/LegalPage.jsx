@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+ 
 import { Shield, FileText, Lock, Globe, Menu } from 'lucide-react';
 import SEO from '../components/SEO';
-import { useLocation } from 'react-router-dom';
+ 
 
 const LegalPage = ({ type }) => {
   const { t, i18n } = useTranslation();
@@ -72,33 +72,28 @@ const LegalPage = ({ type }) => {
                 <span className="ml-auto opacity-50">{isSidebarOpen ? 'Close' : 'Open'}</span>
              </button>
              
-             <AnimatePresence>
-                {isSidebarOpen && (
-                   <motion.div 
-                     initial={{ height: 0, opacity: 0 }}
-                     animate={{ height: 'auto', opacity: 1 }}
-                     exit={{ height: 0, opacity: 0 }}
-                     className="overflow-hidden bg-slate-50 dark:bg-white/5 rounded-b-xl border border-t-0 border-slate-200 dark:border-white/10"
-                   >
-                      <ul className="p-4 space-y-2">
-                        {sections.map(section => (
-                          <li key={section.id}>
-                            <button
-                              onClick={() => scrollToSection(section.id)}
-                              className={`text-sm w-full text-start py-2 px-3 rounded-lg ${
-                                activeSection === section.id 
-                                ? 'bg-cyan/10 text-cyan font-bold' 
-                                : 'text-slate-600 dark:text-gray-400'
-                              }`}
-                            >
-                              {section.title}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                   </motion.div>
-                )}
-             </AnimatePresence>
+             {isSidebarOpen && (
+               <div 
+                 className="overflow-hidden bg-slate-50 dark:bg-white/5 rounded-b-xl border border-t-0 border-slate-200 dark:border-white/10"
+               >
+                  <ul className="p-4 space-y-2">
+                    {sections.map(section => (
+                      <li key={section.id}>
+                        <button
+                          onClick={() => scrollToSection(section.id)}
+                          className={`text-sm w-full text-start py-2 px-3 rounded-lg ${
+                            activeSection === section.id 
+                            ? 'bg-cyan/10 text-cyan font-bold' 
+                            : 'text-slate-600 dark:text-gray-400'
+                          }`}
+                        >
+                          {section.title}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+               </div>
+             )}
           </div>
 
           {/* Sidebar Navigation (Desktop) */}
@@ -139,9 +134,7 @@ const LegalPage = ({ type }) => {
 
           {/* Main Content */}
           <div className="col-span-1 lg:col-span-8 lg:col-start-5">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+            <div
               className="mb-12 border-b border-slate-200 dark:border-white/10 pb-8"
             >
               <h1 className="text-4xl md:text-5xl font-black mb-6 text-slate-900 dark:text-white tracking-tight">
@@ -160,17 +153,13 @@ const LegalPage = ({ type }) => {
               <p className="mt-8 text-lg md:text-xl leading-relaxed text-slate-600 dark:text-gray-300">
                 {intro}
               </p>
-            </motion.div>
+            </div>
 
             <div className="space-y-16">
                {sections.map((section, idx) => (
-                 <motion.section 
+                 <section 
                     key={section.id} 
                     id={section.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ delay: 0.1 }}
                  >
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
                        <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-cyan/10 text-cyan text-sm font-black border border-cyan/20">
@@ -204,7 +193,7 @@ const LegalPage = ({ type }) => {
                           return line.trim() ? <p key={i} className="mb-4">{line}</p> : null;
                        })}
                     </div>
-                 </motion.section>
+                 </section>
                ))}
             </div>
             

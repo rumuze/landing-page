@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+ 
 import { Menu, X, Globe, ChevronDown, FlaskConical, Sun, Moon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../context/useTheme';
 import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
@@ -72,6 +72,36 @@ const Navbar = () => {
 
   return (
     <>
+      <style>
+        {`
+          @keyframes scanBar {
+            0% { transform: translateY(-30%); }
+            50% { transform: translateY(130%); }
+            100% { transform: translateY(-30%); }
+          }
+          @keyframes gridShift {
+            0% { background-position: 0 0; }
+            50% { background-position: 0 16px; }
+            100% { background-position: 0 0; }
+          }
+          .nav-logo-group:hover .scanner-beam,
+          .nav-logo-group:focus-visible .scanner-beam {
+            opacity: 0.9;
+            animation: scanBar 1.6s ease-in-out infinite;
+          }
+          .nav-logo-group:hover .scanner-grid,
+          .nav-logo-group:focus-visible .scanner-grid {
+            opacity: 0.18;
+            animation: gridShift 2.4s linear infinite;
+          }
+          /* Hide scrollbar in horizontal nav on tablet for cleaner look */
+          .scrollbar-hidden {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+          }
+          .scrollbar-hidden::-webkit-scrollbar { display: none; }
+        `}
+      </style>
       <nav 
         className={`fixed w-full z-50 transition-all duration-500 hidden md:block ${
           scrolled 
@@ -83,102 +113,90 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center w-full">
             {/* Logo */}
-            <Link to={isAr ? '/ar/' : '/'} className="flex items-center gap-4 group shrink-0">
+            <Link 
+              to={isAr ? '/ar/' : '/'} 
+              className="nav-logo-group flex items-center gap-3 md:gap-4 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-background rounded-xl"
+            >
               {/* Symbol Container with Scanning Effect */}
-              <div className="relative w-12 h-12 flex items-center justify-center rounded-xl bg-slate-900/50 dark:bg-white/5 backdrop-blur-md border border-white/10 shadow-lg shadow-cyan/10 group-hover:border-cyan/50 transition-all duration-500 overflow-hidden">
-                <img src="/rumuze-symbol.png" alt="Rumuze Symbol" className="w-9 h-9 z-10 filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-transform group-hover:scale-110" />
-                
-                {/* Scanning Line Animation */}
-                <motion.div 
-                  initial={{ top: "-10%" }}
-                  animate={{ top: "110%" }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  className="absolute left-0 right-0 h-[2px] bg-cyan/40 shadow-[0_0_15px_rgba(0,229,255,0.8)] z-20 opacity-0 group-hover:opacity-100 transition-opacity"
-                />
+              <div className="relative md:w-10 md:h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-xl bg-slate-900/50 dark:bg-white/5 backdrop-blur-md border border-white/10 shadow-lg shadow-cyan/10 group-hover:border-cyan/50 group-focus-visible:border-cyan/60 transition-all duration-500 overflow-hidden">
+                <img src="/rumuze-symbol.png" alt="Rumuze Symbol" className="w-7 h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 z-10 filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-transform group-hover:scale-110 group-focus-visible:scale-110" />
+                <div className="scanner-beam absolute left-0 right-0 top-0 h-[38%] opacity-0 will-change-transform" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(34,211,238,0.18) 35%, rgba(34,211,238,0.32) 50%, rgba(34,211,238,0.18) 65%, rgba(0,0,0,0) 100%)', boxShadow: '0 0 18px rgba(34,211,238,0.25)' }}></div>
+                <div className="scanner-grid absolute inset-0 opacity-0 will-change-transform" style={{ backgroundImage: 'repeating-linear-gradient(135deg, transparent, transparent 12px, rgba(255,255,255,0.08) 12px, rgba(255,255,255,0.08) 14px)' }}></div>
                 
                 {/* Circuit Activation Glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan/20 to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-700"></div>
               </div>
 
               {/* Text Brand Image */}
-              <div className="h-6 flex items-center overflow-hidden">
+              <div className="h-5 md:h-5 lg:h-6 flex items-center overflow-hidden">
                 <img 
                   src="/rumuze-text.png" 
                   alt="RUMUZE" 
-                  className="h-full object-contain filter dark:invert-0 invert opacity-90 group-hover:opacity-100 transition-opacity" 
+                  className="h-full object-contain filter dark:invert-0 invert opacity-90 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity" 
                 />
               </div>
             </Link>
 
-            {/* Desktop Nav */}
-            <div className="flex items-center gap-8">
-              <div className="flex items-center gap-6">
-                {navLinks.map((link) => (
-                  <Link 
-                    key={link.name} 
-                    to={link.href}
-                    aria-current={isActive(link.href) ? 'page' : undefined}
-                    className={`text-sm font-semibold transition-all flex items-center gap-2 relative py-1 ${
-                      link.highlight 
-                      ? 'text-cyan px-3 bg-cyan/10 border border-cyan/20 rounded-lg hover:bg-cyan/20' 
-                      : 'text-slate-700 dark:text-gray-300 hover:text-cyan dark:hover:text-cyan'
-                    }`}
-                  >
-                    {link.icon && <span aria-hidden="true">{link.icon}</span>}
-                    {link.name}
-                    {isActive(link.href) && !link.highlight && (
-                      <motion.div 
-                        layoutId="navUnderline"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan rounded-full"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </Link>
-                ))}
+            {/* Desktop/Tablet Nav */}
+            <div className="flex items-center gap-4 md:gap-6 lg:gap-8 w-full">
+              <div className="flex-1 min-w-0">
+                <div className={`flex items-center gap-3 md:gap-4 lg:gap-6 overflow-x-auto lg:overflow-visible scrollbar-hidden snap-x snap-mandatory ${isAr ? 'flex-row-reverse' : ''}`}>
+                  {navLinks.map((link) => (
+                    <Link 
+                      key={link.name} 
+                      to={link.href}
+                      aria-current={isActive(link.href) ? 'page' : undefined}
+                      className={`snap-start text-xs md:text-sm font-semibold transition-all flex items-center gap-2 relative py-1 ${
+                        link.highlight 
+                        ? 'text-cyan px-2 md:px-3 bg-cyan/10 border border-cyan/20 rounded-lg hover:bg-cyan/20' 
+                        : 'text-slate-700 dark:text-gray-300 hover:text-cyan dark:hover:text-cyan'
+                      }`}
+                    >
+                      {link.icon && <span aria-hidden="true">{link.icon}</span>}
+                      {link.name}
+                      {isActive(link.href) && !link.highlight && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan rounded-full" />
+                      )}
+                    </Link>
+                  ))}
+                </div>
               </div>
 
               {/* Theme Toggle */}
-              <ThemeToggle className="ltr:ml-2 rtl:mr-2" />
+              <ThemeToggle className="ltr:ml-1 md:ml-2 rtl:mr-1 md:mr-2 shrink-0" />
 
               {/* Language Switcher */}
-              <div className="relative">
+              <div className="relative shrink-0">
                 <button 
                   onClick={() => setShowLangMenu(!showLangMenu)}
                   aria-label="Change language"
                   aria-expanded={showLangMenu}
-                  className="flex items-center gap-2 text-sm font-bold text-slate-800 dark:text-gray-300 hover:text-cyan border border-slate-200 dark:border-white/10 px-3 py-1.5 rounded-lg transition-all bg-slate-50 dark:bg-transparent shadow-sm"
+                  className="flex items-center gap-2 text-xs md:text-sm font-bold text-slate-800 dark:text-gray-300 hover:text-cyan border border-slate-200 dark:border-white/10 px-2 md:px-3 py-1.5 rounded-lg transition-all bg-slate-50 dark:bg-transparent shadow-sm"
                 >
                   <Globe size={16} className="text-cyan" aria-hidden="true" />
                   <span>{currentLang.name}</span>
                   <ChevronDown size={14} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} aria-hidden="true" />
                 </button>
                 
-                <AnimatePresence>
-                  {showLangMenu && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className={`absolute top-full mt-2 bg-white/95 dark:bg-background/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px] z-[60] ${isAr ? 'left-0' : 'right-0'}`}
-                    >
-                      {languages.map((lang) => (
-                        <button
-                          key={lang.code}
-                          onClick={() => changeLanguage(lang.code)}
-                          className={`w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors ${
-                            i18n.language === lang.code ? 'text-cyan bg-slate-50 dark:bg-white/5' : 'text-slate-800 dark:text-gray-300'
-                          } ${isAr ? 'text-right flex-row-reverse' : 'text-left'}`}
-                        >
-                          <span className="text-lg">{lang.flag}</span>
-                          <span className="font-bold">{lang.name}</span>
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {showLangMenu && (
+                  <div className={`absolute top-full mt-2 bg-white/95 dark:bg-background/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[140px] z-[60] ${isAr ? 'left-0' : 'right-0'}`}>
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => changeLanguage(lang.code)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors ${
+                          i18n.language === lang.code ? 'text-cyan bg-slate-50 dark:bg-white/5' : 'text-slate-800 dark:text-gray-300'
+                        } ${isAr ? 'text-right flex-row-reverse' : 'text-left'}`}
+                      >
+                        <span className="text-lg">{lang.flag}</span>
+                        <span className="font-bold">{lang.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <button className="btn-primary text-sm px-5 py-2 shadow-lg shadow-cyan/20">
+              <button className="btn-primary text-xs md:text-sm px-4 md:px-5 py-2 shadow-lg shadow-cyan/20 shrink-0">
                 {t('navbar.startProject')}
               </button>
             </div>
@@ -190,30 +208,30 @@ const Navbar = () => {
       <nav className="fixed bottom-6 left-4 right-4 z-50 md:hidden">
         <div className="glass-card !rounded-2xl !p-2 flex justify-around items-center shadow-2xl bg-white/90 dark:bg-background/90 border-slate-200 dark:border-white/10 backdrop-blur-xl">
            <Link to={isAr ? '/ar/' : '/'} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/' : '/') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
-              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/' : '/') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+              <div className={isActive(isAr ? '/ar/' : '/') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              </motion.div>
+              </div>
               <span className="text-[10px] font-bold">{t('navbar.home')}</span>
            </Link>
 
            <Link to={isAr ? '/ar/services' : '/services'} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/services' : '/services') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
-              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/services' : '/services') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+              <div className={isActive(isAr ? '/ar/services' : '/services') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-              </motion.div>
+              </div>
               <span className="text-[10px] font-bold">{t('navbar.services')}</span>
            </Link>
 
            <Link to={isAr ? '/ar/labs' : '/labs'} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/labs' : '/labs') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
-              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/labs' : '/labs') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+              <div className={isActive(isAr ? '/ar/labs' : '/labs') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
                  <FlaskConical size={20} />
-              </motion.div>
+              </div>
               <span className="text-[10px] font-bold">{t('navbar.labs')}</span>
            </Link>
 
            <a href={isAr ? '/ar/contact' : '/contact'} onClick={(e) => { e.preventDefault(); navigate(isAr ? '/ar/contact' : '/contact'); }} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/contact' : '/contact') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
-              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/contact' : '/contact') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+              <div className={isActive(isAr ? '/ar/contact' : '/contact') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </motion.div>
+              </div>
               <span className="text-[10px] font-bold">{t('navbar.contact', 'Contact')}</span>
            </a>
 
@@ -222,23 +240,17 @@ const Navbar = () => {
               aria-label="Open menu"
               className="p-2 rounded-xl flex flex-col items-center gap-1 text-slate-700 dark:text-gray-400"
             >
-              <motion.div whileTap={{ scale: 0.9 }} className="p-1.5">
+              <div className="p-1.5">
                  <Menu size={20} />
-              </motion.div>
+              </div>
               <span className="text-[10px] font-bold">{t('navbar.more', 'More')}</span>
            </button>
         </div>
       </nav>
 
       {/* Mobile Full Screen Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-white/98 dark:bg-background/98 backdrop-blur-xl flex flex-col md:hidden"
-          >
+      {isOpen && (
+          <div className="fixed inset-0 z-[60] bg-white/98 dark:bg-background/98 backdrop-blur-xl flex flex-col md:hidden">
             {/* Header */}
             <div className={`p-6 flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
                <div className="flex items-center gap-3">
@@ -269,11 +281,7 @@ const Navbar = () => {
                       }`}
                     >
                       {i18n.language === lang.code && (
-                        <motion.div 
-                          layoutId="langActive"
-                          className="absolute inset-0 bg-white dark:bg-white/10 rounded-xl shadow-sm"
-                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        />
+                        <div className="absolute inset-0 bg-white dark:bg-white/10 rounded-xl shadow-sm" />
                       )}
                       <span className="relative z-10 flex items-center justify-center gap-1">
                          {lang.flag} {lang.name.split(' ')[0]}
@@ -297,13 +305,8 @@ const Navbar = () => {
 
             {/* Links */}
             <div className="flex-1 flex flex-col justify-center px-8 gap-6">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                >
+              {navLinks.map((link) => (
+                <div key={link.name}>
                   <Link 
                     to={link.href}
                     onClick={() => setIsOpen(false)}
@@ -313,7 +316,7 @@ const Navbar = () => {
                   >
                     {link.name}
                   </Link>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -326,9 +329,8 @@ const Navbar = () => {
                 {t('navbar.startProject')}
               </button>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </>
   );
 };

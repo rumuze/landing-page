@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+ 
 import { ExternalLink, X, ZoomIn } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import OptimizedImage from '../components/OptimizedImage';
@@ -64,13 +64,11 @@ const PortfolioPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div className="max-w-xl text-start">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+              <div 
                 className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple/10 border border-purple/20 text-purple text-xs font-bold mb-4 tracking-wider uppercase"
               >
                 {t('navbar.portfolio')}
-              </motion.div>
+              </div>
               <h1 className="text-4xl md:text-5xl font-black mb-6 text-slate-900 dark:text-white leading-tight">
                 {t('portfolio.title').split(' ')[0]} <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-purple">{t('portfolio.title').split(' ').slice(1).join(' ')}</span>
               </h1>
@@ -91,18 +89,14 @@ const PortfolioPage = () => {
                  <CardSkeleton />
                </>
             ) : (
-              projects.map((project, idx) => (
-              <motion.div
-                layoutId={project.id}
+              projects.map((project) => (
+              <div
                 onClick={() => setSelectedId(project.id)}
                 key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
                 className="group relative overflow-hidden rounded-3xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 cursor-pointer text-start"
               >
                 <div className="aspect-[4/3] overflow-hidden">
-                  <motion.div
+                  <div
                     className="w-full h-full transition-transform duration-700 group-hover:scale-110"
                   >
                     <OptimizedImage
@@ -113,7 +107,7 @@ const PortfolioPage = () => {
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className="w-full h-full object-cover"
                     />
-                  </motion.div>
+                  </div>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                 <div className="absolute inset-0 p-8 flex flex-col justify-end transform transition-transform duration-500 group-hover:translate-y-[-8px]">
@@ -126,74 +120,68 @@ const PortfolioPage = () => {
                     {project.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))
             )}
           </div>
 
-          <AnimatePresence>
-            {selectedId && (
-              <div 
-                className="fixed inset-0 z-[100] grid place-items-center p-4"
-                dir={isRtl ? 'rtl' : 'ltr'}
-              >
-                 <motion.div 
-                    initial={{ opacity: 0 }} 
-                    animate={{ opacity: 1 }} 
-                    exit={{ opacity: 0 }}
-                    onClick={() => setSelectedId(null)}
-                    className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
-                 />
-                 {projects.map(item => item.id === selectedId && (
-                    <motion.div 
-                      layoutId={selectedId} 
-                      className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-2xl relative z-10 text-start"
-                      key={item.id}
-                    >
-                       <motion.button 
-                          onClick={() => setSelectedId(null)}
-                          className={`absolute top-4 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full z-20 transition-colors backdrop-blur-sm ${isRtl ? 'left-4' : 'right-4'}`}
-                       >
-                          <X size={20} />
-                       </motion.button>
-                       <motion.div className="aspect-video relative">
-                          <OptimizedImage
-                            src={item.image}
-                            alt={item.title}
-                            width={1200}
-                            height={675}
-                            priority={true}
-                            sizes="(max-width: 768px) 100vw, 70vw"
-                            className="w-full h-full object-cover"
-                          />
-                       </motion.div>
-                       <motion.div className="p-8">
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-bold tracking-widest uppercase">{item.category}</span>
-                          </div>
-                          
-                          <motion.h2 className="text-3xl font-black text-slate-900 dark:text-white mb-3">{item.title}</motion.h2>
-                          <motion.p className="text-lg text-slate-600 dark:text-gray-300 mb-8 leading-relaxed">{item.description}</motion.p>
-                          
-                          <motion.div className="bg-slate-50 dark:bg-white/5 p-6 rounded-2xl border border-slate-100 dark:border-white/10">
-                             <h4 className="font-bold text-sm mb-3 text-slate-900 dark:text-white uppercase tracking-wide opacity-70">Project Impact</h4>
-                             <p className="text-base text-slate-700 dark:text-gray-300 leading-relaxed font-medium">{item.longDesc}</p>
-                          </motion.div>
-                          
-                          <div className="mt-8 flex gap-4">
-                              <button className="flex-1 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:opacity-90 transition-opacity">
-                                View Case Study
-                              </button>
-                              <button className="px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
-                                <ExternalLink size={20} />
-                              </button>
-                          </div>
-                       </motion.div>
-                    </motion.div>
-                 ))}
-              </div>
-            )}
-          </AnimatePresence>
+          {selectedId && (
+            <div 
+              className="fixed inset-0 z-[100] grid place-items-center p-4"
+              dir={isRtl ? 'rtl' : 'ltr'}
+            >
+               <div 
+                  onClick={() => setSelectedId(null)}
+                  className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
+               />
+               {projects.map(item => item.id === selectedId && (
+                  <div 
+                    className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-2xl relative z-10 text-start"
+                    key={item.id}
+                  >
+                     <button 
+                        onClick={() => setSelectedId(null)}
+                        className={`absolute top-4 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full z-20 transition-colors backdrop-blur-sm ${isRtl ? 'left-4' : 'right-4'}`}
+                     >
+                        <X size={20} />
+                     </button>
+                     <div className="aspect-video relative">
+                        <OptimizedImage
+                          src={item.image}
+                          alt={item.title}
+                          width={1200}
+                          height={675}
+                          priority={true}
+                          sizes="(max-width: 768px) 100vw, 70vw"
+                          className="w-full h-full object-cover"
+                        />
+                     </div>
+                     <div className="p-8">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-bold tracking-widest uppercase">{item.category}</span>
+                        </div>
+                        
+                        <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-3">{item.title}</h2>
+                        <p className="text-lg text-slate-600 dark:text-gray-300 mb-8 leading-relaxed">{item.description}</p>
+                        
+                        <div className="bg-slate-50 dark:bg-white/5 p-6 rounded-2xl border border-slate-100 dark:border-white/10">
+                           <h4 className="font-bold text-sm mb-3 text-slate-900 dark:text-white uppercase tracking-wide opacity-70">Project Impact</h4>
+                           <p className="text-base text-slate-700 dark:text-gray-300 leading-relaxed font-medium">{item.longDesc}</p>
+                        </div>
+                        
+                        <div className="mt-8 flex gap-4">
+                            <button className="flex-1 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:opacity-90 transition-opacity">
+                              View Case Study
+                            </button>
+                            <button className="px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                              <ExternalLink size={20} />
+                            </button>
+                        </div>
+                     </div>
+                  </div>
+               ))}
+            </div>
+          )}
         </div>
       </div>
     </>

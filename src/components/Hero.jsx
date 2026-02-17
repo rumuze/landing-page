@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+ 
 import { Terminal, ArrowRight, Sparkles, Code2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import MagneticButton from './MagneticButton';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === 'rtl';
-  const [activeCodeStep, setActiveCodeStep] = useState(0);
+ 
 
   const codeSteps = [
     { line: 1, text: "class RumuzeGrowth {", color: "text-purple" },
@@ -18,51 +18,22 @@ const Hero = () => {
     { line: 6, text: "}", color: "text-purple" },
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveCodeStep((prev) => (prev + 1) % (codeSteps.length + 2)); 
-    }, 800);
-    return () => clearInterval(interval);
-  }, [codeSteps.length]);
+ 
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-transparent">
       {/* Mesh Gradient Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div 
-           animate={{ 
-             scale: [1, 1.2, 1],
-             rotate: [0, 90, 0],
-           }}
-           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-           className={`absolute top-[-20%] w-[1000px] h-[1000px] bg-gradient-to-br from-indigo-300/20 to-purple-300/20 dark:from-cyan/10 dark:to-purple/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-70 ${isRtl ? '-right-[30%]' : '-left-[30%]'}`}
-        />
-        <motion.div 
-           animate={{ 
-             scale: [1, 1.3, 1],
-             rotate: [0, -60, 0],
-           }}
-           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-           className={`absolute bottom-[-10%] w-[800px] h-[800px] bg-gradient-to-tr from-purple-300/20 to-pink-300/20 dark:from-purple/10 dark:to-pink-500/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen opacity-60 ${isRtl ? '-left-[20%]' : '-right-[20%]'}`}
-        />
+        <div className={`absolute top-[-20%] w-[1000px] h-[1000px] bg-gradient-to-br from-indigo-300/20 to-purple-300/20 dark:from-cyan/10 dark:to-purple/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-70 ${isRtl ? '-right-[30%]' : '-left-[30%]'}`} />
+        <div className={`absolute bottom-[-10%] w-[800px] h-[800px] bg-gradient-to-tr from-purple-300/20 to-pink-300/20 dark:from-purple/10 dark:to-pink-500/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen opacity-60 ${isRtl ? '-left-[20%]' : '-right-[20%]'}`} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid lg:grid-cols-2 gap-12 items-center z-10">
-        <motion.div
-          initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className={isRtl ? 'text-right' : 'text-left'}
-        >
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-cyan text-xs font-bold mb-6 tracking-wider uppercase backdrop-blur-sm"
-          >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid md:grid-cols-2 gap-12 items-center z-10">
+        <div className={isRtl ? 'text-right' : 'text-left'}>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-cyan text-xs font-bold mb-6 tracking-wider uppercase backdrop-blur-sm">
             <Sparkles size={14} />
             {t('hero.badge')}
-          </motion.div>
+          </div>
           
           <h1 className="text-fluid-h1 font-black leading-tight mb-6 text-slate-900 dark:text-white tracking-tight">
             {t('hero.headline_part1')} 
@@ -77,24 +48,18 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
-            <MagneticButton className="px-8 py-4 shadow-xl shadow-cyan/20 w-full sm:w-auto">
+            <Link to={isRtl ? '/ar/services' : '/services'} className="px-8 py-4 shadow-xl shadow-cyan/20 w-full sm:w-auto btn-primary inline-flex items-center gap-2">
               {t('hero.ctaExplore')}
-              <ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" />
-            </MagneticButton>
-            
-            <button className="px-8 py-4 rounded-xl font-bold border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-all shadow-sm w-full sm:w-auto backdrop-blur-sm">
+              <ArrowRight size={18} className="rtl-flip" />
+            </Link>
+            <Link to={isRtl ? '/ar/contact' : '/contact'} className="px-8 py-4 rounded-xl font-bold border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-all shadow-sm w-full sm:w-auto backdrop-blur-sm">
               {t('hero.ctaServices')}
-            </button>
+            </Link>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Desktop Animated Code Block */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotateY: isRtl ? -20 : 20 }}
-          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="relative perspective-1000 hidden lg:block"
-        >
+        {/* Desktop/Tablet Code Block */}
+        <div className="relative perspective-1000 hidden md:block">
           <div className="glass-card p-0 overflow-hidden shadow-2xl cyan-glow border-slate-200/50 dark:border-white/10 bg-white/80 dark:bg-black/50 backdrop-blur-xl">
             <div className="bg-slate-100 dark:bg-white/5 px-4 py-3 flex gap-2 border-b border-slate-200 dark:border-white/5">
               <div className="w-3 h-3 rounded-full bg-red-500/80 shadow-inner"></div>
@@ -116,43 +81,22 @@ const Hero = () => {
               </pre>
             </div>
             {/* Visual elements */}
-            <div className={`absolute -bottom-6 w-32 h-32 glass border border-cyan/20 rounded-2xl flex items-center justify-center animate-bounce duration-[3000ms] ${isRtl ? '-left-6' : '-right-6'}`}>
+            <div className={`absolute -bottom-6 w-32 h-32 glass border border-cyan/20 rounded-2xl flex items-center justify-center ${isRtl ? '-left-6' : '-right-6'}`}>
               <Terminal className="text-cyan w-12 h-12 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Mobile Code Stream Animation */}
-        <div className="lg:hidden mt-8 w-full">
+        <div className="md:hidden mt-8 w-full">
            <div className="glass-card p-4 overflow-hidden relative min-h-[160px] flex items-center justify-center bg-slate-900/95 border-slate-700 shadow-xl">
               <Code2 className="absolute top-4 right-4 text-white/10 w-12 h-12" />
               <div className="font-mono text-sm w-full break-all whitespace-pre-wrap" dir="ltr">
-                <AnimatePresence mode="wait">
-                  {codeSteps.map((step, idx) => (
-                    idx === activeCodeStep && (
-                      <motion.div
-                        key={step.line}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className={`${step.color} font-bold`}
-                      >
-                        {step.text}
-                      </motion.div>
-                    )
-                  ))}
-                  {activeCodeStep >= codeSteps.length && (
-                    <motion.div
-                       key="complete"
-                       initial={{ scale: 0.8, opacity: 0 }}
-                       animate={{ scale: 1, opacity: 1 }}
-                       exit={{ scale: 1.2, opacity: 0 }}
-                       className="text-center text-cyan font-bold text-xl"
-                    >
-                      🚀 System Optimized
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {codeSteps.map((step) => (
+                  <div key={step.line} className={`${step.color} font-bold`}>
+                    {step.text}
+                  </div>
+                ))}
               </div>
            </div>
         </div>

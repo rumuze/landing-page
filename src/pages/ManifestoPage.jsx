@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+ 
 import SEO from '../components/SEO';
 
 const ManifestoPage = () => {
@@ -68,9 +68,7 @@ const ManifestoPage = () => {
       />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-           initial={{ opacity: 0, y: 30 }}
-           animate={{ opacity: 1, y: 0 }}
+        <div 
            className="text-center mb-20"
         >
             <h1 className="text-6xl md:text-8xl font-black mb-8 text-slate-900 dark:text-white tracking-tighter uppercase relative z-10">
@@ -79,16 +77,12 @@ const ManifestoPage = () => {
             <p className="text-2xl md:text-3xl text-cyan font-bold tracking-wide">
                 {currentContent.subtitle}
             </p>
-        </motion.div>
+        </div>
 
         <div className="space-y-16">
             {currentContent.sections.map((section, index) => (
-                <motion.section 
+                <section 
                     key={index}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
                     className="group border-l-4 border-slate-200 dark:border-white/10 pl-8 hover:border-cyan transition-colors"
                 >
                     <h2 className="text-3xl md:text-4xl font-black mb-4 text-slate-900 dark:text-white group-hover:text-cyan transition-colors">
@@ -97,19 +91,17 @@ const ManifestoPage = () => {
                     <p className="text-xl md:text-2xl text-slate-600 dark:text-gray-400 leading-relaxed font-light">
                         {section.text}
                     </p>
-                </motion.section>
+                </section>
             ))}
         </div>
 
-        <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+        <div 
             className="mt-24 text-center border-t border-slate-200 dark:border-white/10 pt-10"
         >
             <p className="text-lg text-slate-500 font-mono">
                 {isAr ? 'توقيع: مهندسو روموز' : 'SIGNED: THE ARCHITECTS OF RUMUZE'}
             </p>
-        </motion.div>
+        </div>
 
       </div>
     </div>

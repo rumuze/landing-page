@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+ 
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
@@ -49,9 +49,7 @@ const BlogPage = () => {
       <SEO path={isAr ? '/ar/blog' : '/blog'} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <div 
           className="text-center mb-16"
         >
           <h1 className="text-4xl md:text-6xl font-black mb-6 text-slate-900 dark:text-white">
@@ -60,7 +58,7 @@ const BlogPage = () => {
           <p className="text-xl text-slate-600 dark:text-gray-400 max-w-3xl mx-auto">
             {t('blog.subtitle')}
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {loading ? (
@@ -70,17 +68,13 @@ const BlogPage = () => {
                <ArticleSkeleton />
              </>
           ) : (
-            posts.map((post, index) => (
+            posts.map((post) => (
             <Link 
               key={post.id} 
               to={isAr ? `/ar/blog/${post.slug}` : `/blog/${post.slug}`}
               className="block h-full group"
             >
-            <motion.article 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+            <article 
               className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 flex flex-col h-full"
             >
               <div className="relative h-64 overflow-hidden">
@@ -127,7 +121,7 @@ const BlogPage = () => {
                   <ArrowRight size={20} className="text-slate-200 group-hover:text-cyan group-hover:translate-x-2 rtl:group-hover:-translate-x-2 transition-all" />
                 </div>
               </div>
-            </motion.article>
+            </article>
             </Link>
             ))
           )}

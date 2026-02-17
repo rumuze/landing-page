@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+ 
 import { Share2, Copy, Linkedin, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -37,24 +37,16 @@ const ShareButton = ({ title, url }) => {
 
   return (
     <div className="relative">
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+      <button
         onClick={handleShare}
         className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-cyan/20 hover:border-cyan/50 hover:text-cyan transition-all shadow-lg shadow-cyan/5"
         aria-label="Share this page"
       >
         <Share2 size={20} />
-      </motion.button>
+      </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 10 }}
-            className="absolute bottom-full right-0 mb-4 w-64 glass-card p-4 rounded-xl border border-white/10 shadow-2xl z-50 origin-bottom-right"
-          >
+      {isOpen && (
+          <div className="absolute bottom-full right-0 mb-4 w-64 glass-card p-4 rounded-xl border border-white/10 shadow-2xl z-50">
             <div className="space-y-3">
               <h4 className="text-sm font-bold text-white mb-2 ml-1">Share via</h4>
               
@@ -95,9 +87,8 @@ const ShareButton = ({ title, url }) => {
                 </button>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 };

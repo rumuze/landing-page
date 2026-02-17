@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+ 
 import { ExternalLink, X, ZoomIn } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import OptimizedImage from './OptimizedImage';
@@ -61,7 +61,7 @@ const Portfolio = () => {
           </button>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading ? (
              <>
                <CardSkeleton />
@@ -69,21 +69,14 @@ const Portfolio = () => {
                <CardSkeleton />
              </>
           ) : (
-            projects.map((project, idx) => (
-            <motion.div
-              layoutId={project.id}
+            projects.map((project) => (
+            <div
               onClick={() => setSelectedId(project.id)}
               key={project.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
               className="group relative overflow-hidden rounded-3xl bg-white dark:bg-background border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-500 cursor-pointer"
             >
               <div className="aspect-[4/3] overflow-hidden">
-                <motion.div
-                  className="w-full h-full transition-transform duration-700 group-hover:scale-110"
-                >
+                <div className="w-full h-full transition-transform duration-700 group-hover:scale-110">
                   <OptimizedImage
                     src={project.image}
                     alt={project.title}
@@ -91,9 +84,9 @@ const Portfolio = () => {
                     height={496}
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="w-full h-full"
-                    fetchpriority={idx === 0 ? "high" : "auto"}
+                    fetchpriority="auto"
                   />
-                </motion.div>
+                </div>
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-background via-white/40 dark:via-background/40 to-transparent opacity-80"></div>
               <div className={`absolute inset-0 p-8 flex flex-col justify-end transform transition-transform duration-500 group-hover:translate-y-[-10px] ${isRtl ? 'text-right' : 'text-left'}`}>
@@ -106,51 +99,48 @@ const Portfolio = () => {
                   {project.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))
           )}
         </div>
 
-        <AnimatePresence>
-          {selectedId && (
-            <div className="fixed inset-0 z-[100] grid place-items-center bg-black/60 backdrop-blur-sm p-4">
-               {projects.map(item => item.id === selectedId && (
-                  <motion.div 
-                    layoutId={selectedId} 
-                    className="w-full max-w-lg bg-white dark:bg-[#1a1a2e] rounded-3xl overflow-hidden shadow-2xl relative"
-                    key={item.id}
-                  >
-                     <motion.button 
-                        onClick={() => setSelectedId(null)}
-                        className="absolute top-4 right-4 p-2 bg-black/50 text-white rounded-full z-10 hover:bg-black/70 transition-colors"
-                     >
-                        <X size={20} />
-                     </motion.button>
-                     <motion.div className="aspect-video relative">
-                        <OptimizedImage
-                          src={item.image}
-                          alt={item.title}
-                          width={1200}
-                          height={675}
-                          priority={true}
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          className="w-full h-full"
-                        />
-                     </motion.div>
-                     <motion.div className="p-8">
-                        <span className="text-purple text-xs font-bold tracking-widest uppercase">{item.category}</span>
-                        <motion.h2 className="text-3xl font-black text-slate-900 dark:text-white my-2">{item.title}</motion.h2>
-                        <motion.p className="text-slate-600 dark:text-gray-300 mb-6">{item.description}</motion.p>
-                        <motion.div className="bg-slate-50 dark:bg-white/5 p-4 rounded-xl border border-slate-100 dark:border-white/10">
-                           <h4 className="font-bold text-sm mb-2 text-slate-900 dark:text-white">Project Impact</h4>
-                           <p className="text-sm text-slate-600 dark:text-gray-400">{item.longDesc}</p>
-                        </motion.div>
-                     </motion.div>
-                  </motion.div>
-               ))}
-            </div>
-          )}
-        </AnimatePresence>
+        {selectedId && (
+          <div className="fixed inset-0 z-[100] grid place-items-center bg-black/60 backdrop-blur-sm p-4">
+             {projects.map(item => item.id === selectedId && (
+                <div 
+                  className="w-full max-w-lg bg-white dark:bg-[#1a1a2e] rounded-3xl overflow-hidden shadow-2xl relative"
+                  key={item.id}
+                >
+                   <button 
+                      onClick={() => setSelectedId(null)}
+                      className="absolute top-4 right-4 p-2 bg-black/50 text-white rounded-full z-10 hover:bg-black/70 transition-colors"
+                   >
+                      <X size={20} />
+                   </button>
+                   <div className="aspect-video relative">
+                      <OptimizedImage
+                        src={item.image}
+                        alt={item.title}
+                        width={1200}
+                        height={675}
+                        priority={true}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="w-full h-full"
+                      />
+                   </div>
+                   <div className="p-8">
+                      <span className="text-purple text-xs font-bold tracking-widest uppercase">{item.category}</span>
+                      <h2 className="text-3xl font-black text-slate-900 dark:text-white my-2">{item.title}</h2>
+                      <p className="text-slate-600 dark:text-gray-300 mb-6">{item.description}</p>
+                      <div className="bg-slate-50 dark:bg-white/5 p-4 rounded-xl border border-slate-100 dark:border-white/10">
+                         <h4 className="font-bold text-sm mb-2 text-slate-900 dark:text-white">Project Impact</h4>
+                         <p className="text-sm text-slate-600 dark:text-gray-400">{item.longDesc}</p>
+                      </div>
+                   </div>
+                </div>
+             ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -126,7 +126,9 @@ function main() {
     // Ensure dist directory exists
     if (!existsSync(distDir)) {
         console.log('⚠️  dist/ directory not found. Run build first.');
-        process.exit(1);
+        if (globalThis.process && typeof globalThis.process.exit === 'function') {
+          globalThis.process.exit(1);
+        }
     }
 
     // Generate and write sitemap.xml

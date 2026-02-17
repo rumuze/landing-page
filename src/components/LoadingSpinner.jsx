@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+ 
 
 const loadingMessages = [
   "DECODING TECHNOLOGY...",
@@ -32,57 +32,31 @@ const LoadingSpinner = ({ fullScreen = false }) => {
         {/* Radar/Scanner Technical Rings */}
         <div className="relative w-48 h-48 flex items-center justify-center">
           {/* Outer Notch Ring */}
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0 border-[1px] border-dashed border-cyan/20 rounded-full"
-          />
+          <div className="absolute inset-0 border-[1px] border-dashed border-cyan/20 rounded-full" />
           
           {/* Inner Rotating Notches */}
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="absolute w-40 h-40 border-t-2 border-r-2 border-cyan/40 rounded-full"
-          />
+          <div className="absolute w-40 h-40 border-t-2 border-r-2 border-cyan/40 rounded-full" />
 
           {/* Pulsing Core Shadow */}
-          <motion.div
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute w-24 h-24 bg-cyan/20 blur-2xl rounded-full"
-          />
+          <div className="absolute w-24 h-24 bg-cyan/20 blur-2xl rounded-full" />
 
           {/* Logo Symbol */}
-          <motion.div 
-            animate={{ scale: [0.95, 1.05, 0.95] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="relative w-16 h-16 z-10"
-          >
+          <div className="relative w-16 h-16 z-10">
             <img 
               src="/rumuze-symbol.png" 
               alt="Rumuze Symbol" 
               className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,229,255,0.6)]" 
             />
-          </motion.div>
+          </div>
         </div>
 
         {/* Intelligent Progress Text */}
         <div className="mt-8 text-center min-h-[1.5rem]">
-          <motion.p
-            key={currentMessage}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            className="text-[10px] font-black tracking-[0.3em] text-cyan uppercase"
-          >
+          <p className="text-[10px] font-black tracking-[0.3em] text-cyan uppercase">
             {loadingMessages[currentMessage]}
-          </motion.p>
+          </p>
           <div className="mt-2 w-32 h-[1px] bg-slate-200 dark:bg-white/10 mx-auto overflow-hidden">
-            <motion.div 
-              animate={{ x: ['-100%', '100%'] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-1/2 h-full bg-cyan shadow-[0_0_10px_rgba(0,229,255,0.8)]"
-            />
+            <div className="w-1/2 h-full bg-cyan shadow-[0_0_10px_rgba(0,229,255,0.8)]" />
           </div>
         </div>
       </div>

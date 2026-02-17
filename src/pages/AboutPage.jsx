@@ -1,10 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Award, Zap, ShieldCheck, Database, Layout, Server, Cpu, Globe, ArrowUpRight } from 'lucide-react';
 import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
-import MagneticButton from '../components/MagneticButton';
+ 
 
 const AboutPage = () => {
   const { t, i18n } = useTranslation();
@@ -41,24 +40,7 @@ const AboutPage = () => {
     { category: "Global Edge", icon: <Globe />, items: ["Cloudflare Workers", "Edge Caching", "Global CDN", "WASM"] }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
+ 
 
   return (
     <div className={`pt-32 pb-20 overflow-hidden ${isAr ? 'rtl' : 'ltr'}`}>
@@ -68,21 +50,16 @@ const AboutPage = () => {
         
         {/* Helper Badge */}
         <div className="flex justify-center mb-8">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+            <div 
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple/30 bg-purple/5 text-purple text-sm font-bold tracking-widest uppercase"
             >
               <Cpu size={16} />
               <span>{t('about.subtitle')}</span>
-            </motion.div>
+            </div>
         </div>
 
         {/* Hero Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+        <div 
           className="text-center mb-32 relative"
         >
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan/5 rounded-full blur-[100px] -z-10 animate-pulse"></div>
@@ -96,20 +73,15 @@ const AboutPage = () => {
           <p className="text-xl md:text-2xl text-slate-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
             {t('about.story.content')}
           </p>
-        </motion.div>
+        </div>
 
         {/* Mission & Values Grid */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+        <div 
           className="grid lg:grid-cols-3 gap-8 mb-32"
         >
-          {values.map((value, idx) => (
-             <motion.div 
+          {values.map((value) => (
+             <div 
                key={value.id}
-               variants={itemVariants}
                className="p-8 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-cyan/30 transition-all group relative overflow-hidden"
              >
                 <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
@@ -121,33 +93,25 @@ const AboutPage = () => {
                    <p className="text-slate-600 dark:text-gray-400 leading-relaxed">
                       {value.text}
                    </p>
-                </div>
-             </motion.div>
+            </div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Tech Stack Visualization */}
         <div className="mb-32">
-           <motion.h2 
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
+           <h2 
              className="text-3xl md:text-4xl font-black text-center mb-16 text-slate-900 dark:text-white"
            >
               {t('techStack.badge')}
-           </motion.h2>
+           </h2>
 
-           <motion.div 
-             variants={containerVariants}
-             initial="hidden"
-             whileInView="visible"
-             viewport={{ once: true, margin: "-50px" }}
+           <div 
              className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
            >
-              {techStack.map((stack, idx) => (
-                 <motion.div
+              {techStack.map((stack) => (
+                <div
                    key={stack.category}
-                   variants={itemVariants}
                    className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-purple/40 transition-colors"
                  >
                     <div className="flex items-center gap-3 mb-6">
@@ -161,16 +125,13 @@ const AboutPage = () => {
                           </span>
                        ))}
                     </div>
-                 </motion.div>
+                </div>
               ))}
-           </motion.div>
+           </div>
         </div>
 
         {/* Founder Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <div 
           className="relative rounded-[3rem] overflow-hidden"
         >
           <div className="absolute inset-0 bg-slate-900 dark:bg-black"></div>
@@ -200,15 +161,13 @@ const AboutPage = () => {
                     </a>
                   </div>
                   
-                  <Link to={isAr ? "/ar/contact" : "/contact"}>
-                    <MagneticButton className="px-8 py-3 shadow-lg shadow-cyan/20">
-                       {t('hero.ctaExplore')} <ArrowUpRight size={18} className="rtl-flip" />
-                    </MagneticButton>
+                  <Link to={isAr ? "/ar/contact" : "/contact"} className="btn-primary px-8 py-3 shadow-lg shadow-cyan/20 inline-flex items-center gap-2">
+                    {t('hero.ctaExplore')} <ArrowUpRight size={18} className="rtl-flip" />
                   </Link>
                 </div>
              </div>
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </div>

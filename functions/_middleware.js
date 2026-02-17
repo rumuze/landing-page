@@ -74,7 +74,7 @@ const CRAWLER_PATTERNS = [
  * @returns {Promise<Response>} Modified response with injected meta tags
  */
 export async function onRequest(context) {
-    const { request, next, env } = context; // Added env for caching/KV if needed later
+    const { request, next } = context;
     const url = new URL(request.url);
     const path = url.pathname;
 
@@ -225,7 +225,7 @@ export async function onRequest(context) {
 
     // CRITICAL FIX #2: Use PREPEND instead of APPEND
     // This ensures OG tags appear in the first 1KB of response
-    return new HTMLRewriter()
+    return new globalThis.HTMLRewriter()
         // Set html lang and dir attributes
         .on('html', {
             element(element) {

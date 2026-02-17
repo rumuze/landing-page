@@ -1,3 +1,4 @@
+/* eslint-env node */
 /**
  * Build Verification Script
  * 
@@ -14,7 +15,7 @@
  * Usage: node scripts/verify-build.js
  */
 
-import { readdirSync, statSync, unlinkSync } from 'fs';
+import { readdirSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -64,19 +65,25 @@ function verifyBuild() {
 
         if (hasErrors) {
             console.error('🚫 Build verification FAILED.');
-            process.exit(1);
+            if (globalThis.process && typeof globalThis.process.exit === 'function') {
+              globalThis.process.exit(1);
+            }
         } else {
             console.log('✅ Build verification PASSED. dist/ root is clean.');
-            process.exit(0);
+            if (globalThis.process && typeof globalThis.process.exit === 'function') {
+              globalThis.process.exit(0);
+            }
         }
 
     } catch (error) {
-        if (error.code === 'ENOENT') {
+        if (error && error.code === 'ENOENT') {
             console.error('❌ dist/ directory not found. Run build first.');
         } else {
             console.error('❌ Error verifying build:', error.message);
         }
-        process.exit(1);
+        if (globalThis.process && typeof globalThis.process.exit === 'function') {
+          globalThis.process.exit(1);
+        }
     }
 }
 
