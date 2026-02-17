@@ -3,6 +3,12 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { getMetaForRoute, validateMetadata } from '../utils/MetaConfig';
+import { ENTITY } from '../config/entity';
+import { buildOrganizationSchema } from '../seo/buildOrganizationSchema';
+import { buildWebSiteSchema } from '../seo/buildWebSiteSchema';
+import { buildServiceSchemas } from '../seo/buildServiceSchema';
+import { buildFAQSchema } from '../seo/buildFAQSchema';
+import { generateCanonical, generateHreflangs } from '../seo/linking';
 
 const SEO = ({ title, description, image, type, path }) => {
   const { t, i18n } = useTranslation();
@@ -23,7 +29,7 @@ const SEO = ({ title, description, image, type, path }) => {
   const metaDescription = description || configMeta.description;
   const metaImage = image || configMeta.image;
   const metaType = type || configMeta.type || 'website';
-  const canonicalUrl = configMeta.url;
+  const canonicalUrl = generateCanonical(baseUrl, currentPath);
   const metaKeywords = configMeta.keywords || t('seo.keywords');
   const imageAlt = configMeta.imageAlt || metaTitle;
   
@@ -44,128 +50,35 @@ const SEO = ({ title, description, image, type, path }) => {
   }
 
   const schemas = React.useMemo(() => {
-    // 1. Organization & Local Business Schema
-    const baseSchemas = [
+    const lang = currentLang === 'ar' ? 'ar' : 'en';
+    const graph = [
+      buildOrganizationSchema(lang),
+      buildWebSiteSchema(lang),
       {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": siteName,
-        "image": metaImage,
-        "url": baseUrl,
-        "telephone": "+20123456789",
-        "priceRange": "$$$",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Obour City",
-          "addressLocality": "Cairo",
-          "addressRegion": "Qalyubia",
-          "postalCode": "12345",
-          "addressCountry": "EG"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": "30.2289",
-          "longitude": "31.4722"
-        },
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
-          "opens": "09:00",
-          "closes": "18:00"
-        },
-        "sameAs": [
-          "https://linkedin.com/company/rumuze",
-          "https://twitter.com/rumuze"
-        ]
-      }
-    ];
-
-    // 2. Service Schemas
-    const serviceSchemas = [
-      {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "serviceType": "Architecting Scalable Ecosystems",
-        "provider": { "@type": "LocalBusiness", "name": siteName },
-        "description": "Bespoke digital ecosystems, high-availability architectures, and enterprise-grade software engineering.",
-        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        '@id': `${baseUrl}${currentPath}#webpage`,
+        url: `${baseUrl}${currentPath}`,
+        name: metaTitle,
+        description: metaDescription,
+        inLanguage: lang === 'ar' ? 'ar-EG' : 'en-US',
+        isPartOf: { '@id': `${baseUrl}/#website` },
+        about: { '@id': ENTITY.id },
+        primaryImageOfPage: { '@type': 'ImageObject', url: metaImage }
       },
       {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "serviceType": "Behavioral Data & Market Dominance",
-        "provider": { "@type": "LocalBusiness", "name": siteName },
-        "description": "Data-driven authority construction, algorithmic acquisition, and search dominance strategies.",
-        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
-      }
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: lang === 'ar' ? 'الرئيسية' : 'Home', item: `${baseUrl}/${lang === 'ar' ? 'ar' : ''}` },
+          { '@type': 'ListItem', position: 2, name: metaTitle.split('|')[0].trim(), item: `${baseUrl}${currentPath}` }
+        ]
+      },
+      ...buildServiceSchemas(lang),
+      buildFAQSchema(lang)
     ];
-    baseSchemas.push(...serviceSchemas);
-
-    // 3. FAQ Schema
-    const faqData = t('faq.items', { returnObjects: true });
-    if (Array.isArray(faqData)) {
-      const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": faqData.map(item => ({
-          "@type": "Question",
-          "name": item.question,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": item.answer
-          }
-        }))
-      };
-      baseSchemas.push(faqSchema);
-    }
-
-    // 4. Breadcrumb Schema (Dynamic)
-    if (currentPath && currentPath !== '/') {
-      const segments = currentPath.split('/').filter(Boolean).filter(s => s !== 'ar');
-      if (segments.length > 0) {
-        const breadcrumbSchema = {
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": t('breadcrumbs.home'),
-              "item": baseUrl
-            },
-            ...segments.map((segment, idx) => ({
-              "@type": "ListItem",
-              "position": idx + 2,
-              "name": t(`breadcrumbs.${segment}`) || segment.toUpperCase(),
-              "item": `${baseUrl}/${segments.slice(0, idx + 1).join('/')}`
-            }))
-          ]
-        };
-        baseSchemas.push(breadcrumbSchema);
-      }
-    }
-
-    // 5. WebPage Schema
-    const webPageSchema = {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": metaTitle,
-      "description": metaDescription,
-      "url": canonicalUrl,
-      "image": metaImage,
-      "inLanguage": currentLang === 'ar' ? 'ar-EG' : 'en-US',
-      "publisher": {
-        "@type": "Organization",
-        "name": siteName,
-        "logo": {
-          "@type": "ImageObject",
-        }
-      }
-    };
-    baseSchemas.push(webPageSchema);
-
-    return baseSchemas;
-  }, [siteName, metaImage, baseUrl, t, currentPath, metaTitle, metaDescription, canonicalUrl, currentLang]);
+    return graph;
+  }, [baseUrl, currentPath, metaTitle, metaDescription, metaImage, currentLang]);
 
   // Debugging Log
   if (import.meta.env.DEV) {
@@ -232,10 +145,16 @@ const SEO = ({ title, description, image, type, path }) => {
       <html lang={currentLang} dir={i18n.dir()} />
 
       {/* Multilingual Hreflang Tags */}
-      {/* Multilingual Hreflang Tags */}
-      <link rel="alternate" hreflang="en" href={`${baseUrl}${currentPath.replace(/^\/ar/, '')}`} />
-      <link rel="alternate" hreflang="ar" href={`${baseUrl}/ar${currentPath.replace(/^\/ar/, '')}`} />
-      <link rel="alternate" hreflang="x-default" href={`${baseUrl}${currentPath.replace(/^\/ar/, '')}`} />
+      {(() => {
+        const hrefs = generateHreflangs(baseUrl, currentPath);
+        return (
+          <>
+            <link rel="alternate" hreflang="en" href={hrefs.en} />
+            <link rel="alternate" hreflang="ar" href={hrefs.ar} />
+            <link rel="alternate" hreflang="x-default" href={hrefs.xDefault} />
+          </>
+        );
+      })()}
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={metaType} />

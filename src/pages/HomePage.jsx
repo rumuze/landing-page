@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
+import HomeGEOBlocks from '../components/HomeGEOBlocks';
 
 // Lazy load components
 const Hero = lazy(() => import('../components/Hero'));
@@ -33,6 +34,7 @@ const HomePage = ({ isAr = false }) => {
         <Services />
         <Portfolio />
         <TechStack />
+        <HomeGEOBlocks locale={isAr ? 'ar' : 'en'} />
         <Contact />
       </Suspense>
     </motion.div>

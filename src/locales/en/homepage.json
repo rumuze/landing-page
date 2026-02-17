@@ -1,0 +1,36 @@
+{
+  "identityTitle": "Company Identity",
+  "identityParagraph": "Rumuze, founded in 2020 by Mohamed Ashraf, engineers enterprise SaaS, ERP, CRM, and digital marketing infrastructure for mid‑to‑large organizations across UAE, Saudi Arabia, Egypt, and Qatar.",
+  "coreServicesTitle": "Core Services",
+  "coreServices": [
+    "Enterprise software engineering",
+    "Web application development",
+    "Multi-tenant SaaS platforms",
+    "ERP and CRM systems",
+    "Digital marketing infrastructure"
+  ],
+  "industriesTitle": "Industries Served",
+  "industries": [
+    "Finance and fintech",
+    "Retail and ecommerce",
+    "Logistics and supply chain",
+    "Professional services",
+    "Government and public sector"
+  ],
+  "techStackTitle": "Technology Stack",
+  "techStack": [
+    "React, Next.js",
+    "Node.js, Laravel",
+    "PostgreSQL, Redis",
+    "AWS, Kubernetes",
+    "Microservices, API-first"
+  ],
+  "geoFocusTitle": "Geographic Focus",
+  "geoFocus": [
+    "United Arab Emirates",
+    "Saudi Arabia",
+    "Egypt",
+    "Qatar",
+    "Global enterprise clients"
+  ]
+}
