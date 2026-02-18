@@ -1,27 +1,48 @@
 import { LanguageCode } from '../config/entity';
 import { SERVICES } from '../config/services';
+import { StableIds, buildServiceId, buildSubServiceId } from '../config/site';
+import { localeToBCP47 } from '../utils/localeToBCP47';
 
 export function buildServiceSchemas(lang: LanguageCode) {
   const isAr = lang === 'ar';
-  return SERVICES.map((svc) => ({
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    '@id': `https://www.rumuze.com/#service-${svc.slug}`,
-    serviceType: isAr ? svc.title.ar : svc.title.en,
-    provider: { '@id': 'https://www.rumuze.com/#organization' },
-    description: isAr ? svc.summary.ar : svc.summary.en,
-    areaServed: {
-      '@type': 'Place',
-      name: 'MENA',
-    },
-    inLanguage: isAr ? 'ar-EG' : 'en-US',
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: isAr ? 'خدمات روموز' : 'Rumuze Services',
-      itemListElement: svc.keywords.map((kw) => ({
-        '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: kw },
-      })),
-    },
-  }));
+  const locale = localeToBCP47(lang);
+  return SERVICES.map((svc) => {
+    const bullets = svc.definitions?.bullets?.[isAr ? 'ar' : 'en'] ?? [];
+    const offers = bullets.map((b, idx) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        '@id': buildSubServiceId(svc.slug, String(idx + 1)),
+        name: b,
+        isPartOf: { '@id': buildServiceId(svc.slug) },
+      },
+    }));
+    const related = SERVICES
+      .filter((other) => other.slug !== svc.slug)
+      .slice(0, 2)
+      .map((o) => ({ '@id': buildServiceId(o.slug) }));
+    const aboutTags = [
+      ...(svc.keywords || []),
+      ...((svc.industries ?? [])),
+    ];
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      '@id': buildServiceId(svc.slug),
+      serviceType: isAr ? svc.title.ar : svc.title.en,
+      provider: { '@id': StableIds.organization },
+      description: isAr ? svc.summary.ar : svc.summary.en,
+      areaServed: { '@type': 'Place', name: 'MENA' },
+      inLanguage: locale,
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: isAr ? 'خدمات روموز' : 'Rumuze Services',
+        itemListElement: offers,
+      },
+      audience: { '@type': 'Audience', audienceType: ['Mid-sized enterprises', 'Large organizations'] },
+      category: isAr ? svc.title.ar : svc.title.en,
+      about: aboutTags,
+      isRelatedTo: related,
+    };
+  });
 }

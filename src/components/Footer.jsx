@@ -1,5 +1,6 @@
 import { Github, Twitter, Linkedin, Instagram, Facebook } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { SiteConfig } from '../config/site';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -19,8 +20,11 @@ const Footer = () => {
               </div>
               <span className="text-xl font-black text-slate-900 dark:text-white">RUMUZE</span>
             </div>
-            <p className="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
+            <p className="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-2">
               {t('footer.tagline')}
+            </p>
+            <p className="text-slate-600 dark:text-gray-400 text-xs leading-relaxed mb-6">
+              {SiteConfig.authorityDescription}
             </p>
             <div className={`flex gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
               <a href="https://twitter.com/rumuze" aria-label="Follow us on Twitter" className="text-slate-200 hover:text-cyan transition-colors"><Twitter size={20} /></a>

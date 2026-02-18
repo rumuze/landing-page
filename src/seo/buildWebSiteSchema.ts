@@ -1,14 +1,17 @@
 import { LanguageCode } from '../config/entity';
+import { SiteConfig, StableIds } from '../config/site';
+import { localeToBCP47 } from '../utils/localeToBCP47';
 
 export function buildWebSiteSchema(lang: LanguageCode) {
-  const locale = lang === 'ar' ? 'ar-EG' : 'en-US';
+  const locale = localeToBCP47(lang);
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://www.rumuze.com/#website',
-    url: 'https://www.rumuze.com',
+    '@id': StableIds.website,
+    url: SiteConfig.baseUrl,
     name: 'Rumuze',
-    publisher: { '@id': 'https://www.rumuze.com/#organization' },
+    publisher: { '@id': StableIds.organization },
     inLanguage: locale,
+    description: SiteConfig.authorityDescription,
   };
 }

@@ -4,11 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { getMetaForRoute, validateMetadata } from '../utils/MetaConfig';
 import { ENTITY } from '../config/entity';
+import { SiteConfig, StableIds } from '../config/site';
 import { buildOrganizationSchema } from '../seo/buildOrganizationSchema';
 import { buildWebSiteSchema } from '../seo/buildWebSiteSchema';
 import { buildServiceSchemas } from '../seo/buildServiceSchema';
 import { buildFAQSchema } from '../seo/buildFAQSchema';
-import { generateCanonical, generateHreflangs } from '../seo/linking';
+import { generateCanonical, generateHreflangsFromLocales } from '../seo/linking';
+import { localeToBCP47 } from '../utils/localeToBCP47';
+import { validateGraphIntegrity } from '../utils/validateGraphIntegrity';
 
 const SEO = ({ title, description, image, type, path }) => {
   const { t, i18n } = useTranslation();
@@ -16,7 +19,7 @@ const SEO = ({ title, description, image, type, path }) => {
   const currentLang = i18n.language;
   
   const siteName = "Rumuze";
-  const baseUrl = "https://www.rumuze.com";
+  const baseUrl = SiteConfig.baseUrl;
   
   // Use provided path or current location
   const currentPath = path || location.pathname;
@@ -49,35 +52,37 @@ const SEO = ({ title, description, image, type, path }) => {
     }
   }
 
-  const schemas = React.useMemo(() => {
+  const graph = React.useMemo(() => {
     const lang = currentLang === 'ar' ? 'ar' : 'en';
-    const graph = [
-      buildOrganizationSchema(lang),
-      buildWebSiteSchema(lang),
-      {
-        '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        '@id': `${baseUrl}${currentPath}#webpage`,
-        url: `${baseUrl}${currentPath}`,
-        name: metaTitle,
-        description: metaDescription,
-        inLanguage: lang === 'ar' ? 'ar-EG' : 'en-US',
-        isPartOf: { '@id': `${baseUrl}/#website` },
-        about: { '@id': ENTITY.id },
-        primaryImageOfPage: { '@type': 'ImageObject', url: metaImage }
-      },
-      {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: lang === 'ar' ? 'الرئيسية' : 'Home', item: `${baseUrl}/${lang === 'ar' ? 'ar' : ''}` },
-          { '@type': 'ListItem', position: 2, name: metaTitle.split('|')[0].trim(), item: `${baseUrl}${currentPath}` }
-        ]
-      },
-      ...buildServiceSchemas(lang),
-      buildFAQSchema(lang)
-    ];
-    return graph;
+    const pageNode = {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      '@id': `${baseUrl}${currentPath}#webpage`,
+      url: `${baseUrl}${currentPath}`,
+      name: metaTitle,
+      description: metaDescription,
+      inLanguage: localeToBCP47(lang),
+      isPartOf: { '@id': StableIds.website },
+      about: { '@id': StableIds.organization },
+      primaryImageOfPage: { '@type': 'ImageObject', url: metaImage }
+    };
+    const breadcrumbNode = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: lang === 'ar' ? 'الرئيسية' : 'Home', item: `${baseUrl}/${lang === 'ar' ? 'ar' : ''}` },
+        { '@type': 'ListItem', position: 2, name: metaTitle.split('|')[0].trim(), item: `${baseUrl}${currentPath}` }
+      ]
+    };
+    const core = [buildOrganizationSchema(lang), buildWebSiteSchema(lang)];
+    let nodes = [...core, pageNode, breadcrumbNode];
+    if (Array.isArray(window.rumuzeContextGraph)) {
+      nodes = nodes.concat(window.rumuzeContextGraph);
+    } else {
+      nodes = nodes.concat(buildServiceSchemas(lang), buildFAQSchema(lang));
+    }
+    validateGraphIntegrity(nodes);
+    return nodes;
   }, [baseUrl, currentPath, metaTitle, metaDescription, metaImage, currentLang]);
 
   // Debugging Log
@@ -122,18 +127,16 @@ const SEO = ({ title, description, image, type, path }) => {
     const oldSchemas = document.querySelectorAll('script[data-seo-schema="true"]');
     oldSchemas.forEach(el => el.remove());
 
-    // Inject new schemas
-    schemas.forEach(schema => {
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.setAttribute('data-seo-schema', 'true');
-      script.textContent = JSON.stringify(schema);
-      document.head.appendChild(script);
-    });
+    // Inject single @graph
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.setAttribute('data-seo-schema', 'true');
+    script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+    document.head.appendChild(script);
 
     // Cleanup function not strictly necessary for simple meta tags as they get overwritten, 
     // but good practice if we were rigorous.
-  }, [metaTitle, metaDescription, metaImage, schemas]);
+  }, [metaTitle, metaDescription, metaImage, graph]);
 
   return (
     <Helmet>
@@ -146,12 +149,12 @@ const SEO = ({ title, description, image, type, path }) => {
 
       {/* Multilingual Hreflang Tags */}
       {(() => {
-        const hrefs = generateHreflangs(baseUrl, currentPath);
+        const hrefs = generateHreflangsFromLocales(baseUrl, currentPath, SiteConfig.supportedLocales);
         return (
           <>
-            <link rel="alternate" hreflang="en" href={hrefs.en} />
-            <link rel="alternate" hreflang="ar" href={hrefs.ar} />
-            <link rel="alternate" hreflang="x-default" href={hrefs.xDefault} />
+            {Object.entries(hrefs).map(([hl, href]) => (
+              <link key={hl} rel="alternate" hreflang={hl} href={href} />
+            ))}
           </>
         );
       })()}
@@ -159,7 +162,7 @@ const SEO = ({ title, description, image, type, path }) => {
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={metaType} />
       <meta property="og:title" content={metaTitle} />
-      <meta property="og:description" content={metaDescription} />
+      <meta property="og:description" content={SiteConfig.authorityDescription} />
       <meta property="og:image" content={metaImage} />
       <meta property="og:image:secure_url" content={metaImage} />
       <meta property="og:image:width" content="1200" />
@@ -172,7 +175,7 @@ const SEO = ({ title, description, image, type, path }) => {
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={metaTitle} />
-      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:description" content={SiteConfig.authorityDescription} />
       <meta name="twitter:image" content={metaImage} />
       <meta name="twitter:image:alt" content={imageAlt} />
       <meta name="twitter:site" content="@rumuze" />
@@ -184,11 +187,9 @@ const SEO = ({ title, description, image, type, path }) => {
       <meta name="publisher" content="Rumuze" />
 
       {/* JSON-LD Payload Injection */}
-      {schemas.map((schema, index) => (
-        <script key={index} type="application/ld+json">
-          {JSON.stringify(schema)}
-        </script>
-      ))}
+      <script type="application/ld+json">
+        {JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}
+      </script>
     </Helmet>
   );
 };
