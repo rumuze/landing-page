@@ -34,6 +34,12 @@ import OfflineToast from './components/OfflineToast';
 const HomePage = lazy(() => import('./pages/HomePage'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const ManifestoPage = lazy(() => import('./pages/ManifestoPage'));
+const Methodology = lazy(() => import('./pages/Methodology'));
+const ArchitecturePrinciples = lazy(() => import('./pages/ArchitecturePrinciples'));
+const EngineeringStandards = lazy(() => import('./pages/EngineeringStandards'));
+const SLOFramework = lazy(() => import('./pages/SLOFramework'));
+const MultilingualSystems = lazy(() => import('./pages/MultilingualSystems'));
+const KnowledgeGraphArchitecture = lazy(() => import('./pages/KnowledgeGraphArchitecture'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -235,6 +241,67 @@ function AppContent() {
               </Motion.div>
             } />
 
+            {/* Authority Pages */}
+            <Route path="/methodology" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><Methodology /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/methodology" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><Methodology /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/architecture-principles" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ArchitecturePrinciples /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/architecture-principles" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ArchitecturePrinciples /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/engineering-standards" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><EngineeringStandards /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/engineering-standards" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><EngineeringStandards /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/slo-framework" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><SLOFramework /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/slo-framework" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><SLOFramework /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/multilingual-systems" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><MultilingualSystems /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/multilingual-systems" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><MultilingualSystems /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/knowledge-graph-architecture" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><KnowledgeGraphArchitecture /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/knowledge-graph-architecture" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><KnowledgeGraphArchitecture /></Suspense>
+              </Motion.div>
+            } />
             {/* Blog Routes */}
             <Route path="/blog" element={
               <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>

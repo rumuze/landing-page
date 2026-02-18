@@ -66,7 +66,7 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
         <section id="problem-solution" aria-labelledby="problem-solution-title">
           <h2 id="problem-solution-title" className="text-2xl font-bold mb-3">Problem–Solution</h2>
           <p className="text-slate-700 dark:text-gray-300">
-            Organizations face identity drift and unreliable systems. Rumuze stabilizes entities, enforces service-level objectives, and builds modular, API-first platforms that scale across languages and regions.
+            Rumuze eliminates identity drift and operational instability by enforcing service-level objectives and tenant isolation, building modular, API-first platforms that scale predictably across languages and regions.
           </p>
         </section>
       </div>
