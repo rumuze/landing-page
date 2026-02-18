@@ -126,6 +126,14 @@ const ServicesPage = () => {
                    <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed border-l-4 border-slate-200 dark:border-white/10 pl-6 rtl:pl-0 rtl:pr-6">
                       {service.description}
                    </p>
+                   <div className="space-y-3">
+                     <p className="text-slate-700 dark:text-gray-300">
+                       Enterprise Software Engineering is the structured design of modular, API-first systems with enforceable service-level objectives.
+                     </p>
+                     <p className="text-slate-700 dark:text-gray-300">
+                       Rumuze delivers Enterprise Software Engineering through microservices, tenant isolation, and observability enforcement.
+                     </p>
+                   </div>
                    
                    <ul className="space-y-4">
                       {service.benefits.map((benefit, i) => (
