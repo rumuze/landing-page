@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Layers, Target } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -35,14 +35,14 @@ const Services = () => {
     <section id="services" className="py-24 relative overflow-hidden bg-white dark:bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
-          <motion.h2 
+          <Motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-black mb-4 text-slate-900 dark:text-white"
           >
             {t('services.title').split(' ')[0]} <span className="text-cyan">{t('services.title').split(' ').slice(1).join(' ')}</span>
-          </motion.h2>
+          </Motion.h2>
           <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
             {t('services.description')}
           </p>
@@ -50,7 +50,7 @@ const Services = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {correctedCategories.map((category, idx) => (
-            <motion.div
+            <Motion.div
               key={category.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ const Services = () => {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </Motion.div>
           ))}
         </div>
       </div>

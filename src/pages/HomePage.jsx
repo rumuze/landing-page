@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import HomeGEOBlocks from '../components/HomeGEOBlocks';
 
@@ -27,7 +27,7 @@ const HomePage = ({ isAr = false }) => {
   const path = isAr ? '/ar' : '/';
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <SEO path={path} />
       <Suspense fallback={<Skeleton />}>
         <Hero />
@@ -37,7 +37,7 @@ const HomePage = ({ isAr = false }) => {
         <HomeGEOBlocks locale={isAr ? 'ar' : 'en'} />
         <Contact />
       </Suspense>
-    </motion.div>
+    </Motion.div>
   );
 };
 

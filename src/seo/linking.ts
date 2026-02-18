@@ -11,3 +11,17 @@ export function generateHreflangs(baseUrl: string, path: string) {
     xDefault: `${baseUrl}${clean}`,
   };
 }
+
+export function generateHreflangsFromLocales(baseUrl: string, path: string, locales: string[]) {
+  const clean = path.replace(/^\/[a-zA-Z-]+/, ''); // strip leading locale segment
+  const map: Record<string, string> = {};
+  for (const locale of locales) {
+    if (locale === 'en') {
+      map.en = `${baseUrl}${clean}`;
+    } else {
+      map[locale] = `${baseUrl}/${locale}${clean}`;
+    }
+  }
+  map['x-default'] = `${baseUrl}${clean}`;
+  return map;
+}

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion as Motion, useScroll, useTransform } from 'framer-motion';
 import { Code2, BrainCircuit, Rocket, ArrowRight, CheckCircle2, Zap } from 'lucide-react';
 import SEO from '../components/SEO';
 import { TiltCard } from '../components/TiltCard';
@@ -68,13 +68,13 @@ const ServicesPage = () => {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-         <motion.div 
+         <Motion.div 
             style={{ y: yBackend }}
             className="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-cyan/5 via-purple/5 to-transparent pointer-events-none"
          />
          
          <div className="max-w-7xl mx-auto text-center relative z-10">
-            <motion.div
+            <Motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
@@ -82,25 +82,25 @@ const ServicesPage = () => {
             >
               <Zap size={16} />
               {t('hero.badge')}
-            </motion.div>
+            </Motion.div>
             
-            <motion.h1 
+            <Motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="text-5xl md:text-7xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-cyan via-purple to-cyan bg-[length:200%_auto] animate-gradient-x leading-tight"
             >
               {t('services_page.title')}
-            </motion.h1>
+            </Motion.h1>
             
-            <motion.p 
+            <Motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               className="text-xl md:text-2xl text-slate-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
             >
               {t('services.description')}
-            </motion.p>
+            </Motion.p>
          </div>
       </section>
 
@@ -111,7 +111,7 @@ const ServicesPage = () => {
              <div key={service.id} className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
                 
                 {/* Text Content */}
-                <motion.div 
+                <Motion.div 
                   initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -143,10 +143,10 @@ const ServicesPage = () => {
                          </span>
                       ))}
                    </div>
-                </motion.div>
+                </Motion.div>
 
                 {/* Tilt Card Visual */}
-                <motion.div 
+                <Motion.div 
                    initial={{ opacity: 0, scale: 0.8 }}
                    whileInView={{ opacity: 1, scale: 1 }}
                    viewport={{ once: true }}
@@ -167,7 +167,7 @@ const ServicesPage = () => {
                       {/* Decorative Background Pattern */}
                       <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
                    </TiltCard>
-                </motion.div>
+                </Motion.div>
              </div>
           ))}
         </div>
@@ -187,7 +187,7 @@ const ServicesPage = () => {
                <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-cyan/20 via-purple/20 to-cyan/20"></div>
                
                {processSteps.map((step, idx) => (
-                  <motion.div 
+                  <Motion.div 
                     key={idx}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -202,7 +202,7 @@ const ServicesPage = () => {
                         <h3 className="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">{step.title}</h3>
                         <p className="text-sm text-gray-500">{step.desc}</p>
                      </div>
-                  </motion.div>
+                  </Motion.div>
                ))}
             </div>
          </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Terminal, ArrowRight, Sparkles, Code2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import MagneticButton from './MagneticButton';
@@ -29,7 +29,7 @@ const Hero = () => {
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-transparent">
       {/* Mesh Gradient Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div 
+        <Motion.div 
            animate={{ 
              scale: [1, 1.2, 1],
              rotate: [0, 90, 0],
@@ -37,7 +37,7 @@ const Hero = () => {
            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
            className={`absolute top-[-20%] w-[1000px] h-[1000px] bg-gradient-to-br from-indigo-300/20 to-purple-300/20 dark:from-cyan/10 dark:to-purple/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-70 ${isRtl ? '-right-[30%]' : '-left-[30%]'}`}
         />
-        <motion.div 
+        <Motion.div 
            animate={{ 
              scale: [1, 1.3, 1],
              rotate: [0, -60, 0],
@@ -48,13 +48,13 @@ const Hero = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid lg:grid-cols-2 gap-12 items-center z-10">
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className={isRtl ? 'text-right' : 'text-left'}
         >
-          <motion.div 
+          <Motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -62,7 +62,7 @@ const Hero = () => {
           >
             <Sparkles size={14} />
             {t('hero.badge')}
-          </motion.div>
+          </Motion.div>
           
           <h1 className="text-fluid-h1 font-black leading-tight mb-6 text-slate-900 dark:text-white tracking-tight">
             {t('hero.headline_part1')} 
@@ -86,10 +86,10 @@ const Hero = () => {
               {t('hero.ctaServices')}
             </button>
           </div>
-        </motion.div>
+        </Motion.div>
 
         {/* Desktop Animated Code Block */}
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, scale: 0.8, rotateY: isRtl ? -20 : 20 }}
           animate={{ opacity: 1, scale: 1, rotateY: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
@@ -120,7 +120,7 @@ const Hero = () => {
               <Terminal className="text-cyan w-12 h-12 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
             </div>
           </div>
-        </motion.div>
+        </Motion.div>
 
         {/* Mobile Code Stream Animation */}
         <div className="lg:hidden mt-8 w-full">
@@ -130,7 +130,7 @@ const Hero = () => {
                 <AnimatePresence mode="wait">
                   {codeSteps.map((step, idx) => (
                     idx === activeCodeStep && (
-                      <motion.div
+                      <Motion.div
                         key={step.line}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -138,11 +138,11 @@ const Hero = () => {
                         className={`${step.color} font-bold`}
                       >
                         {step.text}
-                      </motion.div>
+                      </Motion.div>
                     )
                   ))}
                   {activeCodeStep >= codeSteps.length && (
-                    <motion.div
+                    <Motion.div
                        key="complete"
                        initial={{ scale: 0.8, opacity: 0 }}
                        animate={{ scale: 1, opacity: 1 }}
@@ -150,7 +150,7 @@ const Hero = () => {
                        className="text-center text-cyan font-bold text-xl"
                     >
                       🚀 System Optimized
-                    </motion.div>
+                    </Motion.div>
                   )}
                 </AnimatePresence>
               </div>

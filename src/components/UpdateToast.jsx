@@ -1,12 +1,12 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { RefreshCw, X } from 'lucide-react';
 
 const UpdateToast = ({ show, onUpdate, onClose }) => {
   return (
     <AnimatePresence>
       {show && (
-        <motion.div
+        <Motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
@@ -37,7 +37,7 @@ const UpdateToast = ({ show, onUpdate, onClose }) => {
               </button>
             </div>
           </div>
-        </motion.div>
+        </Motion.div>
       )}
     </AnimatePresence>
   );

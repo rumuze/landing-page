@@ -5,7 +5,7 @@ export function buildOrganizationSchema(lang: LanguageCode) {
   return {
     '@context': 'https://schema.org',
     '@type': ['Organization', 'SoftwareCompany', 'ProfessionalService'],
-    '@id': ENTITY.id,
+    '@id': ENTITY.stableIds.organization,
     name: ENTITY.name,
     alternateName: isAr ? ENTITY.alternateName.ar : ENTITY.alternateName.en,
     url: 'https://www.rumuze.com',
@@ -20,12 +20,15 @@ export function buildOrganizationSchema(lang: LanguageCode) {
     description: isAr
       ? 'شركة هندسة برمجيات مؤسسية متخصصة في منصات SaaS وأنظمة ERP وCRM وبنية التسويق الرقمي للمؤسسات المتوسطة والكبيرة.'
       : 'Enterprise software engineering specializing in multi-tenant SaaS, ERP, CRM, and digital marketing infrastructure for mid‑to‑large organizations.',
+    slogan: isAr ? ENTITY.slogan.ar : ENTITY.slogan.en,
+    brand: { '@type': 'Brand', '@id': ENTITY.stableIds.brand, name: ENTITY.brand.name },
     founder: {
       '@type': 'Person',
-      '@id': 'https://www.rumuze.com/#founder',
+      '@id': ENTITY.stableIds.founder,
       name: ENTITY.founder.name,
       jobTitle: isAr ? ENTITY.founder.jobTitle.ar : ENTITY.founder.jobTitle.en,
       url: ENTITY.founder.url,
+      sameAs: ENTITY.founder.sameAs,
     },
     foundingDate: String(ENTITY.foundingYear),
     areaServed: {
@@ -38,6 +41,12 @@ export function buildOrganizationSchema(lang: LanguageCode) {
       contactType: 'sales',
       email: ENTITY.contact.email,
       availableLanguage: ['English', 'Arabic'],
+    },
+    availableLanguage: ['English', 'Arabic'],
+    knowsAbout: ENTITY.technologyStack,
+    audience: {
+      '@type': 'Audience',
+      audienceType: ENTITY.targetAudience,
     },
   };
 }

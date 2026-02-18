@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Share2, Copy, Linkedin, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -37,7 +37,7 @@ const ShareButton = ({ title, url }) => {
 
   return (
     <div className="relative">
-      <motion.button
+      <Motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={handleShare}
@@ -45,11 +45,11 @@ const ShareButton = ({ title, url }) => {
         aria-label="Share this page"
       >
         <Share2 size={20} />
-      </motion.button>
+      </Motion.button>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, scale: 0.9, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 10 }}
@@ -95,7 +95,7 @@ const ShareButton = ({ title, url }) => {
                 </button>
               </div>
             </div>
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </div>

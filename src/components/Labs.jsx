@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion as Motion, AnimatePresence, useInView } from "framer-motion";
 import {
   Terminal,
   Code2,
@@ -54,7 +54,7 @@ const TerminalBlock = () => {
       <div className="space-y-1 h-[120px] overflow-hidden">
         <AnimatePresence>
           {lines.map((line, i) => (
-            <motion.div
+            <Motion.div
               key={i}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -65,7 +65,7 @@ const TerminalBlock = () => {
                 {new Date().toLocaleTimeString("en-US", { hour12: false })}
               </span>
               <span>{line}</span>
-            </motion.div>
+            </Motion.div>
           ))}
         </AnimatePresence>
         <div className="cursor-blink w-2 h-4 bg-slate-800 dark:bg-green-400 mt-2" />
@@ -170,7 +170,7 @@ const Labs = () => {
       <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative z-10">
         {/* Header Section with Live Terminal */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             className="space-y-6 hero-premium"
@@ -190,15 +190,15 @@ const Labs = () => {
                 {t("labs.intro_highlight")}
               </span>
             </p>
-          </motion.div>
+          </Motion.div>
 
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
           >
             <TerminalBlock />
-          </motion.div>
+          </Motion.div>
         </div>
 
         {/* Projects Grid */}
@@ -237,7 +237,7 @@ const ProjectCard = ({ project, idx }) => {
   const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
 
   return (
-    <motion.div
+    <Motion.div
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -286,7 +286,7 @@ const ProjectCard = ({ project, idx }) => {
           ))}
         </div>
       </div>
-    </motion.div>
+    </Motion.div>
   );
 };
 

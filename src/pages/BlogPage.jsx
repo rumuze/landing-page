@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
@@ -49,7 +49,7 @@ const BlogPage = () => {
       <SEO path={isAr ? '/ar/blog' : '/blog'} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
+        <Motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
@@ -60,7 +60,7 @@ const BlogPage = () => {
           <p className="text-xl text-slate-600 dark:text-gray-400 max-w-3xl mx-auto">
             {t('blog.subtitle')}
           </p>
-        </motion.div>
+        </Motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {loading ? (
@@ -76,7 +76,7 @@ const BlogPage = () => {
               to={isAr ? `/ar/blog/${post.slug}` : `/blog/${post.slug}`}
               className="block h-full group"
             >
-            <motion.article 
+            <Motion.article 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -127,7 +127,7 @@ const BlogPage = () => {
                   <ArrowRight size={20} className="text-slate-200 group-hover:text-cyan group-hover:translate-x-2 rtl:group-hover:-translate-x-2 transition-all" />
                 </div>
               </div>
-            </motion.article>
+            </Motion.article>
             </Link>
             ))
           )}

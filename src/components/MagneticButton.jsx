@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 
 const MagneticButton = ({ children, className = "", onClick, ...props }) => {
   const ref = useRef(null);
@@ -23,7 +23,7 @@ const MagneticButton = ({ children, className = "", onClick, ...props }) => {
   };
 
   return (
-    <motion.button
+    <Motion.button
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -38,7 +38,7 @@ const MagneticButton = ({ children, className = "", onClick, ...props }) => {
       </span>
       {/* Hover Glow Effect */}
       <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-cyan/20 to-purple/20 blur-xl"></div>
-    </motion.button>
+    </Motion.button>
   );
 };
 

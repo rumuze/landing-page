@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Calendar, Clock, ArrowLeft, ArrowRight, User } from 'lucide-react';
 import SEO from '../components/SEO';
 import OptimizedImage from '../components/OptimizedImage';
@@ -42,7 +42,7 @@ const BlogPost = () => {
 
             <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Back Link */}
-                <motion.div 
+                <Motion.div 
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     className="mb-8"
@@ -54,11 +54,11 @@ const BlogPost = () => {
                         {isAr ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
                         <span>{isAr ? 'العودة للمدونة' : 'Back to Blog'}</span>
                     </Link>
-                </motion.div>
+                </Motion.div>
 
                 {/* Header */}
                 <header className="mb-12 text-center">
-                    <motion.div
+                    <Motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                     >
@@ -83,11 +83,11 @@ const BlogPost = () => {
                                 <span>{post.readTime} {t('blog.readTime')}</span>
                             </div>
                         </div>
-                    </motion.div>
+                    </Motion.div>
                 </header>
 
                 {/* Hero Image */}
-                <motion.div 
+                <Motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
@@ -99,10 +99,10 @@ const BlogPost = () => {
                         priority={true}
                         className="w-full h-full object-cover"
                     />
-                </motion.div>
+                </Motion.div>
 
                 {/* Content */}
-                <motion.div 
+                <Motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}

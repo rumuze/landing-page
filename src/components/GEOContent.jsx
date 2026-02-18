@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
  * Clear, AI-readable entity definition for homepage and about pages
  */
 export const EntityDefinition = ({ className = '' }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
 
   return (
@@ -33,7 +33,7 @@ export const EntityDefinition = ({ className = '' }) => {
  * Displays the four core service categories with proper semantic structure
  */
 export const ServiceCategories = ({ className = '' }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
 
   const services = [
@@ -103,7 +103,7 @@ export const ServiceCategories = ({ className = '' }) => {
  * Shows technology expertise with semantic markup
  */
 export const TechnologyStack = ({ className = '' }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
 
   const techCategories = [
@@ -171,7 +171,7 @@ export const TechnologyStack = ({ className = '' }) => {
  * Structured FAQ content for AI extraction
  */
 export const GEOFAQSection = ({ className = '' }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
 
   const faqs = [
@@ -264,7 +264,7 @@ export const GEOFAQSection = ({ className = '' }) => {
  * Lists target industries with semantic structure
  */
 export const IndustriesSection = ({ className = '' }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
 
   const industries = [
@@ -302,7 +302,7 @@ export const IndustriesSection = ({ className = '' }) => {
  * Engineering process display
  */
 export const ProcessSection = ({ className = '' }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
 
   const steps = [
