@@ -22,7 +22,7 @@ const ArchitecturePrinciples = () => {
             Microservices architecture is the isolation of bounded contexts into independently deployable components.
           </p>
           <p>
-            Rumuze isolates tenant data at database and application layers.
+            Rumuze isolates tenant data at database and application layers, targeting p95 latency under 300ms and enforcing contract compliance across bounded contexts before deployment.
           </p>
           <p className="mt-6">
             <Link to={isAr ? '/ar/services' : '/services'} className="text-cyan hover:underline">

@@ -22,7 +22,7 @@ const EngineeringStandards = () => {
             Observability Standards specify metrics, logs, and traces required for incident response and continuous improvement.
           </p>
           <p>
-            Rumuze enforces coverage thresholds and performance budgets in CI with auditable gates.
+            Rumuze enforces minimum 80% test coverage, Core Web Vitals thresholds below 2.5s LCP, and release gating through automated SLO compliance checks before deployment.
           </p>
           <p className="mt-6">
             <Link to={isAr ? '/ar/services' : '/services'} className="text-cyan hover:underline">

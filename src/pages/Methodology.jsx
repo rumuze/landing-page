@@ -22,7 +22,7 @@ const Methodology = () => {
             Service-Level Objective enforcement is the quantification of uptime, latency, and error budgets across distributed systems.
           </p>
           <p>
-            Rumuze enforces SLO monitoring across production environments with rollback-safe CI/CD pipelines.
+            Rumuze enforces production SLO targets of 99.9% uptime and p95 latency under 300ms, with rollback-safe CI/CD gates and incident policies aligned to error budget consumption.
           </p>
           <p className="mt-6">
             <Link to={isAr ? '/ar/services' : '/services'} className="text-cyan hover:underline">

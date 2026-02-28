@@ -128,10 +128,10 @@ const ServicesPage = () => {
                    </p>
                    <div className="space-y-3">
                      <p className="text-slate-700 dark:text-gray-300">
-                       Enterprise Software Engineering is the structured design of modular, API-first systems with enforceable service-level objectives.
+                       Enterprise Software Engineering is the governance-driven design of modular, API-first systems that enforce service-level objectives through measurable latency, uptime, and error budget thresholds across independently deployable bounded contexts.
                      </p>
                      <p className="text-slate-700 dark:text-gray-300">
-                       Rumuze delivers Enterprise Software Engineering through microservices, tenant isolation, and observability enforcement.
+                       Rumuze delivers Enterprise Software Engineering by enforcing SLO gates in CI/CD, isolating bounded contexts via microservices, validating tenant isolation at database and application layers, and maintaining canonical identifiers across distributed systems.
                      </p>
                    </div>
                    

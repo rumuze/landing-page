@@ -3,12 +3,18 @@ import { motion as Motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import HomeGEOBlocks from '../components/HomeGEOBlocks';
 
-// Lazy load components
+// Lazy load existing components
 const Hero = lazy(() => import('../components/Hero'));
 const Services = lazy(() => import('../components/Services'));
 const Portfolio = lazy(() => import('../components/Portfolio'));
 const TechStack = lazy(() => import('../components/TechStack'));
 const Contact = lazy(() => import('../components/Contact'));
+
+// Lazy load Phase 3 homepage authority components
+const HomepageMetricsBar = lazy(() => import('../components/HomepageMetricsBar'));
+const HomepageDifferentiationSection = lazy(() => import('../components/HomepageDifferentiationSection'));
+const HomepageFAQBlock = lazy(() => import('../components/HomepageFAQBlock'));
+const HomepageCTASection = lazy(() => import('../components/HomepageCTASection'));
 
 // Skeleton Loader (reused from App.jsx pattern if needed, or imported)
 const Skeleton = () => (
@@ -31,10 +37,14 @@ const HomePage = ({ isAr = false }) => {
       <SEO path={path} />
       <Suspense fallback={<Skeleton />}>
         <Hero />
+        <HomepageMetricsBar />
         <Services />
+        <HomepageDifferentiationSection />
         <Portfolio />
         <TechStack />
         <HomeGEOBlocks locale={isAr ? 'ar' : 'en'} />
+        <HomepageFAQBlock />
+        <HomepageCTASection />
         <Contact />
       </Suspense>
     </Motion.div>
@@ -42,3 +52,4 @@ const HomePage = ({ isAr = false }) => {
 };
 
 export default HomePage;
+

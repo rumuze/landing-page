@@ -22,7 +22,7 @@ const MultilingualSystems = () => {
             Canonicalization guarantees identical graph structures per locale with dynamic hreflang generation and x-default emission.
           </p>
           <p>
-            Rumuze maintains locale-agnostic core entity IDs and structured schema integration.
+            Rumuze maintains locale-agnostic core entity IDs and structured schema integration, targeting zero duplicate @id detections, consistent hreflang emission (en, ar, x-default), and identical graph topology per locale.
           </p>
           <p className="mt-6">
             <Link to={isAr ? '/ar/services' : '/services'} className="text-cyan hover:underline">

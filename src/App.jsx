@@ -40,6 +40,7 @@ const EngineeringStandards = lazy(() => import('./pages/EngineeringStandards'));
 const SLOFramework = lazy(() => import('./pages/SLOFramework'));
 const MultilingualSystems = lazy(() => import('./pages/MultilingualSystems'));
 const KnowledgeGraphArchitecture = lazy(() => import('./pages/KnowledgeGraphArchitecture'));
+const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -226,6 +227,18 @@ function AppContent() {
             <Route path="/ar/services" element={
               <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
+              </Motion.div>
+            } />
+
+            {/* Service Detail Routes */}
+            <Route path="/services/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ServiceDetailPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/services/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ServiceDetailPage /></Suspense>
               </Motion.div>
             } />
 

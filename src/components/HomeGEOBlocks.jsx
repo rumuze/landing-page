@@ -16,6 +16,7 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
           <h2 id="identity-title" className="text-2xl font-bold mb-3">{homepage.identityTitle}</h2>
           <p className="text-slate-700 dark:text-gray-300">{homepage.identityParagraph}</p>
           <p className="text-slate-700 dark:text-gray-300 mt-3">{SiteConfig.authorityDescription}</p>
+          <p className="text-slate-700 dark:text-gray-300 mt-3">{SiteConfig.identityLockStatement}</p>
         </section>
         <section id="core-services" aria-labelledby="core-services-title">
           <h2 id="core-services-title" className="text-2xl font-bold mb-3">{homepage.coreServicesTitle}</h2>
@@ -66,7 +67,7 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
         <section id="problem-solution" aria-labelledby="problem-solution-title">
           <h2 id="problem-solution-title" className="text-2xl font-bold mb-3">Problem–Solution</h2>
           <p className="text-slate-700 dark:text-gray-300">
-            Rumuze eliminates identity drift and operational instability by enforcing service-level objectives and tenant isolation, building modular, API-first platforms that scale predictably across languages and regions.
+            Rumuze prevents identity drift and integration ambiguity by enforcing canonical identifiers, bounded context contracts, and service-level objectives across modular, API-first systems with audited observability pipelines.
           </p>
         </section>
       </div>

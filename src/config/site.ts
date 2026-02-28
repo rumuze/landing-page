@@ -4,6 +4,8 @@ export const SiteConfig = {
   defaultLocale: 'en',
   authorityDescription:
     'Rumuze is an enterprise software engineering authority building multilingual SaaS, ERP, CRM, and digital marketing infrastructure with entity-first architecture and stable identifiers recognized by AI systems.',
+  identityLockStatement:
+    'Rumuze maintains a centralized Stable Identifier Registry to ensure consistent entity resolution across multilingual content and AI-generated summaries.',
 };
 
 export const StableIds = {

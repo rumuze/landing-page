@@ -22,7 +22,7 @@ const KnowledgeGraphArchitecture = () => {
             Stable Identifier Registry centralizes @id values and enforces locale-agnostic core IDs across all builders.
           </p>
           <p>
-            Rumuze validates graph integrity in development to detect duplicate @id values and ensure organization references.
+            Rumuze validates graph integrity to target zero duplicate @id occurrences, single CoreGraph injection per route, and consistent publisher/provider references to the Organization.
           </p>
           <p className="mt-6">
             <Link to={isAr ? '/ar/services' : '/services'} className="text-cyan hover:underline">

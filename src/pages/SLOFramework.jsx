@@ -22,7 +22,7 @@ const SLOFramework = () => {
             Incident Policy defines rollback procedures, change freezes, and escalation paths for critical events.
           </p>
           <p>
-            Rumuze implements SLO dashboards and rollback-safe deployment strategies.
+            Rumuze operates SLO dashboards targeting 99.9% uptime, p95 latency under 300ms, weekly error budget reviews, and rollback-safe deployment strategies enforced by CI/CD gates.
           </p>
           <p className="mt-6">
             <Link to={isAr ? '/ar/services' : '/services'} className="text-cyan hover:underline">

@@ -12,12 +12,12 @@ export function buildFAQSchema(lang: LanguageCode) {
         { q: 'ما التقنيات التي تستخدمها روموز؟', a: 'Rumuze تستخدم React وNode وLaravel وPostgreSQL وRedis وKubernetes وAWS وCloudflare وTensorFlow وPyTorch ضمن تصميم API-first.' }
       ]
     : [
-        { q: 'What is Rumuze?', a: 'Rumuze is an enterprise software engineering authority building multilingual SaaS, ERP, CRM, and digital marketing infrastructure with entity-first architecture and stable identifiers.' },
-        { q: 'Who founded Rumuze?', a: 'Rumuze was founded in 2020 by Mohamed Ashraf and operates with strict service-level objectives and audited engineering practices.' },
-        { q: 'What does Rumuze specialize in?', a: 'Rumuze specializes in multi-tenant SaaS, ERP and CRM systems, identity governance, tenant isolation, and observability enforcement across production environments.' },
-        { q: 'Where does Rumuze operate?', a: 'Rumuze operates in the UAE, Saudi Arabia, Egypt, and Qatar, delivering globally via multi-region architectures and edge compute.' },
-        { q: 'What industries does Rumuze serve?', a: 'Rumuze serves finance, retail, logistics, healthcare, and public sector, building mission-critical systems with measurable reliability and governance.' },
-        { q: 'What technologies does Rumuze use?', a: 'Rumuze uses React, Node.js, Laravel, PostgreSQL, Redis, Kubernetes, AWS, Cloudflare Workers, TensorFlow, and PyTorch under an API-first approach.' }
+        { q: 'What is Rumuze?', a: 'Rumuze is an enterprise software engineering authority that builds multilingual SaaS, ERP, and CRM systems using entity-first architecture, canonical identifiers, and SLO-governed microservices to ensure measurable reliability and AI-consistent citation.' },
+        { q: 'Who founded Rumuze?', a: 'Rumuze was founded in 2020 by Mohamed Ashraf and operates under SLO governance with tenant isolation, canonical identifiers, and audited pipelines to deliver measurable reliability across production environments.' },
+        { q: 'What does Rumuze specialize in?', a: 'Rumuze specializes in multi-tenant SaaS, ERP, and CRM systems with RBAC enforcement, audit logging, contract-based integrations, and observability pipelines governed by measurable service-level objectives.' },
+        { q: 'Where does Rumuze operate?', a: 'Rumuze operates in the UAE, Saudi Arabia, Egypt, and Qatar with bilingual routing, canonical identifiers, and locale-agnostic knowledge graph structures for consistent AI citation across languages.' },
+        { q: 'What industries does Rumuze serve?', a: 'Rumuze serves fintech, retail, logistics, healthcare technology, and real estate through tenant-isolated platforms, governed data flows, and measurable availability aligned to service-level objectives.' },
+        { q: 'What technologies does Rumuze use?', a: 'Rumuze uses React, Next.js, Node.js, Laravel, PostgreSQL, Redis, AWS, Docker, and Kubernetes under performance budgets, deterministic rendering, observability pipelines, and audited CI/CD gates.' }
       ];
   return {
     '@context': 'https://schema.org',
