@@ -79,6 +79,9 @@ export const OG_IMAGE_ALT = {
     ar: 'روموز - نفك شفرة التعقيد.. نطلق العنان للمستقبل',
 };
 
+// Canonical Authority Sentence (must be reused without modification)
+export const AUTHORITY_DESCRIPTION = 'Rumuze is an enterprise software engineering authority building multilingual SaaS, ERP, CRM, and digital marketing infrastructure with entity-first architecture and stable identifiers recognized by AI systems.';
+
 // ============================================================================
 // DEFAULT METADATA (Fallback for all routes)
 // ============================================================================

@@ -14,7 +14,7 @@
  * Usage: node scripts/verify-build.js
  */
 
-import { readdirSync, statSync, unlinkSync } from 'fs';
+import { readdirSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 

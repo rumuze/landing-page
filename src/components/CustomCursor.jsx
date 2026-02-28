@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion as Motion, useMotionValue, useSpring } from 'framer-motion';
 
 const CustomCursor = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -56,7 +56,7 @@ const CustomCursor = () => {
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden hidden md:block">
       {/* Ghost Follower - Smooth Glow */}
-      <motion.div
+      <Motion.div
         className="fixed top-0 left-0 rounded-full mix-blend-screen pointer-events-none"
         style={{
           x: cursorXSpring,
@@ -82,7 +82,7 @@ const CustomCursor = () => {
       >
         {/* Subtle border ring */}
         <div className="w-full h-full rounded-full border border-cyan/20 box-border" />
-      </motion.div>
+      </Motion.div>
     </div>
   );
 };

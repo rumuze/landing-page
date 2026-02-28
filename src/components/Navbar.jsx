@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import { Menu, X, Globe, ChevronDown, FlaskConical, Sun, Moon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../context/theme-core';
 import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
@@ -89,7 +89,7 @@ const Navbar = () => {
                 <img src="/rumuze-symbol.png" alt="Rumuze Symbol" className="w-9 h-9 z-10 filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-transform group-hover:scale-110" />
                 
                 {/* Scanning Line Animation */}
-                <motion.div 
+                <Motion.div 
                   initial={{ top: "-10%" }}
                   animate={{ top: "110%" }}
                   transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -127,7 +127,7 @@ const Navbar = () => {
                     {link.icon && <span aria-hidden="true">{link.icon}</span>}
                     {link.name}
                     {isActive(link.href) && !link.highlight && (
-                      <motion.div 
+                      <Motion.div 
                         layoutId="navUnderline"
                         className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan rounded-full"
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -155,7 +155,7 @@ const Navbar = () => {
                 
                 <AnimatePresence>
                   {showLangMenu && (
-                    <motion.div 
+                    <Motion.div 
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
@@ -173,7 +173,7 @@ const Navbar = () => {
                           <span className="font-bold">{lang.name}</span>
                         </button>
                       ))}
-                    </motion.div>
+                    </Motion.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -190,30 +190,30 @@ const Navbar = () => {
       <nav className="fixed bottom-6 left-4 right-4 z-50 md:hidden">
         <div className="glass-card !rounded-2xl !p-2 flex justify-around items-center shadow-2xl bg-white/90 dark:bg-background/90 border-slate-200 dark:border-white/10 backdrop-blur-xl">
            <Link to={isAr ? '/ar/' : '/'} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/' : '/') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
-              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/' : '/') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+              <Motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/' : '/') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              </motion.div>
+              </Motion.div>
               <span className="text-[10px] font-bold">{t('navbar.home')}</span>
            </Link>
 
            <Link to={isAr ? '/ar/services' : '/services'} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/services' : '/services') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
-              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/services' : '/services') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+              <Motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/services' : '/services') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-              </motion.div>
+              </Motion.div>
               <span className="text-[10px] font-bold">{t('navbar.services')}</span>
            </Link>
 
            <Link to={isAr ? '/ar/labs' : '/labs'} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/labs' : '/labs') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
-              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/labs' : '/labs') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+              <Motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/labs' : '/labs') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
                  <FlaskConical size={20} />
-              </motion.div>
+              </Motion.div>
               <span className="text-[10px] font-bold">{t('navbar.labs')}</span>
            </Link>
 
            <a href={isAr ? '/ar/contact' : '/contact'} onClick={(e) => { e.preventDefault(); navigate(isAr ? '/ar/contact' : '/contact'); }} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/contact' : '/contact') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
-              <motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/contact' : '/contact') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
+              <Motion.div whileTap={{ scale: 0.9 }} className={isActive(isAr ? '/ar/contact' : '/contact') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}>
                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </motion.div>
+              </Motion.div>
               <span className="text-[10px] font-bold">{t('navbar.contact', 'Contact')}</span>
            </a>
 
@@ -222,9 +222,9 @@ const Navbar = () => {
               aria-label="Open menu"
               className="p-2 rounded-xl flex flex-col items-center gap-1 text-slate-700 dark:text-gray-400"
             >
-              <motion.div whileTap={{ scale: 0.9 }} className="p-1.5">
+              <Motion.div whileTap={{ scale: 0.9 }} className="p-1.5">
                  <Menu size={20} />
-              </motion.div>
+              </Motion.div>
               <span className="text-[10px] font-bold">{t('navbar.more', 'More')}</span>
            </button>
         </div>
@@ -233,7 +233,7 @@ const Navbar = () => {
       {/* Mobile Full Screen Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <Motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -269,7 +269,7 @@ const Navbar = () => {
                       }`}
                     >
                       {i18n.language === lang.code && (
-                        <motion.div 
+                        <Motion.div 
                           layoutId="langActive"
                           className="absolute inset-0 bg-white dark:bg-white/10 rounded-xl shadow-sm"
                           transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -298,7 +298,7 @@ const Navbar = () => {
             {/* Links */}
             <div className="flex-1 flex flex-col justify-center px-8 gap-6">
               {navLinks.map((link, i) => (
-                <motion.div
+                <Motion.div
                   key={link.name}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -313,7 +313,7 @@ const Navbar = () => {
                   >
                     {link.name}
                   </Link>
-                </motion.div>
+                </Motion.div>
               ))}
             </div>
 
@@ -326,7 +326,7 @@ const Navbar = () => {
                 {t('navbar.startProject')}
               </button>
             </div>
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </>

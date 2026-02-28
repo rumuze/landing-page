@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Shield, FileText, Lock, Globe, Menu } from 'lucide-react';
 import SEO from '../components/SEO';
-import { useLocation } from 'react-router-dom';
 
 const LegalPage = ({ type }) => {
   const { t, i18n } = useTranslation();
@@ -15,7 +14,7 @@ const LegalPage = ({ type }) => {
   // Determine content based on type (privacy or terms)
   // Fallback to empty structure if translation is missing to avoid crash
   const legalData = t(`legal.${type}`, { returnObjects: true });
-  const sections = legalData?.sections || [];
+  const sections = useMemo(() => legalData?.sections || [], [legalData]);
   const title = legalData?.title || (type === 'privacy' ? 'Privacy Policy' : 'Terms of Service');
   const lastUpdated = legalData?.lastUpdated || '';
   const intro = legalData?.intro || '';
@@ -74,7 +73,7 @@ const LegalPage = ({ type }) => {
              
              <AnimatePresence>
                 {isSidebarOpen && (
-                   <motion.div 
+                   <Motion.div 
                      initial={{ height: 0, opacity: 0 }}
                      animate={{ height: 'auto', opacity: 1 }}
                      exit={{ height: 0, opacity: 0 }}
@@ -96,7 +95,7 @@ const LegalPage = ({ type }) => {
                           </li>
                         ))}
                       </ul>
-                   </motion.div>
+                   </Motion.div>
                 )}
              </AnimatePresence>
           </div>
@@ -139,7 +138,7 @@ const LegalPage = ({ type }) => {
 
           {/* Main Content */}
           <div className="col-span-1 lg:col-span-8 lg:col-start-5">
-            <motion.div
+            <Motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="mb-12 border-b border-slate-200 dark:border-white/10 pb-8"
@@ -160,11 +159,11 @@ const LegalPage = ({ type }) => {
               <p className="mt-8 text-lg md:text-xl leading-relaxed text-slate-600 dark:text-gray-300">
                 {intro}
               </p>
-            </motion.div>
+            </Motion.div>
 
             <div className="space-y-16">
                {sections.map((section, idx) => (
-                 <motion.section 
+                 <Motion.section 
                     key={section.id} 
                     id={section.id}
                     initial={{ opacity: 0, y: 20 }}
@@ -204,7 +203,7 @@ const LegalPage = ({ type }) => {
                           return line.trim() ? <p key={i} className="mb-4">{line}</p> : null;
                        })}
                     </div>
-                 </motion.section>
+                 </Motion.section>
                ))}
             </div>
             

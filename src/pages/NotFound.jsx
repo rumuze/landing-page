@@ -11,7 +11,7 @@
 
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Home, ArrowLeft, Search } from 'lucide-react';
 import SEO from '../components/SEO';
 
@@ -57,7 +57,7 @@ const NotFound = () => {
         <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-purple/10 rounded-full blur-3xl" />
       </div>
 
-      <motion.div
+      <Motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -66,37 +66,37 @@ const NotFound = () => {
         {/* Glassmorphism Card */}
         <div className="glass-card p-10 rounded-3xl">
           {/* 404 Number */}
-          <motion.h1
+          <Motion.h1
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
             className="text-8xl md:text-9xl font-black bg-gradient-to-r from-cyan via-purple to-cyan bg-clip-text text-transparent mb-4"
           >
             {t.title}
-          </motion.h1>
+          </Motion.h1>
 
           {/* Subtitle */}
-          <motion.h2
+          <Motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
             className="text-2xl md:text-3xl font-bold text-white mb-4"
           >
             {t.subtitle}
-          </motion.h2>
+          </Motion.h2>
 
           {/* Description */}
-          <motion.p
+          <Motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
             className="text-slate-300 mb-8 leading-relaxed"
           >
             {t.description}
-          </motion.p>
+          </Motion.p>
 
           {/* Action Buttons */}
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -117,10 +117,10 @@ const NotFound = () => {
               <ArrowLeft className={`w-5 h-5 ${isArabic ? 'rotate-180' : ''}`} />
               {t.goBack}
             </button>
-          </motion.div>
+          </Motion.div>
 
           {/* Search Hint */}
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
@@ -128,11 +128,11 @@ const NotFound = () => {
           >
             <Search className="w-4 h-4" />
             <span>{t.searchHint}</span>
-          </motion.div>
+          </Motion.div>
         </div>
 
         {/* Decorative Element */}
-        <motion.div
+        <Motion.div
           animate={{ 
             rotate: [0, 360],
           }}
@@ -143,7 +143,7 @@ const NotFound = () => {
           }}
           className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-white/5 rounded-full"
         />
-      </motion.div>
+      </Motion.div>
     </div>
   );
 };

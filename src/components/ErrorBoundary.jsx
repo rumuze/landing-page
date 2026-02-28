@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-background text-center">
-          <motion.div 
+          <Motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="glass-card max-w-md w-full p-8 border-red-500/20"
@@ -44,7 +44,7 @@ class ErrorBoundary extends React.Component {
             >
               Reinitialize System
             </button>
-          </motion.div>
+          </Motion.div>
         </div>
       );
     }

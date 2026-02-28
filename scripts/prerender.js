@@ -103,7 +103,7 @@ function getRoutesFromSitemap() {
             } else {
                 console.log(`⚠️  Skipping excluded route: ${path}`);
             }
-        } catch (e) {
+        } catch (_e) {
             console.warn(`⚠️  Invalid URL in sitemap: ${fullUrl}`);
         }
     }

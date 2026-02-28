@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion as Motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 export const TiltCard = ({ children, className = "" }) => {
   const ref = useRef(null);
@@ -37,7 +37,7 @@ export const TiltCard = ({ children, className = "" }) => {
   };
 
   return (
-    <motion.div
+    <Motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -57,6 +57,6 @@ export const TiltCard = ({ children, className = "" }) => {
       >
         {children}
       </div>
-    </motion.div>
+    </Motion.div>
   );
 };

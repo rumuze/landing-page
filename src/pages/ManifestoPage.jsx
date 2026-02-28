@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import SEO from '../components/SEO';
 
 const ManifestoPage = () => {
@@ -68,7 +68,7 @@ const ManifestoPage = () => {
       />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
+        <Motion.div 
            initial={{ opacity: 0, y: 30 }}
            animate={{ opacity: 1, y: 0 }}
            className="text-center mb-20"
@@ -79,11 +79,11 @@ const ManifestoPage = () => {
             <p className="text-2xl md:text-3xl text-cyan font-bold tracking-wide">
                 {currentContent.subtitle}
             </p>
-        </motion.div>
+        </Motion.div>
 
         <div className="space-y-16">
             {currentContent.sections.map((section, index) => (
-                <motion.section 
+                <Motion.section 
                     key={index}
                     initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -97,11 +97,11 @@ const ManifestoPage = () => {
                     <p className="text-xl md:text-2xl text-slate-600 dark:text-gray-400 leading-relaxed font-light">
                         {section.text}
                     </p>
-                </motion.section>
+                </Motion.section>
             ))}
         </div>
 
-        <motion.div 
+        <Motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="mt-24 text-center border-t border-slate-200 dark:border-white/10 pt-10"
@@ -109,7 +109,7 @@ const ManifestoPage = () => {
             <p className="text-lg text-slate-500 font-mono">
                 {isAr ? 'توقيع: مهندسو روموز' : 'SIGNED: THE ARCHITECTS OF RUMUZE'}
             </p>
-        </motion.div>
+        </Motion.div>
 
       </div>
     </div>

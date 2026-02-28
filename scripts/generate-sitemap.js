@@ -36,6 +36,12 @@ const ROUTES = [
     { path: '/contact', priority: 0.8, changefreq: 'monthly' },
     { path: '/privacy', priority: 0.3, changefreq: 'yearly' },
     { path: '/terms', priority: 0.3, changefreq: 'yearly' },
+    { path: '/methodology', priority: 0.6, changefreq: 'monthly' },
+    { path: '/architecture-principles', priority: 0.6, changefreq: 'monthly' },
+    { path: '/engineering-standards', priority: 0.6, changefreq: 'monthly' },
+    { path: '/slo-framework', priority: 0.6, changefreq: 'monthly' },
+    { path: '/multilingual-systems', priority: 0.6, changefreq: 'monthly' },
+    { path: '/knowledge-graph-architecture', priority: 0.6, changefreq: 'monthly' },
 ];
 
 // ============================================================================

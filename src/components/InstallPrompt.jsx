@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Download, X, Star } from 'lucide-react';
 
 const InstallPrompt = () => {
@@ -50,7 +50,7 @@ const InstallPrompt = () => {
   return (
     <AnimatePresence>
       {show && (
-        <motion.div
+        <Motion.div
           initial={{ x: 300, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: 300, opacity: 0 }}
@@ -94,7 +94,7 @@ const InstallPrompt = () => {
               </button>
             </div>
           </div>
-        </motion.div>
+        </Motion.div>
       )}
     </AnimatePresence>
   );

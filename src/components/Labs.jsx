@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion as Motion, AnimatePresence, useInView } from "framer-motion";
 import {
   Terminal,
   Code2,
@@ -42,7 +42,7 @@ const TerminalBlock = () => {
   }, [t]);
 
   return (
-    <div className="font-mono text-xs md:text-sm p-6 rounded-xl bg-slate-50 dark:bg-black/90 border border-slate-200 dark:border-green-500/30 text-slate-800 dark:text-green-400 shadow-2xl dark:shadow-[0_0_30px_-10px_rgba(34,197,94,0.3)] backdrop-blur-md break-all whitespace-pre-wrap">
+    <div className="terminal-premium font-mono text-xs md:text-sm p-6 rounded-xl bg-slate-50 dark:bg-black/90 border border-slate-200 dark:border-green-500/30 text-slate-800 dark:text-green-400 shadow-2xl dark:shadow-[0_0_30px_-10px_rgba(34,197,94,0.3)] backdrop-blur-md break-all whitespace-pre-wrap">
       <div className="flex items-center gap-2 mb-4 border-b border-slate-200 dark:border-green-500/20 pb-2">
         <div className="w-3 h-3 rounded-full bg-red-500"></div>
         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -54,24 +54,21 @@ const TerminalBlock = () => {
       <div className="space-y-1 h-[120px] overflow-hidden">
         <AnimatePresence>
           {lines.map((line, i) => (
-            <motion.div
+            <Motion.div
               key={i}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-2"
+              className="type-reveal flex items-center gap-2"
+              style={{ ["--reveal-delay"]: `${i * 0.12}s` }}
             >
               <span className="opacity-50">
                 {new Date().toLocaleTimeString("en-US", { hour12: false })}
               </span>
               <span>{line}</span>
-            </motion.div>
+            </Motion.div>
           ))}
         </AnimatePresence>
-        <motion.div
-          animate={{ opacity: [0, 1, 0] }}
-          transition={{ repeat: Infinity, duration: 0.8 }}
-          className="w-2 h-4 bg-slate-800 dark:bg-green-400 mt-2"
-        />
+        <div className="cursor-blink w-2 h-4 bg-slate-800 dark:bg-green-400 mt-2" />
       </div>
     </div>
   );
@@ -80,6 +77,7 @@ const TerminalBlock = () => {
 const Labs = () => {
   const { i18n, t } = useTranslation();
   const isAr = i18n.language === "ar";
+  const containerRef = useRef(null);
 
   const projects = [
     {
@@ -138,6 +136,25 @@ const Labs = () => {
     },
   ];
 
+  useEffect(() => {
+    const rootEl = containerRef.current;
+    if (!rootEl) return;
+    const elements = rootEl.querySelectorAll(".reveal-on-scroll");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { root: null, rootMargin: "0px 0px -50px 0px", threshold: 0.1 }
+    );
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       className={`min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white overflow-hidden relative selection:bg-cyan selection:text-black font-mono ${isAr ? "rtl" : "ltr"}`}
@@ -150,38 +167,38 @@ const Labs = () => {
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-purple-500/10 dark:bg-cyan/20 blur-[100px]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative z-10">
+      <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative z-10">
         {/* Header Section with Live Terminal */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            className="space-y-6"
+            className="space-y-6 hero-premium"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-blue-50 dark:bg-cyan/10 border border-blue-200 dark:border-cyan/30 text-blue-700 dark:text-cyan text-xs font-bold tracking-[0.2em] uppercase">
               <Terminal size={14} />
               <span>{t("labs.badge")}</span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-black leading-none tracking-tighter text-slate-900 dark:text-white">
+            <h1 className="headline-sweep text-5xl md:text-7xl font-black leading-none tracking-tighter text-slate-900 dark:text-white">
               {t("labs.heading")}
             </h1>
 
             <p className="text-slate-600 dark:text-gray-400 text-lg max-w-xl leading-relaxed">
               {t("labs.intro")}
-              <span className="text-slate-900 dark:text-white font-bold ml-1">
+              <span className="glow-pulse text-slate-900 dark:text-white font-bold ml-1">
                 {t("labs.intro_highlight")}
               </span>
             </p>
-          </motion.div>
+          </Motion.div>
 
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
           >
             <TerminalBlock />
-          </motion.div>
+          </Motion.div>
         </div>
 
         {/* Projects Grid */}
@@ -220,12 +237,12 @@ const ProjectCard = ({ project, idx }) => {
   const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
 
   return (
-    <motion.div
+    <Motion.div
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: idx * 0.1, duration: 0.5 }}
-      className="group relative p-8 bg-white/50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-xl dark:shadow-none hover:border-blue-300/50 dark:hover:border-cyan/50 hover:bg-white dark:hover:bg-white/[0.04] transition-all duration-300 rounded-2xl overflow-hidden backdrop-blur-sm"
+      className="group card-premium reveal-on-scroll relative p-8 bg-white/50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-xl dark:shadow-none hover:border-blue-300/50 dark:hover:border-cyan/50 hover:bg-white dark:hover:bg-white/[0.04] transition-all duration-300 rounded-2xl overflow-hidden backdrop-blur-sm"
     >
       {/* Hover Glow Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent dark:from-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -269,7 +286,7 @@ const ProjectCard = ({ project, idx }) => {
           ))}
         </div>
       </div>
-    </motion.div>
+    </Motion.div>
   );
 };
 

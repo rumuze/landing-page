@@ -43,7 +43,7 @@ try {
     // Replace the CSS link tag with inline style
     const cssLinkRegex = /<link[^>]*rel="stylesheet"[^>]*href="[^"]*\.css"[^>]*>/g;
 
-    html = html.replace(cssLinkRegex, (match) => {
+    html = html.replace(cssLinkRegex, (_match) => {
         console.log('✅ Replaced CSS link with inline styles');
         return `<style>${cssContent}</style>`;
     });

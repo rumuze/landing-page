@@ -74,7 +74,7 @@ const CRAWLER_PATTERNS = [
  * @returns {Promise<Response>} Modified response with injected meta tags
  */
 export async function onRequest(context) {
-    const { request, next, env } = context; // Added env for caching/KV if needed later
+    const { request, next, env: _env } = context; // Added env for caching/KV if needed later
     const url = new URL(request.url);
     const path = url.pathname;
 

@@ -26,6 +26,7 @@ import {
     getBlogArticleMetadata,
     sanitizeMetaString,
     isValidMetadata,
+    AUTHORITY_DESCRIPTION,
 } from '../config/metadata.config.js';
 
 // ============================================================================
@@ -283,7 +284,7 @@ export class MetadataService {
         const metadata = {
             // Core metadata
             title: sanitizeMetaString(routeMetadata.title),
-            description: sanitizeMetaString(routeMetadata.description),
+            description: AUTHORITY_DESCRIPTION,
 
             // Image metadata
             image: routeMetadata.image || this.getOGImage(locale),

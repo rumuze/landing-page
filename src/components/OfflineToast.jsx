@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { WifiOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -23,7 +23,7 @@ const OfflineToast = () => {
   return (
     <AnimatePresence>
       {isOffline && (
-        <motion.div
+        <Motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
@@ -37,7 +37,7 @@ const OfflineToast = () => {
             <span className="text-sm font-bold">{t('offline.title', 'You are offline')}</span>
             <span className="text-xs text-gray-300">{t('offline.message', 'Viewing cached version')}</span>
           </div>
-        </motion.div>
+        </Motion.div>
       )}
     </AnimatePresence>
   );

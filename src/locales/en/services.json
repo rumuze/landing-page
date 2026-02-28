@@ -1,0 +1,44 @@
+{
+  "clusters": {
+    "software": {
+      "title": "Software Engineering",
+      "bullets": [
+        "Platform architecture design",
+        "Microservices implementation",
+        "API-first system engineering",
+        "Performance and reliability optimization"
+      ],
+      "summary": "Rumuze designs enterprise platforms using modular architecture, microservices, and API-first principles. We optimize throughput, latency, and fault tolerance for mid‑to‑large organizations across MENA."
+    },
+    "web": {
+      "title": "Web Development",
+      "bullets": [
+        "React/Next.js application development",
+        "Secure backend services (Node/Laravel)",
+        "CI/CD and cloud deployment",
+        "Accessibility and performance hardening"
+      ],
+      "summary": "We develop accessible, performant web applications using React/Next.js and secure backends in Node or Laravel. CI/CD and cloud deployment ensure predictable rendering and bilingual support."
+    },
+    "saas_erp": {
+      "title": "SaaS & ERP Systems",
+      "bullets": [
+        "Multi-tenant SaaS platform engineering",
+        "Custom ERP modules (Finance, HR, Inventory)",
+        "Legacy migration and integrations",
+        "Tenant isolation and security"
+      ],
+      "summary": "We engineer multi-tenant SaaS and ERP systems with strict tenant isolation, implement finance, HR, and inventory modules, and perform legacy migrations and integrations under regional compliance."
+    },
+    "marketing": {
+      "title": "Digital Marketing Infrastructure",
+      "bullets": [
+        "Martech stack implementation",
+        "Analytics and attribution modeling",
+        "Marketing automation workflows",
+        "Customer data platforms (CDP)"
+      ],
+      "summary": "We implement marketing technology stacks with analytics, attribution modeling, automation workflows, and CDP integrations, maintaining data quality, deduplication, and privacy for measurable growth."
+    }
+  }
+}

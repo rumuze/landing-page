@@ -10,7 +10,9 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { getMetaForRoute } from '../utils/MetaConfig';
-import { getCompleteGEOPageSchema, SERVICE_SCHEMAS } from '../utils/GEOSchema';
+import { SERVICE_SCHEMAS } from '../utils/GEOSchema';
+import { StableIds } from '../config/site';
+import { localeToBCP47 } from '../utils/localeToBCP47';
 
 const GEOSEO = ({ 
   title, 
@@ -23,7 +25,6 @@ const GEOSEO = ({
   serviceType = null,
   includeFAQSchema = false,
   faqItems = [],
-  breadcrumbs = [],
   entityReinforcement = true
 }) => {
   const { t, i18n } = useTranslation();
@@ -48,24 +49,44 @@ const GEOSEO = ({
   const metaKeywords = configMeta.keywords || t('seo.keywords');
   const imageAlt = configMeta.imageAlt || metaTitle;
   
-  // GEO: Generate enhanced schema
-  const geoSchema = React.useMemo(() => {
-    const serviceOptions = includeServiceSchema && serviceType && SERVICE_SCHEMAS[serviceType]
-      ? SERVICE_SCHEMAS[serviceType]
-      : {};
-    
-    return getCompleteGEOPageSchema({
-      path: currentPath,
-      title: metaTitle,
-      description: metaDescription,
-      lang: currentLang,
-      includeService: includeServiceSchema,
-      serviceOptions,
-      includeFAQ: includeFAQSchema,
-      faqItems,
-      breadcrumbs
-    });
-  }, [currentPath, metaTitle, metaDescription, currentLang, includeServiceSchema, serviceType, includeFAQSchema, faqItems, breadcrumbs]);
+  // ContextGraph only: Service/FAQ nodes prepared for SEO.jsx merger
+  const contextGraph = React.useMemo(() => {
+    const nodes = [];
+    const lang = currentLang === 'ar' ? 'ar' : 'en';
+    if (includeServiceSchema && serviceType && SERVICE_SCHEMAS[serviceType]) {
+      const svc = SERVICE_SCHEMAS[serviceType];
+      nodes.push({
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `${StableIds.organization.replace('/#organization', '')}/#service-${serviceType}`,
+        serviceType: svc.type,
+        provider: { '@id': StableIds.organization },
+        description: svc.description,
+        areaServed: { '@type': 'Place', name: 'MENA' },
+        inLanguage: localeToBCP47(lang),
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'Rumuze Services',
+          itemListElement: svc.offers.map((name) => ({
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name }
+          }))
+        }
+      });
+    }
+    if (includeFAQSchema && faqItems.length > 0) {
+      nodes.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map((q) => ({
+          '@type': 'Question',
+          name: q.question,
+          acceptedAnswer: { '@type': 'Answer', text: q.answer }
+        }))
+      });
+    }
+    return nodes;
+  }, [currentLang, includeServiceSchema, serviceType, includeFAQSchema, faqItems]);
   
   // GEO: Entity reinforcement meta tags
   const entityMetaTags = entityReinforcement ? [
@@ -138,10 +159,15 @@ const GEOSEO = ({
         </>
       )}
 
-      {/* GEO: Enhanced JSON-LD Structured Data */}
-      <script type="application/ld+json">
-        {JSON.stringify(geoSchema)}
-      </script>
+      {/* GEO: ContextGraph export via effect; SEO.jsx merges into single @graph */}
+      {React.useEffect(() => {
+        window.rumuzeContextGraph = contextGraph;
+        return () => {
+          if (window.rumuzeContextGraph === contextGraph) {
+            delete window.rumuzeContextGraph;
+          }
+        };
+      }, [contextGraph])}
     </Helmet>
   );
 };

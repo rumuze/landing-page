@@ -1,10 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Award, Zap, ShieldCheck, Database, Layout, Server, Cpu, Globe, ArrowUpRight } from 'lucide-react';
 import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
 import MagneticButton from '../components/MagneticButton';
+import { SiteConfig } from '../config/site';
 
 const AboutPage = () => {
   const { t, i18n } = useTranslation();
@@ -68,18 +69,18 @@ const AboutPage = () => {
         
         {/* Helper Badge */}
         <div className="flex justify-center mb-8">
-            <motion.div 
+            <Motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple/30 bg-purple/5 text-purple text-sm font-bold tracking-widest uppercase"
             >
               <Cpu size={16} />
               <span>{t('about.subtitle')}</span>
-            </motion.div>
+            </Motion.div>
         </div>
 
         {/* Hero Section */}
-        <motion.div 
+        <Motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -96,18 +97,21 @@ const AboutPage = () => {
           <p className="text-xl md:text-2xl text-slate-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
             {t('about.story.content')}
           </p>
-        </motion.div>
+          <p className="text-base md:text-lg text-slate-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mt-6">
+            {SiteConfig.authorityDescription}
+          </p>
+        </Motion.div>
 
         {/* Mission & Values Grid */}
-        <motion.div 
+        <Motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           className="grid lg:grid-cols-3 gap-8 mb-32"
         >
-          {values.map((value, idx) => (
-             <motion.div 
+          {values.map((value) => (
+             <Motion.div 
                key={value.id}
                variants={itemVariants}
                className="p-8 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-cyan/30 transition-all group relative overflow-hidden"
@@ -122,30 +126,30 @@ const AboutPage = () => {
                       {value.text}
                    </p>
                 </div>
-             </motion.div>
+             </Motion.div>
           ))}
-        </motion.div>
+        </Motion.div>
 
         {/* Tech Stack Visualization */}
         <div className="mb-32">
-           <motion.h2 
+           <Motion.h2 
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
              className="text-3xl md:text-4xl font-black text-center mb-16 text-slate-900 dark:text-white"
            >
               {t('techStack.badge')}
-           </motion.h2>
+           </Motion.h2>
 
-           <motion.div 
+           <Motion.div 
              variants={containerVariants}
              initial="hidden"
              whileInView="visible"
              viewport={{ once: true, margin: "-50px" }}
              className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
            >
-              {techStack.map((stack, idx) => (
-                 <motion.div
+              {techStack.map((stack) => (
+                 <Motion.div
                    key={stack.category}
                    variants={itemVariants}
                    className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-purple/40 transition-colors"
@@ -161,13 +165,13 @@ const AboutPage = () => {
                           </span>
                        ))}
                     </div>
-                 </motion.div>
+                 </Motion.div>
               ))}
-           </motion.div>
+           </Motion.div>
         </div>
 
         {/* Founder Section */}
-        <motion.div 
+        <Motion.div 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -208,7 +212,7 @@ const AboutPage = () => {
                 </div>
              </div>
           </div>
-        </motion.div>
+        </Motion.div>
 
       </div>
     </div>

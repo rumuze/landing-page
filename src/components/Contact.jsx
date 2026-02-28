@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 import {
   Send,
   MapPin,
@@ -108,7 +108,7 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
           {/* Left Side: Contact Info */}
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -202,10 +202,10 @@ const Contact = () => {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </Motion.div>
 
           {/* Right Side: Form */}
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -213,20 +213,20 @@ const Contact = () => {
           >
             <AnimatePresence>
               {success ? (
-                <motion.div
+                <Motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   className="absolute inset-0 z-10 glass-card flex flex-col items-center justify-center text-center p-8 bg-white/95 dark:bg-black/95 backdrop-blur-xl border border-green-500/20 shadow-2xl"
                 >
-                  <motion.div
+                  <Motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 10 }}
                     className="w-24 h-24 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 mb-6"
                   >
                     <CheckCircle size={48} />
-                  </motion.div>
+                  </Motion.div>
                   <h3 className="text-3xl font-black text-slate-900 dark:text-white mb-4">
                     Message Sent!
                   </h3>
@@ -239,7 +239,7 @@ const Contact = () => {
                   >
                     Send Another
                   </button>
-                </motion.div>
+                </Motion.div>
               ) : null}
             </AnimatePresence>
 
@@ -250,7 +250,7 @@ const Contact = () => {
                     <label className="text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-gray-500 pl-1">
                       {t("contact.labels.name")}
                     </label>
-                    <motion.div
+                    <Motion.div
                       animate={errors.name ? { x: [-5, 5, -5, 5, 0] } : {}}
                     >
                       <input
@@ -261,7 +261,7 @@ const Contact = () => {
                         className={inputClasses(errors.name)}
                         placeholder={t("contact.labels.name")}
                       />
-                    </motion.div>
+                    </Motion.div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-gray-500 pl-1">
@@ -283,7 +283,7 @@ const Contact = () => {
                     <label className="text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-gray-500 pl-1">
                       {t("contact.labels.email")}
                     </label>
-                    <motion.div
+                    <Motion.div
                       animate={errors.email ? { x: [-5, 5, -5, 5, 0] } : {}}
                     >
                       <input
@@ -294,7 +294,7 @@ const Contact = () => {
                         className={inputClasses(errors.email)}
                         placeholder="john@company.com"
                       />
-                    </motion.div>
+                    </Motion.div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-gray-500 pl-1">
@@ -315,7 +315,7 @@ const Contact = () => {
                   <label className="text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-gray-500 pl-1">
                     {t("contact.labels.message")}
                   </label>
-                  <motion.div
+                  <Motion.div
                     animate={errors.message ? { x: [-5, 5, -5, 5, 0] } : {}}
                   >
                     <textarea
@@ -326,7 +326,7 @@ const Contact = () => {
                       className={`${inputClasses(errors.message)} resize-none`}
                       placeholder={t("contact.labels.message")}
                     ></textarea>
-                  </motion.div>
+                  </Motion.div>
                 </div>
 
                 <button
@@ -348,7 +348,7 @@ const Contact = () => {
                 </button>
               </form>
             </div>
-          </motion.div>
+          </Motion.div>
         </div>
       </div>
     </section>
