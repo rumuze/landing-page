@@ -41,6 +41,8 @@ const SLOFramework = lazy(() => import('./pages/SLOFramework'));
 const MultilingualSystems = lazy(() => import('./pages/MultilingualSystems'));
 const KnowledgeGraphArchitecture = lazy(() => import('./pages/KnowledgeGraphArchitecture'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
+const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage'));
+const CaseStudyDetailPage = lazy(() => import('./pages/CaseStudyDetailPage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -239,6 +241,28 @@ function AppContent() {
             <Route path="/ar/services/:slug" element={
               <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Suspense fallback={<Skeleton />}><ServiceDetailPage /></Suspense>
+              </Motion.div>
+            } />
+
+            {/* Case Studies Routes */}
+            <Route path="/case-studies" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CaseStudiesPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/case-studies" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CaseStudiesPage isAr={true} /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/case-studies/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CaseStudyDetailPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/case-studies/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CaseStudyDetailPage isAr={true} /></Suspense>
               </Motion.div>
             } />
 
