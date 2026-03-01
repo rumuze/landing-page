@@ -43,6 +43,8 @@ const KnowledgeGraphArchitecture = lazy(() => import('./pages/KnowledgeGraphArch
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
 const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage'));
 const CaseStudyDetailPage = lazy(() => import('./pages/CaseStudyDetailPage'));
+const WhyRumuzePage = lazy(() => import('./pages/WhyRumuzePage'));
+const ComparisonPage = lazy(() => import('./pages/ComparisonPage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -263,6 +265,28 @@ function AppContent() {
             <Route path="/ar/case-studies/:slug" element={
               <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Suspense fallback={<Skeleton />}><CaseStudyDetailPage isAr={true} /></Suspense>
+              </Motion.div>
+            } />
+
+            {/* Why Rumuze & Comparison Routes */}
+            <Route path="/why-rumuze" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><WhyRumuzePage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/why-rumuze" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><WhyRumuzePage isAr={true} /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/comparison/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ComparisonPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/comparison/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ComparisonPage isAr={true} /></Suspense>
               </Motion.div>
             } />
 
