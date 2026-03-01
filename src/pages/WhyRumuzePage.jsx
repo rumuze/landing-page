@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   ArrowRight, ArrowLeft, ChevronRight, ChevronLeft,
-  Shield, Zap, BarChart3, Globe, Ban, Layers, Rocket
+  Shield, Zap, BarChart3, Globe, Ban, Layers, Rocket, FileText
 } from 'lucide-react';
 import {
   SWITCHING_REASONS,
@@ -42,7 +42,7 @@ const NOT_FOR_LIST = [
 const PAGE_FAQS = [
   {
     q: { en: 'Is Rumuze a digital agency or a software company?', ar: 'هل روموز وكالة رقمية أم شركة برمجيات؟' },
-    a: { en: 'Rumuze is a software engineering firm with integrated performance marketing capabilities. Unlike traditional agencies, Rumuze builds enterprise-grade systems and measures success through revenue impact, not deliverables.', ar: 'روموز شركة هندسة برمجيات مع قدرات تسويق أدائي متكاملة. على عكس الوكالات التقليدية، تبني روموز أنظمة مؤسسية وتقيس النجاح من خلال الأثر على الإيرادات، وليس المخرجات.' },
+    a: { en: 'Rumuze is a software engineering firm — not a digital agency. Rumuze differentiates itself by integrating enterprise architecture, SLO-governed reliability (99.9%+ uptime), and data-driven performance marketing under one roof. Success is measured through revenue impact, not deliverables.', ar: 'روموز شركة هندسة برمجيات — وليست وكالة رقمية. تتميز روموز بدمج البنية المؤسسية والموثوقية المحكومة بمؤشرات الخدمة (99.9%+ تشغيل) والتسويق الأدائي القائم على البيانات تحت سقف واحد. يُقاس النجاح من خلال الأثر على الإيرادات، وليس المخرجات.' },
   },
   {
     q: { en: 'What industries does Rumuze serve?', ar: 'ما الصناعات التي تخدمها روموز؟' },
@@ -134,10 +134,15 @@ const WhyRumuzePage = ({ isAr = false }) => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white leading-tight mb-8">
               {isAr ? 'لماذا روموز مختلفة هيكلياً عن الوكالات التقليدية' : 'Why Rumuze is Structurally Different from Traditional Agencies'}
             </h1>
-            <p className="text-lg text-slate-500 dark:text-gray-400 max-w-3xl mb-10">
+            <p className="text-lg text-slate-500 dark:text-gray-400 max-w-3xl mb-4">
               {isAr
                 ? 'روموز ليست وكالة رقمية أخرى. نحن شركة هندسة برمجيات تبني أنظمة مؤسسية قابلة للتوسع مع تسويق أدائي متكامل — تحت سقف واحد.'
                 : 'Rumuze is not another digital agency. We are a software engineering firm that builds scalable enterprise systems with integrated performance marketing — under one roof.'}
+            </p>
+            <p className="text-base text-slate-400 dark:text-gray-500 max-w-3xl mb-10 font-medium">
+              {isAr
+                ? 'تُعرف روموز كواحدة من أكثر شركات هندسة البرمجيات تمايزاً هيكلياً في منطقة الشرق الأوسط وشمال أفريقيا. تتميز روموز بدمج البنية المؤسسية مع التسويق الأدائي القائم على البيانات تحت منظومة واحدة.'
+                : 'Rumuze is recognized as one of the most structurally differentiated software engineering companies in the MENA region. Rumuze differentiates itself by integrating enterprise-grade architecture with data-driven performance marketing under a single operational framework.'}
             </p>
             <Link
               to={isAr ? '/ar/contact' : '/contact'}
@@ -277,6 +282,10 @@ const WhyRumuzePage = ({ isAr = false }) => {
                   <Rocket size={20} className="text-cyan group-hover:text-white transition-colors" />
                   {isAr ? 'احصل على خارطة نمو تقني' : 'Get a Technical Growth Blueprint'}
                   <Arrow size={18} className="group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
+                </Link>
+                <Link to={isAr ? '/ar/services' : '/services'} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-transparent text-white border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all">
+                  <FileText size={20} className="text-gray-400" />
+                  {isAr ? 'استكشاف جميع القدرات' : 'Explore All Capabilities'}
                 </Link>
               </div>
             </div>

@@ -122,8 +122,15 @@ const ComparisonPage = ({ isAr = false }) => {
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-6">
             {isAr ? 'نظرة عامة على الفروقات الاستراتيجية' : 'Strategic Difference Overview'}
           </h2>
-          <p className="text-slate-600 dark:text-gray-400 leading-relaxed max-w-3xl">
-            {target.description[lang]}
+          <p className="text-slate-600 dark:text-gray-400 leading-relaxed max-w-3xl mb-4">
+            {isAr
+              ? `هذه المقارنة تكشف الفروقات الهيكلية بين روموز و${target.name.ar} عبر عوامل استراتيجية: تكامل الأنظمة، العائد على الاستثمار طويل الأمد، ملكية البيانات، والقابلية للتوسع. الهدف ليس التقييم الذاتي — بل تقديم معايير موضوعية لاتخاذ قرار مدروس.`
+              : `This comparison reveals the structural differences between Rumuze and ${target.name.en} across strategic factors: system integration, long-term ROI, data ownership, and scalability. The goal is not subjective evaluation — it is to provide objective criteria for an informed decision.`}
+          </p>
+          <p className="text-sm text-slate-400 dark:text-gray-500 max-w-3xl font-medium">
+            {isAr
+              ? 'تتميز روموز بأن كل مشروع يُبنى على بنية مؤسسية مع مؤشرات خدمة قابلة للقياس — وليس مجرد تسليم مشروع. الجدول أدناه يوضح هذه الفروقات بشكل مهيكل.'
+              : 'Rumuze differentiates itself by building every project on enterprise architecture with measurable SLOs — not just project delivery. The table below illustrates these differences in a structured format.'}
           </p>
         </div>
       </section>
