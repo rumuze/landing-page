@@ -13,7 +13,7 @@ import { generateCanonical, generateHreflangsFromLocales } from '../seo/linking'
 import { localeToBCP47 } from '../utils/localeToBCP47';
 import { validateGraphIntegrity } from '../utils/validateGraphIntegrity';
 
-const SEO = ({ title, description, image, type, path }) => {
+const SEO = ({ title, description, image, type, path, schemas }) => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const currentLang = i18n.language;
@@ -76,14 +76,18 @@ const SEO = ({ title, description, image, type, path }) => {
     };
     const core = [buildOrganizationSchema(lang), buildWebSiteSchema(lang)];
     let nodes = [...core, pageNode, breadcrumbNode];
-    if (Array.isArray(window.rumuzeContextGraph)) {
+    
+    if (schemas && Array.isArray(schemas)) {
+      nodes = nodes.concat(schemas);
+    } else if (Array.isArray(window.rumuzeContextGraph)) {
       nodes = nodes.concat(window.rumuzeContextGraph);
     } else {
       nodes = nodes.concat(buildServiceSchemas(lang), buildFAQSchema(lang));
     }
+    
     validateGraphIntegrity(nodes);
     return nodes;
-  }, [baseUrl, currentPath, metaTitle, metaDescription, metaImage, currentLang]);
+  }, [baseUrl, currentPath, metaTitle, metaDescription, metaImage, currentLang, schemas]);
 
   // Debugging Log
   if (import.meta.env.DEV) {
@@ -162,7 +166,7 @@ const SEO = ({ title, description, image, type, path }) => {
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={metaType} />
       <meta property="og:title" content={metaTitle} />
-      <meta property="og:description" content={SiteConfig.authorityDescription} />
+      <meta property="og:description" content={SiteConfig.authorityDescription[currentLang === 'ar' ? 'ar' : 'en']} />
       <meta property="og:image" content={metaImage} />
       <meta property="og:image:secure_url" content={metaImage} />
       <meta property="og:image:width" content="1200" />
@@ -175,7 +179,7 @@ const SEO = ({ title, description, image, type, path }) => {
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={metaTitle} />
-      <meta name="twitter:description" content={SiteConfig.authorityDescription} />
+      <meta name="twitter:description" content={SiteConfig.authorityDescription[currentLang === 'ar' ? 'ar' : 'en']} />
       <meta name="twitter:image" content={metaImage} />
       <meta name="twitter:image:alt" content={imageAlt} />
       <meta name="twitter:site" content="@rumuze" />

@@ -20,7 +20,7 @@ export function buildPersonSchema(lang: LanguageCode) {
     '@type': 'Person',
     '@id': StableIds.founder,
     name: FOUNDER.name,
-    jobTitle: isAr ? FOUNDER.role.ar : FOUNDER.role.en,
+    jobTitle: isAr ? 'المؤسس' : 'Founder',
     description: isAr ? FOUNDER.description.ar : FOUNDER.description.en,
     url: FOUNDER.url,
     image: FOUNDER.image,

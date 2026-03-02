@@ -31,6 +31,7 @@ const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 import ShareButton from './components/ShareButton';
 import OfflineToast from './components/OfflineToast';
+import WhatsAppButton from './components/WhatsAppButton';
 const HomePage = lazy(() => import('./pages/HomePage'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const ManifestoPage = lazy(() => import('./pages/ManifestoPage'));
@@ -41,6 +42,12 @@ const SLOFramework = lazy(() => import('./pages/SLOFramework'));
 const MultilingualSystems = lazy(() => import('./pages/MultilingualSystems'));
 const KnowledgeGraphArchitecture = lazy(() => import('./pages/KnowledgeGraphArchitecture'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
+const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage'));
+const CaseStudyDetailPage = lazy(() => import('./pages/CaseStudyDetailPage'));
+const WhyRumuzePage = lazy(() => import('./pages/WhyRumuzePage'));
+const ComparisonPage = lazy(() => import('./pages/ComparisonPage'));
+const SaudiArabiaPage = lazy(() => import('./pages/SaudiArabiaPage'));
+const EnterpriseFrameworkPage = lazy(() => import('./pages/EnterpriseFrameworkPage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -83,6 +90,17 @@ function AppContent() {
   const location = useLocation();
   const isAr = i18n.language === 'ar';
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+  // Reactive mobile breakpoint — no dependency, no animation
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth < 768
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -242,6 +260,72 @@ function AppContent() {
               </Motion.div>
             } />
 
+            {/* Case Studies Routes */}
+            <Route path="/case-studies" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CaseStudiesPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/case-studies" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CaseStudiesPage isAr={true} /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/case-studies/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CaseStudyDetailPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/case-studies/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CaseStudyDetailPage isAr={true} /></Suspense>
+              </Motion.div>
+            } />
+
+            {/* Why Rumuze & Comparison Routes */}
+            <Route path="/why-rumuze" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><WhyRumuzePage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/why-rumuze" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><WhyRumuzePage isAr={true} /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/comparison/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ComparisonPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/comparison/:slug" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ComparisonPage isAr={true} /></Suspense>
+              </Motion.div>
+            } />
+
+            {/* Saudi Arabia & Enterprise Framework Routes */}
+            <Route path="/saudi-arabia" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><SaudiArabiaPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/saudi-arabia" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><SaudiArabiaPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/enterprise-framework" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><EnterpriseFrameworkPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/enterprise-framework" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><EnterpriseFrameworkPage /></Suspense>
+              </Motion.div>
+            } />
+
             {/* About Routes */}
             <Route path="/about" element={
               <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -371,10 +455,27 @@ function AppContent() {
         </AnimatePresence>
       </main>
 
-      {/* Global Share Button */}
-      <div className="fixed bottom-24 right-4 z-40 md:bottom-8 md:right-8">
+      {/* Floating Button Stack — WhatsApp above Share, safe-area positioned */}
+      <div
+        style={{
+          position: 'fixed',
+          bottom: isMobile
+            ? 'calc(118px + env(safe-area-inset-bottom))'
+            : 'calc(28px + env(safe-area-inset-bottom))',
+          ...(isAr
+            ? { left: 'calc(20px + env(safe-area-inset-left))' }
+            : { right: 'calc(20px + env(safe-area-inset-right))' }),
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
+          zIndex: 40,
+          alignItems: 'center',
+        }}
+      >
+        <WhatsAppButton />
         <ShareButton />
       </div>
+
 
       <UpdateToast 
         show={needRefresh} 

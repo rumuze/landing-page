@@ -24,7 +24,7 @@ const Footer = () => {
               {t('footer.tagline')}
             </p>
             <p className="text-slate-600 dark:text-gray-400 text-xs leading-relaxed mb-6">
-              {SiteConfig.authorityDescription}
+              {SiteConfig.authorityDescription[isAr ? 'ar' : 'en']}
             </p>
             <div className={`flex gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
               <a href="https://twitter.com/rumuze" aria-label="Follow us on Twitter" className="text-slate-200 hover:text-cyan transition-colors"><Twitter size={20} /></a>

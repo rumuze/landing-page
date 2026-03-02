@@ -26,7 +26,7 @@ const Hero = () => {
   }, [codeSteps.length]);
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-transparent">
+    <section className="relative min-h-screen flex items-center pt-20 md:pt-28 overflow-hidden bg-transparent">
       {/* Mesh Gradient Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <Motion.div 
@@ -149,7 +149,7 @@ const Hero = () => {
                        exit={{ scale: 1.2, opacity: 0 }}
                        className="text-center text-cyan font-bold text-xl"
                     >
-                      🚀 System Optimized
+                       {t('hero.code.optimized', '🚀 System Optimized')}
                     </Motion.div>
                   )}
                 </AnimatePresence>

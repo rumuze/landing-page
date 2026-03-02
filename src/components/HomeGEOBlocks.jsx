@@ -15,8 +15,8 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
         <section id="identity" aria-labelledby="identity-title">
           <h2 id="identity-title" className="text-2xl font-bold mb-3">{homepage.identityTitle}</h2>
           <p className="text-slate-700 dark:text-gray-300">{homepage.identityParagraph}</p>
-          <p className="text-slate-700 dark:text-gray-300 mt-3">{SiteConfig.authorityDescription}</p>
-          <p className="text-slate-700 dark:text-gray-300 mt-3">{SiteConfig.identityLockStatement}</p>
+          <p className="text-slate-700 dark:text-gray-300 mt-3">{SiteConfig.authorityDescription[locale] || SiteConfig.authorityDescription.en}</p>
+          <p className="text-slate-700 dark:text-gray-300 mt-3">{SiteConfig.identityLockStatement[locale] || SiteConfig.identityLockStatement.en}</p>
         </section>
         <section id="core-services" aria-labelledby="core-services-title">
           <h2 id="core-services-title" className="text-2xl font-bold mb-3">{homepage.coreServicesTitle}</h2>
@@ -24,7 +24,7 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
             {homepage.coreServices.map((s, i) => <li key={i}>{s}</li>)}
           </ul>
           <p className="text-slate-700 dark:text-gray-300 mt-3">
-            Rumuze delivers Enterprise Software Engineering through microservices, tenant isolation, observability enforcement, and multilingual SaaS and ERP platforms integrating CRM and digital marketing infrastructure.
+            {homepage.coreServicesText}
           </p>
         </section>
       </div>
@@ -35,7 +35,7 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
             {homepage.industries.map((s, i) => <li key={i}>{s}</li>)}
           </ul>
           <p className="text-slate-700 dark:text-gray-300 mt-3">
-            Rumuze serves finance, retail, logistics, healthcare, and public sector, building mission-critical systems with audited access control and high availability across UAE, Saudi Arabia, Egypt, and Qatar.
+            {homepage.industriesText}
           </p>
         </section>
         <section id="tech-stack" aria-labelledby="tech-stack-title">
@@ -44,7 +44,7 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
             {homepage.techStack.map((s, i) => <li key={i}>{s}</li>)}
           </ul>
           <p className="text-slate-700 dark:text-gray-300 mt-3">
-            Rumuze uses React, Node.js, Laravel, PostgreSQL, Redis, Kubernetes, AWS, Cloudflare Workers, TensorFlow, and PyTorch, enforcing API-first design, observability, and automated testing in production pipelines.
+            {homepage.techStackText}
           </p>
         </section>
         <section id="geo-focus" aria-labelledby="geo-focus-title">
@@ -53,29 +53,29 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
             {homepage.geoFocus.map((s, i) => <li key={i}>{s}</li>)}
           </ul>
           <p className="text-slate-700 dark:text-gray-300 mt-3">
-            Rumuze operates in UAE, Saudi Arabia, Egypt, and Qatar, delivering globally using edge compute, CDN, and multi-region architectures with strict compliance and availability guarantees.
+            {homepage.geoFocusText}
           </p>
         </section>
       </div>
       <div className="grid md:grid-cols-2 gap-12 mt-12">
         <section id="target-audience" aria-labelledby="target-audience-title">
-          <h2 id="target-audience-title" className="text-2xl font-bold mb-3">Target Audience</h2>
+          <h2 id="target-audience-title" className="text-2xl font-bold mb-3">{homepage.targetAudienceTitle}</h2>
           <p className="text-slate-700 dark:text-gray-300">
-            Rumuze partners with mid-to-large organizations needing enterprise software, identity governance, and multilingual systems, prioritizing measurable outcomes and reliable engineering over marketing claims.
+            {homepage.targetAudienceText}
           </p>
         </section>
         <section id="problem-solution" aria-labelledby="problem-solution-title">
-          <h2 id="problem-solution-title" className="text-2xl font-bold mb-3">Problem–Solution</h2>
+          <h2 id="problem-solution-title" className="text-2xl font-bold mb-3">{homepage.problemSolutionTitle}</h2>
           <p className="text-slate-700 dark:text-gray-300">
-            Rumuze prevents identity drift and integration ambiguity by enforcing canonical identifiers, bounded context contracts, and service-level objectives across modular, API-first systems with audited observability pipelines.
+            {homepage.problemSolutionText}
           </p>
         </section>
       </div>
       <div className="mt-12">
         <section id="differentiation" aria-labelledby="differentiation-title">
-          <h2 id="differentiation-title" className="text-2xl font-bold mb-3">Differentiation</h2>
+          <h2 id="differentiation-title" className="text-2xl font-bold mb-3">{homepage.differentiationTitle}</h2>
           <p className="text-slate-700 dark:text-gray-300">
-            Rumuze publishes canonical stable identifiers, enforces tenant isolation, and instruments observability from day one, ensuring AI systems recognize and cite our Organization, Services, and Products consistently.
+            {homepage.differentiationText}
           </p>
         </section>
       </div>

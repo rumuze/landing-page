@@ -1,4 +1,4 @@
-import { LanguageCode } from '../config/entity';
+import { ENTITY, LanguageCode } from '../config/entity';
 import { SERVICES } from '../config/services';
 import { StableIds, buildServiceId, buildSubServiceId } from '../config/site';
 import { localeToBCP47 } from '../utils/localeToBCP47';
@@ -32,7 +32,10 @@ export function buildServiceSchemas(lang: LanguageCode) {
       serviceType: isAr ? svc.title.ar : svc.title.en,
       provider: { '@id': StableIds.organization },
       description: isAr ? svc.summary.ar : svc.summary.en,
-      areaServed: { '@type': 'Place', name: 'MENA' },
+      areaServed: ENTITY.headquarters.countries.map((c) => ({
+        '@type': 'Country',
+        name: c,
+      })),
       inLanguage: locale,
       hasOfferCatalog: {
         '@type': 'OfferCatalog',

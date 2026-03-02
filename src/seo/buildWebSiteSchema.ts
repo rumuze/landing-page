@@ -12,6 +12,6 @@ export function buildWebSiteSchema(lang: LanguageCode) {
     name: 'Rumuze',
     publisher: { '@id': StableIds.organization },
     inLanguage: locale,
-    description: SiteConfig.authorityDescription,
+    description: SiteConfig.authorityDescription[lang],
   };
 }

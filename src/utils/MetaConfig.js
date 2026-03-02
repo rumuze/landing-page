@@ -176,6 +176,38 @@ export const META_CONFIG = {
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'روموز - الصفحة غير موجودة'
         }
+    },
+    '/saudi-arabia': {
+        en: {
+            title: `Software Engineering & Performance Marketing for Saudi Enterprises | ${BRAND_NAME}`,
+            description: 'Rumuze delivers structured software engineering and performance marketing for enterprises in Saudi Arabia. Defined governance, clear reporting, measurable ROI.',
+            keywords: 'software engineering Saudi Arabia, performance marketing Saudi Arabia, digital transformation, enterprise software Riyadh, Rumuze Saudi',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Rumuze - Software Engineering & Marketing for Saudi Enterprises'
+        },
+        ar: {
+            title: `هندسة البرمجيات والتسويق الأدائي للمؤسسات السعودية | ${BRAND_NAME}`,
+            description: 'روموز تقدم هندسة برمجيات منظمة وتسويقاً أدائياً للمؤسسات في المملكة العربية السعودية. حوكمة محددة وتقارير واضحة وعائد استثمار قابل للقياس.',
+            keywords: 'هندسة برمجيات المملكة العربية السعودية, تسويق أدائي السعودية, تحول رقمي, برمجيات مؤسسية الرياض, روموز السعودية',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'روموز - هندسة البرمجيات والتسويق للمؤسسات السعودية'
+        }
+    },
+    '/enterprise-framework': {
+        en: {
+            title: `Structured Project Execution Framework | ${BRAND_NAME}`,
+            description: 'The Rumuze Enterprise Delivery Framework: governance model, sprint cadence, accountability structure, SLA philosophy, and technology standards for all client engagements.',
+            keywords: 'enterprise delivery framework, software project governance, sprint methodology, SLA commitments, structured project execution',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Rumuze Enterprise Framework - Structured Project Execution'
+        },
+        ar: {
+            title: `إطار تنفيذ المشاريع المنظم | ${BRAND_NAME}`,
+            description: 'إطار تسليم روموز المؤسسي: نموذج الحوكمة وإيقاع السبرينت وهيكل المساءلة وفلسفة مستوى الخدمة ومعايير التكنولوجيا لجميع العملاء.',
+            keywords: 'إطار تسليم مؤسسي, حوكمة مشاريع برمجية, منهجية السبرينت, التزامات مستوى الخدمة, تنفيذ مشاريع منظم',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'روموز إطار المؤسسة - تنفيذ مشاريع منظم'
+        }
     }
 };
 
@@ -324,206 +356,10 @@ export function validateMetadata(meta) {
     return missing;
 }
 
-/**
- * Generate comprehensive structured data (JSON-LD) for the Knowledge Graph
- * 
- * Implements:
- * - Organization: Core entity definition
- * - WebSite: Sitelinks search box
- * - BreadcrumbList: Site navigation structure
- * - Service: For services pages
- * - Article: For blog posts (placeholder structure)
- */
-export function getStructuredData(path, lang = 'en') {
-    const meta = getMetaForRoute(path, lang);
-    const normalizedPath = normalizePath(path);
-    const isArabic = lang === 'ar';
-    const locale = isArabic ? 'ar-EG' : 'en-US';
-
-    const baseSchema = {
-        '@context': 'https://schema.org',
-        '@graph': []
-    };
-
-    // 1. Organization Schema (The Entity)
-    // Critical for Knowledge Graph establishment
-    const organizationSchema = {
-        '@type': 'Organization',
-        '@id': `${BASE_URL}/#organization`,
-        name: isArabic ? 'روموز' : 'Rumuze',
-        url: BASE_URL,
-        logo: {
-            '@type': 'ImageObject',
-            url: `${BASE_URL}/rumuze.png`,
-            width: 512,
-            height: 512,
-            caption: 'Rumuze Logo'
-        },
-        image: {
-            '@id': `${BASE_URL}/#logo`
-        },
-        description: isArabic
-            ? 'وكالة برمجيات وتسويق رائدة في منطقة الشرق الأوسط وشمال أفريقيا، متخصصة في الأنظمة الرقمية والذكاء الاصطناعي.'
-            : 'A leading Software and Marketing agency operating in the MENA region, specializing in digital ecosystems and AI systems.',
-        sameAs: [
-            'https://www.linkedin.com/company/rumuze',
-            'https://twitter.com/rumuze',
-            'https://github.com/rumuze',
-            'https://clutch.co/profile/rumuze'
-        ],
-        contactPoint: {
-            '@type': 'ContactPoint',
-            telephone: '+971-50-000-0000', // Placeholder - update with real number if available
-            contactType: 'sales',
-            areaServed: ['AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'EG'],
-            availableLanguage: ['en', 'ar']
-        }
-    };
-    baseSchema['@graph'].push(organizationSchema);
-
-    // 2. WebSite Schema
-    const websiteSchema = {
-        '@type': 'WebSite',
-        '@id': `${BASE_URL}/#website`,
-        url: BASE_URL,
-        name: BRAND_NAME,
-        publisher: {
-            '@id': `${BASE_URL}/#organization`
-        },
-        inLanguage: locale
-    };
-    baseSchema['@graph'].push(websiteSchema);
-
-    // 3. WebPage Schema (Current Page)
-    const webpageSchema = {
-        '@type': 'WebPage',
-        '@id': `${BASE_URL}${path}#webpage`,
-        url: `${BASE_URL}${path}`,
-        name: meta.title,
-        description: meta.description,
-        inLanguage: locale,
-        isPartOf: {
-            '@id': `${BASE_URL}/#website`
-        },
-        about: {
-            '@id': `${BASE_URL}/#organization`
-        },
-        primaryImageOfPage: {
-            '@type': 'ImageObject',
-            url: meta.image
-        }
-    };
-    baseSchema['@graph'].push(webpageSchema);
-
-    // 4. BreadcrumbList Schema
-    const breadcrumbSchema = {
-        '@type': 'BreadcrumbList',
-        '@id': `${BASE_URL}${path}#breadcrumb`,
-        itemListElement: [
-            {
-                '@type': 'ListItem',
-                position: 1,
-                name: isArabic ? 'الرئيسية' : 'Home',
-                item: `${BASE_URL}/${isArabic ? 'ar' : ''}`
-            }
-        ]
-    };
-
-    // Add current page to breadcrumb if not home
-    if (normalizedPath !== '/') {
-        // Simple mapping for demonstration; can be enhanced for nested routes
-        const pageName = meta.title.split('|')[0].trim();
-
-        breadcrumbSchema.itemListElement.push({
-            '@type': 'ListItem',
-            position: 2,
-            name: pageName,
-            item: `${BASE_URL}${path}`
-        });
-    }
-    baseSchema['@graph'].push(breadcrumbSchema);
-
-    // 5. Context-Specific Schemas (Services, etc.)
-    if (normalizedPath === '/services') {
-        const serviceSchema = {
-            '@type': 'Service',
-            serviceType: isArabic ? 'تطوير برمجيات وذكاء اصطناعي' : 'Software Development & AI',
-            provider: {
-                '@id': `${BASE_URL}/#organization`
-            },
-            areaServed: {
-                '@type': 'Place',
-                name: 'MENA Region'
-            },
-            hasOfferCatalog: {
-                '@type': 'OfferCatalog',
-                name: isArabic ? 'خدمات روموز' : 'Rumuze Services',
-                itemListElement: [
-                    {
-                        '@type': 'Offer',
-                        itemOffered: {
-                            '@type': 'Service',
-                            name: isArabic ? 'حلول الذكاء الاصطناعي' : 'AI Solutions'
-                        }
-                    },
-                    {
-                        '@type': 'Offer',
-                        itemOffered: {
-                            '@type': 'Service',
-                            name: isArabic ? 'التحول الرقمي' : 'Digital Transformation'
-                        }
-                    },
-                    {
-                        '@type': 'Offer',
-                        itemOffered: {
-                            '@type': 'Service',
-                            name: isArabic ? 'تصميم تجربة المستخدم' : 'UX/UI Design'
-                        }
-                    }
-                ]
-            }
-        };
-        baseSchema['@graph'].push(serviceSchema);
-    }
-
-    // 6. Article Schema
-    if (meta.type === 'article') {
-        const articleSchema = {
-            '@type': 'Article',
-            '@id': `${BASE_URL}${path}#article`,
-            isPartOf: {
-                '@id': `${BASE_URL}${path}#webpage`
-            },
-            headline: meta.title,
-            description: meta.description,
-            image: {
-                '@type': 'ImageObject',
-                url: meta.image
-            },
-            datePublished: meta.publishedTime,
-            dateModified: meta.publishedTime, // Ideally track modification date too
-            author: {
-                '@type': 'Person',
-                name: meta.author || (isArabic ? 'فريق روموز' : 'Rumuze Team')
-            },
-            publisher: {
-                '@id': `${BASE_URL}/#organization`
-            },
-            mainEntityOfPage: {
-                '@type': 'WebPage',
-                '@id': `${BASE_URL}${path}`
-            }
-        };
-        baseSchema['@graph'].push(articleSchema);
-    }
-
-    return baseSchema;
-}
 
 export default {
     getMetaForRoute,
     validateMetadata,
-    getStructuredData,
     BASE_URL,
     BRAND_NAME
 };
