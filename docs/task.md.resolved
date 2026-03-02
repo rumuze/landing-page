@@ -1,0 +1,27 @@
+# SEO & GEO Audit Task List
+
+- [x] Project Setup & Basic Inspection
+  - [x] Analyze [package.json](file:///Volumes/main/new/projects/Rumuze/landing-page/package.json) for dependencies (`react-helmet`, `vite-ssg`, `react-router`, etc.)
+  - [x] Inspect rendering strategy ([index.html](file:///Volumes/main/new/projects/Rumuze/landing-page/index.html), `vite.config.ts`/[js](file:///Volumes/main/new/projects/Rumuze/landing-page/src/sw.js))
+- [x] Investigate Head Management & Meta Tags
+  - [x] Check usage of `react-helmet` or similar
+  - [x] Verify standard tags (title, description, og, twitter) across pages
+- [x] Investigate Sitemap & robots.txt
+  - [x] Check [public/robots.txt](file:///Volumes/main/new/projects/Rumuze/landing-page/public/robots.txt)
+  - [x] Check [public/sitemap.xml](file:///Volumes/main/new/projects/Rumuze/landing-page/public/sitemap.xml) or generation scripts
+- [x] Analyze Structured Data (Schema.org)
+  - [x] Locate JSON-LD schemas in code
+  - [x] Identify gaps in schema implementation
+- [x] Review Performance & Core Web Vitals
+  - [x] Check for React.lazy() and Suspense
+  - [x] Inspect image loading implementation (lazy, formats)
+- [x] Review Routing & URL Structure
+  - [x] Inspect router setup (browser vs hash)
+  - [x] Verify 404 page handling
+- [x] Analyze GEO & Content Structure
+  - [x] Check semantics (H1, H2, FAQ sections)
+  - [x] Review E-E-A-T signals in content
+- [x] Check Internationalization (i18n)
+  - [x] Review locale configurations and hreflang presence
+- [x] Generate Audit Report Artifact
+  - [x] Compile findings into standard report structure
