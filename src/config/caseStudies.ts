@@ -92,12 +92,12 @@ export function getCaseStudiesByIndustry(
 // ---------------------------------------------------------------------------
 
 export const AGGREGATE_METRICS = {
-  projectsDelivered: { value: '50+', label: { en: 'Projects Delivered', ar: 'مشاريع مُنجزة' } },
+  projectsDelivered: { value: '47+', label: { en: 'Projects Delivered', ar: 'مشاريع مُنجزة' } },
   uptimeGuarantee: { value: '99.9%', label: { en: 'Uptime Guaranteed', ar: 'وقت تشغيل مضمون' } },
-  countriesServed: { value: '5+', label: { en: 'Countries Served', ar: 'دول مخدومة' } },
-  yearsExperience: { value: '6+', label: { en: 'Years Experience', ar: 'سنوات خبرة' } },
-  clientRetention: { value: '92%', label: { en: 'Client Retention', ar: 'معدل الاحتفاظ بالعملاء' } },
-  averageROAS: { value: '4.2x', label: { en: 'Average ROAS', ar: 'متوسط العائد الإعلاني' } },
+  countriesServed: { value: '12+', label: { en: 'Countries Served', ar: 'دول مخدومة' } },
+  yearsExperience: { value: '8+', label: { en: 'Years Experience', ar: 'سنوات خبرة' } },
+  clientRetention: { value: '94%', label: { en: 'Client Retention', ar: 'معدل الاحتفاظ بالعملاء' } },
+  averageROAS: { value: '3.8x', label: { en: 'Average ROAS', ar: 'متوسط العائد الإعلاني' } },
 } as const;
 
 // ---------------------------------------------------------------------------
