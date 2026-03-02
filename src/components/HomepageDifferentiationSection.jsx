@@ -69,14 +69,14 @@ const HomepageDifferentiationSection = () => {
             className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-4"
           >
             {isAr
-              ? 'لماذا روموز مختلفة عن الوكالات التقليدية؟'
-              : 'Why is Rumuze different from traditional agencies?'
+              ? 'لماذا تعتمد المؤسسات على روموز في هندسة SaaS و ERP'
+              : 'Why Enterprises Choose Rumuze for SaaS & ERP Engineering'
             }
           </h2>
           <p className="text-lg text-slate-500 dark:text-gray-400 max-w-2xl mx-auto">
             {isAr
-              ? 'روموز شركة هندسة برمجيات وتسويق أدائي — نبني الأنظمة وندفع النمو القابل للقياس.'
-              : 'Rumuze is a software engineering and performance marketing company — we build the systems and drive measurable growth.'
+              ? 'روموز تجمع بين هندسة البرمجيات المؤسسية والتسويق الأدائي بتسليم محكوم بمؤشرات مستوى الخدمة.'
+              : 'Rumuze combines enterprise software engineering with performance marketing under SLO-governed delivery.'
             }
           </p>
         </Motion.div>

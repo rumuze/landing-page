@@ -68,14 +68,14 @@ const HomepageCTASection = () => {
               className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 text-center"
             >
               {isAr
-                ? 'مستعد لتحويل أعمالك الرقمية؟'
-                : 'Ready to transform your digital business?'
+                ? 'ابدأ مشروعك المؤسسي التالي'
+                : 'Start Your Next Enterprise Engagement'
               }
             </h2>
             <p className="text-lg text-gray-300 mb-12 text-center max-w-2xl mx-auto">
               {isAr
-                ? 'اختر نقطة البداية المناسبة لاحتياجاتك — سواء كانت استراتيجية أو تقنية أو تسويقية.'
-                : 'Choose the right starting point for your needs — whether strategic, technical, or growth-focused.'
+                ? 'اختر نقطة البداية المناسبة — سواء كانت معمارية أو تنفيذية أو تسويقية.'
+                : 'Choose the right starting point — whether architecture, execution, or growth.'
               }
             </p>
 

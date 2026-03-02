@@ -5,7 +5,7 @@
     "category": "Enterprise Software Development",
     "headquarters": "MENA Region",
     "founder": "Mohamed Ashraf",
-    "founded": "2020"
+    "founded": "2026"
   },
   "homepage": {
     "h1": "Rumuze — Enterprise Software Engineering",
@@ -61,15 +61,27 @@
       "items": [
         {
           "category": "Enterprise Software Architecture",
-          "details": ["Multi-tenant SaaS platform design", "Microservices architecture", "API-first development"]
+          "details": [
+            "Multi-tenant SaaS platform design",
+            "Microservices architecture",
+            "API-first development"
+          ]
         },
         {
           "category": "Business System Development",
-          "details": ["ERP (Enterprise Resource Planning) systems", "CRM (Customer Relationship Management) platforms", "HRM (Human Resource Management) software"]
+          "details": [
+            "ERP (Enterprise Resource Planning) systems",
+            "CRM (Customer Relationship Management) platforms",
+            "HRM (Human Resource Management) software"
+          ]
         },
         {
           "category": "Digital Infrastructure",
-          "details": ["Marketing technology stack implementation", "Growth system architecture", "Data pipeline engineering"]
+          "details": [
+            "Marketing technology stack implementation",
+            "Growth system architecture",
+            "Data pipeline engineering"
+          ]
         }
       ]
     },
@@ -148,7 +160,15 @@
         "Cloud-native deployment on AWS, GCP, or Azure",
         "Tenant isolation and data security implementation"
       ],
-      "technologies": ["React", "Next.js", "Node.js", "PostgreSQL", "Redis", "Kubernetes", "Docker"],
+      "technologies": [
+        "React",
+        "Next.js",
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "Kubernetes",
+        "Docker"
+      ],
       "useCases": [
         "B2B software products",
         "Enterprise internal tools",
@@ -168,7 +188,14 @@
         "Third-party integration (accounting, payroll, logistics)",
         "Mobile ERP applications"
       ],
-      "technologies": ["Laravel", "Node.js", "React", "PostgreSQL", "MongoDB", "Redis"],
+      "technologies": [
+        "Laravel",
+        "Node.js",
+        "React",
+        "PostgreSQL",
+        "MongoDB",
+        "Redis"
+      ],
       "useCases": [
         "Manufacturing operations",
         "Retail chain management",
@@ -188,7 +215,13 @@
         "Customer support integration",
         "Marketing automation connectivity"
       ],
-      "technologies": ["React", "Node.js", "PostgreSQL", "Redis", "Elasticsearch"],
+      "technologies": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "Elasticsearch"
+      ],
       "useCases": [
         "B2B sales teams",
         "Real estate agencies",
@@ -208,7 +241,13 @@
         "Customer data platform (CDP) development",
         "Growth system architecture"
       ],
-      "technologies": ["Segment", "Mixpanel", "Amplitude", "HubSpot API", "Salesforce API"],
+      "technologies": [
+        "Segment",
+        "Mixpanel",
+        "Amplitude",
+        "HubSpot API",
+        "Salesforce API"
+      ],
       "useCases": [
         "SaaS growth teams",
         "E-commerce optimization",

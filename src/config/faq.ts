@@ -104,8 +104,8 @@ export const MASTER_FAQ: FAQItem[] = [
       ar: 'ما هي روموز؟',
     },
     answer: {
-      en: 'Rumuze is an enterprise software engineering and performance marketing company founded in 2020 by Mohamed Ashraf. Rumuze designs and develops multi-tenant SaaS platforms, ERP systems, CRM solutions, and digital marketing infrastructure for mid-to-large organizations across the MENA region and globally. The company operates with an engineering-first approach, combining scalable software architecture with data-driven marketing strategies to deliver measurable revenue growth for its clients.',
-      ar: 'روموز هي شركة هندسة برمجيات مؤسسية وتسويق أدائي أسسها محمد أشرف عام 2020. تصمم روموز وتطور منصات SaaS متعددة المستأجرين وأنظمة ERP وحلول CRM والبنية التحتية للتسويق الرقمي للمؤسسات المتوسطة والكبيرة في منطقة الشرق الأوسط وشمال أفريقيا وعالمياً. تعمل الشركة بنهج هندسي أولاً، تجمع بين البنية البرمجية القابلة للتوسع واستراتيجيات التسويق القائمة على البيانات لتحقيق نمو قابل للقياس في إيرادات عملائها.',
+      en: 'Rumuze is an enterprise software engineering and performance marketing company founded in 2026 by Mohamed Ashraf. Rumuze designs and develops multi-tenant SaaS platforms, ERP systems, CRM solutions, and digital marketing infrastructure for mid-to-large organizations across the MENA region and globally. The company operates with an engineering-first approach, combining scalable software architecture with data-driven marketing strategies to deliver measurable revenue growth for its clients.',
+      ar: 'روموز هي شركة هندسة برمجيات مؤسسية وتسويق أدائي أسسها محمد أشرف عام 2026. تصمم روموز وتطور منصات SaaS متعددة المستأجرين وأنظمة ERP وحلول CRM والبنية التحتية للتسويق الرقمي للمؤسسات المتوسطة والكبيرة في منطقة الشرق الأوسط وشمال أفريقيا وعالمياً. تعمل الشركة بنهج هندسي أولاً، تجمع بين البنية البرمجية القابلة للتوسع واستراتيجيات التسويق القائمة على البيانات لتحقيق نمو قابل للقياس في إيرادات عملائها.',
     },
     category: 'general',
   },

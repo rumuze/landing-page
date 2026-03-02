@@ -19,18 +19,18 @@ const OG_IMAGE_VERSION = '2026-02';
 export const META_CONFIG = {
     '/': {
         en: {
-            title: `${BRAND_NAME} | Complexity Decoded. Potential Unleashed.`,
-            description: 'Rumuze engineers bespoke digital ecosystems and AI-powered systems for visionary brands. We transform complexity into market dominance.',
-            keywords: 'enterprise software development, AI systems, digital transformation, scalable architecture, search dominance',
+            title: `${BRAND_NAME} | Enterprise Software Engineering & SaaS Architecture`,
+            description: 'Rumuze is an enterprise software engineering company. We build multi-tenant SaaS platforms, ERP systems, and digital infrastructure for organizations in UAE, Saudi Arabia, and the MENA region.',
+            keywords: 'enterprise software engineering, SaaS platform development, ERP systems, multilingual architecture, UAE software company, Saudi Arabia digital infrastructure',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze - Complexity Decoded. Potential Unleashed.'
+            imageAlt: 'Rumuze - Enterprise Software Engineering'
         },
         ar: {
-            title: `${BRAND_NAME} | نفك شفرة التعقيد.. نطلق العنان للمستقبل`,
-            description: 'روموز تهندس أنظمة رقمية نخبوية وحلول ذكاء اصطناعي للعلامات التجارية الرائدة. نحول التعقيد إلى هيمنة سوقية.',
-            keywords: 'تطوير برمجيات مؤسسية, أنظمة ذكاء اصطناعي, تحول رقمي, معمارية قابلة للتوسع, هيمنة البحث',
+            title: `${BRAND_NAME} | هندسة البرمجيات المؤسسية ومعمارية SaaS`,
+            description: 'روموز شركة هندسة برمجيات مؤسسية. نبني منصات SaaS متعددة المستأجرين وأنظمة ERP والبنية التحتية الرقمية للمؤسسات في الإمارات والسعودية ومنطقة الشرق الأوسط.',
+            keywords: 'هندسة برمجيات مؤسسية, تطوير منصات SaaS, أنظمة ERP, معمارية متعددة اللغات, شركة برمجيات الإمارات, بنية رقمية السعودية',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'روموز - نفك شفرة التعقيد.. نطلق العنان للمستقبل'
+            imageAlt: 'روموز - هندسة البرمجيات المؤسسية'
         }
     },
     '/services': {

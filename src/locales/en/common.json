@@ -1,7 +1,12 @@
 {
   "brandName": "Rumuze",
   "founderName": "Mohamed Ashraf",
-  "foundingYear": "2020",
+  "foundingYear": "2026",
   "region": "MENA",
-  "countries": ["United Arab Emirates", "Saudi Arabia", "Egypt", "Qatar"]
+  "countries": [
+    "United Arab Emirates",
+    "Saudi Arabia",
+    "Egypt",
+    "Qatar"
+  ]
 }

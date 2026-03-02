@@ -84,7 +84,7 @@ export const ENTITY: EntityConfig = {
       'https://github.com/ashraf-mohamed',
     ],
   },
-  foundingYear: 2020,
+  foundingYear: 2026,
   headquarters: {
     region: 'MENA',
     countries: [

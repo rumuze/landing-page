@@ -16,7 +16,7 @@ const BRAND_NAME = 'Rumuze';
  */
 export function getOrganizationSchema(lang = 'en') {
   const isArabic = lang === 'ar';
-  
+
   return {
     '@context': 'https://schema.org',
     '@type': ['Organization', 'SoftwareCompany', 'ProfessionalService'],
@@ -34,10 +34,10 @@ export function getOrganizationSchema(lang = 'en') {
     image: {
       '@id': `${BASE_URL}/#logo`
     },
-    description: isArabic 
+    description: isArabic
       ? 'روموز هي شركة هندسة برمجيات مؤسسية متخصصة في منصات SaaS متعددة المستأجرين، وأنظمة ERP، وحلول CRM، والبنية التحتية للتسويق الرقمي للمنظمات متوسطة وكبيرة الحجم.'
       : 'Rumuze is an enterprise software engineering company specializing in multi-tenant SaaS platforms, ERP systems, CRM solutions, and digital marketing infrastructure for mid-to-large organizations.',
-    slogan: isArabic 
+    slogan: isArabic
       ? 'نفك شفرة التعقيد.. نطلق العنان للمستقبل'
       : 'Complexity Decoded. Potential Unleashed.',
     founder: {
@@ -46,7 +46,7 @@ export function getOrganizationSchema(lang = 'en') {
       jobTitle: isArabic ? 'المهندس الرئيسي والمؤسس' : 'Chief Architect & Founder',
       url: `${BASE_URL}/about`
     },
-    foundingDate: '2020',
+    foundingDate: '2026',
     knowsAbout: [
       'Enterprise Software Development',
       'Multi-tenant SaaS Architecture',
@@ -100,7 +100,7 @@ export function getOrganizationSchema(lang = 'en') {
  */
 export function getServiceSchema(serviceType, description, offers = [], lang = 'en') {
   const isArabic = lang === 'ar';
-  
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -138,7 +138,7 @@ export function getSoftwareApplicationSchema(options = {}) {
     description = 'Enterprise software solutions for mid-to-large organizations',
     features = []
   } = options;
-  
+
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -181,9 +181,9 @@ export function getFAQPageSchema(faqs = []) {
       answer: 'Rumuze employs modern enterprise technology stacks including React and Next.js for frontend, Node.js and Laravel for backend, PostgreSQL and Redis for data, AWS and Kubernetes for infrastructure, and TensorFlow for AI/ML implementations.'
     }
   ];
-  
+
   const items = faqs.length > 0 ? faqs : defaultFAQs;
-  
+
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -211,10 +211,10 @@ export function getWebPageSchema(options = {}) {
     lang = 'en',
     image = `${BASE_URL}/og-image-en.png`
   } = options;
-  
+
   const isArabic = lang === 'ar';
   const locale = isArabic ? 'ar-EG' : 'en-US';
-  
+
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -273,7 +273,7 @@ export function getCompleteGEOPageSchema(options = {}) {
     faqItems = [],
     breadcrumbs = []
   } = options;
-  
+
   const graph = [
     getOrganizationSchema(lang),
     {
@@ -288,7 +288,7 @@ export function getCompleteGEOPageSchema(options = {}) {
     },
     getWebPageSchema({ path, title, description, lang })
   ];
-  
+
   if (includeService) {
     graph.push(getServiceSchema(
       serviceOptions.type,
@@ -297,15 +297,15 @@ export function getCompleteGEOPageSchema(options = {}) {
       lang
     ));
   }
-  
+
   if (includeFAQ && faqItems.length > 0) {
     graph.push(getFAQPageSchema(faqItems));
   }
-  
+
   if (breadcrumbs.length > 0) {
     graph.push(getBreadcrumbSchema(breadcrumbs));
   }
-  
+
   return {
     '@context': 'https://schema.org',
     '@graph': graph

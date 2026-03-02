@@ -1,30 +1,30 @@
 {
     "seo": {
-        "defaultTitle": "Rumuze | Complexity Decoded. Potential Unleashed.",
-        "defaultDescription": "Rumuze is a global digital powerhouse. We engineer bespoke digital ecosystems and master search dominance for industry leaders.",
-        "orgDescription": "High-Authority Digital Engineering & Strategy Corporation.",
-        "keywords": "Scalable Ecosystems, Enterprise Architecture, AI R&D, Search Dominance, Digital Authority, Fintech Core",
-        "ogTitle": "Rumuze | The Digital Powerhouse",
-        "ogDescription": "Engineering Digital Legacies. We don't just build code; we architect the future of industries.",
+        "defaultTitle": "Rumuze | Enterprise Software Engineering & SaaS Architecture",
+        "defaultDescription": "Rumuze is an enterprise software engineering company. We build multi-tenant SaaS platforms, ERP systems, and digital infrastructure for organizations in UAE, Saudi Arabia, and the MENA region.",
+        "orgDescription": "Enterprise software engineering and SaaS architecture company serving UAE and Saudi Arabia.",
+        "keywords": "enterprise software engineering, SaaS platform development, ERP systems, multilingual architecture, UAE software company, Saudi Arabia digital infrastructure",
+        "ogTitle": "Rumuze | Enterprise Software Engineering",
+        "ogDescription": "Enterprise SaaS, ERP, and CRM engineering with governance-first delivery for UAE and Saudi Arabia.",
         "titles": {
             "services": "Our Services",
             "labs": "Rumuze Labs"
         }
     },
     "faq": {
-        "title": "Strategic Partnerships",
+        "title": "Enterprise Engagement",
         "items": [
             {
-                "question": "How do you define Engineering?",
-                "answer": "For us, engineering is the art of solving the unsolvable. We architect scalable ecosystems that serve as the backbone of your enterprise dominance."
+                "question": "What does Rumuze engineer?",
+                "answer": "Rumuze engineers multi-tenant SaaS platforms, ERP systems, and CRM solutions with modular microservices architecture, tenant isolation, and SLO-governed reliability."
             },
             {
-                "question": "What is 'Search Dominance'?",
-                "answer": "It's beyond SEO. It's about establishing your brand as the undeniable authority in your sector through technical precision and behavioral data."
+                "question": "How does Rumuze approach SEO and AI visibility?",
+                "answer": "Rumuze performs technical SEO, structured data implementation, and AI visibility engineering to ensure organizations are cited accurately by search engines and generative AI systems."
             },
             {
-                "question": "Do you work with startups?",
-                "answer": "We partner with visionaries. Whether you are a startup or a conglomerate, if you aim to redefine your industry, we provide the digital precision to get you there."
+                "question": "Does Rumuze work with startups?",
+                "answer": "Rumuze partners with organizations that require enterprise-grade architecture from day one — typically funded startups from Series A onward and mid-to-large enterprises."
             }
         ]
     },
@@ -49,74 +49,74 @@
         "startProject": "Partner with us"
     },
     "hero": {
-        "badge": "Software Engineering & Performance Marketing",
-        "headline_part1": "We Design & Execute",
-        "headline_part2": "Scalable Digital Systems",
-        "headline_part3": "for Growth-Focused Enterprises.",
-        "subheadline": "Rumuze designs and executes scalable digital systems for growth-focused enterprises across the MENA region. We deliver structured software engineering and performance marketing with measurable ROI.",
-        "ctaExplore": "Book Strategic Consultation",
-        "ctaServices": "Explore Capabilities",
+        "badge": "Enterprise Software Engineering",
+        "headline_part1": "We Engineer",
+        "headline_part2": "Enterprise SaaS & ERP Systems",
+        "headline_part3": "for UAE & Saudi Arabia.",
+        "subheadline": "Rumuze is an enterprise software engineering company. We build multi-tenant SaaS platforms, ERP systems, and digital infrastructure with governance-first delivery for organizations across the MENA region.",
+        "ctaExplore": "Book Technical Consultation",
+        "ctaServices": "View Capabilities",
         "code": {
-            "comment": "Scaling your vision",
-            "optimized": "🚀 System Optimized"
+            "comment": "Enterprise architecture",
+            "optimized": "🚀 System Deployed"
         }
     },
     "services": {
-        "title": "Global Capabilities",
-        "description": "We deliver authority, not just services. Our capabilities are designed to position your enterprise at the apex of the digital hierarchy.",
+        "title": "Engineering Capabilities",
+        "description": "Enterprise software engineering, SaaS platform development, and structured performance marketing — delivered with defined governance and accountability.",
         "software": {
-            "title": "Architecting Scalable Ecosystems",
-            "description": "Building the invisible giants. High-availability, infinite-scale architectures that power national-level operations.",
+            "title": "Enterprise Software Architecture",
+            "description": "Multi-tenant SaaS platforms, ERP integrations, and high-availability systems with tenant isolation, observability, and SLO-governed reliability.",
             "items": {
                 "erp": {
-                    "name": "Enterprise Nervous Systems",
-                    "text": "Bespoke operational cores that synchronize your entire business logic."
+                    "name": "ERP & CRM Systems",
+                    "text": "Custom enterprise platforms with role-based access, audit logging, and multi-tenant data isolation."
                 },
                 "api": {
-                    "name": "Ecosystem Connectivity",
-                    "text": "Secure, high-throughput API fabrics connecting you to the global economy."
+                    "name": "API Infrastructure",
+                    "text": "Secure, documented API gateways with versioning, rate limiting, and third-party integration."
                 },
                 "mobile": {
-                    "name": "Immersive Interfaces",
-                    "text": "Native applications engineered for fluidity, retention, and maximum impact."
+                    "name": "Web & Mobile Applications",
+                    "text": "React and React Native applications with bilingual RTL/LTR support and offline capability."
                 }
             }
         },
         "marketing": {
-            "title": "Behavioral Data & Market Dominance",
-            "description": "Dominating the search landscape through forensic data analysis and algorithmic precision.",
+            "title": "Performance Marketing & SEO",
+            "description": "Data-driven acquisition with defined KPIs, attribution modeling, and structured reporting against agreed benchmarks.",
             "items": {
                 "growth": {
-                    "name": "Search Dominance",
-                    "text": "Establishing your digital sovereignty across all search engines."
+                    "name": "Technical SEO & AI Visibility",
+                    "text": "Structured data implementation, semantic optimization, and generative engine visibility."
                 },
                 "brand": {
-                    "name": "Authority Construction",
-                    "text": "Forging a corporate identity that commands respect and trust instantly."
+                    "name": "Entity Authority Engineering",
+                    "text": "Canonical identifier management and structured data architecture for AI citation readiness."
                 },
                 "ads": {
-                    "name": "Algorithmic Acquisition",
-                    "text": "Micro-targeted campaigns leveraging behavioral psychology for maximum yield."
+                    "name": "Paid Acquisition",
+                    "text": "Campaign management with ROAS targets, attribution modeling, and weekly performance reporting."
                 }
             }
         }
     },
     "portfolio": {
-        "title": "Impact Case Studies",
-        "description": "A chronicle of how we've transformed ambition into industry-defining benchmarks.",
-        "viewAll": "Explore Impact",
+        "title": "Delivery Record",
+        "description": "Selected enterprise engagements with documented outcomes and system specifications.",
+        "viewAll": "View Case Studies",
         "items": {
-            "fintech": "National Fintech Core",
-            "ecommerce": "Multi-Region Retail Scale",
-            "logistics": "Autonomous Supply Chain"
+            "fintech": "Fintech Platform Architecture",
+            "ecommerce": "Multi-Region E-Commerce System",
+            "logistics": "Supply Chain Automation"
         }
     },
     "techStack": {
         "badge": "The Corporate Engine"
     },
     "contact": {
-        "title": "Partner with us",
-        "description": "If you are ready to lead your industry, we are ready to engineer the path. Let's discuss your legacy.",
+        "title": "Start an Engagement",
+        "description": "If your organization requires enterprise software engineering or structured digital execution, contact us to schedule a technical consultation.",
         "labels": {
             "name": "Full Name",
             "company": "Company Name",
@@ -126,23 +126,23 @@
             "send": "Send Message"
         },
         "info": {
-            "hq": "Global Headquarters",
-            "email": "Corporate Inquiries",
+            "hq": "Headquarters",
+            "email": "Project Inquiries",
             "phone": "Direct Line"
         },
-        "success": "Your inquiry has been logged. Our strategy office will review and respond shortly."
+        "success": "Your inquiry has been received. Our engineering team will respond within one business day."
     },
     "footer": {
-        "tagline": "The Architects of the Digital Future.",
-        "rights": "© 2026 Rumuze Corporation. All rights reserved. Complexity Decoded.",
+        "tagline": "Enterprise Software Engineering. Governance-First Delivery.",
+        "rights": "© 2026 Rumuze Technologies LLC. All rights reserved.",
         "sections": {
             "solutions": "Solutions",
             "services": "Capabilities",
-            "company": "Corporation",
+            "company": "Company",
             "links": {
                 "cloud": "Cloud Infrastructure",
-                "about": "Our Philosophy",
-                "cases": "Impact Stories",
+                "about": "About Rumuze",
+                "cases": "Case Studies",
                 "careers": "Careers",
                 "contact": "Contact",
                 "privacy": "Privacy Policy",
@@ -151,30 +151,30 @@
         }
     },
     "about": {
-        "title": "Decoded Philosophy",
-        "subtitle": "Complexity Decoded, Potential Unleashed.",
+        "title": "About Rumuze",
+        "subtitle": "Enterprise software engineering with governance-first delivery.",
         "story": {
-            "title": "The Rumuze Standard",
-            "content": "Rumuze stands as a beacon of Digital Mastery. We recognized that true innovation lies not in simplifying the complex, but in decoding it. We are the architects who translate the chaotic language of the digital universe into structured, scalable success tailored for visionaries."
+            "title": "Engineering Standard",
+            "content": "Rumuze is an enterprise software engineering company founded in 2026. We build multi-tenant SaaS platforms, ERP systems, and digital infrastructure with defined governance, documented delivery processes, and SLO-governed reliability for organizations in UAE, Saudi Arabia, and the MENA region."
         },
         "values": {
             "innovation": {
-                "title": "Pioneering",
-                "text": "We don't follow trends; we research the breakthroughs that define them."
+                "title": "Engineering Rigor",
+                "text": "Every system is built with microservices architecture, tenant isolation, and automated testing."
             },
             "precision": {
-                "title": "Mastery",
-                "text": "Absolute control over every variable in your digital ecosystem."
+                "title": "Governance",
+                "text": "Defined accountability, documented deliverables, and structured reporting at every stage."
             },
             "scalability": {
-                "title": "Legacy",
-                "text": "Engineering systems built to outlast technological cycles."
+                "title": "Long-Term Architecture",
+                "text": "Systems designed for the next decade with domain-driven design and infrastructure-as-code."
             }
         },
         "cto": {
             "name": "Mohamed Ashraf",
-            "role": "Chief Architect & Founder",
-            "bio": "A researcher and architect dedicated to the science of scalability and the art of digital influence."
+            "role": "Founder & Principal Engineer",
+            "bio": "Software architect specializing in enterprise SaaS platforms, multi-tenant architecture, and bilingual system engineering."
         }
     },
     "services_page": {
@@ -243,40 +243,40 @@
             ]
         },
         "methodology": {
-            "heading": "Our Methodology",
-            "subtitle": "From concept to dominance. A calculated path."
+            "heading": "Delivery Methodology",
+            "subtitle": "Structured execution from discovery through deployment."
         },
         "process": {
             "steps": [
                 {
                     "num": "01",
-                    "title": "Consultation",
-                    "desc": "Deep-dive requirement analysis."
+                    "title": "Discovery",
+                    "desc": "Requirements analysis and scope definition."
                 },
                 {
                     "num": "02",
-                    "title": "Blueprint",
-                    "desc": "System architecture design."
+                    "title": "Architecture",
+                    "desc": "System design and technical specification."
                 },
                 {
                     "num": "03",
                     "title": "Development",
-                    "desc": "Agile development sprints."
+                    "desc": "Sprint-based implementation with weekly reviews."
                 },
                 {
                     "num": "04",
-                    "title": "Launch",
-                    "desc": "Deploy, monitor, and scale."
+                    "title": "Deployment",
+                    "desc": "Staged release, monitoring, and handover."
                 }
             ]
         },
         "tilt_card": {
-            "label": "High-Performance Implementation"
+            "label": "Governance-First Delivery"
         },
         "cta": {
-            "heading": "Ready to Dominate?",
-            "subheading": "Let's engineer your digital legacy today.",
-            "button": "Start Your Project"
+            "heading": "Schedule a Technical Consultation",
+            "subheading": "Define scope, review architecture, and establish delivery governance.",
+            "button": "Start Engagement"
         }
     },
     "blog": {
