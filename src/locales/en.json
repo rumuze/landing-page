@@ -241,6 +241,42 @@
                 "Conversion Rate Optimization",
                 "High-ROAS Acquisition"
             ]
+        },
+        "methodology": {
+            "heading": "Our Methodology",
+            "subtitle": "From concept to dominance. A calculated path."
+        },
+        "process": {
+            "steps": [
+                {
+                    "num": "01",
+                    "title": "Consultation",
+                    "desc": "Deep-dive requirement analysis."
+                },
+                {
+                    "num": "02",
+                    "title": "Blueprint",
+                    "desc": "System architecture design."
+                },
+                {
+                    "num": "03",
+                    "title": "Development",
+                    "desc": "Agile development sprints."
+                },
+                {
+                    "num": "04",
+                    "title": "Launch",
+                    "desc": "Deploy, monitor, and scale."
+                }
+            ]
+        },
+        "tilt_card": {
+            "label": "High-Performance Implementation"
+        },
+        "cta": {
+            "heading": "Ready to Dominate?",
+            "subheading": "Let's engineer your digital legacy today.",
+            "button": "Start Your Project"
         }
     },
     "blog": {
