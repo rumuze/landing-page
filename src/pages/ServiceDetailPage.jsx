@@ -21,8 +21,6 @@ import { ENTITY } from '../config/entity';
 import { SERVICES } from '../config/services';
 import { getFAQsByService } from '../config/faq';
 import { SiteConfig, StableIds, buildServiceId } from '../config/site';
-import { buildOrganizationSchema } from '../seo/buildOrganizationSchema';
-import { buildPersonSchema } from '../seo/buildPersonSchema';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
 
@@ -49,11 +47,10 @@ function buildPageServiceSchema(service, lang) {
     serviceType: isAr ? service.title.ar : service.title.en,
     provider: { '@id': StableIds.organization },
     description: isAr ? service.summary.ar : service.summary.en,
-    areaServed: {
-      '@type': 'Place',
-      name: 'MENA',
-      containsPlace: service.geoScope.map((g) => ({ '@type': 'Country', name: g })),
-    },
+    areaServed: ENTITY.headquarters.countries.map((c) => ({
+      '@type': 'Country',
+      name: c,
+    })),
     audience: {
       '@type': 'Audience',
       audienceType: service.targetAudience
@@ -157,8 +154,6 @@ const ServiceDetailPage = () => {
   const schemaGraph = useMemo(() => {
     if (!service) return null;
     const graph = [];
-    graph.push(buildOrganizationSchema(lang));
-    graph.push(buildPersonSchema(lang));
     graph.push(buildPageServiceSchema(service, lang));
     graph.push(buildPageBreadcrumb(service, lang));
     const faqSchema = buildPageFAQSchema(service, masterFAQs, lang);

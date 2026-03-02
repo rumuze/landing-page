@@ -6,6 +6,7 @@ import { getMetaForRoute, validateMetadata } from '../utils/MetaConfig';
 import { ENTITY } from '../config/entity';
 import { SiteConfig, StableIds } from '../config/site';
 import { buildOrganizationSchema } from '../seo/buildOrganizationSchema';
+import { buildPersonSchema } from '../seo/buildPersonSchema';
 import { buildWebSiteSchema } from '../seo/buildWebSiteSchema';
 import { buildServiceSchemas } from '../seo/buildServiceSchema';
 import { buildFAQSchema } from '../seo/buildFAQSchema';
@@ -74,7 +75,11 @@ const SEO = ({ title, description, image, type, path, schemas }) => {
         { '@type': 'ListItem', position: 2, name: metaTitle.split('|')[0].trim(), item: `${baseUrl}${currentPath}` }
       ]
     };
-    const core = [buildOrganizationSchema(lang), buildWebSiteSchema(lang)];
+    const core = [
+      buildOrganizationSchema(lang),
+      buildWebSiteSchema(lang),
+      buildPersonSchema(lang)
+    ];
     let nodes = [...core, pageNode, breadcrumbNode];
     
     if (schemas && Array.isArray(schemas)) {

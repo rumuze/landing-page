@@ -9,7 +9,7 @@
  * Usage: node scripts/generate-sitemap.js
  */
 
-import { writeFileSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -20,7 +20,12 @@ const __dirname = dirname(__filename);
 // CONFIGURATION
 // ============================================================================
 
-const BASE_URL = 'https://www.rumuze.com';
+// Read SiteConfig from source file to avoid hardcoding domain
+const siteConfigPath = join(__dirname, '../src/config/site.ts');
+const siteConfigContent = readFileSync(siteConfigPath, 'utf8');
+const baseUrlMatch = siteConfigContent.match(/baseUrl:\s*['"]([^'"]+)['"]/);
+
+const BASE_URL = baseUrlMatch ? baseUrlMatch[1] : 'https://www.rumuze.com';
 const BUILD_DATE = new Date().toISOString().split('T')[0];
 
 /**
