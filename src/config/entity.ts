@@ -26,6 +26,7 @@ export interface Headquarters {
 
 export interface EntityConfig {
   id: string;
+  legalName: string;
   name: string;
   alternateName: LocalizedString;
   slogan: LocalizedString;
@@ -50,6 +51,7 @@ export interface EntityConfig {
 
 export const ENTITY: EntityConfig = {
   id: 'https://www.rumuze.com/#organization',
+  legalName: 'Rumuze Technologies LLC',
   name: 'Rumuze',
   alternateName: {
     en: 'Rumuze Technologies',
@@ -72,8 +74,8 @@ export const ENTITY: EntityConfig = {
   founder: {
     name: 'Mohamed Ashraf',
     jobTitle: {
-      en: 'Chief Architect & Founder',
-      ar: 'المهندس الرئيسي والمؤسس',
+      en: 'Founder',
+      ar: 'المؤسس',
     },
     url: 'https://www.rumuze.com/about',
     sameAs: [
@@ -105,6 +107,7 @@ export const ENTITY: EntityConfig = {
     'https://www.linkedin.com/company/rumuze',
     'https://twitter.com/rumuze',
     'https://github.com/rumuze',
+    'https://www.linkedin.com/in/ashraf-mohamed',
   ],
   industryFocus: [
     'Fintech',
@@ -120,15 +123,15 @@ export const ENTITY: EntityConfig = {
     'Technology leaders',
   ],
   technologyStack: [
+    'SaaS',
+    'ERP',
+    'CRM',
+    'Multilingual Systems',
+    'API-First Architecture',
+    'Enterprise Software Development',
     'React',
-    'Next.js',
     'Node.js',
     'Laravel',
-    'PostgreSQL',
-    'Redis',
-    'MongoDB',
     'AWS',
-    'Docker',
-    'Kubernetes',
   ],
 };
