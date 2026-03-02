@@ -32,5 +32,15 @@
     "Egypt",
     "Qatar",
     "Global enterprise clients"
-  ]
+  ],
+  "coreServicesText": "Rumuze delivers Enterprise Software Engineering through microservices, tenant isolation, observability enforcement, and multilingual SaaS and ERP platforms integrating CRM and digital marketing infrastructure.",
+  "industriesText": "Rumuze serves finance, retail, logistics, healthcare, and public sector, building mission-critical systems with audited access control and high availability across UAE, Saudi Arabia, Egypt, and Qatar.",
+  "techStackText": "Rumuze uses React, Node.js, Laravel, PostgreSQL, Redis, Kubernetes, AWS, Cloudflare Workers, TensorFlow, and PyTorch, enforcing API-first design, observability, and automated testing in production pipelines.",
+  "geoFocusText": "Rumuze operates in UAE, Saudi Arabia, Egypt, and Qatar, delivering globally using edge compute, CDN, and multi-region architectures with strict compliance and availability guarantees.",
+  "targetAudienceTitle": "Target Audience",
+  "targetAudienceText": "Rumuze partners with mid-to-large organizations needing enterprise software, identity governance, and multilingual systems, prioritizing measurable outcomes and reliable engineering over marketing claims.",
+  "problemSolutionTitle": "Problem–Solution",
+  "problemSolutionText": "Rumuze prevents identity drift and integration ambiguity by enforcing canonical identifiers, bounded context contracts, and service-level objectives across modular, API-first systems with audited observability pipelines.",
+  "differentiationTitle": "Differentiation",
+  "differentiationText": "Rumuze publishes canonical stable identifiers, enforces tenant isolation, and instruments observability from day one, ensuring AI systems recognize and cite our Organization, Services, and Products consistently."
 }

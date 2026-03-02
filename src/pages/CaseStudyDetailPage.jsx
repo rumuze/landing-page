@@ -96,6 +96,7 @@ const CaseStudyDetailPage = ({ isAr = false }) => {
         title={`${caseStudy.title[lang]} | Rumuze`}
         description={caseStudy.problem[lang].substring(0, 160)}
         path={currentPath}
+        schemas={schemaGraph['@graph']}
       />
 
       <Helmet>
@@ -103,9 +104,6 @@ const CaseStudyDetailPage = ({ isAr = false }) => {
         <link rel="alternate" hrefLang="en" href={`${SiteConfig.baseUrl}${pathEn}`} />
         <link rel="alternate" hrefLang="ar" href={`${SiteConfig.baseUrl}${pathAr}`} />
         <link rel="alternate" hrefLang="x-default" href={`${SiteConfig.baseUrl}${pathEn}`} />
-
-        {/* JSON-LD Schema Grpah */}
-        <script type="application/ld+json">{JSON.stringify(schemaGraph)}</script>
       </Helmet>
 
       <CaseStudyHeroSection caseStudy={caseStudy} />

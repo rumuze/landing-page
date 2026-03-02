@@ -23,7 +23,7 @@ import { SiteConfig, StableIds, buildServiceId } from '../config/site';
 import { buildOrganizationSchema } from '../seo/buildOrganizationSchema';
 import { buildPersonSchema } from '../seo/buildPersonSchema';
 import { localeToBCP47 } from '../utils/localeToBCP47';
-import { generateCanonical, generateHreflangs } from '../seo/linking';
+
 
 import {
   ServiceHeroSection,
@@ -174,41 +174,18 @@ const ServiceDetailPage = () => {
   const title = isAr ? service.title.ar : service.title.en;
   const description = isAr ? service.summary.ar : service.summary.en;
   const currentPath = location.pathname;
-  const canonicalUrl = generateCanonical(SiteConfig.baseUrl, currentPath);
-  const hreflinks = generateHreflangs(SiteConfig.baseUrl, `/services/${service.slug}`);
   const ctaVariant = service.category === 'marketing' ? 'growth' : 'technical';
 
   return (
     <>
-      {/* SEO Head */}
+      <SEO
+        title={`${title} | Rumuze`}
+        description={description}
+        path={currentPath}
+        schemas={schemaGraph['@graph']}
+      />
       <Helmet>
-        <html lang={lang} dir={isAr ? 'rtl' : 'ltr'} />
-        <title>{`${title} | Rumuze`}</title>
-        <meta name="description" content={description} />
         <meta name="keywords" content={(service.keywords || []).join(', ')} />
-        <link rel="canonical" href={canonicalUrl} />
-
-        {/* Hreflang */}
-        <link rel="alternate" hrefLang="en" href={hreflinks.en} />
-        <link rel="alternate" hrefLang="ar" href={hreflinks.ar} />
-        <link rel="alternate" hrefLang="x-default" href={hreflinks.xDefault} />
-
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={`${title} | Rumuze`} />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:site_name" content="Rumuze" />
-        <meta property="og:locale" content={localeToBCP47(lang)} />
-        <meta property="og:image" content={`${SiteConfig.baseUrl}/og-image-${lang}.png`} />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${title} | Rumuze`} />
-        <meta name="twitter:description" content={description} />
-
-        {/* JSON-LD */}
-        <script type="application/ld+json">{JSON.stringify(schemaGraph)}</script>
       </Helmet>
 
       {/* Page content — semantic article wrapper for AI chunking */}

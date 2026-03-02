@@ -98,7 +98,7 @@ const AboutPage = () => {
             {t('about.story.content')}
           </p>
           <p className="text-base md:text-lg text-slate-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mt-6">
-            {SiteConfig.authorityDescription}
+            {SiteConfig.authorityDescription[isAr ? 'ar' : 'en']}
           </p>
         </Motion.div>
 

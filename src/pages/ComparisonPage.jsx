@@ -78,12 +78,12 @@ const ComparisonPage = ({ isAr = false }) => {
         title={isAr ? `روموز مقابل ${target.name.ar} | روموز` : `Rumuze vs ${target.name.en} | Rumuze`}
         description={target.description[lang].substring(0, 160)}
         path={currentPath}
+        schemas={schemaGraph['@graph']}
       />
       <Helmet>
         <link rel="alternate" hrefLang="en" href={`${SiteConfig.baseUrl}${pathEn}`} />
         <link rel="alternate" hrefLang="ar" href={`${SiteConfig.baseUrl}${pathAr}`} />
         <link rel="alternate" hrefLang="x-default" href={`${SiteConfig.baseUrl}${pathEn}`} />
-        <script type="application/ld+json">{JSON.stringify(schemaGraph)}</script>
       </Helmet>
 
       {/* ─── Hero ─── */}

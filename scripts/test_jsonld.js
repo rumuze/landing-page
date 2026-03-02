@@ -1,23 +1,59 @@
-import { getStructuredData } from '../src/utils/MetaConfig.js';
+import { buildOrganizationSchema } from '../src/seo/buildOrganizationSchema.ts';
+import { buildWebSiteSchema } from '../src/seo/buildWebSiteSchema.ts';
+import { buildServiceSchemas } from '../src/seo/buildServiceSchema.ts';
+import { buildFAQSchema } from '../src/seo/buildFAQSchema.ts';
+import { localeToBCP47 } from '../src/utils/localeToBCP47.ts';
+import { StableIds, SiteConfig } from '../src/config/site.ts';
 import { blogPosts } from '../src/data/blogPosts.js';
+import { getMetaForRoute } from '../src/utils/MetaConfig.js';
 
-// Mock window/location if needed by MetaConfig, though it seems pure mostly.
-// checking MetaConfig dependencies... 
-// It uses `window.location.origin` in BASE_URL if not hardcoded. 
-// Let's mock it.
 global.window = {
     location: {
         origin: 'https://rumuze.com'
     }
 };
 
+const baseUrl = SiteConfig.baseUrl;
+
+function generateTestGraph(path, lang = 'en') {
+    const currentPath = path;
+    const metaTitle = `Test Title for ${path}`;
+    const metaDescription = `Test Description for ${path}`;
+    const metaImage = `${baseUrl}/og-test.png`;
+
+    const pageNode = {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        '@id': `${baseUrl}${currentPath}#webpage`,
+        url: `${baseUrl}${currentPath}`,
+        name: metaTitle,
+        description: metaDescription,
+        inLanguage: localeToBCP47(lang),
+        isPartOf: { '@id': StableIds.website },
+        about: { '@id': StableIds.organization },
+        primaryImageOfPage: { '@type': 'ImageObject', url: metaImage }
+    };
+
+    const core = [buildOrganizationSchema(lang), buildWebSiteSchema(lang)];
+    let nodes = [...core, pageNode];
+
+    if (path === '/services' || path === '/') {
+        nodes = nodes.concat(buildServiceSchemas(lang), buildFAQSchema(lang));
+    }
+
+    return {
+        '@context': 'https://schema.org',
+        '@graph': nodes
+    };
+}
+
 const post = blogPosts[0];
 const path = `/blog/${post.slug}`;
 
 console.log("--- Testing Blog Post JSON-LD ---");
-const jsonLd = getStructuredData(path, 'en');
+const jsonLd = generateTestGraph(path, 'en');
 console.log(JSON.stringify(jsonLd, null, 2));
 
-console.log("\n--- Testing Manifesto JSON-LD ---");
-const manifestoJsonLd = getStructuredData('/manifesto', 'en');
-console.log(JSON.stringify(manifestoJsonLd, null, 2));
+console.log("\n--- Testing Homepage JSON-LD ---");
+const homeJsonLd = generateTestGraph('/', 'en');
+console.log(JSON.stringify(homeJsonLd, null, 2));

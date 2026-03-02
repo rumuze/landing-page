@@ -149,7 +149,7 @@ const Hero = () => {
                        exit={{ scale: 1.2, opacity: 0 }}
                        className="text-center text-cyan font-bold text-xl"
                     >
-                      🚀 System Optimized
+                       {t('hero.code.optimized', '🚀 System Optimized')}
                     </Motion.div>
                   )}
                 </AnimatePresence>

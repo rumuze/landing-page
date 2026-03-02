@@ -112,12 +112,12 @@ const WhyRumuzePage = ({ isAr = false }) => {
         title={isAr ? 'لماذا روموز مختلفة | روموز' : 'Why Rumuze is Different | Rumuze'}
         description={isAr ? 'اكتشف لماذا روموز مختلفة هيكلياً عن الوكالات التقليدية.' : 'Discover why Rumuze is structurally different from traditional agencies.'}
         path={isAr ? pathAr : pathEn}
+        schemas={schemaGraph['@graph']}
       />
       <Helmet>
         <link rel="alternate" hrefLang="en" href={`${SiteConfig.baseUrl}${pathEn}`} />
         <link rel="alternate" hrefLang="ar" href={`${SiteConfig.baseUrl}${pathAr}`} />
         <link rel="alternate" hrefLang="x-default" href={`${SiteConfig.baseUrl}${pathEn}`} />
-        <script type="application/ld+json">{JSON.stringify(schemaGraph)}</script>
       </Helmet>
 
       {/* ─── Hero + CTA Above Fold ─── */}

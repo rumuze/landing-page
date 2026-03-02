@@ -20,7 +20,7 @@ export function buildOrganizationSchema(lang: LanguageCode) {
       caption: isAr ? 'شعار روموز' : 'Rumuze Logo',
     },
     image: { '@id': StableIds.logo },
-    description: SiteConfig.authorityDescription,
+    description: SiteConfig.authorityDescription[lang],
     slogan: isAr ? ENTITY.slogan.ar : ENTITY.slogan.en,
     brand: { '@type': 'Brand', '@id': StableIds.brand, name: ENTITY.brand.name },
     founder: {

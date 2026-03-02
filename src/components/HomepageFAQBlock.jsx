@@ -11,25 +11,9 @@ const HomepageFAQBlock = () => {
   const lang = isAr ? 'ar' : 'en';
   const faqs = getHomepageFAQs();
 
-  // Build FAQ schema for injection
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question[lang],
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer[lang],
-      },
-    })),
-  };
-
   return (
     <>
-      <Helmet>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+
 
       <section
         className="py-24 bg-slate-50/50 dark:bg-white/[0.01]"
