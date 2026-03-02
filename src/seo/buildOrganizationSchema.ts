@@ -28,11 +28,20 @@ export function buildOrganizationSchema(lang: LanguageCode) {
       '@id': StableIds.founder,
     },
     foundingDate: String(ENTITY.foundingYear),
-    areaServed: ENTITY.headquarters.countries.map((c) => ({
-      '@type': 'Country',
-      name: c,
-    })),
-    sameAs: ENTITY.sameAs,
+    areaServed: {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "25.2048",
+        "longitude": "55.2708"
+      },
+      "geoRadius": "500000"
+    },
+    sameAs: Array.from(new Set([
+      ...ENTITY.sameAs,
+      "https://www.linkedin.com/company/rumuze",
+      "https://github.com/rumuze"
+    ])),
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'sales',
@@ -40,7 +49,36 @@ export function buildOrganizationSchema(lang: LanguageCode) {
       availableLanguage: ['English', 'Arabic'],
     },
     availableLanguage: ['English', 'Arabic'],
-    knowsAbout: ENTITY.technologyStack,
+    knowsAbout: Array.from(new Set([
+      ...ENTITY.technologyStack,
+      "Enterprise Software Architecture",
+      "React Native Development", 
+      "Cloud Infrastructure",
+      "Generative AI Integration",
+      "Web Performance Optimization",
+      "Search Engine Optimization",
+      "Arabic Language Digital Products"
+    ])),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      "name": isAr ? "خدمات روموز" : "Rumuze Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": isAr ? "تطوير تفاعل المستخدم" : "React Development"
+          }
+        },
+        {
+          "@type": "Offer", 
+          "itemOffered": {
+            "@type": "Service",
+            "name": isAr ? "تكامل الذكاء الاصطناعي" : "AI Integration"
+          }
+        }
+      ]
+    },
     audience: {
       '@type': 'Audience',
       audienceType: ENTITY.targetAudience,

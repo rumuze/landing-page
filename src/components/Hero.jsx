@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Terminal, ArrowRight, Sparkles, Code2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet-async';
 import MagneticButton from './MagneticButton';
 
 const Hero = () => {
@@ -27,6 +28,14 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 md:pt-28 overflow-hidden bg-transparent">
+      <Helmet>
+        <link 
+          rel="preload" 
+          as="image" 
+          href="/rumuze-symbol.png" 
+          fetchpriority="high" 
+        />
+      </Helmet>
       {/* Mesh Gradient Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <Motion.div 
