@@ -13,7 +13,7 @@
  */
 
 import React, { useMemo } from 'react';
-import { useParams, Navigate, useLocation } from 'react-router-dom';
+import { useParams, Navigate, useLocation, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
@@ -194,6 +194,34 @@ const ServiceDetailPage = () => {
         <ServiceFeaturesSection service={service} isAr={isAr} />
         <ServiceDifferentiatorsSection service={service} isAr={isAr} />
         <ServiceFAQSection service={service} isAr={isAr} masterFAQs={masterFAQs} />
+
+        {/* Related Capabilities — internal service network (Phase 4) */}
+        {service.relatedServices?.length > 0 && (
+          <nav
+            aria-label={isAr ? 'خدمات ذات صلة' : 'Related Capabilities'}
+            className="py-8 px-6 max-w-4xl mx-auto"
+          >
+            <p className="text-sm font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+              {isAr ? 'خدمات ذات صلة' : 'Related Capabilities'}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              {service.relatedServices.map((slug) => {
+                const related = SERVICES.find((s) => s.slug === slug);
+                if (!related) return null;
+                return (
+                  <Link
+                    key={slug}
+                    to={`${isAr ? '/ar' : ''}/services/${slug}`}
+                    className="text-sm font-medium text-cyan-400 hover:text-cyan-300 hover:underline transition-colors"
+                  >
+                    {isAr ? related.title.ar : related.title.en}
+                  </Link>
+                );
+              })}
+            </div>
+          </nav>
+        )}
+
         <ServiceCTASection service={service} isAr={isAr} variant={ctaVariant} />
       </article>
     </>

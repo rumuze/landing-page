@@ -43,22 +43,29 @@ export interface ServiceItem {
   differentiators?: LocalizedArray;
   /** Per-service FAQs for ServiceDetailPage */
   faqs?: ServiceFAQ[];
+  // ── Authority & GCC fields (Phase 2 expansion) ───────────────────
+  /** 5 AI-extractable declarative H2 headings */
+  h2Sections?: Localized[];
+  /** Slugs of related services for internal linking */
+  relatedServices?: string[];
+  /** GCC/regulatory executive context paragraph */
+  saudiContext?: Localized;
 }
 
 export const SERVICES: ServiceItem[] = [
   {
     slug: 'software-engineering',
     title: {
-      en: 'Enterprise Software Engineering',
-      ar: 'الهندسة البرمجية المؤسسية',
+      en: 'Microservices & API Infrastructure Engineering',
+      ar: 'هندسة الميكروسيرفيس وبنية API',
     },
     shortDescription: {
-      en: 'Modular platforms, microservices, and API-first systems.',
-      ar: 'منصات معيارية، ميكروسيرفيس، وأنظمة قائمة على API.',
+      en: 'Modular enterprise systems with SLO-governed reliability and domain-driven architecture.',
+      ar: 'أنظمة مؤسسية معيارية بموثوقية محكومة بمؤشرات الخدمة وبنية موجهة بالمجال.',
     },
     summary: {
-      en: 'Rumuze designs enterprise platforms using modular architecture, microservices, and API-first principles, optimizing throughput, latency, and fault tolerance for mid‑to‑large organizations across MENA.',
-      ar: 'تصمم روموز منصات مؤسسية بمعمارية معيارية وميكروسيرفيس ونهج API‑First، مع تحسين الإنتاجية والزمن والقدرة على تحمل الأعطال للمؤسسات المتوسطة والكبيرة في المنطقة.',
+      en: 'Rumuze engineers enterprise platforms using domain-driven modular architecture, microservices, and API-first contracts — with defined SLO governance, fault tolerance, and structured delivery for mid-to-large organizations across MENA.',
+      ar: 'تهندس روموز منصات مؤسسية بمعمارية معيارية موجهة بالمجال وميكروسيرفيس وعقود API أولاً — مع حوكمة مؤشرات خدمة محددة وتحمل أعطال وتسليم منظم للمؤسسات المتوسطة والكبيرة في المنطقة.',
     },
     keywords: ['microservices', 'API-first', 'reliability', 'scalability'],
     geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
@@ -112,20 +119,32 @@ export const SERVICES: ServiceItem[] = [
         answer: { en: 'Rumuze uses domain-driven design to decompose systems into bounded contexts, then implements each as independent microservices with API-first contracts, automated testing, and observability pipelines.', ar: 'تستخدم روموز التصميم الموجه بالمجال لتقسيم الأنظمة إلى حدود سياقية ثم تنفذ كلاً منها كميكروسيرفيس مستقل بعقود API أولاً واختبارات آلية وخطوط مراقبة.' },
       },
     ],
+    h2Sections: [
+      { en: 'Why Microservices Architecture Requires Defined Governance', ar: 'لماذا تتطلب معمارية الميكروسيرفيس حوكمة محددة' },
+      { en: 'Risk Management in Distributed Enterprise Systems', ar: 'إدارة المخاطر في الأنظمة المؤسسية الموزعة' },
+      { en: 'Multi-Entity and Multilingual API Infrastructure', ar: 'بنية API متعددة الكيانات والأسواق' },
+      { en: 'Revenue Infrastructure Integration via API Contracts', ar: 'تكامل بنية الإيرادات عبر عقود API' },
+      { en: 'Structured Engineering Delivery Model for Enterprise Platforms', ar: 'نموذج تسليم هندسي منظم للمنصات المؤسسية' },
+    ],
+    relatedServices: ['saas-erp', 'web-development'],
+    saudiContext: {
+      en: 'Enterprise software deployed in Saudi Arabia increasingly operates under SDAIA data governance frameworks and NDMO data classification requirements. Rumuze architects systems with data locality, auditability, and multi-entity isolation built into the core design — not appended as compliance afterthoughts.',
+      ar: 'يعمل البرنامج المؤسسي المنشور في المملكة العربية السعودية بصورة متزايدة ضمن أطر حوكمة بيانات هيئة الذكاء الاصطناعي ومتطلبات تصنيف البيانات. تهندس روموز الأنظمة مع تحديد موقع البيانات وقابلية التدقيق وعزل متعدد الكيانات مدمجة في صميم التصميم.',
+    },
   },
   {
     slug: 'web-development',
     title: {
-      en: 'Web Development',
-      ar: 'تطوير الويب',
+      en: 'Multilingual Platform Engineering',
+      ar: 'هندسة المنصات متعددة اللغات',
     },
     shortDescription: {
-      en: 'Accessible, performant React/Next.js applications.',
-      ar: 'تطبيقات React/Next.js قابلة للوصول وعالية الأداء.',
+      en: 'Bilingual enterprise web platforms with RTL/LTR parity, SSR performance, and compliance-ready infrastructure.',
+      ar: 'منصات ويب مؤسسية ثنائية اللغة بتكافؤ RTL/LTR وأداء SSR وبنية تحتية جاهزة للامتثال.',
     },
     summary: {
-      en: 'We develop accessible, performant web applications using React/Next.js and secure backends in Node or Laravel with CI/CD and cloud deployment, emphasizing predictable rendering and bilingual support.',
-      ar: 'نبني تطبيقات ويب قابلة للوصول وعالية الأداء باستخدام React/Next.js وخوادم آمنة بـ Node أو Laravel مع CI/CD ونشر سحابي، مع عرض حتمي ودعم ثنائي اللغة.',
+      en: 'Rumuze engineers enterprise web platforms with native RTL/LTR bilingual parity, SSR/ISR performance architecture, and secure Node/Laravel backends — structured for predictable rendering, compliance-ready deployment, and production stability from the first sprint.',
+      ar: 'تهندس روموز منصات ويب مؤسسية بتكافؤ ثنائي اللغة أصلي وبنية أداء SSR/ISR وخوادم Node/Laravel آمنة — منظمة لعرض متوقع ونشر جاهز للامتثال واستقرار إنتاجي من أول سبرينت.',
     },
     keywords: ['React', 'Next.js', 'Node', 'Laravel', 'CI/CD'],
     geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
@@ -179,20 +198,32 @@ export const SERVICES: ServiceItem[] = [
         answer: { en: 'Rumuze builds cross-platform mobile applications using React Native, sharing code with web applications for consistent UX across platforms while maintaining native performance.', ar: 'تبني روموز تطبيقات جوال متعددة المنصات باستخدام React Native، مع مشاركة الكود مع تطبيقات الويب لتجربة مستخدم متسقة عبر المنصات مع الحفاظ على أداء أصلي.' },
       },
     ],
+    h2Sections: [
+      { en: 'Why Enterprise Web Platforms Require RTL/LTR Governance', ar: 'لماذا تتطلب منصات الويب المؤسسية حوكمة RTL/LTR' },
+      { en: 'Risk Management in Multilingual Platform Deployment', ar: 'إدارة المخاطر في نشر المنصات متعددة اللغات' },
+      { en: 'Multi-Entity and Multilingual Architecture for MENA Markets', ar: 'بنية متعددة الكيانات واللغات لأسواق المنطقة' },
+      { en: 'Performance Infrastructure Integration for Enterprise Web', ar: 'تكامل بنية الأداء لمواقع الويب المؤسسية' },
+      { en: 'Structured Web Platform Delivery for Regulated Environments', ar: 'تسليم منصات ويب منظم للبيئات المنظمة' },
+    ],
+    relatedServices: ['software-engineering', 'saas-erp'],
+    saudiContext: {
+      en: 'Enterprise web platforms serving Saudi Arabia require native Arabic language support, RTL layout fidelity, and performance characteristics suited to regional infrastructure. Rumuze builds bilingual platforms where Arabic is a first-class language — not a translation layer applied over an English-first architecture.',
+      ar: 'تتطلب منصات الويب المؤسسية التي تخدم المملكة العربية السعودية دعم اللغة العربية الأصلي وأمانة تخطيط RTL وخصائص أداء مناسبة للبنية التحتية الإقليمية. تبني روموز منصات ثنائية اللغة حيث تكون العربية لغة أساسية.',
+    },
   },
   {
     slug: 'saas-erp',
     title: {
-      en: 'SaaS & ERP Systems',
-      ar: 'منصات SaaS وأنظمة ERP',
+      en: 'Enterprise SaaS & ERP System Engineering',
+      ar: 'هندسة منصات SaaS وأنظمة ERP المؤسسية',
     },
     shortDescription: {
-      en: 'Multi-tenant SaaS and custom ERP modules.',
-      ar: 'منصات SaaS متعددة المستأجرين ووحدات ERP مخصصة.',
+      en: 'Multi-tenant SaaS and ERP systems with strict tenant isolation, module governance, and regional compliance support.',
+      ar: 'منصات SaaS وERP متعددة المستأجرين بعزل صارم وحوكمة وحدات ودعم امتثال إقليمي.',
     },
     summary: {
-      en: 'We engineer multi-tenant SaaS and ERP systems with strict tenant isolation, implement finance, HR, and inventory modules, and perform legacy migrations and integrations under regional compliance.',
-      ar: 'نهندس منصات SaaS وERP متعددة المستأجرين مع عزل صارم، وننفذ وحدات مالية وموارد بشرية ومخزون، ونجري ترحيلات وتكاملات وفق الامتثال الإقليمي.',
+      en: 'Rumuze engineers multi-tenant SaaS and ERP systems with enforced data isolation, governed module delivery, and compliance-aware integrations — designed for enterprises in regulated markets across UAE and Saudi Arabia.',
+      ar: 'تهندس روموز منصات SaaS وERP متعددة المستأجرين بعزل بيانات مفروض وتسليم وحدات محكوم وتكاملات واعية بالامتثال — مصممة للمؤسسات في الأسواق المنظمة عبر الإمارات والمملكة العربية السعودية.',
     },
     keywords: ['SaaS', 'ERP', 'tenant isolation', 'integration'],
     geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
@@ -246,20 +277,32 @@ export const SERVICES: ServiceItem[] = [
         answer: { en: 'Yes, Rumuze performs legacy ERP migrations with data mapping, validation, parallel running, and phased cutover to minimize business disruption during the transition.', ar: 'نعم، تجري روموز ترحيلات ERP القديمة مع ربط البيانات والتحقق والتشغيل المتوازي والانتقال المرحلي لتقليل تعطيل الأعمال أثناء الانتقال.' },
       },
     ],
+    h2Sections: [
+      { en: 'Why Multi-Tenant SaaS Requires Isolated Data Architecture', ar: 'لماذا تتطلب منصات SaaS المتعددة عزل البيانات' },
+      { en: 'Risk Management in Enterprise ERP Implementations', ar: 'إدارة المخاطر في تطبيقات ERP المؤسسية' },
+      { en: 'Multi-Entity and Multilingual ERP Architecture', ar: 'بنية ERP متعددة الكيانات والأسواق' },
+      { en: 'Revenue Infrastructure Integration with ERP Systems', ar: 'تكامل بنية الإيرادات بأنظمة ERP' },
+      { en: 'Structured ERP Delivery Model for Regulated Enterprises', ar: 'نموذج تسليم ERP المنظم للمؤسسات الخاضعة للتنظيم' },
+    ],
+    relatedServices: ['software-engineering', 'performance-marketing', 'marketing-infrastructure'],
+    saudiContext: {
+      en: 'Enterprise ERP implementations in Saudi Arabia operate under Zakat Authority reporting structures, GOSI payroll requirements, and Vision 2030 digitisation mandates. Rumuze engineers ERP modules with these regulatory boundaries defined in the architecture — not handled through workarounds after delivery.',
+      ar: 'تعمل تطبيقات ERP المؤسسية في المملكة العربية السعودية في ظل متطلبات هيئة الزكاة والضريبة والجمارك والرواتب عبر المؤسسة العامة للتأمينات الاجتماعية. تهندس روموز وحدات ERP مع هذه الحدود التنظيمية محددة في البنية.',
+    },
   },
   {
     slug: 'marketing-infrastructure',
     title: {
-      en: 'Digital Marketing Infrastructure',
-      ar: 'بنية التسويق الرقمي',
+      en: 'Enterprise Marketing Automation & Data Infrastructure',
+      ar: 'أتمتة التسويق المؤسسي وبنية البيانات',
     },
     shortDescription: {
-      en: 'Martech, analytics, attribution, CDP, automation.',
-      ar: 'مارتيك، تحليلات، إسناد، منصات بيانات، أتمتة.',
+      en: 'Governed martech stack with attribution modeling, CDP integration, and consent-compliant data pipelines.',
+      ar: 'طبقة Martech محكومة بنمذجة إسناد وتكامل CDP وخطوط بيانات متوافقة مع الموافقات.',
     },
     summary: {
-      en: 'We implement marketing technology stacks with analytics, attribution modeling, automation workflows, and CDP integrations, maintaining data quality, deduplication, and privacy for measurable growth.',
-      ar: 'ننفيذ طبقات Martech مع التحليلات، نماذج الإسناد، أتمتة العمليات، وتكامل منصات بيانات العملاء، مع جودة البيانات وإزالة التكرار والخصوصية للنمو القابل للقياس.',
+      en: 'Rumuze implements enterprise marketing technology stacks with governed data flows, multi-touch attribution modeling, CDP integration, and consent-compliant pipelines — structured for measurable acquisition outcomes and audit-ready marketing operations.',
+      ar: 'تنفذ روموز طبقات تقنية التسويق المؤسسي بتدفقات بيانات محكومة ونمذجة إسناد متعدد اللمس وتكامل CDP وخطوط متوافقة مع الموافقات — منظمة لنتائج اكتساب قابلة للقياس وعمليات تسويقية جاهزة للتدقيق.',
     },
     keywords: ['Martech', 'analytics', 'attribution', 'CDP', 'automation'],
     geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
@@ -323,21 +366,33 @@ export const SERVICES: ServiceItem[] = [
         answer: { en: 'Rumuze integrates Google Analytics 4, Meta Ads, Google Ads, HubSpot, Segment, and custom CDP solutions with server-side tracking and unified dashboards.', ar: 'تدمج روموز Google Analytics 4 وMeta Ads وGoogle Ads وHubSpot وSegment وحلول CDP مخصصة مع تتبع خادم ولوحات موحدة.' },
       },
     ],
+    h2Sections: [
+      { en: 'Why Enterprise Marketing Requires Governed Data Infrastructure', ar: 'لماذا يتطلب التسويق المؤسسي بنية بيانات محكومة' },
+      { en: 'Attribution Accountability in Multi-Channel Marketing Operations', ar: 'مساءلة الإسناد في عمليات التسويق متعددة القنوات' },
+      { en: 'Multilingual Marketing Infrastructure for MENA Enterprises', ar: 'بنية تسويق متعددة اللغات لمؤسسات المنطقة' },
+      { en: 'Revenue Attribution Integration with Enterprise CRM Systems', ar: 'تكامل إسناد الإيرادات مع أنظمة CRM المؤسسية' },
+      { en: 'Structured Marketing Delivery with Defined KPI Governance', ar: 'تسليم تسويق منظم بحوكمة مؤشرات أداء محددة' },
+    ],
+    relatedServices: ['performance-marketing', 'seo-services'],
+    saudiContext: {
+      en: 'Marketing data infrastructure in Saudi Arabia must account for PDPL data residency requirements and platform-specific consent obligations. Rumuze structures martech stacks with privacy controls built into the data collection layer — not applied as after-the-fact tag configurations.',
+      ar: 'يجب أن تأخذ بنية بيانات التسويق في المملكة العربية السعودية في الاعتبار متطلبات إقامة البيانات وفق نظام حماية البيانات الشخصية والتزامات الموافقة. تهيكل روموز طبقات التقنية التسويقية بضوابط خصوصية مدمجة في طبقة جمع البيانات.',
+    },
   },
-  // ── NEW: Performance Marketing ────────────────────────────────────────
+  // ── Performance Marketing ──────────────────────────────────────────────
   {
     slug: 'performance-marketing',
     title: {
-      en: 'Performance Marketing',
-      ar: 'التسويق الأدائي',
+      en: 'Customer Acquisition Systems Engineering',
+      ar: 'هندسة أنظمة اكتساب العملاء',
     },
     shortDescription: {
-      en: 'Data-driven paid campaigns with measurable ROAS.',
-      ar: 'حملات مدفوعة قائمة على البيانات بعائد إعلاني قابل للقياس.',
+      en: 'Revenue-attributed paid acquisition with server-side tracking, multi-touch attribution, and defined ROAS governance.',
+      ar: 'اكتساب مدفوع منسوب للإيرادات مع تتبع خادم وإسناد متعدد اللمس وحوكمة عائد إعلاني محددة.',
     },
     summary: {
-      en: 'Rumuze manages performance marketing campaigns across Google Ads, Meta Ads, and LinkedIn Ads with server-side tracking, multi-touch attribution, systematic A/B testing, and ROAS-focused optimization to deliver measurable revenue growth.',
-      ar: 'تدير روموز حملات التسويق الأدائي عبر Google Ads وMeta Ads وLinkedIn Ads مع تتبع خادم وإسناد متعدد اللمس واختبار A/B منهجي وتحسين مركز على العائد الإعلاني لتحقيق نمو إيرادات قابل للقياس.',
+      en: 'Rumuze engineers customer acquisition campaigns across Google Ads, Meta Ads, and LinkedIn with server-side tracking infrastructure, multi-touch attribution modeling, and documented ROAS governance — structured for measurable revenue outcomes, not impressions.',
+      ar: 'تهندس روموز حملات اكتساب العملاء عبر Google Ads وMeta Ads وLinkedIn ببنية تتبع خادم ونمذجة إسناد متعدد اللمس وحوكمة عائد إعلاني موثقة — منظمة لنتائج إيرادات قابلة للقياس.',
     },
     keywords: ['PPC', 'Google Ads', 'Meta Ads', 'ROAS', 'CPA', 'attribution'],
     geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
@@ -348,12 +403,12 @@ export const SERVICES: ServiceItem[] = [
         ar: 'إدارة حملات مدفوعة مع تتبع خادم ونمذجة إسناد وتحسين العائد الإعلاني عبر منصات Google وMeta وLinkedIn.',
       },
       medium: {
-        en: 'Rumuze runs performance marketing with proper tracking infrastructure first. We implement server-side tracking (Meta CAPI, GA4), build multi-touch attribution models, run systematic creative testing, and optimize toward revenue metrics — not vanity metrics like impressions.',
-        ar: 'تدير روموز التسويق الأدائي ببنية تتبع سليمة أولاً. ننفذ تتبع خادم (Meta CAPI، GA4) ونبني نماذج إسناد متعدد اللمس ونجري اختبارات إبداعية منهجية ونحسّن نحو مقاييس الإيرادات — وليس المقاييس الشكلية كمرات الظهور.',
+        en: 'Rumuze runs acquisition campaigns with measurement infrastructure first. We implement server-side tracking (Meta CAPI, GA4), build multi-touch attribution models, run systematic creative testing, and optimize toward revenue metrics — not vanity metrics like impressions.',
+        ar: 'تدير روموز حملات الاكتساب ببنية قياس أولاً. ننفذ تتبع خادم ونبني نماذج إسناد متعدد اللمس ونجري اختبارات إبداعية منهجية ونحسّن نحو مقاييس الإيرادات.',
       },
       long: {
-        en: 'Performance marketing at Rumuze starts with measurement infrastructure — server-side tracking, conversion APIs, and clean data pipelines. We then build campaigns on verified data with multi-touch attribution, behavioral audience segmentation, systematic A/B creative rotation, and ROAS-optimized bidding strategies. Every campaign ties back to revenue impact with transparent dashboards and weekly reporting.',
-        ar: 'يبدأ التسويق الأدائي في روموز ببنية القياس — تتبع خادم وواجهات تحويل وخطوط بيانات نظيفة. ثم نبني الحملات على بيانات مُحققة مع إسناد متعدد اللمس وتقسيم جمهور سلوكي وتدوير إبداعي A/B منهجي واستراتيجيات مزايدة محسّنة للعائد. كل حملة مرتبطة بتأثير الإيرادات مع لوحات شفافة وتقارير أسبوعية.',
+        en: 'Customer acquisition at Rumuze starts with measurement infrastructure — server-side tracking, conversion APIs, and clean data pipelines. We build campaigns on verified data with multi-touch attribution, behavioral audience segmentation, systematic A/B creative rotation, and ROAS-governed bidding strategies. Every campaign ties back to revenue impact with transparent dashboards and structured weekly reporting.',
+        ar: 'يبدأ اكتساب العملاء في روموز ببنية القياس — تتبع خادم وواجهات تحويل وخطوط بيانات نظيفة. نبني الحملات على بيانات مُحققة مع إسناد متعدد اللمس وتقسيم جمهور سلوكي وتدوير إبداعي A/B منهجي واستراتيجيات مزايدة محكومة بالعائد.',
       },
       bullets: {
         en: ['Google Ads & Meta Ads management', 'Server-side tracking (CAPI + GA4)', 'Multi-touch attribution modeling', 'Creative A/B testing framework', 'ROAS & revenue-focused optimization'],
@@ -362,42 +417,54 @@ export const SERVICES: ServiceItem[] = [
     },
     category: 'marketing',
     problemSolved: {
-      en: 'Businesses spending on paid advertising without proper tracking, attribution, or optimization — resulting in wasted budgets and inability to identify what actually drives revenue.',
-      ar: 'الأعمال التي تنفق على الإعلانات المدفوعة دون تتبع أو إسناد أو تحسين مناسب — مما يؤدي إلى هدر الميزانيات وعدم القدرة على تحديد ما يدفع الإيرادات فعلاً.',
+      en: 'Enterprises spending on paid advertising without measurement infrastructure, defined attribution, or documented performance governance — resulting in unaccountable budgets and inability to tie spend to revenue.',
+      ar: 'المؤسسات التي تنفق على الإعلانات دون بنية قياس أو إسناد محدد أو حوكمة أداء موثقة — مما يؤدي إلى ميزانيات غير خاضعة للمساءلة.',
     },
     targetAudience: {
-      en: 'E-commerce brands, SaaS companies, and service businesses spending $5K+/month on paid advertising who need measurable ROAS improvement.',
-      ar: 'علامات التجارة الإلكترونية وشركات SaaS والأعمال الخدمية التي تنفق 5 آلاف دولار+ شهرياً على إعلانات مدفوعة وتحتاج تحسين عائد إعلاني قابل للقياس.',
+      en: 'Enterprises and growth-stage companies with defined acquisition budgets who require documented ROAS governance, attribution clarity, and structured performance reporting.',
+      ar: 'المؤسسات وشركات مرحلة النمو التي تمتلك ميزانيات اكتساب محددة وتتطلب حوكمة عائد إعلاني موثقة ووضوح إسناد وتقارير أداء منظمة.',
     },
     differentiators: {
-      en: ['We fix tracking before touching ads', 'Revenue metrics, not vanity metrics', 'Systematic testing instead of guesswork', 'Full-funnel attribution, not last-click'],
-      ar: ['نصلح التتبع قبل لمس الإعلانات', 'مقاييس إيرادات وليس مقاييس شكلية', 'اختبار منهجي بدل التخمين', 'إسناد كامل المسار وليس النقرة الأخيرة'],
+      en: ['Measurement infrastructure before any ad spend', 'Revenue metrics, not vanity metrics', 'Systematic testing instead of guesswork', 'Full-funnel attribution, not last-click'],
+      ar: ['بنية قياس قبل أي إنفاق إعلاني', 'مقاييس إيرادات وليس مقاييس شكلية', 'اختبار منهجي بدل التخمين', 'إسناد كامل المسار وليس النقرة الأخيرة'],
     },
     faqs: [
       {
         question: { en: 'What ad platforms does Rumuze manage?', ar: 'ما المنصات الإعلانية التي تديرها روموز؟' },
-        answer: { en: 'Rumuze manages Google Ads, Meta Ads (Facebook + Instagram), LinkedIn Ads, TikTok Ads, and programmatic display campaigns, with unified tracking and attribution across all channels.', ar: 'تدير روموز Google Ads وMeta Ads (فيسبوك + إنستغرام) وLinkedIn Ads وTikTok Ads وحملات عرض برمجية، مع تتبع وإسناد موحد عبر القنوات.' },
+        answer: { en: 'Rumuze manages Google Ads, Meta Ads (Facebook + Instagram), LinkedIn Ads, TikTok Ads, and programmatic display campaigns, with unified tracking and attribution across all channels.', ar: 'تدير روموز Google Ads وMeta Ads وLinkedIn Ads وTikTok Ads وحملات عرض برمجية، مع تتبع وإسناد موحد عبر القنوات.' },
       },
       {
-        question: { en: 'What ROAS can I expect?', ar: 'ما العائد الإعلاني المتوقع؟' },
-        answer: { en: 'ROAS depends on industry, margins, and starting point. Rumuze clients typically see 2x-5x ROAS after 3 months of optimization. We set transparent ROAS targets in the SOW and report against them weekly.', ar: 'يعتمد العائد على الصناعة والهوامش ونقطة البداية. عملاء روموز يحققون عادة 2x-5x عائد بعد 3 أشهر. نحدد أهدافاً شفافة في بيان العمل ونقدم تقارير أسبوعية.' },
+        question: { en: 'How are ROAS targets established?', ar: 'كيف تُحدد أهداف العائد الإعلاني؟' },
+        answer: { en: 'ROAS targets are defined in the Statement of Work before any campaign begins, based on documented industry benchmarks, client margin data, and agreed acquisition costs. Performance is reported weekly against these targets — not adjusted retroactively.', ar: 'تُحدد أهداف العائد الإعلاني في بيان العمل قبل بدء أي حملة، بناءً على معايير الصناعة الموثقة وبيانات هوامش العميل وتكاليف الاكتساب المتفق عليها.' },
       },
     ],
+    h2Sections: [
+      { en: 'Why Paid Acquisition Requires Measurement Infrastructure Before Campaign Launch', ar: 'لماذا يتطلب الاكتساب المدفوع بنية قياس قبل إطلاق الحملة' },
+      { en: 'Attribution Governance in Multi-Channel Acquisition Systems', ar: 'حوكمة الإسناد في أنظمة الاكتساب متعددة القنوات' },
+      { en: 'Multilingual Campaign Architecture for GCC Markets', ar: 'بنية حملات متعددة اللغات لأسواق دول مجلس التعاون' },
+      { en: 'Integration of Acquisition Data with CRM and Revenue Systems', ar: 'تكامل بيانات الاكتساب مع CRM وأنظمة الإيرادات' },
+      { en: 'Structured Acquisition Delivery with Defined Performance Governance', ar: 'تسليم اكتساب منظم بحوكمة أداء محددة' },
+    ],
+    relatedServices: ['marketing-infrastructure', 'seo-services'],
+    saudiContext: {
+      en: 'Paid acquisition campaigns in Saudi Arabia require platform-specific creative standards, Arabic-first ad copy governance, and compliance with CITC advertising guidelines. Rumuze structures bilingual campaign architecture where Arabic creative is developed independently — not translated from English source material.',
+      ar: 'تتطلب حملات الاكتساب المدفوعة في المملكة العربية السعودية معايير إبداعية خاصة بالمنصة وحوكمة نصوص إعلانية عربية أولاً والامتثال لإرشادات الإعلانات. تهيكل روموز بنية حملات ثنائية اللغة حيث يُطور المحتوى العربي بشكل مستقل.',
+    },
   },
-  // ── NEW: SEO Services ─────────────────────────────────────────────────
+  // ── SEO Services ──────────────────────────────────────────────────────
   {
     slug: 'seo-services',
     title: {
-      en: 'SEO Services',
-      ar: 'خدمات تحسين محركات البحث',
+      en: 'Technical SEO & AI Visibility Engineering',
+      ar: 'هندسة SEO التقني والظهور أمام الذكاء الاصطناعي',
     },
     shortDescription: {
-      en: 'Technical SEO, semantic optimization, and AI visibility.',
-      ar: 'SEO تقني وتحسين دلالي وظهور أمام الذكاء الاصطناعي.',
+      en: 'Structured data implementation, semantic architecture, and generative engine optimization for enterprise search presence.',
+      ar: 'تنفيذ بيانات مهيكلة وبنية دلالية وتحسين محركات توليدية للحضور المؤسسي في محركات البحث.',
     },
     summary: {
-      en: 'Rumuze provides SEO services including technical audits, Core Web Vitals optimization, semantic content strategy, structured data implementation, bilingual SEO (Arabic + English), and GEO/AEO optimization for AI search engine visibility.',
-      ar: 'تقدم روموز خدمات SEO تشمل التدقيق التقني وتحسين Core Web Vitals واستراتيجية المحتوى الدلالي وتنفيذ البيانات المهيكلة وSEO ثنائي اللغة (عربي + إنجليزي) وتحسين GEO/AEO للظهور في محركات البحث الذكية.',
+      en: 'Rumuze delivers technical SEO infrastructure, structured data implementation, bilingual semantic content architecture, and GEO/AEO optimization — engineered for enterprise organizations requiring measurable organic authority and AI search presence.',
+      ar: 'تقدم روموز بنية SEO تقنية وتنفيذ بيانات مهيكلة وبنية محتوى دلالي ثنائي اللغة وتحسين GEO/AEO — مهندسة للمؤسسات التي تتطلب سلطة عضوية قابلة للقياس وحضوراً في محركات البحث الذكية.',
     },
     keywords: ['SEO', 'technical SEO', 'GEO', 'AEO', 'structured data', 'Core Web Vitals'],
     geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
@@ -408,12 +475,12 @@ export const SERVICES: ServiceItem[] = [
         ar: 'SEO تقني واستراتيجية محتوى دلالي وتنفيذ بيانات مهيكلة وتحسين GEO/AEO لمحركات البحث التقليدية والذكية.',
       },
       medium: {
-        en: 'Rumuze delivers SEO that goes beyond keywords. We optimize technical infrastructure (Core Web Vitals, crawlability, structured data), create semantic content aligned with search intent, implement JSON-LD schemas for entity clarity, and optimize for AI citation through GEO and AEO techniques.',
-        ar: 'تقدم روموز SEO يتجاوز الكلمات المفتاحية. نحسّن البنية التقنية (Core Web Vitals والزحف والبيانات المهيكلة) وننشئ محتوى دلالياً متوافقاً مع نية البحث وننفذ ترميز JSON-LD لوضوح الكيانات ونحسّن للاستشهاد الذكي عبر تقنيات GEO وAEO.',
+        en: 'Rumuze delivers SEO built on technical infrastructure — Core Web Vitals, crawlability, structured data, and security headers. We create semantic content aligned with search intent, implement JSON-LD schemas for entity clarity, and optimize for AI citation through GEO and AEO engineering.',
+        ar: 'تقدم روموز SEO مبني على بنية تحتية تقنية — Core Web Vitals والزحف والبيانات المهيكلة ورؤوس الأمان. ننشئ محتوى دلالياً ونفذ ترميز JSON-LD ونحسّن للاستشهاد الذكي.',
       },
       long: {
-        en: 'SEO at Rumuze combines technical optimization, semantic content strategy, and AI visibility engineering. We audit and fix technical foundations (site speed, crawl budget, structured data, security headers), develop content strategies aligned with real search queries, implement comprehensive schema markup (Organization, Service, FAQ, Person, BreadcrumbList), and optimize for generative AI engines through entity-clear content structure, direct-answer formatting, and chunkable information architecture.',
-        ar: 'يجمع SEO في روموز بين التحسين التقني واستراتيجية المحتوى الدلالي وهندسة الظهور أمام الذكاء الاصطناعي. ندقق ونصلح الأسس التقنية (سرعة الموقع وميزانية الزحف والبيانات المهيكلة ورؤوس الأمان)، ونطور استراتيجيات محتوى متوافقة مع استعلامات البحث الحقيقية، وننفذ ترميز Schema شامل، ونحسّن لمحركات الذكاء الاصطناعي التوليدية.',
+        en: 'Technical SEO at Rumuze combines infrastructure optimization, semantic content strategy, and AI visibility engineering. We audit and resolve technical foundations, develop content strategies aligned with enterprise search queries, implement comprehensive schema markup, and optimize for generative AI engines through entity-clear content structure and chunkable information architecture.',
+        ar: 'يجمع SEO التقني في روموز بين تحسين البنية التحتية واستراتيجية المحتوى الدلالي وهندسة الظهور أمام الذكاء الاصطناعي. ندقق ونحل الأسس التقنية ونطور استراتيجيات محتوى ونفذ ترميز Schema شامل ونحسّن لمحركات الذكاء الاصطناعي التوليدية.',
       },
       bullets: {
         en: ['Technical SEO audits and optimization', 'Core Web Vitals improvement', 'Structured data (JSON-LD) implementation', 'GEO/AEO for AI search engines', 'Bilingual SEO (Arabic + English)'],
@@ -422,38 +489,54 @@ export const SERVICES: ServiceItem[] = [
     },
     category: 'marketing',
     problemSolved: {
-      en: 'Websites with low organic visibility, poor technical foundations, no structured data, and zero presence in AI-powered search results like Google AI Overviews and ChatGPT.',
-      ar: 'المواقع ذات الظهور العضوي المنخفض والأسس التقنية الضعيفة وبدون بيانات مهيكلة وبدون تواجد في نتائج البحث الذكية مثل Google AI Overviews وChatGPT.',
+      en: 'Enterprise websites with low organic visibility, inadequate technical foundations, missing structured data, and no presence in AI-powered search results — failing to capture demand from decision-makers conducting research in both Arabic and English.',
+      ar: 'مواقع المؤسسات ذات الظهور العضوي المنخفض والأسس التقنية غير الكافية والبيانات المهيكلة المفقودة وعدم الحضور في نتائج البحث الذكية.',
     },
     targetAudience: {
-      en: 'Businesses that need sustainable organic growth, improved search rankings, and visibility in AI-powered search engines across Arabic and English markets.',
-      ar: 'الأعمال التي تحتاج نمو عضوي مستدام وترتيب بحث محسّن وظهور في محركات البحث الذكية عبر الأسواق العربية والإنجليزية.',
+      en: 'Enterprise organizations that require structured organic search presence, AI citation readiness, and bilingual technical SEO across Arabic and English markets.',
+      ar: 'المؤسسات التي تتطلب حضوراً عضوياً منظماً وجاهزية استشهاد الذكاء الاصطناعي وSEO تقني ثنائي اللغة.',
     },
     differentiators: {
-      en: ['GEO/AEO optimization most agencies don\'t offer', 'Engineering-grade technical SEO', 'Native bilingual Arabic-English optimization', 'Comprehensive schema markup beyond basics'],
-      ar: ['تحسين GEO/AEO لا تقدمه معظم الوكالات', 'SEO تقني بجودة هندسية', 'تحسين ثنائي اللغة عربي-إنجليزي أصلي', 'ترميز Schema شامل يتجاوز الأساسيات'],
+      en: ['GEO/AEO optimization for AI-era search', 'Engineering-grade technical SEO infrastructure', 'Native bilingual Arabic-English optimization', 'Comprehensive schema markup for entity authority'],
+      ar: ['تحسين GEO/AEO لعصر البحث الذكي', 'بنية SEO تقني بجودة هندسية', 'تحسين ثنائي اللغة عربي-إنجليزي أصلي', 'ترميز Schema شامل لسلطة الكيانات'],
     },
     faqs: [
       {
         question: { en: 'What is GEO/AEO optimization?', ar: 'ما هو تحسين GEO/AEO؟' },
-        answer: { en: 'GEO (Generative Engine Optimization) and AEO (Answer Engine Optimization) are strategies to make your content cited by AI-powered search engines like ChatGPT, Perplexity, and Google AI Overviews. Rumuze optimizes content structure, entity clarity, and schema markup to maximize AI citations.', ar: 'GEO (تحسين المحركات التوليدية) وAEO (تحسين محركات الإجابة) هي استراتيجيات لجعل محتواك مُستَشهَداً من محركات البحث الذكية مثل ChatGPT وPerplexity وGoogle AI Overviews. تحسّن روموز هيكل المحتوى ووضوح الكيانات وترميز Schema لتعظيم الاستشهادات.' },
+        answer: { en: 'GEO (Generative Engine Optimization) and AEO (Answer Engine Optimization) are structured content engineering practices to ensure organizational content is accurately cited by AI-powered search systems including ChatGPT, Perplexity, and Google AI Overviews. Rumuze implements entity-clear content architecture, direct-answer formatting, and JSON-LD schema markup to meet AI citation standards.', ar: 'GEO وAEO هي ممارسات هندسة محتوى منظمة لضمان الاستشهاد بمحتوى المؤسسة بدقة من أنظمة البحث الذكية. تنفذ روموز بنية محتوى واضحة الكيانات وتنسيق إجابات مباشرة وترميز JSON-LD.' },
+      },
+      {
+        question: { en: 'How does Rumuze approach bilingual SEO for Arabic markets?', ar: 'كيف تتعامل روموز مع SEO ثنائي اللغة للأسواق العربية؟' },
+        answer: { en: 'Rumuze implements Arabic SEO as a primary technical discipline — not a translation of English SEO. We develop separate Arabic keyword architectures, Arabic-specific structured data, RTL-optimized technical infrastructure, and Arabic entity schemas aligned with how Arabic-speaking audiences conduct enterprise research queries.', ar: 'تنفذ روموز SEO العربي كتخصص تقني أساسي — وليس ترجمة لـ SEO الإنجليزي. نطور بنى كلمات مفتاحية عربية منفصلة وبيانات مهيكلة خاصة بالعربية وبنية تقنية محسّنة لـ RTL.' },
       },
     ],
+    h2Sections: [
+      { en: 'Why Enterprise SEO Requires Technical Infrastructure Before Content Strategy', ar: 'لماذا يتطلب SEO المؤسسي بنية تقنية قبل استراتيجية المحتوى' },
+      { en: 'Structured Data Architecture for Enterprise Entity Authority', ar: 'بنية بيانات مهيكلة لسلطة الكيانات المؤسسية' },
+      { en: 'Bilingual SEO Architecture for Arabic and English Enterprise Markets', ar: 'بنية SEO ثنائية اللغة لأسواق المؤسسات العربية والإنجليزية' },
+      { en: 'AI Citation Readiness and Generative Engine Optimization', ar: 'جاهزية استشهاد الذكاء الاصطناعي وتحسين المحركات التوليدية' },
+      { en: 'Technical SEO Delivery Model with Measurable Organic Outcomes', ar: 'نموذج تسليم SEO التقني بنتائج عضوية قابلة للقياس' },
+    ],
+    relatedServices: ['marketing-infrastructure', 'social-media'],
+    saudiContext: {
+      en: 'Enterprise SEO in Saudi Arabia requires Arabic-first content architecture, structured data aligned with Arabic search behavior, and optimization for regional search patterns that differ substantially from English-language query structures. Rumuze engineers bilingual SEO systems where Arabic and English rankings are governed independently.',
+      ar: 'يتطلب SEO المؤسسي في المملكة العربية السعودية بنية محتوى عربية أولاً وبيانات مهيكلة متوافقة مع سلوك البحث العربي. تهندس روموز أنظمة SEO ثنائية اللغة حيث تُدار تصنيفات العربية والإنجليزية بشكل مستقل.',
+    },
   },
-  // ── NEW: Social Media Management ──────────────────────────────────────
+  // ── Social Media Management ────────────────────────────────────────────
   {
     slug: 'social-media',
     title: {
-      en: 'Social Media Management',
-      ar: 'إدارة وسائل التواصل الاجتماعي',
+      en: 'Brand Infrastructure & Community Governance',
+      ar: 'بنية العلامة التجارية وحوكمة المجتمع',
     },
     shortDescription: {
-      en: 'Strategic content, community management, and paid social.',
-      ar: 'محتوى استراتيجي وإدارة مجتمع وإعلانات اجتماعية.',
+      en: 'Structured bilingual social media management with revenue attribution and platform-specific content governance.',
+      ar: 'إدارة استراتيجية ثنائية اللغة لوسائل التواصل مع إسناد إيرادات وحوكمة محتوى خاصة بكل منصة.',
     },
     summary: {
-      en: 'Rumuze manages social media presence across Instagram, LinkedIn, X (Twitter), and TikTok with strategic content creation, community engagement, paid social campaigns, and analytics-driven optimization for brand authority and lead generation.',
-      ar: 'تدير روموز التواجد على وسائل التواصل عبر إنستغرام ولينكدإن وX (تويتر) وتيك توك مع إنشاء محتوى استراتيجي وتفاعل مجتمعي وحملات اجتماعية مدفوعة وتحسين قائم على التحليلات لسلطة العلامة وتوليد العملاء.',
+      en: 'Rumuze delivers structured social media management across Instagram, LinkedIn, X, and TikTok — with bilingual content governance, community accountability, paid social integration, and revenue attribution that ties social activity to measurable enterprise outcomes.',
+      ar: 'تقدم روموز إدارة منظمة لوسائل التواصل عبر إنستغرام ولينكدإن وX وتيك توك — بحوكمة محتوى ثنائية اللغة ومساءلة مجتمعية وتكامل إعلانات اجتماعية وإسناد إيرادات.',
     },
     keywords: ['social media', 'content strategy', 'community management', 'paid social'],
     geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
@@ -495,6 +578,18 @@ export const SERVICES: ServiceItem[] = [
         answer: { en: 'Rumuze manages Instagram, LinkedIn, X (Twitter), TikTok, and Facebook with platform-specific content strategies. We also manage YouTube channels for clients with video content needs.', ar: 'تدير روموز إنستغرام ولينكدإن وX (تويتر) وتيك توك وفيسبوك باستراتيجيات محتوى خاصة بكل منصة. كما ندير قنوات يوتيوب للعملاء الذين لديهم احتياجات محتوى فيديو.' },
       },
     ],
+    h2Sections: [
+      { en: 'Why Enterprise Brand Infrastructure Requires Content Governance', ar: 'لماذا تتطلب بنية العلامة المؤسسية حوكمة المحتوى' },
+      { en: 'Community Accountability and Structured Escalation Protocols', ar: 'مساءلة المجتمع وبروتوكولات التصعيد المنظمة' },
+      { en: 'Bilingual Content Architecture for Arabic and English Brand Presence', ar: 'بنية محتوى ثنائية اللغة للحضور العربي والإنجليزي للعلامة' },
+      { en: 'Revenue Attribution for Social Media Enterprise Engagement', ar: 'إسناد الإيرادات لتفاعل التواصل الاجتماعي المؤسسي' },
+      { en: 'Structured Social Delivery Model with Defined Reporting Cadence', ar: 'نموذج تسليم اجتماعي منظم بإيقاع تقارير محدد' },
+    ],
+    relatedServices: ['seo-services', 'performance-marketing'],
+    saudiContext: {
+      en: 'Social media management for Saudi enterprises requires platform-specific content standards aligned with Communications and Information Technology Commission guidelines, Arabic-language community management protocols, and content approval workflows appropriate for regulated industries. Rumuze manages Arabic-language communities as a primary function — not a translated version of English community management.',
+      ar: 'تتطلب إدارة وسائل التواصل للمؤسسات السعودية معايير محتوى خاصة بكل منصة متوافقة مع إرشادات هيئة الاتصالات وبروتوكولات إدارة المجتمع العربي وسير عمل اعتماد المحتوى. تدير روموز المجتمعات العربية كوظيفة أساسية.',
+    },
   },
 ];
 

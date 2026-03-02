@@ -178,9 +178,9 @@
         }
     },
     "services_page": {
-        "title": "Strategic Capabilities",
+        "title": "Strategic Engineering Capabilities",
         "software": {
-            "title": "Architecting Scalable Ecosystems",
+            "title": "Enterprise Engineering Infrastructure",
             "process": [
                 "Blueprint",
                 "Architecture",
@@ -201,7 +201,7 @@
             ]
         },
         "ai": {
-            "title": "Pioneering Self-Evolving Intelligence",
+            "title": "Revenue Infrastructure Engineering",
             "process": [
                 "Data Audit",
                 "Model Training",
@@ -222,29 +222,29 @@
             ]
         },
         "growth": {
-            "title": "Behavioral Data & Market Dominance",
+            "title": "GCC Enterprise Market Execution",
             "process": [
                 "Forensic Audit",
                 "Strategy Formulation",
-                "Aggressive Execution",
-                "Market Capture"
+                "Structured Execution",
+                "Market Accountability"
             ],
             "tech": [
                 "Predictive Analytics",
                 "Programmatic Ads",
                 "Semantic SEO",
-                "Conversion Science"
+                "Conversion Architecture"
             ],
-            "description": "We use behavioral data to not just compete, but to dominate your search landscape and market share.",
+            "description": "Structured acquisition and brand infrastructure for enterprise organizations operating in GCC markets — with defined KPIs, attribution accountability, and governance-first execution.",
             "benefits": [
-                "Search Sovereignty",
-                "Conversion Rate Optimization",
-                "High-ROAS Acquisition"
+                "Organic Search Authority",
+                "Conversion Rate Governance",
+                "Revenue-Attributed Acquisition"
             ]
         },
         "methodology": {
-            "heading": "Delivery Methodology",
-            "subtitle": "Structured execution from discovery through deployment."
+            "heading": "Why Enterprise SaaS Systems Require Structured Governance",
+            "subtitle": "Structured execution from discovery through deployment, with defined accountability at every phase."
         },
         "process": {
             "steps": [
@@ -274,8 +274,8 @@
             "label": "Governance-First Delivery"
         },
         "cta": {
-            "heading": "Schedule a Technical Consultation",
-            "subheading": "Define scope, review architecture, and establish delivery governance.",
+            "heading": "Schedule a Technical Consultation for Enterprise Software Architecture",
+            "subheading": "Define scope, review architecture, and establish delivery governance with a named project owner.",
             "button": "Start Engagement"
         }
     },
