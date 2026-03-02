@@ -49,15 +49,15 @@
         "startProject": "Partner with us"
     },
     "hero": {
-        "badge": "Enterprise Software & Performance Marketing",
-        "headline_part1": "We Design Scalable",
-        "headline_part2": "Digital Systems",
-        "headline_part3": "That Generate Measurable Growth.",
-        "subheadline": "Rumuze is an enterprise software engineering and performance marketing company. We architect custom platforms, automate operations, and drive revenue growth for organizations across the MENA region and beyond.",
-        "ctaExplore": "Book a Strategy Session",
+        "badge": "Software Engineering & Performance Marketing",
+        "headline_part1": "We Design & Execute",
+        "headline_part2": "Scalable Digital Systems",
+        "headline_part3": "for Growth-Focused Enterprises.",
+        "subheadline": "Rumuze designs and executes scalable digital systems for growth-focused enterprises across the MENA region. We deliver structured software engineering and performance marketing with measurable ROI.",
+        "ctaExplore": "Book Strategic Consultation",
         "ctaServices": "Explore Capabilities",
         "code": {
-            "comment": "Scaling your legacy"
+            "comment": "Scaling your vision"
         }
     },
     "services": {
@@ -410,5 +410,201 @@
                 "description": "Smart contract system for fully automated corporate treasury management."
             }
         }
+    },
+    "saudiPage": {
+        "h1": "Software Engineering & Performance Marketing for Saudi Enterprises",
+        "intro": "Rumuze executes structured software engineering and performance marketing for enterprises operating in Saudi Arabia. We work with decision-makers who require defined governance, clear accountability, and outcomes tied to measurable performance criteria.",
+        "authorityStatement": "Rumuze is a remote-first project execution partner for Saudi enterprises. Every engagement is governed by a documented statement of work, structured reporting cadence, and defined deliverable acceptance criteria.",
+        "sections": {
+            "execution": {
+                "title": "Digital Project Execution for Saudi Businesses",
+                "body": "Saudi enterprises require digital partners who operate with documented clarity. We begin every engagement with a structured discovery session that produces a written scope document — not a proposal deck. That document defines what will be built, what constitutes acceptance, what the timeline is, and what happens if scope changes. Project status is reported weekly in a written format appropriate for internal distribution to leadership. No milestone progresses without client sign-off. This is not a communication preference — it is a structural requirement of how we operate.",
+                "points": [
+                    "Written scope document produced before any development begins",
+                    "Defined deliverables with documented acceptance criteria",
+                    "Weekly written status reports structured for leadership distribution",
+                    "Milestone sign-off required before phase progression"
+                ]
+            },
+            "softwareDelivery": {
+                "title": "Structured Software Delivery Model",
+                "body": "We engineer custom software systems — web platforms, enterprise applications, ERP integrations, and operational automation. Development is structured in two-week sprints, each beginning with a defined scope and ending with a client review session. Every sprint produces a written summary delivered within 24 hours of the review. Systems are architected to production standards from the first sprint: separate environments, version-controlled codebase, peer-reviewed code, and no production deployment without documented testing evidence. Maintainability is a contractual requirement, not an optional quality consideration.",
+                "points": [
+                    "Two-week sprint cycles with written scope per sprint",
+                    "Sprint review with client and written summary within 24 hours",
+                    "Separate development, staging, and production environments",
+                    "No production deployment without documented testing evidence"
+                ]
+            },
+            "marketing": {
+                "title": "Performance Marketing Measured Against Defined Acquisition Metrics",
+                "body": "We execute performance marketing programs against predefined acquisition criteria. Every campaign is structured before launch around specific, agreed KPIs: cost per qualified lead, conversion rate by channel, customer acquisition cost, and revenue attribution by source. We do not manage campaigns on an open retainer. Campaigns run under a defined budget with weekly performance reports covering actual versus target metrics. If a channel is not performing against its defined benchmark by the agreed review date, we adjust or stop it. Marketing spend without attribution accountability is not something we accept on behalf of clients.",
+                "points": [
+                    "Campaign KPIs defined and agreed before any spend begins",
+                    "Weekly performance reports: actual vs. target by channel",
+                    "Budget-defined engagements — no open retainer without benchmarks",
+                    "Underperforming channels adjusted or paused at agreed review intervals"
+                ]
+            },
+            "governance": {
+                "title": "Governance, Reporting & Accountability",
+                "body": "We operate under a clear accountability structure. Project status is reported weekly. All deliverables are documented. Milestones require sign-off before progression. We provide a single point of contact for all projects, ensuring your team is never chasing updates or managing ambiguity. Contracts define scope, timelines, and success metrics before work begins.",
+                "points": [
+                    "Weekly project status reports delivered to stakeholders",
+                    "Single point of contact for all project communications",
+                    "Milestone sign-off process before phase progression",
+                    "Defined contracts with scope, timelines, and KPIs"
+                ]
+            },
+            "whyStructured": {
+                "title": "Why Saudi Companies Prefer Structured Execution Partners",
+                "body": "Enterprise decision-makers in Saudi Arabia have encountered poorly governed digital projects: missed timelines, unclear deliverables, and no accountability when outcomes are not met. A structured execution partner operates differently. Scope is defined. Deliverables are documented. Reporting is consistent. Performance is measured against agreed benchmarks, not subjective assessment.",
+                "points": [
+                    "Defined scope eliminates scope creep and budget overruns",
+                    "Documented deliverables create clear acceptance criteria",
+                    "Consistent reporting reduces management overhead",
+                    "Measurable performance creates accountable partnerships"
+                ]
+            }
+        },
+        "cta": {
+            "title": "Book a Project Discovery Session",
+            "body": "If your organization is evaluating a software engineering or performance marketing engagement, the first step is a structured discovery session. We review your current system environment, define preliminary scope, and produce a written outline of the execution approach — before any commitment is required on either side.",
+            "button": "Book Project Discovery Session",
+            "whatsappLabel": "Prefer a direct conversation?",
+            "whatsappText": "WhatsApp: +20 1000061409",
+            "whatsappHref": "https://wa.me/201000061409"
+        },
+        "serviceArea": "Rumuze operates as a remote-first execution partner for Saudi enterprises. All engagements are governed by documented agreements, structured communication protocols, and defined deliverable schedules. We do not maintain a physical office in Saudi Arabia."
+    },
+    "enterpriseFramework": {
+        "badge": "Delivery Framework",
+        "h1": "Structured Project Execution Framework",
+        "intro": "Rumuze operates under a defined project governance and delivery model. This framework applies to all software engineering and performance marketing engagements regardless of project size.",
+        "authorityStatement": "The Rumuze Enterprise Delivery Framework defines governance, sprint cadence, reporting structure, SLA commitments, and technology standards for all client engagements.",
+        "sections": {
+            "governance": {
+                "title": "Governance & Architecture Model",
+                "body": "Every project is governed by a defined structure: a Project Owner on the Rumuze side, a client-designated point of contact, and a documented escalation path. Before any development begins, we establish a Statement of Work (SOW) that defines scope boundaries, deliverable acceptance criteria, and change request protocols. Architecture decisions are documented and require client review before implementation.",
+                "points": [
+                    "Defined project ownership and escalation path",
+                    "Statement of Work established before development begins",
+                    "Architecture decisions documented and reviewed",
+                    "Change request protocol for scope modifications"
+                ]
+            },
+            "lifecycle": {
+                "title": "Project Lifecycle Framework",
+                "body": "Our project lifecycle consists of five phases: Discovery, Architecture, Development, Validation, and Deployment. Each phase has defined entry and exit criteria. No phase begins until the prior phase is formally closed. This prevents scope drift, reduces rework, and ensures client alignment at every stage.",
+                "phases": [
+                    {
+                        "name": "Discovery",
+                        "desc": "Requirements gathering, scope definition, and feasibility assessment"
+                    },
+                    {
+                        "name": "Architecture",
+                        "desc": "System design, technology selection, and security planning"
+                    },
+                    {
+                        "name": "Development",
+                        "desc": "Sprint-based implementation with weekly deliverable reviews"
+                    },
+                    {
+                        "name": "Validation",
+                        "desc": "QA, performance testing, and client acceptance testing"
+                    },
+                    {
+                        "name": "Deployment",
+                        "desc": "Staged release, monitoring setup, and handover documentation"
+                    }
+                ]
+            },
+            "sprintCadence": {
+                "title": "Sprint & Delivery Cadence",
+                "body": "Development is structured in two-week sprints. Each sprint begins with a planning session defining the sprint scope and ends with a review session presenting completed work. Clients receive a written sprint summary after each review. Unfinished sprint items are re-evaluated before inclusion in the next sprint — no work is silently carried over without acknowledgment.",
+                "points": [
+                    "Two-week sprint cycles with defined scope per sprint",
+                    "Sprint planning session at the start of each cycle",
+                    "Sprint review with client at the end of each cycle",
+                    "Written sprint summary delivered within 24 hours of review"
+                ]
+            },
+            "accountability": {
+                "title": "Accountability & Reporting Structure",
+                "body": "We maintain a consistent reporting cadence for all active engagements. Weekly status reports cover completed work, upcoming milestones, blockers, and budget consumption. Monthly executive reports summarize progress against the project plan and KPIs. All reports are delivered in a format appropriate for internal distribution to stakeholders and leadership.",
+                "reportTypes": [
+                    {
+                        "type": "Weekly Status Report",
+                        "covers": "Sprint progress, blockers, next week's objectives, hours consumed"
+                    },
+                    {
+                        "type": "Monthly Executive Summary",
+                        "covers": "Project health, milestone status, KPI performance, risk register"
+                    },
+                    {
+                        "type": "Project Closure Report",
+                        "covers": "Full delivery summary, performance benchmarks, handover documentation"
+                    }
+                ]
+            },
+            "riskSLA": {
+                "title": "Risk Mitigation & SLA Philosophy",
+                "body": "All engagements include a risk register maintained throughout the project lifecycle. Risks are classified by probability and impact and reviewed weekly. Our service level commitments define response times, resolution targets, and escalation procedures. We do not offer SLA guarantees without documented scope — every commitment is tied to a defined deliverable and measured objectively.",
+                "slas": [
+                    "Critical issue response within 4 business hours",
+                    "Standard support request resolution within 2 business days",
+                    "Weekly risk register review and client notification",
+                    "SLA disputes resolved through documented evidence review"
+                ]
+            },
+            "techSecurity": {
+                "title": "Technology & Security Standards",
+                "body": "We apply consistent technology and security standards across all engagements. Production systems are built with separation of environments (development, staging, production), role-based access control, encrypted data storage, and audit logging. All deployments include monitoring and alerting. Code is version-controlled and peer-reviewed before any production release.",
+                "standards": [
+                    "Separate development, staging, and production environments",
+                    "Role-based access control and principle of least privilege",
+                    "Encrypted data at rest and in transit (TLS 1.2+)",
+                    "Automated testing coverage before production deployment",
+                    "Version-controlled codebase with mandatory peer review"
+                ]
+            }
+        },
+        "faq": {
+            "title": "Governance Questions",
+            "items": [
+                {
+                    "question": "What happens if a project milestone is missed?",
+                    "answer": "Milestone slippage is addressed through a documented process, not a phone call. When a milestone is at risk, we issue a written notice within 24 hours of identifying the risk, outlining the cause, the impact on subsequent phases, and the recovery plan. If the slippage is attributable to our execution, we absorb the recovery cost. If it is attributable to delayed client inputs or changed scope, we issue a change request with timeline and budget impact before any recovery work begins. Every milestone outcome is recorded in the project log."
+                },
+                {
+                    "question": "Who bears accountability for delivery outcomes?",
+                    "answer": "Our designated Project Owner holds delivery accountability for every engagement. That individual is named in the Statement of Work, attends every sprint review, signs off on milestone completions, and is reachable via a direct communication channel — not a support queue. If a deliverable does not meet the agreed acceptance criteria, it is not accepted. We rework it. Accountability is not a shared responsibility distributed across a team. It is a named obligation with a named owner."
+                },
+                {
+                    "question": "How are compliance-sensitive or regulated projects handled?",
+                    "answer": "Regulated engagements are scoped with an additional compliance assessment phase before any development begins. We document the regulatory requirements applicable to the system, map them to specific technical and process controls, and maintain a compliance evidence log throughout delivery. All regulatory constraints are written into the Statement of Work as binding requirements — not notes or comments. If a compliance requirement emerges after scoping, it is treated as a scope change with full impact assessment."
+                },
+                {
+                    "question": "How do you handle scope changes during a project?",
+                    "answer": "All scope changes require a written change request before any work outside the original scope begins. The change request documents the nature of the change, the impact on timeline, the impact on budget, and the revised deliverable list. We do not begin out-of-scope work pending verbal or informal approval. The change request must be signed by the designated client point of contact before it is executable. No exceptions."
+                },
+                {
+                    "question": "What are the conditions under which an engagement can be terminated?",
+                    "answer": "Termination conditions are defined in the service agreement before an engagement begins. Either party may terminate with written notice under the conditions defined in the contract. In the event of termination, we provide a documented handover package: all work completed to date, all code committed to the version-controlled repository, all documentation produced, and a written summary of outstanding items. Clients are never left with an undocumented system at any stage of termination."
+                }
+            ]
+        },
+        "cta": {
+            "title": "Schedule a Technical Consultation",
+            "body": "If you are evaluating a software engineering or performance marketing partner, the first step is a structured technical consultation. We review your current system environment, define objectives, and outline a delivery approach aligned with your governance requirements — before any commitment is required on either side.",
+            "button": "Schedule Technical Consultation",
+            "whatsappLabel": "Prefer a direct conversation?",
+            "whatsappText": "WhatsApp: +20 1000061409",
+            "whatsappHref": "https://wa.me/201000061409"
+        }
+    },
+    "whatsapp": {
+        "prefillMessage": "Hello, I would like to schedule a project discovery session.",
+        "ariaLabel": "Contact us on WhatsApp"
     }
 }

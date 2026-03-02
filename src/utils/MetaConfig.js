@@ -176,6 +176,38 @@ export const META_CONFIG = {
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'روموز - الصفحة غير موجودة'
         }
+    },
+    '/saudi-arabia': {
+        en: {
+            title: `Software Engineering & Performance Marketing for Saudi Enterprises | ${BRAND_NAME}`,
+            description: 'Rumuze delivers structured software engineering and performance marketing for enterprises in Saudi Arabia. Defined governance, clear reporting, measurable ROI.',
+            keywords: 'software engineering Saudi Arabia, performance marketing Saudi Arabia, digital transformation, enterprise software Riyadh, Rumuze Saudi',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Rumuze - Software Engineering & Marketing for Saudi Enterprises'
+        },
+        ar: {
+            title: `هندسة البرمجيات والتسويق الأدائي للمؤسسات السعودية | ${BRAND_NAME}`,
+            description: 'روموز تقدم هندسة برمجيات منظمة وتسويقاً أدائياً للمؤسسات في المملكة العربية السعودية. حوكمة محددة وتقارير واضحة وعائد استثمار قابل للقياس.',
+            keywords: 'هندسة برمجيات المملكة العربية السعودية, تسويق أدائي السعودية, تحول رقمي, برمجيات مؤسسية الرياض, روموز السعودية',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'روموز - هندسة البرمجيات والتسويق للمؤسسات السعودية'
+        }
+    },
+    '/enterprise-framework': {
+        en: {
+            title: `Structured Project Execution Framework | ${BRAND_NAME}`,
+            description: 'The Rumuze Enterprise Delivery Framework: governance model, sprint cadence, accountability structure, SLA philosophy, and technology standards for all client engagements.',
+            keywords: 'enterprise delivery framework, software project governance, sprint methodology, SLA commitments, structured project execution',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Rumuze Enterprise Framework - Structured Project Execution'
+        },
+        ar: {
+            title: `إطار تنفيذ المشاريع المنظم | ${BRAND_NAME}`,
+            description: 'إطار تسليم روموز المؤسسي: نموذج الحوكمة وإيقاع السبرينت وهيكل المساءلة وفلسفة مستوى الخدمة ومعايير التكنولوجيا لجميع العملاء.',
+            keywords: 'إطار تسليم مؤسسي, حوكمة مشاريع برمجية, منهجية السبرينت, التزامات مستوى الخدمة, تنفيذ مشاريع منظم',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'روموز إطار المؤسسة - تنفيذ مشاريع منظم'
+        }
     }
 };
 
