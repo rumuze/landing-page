@@ -177,21 +177,26 @@ function AppContent() {
   // Periodic Sync Registration
   useEffect(() => {
     async function registerPeriodicSync() {
-      if ('serviceWorker' in navigator && 'periodicSync' in navigator.serviceWorker.registration) {
-        const registration = await navigator.serviceWorker.ready;
-        try {
-          // Check if already registered to avoid redundant calls
-          const tags = await registration.periodicSync.getTags();
-          if (!tags.includes('update-labs-data')) {
-            await registration.periodicSync.register('update-labs-data', {
-              // Minimum interval in milliseconds (24 hours)
-              minInterval: 24 * 60 * 60 * 1000,
-            });
-            console.log('Periodic Sync registered: update-labs-data');
-          }
-        } catch (error) {
-          console.error('Periodic Sync registration failed:', error);
-        }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready
+          .then(async (registration) => {
+            if (registration && 'periodicSync' in registration) {
+              try {
+                // Check if already registered to avoid redundant calls
+                const tags = await registration.periodicSync.getTags();
+                if (!tags.includes('update-labs-data')) {
+                  await registration.periodicSync.register('update-labs-data', {
+                    // Minimum interval in milliseconds (24 hours)
+                    minInterval: 24 * 60 * 60 * 1000,
+                  });
+                  console.log('Periodic Sync registered: update-labs-data');
+                }
+              } catch (error) {
+                console.error('Periodic Sync registration failed:', error);
+              }
+            }
+          })
+          .catch(() => {});
       }
     }
 

@@ -89,7 +89,7 @@ const Navbar = () => {
                 <picture>
                   <source srcSet="/rumuze-symbol-112.avif" type="image/avif" />
                   <source srcSet="/rumuze-symbol-112.webp" type="image/webp" />
-                  <img src="/rumuze-symbol-112.webp" width="36" height="36" alt="Rumuze Symbol" className="w-9 h-9 z-10 filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-transform group-hover:scale-110" />
+                  <img src="/rumuze-symbol-112.webp" width="36" height="36" alt="Rumuze Symbol" fetchpriority="high" decoding="async" className="w-9 h-9 z-10 filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-transform group-hover:scale-110" />
                 </picture>
                 
                 {/* Scanning Line Animation */}
@@ -131,11 +131,7 @@ const Navbar = () => {
                     {link.icon && <span aria-hidden="true">{link.icon}</span>}
                     {link.name}
                     {isActive(link.href) && !link.highlight && (
-                      <Motion.div 
-                        layoutId="navUnderline"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan rounded-full"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan rounded-full animate-fade-in" />
                     )}
                   </Link>
                 ))}
@@ -277,11 +273,7 @@ const Navbar = () => {
                       }`}
                     >
                       {i18n.language === lang.code && (
-                        <Motion.div 
-                          layoutId="langActive"
-                          className="absolute inset-0 bg-white dark:bg-white/10 rounded-xl shadow-sm"
-                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        />
+                        <div className="absolute inset-0 bg-white dark:bg-white/10 rounded-xl shadow-sm animate-fade-in" />
                       )}
                       <span className="relative z-10 flex items-center justify-center gap-1">
                          {lang.flag} {lang.name.split(' ')[0]}
