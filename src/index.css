@@ -630,3 +630,17 @@ h4 {
 .animate-hero-blob-2 {
   animation: heroBlob2 25s linear infinite;
 }
+
+/* Fallback animations for removed Framer Motion transitions */
+.route-fade {
+  animation: routeFadeIn 0.3s ease;
+}
+
+@keyframes routeFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
