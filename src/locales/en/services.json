@@ -1,44 +1,44 @@
 {
   "clusters": {
     "software": {
-      "title": "Software Engineering",
+      "title": "Platform Engineering",
       "bullets": [
-        "Platform architecture design",
+        "Modular platform architecture design",
         "Microservices implementation",
         "API-first system engineering",
-        "Performance and reliability optimization"
+        "Reliability and observability governance"
       ],
-      "summary": "Rumuze designs enterprise platforms using modular architecture, microservices, and API-first principles. We optimize throughput, latency, and fault tolerance for mid‑to‑large organizations across MENA."
+      "summary": "Rumuze designs modular platform systems using domain-driven architecture, microservices, and API-first principles. We enforce reliability governance, observability, and fault tolerance for growth-focused organizations globally."
     },
     "web": {
-      "title": "Web Development",
+      "title": "Application Infrastructure",
       "bullets": [
         "React/Next.js application development",
         "Secure backend services (Node/Laravel)",
         "CI/CD and cloud deployment",
-        "Accessibility and performance hardening"
+        "Accessibility and performance governance"
       ],
-      "summary": "We develop accessible, performant web applications using React/Next.js and secure backends in Node or Laravel. CI/CD and cloud deployment ensure predictable rendering and bilingual support."
+      "summary": "We develop accessible, high-performance web applications using React/Next.js and secure backends in Node or Laravel. CI/CD pipelines enforce deterministic rendering and bilingual parity."
     },
     "saas_erp": {
-      "title": "SaaS & ERP Systems",
+      "title": "Operational Systems Engineering",
       "bullets": [
-        "Multi-tenant SaaS platform engineering",
-        "Custom ERP modules (Finance, HR, Inventory)",
-        "Legacy migration and integrations",
-        "Tenant isolation and security"
+        "Multi-tenant platform engineering",
+        "Custom operational modules (Finance, HR, Inventory)",
+        "Legacy migration and system integration",
+        "Tenant isolation and security governance"
       ],
-      "summary": "We engineer multi-tenant SaaS and ERP systems with strict tenant isolation, implement finance, HR, and inventory modules, and perform legacy migrations and integrations under regional compliance."
+      "summary": "We engineer multi-tenant operational platforms with strict data isolation, implement finance, HR, and inventory modules, and perform legacy system migrations with documented compliance governance."
     },
     "marketing": {
-      "title": "Digital Marketing Infrastructure",
+      "title": "Revenue & Visibility Infrastructure",
       "bullets": [
-        "Martech stack implementation",
-        "Analytics and attribution modeling",
+        "Marketing technology stack architecture",
+        "Attribution modeling and analytics",
         "Marketing automation workflows",
-        "Customer data platforms (CDP)"
+        "Customer data platform integration"
       ],
-      "summary": "We implement marketing technology stacks with analytics, attribution modeling, automation workflows, and CDP integrations, maintaining data quality, deduplication, and privacy for measurable growth."
+      "summary": "We implement marketing technology infrastructure with analytics, attribution modeling, automation workflows, and customer data platform integrations, maintaining data integrity and measurable performance governance."
     }
   }
 }

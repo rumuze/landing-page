@@ -1,30 +1,34 @@
 {
     "seo": {
-        "defaultTitle": "Rumuze | Enterprise Software Engineering & SaaS Architecture",
-        "defaultDescription": "Rumuze is an enterprise software engineering company. We build multi-tenant SaaS platforms, ERP systems, and digital infrastructure for organizations in UAE, Saudi Arabia, and the MENA region.",
-        "orgDescription": "Enterprise software engineering and SaaS architecture company serving UAE and Saudi Arabia.",
-        "keywords": "enterprise software engineering, SaaS platform development, ERP systems, multilingual architecture, UAE software company, Saudi Arabia digital infrastructure",
-        "ogTitle": "Rumuze | Enterprise Software Engineering",
-        "ogDescription": "Enterprise SaaS, ERP, and CRM engineering with governance-first delivery for UAE and Saudi Arabia.",
+        "defaultTitle": "Rumuze | Software Engineering & Marketing Infrastructure Company",
+        "defaultDescription": "Rumuze is a software engineering and marketing infrastructure company. We build web platforms, SaaS systems, and ERP solutions, and engineer performance marketing and SEO infrastructure that generates measurable revenue.",
+        "orgDescription": "An engineering-driven growth company that builds software systems and marketing infrastructure for organizations that require structured execution and measurable outcomes.",
+        "keywords": "software engineering company, marketing infrastructure, SaaS development, ERP systems, website development company, SEO company, enterprise software, performance marketing",
+        "ogTitle": "Rumuze | Software Engineering & Marketing Infrastructure",
+        "ogDescription": "Rumuze builds software systems and marketing infrastructure that generate and manage revenue — with structured delivery, defined governance, and measurable outcomes.",
         "titles": {
             "services": "Our Services",
             "labs": "Rumuze Labs"
         }
     },
     "faq": {
-        "title": "Enterprise Engagement",
+        "title": "About Rumuze",
         "items": [
             {
-                "question": "What does Rumuze engineer?",
-                "answer": "Rumuze engineers multi-tenant SaaS platforms, ERP systems, and CRM solutions with modular microservices architecture, tenant isolation, and SLO-governed reliability."
+                "question": "What does Rumuze do?",
+                "answer": "Rumuze is a software engineering and marketing infrastructure company. We build web platforms, SaaS products, ERP systems, and custom integrations. We also engineer performance marketing infrastructure — paid acquisition systems, SEO, attribution modeling, and analytics pipelines — structured to generate and measure revenue."
             },
             {
-                "question": "How does Rumuze approach SEO and AI visibility?",
-                "answer": "Rumuze performs technical SEO, structured data implementation, and AI visibility engineering to ensure organizations are cited accurately by search engines and generative AI systems."
+                "question": "Is Rumuze a software company or a marketing agency?",
+                "answer": "Rumuze is neither a traditional software house nor a marketing agency. We operate as an engineering-driven growth company: we build the systems that generate revenue (software) and the systems that acquire customers (marketing infrastructure). These two capabilities are integrated, not separate services."
             },
             {
-                "question": "Does Rumuze work with startups?",
-                "answer": "Rumuze partners with organizations that require enterprise-grade architecture from day one — typically funded startups from Series A onward and mid-to-large enterprises."
+                "question": "What types of software does Rumuze build?",
+                "answer": "Rumuze engineers web platforms, SaaS applications, multi-tenant ERP systems, CRM integrations, API-first backends, and operational automation solutions. All systems are delivered with documented architecture, structured deployment, and defined governance from the first sprint."
+            },
+            {
+                "question": "What organizations does Rumuze work with?",
+                "answer": "Rumuze works with mid-to-large organizations globally that require structured software delivery and measurable marketing outcomes. We are not restricted to any single region, industry, or platform. Engagements are governed by a Statement of Work, defined KPIs, and weekly reporting."
             }
         ]
     },
@@ -49,66 +53,66 @@
         "startProject": "Partner with us"
     },
     "hero": {
-        "badge": "Enterprise Software Engineering",
-        "headline_part1": "We Engineer",
-        "headline_part2": "Enterprise SaaS & ERP Systems",
-        "headline_part3": "for UAE & Saudi Arabia.",
-        "subheadline": "Rumuze is an enterprise software engineering company. We build multi-tenant SaaS platforms, ERP systems, and digital infrastructure with governance-first delivery for organizations across the MENA region.",
-        "ctaExplore": "Book Technical Consultation",
+        "badge": "Software Engineering & Marketing Infrastructure",
+        "headline_part1": "We Build Software.",
+        "headline_part2": "We Engineer Growth.",
+        "headline_part3": "We Measure Everything.",
+        "subheadline": "Rumuze is a software engineering and marketing infrastructure company. We build the systems organizations run on — web platforms, SaaS, ERP — and the infrastructure that generates revenue: performance marketing, SEO, attribution, and analytics. Structured delivery. Defined governance. Measurable outcomes.",
+        "ctaExplore": "Schedule a Consultation",
         "ctaServices": "View Capabilities",
         "code": {
-            "comment": "Enterprise architecture",
-            "optimized": "🚀 System Deployed"
+            "comment": "Systems deployed",
+            "optimized": "🚀 Revenue Online"
         }
     },
     "services": {
-        "title": "Engineering Capabilities",
-        "description": "Enterprise software engineering, SaaS platform development, and structured performance marketing — delivered with defined governance and accountability.",
+        "title": "Two Pillars. One Company.",
+        "description": "Rumuze operates across two integrated engineering disciplines: Software Engineering — building the systems organizations run on — and Marketing Infrastructure — engineering the systems that generate and measure revenue. Both delivered with structured governance and defined accountability.",
         "software": {
-            "title": "Enterprise Software Architecture",
-            "description": "Multi-tenant SaaS platforms, ERP integrations, and high-availability systems with tenant isolation, observability, and SLO-governed reliability.",
+            "title": "Pillar 1 — Software Engineering",
+            "description": "We build web platforms, SaaS applications, ERP systems, CRM integrations, API-first backends, and operational automation. Every system is delivered with documented architecture, structured sprints, and production-grade deployment from day one.",
             "items": {
                 "erp": {
-                    "name": "ERP & CRM Systems",
-                    "text": "Custom enterprise platforms with role-based access, audit logging, and multi-tenant data isolation."
+                    "name": "SaaS & ERP Systems",
+                    "text": "Multi-tenant SaaS platforms and custom ERP modules with role-based access, audit logging, and data isolation."
                 },
                 "api": {
-                    "name": "API Infrastructure",
-                    "text": "Secure, documented API gateways with versioning, rate limiting, and third-party integration."
+                    "name": "Web Platforms & APIs",
+                    "text": "React, Next.js, and Node.js applications with API-first backends, bilingual support, and SSR/ISR performance architecture."
                 },
                 "mobile": {
-                    "name": "Web & Mobile Applications",
-                    "text": "React and React Native applications with bilingual RTL/LTR support and offline capability."
+                    "name": "CRM & Custom Integrations",
+                    "text": "HubSpot, Salesforce, and custom CRM integrations with defined data contracts and cross-system consistency."
                 }
             }
         },
         "marketing": {
-            "title": "Performance Marketing & SEO",
-            "description": "Data-driven acquisition with defined KPIs, attribution modeling, and structured reporting against agreed benchmarks.",
+            "title": "Pillar 2 — Marketing Infrastructure",
+            "description": "We engineer performance marketing systems, SEO infrastructure, paid acquisition campaigns, funnel architecture, analytics pipelines, and conversion optimization — structured around measurable revenue outcomes, not reporting vanity metrics.",
             "items": {
                 "growth": {
-                    "name": "Technical SEO & AI Visibility",
-                    "text": "Structured data implementation, semantic optimization, and generative engine visibility."
+                    "name": "SEO & Organic Visibility",
+                    "text": "Technical SEO, structured data implementation, bilingual content strategy, and AI search (GEO/AEO) optimization."
                 },
                 "brand": {
-                    "name": "Entity Authority Engineering",
-                    "text": "Canonical identifier management and structured data architecture for AI citation readiness."
+                    "name": "Analytics & Attribution",
+                    "text": "Server-side tracking, multi-touch attribution modeling, GA4, and Looker Studio dashboards tied to revenue impact."
                 },
                 "ads": {
-                    "name": "Paid Acquisition",
-                    "text": "Campaign management with ROAS targets, attribution modeling, and weekly performance reporting."
+                    "name": "Paid Acquisition & Funnels",
+                    "text": "Google Ads, Meta Ads, and LinkedIn campaigns governed by defined ROAS targets and documented performance benchmarks."
                 }
             }
         }
     },
     "portfolio": {
         "title": "Delivery Record",
-        "description": "Selected enterprise engagements with documented outcomes and system specifications.",
+        "description": "Selected engagements with documented outcomes, system specifications, and measurable results.",
         "viewAll": "View Case Studies",
         "items": {
-            "fintech": "Fintech Platform Architecture",
-            "ecommerce": "Multi-Region E-Commerce System",
-            "logistics": "Supply Chain Automation"
+            "fintech": "Financial Platform Infrastructure",
+            "ecommerce": "Multi-Region Commerce Architecture",
+            "logistics": "Operational Automation Systems"
         }
     },
     "techStack": {
@@ -116,10 +120,10 @@
     },
     "contact": {
         "title": "Start an Engagement",
-        "description": "If your organization requires enterprise software engineering or structured digital execution, contact us to schedule a technical consultation.",
+        "description": "If your organization requires integrated digital infrastructure or structured execution capability, contact us to schedule a consultation.",
         "labels": {
             "name": "Full Name",
-            "company": "Company Name",
+            "company": "Organization Name",
             "email": "Work Email",
             "subject": "Subject",
             "message": "Project Details",
@@ -130,10 +134,10 @@
             "email": "Project Inquiries",
             "phone": "Direct Line"
         },
-        "success": "Your inquiry has been received. Our engineering team will respond within one business day."
+        "success": "Your inquiry has been received. Our team will respond within one business day."
     },
     "footer": {
-        "tagline": "Enterprise Software Engineering. Governance-First Delivery.",
+        "tagline": "Integrated Digital Infrastructure. Structured Execution.",
         "rights": "© 2026 Rumuze Technologies LLC. All rights reserved.",
         "sections": {
             "solutions": "Solutions",
@@ -152,98 +156,98 @@
     },
     "about": {
         "title": "About Rumuze",
-        "subtitle": "Enterprise software engineering with governance-first delivery.",
+        "subtitle": "A software engineering and marketing infrastructure company. We build the systems that run businesses and the systems that grow them.",
         "story": {
-            "title": "Engineering Standard",
-            "content": "Rumuze is an enterprise software engineering company founded in 2026. We build multi-tenant SaaS platforms, ERP systems, and digital infrastructure with defined governance, documented delivery processes, and SLO-governed reliability for organizations in UAE, Saudi Arabia, and the MENA region."
+            "title": "What Rumuze Is",
+            "content": "Rumuze is a software engineering and marketing infrastructure company founded in 2026 by Mohamed Ashraf. We build web platforms, SaaS products, ERP systems, and custom integrations. We also engineer performance marketing programs, SEO infrastructure, attribution systems, and analytics pipelines. Every engagement is governed by a defined Statement of Work, structured sprint delivery, and weekly reporting. We do not operate as a traditional agency. We operate as an engineering-driven growth partner — with documented accountability at every stage."
         },
         "values": {
             "innovation": {
-                "title": "Engineering Rigor",
-                "text": "Every system is built with microservices architecture, tenant isolation, and automated testing."
+                "title": "Engineered, Not Assembled",
+                "text": "Every system is designed from first principles — modular, documented, and built for sustained operation."
             },
             "precision": {
-                "title": "Governance",
-                "text": "Defined accountability, documented deliverables, and structured reporting at every stage."
+                "title": "Measured, Not Estimated",
+                "text": "All outcomes are tied to defined KPIs. Performance is reported against agreed benchmarks, not subjective assessment."
             },
             "scalability": {
-                "title": "Long-Term Architecture",
-                "text": "Systems designed for the next decade with domain-driven design and infrastructure-as-code."
+                "title": "Governed, Not Improvised",
+                "text": "Projects run under a documented governance model: defined scope, milestone sign-off, and structured reporting cadence."
             }
         },
         "cto": {
             "name": "Mohamed Ashraf",
             "role": "Founder & Principal Engineer",
-            "bio": "Software architect specializing in enterprise SaaS platforms, multi-tenant architecture, and bilingual system engineering."
+            "bio": "Software architect and growth engineer specializing in platform systems, multi-tenant SaaS, performance marketing infrastructure, and structured project delivery."
         }
     },
     "services_page": {
-        "title": "Strategic Engineering Capabilities",
+        "title": "Software Engineering & Marketing Infrastructure",
         "software": {
-            "title": "Enterprise Engineering Infrastructure",
+            "title": "Software Engineering",
             "process": [
-                "Blueprint",
+                "Discovery",
                 "Architecture",
-                "Construction",
-                "Evolution"
+                "Build",
+                "Deploy"
             ],
             "tech": [
-                "Laravel Enterprise",
+                "Laravel / Node.js",
+                "React / Next.js",
                 "React Native",
-                "Node.js Cluster",
-                "PostgreSQL Scale"
+                "PostgreSQL / Redis"
             ],
-            "description": "We engineer the digital nervous systems for modern corporations. Robust, secure, and infinitely scalable.",
+            "description": "We build web platforms, SaaS applications, ERP systems, and custom integrations. Modular architecture. Documented delivery. Production-grade from the first sprint.",
             "benefits": [
-                "99.99% Uptime Architecture",
-                "Micro-services Scalability",
-                "Bank-Grade Security"
+                "Defined Scope & Architecture",
+                "Sprint-Based Delivery",
+                "Governed Security & Access Control"
             ]
         },
         "ai": {
-            "title": "Revenue Infrastructure Engineering",
+            "title": "Analytics & Revenue Attribution",
             "process": [
                 "Data Audit",
-                "Model Training",
-                "Integration",
-                "Self-Learning"
+                "Attribution Setup",
+                "Pipeline Integration",
+                "Reporting & Optimization"
             ],
             "tech": [
-                "Generative Models",
-                "PyTorch",
-                "TensorFlow",
-                "Decision Transformers"
+                "GA4 & GTM Server-Side",
+                "Meta CAPI",
+                "Looker Studio",
+                "HubSpot / Segment"
             ],
-            "description": "Deploying self-evolving AI agents that automate complex decisions and forecast market shifts.",
+            "description": "We implement analytics infrastructure, multi-touch attribution modeling, and automated reporting pipelines that connect marketing spend to revenue outcomes.",
             "benefits": [
-                "Self-Learning Algorithms",
-                "Predictive Analytics Core",
-                "Automated Decision Making"
+                "Attribution-Governed Analytics",
+                "Revenue-Tied Reporting",
+                "Automated Performance Dashboards"
             ]
         },
         "growth": {
-            "title": "GCC Enterprise Market Execution",
+            "title": "Performance Marketing & SEO",
             "process": [
-                "Forensic Audit",
-                "Strategy Formulation",
-                "Structured Execution",
-                "Market Accountability"
+                "Audit & Benchmark",
+                "Strategy & Structure",
+                "Execution & Testing",
+                "Performance Accountability"
             ],
             "tech": [
-                "Predictive Analytics",
-                "Programmatic Ads",
-                "Semantic SEO",
-                "Conversion Architecture"
+                "Google Ads / Meta Ads",
+                "Technical SEO",
+                "Structured Data (JSON-LD)",
+                "Conversion Infrastructure"
             ],
-            "description": "Structured acquisition and brand infrastructure for enterprise organizations operating in GCC markets — with defined KPIs, attribution accountability, and governance-first execution.",
+            "description": "We engineer paid acquisition campaigns, technical SEO, and funnel systems structured around defined KPIs, attribution accountability, and documented revenue outcomes.",
             "benefits": [
-                "Organic Search Authority",
-                "Conversion Rate Governance",
+                "Organic & Paid Authority",
+                "Conversion-Governed Funnels",
                 "Revenue-Attributed Acquisition"
             ]
         },
         "methodology": {
-            "heading": "Why Enterprise SaaS Systems Require Structured Governance",
+            "heading": "Why Engineering-Driven Growth Requires Structured Governance",
             "subtitle": "Structured execution from discovery through deployment, with defined accountability at every phase."
         },
         "process": {
@@ -251,31 +255,31 @@
                 {
                     "num": "01",
                     "title": "Discovery",
-                    "desc": "Requirements analysis and scope definition."
+                    "desc": "Requirements analysis, scope definition, and baseline audit."
                 },
                 {
                     "num": "02",
                     "title": "Architecture",
-                    "desc": "System design and technical specification."
+                    "desc": "System design, technology selection, and KPI definition."
                 },
                 {
                     "num": "03",
-                    "title": "Development",
-                    "desc": "Sprint-based implementation with weekly reviews."
+                    "title": "Build",
+                    "desc": "Sprint-based implementation with weekly client reviews."
                 },
                 {
                     "num": "04",
-                    "title": "Deployment",
-                    "desc": "Staged release, monitoring, and handover."
+                    "title": "Deploy & Measure",
+                    "desc": "Staged release, monitoring setup, and performance reporting."
                 }
             ]
         },
         "tilt_card": {
-            "label": "Governance-First Delivery"
+            "label": "Engineering-Driven Delivery"
         },
         "cta": {
-            "heading": "Schedule a Technical Consultation for Enterprise Software Architecture",
-            "subheading": "Define scope, review architecture, and establish delivery governance with a named project owner.",
+            "heading": "Schedule a Consultation for Software Engineering or Marketing Infrastructure",
+            "subheading": "Define scope, review requirements, and establish a delivery governance model with a named project owner.",
             "button": "Start Engagement"
         }
     },

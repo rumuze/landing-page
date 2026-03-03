@@ -56,45 +56,45 @@ export const SERVICES: ServiceItem[] = [
   {
     slug: 'software-engineering',
     title: {
-      en: 'Microservices & API Infrastructure Engineering',
-      ar: 'هندسة الميكروسيرفيس وبنية API',
+      en: 'Modular Platform & Systems Engineering',
+      ar: 'هندسة المنصات والأنظمة المعيارية',
     },
     shortDescription: {
-      en: 'Modular enterprise systems with SLO-governed reliability and domain-driven architecture.',
-      ar: 'أنظمة مؤسسية معيارية بموثوقية محكومة بمؤشرات الخدمة وبنية موجهة بالمجال.',
+      en: 'Modular platform systems with defined reliability governance, domain-driven architecture, and structured delivery accountability.',
+      ar: 'أنظمة منصات معيارية بحوكمة موثوقية محددة ومعمارية موجهة بالمجال ومساءلة تسليم منظمة.',
     },
     summary: {
-      en: 'Rumuze engineers enterprise platforms using domain-driven modular architecture, microservices, and API-first contracts — with defined SLO governance, fault tolerance, and structured delivery for mid-to-large organizations across MENA.',
-      ar: 'تهندس روموز منصات مؤسسية بمعمارية معيارية موجهة بالمجال وميكروسيرفيس وعقود API أولاً — مع حوكمة مؤشرات خدمة محددة وتحمل أعطال وتسليم منظم للمؤسسات المتوسطة والكبيرة في المنطقة.',
+      en: 'Rumuze engineers modular platform systems using domain-driven architecture, microservices, and API-first contracts — with defined reliability governance, fault tolerance, and structured delivery for growth-focused organizations globally.',
+      ar: 'تهندس روموز أنظمة منصات معيارية بمعمارية موجهة بالمجال وميكروسيرفيس وعقود API أولاً — بحوكمة موثوقية محددة وتحمل أعطال وتسليم منظم للمؤسسات الموجهة نحو النمو عالمياً.',
     },
     keywords: ['microservices', 'API-first', 'reliability', 'scalability'],
-    geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
+    geoScope: ['Global', 'Regulated Markets'],
     industries: ['Fintech', 'Retail', 'Logistics', 'Healthcare', 'Real Estate'],
     definitions: {
       short: {
-        en: 'Designs and delivers modular, microservices-based systems with API-first contracts, predictable performance, and strict reliability for enterprise workloads.',
-        ar: 'تصميم وتنفيذ أنظمة معيارية تعتمد الميكروسيرفيس وعقود API، بأداء متوقع واعتمادية صارمة لأحمال المؤسسات.',
+        en: 'Designs and delivers modular, microservices-based systems with API-first contracts, predictable performance, and strict reliability governance.',
+        ar: 'تصميم وتنفيذ أنظمة معيارية تعتمد الميكروسيرفيس وعقود API، بأداء متوقع وحوكمة موثوقية صارمة.',
       },
       medium: {
-        en: 'We engineer modular platforms using microservices and API-first contracts, optimizing throughput, latency, error budgets, and resilience. Pipelines emphasize observability, change isolation, and predictable deployments for multi-team enterprise environments.',
-        ar: 'نهندس منصات معيارية بميكروسيرفيس وعقود API أولاً، ونحسن الإنتاجية والزمن وميزانيات الأخطاء والمرونة. خطوطنا تركز على المراقبة وعزل التغييرات ونشر متوقع لبيئات مؤسسية متعددة الفرق.',
+        en: 'We engineer modular platforms using microservices and API-first contracts, optimizing throughput, latency, error budgets, and resilience. Pipelines emphasize observability, change isolation, and predictable deployments for multi-team environments.',
+        ar: 'نهندس منصات معيارية بميكروسيرفيس وعقود API أولاً، ونحسن الإنتاجية والزمن وميزانيات الأخطاء والمرونة. خطوطنا تركز على المراقبة وعزل التغييرات ونشر متوقع لبيئات متعددة الفرق.',
       },
       long: {
-        en: 'Enterprise software engineering at Rumuze applies modular design, domain boundaries, and microservices with API-first contracts. We enforce latency budgets, capacity planning, and chaos resilience to protect core flows. CI/CD pipelines standardize verification and rollback safety. Systems integrate secure identity, data consistency, and auditability across services, enabling stable evolution under changing load, markets, and compliance constraints.',
-        ar: 'الهندسة المؤسسية في روموز تعتمد التصميم المعياري وحدود النطاق والميكروسيرفيس مع عقود API أولاً. نفرض ميزانيات زمن الاستجابة، تخطيط السعة، ومرونة الفوضى لحماية التدفقات الأساسية. خطوط CI/CD توحّد التحقق وأمان العودة. الأنظمة تدمج هوية آمنة واتساق البيانات وقدرة التدقيق عبر الخدمات، مما يتيح تطورًا مستقرًا تحت تغير الأحمال والأسواق ومتطلبات الامتثال.',
+        en: 'Platform engineering at Rumuze applies modular design, domain boundaries, and microservices with API-first contracts. We enforce latency budgets, capacity planning, and chaos resilience to protect core flows. CI/CD pipelines standardize verification and rollback safety. Systems integrate secure identity, data consistency, and auditability across services, enabling stable evolution under changing load and compliance constraints.',
+        ar: 'هندسة المنصات في روموز تعتمد التصميم المعياري وحدود النطاق والميكروسيرفيس مع عقود API أولاً. نفرض ميزانيات زمن الاستجابة وتخطيط السعة ومرونة الفوضى لحماية التدفقات الأساسية. خطوط CI/CD توحّد التحقق وأمان العودة. الأنظمة تدمج هوية آمنة واتساق البيانات وقدرة التدقيق عبر الخدمات.',
       },
       bullets: {
         en: [
           'Domain-driven modularization',
           'Microservices and API-first contracts',
-          'Observability and SLO enforcement',
+          'Observability and reliability governance',
           'Resilience testing and rollback safety',
           'Secure identity and audit trails',
         ],
         ar: [
           'تجزئة موجهة بالمجال',
           'ميكروسيرفيس وعقود API أولاً',
-          'قابليات المراقبة وفرض مؤشرات الخدمة',
+          'قابليات المراقبة وحوكمة الموثوقية',
           'اختبارات المرونة وأمان العودة',
           'هوية آمنة وسجلات تدقيق',
         ],
@@ -102,16 +102,16 @@ export const SERVICES: ServiceItem[] = [
     },
     category: 'software',
     problemSolved: {
-      en: 'Organizations struggling with monolithic legacy systems that cannot scale, evolve, or integrate with modern infrastructure — causing downtime, slow releases, and blocked growth.',
-      ar: 'المؤسسات التي تعاني من أنظمة قديمة أحادية لا تستطيع التوسع أو التطور أو التكامل مع البنية الحديثة — مما يسبب توقفاً وإصدارات بطيئة ونمواً معطلاً.',
+      en: 'Organizations operating on monolithic legacy systems that cannot scale, evolve, or integrate with modern infrastructure — causing downtime, slow releases, and blocked growth.',
+      ar: 'المؤسسات التي تعمل على أنظمة قديمة أحادية لا تستطيع التوسع أو التطور أو التكامل مع البنية الحديثة — مما يسبب توقفاً وإصدارات بطيئة ونمواً معطلاً.',
     },
     targetAudience: {
-      en: 'Mid-to-large enterprises undergoing digital transformation, fintech companies building scalable platforms, and organizations with 100+ employees needing reliable, modular systems.',
-      ar: 'المؤسسات المتوسطة والكبيرة التي تمر بتحول رقمي وشركات التكنولوجيا المالية التي تبني منصات قابلة للتوسع والمنظمات ذات 100+ موظف التي تحتاج أنظمة موثوقة ومعيارية.',
+      en: 'Growth-focused mid-to-large organizations undergoing digital transformation, fintech companies building scalable platforms, and enterprises needing reliable, modular systems.',
+      ar: 'المؤسسات المتوسطة والكبيرة الموجهة نحو النمو التي تمر بتحول رقمي وشركات التكنولوجيا المالية التي تبني منصات قابلة للتوسع والمنظمات التي تحتاج أنظمة موثوقة ومعيارية.',
     },
     differentiators: {
-      en: ['Custom architecture — never templates', 'SLO-governed reliability from day one', 'Domain-driven design with bounded contexts', 'Full observability and automated rollback'],
-      ar: ['بنية مخصصة — ليست قوالب أبداً', 'موثوقية محكومة بمؤشرات خدمة من اليوم الأول', 'تصميم موجه بالمجال مع حدود سياقية', 'مراقبة كاملة واسترجاع آلي'],
+      en: ['Custom architecture — never templates', 'Reliability governance from day one', 'Domain-driven design with bounded contexts', 'Full observability and automated rollback'],
+      ar: ['بنية مخصصة — ليست قوالب أبداً', 'حوكمة موثوقية من اليوم الأول', 'تصميم موجه بالمجال مع حدود سياقية', 'مراقبة كاملة واسترجاع آلي'],
     },
     faqs: [
       {
@@ -120,59 +120,59 @@ export const SERVICES: ServiceItem[] = [
       },
     ],
     h2Sections: [
-      { en: 'Why Microservices Architecture Requires Defined Governance', ar: 'لماذا تتطلب معمارية الميكروسيرفيس حوكمة محددة' },
-      { en: 'Risk Management in Distributed Enterprise Systems', ar: 'إدارة المخاطر في الأنظمة المؤسسية الموزعة' },
-      { en: 'Multi-Entity and Multilingual API Infrastructure', ar: 'بنية API متعددة الكيانات والأسواق' },
-      { en: 'Revenue Infrastructure Integration via API Contracts', ar: 'تكامل بنية الإيرادات عبر عقود API' },
-      { en: 'Structured Engineering Delivery Model for Enterprise Platforms', ar: 'نموذج تسليم هندسي منظم للمنصات المؤسسية' },
+      { en: 'Infrastructure Context: Why Modular Platform Systems Require Defined Boundaries', ar: 'سياق البنية التحتية: لماذا تتطلب أنظمة المنصات المعيارية حدوداً محددة' },
+      { en: 'Governance & Accountability in Distributed System Operations', ar: 'الحوكمة والمساءلة في عمليات الأنظمة الموزعة' },
+      { en: 'System Integration & Architecture Across Multi-Service Environments', ar: 'تكامل الأنظمة والمعمارية عبر بيئات متعددة الخدمات' },
+      { en: 'Revenue & Business Alignment Through API Contract Governance', ar: 'المواءمة مع الإيرادات والأعمال عبر حوكمة عقود API' },
+      { en: 'Execution & Delivery Framework for Platform Engineering', ar: 'إطار التنفيذ والتسليم لهندسة المنصات' },
     ],
     relatedServices: ['saas-erp', 'web-development'],
     saudiContext: {
-      en: 'Enterprise software deployed in Saudi Arabia increasingly operates under SDAIA data governance frameworks and NDMO data classification requirements. Rumuze architects systems with data locality, auditability, and multi-entity isolation built into the core design — not appended as compliance afterthoughts.',
-      ar: 'يعمل البرنامج المؤسسي المنشور في المملكة العربية السعودية بصورة متزايدة ضمن أطر حوكمة بيانات هيئة الذكاء الاصطناعي ومتطلبات تصنيف البيانات. تهندس روموز الأنظمة مع تحديد موقع البيانات وقابلية التدقيق وعزل متعدد الكيانات مدمجة في صميم التصميم.',
+      en: 'Platform systems deployed in regulated markets operate under data governance frameworks and classification requirements. Rumuze architects systems with data locality, auditability, and multi-entity isolation built into the core design — not appended as compliance afterthoughts.',
+      ar: 'تعمل أنظمة المنصات المنشورة في الأسواق المنظمة ضمن أطر حوكمة بيانات ومتطلبات تصنيف. تهندس روموز الأنظمة مع تحديد موقع البيانات وقابلية التدقيق وعزل متعدد الكيانات مدمجة في صميم التصميم.',
     },
   },
   {
     slug: 'web-development',
     title: {
-      en: 'Multilingual Platform Engineering',
-      ar: 'هندسة المنصات متعددة اللغات',
+      en: 'Multilingual Application Infrastructure',
+      ar: 'بنية التطبيقات متعددة اللغات',
     },
     shortDescription: {
-      en: 'Bilingual enterprise web platforms with RTL/LTR parity, SSR performance, and compliance-ready infrastructure.',
-      ar: 'منصات ويب مؤسسية ثنائية اللغة بتكافؤ RTL/LTR وأداء SSR وبنية تحتية جاهزة للامتثال.',
+      en: 'Bilingual web application infrastructure with RTL/LTR parity, governed performance architecture, and production-grade delivery.',
+      ar: 'بنية تطبيقات ويب ثنائية اللغة بتكافؤ RTL/LTR ومعمارية أداء محكومة وتسليم بجودة إنتاجية.',
     },
     summary: {
-      en: 'Rumuze engineers enterprise web platforms with native RTL/LTR bilingual parity, SSR/ISR performance architecture, and secure Node/Laravel backends — structured for predictable rendering, compliance-ready deployment, and production stability from the first sprint.',
-      ar: 'تهندس روموز منصات ويب مؤسسية بتكافؤ ثنائي اللغة أصلي وبنية أداء SSR/ISR وخوادم Node/Laravel آمنة — منظمة لعرض متوقع ونشر جاهز للامتثال واستقرار إنتاجي من أول سبرينت.',
+      en: 'Rumuze engineers web application infrastructure with native RTL/LTR bilingual parity, SSR/ISR performance architecture, and secure Node/Laravel backends — structured for predictable rendering, governed deployment, and production stability from the first sprint.',
+      ar: 'تهندس روموز بنية تطبيقات ويب بتكافؤ ثنائي اللغة أصلي ومعمارية أداء SSR/ISR وخوادم Node/Laravel آمنة — منظمة لعرض متوقع ونشر محكوم واستقرار إنتاجي من أول سبرينت.',
     },
     keywords: ['React', 'Next.js', 'Node', 'Laravel', 'CI/CD'],
-    geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
+    geoScope: ['Global', 'Regulated Markets'],
     industries: ['Retail', 'Media', 'Education', 'B2B SaaS'],
     definitions: {
       short: {
-        en: 'Builds accessible, performant React/Next.js frontends with secure backends, deterministic rendering, and bilingual UX under robust CI/CD.',
-        ar: 'نبني واجهات React/Next.js عالية الأداء وقابلة للوصول، بخوادم آمنة، وعرض حتمي وتجربة ثنائية اللغة تحت CI/CD قوي.',
+        en: 'Builds accessible, performant React/Next.js frontends with secure backends, deterministic rendering, and bilingual UX under governed CI/CD.',
+        ar: 'نبني واجهات React/Next.js عالية الأداء وقابلة للوصول، بخوادم آمنة، وعرض حتمي وتجربة ثنائية اللغة تحت CI/CD محكوم.',
       },
       medium: {
-        en: 'We deliver predictable, accessible web applications using React/Next.js and secure Node/Laravel backends. We enforce performance budgets, a11y rules, and caching strategies with SSR/ISR for reliable UX across locales.',
+        en: 'We deliver predictable, accessible web applications using React/Next.js and secure Node/Laravel backends. We enforce performance budgets, accessibility rules, and caching strategies with SSR/ISR for reliable UX across locales.',
         ar: 'نقدم تطبيقات ويب متوقعة وقابلة للوصول باستخدام React/Next.js وخوادم Node/Laravel آمنة. نفرض ميزانيات الأداء وقواعد الوصول واستراتيجيات التخزين المؤقت مع SSR/ISR لتجربة موثوقة عبر اللغات.',
       },
       long: {
-        en: 'Our web development emphasizes deterministic rendering, accessibility compliance, and multilingual scalability. We use React/Next.js, Node or Laravel, and strong caching with SSR/ISR. Build pipelines enforce lighthouse budgets and security headers. Layout systems and design tokens keep UX consistent across right-to-left and left-to-right contexts.',
-        ar: 'يركّز تطوير الويب لدينا على عرض حتمي، امتثال الوصول، وقابلية التوسع متعدد اللغات. نستخدم React/Next.js وNode أو Laravel مع تخزين مؤقت قوي وSSR/ISR. تفرض خطوط البناء ميزانيات الأداء ورؤوس الأمان. تحافظ أنظمة التخطيط ورموز التصميم على الاتساق عبر اتجاهات الكتابة.',
+        en: 'Application infrastructure at Rumuze emphasizes deterministic rendering, accessibility compliance, and multilingual scalability. We use React/Next.js, Node or Laravel, and governed caching with SSR/ISR. Build pipelines enforce performance budgets and security headers. Layout systems and design tokens maintain UX consistency across right-to-left and left-to-right contexts.',
+        ar: 'بنية التطبيقات في روموز تركز على عرض حتمي وامتثال الوصول وقابلية التوسع متعدد اللغات. نستخدم React/Next.js وNode أو Laravel مع تخزين مؤقت محكوم وSSR/ISR. تفرض خطوط البناء ميزانيات الأداء ورؤوس الأمان.',
       },
       bullets: {
         en: [
           'React/Next.js with SSR/ISR',
-          'Performance and a11y budgets',
+          'Performance and accessibility governance',
           'Secure Node/Laravel backends',
           'RTL/LTR design tokens',
           'Caching and CDN strategies',
         ],
         ar: [
           'React/Next.js مع SSR/ISR',
-          'ميزانيات الأداء والوصول',
+          'حوكمة الأداء والوصول',
           'خوادم Node/Laravel آمنة',
           'رموز تصميم RTL/LTR',
           'استراتيجيات التخزين المؤقت وCDN',
@@ -181,16 +181,16 @@ export const SERVICES: ServiceItem[] = [
     },
     category: 'software',
     problemSolved: {
-      en: 'Businesses with websites that are slow, inaccessible, not mobile-responsive, or lack bilingual support — costing them customers and search engine visibility.',
-      ar: 'الأعمال التي لديها مواقع بطيئة أو غير قابلة للوصول أو غير متجاوبة أو تفتقر لدعم ثنائي اللغة — مما يكلفها عملاء وظهور في محركات البحث.',
+      en: 'Organizations with web platforms that are slow, inaccessible, or lack bilingual support — resulting in reduced engagement and diminished search visibility.',
+      ar: 'المؤسسات التي لديها منصات ويب بطيئة أو غير قابلة للوصول أو تفتقر لدعم ثنائي اللغة — مما يقلل التفاعل ويضعف الظهور في البحث.',
     },
     targetAudience: {
-      en: 'Companies launching new web products, startups needing production-ready applications, and businesses requiring bilingual web presence for MENA markets.',
-      ar: 'الشركات التي تطلق منتجات ويب جديدة والشركات الناشئة التي تحتاج تطبيقات جاهزة للإنتاج والأعمال التي تتطلب تواجداً ثنائي اللغة لأسواق المنطقة.',
+      en: 'Organizations launching web products, growth-stage companies needing production-ready applications, and enterprises requiring bilingual application infrastructure.',
+      ar: 'المؤسسات التي تطلق منتجات ويب والشركات في مرحلة النمو التي تحتاج تطبيقات جاهزة للإنتاج والمؤسسات التي تتطلب بنية تطبيقات ثنائية اللغة.',
     },
     differentiators: {
-      en: ['SSR/ISR for optimal performance and SEO', 'Native RTL/LTR bilingual support', 'Performance budgets enforced in CI/CD', 'Production-grade from day one'],
-      ar: ['SSR/ISR لأداء وSEO مثالي', 'دعم ثنائي اللغة RTL/LTR أصلي', 'ميزانيات أداء مفروضة في CI/CD', 'جودة إنتاج من اليوم الأول'],
+      en: ['SSR/ISR for governed performance', 'Native RTL/LTR bilingual support', 'Performance budgets enforced in CI/CD', 'Production-grade from day one'],
+      ar: ['SSR/ISR لأداء محكوم', 'دعم ثنائي اللغة RTL/LTR أصلي', 'ميزانيات أداء مفروضة في CI/CD', 'جودة إنتاج من اليوم الأول'],
     },
     faqs: [
       {
@@ -199,34 +199,34 @@ export const SERVICES: ServiceItem[] = [
       },
     ],
     h2Sections: [
-      { en: 'Why Enterprise Web Platforms Require RTL/LTR Governance', ar: 'لماذا تتطلب منصات الويب المؤسسية حوكمة RTL/LTR' },
-      { en: 'Risk Management in Multilingual Platform Deployment', ar: 'إدارة المخاطر في نشر المنصات متعددة اللغات' },
-      { en: 'Multi-Entity and Multilingual Architecture for MENA Markets', ar: 'بنية متعددة الكيانات واللغات لأسواق المنطقة' },
-      { en: 'Performance Infrastructure Integration for Enterprise Web', ar: 'تكامل بنية الأداء لمواقع الويب المؤسسية' },
-      { en: 'Structured Web Platform Delivery for Regulated Environments', ar: 'تسليم منصات ويب منظم للبيئات المنظمة' },
+      { en: 'Infrastructure Context: Why Multilingual Platforms Require Governed Architecture', ar: 'سياق البنية التحتية: لماذا تتطلب المنصات متعددة اللغات معمارية محكومة' },
+      { en: 'Governance & Accountability in Multilingual Platform Operations', ar: 'الحوكمة والمساءلة في عمليات المنصات متعددة اللغات' },
+      { en: 'System Integration & Architecture for Cross-Locale Delivery', ar: 'تكامل الأنظمة والمعمارية للتسليم عبر اللغات' },
+      { en: 'Revenue & Business Alignment Through Performance Infrastructure', ar: 'المواءمة مع الإيرادات والأعمال عبر بنية الأداء' },
+      { en: 'Execution & Delivery Framework for Application Infrastructure', ar: 'إطار التنفيذ والتسليم لبنية التطبيقات' },
     ],
     relatedServices: ['software-engineering', 'saas-erp'],
     saudiContext: {
-      en: 'Enterprise web platforms serving Saudi Arabia require native Arabic language support, RTL layout fidelity, and performance characteristics suited to regional infrastructure. Rumuze builds bilingual platforms where Arabic is a first-class language — not a translation layer applied over an English-first architecture.',
-      ar: 'تتطلب منصات الويب المؤسسية التي تخدم المملكة العربية السعودية دعم اللغة العربية الأصلي وأمانة تخطيط RTL وخصائص أداء مناسبة للبنية التحتية الإقليمية. تبني روموز منصات ثنائية اللغة حيث تكون العربية لغة أساسية.',
+      en: 'Application platforms serving regulated markets require native multilingual support, layout fidelity across text directions, and performance characteristics suited to regional infrastructure. Rumuze builds bilingual platforms where each language operates as a first-class system — not a translation layer.',
+      ar: 'تتطلب منصات التطبيقات التي تخدم الأسواق المنظمة دعماً أصلياً متعدد اللغات وأمانة تخطيط عبر اتجاهات النص وخصائص أداء مناسبة للبنية التحتية. تبني روموز منصات ثنائية اللغة حيث تعمل كل لغة كنظام أساسي.',
     },
   },
   {
     slug: 'saas-erp',
     title: {
-      en: 'Enterprise SaaS & ERP System Engineering',
-      ar: 'هندسة منصات SaaS وأنظمة ERP المؤسسية',
+      en: 'Multi-Tenant Operational Systems Engineering',
+      ar: 'هندسة الأنظمة التشغيلية متعددة المستأجرين',
     },
     shortDescription: {
-      en: 'Multi-tenant SaaS and ERP systems with strict tenant isolation, module governance, and regional compliance support.',
-      ar: 'منصات SaaS وERP متعددة المستأجرين بعزل صارم وحوكمة وحدات ودعم امتثال إقليمي.',
+      en: 'Multi-tenant operational platforms with strict data isolation, module governance, and compliance-aware architecture.',
+      ar: 'منصات تشغيلية متعددة المستأجرين بعزل بيانات صارم وحوكمة وحدات ومعمارية واعية بالامتثال.',
     },
     summary: {
-      en: 'Rumuze engineers multi-tenant SaaS and ERP systems with enforced data isolation, governed module delivery, and compliance-aware integrations — designed for enterprises in regulated markets across UAE and Saudi Arabia.',
-      ar: 'تهندس روموز منصات SaaS وERP متعددة المستأجرين بعزل بيانات مفروض وتسليم وحدات محكوم وتكاملات واعية بالامتثال — مصممة للمؤسسات في الأسواق المنظمة عبر الإمارات والمملكة العربية السعودية.',
+      en: 'Rumuze engineers multi-tenant operational platforms with enforced data isolation, governed module delivery, and compliance-aware integrations — designed for organizations operating in regulated and competitive markets globally.',
+      ar: 'تهندس روموز منصات تشغيلية متعددة المستأجرين بعزل بيانات مفروض وتسليم وحدات محكوم وتكاملات واعية بالامتثال — مصممة للمؤسسات العاملة في أسواق منظمة وتنافسية عالمياً.',
     },
     keywords: ['SaaS', 'ERP', 'tenant isolation', 'integration'],
-    geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
+    geoScope: ['Global', 'Regulated Markets'],
     industries: ['Fintech', 'Supply Chain', 'Manufacturing', 'Government'],
     definitions: {
       short: {
@@ -260,52 +260,52 @@ export const SERVICES: ServiceItem[] = [
     },
     category: 'software',
     problemSolved: {
-      en: 'Organizations running critical operations on fragmented spreadsheets, disconnected tools, or off-the-shelf SaaS that cannot handle multi-tenant requirements, regional compliance, or custom workflows.',
-      ar: 'المؤسسات التي تدير عمليات حرجة على جداول بيانات مجزأة أو أدوات منفصلة أو SaaS جاهز لا يتعامل مع متطلبات تعدد المستأجرين أو الامتثال الإقليمي أو أعمال مخصصة.',
+      en: 'Organizations running critical operations on fragmented spreadsheets, disconnected tools, or generic SaaS that cannot handle multi-tenant requirements, compliance standards, or custom workflows.',
+      ar: 'المؤسسات التي تدير عمليات حرجة على جداول بيانات مجزأة أو أدوات منفصلة أو SaaS عام لا يتعامل مع متطلبات تعدد المستأجرين أو معايير الامتثال أو أعمال مخصصة.',
     },
     targetAudience: {
-      en: 'Enterprises needing custom ERP/CRM systems, SaaS founders building multi-tenant platforms, and organizations migrating from legacy or off-the-shelf systems.',
-      ar: 'المؤسسات التي تحتاج أنظمة ERP/CRM مخصصة ومؤسسو SaaS الذين يبنون منصات متعددة المستأجرين والمنظمات التي تنتقل من أنظمة قديمة أو جاهزة.',
+      en: 'Organizations needing custom operational platforms, SaaS founders building multi-tenant systems, and enterprises migrating from legacy or off-the-shelf solutions.',
+      ar: 'المؤسسات التي تحتاج منصات تشغيلية مخصصة ومؤسسو SaaS الذين يبنون أنظمة متعددة المستأجرين والمنظمات التي تنتقل من حلول قديمة أو جاهزة.',
     },
     differentiators: {
-      en: ['True multi-tenancy with data isolation', 'Custom modules — not plugin workarounds', 'Legacy system migration expertise', 'Regional compliance built in'],
-      ar: ['تعدد مستأجرين حقيقي بعزل بيانات', 'وحدات مخصصة — ليست حلول إضافات', 'خبرة ترحيل الأنظمة القديمة', 'امتثال إقليمي مدمج'],
+      en: ['True multi-tenancy with data isolation', 'Custom modules — not plugin workarounds', 'Legacy system migration expertise', 'Compliance governance built in'],
+      ar: ['تعدد مستأجرين حقيقي بعزل بيانات', 'وحدات مخصصة — ليست حلول إضافات', 'خبرة ترحيل الأنظمة القديمة', 'حوكمة امتثال مدمجة'],
     },
     faqs: [
       {
-        question: { en: 'Can Rumuze migrate our existing ERP?', ar: 'هل تستطيع روموز ترحيل نظام ERP الحالي؟' },
-        answer: { en: 'Yes, Rumuze performs legacy ERP migrations with data mapping, validation, parallel running, and phased cutover to minimize business disruption during the transition.', ar: 'نعم، تجري روموز ترحيلات ERP القديمة مع ربط البيانات والتحقق والتشغيل المتوازي والانتقال المرحلي لتقليل تعطيل الأعمال أثناء الانتقال.' },
+        question: { en: 'Can Rumuze migrate our existing systems?', ar: 'هل تستطيع روموز ترحيل أنظمتنا الحالية؟' },
+        answer: { en: 'Yes, Rumuze performs legacy system migrations with data mapping, validation, parallel running, and phased cutover to minimize business disruption during the transition.', ar: 'نعم، تجري روموز ترحيلات الأنظمة القديمة مع ربط البيانات والتحقق والتشغيل المتوازي والانتقال المرحلي لتقليل تعطيل الأعمال أثناء الانتقال.' },
       },
     ],
     h2Sections: [
-      { en: 'Why Multi-Tenant SaaS Requires Isolated Data Architecture', ar: 'لماذا تتطلب منصات SaaS المتعددة عزل البيانات' },
-      { en: 'Risk Management in Enterprise ERP Implementations', ar: 'إدارة المخاطر في تطبيقات ERP المؤسسية' },
-      { en: 'Multi-Entity and Multilingual ERP Architecture', ar: 'بنية ERP متعددة الكيانات والأسواق' },
-      { en: 'Revenue Infrastructure Integration with ERP Systems', ar: 'تكامل بنية الإيرادات بأنظمة ERP' },
-      { en: 'Structured ERP Delivery Model for Regulated Enterprises', ar: 'نموذج تسليم ERP المنظم للمؤسسات الخاضعة للتنظيم' },
+      { en: 'Infrastructure Context: Why Multi-Tenant Platforms Require Isolated Data Architecture', ar: 'سياق البنية التحتية: لماذا تتطلب المنصات المتعددة عزل البيانات' },
+      { en: 'Governance & Accountability in Operational System Implementations', ar: 'الحوكمة والمساءلة في تطبيقات الأنظمة التشغيلية' },
+      { en: 'System Integration & Architecture for Multi-Entity Operations', ar: 'تكامل الأنظمة والمعمارية للعمليات متعددة الكيانات' },
+      { en: 'Revenue & Business Alignment Through Operational System Integration', ar: 'المواءمة مع الإيرادات والأعمال عبر تكامل الأنظمة التشغيلية' },
+      { en: 'Execution & Delivery Framework for Operational Platform Engineering', ar: 'إطار التنفيذ والتسليم لهندسة المنصات التشغيلية' },
     ],
     relatedServices: ['software-engineering', 'performance-marketing', 'marketing-infrastructure'],
     saudiContext: {
-      en: 'Enterprise ERP implementations in Saudi Arabia operate under Zakat Authority reporting structures, GOSI payroll requirements, and Vision 2030 digitisation mandates. Rumuze engineers ERP modules with these regulatory boundaries defined in the architecture — not handled through workarounds after delivery.',
-      ar: 'تعمل تطبيقات ERP المؤسسية في المملكة العربية السعودية في ظل متطلبات هيئة الزكاة والضريبة والجمارك والرواتب عبر المؤسسة العامة للتأمينات الاجتماعية. تهندس روموز وحدات ERP مع هذه الحدود التنظيمية محددة في البنية.',
+      en: 'Operational platforms deployed in regulated markets operate under sector-specific reporting structures and compliance requirements. Rumuze engineers operational modules with regulatory boundaries defined in the architecture — not handled through workarounds after delivery.',
+      ar: 'تعمل المنصات التشغيلية المنشورة في الأسواق المنظمة ضمن هياكل تقارير خاصة بالقطاع ومتطلبات امتثال. تهندس روموز الوحدات التشغيلية مع حدود تنظيمية محددة في البنية.',
     },
   },
   {
     slug: 'marketing-infrastructure',
     title: {
-      en: 'Enterprise Marketing Automation & Data Infrastructure',
-      ar: 'أتمتة التسويق المؤسسي وبنية البيانات',
+      en: 'Marketing Automation & Data Pipeline Engineering',
+      ar: 'هندسة أتمتة التسويق وخطوط البيانات',
     },
     shortDescription: {
-      en: 'Governed martech stack with attribution modeling, CDP integration, and consent-compliant data pipelines.',
-      ar: 'طبقة Martech محكومة بنمذجة إسناد وتكامل CDP وخطوط بيانات متوافقة مع الموافقات.',
+      en: 'Governed marketing technology infrastructure with attribution modeling, CDP integration, and consent-compliant data pipelines.',
+      ar: 'بنية تقنية تسويقية محكومة بنمذجة إسناد وتكامل CDP وخطوط بيانات متوافقة مع الموافقات',
     },
     summary: {
-      en: 'Rumuze implements enterprise marketing technology stacks with governed data flows, multi-touch attribution modeling, CDP integration, and consent-compliant pipelines — structured for measurable acquisition outcomes and audit-ready marketing operations.',
-      ar: 'تنفذ روموز طبقات تقنية التسويق المؤسسي بتدفقات بيانات محكومة ونمذجة إسناد متعدد اللمس وتكامل CDP وخطوط متوافقة مع الموافقات — منظمة لنتائج اكتساب قابلة للقياس وعمليات تسويقية جاهزة للتدقيق.',
+      en: 'Rumuze implements marketing technology infrastructure with governed data flows, multi-touch attribution modeling, CDP integration, and consent-compliant pipelines — structured for measurable acquisition outcomes and audit-ready operations.',
+      ar: 'تنفذ روموز بنية تقنية تسويقية بتدفقات بيانات محكومة ونمذجة إسناد متعدد اللمس وتكامل CDP وخطوط متوافقة مع الموافقات — منظمة لنتائج اكتساب قابلة للقياس وعمليات جاهزة للتدقيق.',
     },
     keywords: ['Martech', 'analytics', 'attribution', 'CDP', 'automation'],
-    geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
+    geoScope: ['Global', 'Regulated Markets'],
     industries: ['Retail', 'Media', 'E-commerce', 'B2C'],
     definitions: {
       short: {
@@ -367,16 +367,16 @@ export const SERVICES: ServiceItem[] = [
       },
     ],
     h2Sections: [
-      { en: 'Why Enterprise Marketing Requires Governed Data Infrastructure', ar: 'لماذا يتطلب التسويق المؤسسي بنية بيانات محكومة' },
-      { en: 'Attribution Accountability in Multi-Channel Marketing Operations', ar: 'مساءلة الإسناد في عمليات التسويق متعددة القنوات' },
-      { en: 'Multilingual Marketing Infrastructure for MENA Enterprises', ar: 'بنية تسويق متعددة اللغات لمؤسسات المنطقة' },
-      { en: 'Revenue Attribution Integration with Enterprise CRM Systems', ar: 'تكامل إسناد الإيرادات مع أنظمة CRM المؤسسية' },
-      { en: 'Structured Marketing Delivery with Defined KPI Governance', ar: 'تسليم تسويق منظم بحوكمة مؤشرات أداء محددة' },
+      { en: 'Infrastructure Context: Why Marketing Requires Governed Data Architecture', ar: 'سياق البنية التحتية: لماذا يتطلب التسويق معمارية بيانات محكومة' },
+      { en: 'Governance & Accountability in Multi-Channel Marketing Operations', ar: 'الحوكمة والمساءلة في عمليات التسويق متعددة القنوات' },
+      { en: 'System Integration & Architecture for Multilingual Marketing Infrastructure', ar: 'تكامل الأنظمة والمعمارية لبنية التسويق متعددة اللغات' },
+      { en: 'Revenue & Business Alignment Through Attribution Integration', ar: 'المواءمة مع الإيرادات والأعمال عبر تكامل الإسناد' },
+      { en: 'Execution & Delivery Framework with Defined KPI Governance', ar: 'إطار التنفيذ والتسليم بحوكمة مؤشرات أداء محددة' },
     ],
     relatedServices: ['performance-marketing', 'seo-services'],
     saudiContext: {
-      en: 'Marketing data infrastructure in Saudi Arabia must account for PDPL data residency requirements and platform-specific consent obligations. Rumuze structures martech stacks with privacy controls built into the data collection layer — not applied as after-the-fact tag configurations.',
-      ar: 'يجب أن تأخذ بنية بيانات التسويق في المملكة العربية السعودية في الاعتبار متطلبات إقامة البيانات وفق نظام حماية البيانات الشخصية والتزامات الموافقة. تهيكل روموز طبقات التقنية التسويقية بضوابط خصوصية مدمجة في طبقة جمع البيانات.',
+      en: 'Marketing data infrastructure in regulated markets must account for data residency requirements and platform-specific consent obligations. Rumuze structures marketing technology stacks with privacy controls built into the data collection layer — not applied as tag configurations after deployment.',
+      ar: 'يجب أن تأخذ بنية بيانات التسويق في الأسواق المنظمة في الاعتبار متطلبات إقامة البيانات والتزامات الموافقة. تهيكل روموز طبقات التقنية التسويقية بضوابط خصوصية مدمجة في طبقة جمع البيانات.',
     },
   },
   // ── Performance Marketing ──────────────────────────────────────────────
@@ -395,7 +395,7 @@ export const SERVICES: ServiceItem[] = [
       ar: 'تهندس روموز حملات اكتساب العملاء عبر Google Ads وMeta Ads وLinkedIn ببنية تتبع خادم ونمذجة إسناد متعدد اللمس وحوكمة عائد إعلاني موثقة — منظمة لنتائج إيرادات قابلة للقياس.',
     },
     keywords: ['PPC', 'Google Ads', 'Meta Ads', 'ROAS', 'CPA', 'attribution'],
-    geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
+    geoScope: ['Global', 'Regulated Markets'],
     industries: ['E-commerce', 'SaaS', 'Real Estate', 'Healthcare', 'Education'],
     definitions: {
       short: {
@@ -439,16 +439,16 @@ export const SERVICES: ServiceItem[] = [
       },
     ],
     h2Sections: [
-      { en: 'Why Paid Acquisition Requires Measurement Infrastructure Before Campaign Launch', ar: 'لماذا يتطلب الاكتساب المدفوع بنية قياس قبل إطلاق الحملة' },
-      { en: 'Attribution Governance in Multi-Channel Acquisition Systems', ar: 'حوكمة الإسناد في أنظمة الاكتساب متعددة القنوات' },
-      { en: 'Multilingual Campaign Architecture for GCC Markets', ar: 'بنية حملات متعددة اللغات لأسواق دول مجلس التعاون' },
-      { en: 'Integration of Acquisition Data with CRM and Revenue Systems', ar: 'تكامل بيانات الاكتساب مع CRM وأنظمة الإيرادات' },
-      { en: 'Structured Acquisition Delivery with Defined Performance Governance', ar: 'تسليم اكتساب منظم بحوكمة أداء محددة' },
+      { en: 'Infrastructure Context: Why Acquisition Requires Measurement Before Launch', ar: 'سياق البنية التحتية: لماذا يتطلب الاكتساب قياساً قبل الإطلاق' },
+      { en: 'Governance & Accountability in Multi-Channel Acquisition Systems', ar: 'الحوكمة والمساءلة في أنظمة الاكتساب متعددة القنوات' },
+      { en: 'System Integration & Architecture for Multilingual Campaign Delivery', ar: 'تكامل الأنظمة والمعمارية لتسليم حملات متعددة اللغات' },
+      { en: 'Revenue & Business Alignment Through Acquisition Data Integration', ar: 'المواءمة مع الإيرادات عبر تكامل بيانات الاكتساب' },
+      { en: 'Execution & Delivery Framework with Defined Performance Governance', ar: 'إطار التنفيذ والتسليم بحوكمة أداء محددة' },
     ],
     relatedServices: ['marketing-infrastructure', 'seo-services'],
     saudiContext: {
-      en: 'Paid acquisition campaigns in Saudi Arabia require platform-specific creative standards, Arabic-first ad copy governance, and compliance with CITC advertising guidelines. Rumuze structures bilingual campaign architecture where Arabic creative is developed independently — not translated from English source material.',
-      ar: 'تتطلب حملات الاكتساب المدفوعة في المملكة العربية السعودية معايير إبداعية خاصة بالمنصة وحوكمة نصوص إعلانية عربية أولاً والامتثال لإرشادات الإعلانات. تهيكل روموز بنية حملات ثنائية اللغة حيث يُطور المحتوى العربي بشكل مستقل.',
+      en: 'Acquisition campaigns in regulated markets require platform-specific creative standards, multilingual ad copy governance, and compliance with advertising guidelines. Rumuze structures bilingual campaign architecture where each language creative is developed independently — not translated from source material.',
+      ar: 'تتطلب حملات الاكتساب في الأسواق المنظمة معايير إبداعية خاصة بالمنصة وحوكمة نصوص إعلانية متعددة اللغات والامتثال لإرشادات الإعلانات. تهيكل روموز بنية حملات ثنائية اللغة حيث يُطور كل محتوى لغوي بشكل مستقل.',
     },
   },
   // ── SEO Services ──────────────────────────────────────────────────────
@@ -467,7 +467,7 @@ export const SERVICES: ServiceItem[] = [
       ar: 'تقدم روموز بنية SEO تقنية وتنفيذ بيانات مهيكلة وبنية محتوى دلالي ثنائي اللغة وتحسين GEO/AEO — مهندسة للمؤسسات التي تتطلب سلطة عضوية قابلة للقياس وحضوراً في محركات البحث الذكية.',
     },
     keywords: ['SEO', 'technical SEO', 'GEO', 'AEO', 'structured data', 'Core Web Vitals'],
-    geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
+    geoScope: ['Global', 'Regulated Markets'],
     industries: ['E-commerce', 'SaaS', 'Healthcare', 'Real Estate', 'Professional Services'],
     definitions: {
       short: {
@@ -511,16 +511,16 @@ export const SERVICES: ServiceItem[] = [
       },
     ],
     h2Sections: [
-      { en: 'Why Enterprise SEO Requires Technical Infrastructure Before Content Strategy', ar: 'لماذا يتطلب SEO المؤسسي بنية تقنية قبل استراتيجية المحتوى' },
-      { en: 'Structured Data Architecture for Enterprise Entity Authority', ar: 'بنية بيانات مهيكلة لسلطة الكيانات المؤسسية' },
-      { en: 'Bilingual SEO Architecture for Arabic and English Enterprise Markets', ar: 'بنية SEO ثنائية اللغة لأسواق المؤسسات العربية والإنجليزية' },
-      { en: 'AI Citation Readiness and Generative Engine Optimization', ar: 'جاهزية استشهاد الذكاء الاصطناعي وتحسين المحركات التوليدية' },
-      { en: 'Technical SEO Delivery Model with Measurable Organic Outcomes', ar: 'نموذج تسليم SEO التقني بنتائج عضوية قابلة للقياس' },
+      { en: 'Infrastructure Context: Why Search Visibility Requires Technical Foundation', ar: 'سياق البنية التحتية: لماذا يتطلب الظهور في البحث أساساً تقنياً' },
+      { en: 'Governance & Accountability in Structured Data Architecture', ar: 'الحوكمة والمساءلة في معمارية البيانات المهيكلة' },
+      { en: 'System Integration & Architecture for Bilingual Search Presence', ar: 'تكامل الأنظمة والمعمارية للحضور ثنائي اللغة في البحث' },
+      { en: 'Revenue & Business Alignment Through AI Citation Readiness', ar: 'المواءمة مع الإيرادات عبر جاهزية استشهاد الذكاء الاصطناعي' },
+      { en: 'Execution & Delivery Framework with Measurable Organic Outcomes', ar: 'إطار التنفيذ والتسليم بنتائج عضوية قابلة للقياس' },
     ],
     relatedServices: ['marketing-infrastructure', 'social-media'],
     saudiContext: {
-      en: 'Enterprise SEO in Saudi Arabia requires Arabic-first content architecture, structured data aligned with Arabic search behavior, and optimization for regional search patterns that differ substantially from English-language query structures. Rumuze engineers bilingual SEO systems where Arabic and English rankings are governed independently.',
-      ar: 'يتطلب SEO المؤسسي في المملكة العربية السعودية بنية محتوى عربية أولاً وبيانات مهيكلة متوافقة مع سلوك البحث العربي. تهندس روموز أنظمة SEO ثنائية اللغة حيث تُدار تصنيفات العربية والإنجليزية بشكل مستقل.',
+      en: 'Search visibility in regulated markets requires multilingual content architecture, structured data aligned with regional search behavior, and optimization for language-specific query patterns. Rumuze engineers bilingual SEO systems where each language ranking is governed independently.',
+      ar: 'يتطلب الظهور في البحث في الأسواق المنظمة بنية محتوى متعددة اللغات وبيانات مهيكلة متوافقة مع سلوك البحث الإقليمي. تهندس روموز أنظمة SEO ثنائية اللغة حيث تُدار تصنيفات كل لغة بشكل مستقل.',
     },
   },
   // ── Social Media Management ────────────────────────────────────────────
@@ -539,7 +539,7 @@ export const SERVICES: ServiceItem[] = [
       ar: 'تقدم روموز إدارة منظمة لوسائل التواصل عبر إنستغرام ولينكدإن وX وتيك توك — بحوكمة محتوى ثنائية اللغة ومساءلة مجتمعية وتكامل إعلانات اجتماعية وإسناد إيرادات.',
     },
     keywords: ['social media', 'content strategy', 'community management', 'paid social'],
-    geoScope: ['UAE', 'Saudi Arabia', 'Egypt', 'Qatar'],
+    geoScope: ['Global', 'Regulated Markets'],
     industries: ['E-commerce', 'F&B', 'Real Estate', 'Healthcare', 'Education'],
     definitions: {
       short: {
@@ -565,8 +565,8 @@ export const SERVICES: ServiceItem[] = [
       ar: 'العلامات ذات التواجد غير المنتظم على التواصل وبدون استراتيجية محتوى ومشاركة منخفضة وعدم القدرة على ربط النشاط الاجتماعي بنتائج الأعمال.',
     },
     targetAudience: {
-      en: 'B2B and B2C brands in MENA that need bilingual social media presence with measurable business impact beyond vanity metrics.',
-      ar: 'علامات B2B وB2C في المنطقة التي تحتاج تواجداً ثنائي اللغة على التواصل بتأثير أعمال قابل للقياس يتجاوز المقاييس الشكلية.',
+      en: 'B2B and B2C brands that need bilingual social media presence with measurable business impact beyond vanity metrics.',
+      ar: 'علامات B2B وB2C التي تحتاج تواجداً ثنائي اللغة على التواصل بتأثير أعمال قابل للقياس يتجاوز المقاييس الشكلية.',
     },
     differentiators: {
       en: ['Bilingual Arabic + English content natively', 'Integrated with paid media and SEO strategy', 'Revenue attribution, not just engagement', 'Data-driven content testing'],
@@ -579,16 +579,16 @@ export const SERVICES: ServiceItem[] = [
       },
     ],
     h2Sections: [
-      { en: 'Why Enterprise Brand Infrastructure Requires Content Governance', ar: 'لماذا تتطلب بنية العلامة المؤسسية حوكمة المحتوى' },
-      { en: 'Community Accountability and Structured Escalation Protocols', ar: 'مساءلة المجتمع وبروتوكولات التصعيد المنظمة' },
-      { en: 'Bilingual Content Architecture for Arabic and English Brand Presence', ar: 'بنية محتوى ثنائية اللغة للحضور العربي والإنجليزي للعلامة' },
-      { en: 'Revenue Attribution for Social Media Enterprise Engagement', ar: 'إسناد الإيرادات لتفاعل التواصل الاجتماعي المؤسسي' },
-      { en: 'Structured Social Delivery Model with Defined Reporting Cadence', ar: 'نموذج تسليم اجتماعي منظم بإيقاع تقارير محدد' },
+      { en: 'Infrastructure Context: Why Brand Presence Requires Content Governance', ar: 'سياق البنية التحتية: لماذا يتطلب حضور العلامة حوكمة المحتوى' },
+      { en: 'Governance & Accountability in Community Engagement Operations', ar: 'الحوكمة والمساءلة في عمليات التفاعل المجتمعي' },
+      { en: 'System Integration & Architecture for Bilingual Brand Infrastructure', ar: 'تكامل الأنظمة والمعمارية لبنية العلامة ثنائية اللغة' },
+      { en: 'Revenue & Business Alignment Through Social Attribution', ar: 'المواءمة مع الإيرادات عبر إسناد التواصل' },
+      { en: 'Execution & Delivery Framework with Defined Reporting Cadence', ar: 'إطار التنفيذ والتسليم بإيقاع تقارير محدد' },
     ],
     relatedServices: ['seo-services', 'performance-marketing'],
     saudiContext: {
-      en: 'Social media management for Saudi enterprises requires platform-specific content standards aligned with Communications and Information Technology Commission guidelines, Arabic-language community management protocols, and content approval workflows appropriate for regulated industries. Rumuze manages Arabic-language communities as a primary function — not a translated version of English community management.',
-      ar: 'تتطلب إدارة وسائل التواصل للمؤسسات السعودية معايير محتوى خاصة بكل منصة متوافقة مع إرشادات هيئة الاتصالات وبروتوكولات إدارة المجتمع العربي وسير عمل اعتماد المحتوى. تدير روموز المجتمعات العربية كوظيفة أساسية.',
+      en: 'Social media management for organizations in regulated markets requires platform-specific content standards, multilingual community management protocols, and content approval workflows appropriate for compliance-sensitive industries. Rumuze manages multilingual communities as a primary function — not a translated overlay.',
+      ar: 'تتطلب إدارة وسائل التواصل للمؤسسات في الأسواق المنظمة معايير محتوى خاصة بكل منصة وبروتوكولات إدارة مجتمع متعددة اللغات. تدير روموز المجتمعات متعددة اللغات كوظيفة أساسية.',
     },
   },
 ];

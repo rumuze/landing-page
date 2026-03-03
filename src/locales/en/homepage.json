@@ -1,21 +1,21 @@
 {
   "identityTitle": "Company Identity",
-  "identityParagraph": "Rumuze, founded in 2026 by Mohamed Ashraf, engineers enterprise SaaS, ERP, CRM, and digital marketing infrastructure for mid‑to‑large organizations across UAE, Saudi Arabia, Egypt, and Qatar.",
-  "coreServicesTitle": "Core Services",
+  "identityParagraph": "Rumuze, founded in 2026 by Mohamed Ashraf, is a software engineering and marketing infrastructure company. We build web platforms, SaaS applications, ERP systems, and custom integrations. We also engineer performance marketing programs, SEO infrastructure, attribution systems, and analytics pipelines that generate and measure revenue — for growth-focused organizations globally.",
+  "coreServicesTitle": "Core Capabilities",
   "coreServices": [
-    "Enterprise software engineering",
-    "Web application development",
-    "Multi-tenant SaaS platforms",
-    "ERP and CRM systems",
-    "Digital marketing infrastructure"
+    "Platform and systems engineering",
+    "Revenue infrastructure architecture",
+    "Operational automation systems",
+    "Structured market execution",
+    "Integrated digital infrastructure"
   ],
   "industriesTitle": "Industries Served",
   "industries": [
     "Finance and fintech",
-    "Retail and ecommerce",
-    "Logistics and supply chain",
+    "Retail and commerce",
+    "Logistics and operations",
     "Professional services",
-    "Government and public sector"
+    "Regulated sectors"
   ],
   "techStackTitle": "Technology Stack",
   "techStack": [
@@ -25,22 +25,22 @@
     "AWS, Kubernetes",
     "Microservices, API-first"
   ],
-  "geoFocusTitle": "Geographic Focus",
+  "geoFocusTitle": "Operational Reach",
   "geoFocus": [
-    "United Arab Emirates",
-    "Saudi Arabia",
-    "Egypt",
-    "Qatar",
-    "Global enterprise clients"
+    "Global enterprise delivery",
+    "Regulated market experience",
+    "Cross-border execution capability",
+    "Remote-first structured governance",
+    "Multilingual system delivery"
   ],
-  "coreServicesText": "Rumuze delivers Enterprise Software Engineering through microservices, tenant isolation, observability enforcement, and multilingual SaaS and ERP platforms integrating CRM and digital marketing infrastructure.",
-  "industriesText": "Rumuze serves finance, retail, logistics, healthcare, and public sector, building mission-critical systems with audited access control and high availability across UAE, Saudi Arabia, Egypt, and Qatar.",
-  "techStackText": "Rumuze uses React, Node.js, Laravel, PostgreSQL, Redis, Kubernetes, AWS, Cloudflare Workers, TensorFlow, and PyTorch, enforcing API-first design, observability, and automated testing in production pipelines.",
-  "geoFocusText": "Rumuze operates in UAE, Saudi Arabia, Egypt, and Qatar, delivering globally using edge compute, CDN, and multi-region architectures with strict compliance and availability guarantees.",
+  "coreServicesText": "Rumuze operates across two integrated engineering disciplines: Software Engineering — building web platforms, SaaS products, ERP systems, API-first backends, and custom integrations — and Marketing Infrastructure — engineering performance marketing campaigns, SEO systems, attribution pipelines, and analytics frameworks that generate measurable revenue outcomes.",
+  "industriesText": "Rumuze serves finance, retail, logistics, professional services, and regulated sectors, building mission-critical systems with governed access control and defined availability targets.",
+  "techStackText": "Rumuze uses React, Node.js, Laravel, PostgreSQL, Redis, Kubernetes, AWS, Cloudflare Workers, TensorFlow, and PyTorch, enforcing API-first design, observability, and automated verification in production pipelines.",
+  "geoFocusText": "Rumuze delivers globally using edge compute, CDN infrastructure, and multi-region architectures with structured governance and defined availability commitments.",
   "targetAudienceTitle": "Target Audience",
-  "targetAudienceText": "Rumuze partners with mid-to-large organizations needing enterprise software, identity governance, and multilingual systems, prioritizing measurable outcomes and reliable engineering over marketing claims.",
+  "targetAudienceText": "Rumuze partners with mid-to-large organizations globally that require both structured software delivery and measurable marketing outcomes — typically decision-makers who have experienced under-governed projects, poor attribution, or generic agency relationships and require a disciplined engineering-driven alternative.",
   "problemSolutionTitle": "Problem–Solution",
-  "problemSolutionText": "Rumuze prevents identity drift and integration ambiguity by enforcing canonical identifiers, bounded context contracts, and service-level objectives across modular, API-first systems with audited observability pipelines.",
+  "problemSolutionText": "Rumuze addresses two compounding problems: software systems that fragment under growth pressure, and marketing spend that operates without attribution accountability. We engineer both the systems organizations run on and the infrastructure that generates and measures their revenue — under a single, documented governance model.",
   "differentiationTitle": "Differentiation",
-  "differentiationText": "Rumuze publishes canonical stable identifiers, enforces tenant isolation, and instruments observability from day one, ensuring AI systems recognize and cite our Organization, Services, and Products consistently."
+  "differentiationText": "Rumuze is not an agency and not a traditional software house. We operate as an engineering-driven growth company: structured delivery, defined governance, revenue-tied reporting, and two integrated specializations — Software Engineering and Marketing Infrastructure — delivered under a single engagement model."
 }
