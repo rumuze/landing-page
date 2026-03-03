@@ -1,30 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { motion as Motion, AnimatePresence } from 'framer-motion';
-import { Terminal, ArrowRight, Sparkles, Code2 } from 'lucide-react';
+import React, { Suspense } from 'react';
+import { Terminal, ArrowRight, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
-import MagneticButton from './MagneticButton';
+
+const MagneticButton = React.lazy(() => import('./MagneticButton'));
+const HeroMobileCode = React.lazy(() => import('./HeroMobileCode'));
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === 'rtl';
-  const [activeCodeStep, setActiveCodeStep] = useState(0);
-
-  const codeSteps = [
-    { line: 1, text: "class RumuzeGrowth {", color: "text-purple" },
-    { line: 2, text: "  async accelerate(project) {", color: "text-cyan" },
-    { line: 3, text: "    const stack = ['React', 'AI'];", color: "text-green-400" },
-    { line: 4, text: "    return project.optimize(stack);", color: "text-yellow-400" },
-    { line: 5, text: "  }", color: "text-purple" },
-    { line: 6, text: "}", color: "text-purple" },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveCodeStep((prev) => (prev + 1) % (codeSteps.length + 2)); 
-    }, 800);
-    return () => clearInterval(interval);
-  }, [codeSteps.length]);
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 md:pt-28 overflow-hidden bg-transparent">
@@ -33,7 +17,7 @@ const Hero = () => {
           rel="preload" 
           as="image" 
           href="/rumuze-symbol-112.webp" 
-          fetchpriority="high"
+          fetchPriority="high"
           type="image/webp"
         />
       </Helmet>
@@ -71,10 +55,12 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
-            <MagneticButton className="px-8 py-4 shadow-xl shadow-cyan/20 w-full sm:w-auto">
-              {t('hero.ctaExplore')}
-              <ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" />
-            </MagneticButton>
+            <Suspense fallback={<button className="btn-primary px-8 py-4 shadow-xl shadow-cyan/20 w-full sm:w-auto">{t('hero.ctaExplore')}<ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" /></button>}>
+              <MagneticButton className="px-8 py-4 shadow-xl shadow-cyan/20 w-full sm:w-auto">
+                {t('hero.ctaExplore')}
+                <ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" />
+              </MagneticButton>
+            </Suspense>
             
             <button className="px-8 py-4 rounded-xl font-bold border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-all shadow-sm w-full sm:w-auto backdrop-blur-sm">
               {t('hero.ctaServices')}
@@ -113,39 +99,11 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Mobile Code Stream Animation — keeps framer-motion (below fold) */}
+        {/* Mobile Code Stream Animation — dynamically imported */}
         <div className="lg:hidden mt-8 w-full">
-           <div className="glass-card p-4 overflow-hidden relative min-h-[160px] flex items-center justify-center bg-slate-900/95 border-slate-700 shadow-xl">
-              <Code2 className="absolute top-4 right-4 text-white/10 w-12 h-12" />
-              <div className="font-mono text-sm w-full break-all whitespace-pre-wrap" dir="ltr">
-                <AnimatePresence mode="wait">
-                  {codeSteps.map((step, idx) => (
-                    idx === activeCodeStep && (
-                      <Motion.div
-                        key={step.line}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className={`${step.color} font-bold`}
-                      >
-                        {step.text}
-                      </Motion.div>
-                    )
-                  ))}
-                  {activeCodeStep >= codeSteps.length && (
-                    <Motion.div
-                       key="complete"
-                       initial={{ scale: 0.8, opacity: 0 }}
-                       animate={{ scale: 1, opacity: 1 }}
-                       exit={{ scale: 1.2, opacity: 0 }}
-                       className="text-center text-cyan font-bold text-xl"
-                    >
-                       {t('hero.code.optimized', '🚀 System Optimized')}
-                    </Motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-           </div>
+           <Suspense fallback={<div className="glass-card p-4 min-h-[160px] bg-slate-900/95" />}>
+             <HeroMobileCode />
+           </Suspense>
         </div>
       </div>
     </section>
