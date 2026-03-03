@@ -5,18 +5,18 @@ import { ArrowRight, ArrowLeft, Calendar, TrendingUp, Code2 } from 'lucide-react
 
 const CTA_VARIANTS = {
   technical: {
-    en: 'Request Technical Consultation',
-    ar: 'احجز استشارة فنية',
+    en: 'Request a Scoped Technical Assessment',
+    ar: 'اطلب تقييماً تقنياً محدد النطاق',
     icon: Code2,
   },
   growth: {
-    en: 'Get a Custom Growth Plan',
-    ar: 'احصل على خطة نمو مخصصة',
+    en: 'Request a Revenue Infrastructure Audit',
+    ar: 'اطلب تدقيق بنية الإيرادات التحتية',
     icon: TrendingUp,
   },
   strategy: {
-    en: 'Book a Strategy Call',
-    ar: 'احجز استشارة استراتيجية',
+    en: 'Request a Discovery Session',
+    ar: 'اطلب جلسة اكتشاف',
     icon: Calendar,
   },
 };
@@ -47,14 +47,14 @@ const ServiceCTASection = ({ service, isAr, variant = 'technical' }) => {
               className="text-3xl md:text-4xl font-bold text-white mb-4"
             >
               {isAr
-                ? `مستعد لتحسين ${title}؟`
-                : `Ready to transform your ${title}?`
+                ? `حدّد نطاق مبادرة ${title}`
+                : `Scope Your ${title} Initiative`
               }
             </h2>
             <p className="text-lg text-gray-300 mb-8 max-w-xl mx-auto">
               {isAr
-                ? 'دعنا نناقش كيف يمكن لروموز بناء الحل المناسب لتحدياتك الخاصة.'
-                : 'Let\'s discuss how Rumuze can build the right solution for your specific challenges.'
+                ? 'قدّم متطلباتكم لتحصلوا على مخطط اكتشاف محدد النطاق. مالك مشروع مسمّى سيحدد المخرجات والجدول الزمني ونموذج الحوكمة قبل أي التزام.'
+                : 'Submit your requirements to receive a scoped discovery outline. A named project owner will define deliverables, timeline, and governance model before any commitment.'
               }
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -70,7 +70,7 @@ const ServiceCTASection = ({ service, isAr, variant = 'technical' }) => {
                 to={isAr ? '/ar/services' : '/services'}
                 className="px-8 py-4 text-base font-semibold text-gray-300 hover:text-white transition-colors"
               >
-                {isAr ? 'استكشف جميع الخدمات' : 'Explore All Services'}
+                {isAr ? 'عرض جميع القدرات' : 'View All Capabilities'}
               </Link>
             </div>
           </div>

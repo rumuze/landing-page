@@ -9,36 +9,36 @@ const CTA_OPTIONS = [
     id: 'strategy',
     icon: Rocket,
     label: {
-      en: 'Book a Strategy Session',
-      ar: 'احجز جلسة استراتيجية',
+      en: 'Request a Discovery Session',
+      ar: 'اطلب جلسة اكتشاف',
     },
     sublabel: {
-      en: '30-min call to discuss your growth roadmap',
-      ar: 'مكالمة 30 دقيقة لمناقشة خارطة نموك',
+      en: 'Scoped requirements review with a named project owner',
+      ar: 'مراجعة متطلبات محددة النطاق مع مالك مشروع مسمى',
     },
   },
   {
     id: 'technical',
     icon: Code2,
     label: {
-      en: 'Request Technical Consultation',
-      ar: 'اطلب استشارة فنية',
+      en: 'Request an Architecture Assessment',
+      ar: 'اطلب تقييم معماري',
     },
     sublabel: {
-      en: 'Architecture review and technical audit',
-      ar: 'مراجعة البنية المعمارية وتدقيق تقني',
+      en: 'System architecture review with documented findings',
+      ar: 'مراجعة معمارية النظام مع نتائج موثقة',
     },
   },
   {
     id: 'growth',
     icon: BarChart3,
     label: {
-      en: 'Get a Digital Growth Blueprint',
-      ar: 'احصل على خارطة نمو رقمي',
+      en: 'Request a Revenue Infrastructure Audit',
+      ar: 'اطلب تدقيق بنية الإيرادات التحتية',
     },
     sublabel: {
-      en: 'Marketing audit with measurable targets',
-      ar: 'تدقيق تسويقي بأهداف قابلة للقياس',
+      en: 'Attribution and pipeline assessment with defined KPIs',
+      ar: 'تقييم الإسناد وخط الأنابيب بمؤشرات أداء محددة',
     },
   },
 ];
@@ -68,14 +68,14 @@ const HomepageCTASection = () => {
               className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 text-center"
             >
               {isAr
-                ? 'ابدأ مشروعك المؤسسي التالي'
-                : 'Start Your Next Enterprise Engagement'
+                ? 'ابدأ ارتباط اكتشاف منظم'
+                : 'Initiate a Structured Discovery Engagement'
               }
             </h2>
             <p className="text-lg text-gray-300 mb-12 text-center max-w-2xl mx-auto">
               {isAr
-                ? 'اختر نقطة البداية المناسبة — سواء كانت معمارية أو تنفيذية أو تسويقية.'
-                : 'Choose the right starting point — whether architecture, execution, or growth.'
+                ? 'اختر مسار الارتباط المناسب لمتطلباتكم. كل مسار يبدأ بجلسة اكتشاف محددة النطاق.'
+                : 'Select the engagement track that matches your requirements. Each begins with a scoped discovery session.'
               }
             </p>
 
@@ -104,7 +104,7 @@ const HomepageCTASection = () => {
                         {isAr ? opt.sublabel.ar : opt.sublabel.en}
                       </p>
                       <span className="inline-flex items-center gap-1 text-cyan text-sm font-semibold group-hover:gap-2 transition-all">
-                        {isAr ? 'ابدأ الآن' : 'Get Started'}
+                        {isAr ? 'ابدأ الاكتشاف' : 'Begin Discovery'}
                         <Arrow size={14} />
                       </span>
                     </Link>

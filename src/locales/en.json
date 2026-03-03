@@ -119,22 +119,22 @@
         "badge": "The Corporate Engine"
     },
     "contact": {
-        "title": "Start an Engagement",
-        "description": "If your organization requires integrated digital infrastructure or structured execution capability, contact us to schedule a consultation.",
+        "title": "Initiate a Scoped Engagement",
+        "description": "Submit your project requirements to initiate a structured discovery engagement. Your submission enters a documented intake process: requirements review, preliminary SOW scoping, and a response from a designated project lead within one business day.",
         "labels": {
             "name": "Full Name",
             "company": "Organization Name",
             "email": "Work Email",
             "subject": "Subject",
             "message": "Project Details",
-            "send": "Send Message"
+            "send": "Submit Inquiry"
         },
         "info": {
             "hq": "Headquarters",
             "email": "Project Inquiries",
             "phone": "Direct Line"
         },
-        "success": "Your inquiry has been received. Our team will respond within one business day."
+        "success": "Your scoped engagement request has been received. A designated project lead will review your submission within one business day."
     },
     "footer": {
         "tagline": "Integrated Digital Infrastructure. Structured Execution.",

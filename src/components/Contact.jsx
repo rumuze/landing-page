@@ -228,7 +228,7 @@ const Contact = () => {
                     <CheckCircle size={48} />
                   </Motion.div>
                   <h3 className="text-3xl font-black text-slate-900 dark:text-white mb-4">
-                    Message Sent!
+                    Inquiry Received
                   </h3>
                   <p className="text-slate-600 dark:text-gray-400 max-w-xs">
                     {t("contact.success")}
@@ -237,7 +237,7 @@ const Contact = () => {
                     onClick={() => setSuccess(false)}
                     className="mt-8 px-6 py-2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white font-bold hover:bg-slate-200 dark:hover:bg-white/20 transition-colors"
                   >
-                    Send Another
+                    Submit Another Inquiry
                   </button>
                 </Motion.div>
               ) : null}
