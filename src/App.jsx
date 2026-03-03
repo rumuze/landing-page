@@ -52,6 +52,9 @@ const EnterpriseWebDevelopmentPage = lazy(() => import('./pages/EnterpriseWebDev
 const SaaSArchitecturePage = lazy(() => import('./pages/SaaSArchitecturePage'));
 const MarketingInfrastructurePage = lazy(() => import('./pages/MarketingInfrastructurePage'));
 const SeoRevenueSystemsPage = lazy(() => import('./pages/SeoRevenueSystemsPage'));
+const CustomSoftwareDevelopmentPage = lazy(() => import('./pages/CustomSoftwareDevelopmentPage'));
+const EnterpriseApplicationDevelopmentPage = lazy(() => import('./pages/EnterpriseApplicationDevelopmentPage'));
+const ApiIntegrationArchitecturePage = lazy(() => import('./pages/ApiIntegrationArchitecturePage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -442,6 +445,36 @@ function AppContent() {
             <Route path="/ar/seo-revenue-systems" element={
               <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Suspense fallback={<Skeleton />}><SeoRevenueSystemsPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/custom-software-development" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CustomSoftwareDevelopmentPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/custom-software-development" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><CustomSoftwareDevelopmentPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/enterprise-application-development" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><EnterpriseApplicationDevelopmentPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/enterprise-application-development" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><EnterpriseApplicationDevelopmentPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/api-integration-architecture" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ApiIntegrationArchitecturePage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/api-integration-architecture" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><ApiIntegrationArchitecturePage /></Suspense>
               </Motion.div>
             } />
 
