@@ -105,11 +105,14 @@ const Navbar = () => {
 
               {/* Text Brand Image */}
               <div className="h-6 flex items-center overflow-hidden">
-                <img 
-                  src="/rumuze-text.png" 
-                  alt="RUMUZE" 
-                  className="h-full object-contain filter dark:invert-0 invert opacity-90 group-hover:opacity-100 transition-opacity" 
-                />
+                <picture className="h-full flex items-center">
+                  <source srcSet="/rumuze-text.avif" type="image/avif" />
+                  <img 
+                    src="/rumuze-text.png" 
+                    alt="RUMUZE" 
+                    className="h-full object-contain filter dark:invert-0 invert opacity-90 group-hover:opacity-100 transition-opacity" 
+                  />
+                </picture>
               </div>
             </Link>
 

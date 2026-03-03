@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import SEO from '../components/SEO';
-import HomeGEOBlocks from '../components/HomeGEOBlocks';
+const HomeGEOBlocks = lazy(() => import('../components/HomeGEOBlocks'));
 import Hero from '../components/Hero';
 import Services from '../components/Services';
 import Portfolio from '../components/Portfolio';
@@ -23,7 +23,9 @@ const HomePage = ({ isAr = false }) => {
       <HomepageDifferentiationSection />
       <Portfolio />
       <TechStack />
-      <HomeGEOBlocks locale={isAr ? 'ar' : 'en'} />
+      <Suspense fallback={<div className="min-h-[200px]" />}>
+        <HomeGEOBlocks locale={isAr ? 'ar' : 'en'} />
+      </Suspense>
       <HomepageFAQBlock />
       <HomepageCTASection />
       <Contact />

@@ -36,42 +36,43 @@ const OptimizedImage = ({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  // Generate optimized Unsplash URLs with different widths
+  // Generate optimized URLs with different widths
   const generateSrcSet = (baseUrl) => {
     // Check if it's an Unsplash URL
-    if (!baseUrl.includes('unsplash.com')) {
-      return null;
+    if (baseUrl.includes('unsplash.com')) {
+      const cleanUrl = baseUrl.split('?')[0];
+      const widths = [400, 600, 800, 1200, 1600];
+      return widths
+        .map(w => {
+          const quality = w <= 600 ? 50 : 65;
+          const url = `${cleanUrl}?auto=format&fit=crop&q=${quality}&w=${w}&fm=webp`;
+          return `${url} ${w}w`;
+        })
+        .join(', ');
+    }
+    
+    // Local portfolio images generated via sharp-cli
+    if (baseUrl.startsWith('/assets/images/portfolio-')) {
+      const baseName = baseUrl.replace('.webp', '');
+      return `${baseName}-480.webp 480w, ${baseName}-768.webp 768w, ${baseName}-1200.webp 1200w`;
     }
 
-    // Remove existing query params
-    const cleanUrl = baseUrl.split('?')[0];
-    
-    // CRITICAL: Mobile-first breakpoints optimized for PageSpeed
-    // Cap mobile at 600px to save 6KB+ per image
-    const widths = [400, 600, 800, 1200, 1600];
-    
-    return widths
-      .map(w => {
-        // Aggressive compression for mobile (w <= 600): q=50
-        // Standard compression for desktop: q=65
-        const quality = w <= 600 ? 50 : 65;
-        const url = `${cleanUrl}?auto=format&fit=crop&q=${quality}&w=${w}&fm=webp`;
-        return `${url} ${w}w`;
-      })
-      .join(', ');
+    return null;
   };
 
-  // Generate fallback URL (non-WebP)
+  // Generate fallback URL
   const generateFallbackUrl = (baseUrl, targetWidth) => {
-    if (!baseUrl.includes('unsplash.com')) {
-      return baseUrl;
+    if (baseUrl.includes('unsplash.com')) {
+      const cleanUrl = baseUrl.split('?')[0];
+      const optimalWidth = targetWidth || 800;
+      return `${cleanUrl}?auto=format&fit=crop&q=65&w=${optimalWidth}`;
     }
 
-    const cleanUrl = baseUrl.split('?')[0];
-    // Use 800px as default (good balance for mobile + desktop)
-    const optimalWidth = targetWidth || 800;
-    // Match srcset compression: q=65
-    return `${cleanUrl}?auto=format&fit=crop&q=65&w=${optimalWidth}`;
+    if (baseUrl.startsWith('/assets/images/portfolio-')) {
+      return baseUrl.replace('.webp', '-768.webp');
+    }
+
+    return baseUrl;
   };
 
   const srcSet = generateSrcSet(src);

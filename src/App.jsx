@@ -1,4 +1,3 @@
-import { useScroll, useSpring, AnimatePresence, motion as Motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
@@ -109,12 +108,19 @@ function AppContent() {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (windowHeight === 0) return;
+      setScrollProgress(totalScroll / windowHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // PWA Register Logic
   const {
@@ -205,16 +211,16 @@ function AppContent() {
 
   return (
     <div className={`min-h-screen bg-white dark:bg-background tech-grid transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
-      <Motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan to-purple origin-left z-[100]"
-        style={{ scaleX }}
+      <div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan to-purple origin-left z-[100] transition-transform duration-100 ease-out"
+        style={{ transform: `scaleX(${scrollProgress})` }}
       />
       
       <OfflineToast />
       <Navbar />
       
       <main>
-        <AnimatePresence mode="wait">
+        
           <Routes location={location} key={location.pathname}>
             {/* Home Routes */}
             <Route path="/" element={<HomePage />} />
@@ -222,14 +228,14 @@ function AppContent() {
 
             {/* Portfolio Page Routes */}
             <Route path="/portfolio" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/portfolio" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Offline Page */}
@@ -238,305 +244,305 @@ function AppContent() {
 
             {/* Labs Routes */}
             <Route path="/labs" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><Labs /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/labs" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><Labs /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Services Routes */}
             <Route path="/services" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/services" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Service Detail Routes */}
             <Route path="/services/:slug" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ServiceDetailPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/services/:slug" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ServiceDetailPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Case Studies Routes */}
             <Route path="/case-studies" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><CaseStudiesPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/case-studies" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><CaseStudiesPage isAr={true} /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/case-studies/:slug" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><CaseStudyDetailPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/case-studies/:slug" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><CaseStudyDetailPage isAr={true} /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Why Rumuze & Comparison Routes */}
             <Route path="/why-rumuze" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><WhyRumuzePage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/why-rumuze" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><WhyRumuzePage isAr={true} /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/comparison/:slug" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ComparisonPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/comparison/:slug" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ComparisonPage isAr={true} /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Saudi Arabia & Enterprise Framework Routes */}
             <Route path="/saudi-arabia" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><SaudiArabiaPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/saudi-arabia" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><SaudiArabiaPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/enterprise-framework" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><EnterpriseFrameworkPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/enterprise-framework" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><EnterpriseFrameworkPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* About Routes */}
             <Route path="/about" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Suspense />}><AboutPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/about" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><AboutPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Authority Pages */}
             <Route path="/methodology" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><Methodology /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/methodology" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><Methodology /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/architecture-principles" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ArchitecturePrinciples /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/architecture-principles" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ArchitecturePrinciples /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/engineering-standards" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><EngineeringStandards /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/engineering-standards" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><EngineeringStandards /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/slo-framework" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><SLOFramework /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/slo-framework" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><SLOFramework /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/multilingual-systems" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><MultilingualSystems /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/multilingual-systems" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><MultilingualSystems /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/knowledge-graph-architecture" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><KnowledgeGraphArchitecture /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/knowledge-graph-architecture" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><KnowledgeGraphArchitecture /></Suspense>
-              </Motion.div>
+              </div>
             } />
             {/* Topical Authority Routes */}
             <Route path="/enterprise-web-development" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><EnterpriseWebDevelopmentPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/enterprise-web-development" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><EnterpriseWebDevelopmentPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/saas-architecture" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><SaaSArchitecturePage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/saas-architecture" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><SaaSArchitecturePage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/marketing-infrastructure" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><MarketingInfrastructurePage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/marketing-infrastructure" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><MarketingInfrastructurePage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/seo-revenue-systems" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><SeoRevenueSystemsPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/seo-revenue-systems" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><SeoRevenueSystemsPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/custom-software-development" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><CustomSoftwareDevelopmentPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/custom-software-development" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><CustomSoftwareDevelopmentPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/enterprise-application-development" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><EnterpriseApplicationDevelopmentPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/enterprise-application-development" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><EnterpriseApplicationDevelopmentPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/api-integration-architecture" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ApiIntegrationArchitecturePage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/api-integration-architecture" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ApiIntegrationArchitecturePage /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Blog Routes */}
             <Route path="/blog" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/blog" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Legal Routes */}
             <Route path="/privacy" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/privacy" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/terms" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/terms" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* Contact Routes */}
             <Route path="/contact" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
             <Route path="/ar/contact" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
-              </Motion.div>
+              </div>
             } />
 
             {/* 404 Catch-All Route */}
             <Route path="*" element={
-              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><NotFound /></Suspense>
-              </Motion.div>
+              </div>
             } />
           </Routes>
-        </AnimatePresence>
+        
       </main>
 
       {/* Floating Button Stack — WhatsApp above Share, safe-area positioned */}
@@ -586,7 +592,7 @@ function App() {
     <HelmetProvider>
       <ErrorBoundary>
         <ThemeProvider>
-          <AnimatePresence>
+          
             {isInitialLoading && (
               <Motion.div
                 initial={{ opacity: 1 }}
@@ -595,9 +601,9 @@ function App() {
                 className="fixed inset-0 z-[10000]"
               >
                 <LoadingSpinner fullScreen />
-              </Motion.div>
+              </div>
             )}
-          </AnimatePresence>
+          
           <Router>
             <CustomCursor />
             <ScrollToTop />
