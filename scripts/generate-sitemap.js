@@ -20,8 +20,8 @@ const __dirname = dirname(__filename);
 // CONFIGURATION
 // ============================================================================
 
-// Read SiteConfig from source file to avoid hardcoding domain
-const siteConfigPath = join(__dirname, '../src/config/site.ts');
+// Read siteCoreConfig from source file to avoid hardcoding domain
+const siteConfigPath = join(__dirname, '../src/config/siteCoreConfig.ts');
 const siteConfigContent = readFileSync(siteConfigPath, 'utf8');
 const baseUrlMatch = siteConfigContent.match(/baseUrl:\s*['"]([^'"]+)['"]/);
 
