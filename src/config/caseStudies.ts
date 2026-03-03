@@ -342,4 +342,134 @@ export const CASE_STUDIES: CaseStudy[] = [
       company: 'UAE Fashion Retailer',
     },
   },
+  {
+    id: 'cs-revenue-platform',
+    slug: 'revenue-platform-engineering',
+    title: {
+      en: 'Engineering a Revenue-Centric Web Platform with Integrated Marketing Infrastructure',
+      ar: 'هندسة منصة ويب محورها الإيرادات مع بنية تحتية تسويقية متكاملة',
+    },
+    industry: {
+      en: 'Professional Services & B2B SaaS',
+      ar: 'الخدمات المهنية وتطبيقات SaaS للشركات',
+    },
+    problem: {
+      en: `A mid-size professional services company had two compounding problems: a fragmented web platform that could not support their sales cycle, and marketing spend that operated without attribution accountability.
+
+Executive Summary: The client's existing website was a static brochure site running on a shared hosting environment. It had no lead capture infrastructure, no CRM integration, no analytics beyond page views, and no conversion tracking. At the same time, their marketing team was spending $18,000/month across Google Ads and Meta Ads with no ability to attribute which campaigns were producing qualified pipeline. The combination of a weak platform and broken marketing infrastructure was causing 32% of inbound leads to be lost before first contact.
+
+Business Problem: The operational bottleneck was a disconnected stack — static site, spreadsheet-managed leads, manual follow-up, and last-click attribution in Google Analytics. The revenue friction was measurable: $18K/month in ad spend producing a 1.4x ROAS with a cost-per-qualified-lead of $214. The system limitation was absence of any infrastructure — no webhook-based lead routing, no lifecycle tracking, no conversion API, no server-side event stream. The governance gap was total: no SOW-bound delivery model, no reporting cadence, no KPI accountability.`,
+      ar: `شركة خدمات مهنية متوسطة الحجم كانت تعاني من مشكلتين متراكمتين: منصة ويب مجزأة لا تدعم دورة المبيعات، وإنفاق تسويقي يعمل دون مساءلة إسناد.
+
+الملخص التنفيذي: كان موقع العميل الإلكتروني الحالي صفحة ثابتة تعمل على بيئة استضافة مشتركة. لم يكن لديه بنية تحتية لجمع العملاء المحتملين، ولا تكامل مع CRM، ولا تحليلات تتجاوز مشاهدات الصفحات، ولا تتبع للتحويلات. في نفس الوقت، كان فريق التسويق ينفق 18,000 دولار شهرياً عبر Google Ads وMeta Ads دون أي قدرة على نسب الحملات التي تنتج خط أنابيب مؤهل. أدى الجمع بين منصة ضعيفة وبنية تحتية تسويقية معطلة إلى خسارة 32% من العملاء المحتملين الوافدين قبل أول تواصل.
+
+المشكلة التجارية: كانت الاختناق التشغيلي في مكدس منفصل — موقع ثابت وإدارة عملاء محتملين عبر جداول بيانات ومتابعة يدوية وإسناد نقرة أخيرة. كان الاحتكاك في الإيرادات قابلاً للقياس: 18 ألف دولار شهرياً في الإنفاق الإعلاني ينتج عائداً إعلانياً 1.4x وتكلفة لكل عميل مؤهل بـ 214 دولار. كان القيد النظامي غياب أي بنية تحتية — لا توجيه عملاء محتملين عبر webhook، ولا تتبع دورة حياة، ولا واجهة API للتحويل، ولا تدفق أحداث من جانب الخادم. كانت الفجوة في الحوكمة كاملة: لا نموذج تسليم مقيد ببيان عمل، ولا إيقاع تقارير، ولا مساءلة لمؤشرات الأداء.`,
+    },
+    solution: {
+      en: `Rumuze delivered a two-pillar engagement: a production-grade web platform and a complete marketing infrastructure rebuild — both governed under a single Statement of Work with weekly reporting.
+
+Pillar 1 — Software Engineering: Rumuze re-architected the client's web presence as a Next.js SSR platform with an API-first Node.js backend. The platform included a structured lead capture system with webhook-based routing to HubSpot CRM, lifecycle stage automation, a bilingual content architecture (Arabic + English), JSON-LD structured data for all service and FAQ entities, and a Core Web Vitals-optimized deployment on Vercel with edge CDN. The CRM integration included lead scoring rules, automated email sequences, and sales team assignment logic based on lead source and intent signal.
+
+Pillar 2 — Marketing Infrastructure: Rumuze rebuilt the attribution stack from the tracking layer up. Implementation included server-side GTM, Meta Conversion API (CAPI), GA4 with custom event taxonomy, multi-touch attribution modeling in Looker Studio, and a structured audience segmentation framework based on behavioral cohorts. Campaign structure was redesigned across Google Ads (3 search campaigns, 2 performance max) and Meta Ads (6 ad sets, 18 creative variants) with a systematic A/B testing rotation. A weekly executive revenue dashboard was configured to report ROAS, CPL, pipeline velocity, and conversion stage breakdown.
+
+Governance Model: The engagement ran under a defined SOW with bi-weekly sprint reviews, weekly KPI reporting, milestone sign-off before each phase launch, and a named Rumuze project owner accountable for all deliverables. No scope was added without a signed change order.`,
+      ar: `قدمت روموز ارتباطاً ذا ركيزتين: منصة ويب بجودة إنتاجية وإعادة بناء كاملة للبنية التحتية التسويقية — كلاهما محكوم تحت بيان عمل واحد مع تقارير أسبوعية.
+
+الركيزة 1 — هندسة البرمجيات: أعادت روموز هيكلة حضور العميل على الإنترنت كمنصة Next.js بعرض خادم مع خلفية Node.js قائمة على API-first. تضمنت المنصة نظام التقاط عملاء محتملين منظم مع توجيه قائم على webhook إلى HubSpot CRM وأتمتة مرحلة دورة الحياة ومعمارية محتوى ثنائية اللغة (عربي + إنجليزي) وبيانات JSON-LD المهيكلة لجميع كيانات الخدمة والأسئلة الشائعة ونشر محسّن لـ Core Web Vitals على Vercel مع CDN حافة. تضمن تكامل CRM قواعد تسجيل العملاء المحتملين وتسلسلات البريد الإلكتروني الآلية ومنطق تعيين فريق المبيعات بناءً على مصدر العميل المحتمل وإشارة النية.
+
+الركيزة 2 — البنية التحتية التسويقية: أعادت روموز بناء مكدس الإسناد من طبقة التتبع. شمل التنفيذ GTM من جانب الخادم وواجهة Meta Conversion API (CAPI) وGA4 مع تصنيف أحداث مخصص ونمذجة إسناد متعدد اللمس في Looker Studio وإطار تقسيم جمهور منظم قائم على أفواج سلوكية. تمت إعادة تصميم هيكل الحملة عبر Google Ads (3 حملات بحث، 2 Performance Max) وMeta Ads (6 مجموعات إعلانية، 18 إصداراً إبداعياً) مع تدوير A/B منهجي. تم تكوين لوحة إيرادات تنفيذية أسبوعية للإبلاغ عن ROAS وCPL وسرعة خط الأنابيب وتفصيل مرحلة التحويل.
+
+نموذج الحوكمة: جرى الارتباط تحت بيان عمل محدد مع مراجعات سبرينت نصف شهرية وتقارير KPI أسبوعية وتوقيع على مراحل قبل كل إطلاق مرحلة ومالك مشروع روموز مسمى مسؤول عن جميع المخرجات. لم تُضف أي نطاق دون أمر تغيير موقّع.`,
+    },
+    results: [
+      {
+        metric: {
+          en: 'Qualified Lead Volume',
+          ar: 'حجم العملاء المحتملين المؤهلين',
+        },
+        value: '+47%',
+        improvement: {
+          en: 'increase within 90 days of platform launch',
+          ar: 'زيادة خلال 90 يوماً من إطلاق المنصة',
+        },
+      },
+      {
+        metric: {
+          en: 'Lead Leakage Rate',
+          ar: 'معدل تسرب العملاء المحتملين',
+        },
+        value: '-32%',
+        improvement: {
+          en: 'reduction via CRM webhook routing and lifecycle automation',
+          ar: 'انخفاض عبر توجيه webhook لـ CRM وأتمتة دورة الحياة',
+        },
+      },
+      {
+        metric: {
+          en: 'Conversion Rate (Visitor → Lead)',
+          ar: 'معدل التحويل (زائر → عميل محتمل)',
+        },
+        value: '+18%',
+        improvement: {
+          en: 'improvement from 1.4% to 1.65% after CRO implementation',
+          ar: 'تحسن من 1.4% إلى 1.65% بعد تنفيذ تحسين التحويل',
+        },
+      },
+      {
+        metric: { en: 'ROAS', ar: 'العائد الإعلاني' },
+        value: '3.6x',
+        improvement: {
+          en: 'from 1.4x — attributed via server-side tracking + multi-touch model',
+          ar: 'من 1.4x — منسوب عبر تتبع جانب الخادم ونموذج متعدد اللمس',
+        },
+      },
+      {
+        metric: {
+          en: 'Cost Per Qualified Lead',
+          ar: 'تكلفة العميل المحتمل المؤهل',
+        },
+        value: '$124',
+        improvement: {
+          en: 'from $214 — 42% reduction via audience segmentation and bid restructuring',
+          ar: 'من 214 دولار — انخفاض 42% عبر تقسيم الجمهور وإعادة هيكلة العطاء',
+        },
+      },
+      {
+        metric: {
+          en: 'Attribution Visibility',
+          ar: 'رؤية الإسناد',
+        },
+        value: '100%',
+        improvement: {
+          en: 'full attribution across all paid channels via CAPI + server-side GTM',
+          ar: 'إسناد كامل عبر جميع القنوات المدفوعة عبر CAPI + GTM من جانب الخادم',
+        },
+      },
+    ],
+    services: ['software-engineering', 'web-development', 'performance-marketing', 'marketing-infrastructure'],
+    duration: { en: '4 months', ar: '4 أشهر' },
+    techUsed: [
+      'Next.js',
+      'Node.js',
+      'HubSpot CRM',
+      'GTM Server-Side',
+      'Meta CAPI',
+      'GA4',
+      'Looker Studio',
+      'Vercel Edge',
+      'JSON-LD',
+    ],
+    testimonial: {
+      quote: {
+        en: 'Before Rumuze, we were spending $18K a month on ads with no idea what was working. They rebuilt everything — the platform, the tracking, the campaigns — and for the first time we have a dashboard that shows us exactly where every qualified lead came from.',
+        ar: 'قبل روموز، كنا ننفق 18 ألف دولار شهرياً على الإعلانات دون أي فكرة عما ينجح. أعادوا بناء كل شيء — المنصة والتتبع والحملات — وللمرة الأولى لدينا لوحة تظهر لنا بالضبط من أين جاء كل عميل مؤهل.',
+      },
+      author: 'Nasser R.',
+      role: {
+        en: 'Managing Director',
+        ar: 'المدير العام',
+      },
+      company: 'B2B Professional Services Firm (MENA)',
+    },
+  },
 ];
