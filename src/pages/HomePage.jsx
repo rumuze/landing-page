@@ -1,33 +1,16 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { motion as Motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import HomeGEOBlocks from '../components/HomeGEOBlocks';
-
-// Lazy load existing components
-const Hero = lazy(() => import('../components/Hero'));
-const Services = lazy(() => import('../components/Services'));
-const Portfolio = lazy(() => import('../components/Portfolio'));
-const TechStack = lazy(() => import('../components/TechStack'));
-const Contact = lazy(() => import('../components/Contact'));
-
-// Lazy load Phase 3 homepage authority components
-const HomepageMetricsBar = lazy(() => import('../components/HomepageMetricsBar'));
-const HomepageDifferentiationSection = lazy(() => import('../components/HomepageDifferentiationSection'));
-const HomepageFAQBlock = lazy(() => import('../components/HomepageFAQBlock'));
-const HomepageCTASection = lazy(() => import('../components/HomepageCTASection'));
-
-// Skeleton Loader (reused from App.jsx pattern if needed, or imported)
-const Skeleton = () => (
-  <div className="min-h-screen bg-white dark:bg-background p-8 space-y-8 animate-pulse">
-    <div className="h-20 bg-white/5 rounded-2xl w-full"></div>
-    <div className="h-[500px] bg-white/5 rounded-3xl w-full"></div>
-    <div className="grid grid-cols-3 gap-8">
-        <div className="h-64 bg-white/5 rounded-2xl"></div>
-        <div className="h-64 bg-white/5 rounded-2xl"></div>
-        <div className="h-64 bg-white/5 rounded-2xl"></div>
-    </div>
-  </div>
-);
+import Hero from '../components/Hero';
+import Services from '../components/Services';
+import Portfolio from '../components/Portfolio';
+import TechStack from '../components/TechStack';
+import Contact from '../components/Contact';
+import HomepageMetricsBar from '../components/HomepageMetricsBar';
+import HomepageDifferentiationSection from '../components/HomepageDifferentiationSection';
+import HomepageFAQBlock from '../components/HomepageFAQBlock';
+import HomepageCTASection from '../components/HomepageCTASection';
 
 const HomePage = ({ isAr = false }) => {
   const path = isAr ? '/ar' : '/';
@@ -35,21 +18,18 @@ const HomePage = ({ isAr = false }) => {
   return (
     <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <SEO path={path} />
-      <Suspense fallback={<Skeleton />}>
-        <Hero />
-        <HomepageMetricsBar />
-        <Services />
-        <HomepageDifferentiationSection />
-        <Portfolio />
-        <TechStack />
-        <HomeGEOBlocks locale={isAr ? 'ar' : 'en'} />
-        <HomepageFAQBlock />
-        <HomepageCTASection />
-        <Contact />
-      </Suspense>
+      <Hero />
+      <HomepageMetricsBar />
+      <Services />
+      <HomepageDifferentiationSection />
+      <Portfolio />
+      <TechStack />
+      <HomeGEOBlocks locale={isAr ? 'ar' : 'en'} />
+      <HomepageFAQBlock />
+      <HomepageCTASection />
+      <Contact />
     </Motion.div>
   );
 };
 
 export default HomePage;
-

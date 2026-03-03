@@ -36,42 +36,26 @@ const Hero = () => {
           fetchpriority="high" 
         />
       </Helmet>
-      {/* Mesh Gradient Background */}
+      {/* Mesh Gradient Background — CSS animated blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <Motion.div 
-           animate={{ 
-             scale: [1, 1.2, 1],
-             rotate: [0, 90, 0],
-           }}
-           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-           className={`absolute top-[-20%] w-[1000px] h-[1000px] bg-gradient-to-br from-indigo-300/20 to-purple-300/20 dark:from-cyan/10 dark:to-purple/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-70 ${isRtl ? '-right-[30%]' : '-left-[30%]'}`}
+        <div 
+           className={`absolute top-[-20%] w-[1000px] h-[1000px] bg-gradient-to-br from-indigo-300/20 to-purple-300/20 dark:from-cyan/10 dark:to-purple/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-70 animate-hero-blob-1 ${isRtl ? '-right-[30%]' : '-left-[30%]'}`}
         />
-        <Motion.div 
-           animate={{ 
-             scale: [1, 1.3, 1],
-             rotate: [0, -60, 0],
-           }}
-           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-           className={`absolute bottom-[-10%] w-[800px] h-[800px] bg-gradient-to-tr from-purple-300/20 to-pink-300/20 dark:from-purple/10 dark:to-pink-500/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen opacity-60 ${isRtl ? '-left-[20%]' : '-right-[20%]'}`}
+        <div 
+           className={`absolute bottom-[-10%] w-[800px] h-[800px] bg-gradient-to-tr from-purple-300/20 to-pink-300/20 dark:from-purple/10 dark:to-pink-500/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen opacity-60 animate-hero-blob-2 ${isRtl ? '-left-[20%]' : '-right-[20%]'}`}
         />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid lg:grid-cols-2 gap-12 items-center z-10">
-        <Motion.div
-          initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className={isRtl ? 'text-right' : 'text-left'}
+        <div
+          className={`animate-hero-slide-in ${isRtl ? 'text-right' : 'text-left'}`}
         >
-          <Motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-cyan text-xs font-bold mb-6 tracking-wider uppercase backdrop-blur-sm"
+          <div 
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-cyan text-xs font-bold mb-6 tracking-wider uppercase backdrop-blur-sm animate-hero-fade-up [animation-delay:200ms]"
           >
             <Sparkles size={14} />
             {t('hero.badge')}
-          </Motion.div>
+          </div>
           
           <h1 className="text-fluid-h1 font-black leading-tight mb-6 text-slate-900 dark:text-white tracking-tight">
             {t('hero.headline_part1')} 
@@ -95,14 +79,11 @@ const Hero = () => {
               {t('hero.ctaServices')}
             </button>
           </div>
-        </Motion.div>
+        </div>
 
-        {/* Desktop Animated Code Block */}
-        <Motion.div
-          initial={{ opacity: 0, scale: 0.8, rotateY: isRtl ? -20 : 20 }}
-          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="relative perspective-1000 hidden lg:block"
+        {/* Desktop Animated Code Block — CSS entrance */}
+        <div
+          className="relative perspective-1000 hidden lg:block animate-hero-zoom-in [animation-delay:200ms]"
         >
           <div className="glass-card p-0 overflow-hidden shadow-2xl cyan-glow border-slate-200/50 dark:border-white/10 bg-white/80 dark:bg-black/50 backdrop-blur-xl">
             <div className="bg-slate-100 dark:bg-white/5 px-4 py-3 flex gap-2 border-b border-slate-200 dark:border-white/5">
@@ -129,9 +110,9 @@ const Hero = () => {
               <Terminal className="text-cyan w-12 h-12 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
             </div>
           </div>
-        </Motion.div>
+        </div>
 
-        {/* Mobile Code Stream Animation */}
+        {/* Mobile Code Stream Animation — keeps framer-motion (below fold) */}
         <div className="lg:hidden mt-8 w-full">
            <div className="glass-card p-4 overflow-hidden relative min-h-[160px] flex items-center justify-center bg-slate-900/95 border-slate-700 shadow-xl">
               <Code2 className="absolute top-4 right-4 text-white/10 w-12 h-12" />

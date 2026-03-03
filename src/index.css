@@ -146,8 +146,17 @@ h4 {
     content: "";
     position: absolute;
     inset: -12px -8px -12px -8px;
-    background: radial-gradient(120% 120% at 0% 0%, rgba(0, 229, 255, 0.10), transparent 60%),
-      radial-gradient(90% 90% at 100% 20%, rgba(139, 92, 246, 0.08), transparent 70%);
+    background:
+      radial-gradient(
+        120% 120% at 0% 0%,
+        rgba(0, 229, 255, 0.1),
+        transparent 60%
+      ),
+      radial-gradient(
+        90% 90% at 100% 20%,
+        rgba(139, 92, 246, 0.08),
+        transparent 70%
+      );
     pointer-events: none;
     z-index: 0;
     opacity: 0.6;
@@ -178,7 +187,12 @@ h4 {
     left: -20%;
     width: 20%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.8) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
     transform: translateX(0) skewX(-15deg);
     pointer-events: none;
     z-index: 1;
@@ -195,7 +209,11 @@ h4 {
     position: absolute;
     inset: -2px;
     border-radius: 6px;
-    background: radial-gradient(closest-side, rgba(0, 229, 255, 0.25), rgba(0, 229, 255, 0));
+    background: radial-gradient(
+      closest-side,
+      rgba(0, 229, 255, 0.25),
+      rgba(0, 229, 255, 0)
+    );
     opacity: 0.08;
     transform: scale(0.98);
     pointer-events: none;
@@ -212,7 +230,11 @@ h4 {
     position: absolute;
     inset: -1px;
     border-radius: inherit;
-    background: radial-gradient(120% 120% at 0% 0%, rgba(0, 229, 255, 0.18), transparent 60%);
+    background: radial-gradient(
+      120% 120% at 0% 0%,
+      rgba(0, 229, 255, 0.18),
+      transparent 60%
+    );
     pointer-events: none;
     z-index: 0;
     opacity: 0.2;
@@ -259,14 +281,22 @@ h4 {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: radial-gradient(60% 80% at 50% 100%, rgba(0, 0, 0, 0.08), transparent 60%);
+    background: radial-gradient(
+      60% 80% at 50% 100%,
+      rgba(0, 0, 0, 0.08),
+      transparent 60%
+    );
     opacity: 0;
     pointer-events: none;
     transition: opacity 300ms ease;
     z-index: 0;
   }
   .dark .card-premium::before {
-    background: radial-gradient(60% 80% at 50% 100%, rgba(0, 229, 255, 0.08), transparent 60%);
+    background: radial-gradient(
+      60% 80% at 50% 100%,
+      rgba(0, 229, 255, 0.08),
+      transparent 60%
+    );
   }
   .card-premium:hover::before {
     opacity: 0.6;
@@ -278,15 +308,27 @@ h4 {
     left: -30%;
     width: 30%;
     height: 2px;
-    background: linear-gradient(90deg, rgba(0,229,255,0), rgba(0,229,255,0.8), rgba(0,229,255,0));
+    background: linear-gradient(
+      90deg,
+      rgba(0, 229, 255, 0),
+      rgba(0, 229, 255, 0.8),
+      rgba(0, 229, 255, 0)
+    );
     transform: translateX(0);
     opacity: 0;
     pointer-events: none;
-    transition: transform 300ms ease, opacity 300ms ease;
+    transition:
+      transform 300ms ease,
+      opacity 300ms ease;
     z-index: 2;
   }
   .dark .card-premium::after {
-    background: linear-gradient(90deg, rgba(0,229,255,0), rgba(0,229,255,0.8), rgba(0,229,255,0));
+    background: linear-gradient(
+      90deg,
+      rgba(0, 229, 255, 0),
+      rgba(0, 229, 255, 0.8),
+      rgba(0, 229, 255, 0)
+    );
   }
   .card-premium:hover::after {
     opacity: 1;
@@ -296,7 +338,9 @@ h4 {
   .reveal-on-scroll {
     opacity: 0;
     transform: translateY(10px);
-    transition: transform 400ms ease-out, opacity 400ms ease-out;
+    transition:
+      transform 400ms ease-out,
+      opacity 400ms ease-out;
   }
   .reveal-on-scroll.is-visible {
     opacity: 1;
@@ -439,7 +483,8 @@ h4 {
 }
 
 @keyframes borderGlow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.15;
   }
   50% {
@@ -459,10 +504,12 @@ h4 {
 }
 
 @keyframes blink {
-  0%, 49% {
+  0%,
+  49% {
     opacity: 1;
   }
-  50%, 100% {
+  50%,
+  100% {
     opacity: 0;
   }
 }
@@ -474,13 +521,112 @@ h4 {
   .type-reveal::after,
   .cursor-blink,
   .card-premium::before,
-  .card-premium::after {
+  .card-premium::after,
+  .animate-hero-slide-in,
+  .animate-hero-fade-up,
+  .animate-hero-zoom-in,
+  .animate-hero-blob-1,
+  .animate-hero-blob-2 {
     animation: none !important;
     transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
   .reveal-on-scroll {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+/* Hero performance animations — CSS replacements for framer-motion above-fold */
+@keyframes heroSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes heroSlideInRtl {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes heroZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotateY(20deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateY(0);
+  }
+}
+@keyframes heroZoomInRtl {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotateY(-20deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateY(0);
+  }
+}
+@keyframes heroBlob1 {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(90deg);
+  }
+}
+@keyframes heroBlob2 {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(-60deg);
+  }
+}
+
+.animate-hero-slide-in {
+  animation: heroSlideIn 0.8s ease-out both;
+}
+[dir="rtl"] .animate-hero-slide-in {
+  animation: heroSlideInRtl 0.8s ease-out both;
+}
+.animate-hero-fade-up {
+  animation: heroFadeUp 0.6s ease-out both;
+}
+.animate-hero-zoom-in {
+  animation: heroZoomIn 1s ease-out both;
+}
+[dir="rtl"] .animate-hero-zoom-in {
+  animation: heroZoomInRtl 1s ease-out both;
+}
+.animate-hero-blob-1 {
+  animation: heroBlob1 20s linear infinite;
+}
+.animate-hero-blob-2 {
+  animation: heroBlob2 25s linear infinite;
 }
