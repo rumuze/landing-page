@@ -219,21 +219,22 @@ export default defineConfig({
         assetFileNames: 'assets/[name]-[hash].[ext]',
 
         // Manual chunks for optimal code splitting
-        manualChunks: {
-          // Core React bundle (loaded on every page)
-          'react-core': ['react', 'react-dom', 'react/jsx-runtime'],
-
-          // Router (needed for navigation)
-          'react-router': ['react-router-dom'],
-
-          // Animation library (heavy, split separately)
-          'framer': ['framer-motion'],
-
-          // i18n bundle (needed for all pages)
-          'i18n': ['i18next', 'react-i18next', 'i18next-browser-languagedetector'],
-
-          // Icons (lazy loadable)
-          'icons': ['lucide-react'],
+        manualChunks(id) {
+          if (id.includes('framer-motion')) {
+            return 'framer';
+          }
+          if (id.includes('lucide-react')) {
+            return 'icons';
+          }
+          if (id.includes('i18next') || id.includes('react-i18next') || id.includes('i18next-browser-languagedetector')) {
+            return 'i18n';
+          }
+          if (id.includes('react-router-dom') || id.includes('@remix-run')) {
+            return 'react-router';
+          }
+          if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
+            return 'react-core';
+          }
         },
       },
     },

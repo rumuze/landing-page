@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion as Motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import HomeGEOBlocks from '../components/HomeGEOBlocks';
 import Hero from '../components/Hero';
@@ -16,7 +15,7 @@ const HomePage = ({ isAr = false }) => {
   const path = isAr ? '/ar' : '/';
 
   return (
-    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    <div className="animate-fade-in">
       <SEO path={path} />
       <Hero />
       <HomepageMetricsBar />
@@ -28,7 +27,7 @@ const HomePage = ({ isAr = false }) => {
       <HomepageFAQBlock />
       <HomepageCTASection />
       <Contact />
-    </Motion.div>
+    </div>
   );
 };
 

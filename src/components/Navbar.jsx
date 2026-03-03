@@ -1,11 +1,10 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Globe, ChevronDown, FlaskConical } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/theme-core';
 import ThemeToggle from './ThemeToggle';
-
-const NavbarMobile = React.lazy(() => import('./NavbarMobile'));
+import NavbarMobile from './NavbarMobile';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -181,7 +180,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <Suspense fallback={null}>
          <NavbarMobile 
             isOpen={isOpen} 
             setIsOpen={setIsOpen} 
@@ -196,7 +194,6 @@ const Navbar = () => {
             toggleTheme={toggleTheme}
             navigate={navigate}
          />
-      </Suspense>
     </>
   );
 };

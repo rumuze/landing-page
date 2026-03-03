@@ -1,10 +1,8 @@
-import React, { Suspense } from 'react';
-import { Terminal, ArrowRight, Sparkles } from 'lucide-react';
+import MagneticButton from './MagneticButton';
+import HeroMobileCode from './HeroMobileCode';
 import { useTranslation } from 'react-i18next';
+import { ArrowRight, Sparkles, Terminal } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
-
-const MagneticButton = React.lazy(() => import('./MagneticButton'));
-const HeroMobileCode = React.lazy(() => import('./HeroMobileCode'));
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
@@ -55,12 +53,10 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
-            <Suspense fallback={<button className="btn-primary px-8 py-4 shadow-xl shadow-cyan/20 w-full sm:w-auto">{t('hero.ctaExplore')}<ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" /></button>}>
-              <MagneticButton className="px-8 py-4 shadow-xl shadow-cyan/20 w-full sm:w-auto">
-                {t('hero.ctaExplore')}
-                <ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" />
-              </MagneticButton>
-            </Suspense>
+            <MagneticButton className="px-8 py-4 shadow-xl shadow-cyan/20 w-full sm:w-auto">
+              {t('hero.ctaExplore')}
+              <ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" />
+            </MagneticButton>
             
             <button className="px-8 py-4 rounded-xl font-bold border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-all shadow-sm w-full sm:w-auto backdrop-blur-sm">
               {t('hero.ctaServices')}
@@ -101,9 +97,7 @@ const Hero = () => {
 
         {/* Mobile Code Stream Animation — dynamically imported */}
         <div className="lg:hidden mt-8 w-full">
-           <Suspense fallback={<div className="glass-card p-4 min-h-[160px] bg-slate-900/95" />}>
-             <HeroMobileCode />
-           </Suspense>
+           <HeroMobileCode />
         </div>
       </div>
     </section>
