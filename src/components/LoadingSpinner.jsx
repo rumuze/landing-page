@@ -58,11 +58,17 @@ const LoadingSpinner = ({ fullScreen = false }) => {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="relative w-16 h-16 z-10"
           >
-            <img 
-              src="/rumuze-symbol.png" 
-              alt="Rumuze Symbol" 
-              className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,229,255,0.6)]" 
-            />
+            <picture>
+              <source srcSet="/rumuze-symbol-112.avif" type="image/avif" />
+              <source srcSet="/rumuze-symbol-112.webp" type="image/webp" />
+              <img 
+                src="/rumuze-symbol-112.webp" 
+                width="64"
+                height="64"
+                alt="Rumuze Symbol" 
+                className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,229,255,0.6)]" 
+              />
+            </picture>
           </Motion.div>
         </div>
 

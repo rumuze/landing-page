@@ -86,7 +86,11 @@ const Navbar = () => {
             <Link to={isAr ? '/ar/' : '/'} className="flex items-center gap-4 group shrink-0">
               {/* Symbol Container with Scanning Effect */}
               <div className="relative w-12 h-12 flex items-center justify-center rounded-xl bg-slate-900/50 dark:bg-white/5 backdrop-blur-md border border-white/10 shadow-lg shadow-cyan/10 group-hover:border-cyan/50 transition-all duration-500 overflow-hidden">
-                <img src="/rumuze-symbol.png" alt="Rumuze Symbol" className="w-9 h-9 z-10 filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-transform group-hover:scale-110" />
+                <picture>
+                  <source srcSet="/rumuze-symbol-112.avif" type="image/avif" />
+                  <source srcSet="/rumuze-symbol-112.webp" type="image/webp" />
+                  <img src="/rumuze-symbol-112.webp" width="36" height="36" alt="Rumuze Symbol" className="w-9 h-9 z-10 filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-transform group-hover:scale-110" />
+                </picture>
                 
                 {/* Scanning Line Animation */}
                 <Motion.div 
@@ -243,7 +247,11 @@ const Navbar = () => {
             <div className={`p-6 flex justify-between items-center ${isAr ? 'flex-row-reverse' : ''}`}>
                <div className="flex items-center gap-3">
                   <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-white/5 border border-white/10">
-                    <img src="/rumuze-symbol.png" alt="Logo" className="w-7 h-7" />
+                    <picture>
+                      <source srcSet="/rumuze-symbol-112.avif" type="image/avif" />
+                      <source srcSet="/rumuze-symbol-112.webp" type="image/webp" />
+                      <img src="/rumuze-symbol-112.webp" width="28" height="28" alt="Logo" className="w-7 h-7" />
+                    </picture>
                   </div>
                   <img src="/rumuze-text.png" alt="RUMUZE" className="h-5 object-contain dark:invert-0 invert" />
                </div>

@@ -32,8 +32,9 @@ const Hero = () => {
         <link 
           rel="preload" 
           as="image" 
-          href="/rumuze-symbol.png" 
-          fetchpriority="high" 
+          href="/rumuze-symbol-112.webp" 
+          fetchpriority="high"
+          type="image/webp"
         />
       </Helmet>
       {/* Mesh Gradient Background — CSS animated blobs */}

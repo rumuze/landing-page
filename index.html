@@ -23,8 +23,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="//fonts.googleapis.com">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Rumuze">
@@ -54,13 +54,18 @@
 
 
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;600;700&family=Montserrat:wght@700&display=swap">
   <link
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;600;700&family=Montserrat:wght@700&display=swap"
-    rel="stylesheet">
+    rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;600;700&family=Montserrat:wght@700&display=swap"
+      rel="stylesheet">
+  </noscript>
 
-  <link rel="preload" as="image" href="/rumuze-symbol.png" fetchpriority="high" type="image/png">
+  <link rel="preload" as="image" href="/rumuze-symbol-112.webp" fetchpriority="high" type="image/webp">
   <link rel="author" href="/humans.txt" />
 
   <!-- Zero-JS Loading Skeleton for Perfect CLS -->
