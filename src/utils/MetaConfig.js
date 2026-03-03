@@ -193,6 +193,70 @@ export const META_CONFIG = {
             imageAlt: 'روموز - هندسة البرمجيات والتسويق للمؤسسات السعودية'
         }
     },
+    '/enterprise-web-development': {
+        en: {
+            title: `Enterprise Web Platform Engineering | ${BRAND_NAME}`,
+            description: 'Rumuze engineers enterprise web platforms to production standards: Next.js architecture, API-first backends, CRM integration, and sprint-governed delivery with measurable revenue outcomes.',
+            keywords: 'enterprise web development, Next.js platform engineering, API-first architecture, CRM integration, web platform governance, bilingual web platform',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Rumuze - Enterprise Web Platform Engineering'
+        },
+        ar: {
+            title: `هندسة منصات الويب المؤسسية | ${BRAND_NAME}`,
+            description: 'روموز تهندس منصات ويب مؤسسية بمعايير الإنتاج: معمارية Next.js وخلفيات API-first وتكامل CRM وتسليم محكوم بالسبرينت بنتائج إيرادات قابلة للقياس.',
+            keywords: 'تطوير ويب مؤسسي, هندسة منصات Next.js, معمارية API-first, تكامل CRM, حوكمة منصة ويب, منصة ويب ثنائية اللغة',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'روموز - هندسة منصات الويب المؤسسية'
+        }
+    },
+    '/saas-architecture': {
+        en: {
+            title: `SaaS Architecture & Multi-Tenant Platform Engineering | ${BRAND_NAME}`,
+            description: 'Rumuze engineers multi-tenant SaaS platforms with schema-level tenant isolation, granular RBAC, scalable provisioning pipelines, and structured delivery governance from the first architecture document.',
+            keywords: 'SaaS architecture, multi-tenant platform engineering, tenant isolation, RBAC, SaaS subscription management, bilingual SaaS platform',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Rumuze - SaaS Architecture & Multi-Tenant Platform Engineering'
+        },
+        ar: {
+            title: `معمارية SaaS وهندسة المنصات متعددة المستأجرين | ${BRAND_NAME}`,
+            description: 'روموز تهندس منصات SaaS متعددة المستأجرين مع عزل مستوى المخطط وRBAC حبيبي وخطوط أنابيب توفير قابلة للتوسع وحوكمة تسليم منظمة منذ وثيقة المعمارية الأولى.',
+            keywords: 'معمارية SaaS, هندسة منصات متعددة المستأجرين, عزل المستأجرين, RBAC, إدارة اشتراكات SaaS, منصة SaaS ثنائية اللغة',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'روموز - معمارية SaaS وهندسة المنصات متعددة المستأجرين'
+        }
+    },
+    '/marketing-infrastructure': {
+        en: {
+            title: `Performance Marketing Infrastructure Engineering | ${BRAND_NAME}`,
+            description: 'Rumuze engineers performance marketing infrastructure with server-side attribution, CAPI integration, campaign governance, and revenue-attributed pipeline reporting — not just campaign management.',
+            keywords: 'performance marketing infrastructure, server-side tracking, Meta CAPI, attribution modeling, marketing governance, ROAS optimization',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Rumuze - Performance Marketing Infrastructure Engineering'
+        },
+        ar: {
+            title: `هندسة البنية التحتية للتسويق الأدائي | ${BRAND_NAME}`,
+            description: 'روموز تهندس البنية التحتية للتسويق الأدائي مع إسناد من جانب الخادم وتكامل CAPI وحوكمة الحملات وتقارير خط الأنابيب المنسوبة للإيرادات — وليس فقط إدارة الحملات.',
+            keywords: 'بنية تحتية للتسويق الأدائي, تتبع من جانب الخادم, Meta CAPI, نمذجة الإسناد, حوكمة التسويق, تحسين ROAS',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'روموز - هندسة البنية التحتية للتسويق الأدائي'
+        }
+    },
+    '/seo-revenue-systems': {
+        en: {
+            title: `SEO & Revenue Attribution Systems Engineering | ${BRAND_NAME}`,
+            description: 'Rumuze engineers technical SEO infrastructure and revenue attribution systems: JSON-LD @graph implementation, server-side analytics, bilingual hreflang, and organic pipeline contribution reporting.',
+            keywords: 'technical SEO, revenue attribution, JSON-LD structured data, hreflang, bilingual SEO, AEO optimization, organic pipeline attribution',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Rumuze - SEO & Revenue Attribution Systems Engineering'
+        },
+        ar: {
+            title: `هندسة أنظمة SEO وإسناد الإيرادات | ${BRAND_NAME}`,
+            description: 'روموز تهندس البنية التحتية التقنية لـ SEO وأنظمة إسناد الإيرادات: تنفيذ JSON-LD @graph والتحليلات من جانب الخادم وhreflang ثنائي اللغة وتقارير مساهمة خط الأنابيب العضوي.',
+            keywords: 'SEO تقني, إسناد إيرادات, بيانات JSON-LD مهيكلة, hreflang, SEO ثنائي اللغة, تحسين AEO, إسناد خط الأنابيب العضوي',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'روموز - هندسة أنظمة SEO وإسناد الإيرادات'
+        }
+    },
     '/enterprise-framework': {
         en: {
             title: `Structured Project Execution Framework | ${BRAND_NAME}`,

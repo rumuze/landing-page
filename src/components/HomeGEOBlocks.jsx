@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getLocaleContent } from '../locales';
 import { SiteConfig } from '../config/site';
 
@@ -25,6 +26,12 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
           </ul>
           <p className="text-slate-700 dark:text-gray-300 mt-3">
             {homepage.coreServicesText}
+            {' '}
+            {locale === 'en' ? (
+              <span>See how this model was implemented in our <Link to="/case-studies/revenue-platform-engineering" className="text-cyan-600 dark:text-cyan-400 hover:underline">revenue-platform-engineering</Link> case study.</span>
+            ) : (
+              <span>شاهد كيف تم تنفيذ هذا النموذج في دراسة حالة <Link to="/ar/case-studies/revenue-platform-engineering" className="text-cyan-600 dark:text-cyan-400 hover:underline">revenue-platform-engineering</Link>.</span>
+            )}
           </p>
         </section>
       </div>

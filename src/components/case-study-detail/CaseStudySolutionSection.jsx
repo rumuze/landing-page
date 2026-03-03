@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Lightbulb } from 'lucide-react';
 
 const CaseStudySolutionSection = ({ caseStudy }) => {
@@ -27,7 +28,21 @@ const CaseStudySolutionSection = ({ caseStudy }) => {
           </div>
           
           <div className="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-gray-300 leading-relaxed border-l-4 border-cyan pl-6 rtl:pl-0 rtl:border-l-0 rtl:border-r-4 rtl:pr-6 py-2">
-            <p>{caseStudy.solution[lang]}</p>
+            <p className="whitespace-pre-line">{caseStudy.solution[lang]}</p>
+            {caseStudy.slug === 'revenue-platform-engineering' && (
+              <p className="mt-4">
+                <strong>{isAr ? 'النتائج الاستراتيجية:' : 'Strategic Takeaways:'}</strong>{' '}
+                {isAr ? 'تضمن هذا المشروع ' : 'This project involved '}
+                <Link to={isAr ? '/ar/services/software-engineering' : '/services/software-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline">{isAr ? 'هندسة منصات ويب مخصصة' : 'Custom Web Platform Engineering'}</Link>
+                {isAr ? ' و' : ' and '}
+                <Link to={isAr ? '/ar/services/web-development' : '/services/web-development'} className="text-cyan-600 dark:text-cyan-400 hover:underline">{isAr ? 'تكامل API-first' : 'API-first Integration'}</Link>
+                {isAr ? '، إلى جانب ' : ', alongside '}
+                <Link to={isAr ? '/ar/services/performance-marketing' : '/services/performance-marketing'} className="text-cyan-600 dark:text-cyan-400 hover:underline">{isAr ? 'بنية التسويق الأدائي' : 'Performance Marketing Infrastructure'}</Link>
+                {isAr ? ' و' : ' and '}
+                <Link to={isAr ? '/ar/services/seo-services' : '/services/seo-services'} className="text-cyan-600 dark:text-cyan-400 hover:underline">{isAr ? 'أنظمة تحسين محركات البحث والإسناد' : 'SEO & Attribution Systems'}</Link>
+                .
+              </p>
+            )}
           </div>
         </Motion.div>
       </div>

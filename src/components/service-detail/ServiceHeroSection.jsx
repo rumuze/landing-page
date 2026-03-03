@@ -85,6 +85,16 @@ const ServiceHeroSection = ({ service, isAr }) => {
           itemProp="description"
         >
           {summary}
+          {['software-engineering', 'web-development', 'performance-marketing', 'seo-services'].includes(service.slug) && (
+            <span className="inline">
+              {' '}
+              {isAr ? 'يتم إثبات هذه القدرة في دراسة حالة ' : 'This capability is demonstrated in our '}
+              <Link to={isAr ? '/ar/case-studies/revenue-platform-engineering' : '/case-studies/revenue-platform-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline">
+                revenue-platform-engineering
+              </Link>
+              {isAr ? '.' : ' case study.'}
+            </span>
+          )}
         </Motion.p>
 
         {/* CTA */}

@@ -48,6 +48,10 @@ const WhyRumuzePage = lazy(() => import('./pages/WhyRumuzePage'));
 const ComparisonPage = lazy(() => import('./pages/ComparisonPage'));
 const SaudiArabiaPage = lazy(() => import('./pages/SaudiArabiaPage'));
 const EnterpriseFrameworkPage = lazy(() => import('./pages/EnterpriseFrameworkPage'));
+const EnterpriseWebDevelopmentPage = lazy(() => import('./pages/EnterpriseWebDevelopmentPage'));
+const SaaSArchitecturePage = lazy(() => import('./pages/SaaSArchitecturePage'));
+const MarketingInfrastructurePage = lazy(() => import('./pages/MarketingInfrastructurePage'));
+const SeoRevenueSystemsPage = lazy(() => import('./pages/SeoRevenueSystemsPage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -399,6 +403,48 @@ function AppContent() {
                 <Suspense fallback={<Skeleton />}><KnowledgeGraphArchitecture /></Suspense>
               </Motion.div>
             } />
+            {/* Topical Authority Routes */}
+            <Route path="/enterprise-web-development" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><EnterpriseWebDevelopmentPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/enterprise-web-development" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><EnterpriseWebDevelopmentPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/saas-architecture" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><SaaSArchitecturePage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/saas-architecture" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><SaaSArchitecturePage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/marketing-infrastructure" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><MarketingInfrastructurePage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/marketing-infrastructure" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><MarketingInfrastructurePage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/seo-revenue-systems" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><SeoRevenueSystemsPage /></Suspense>
+              </Motion.div>
+            } />
+            <Route path="/ar/seo-revenue-systems" element={
+              <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Suspense fallback={<Skeleton />}><SeoRevenueSystemsPage /></Suspense>
+              </Motion.div>
+            } />
+
             {/* Blog Routes */}
             <Route path="/blog" element={
               <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
