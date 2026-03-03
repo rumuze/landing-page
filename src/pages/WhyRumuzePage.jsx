@@ -11,7 +11,7 @@ import {
   COMPARISON_TARGETS,
   GENERAL_COMPARISON,
 } from '../config/comparison';
-import { SiteConfig, StableIds } from '../config/site';
+import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
 import SEO from '../components/SEO';
 
 // ---------------------------------------------------------------------------

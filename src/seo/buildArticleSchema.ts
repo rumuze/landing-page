@@ -1,5 +1,5 @@
 import { LanguageCode } from '../config/entity';
-import { SiteConfig, StableIds } from '../config/site';
+import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
 export interface ArticleSchemaOptions {

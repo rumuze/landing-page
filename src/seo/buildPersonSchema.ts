@@ -9,7 +9,7 @@
 
 import type { LanguageCode } from '../config/entity';
 import { FOUNDER } from '../config/person';
-import { StableIds } from '../config/site';
+import { StableIds } from '../config/siteCoreConfig';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
 export function buildPersonSchema(lang: LanguageCode) {

@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { getMetaForRoute, validateMetadata } from '../utils/MetaConfig';
 import { ENTITY } from '../config/entity';
-import { SiteConfig, StableIds } from '../config/site';
+import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
+import { siteMetaConfig } from '../config/siteMetaConfig';
 import { buildOrganizationSchema } from '../seo/buildOrganizationSchema';
 import { buildPersonSchema } from '../seo/buildPersonSchema';
 import { buildWebSiteSchema } from '../seo/buildWebSiteSchema';
@@ -171,7 +172,7 @@ const SEO = ({ title, description, image, type, path, schemas }) => {
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={metaType} />
       <meta property="og:title" content={metaTitle} />
-      <meta property="og:description" content={SiteConfig.authorityDescription[currentLang === 'ar' ? 'ar' : 'en']} />
+      <meta property="og:description" content={siteMetaConfig.defaultMetaDescription[currentLang === 'ar' ? 'ar' : 'en']} />
       <meta property="og:image" content={metaImage} />
       <meta property="og:image:secure_url" content={metaImage} />
       <meta property="og:image:width" content="1200" />
@@ -184,7 +185,7 @@ const SEO = ({ title, description, image, type, path, schemas }) => {
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={metaTitle} />
-      <meta name="twitter:description" content={SiteConfig.authorityDescription[currentLang === 'ar' ? 'ar' : 'en']} />
+      <meta name="twitter:description" content={siteMetaConfig.defaultMetaDescription[currentLang === 'ar' ? 'ar' : 'en']} />
       <meta name="twitter:image" content={metaImage} />
       <meta name="twitter:image:alt" content={imageAlt} />
       <meta name="twitter:site" content="@rumuze" />

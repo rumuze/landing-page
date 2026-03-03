@@ -3,7 +3,7 @@ import { useParams, Navigate } from 'react-router-dom';
 import { motion as Motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { CASE_STUDIES } from '../config/caseStudies';
-import { SiteConfig, StableIds } from '../config/site';
+import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
 import SEO from '../components/SEO';
 
 // Moduler Sections

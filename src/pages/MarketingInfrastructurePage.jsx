@@ -4,7 +4,7 @@ import { motion as Motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, BarChart2, Target, ShieldCheck, Layers, TrendingUp } from 'lucide-react';
 import SEO from '../components/SEO';
-import { SiteConfig } from '../config/site';
+import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
 import MagneticButton from '../components/MagneticButton';
 import { buildArticleSchema } from '../seo/buildArticleSchema';
 import { buildBreadcrumbSchema } from '../seo/buildBreadcrumbSchema';

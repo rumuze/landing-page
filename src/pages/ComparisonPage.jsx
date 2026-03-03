@@ -10,7 +10,7 @@ import {
   getComparisonTarget,
   getComparisonCategoryById,
 } from '../config/comparison';
-import { SiteConfig, StableIds } from '../config/site';
+import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
 import SEO from '../components/SEO';
 
 const ComparisonPage = ({ isAr = false }) => {

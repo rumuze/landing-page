@@ -1,5 +1,5 @@
 import { LanguageCode } from '../config/entity';
-import { SiteConfig } from '../config/site';
+import { siteCoreConfig as SiteConfig } from '../config/siteCoreConfig';
 
 export interface BreadcrumbItem {
   name: string;

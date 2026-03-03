@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { getMetaForRoute } from '../utils/MetaConfig';
 import { SERVICE_SCHEMAS } from '../utils/GEOSchema';
-import { StableIds } from '../config/site';
+import { StableIds } from '../config/siteCoreConfig';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
 const GEOSEO = ({ 

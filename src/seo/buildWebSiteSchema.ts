@@ -1,5 +1,6 @@
 import { LanguageCode } from '../config/entity';
-import { SiteConfig, StableIds } from '../config/site';
+import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
+import { siteMetaConfig } from '../config/siteMetaConfig';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
 export function buildWebSiteSchema(lang: LanguageCode) {
@@ -12,6 +13,6 @@ export function buildWebSiteSchema(lang: LanguageCode) {
     name: 'Rumuze',
     publisher: { '@id': StableIds.organization },
     inLanguage: locale,
-    description: SiteConfig.authorityDescription[lang],
+    description: siteMetaConfig.defaultMetaDescription[lang],
   };
 }

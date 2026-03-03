@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getLocaleContent } from '../locales';
-import { SiteConfig } from '../config/site';
+import { siteAuthorityConfig } from '../config/siteAuthorityConfig';
 
 export const HomeGEOBlocks = ({ locale = 'en' }) => {
   const [bundle, setBundle] = React.useState(null);
@@ -16,8 +16,8 @@ export const HomeGEOBlocks = ({ locale = 'en' }) => {
         <section id="identity" aria-labelledby="identity-title">
           <h2 id="identity-title" className="text-2xl font-bold mb-3">{homepage.identityTitle}</h2>
           <p className="text-slate-700 dark:text-gray-300">{homepage.identityParagraph}</p>
-          <p className="text-slate-700 dark:text-gray-300 mt-3">{SiteConfig.authorityDescription[locale] || SiteConfig.authorityDescription.en}</p>
-          <p className="text-slate-700 dark:text-gray-300 mt-3">{SiteConfig.identityLockStatement[locale] || SiteConfig.identityLockStatement.en}</p>
+          <p className="text-slate-700 dark:text-gray-300 mt-3">{siteAuthorityConfig.authorityDescription[locale] || siteAuthorityConfig.authorityDescription.en}</p>
+          <p className="text-slate-700 dark:text-gray-300 mt-3">{siteAuthorityConfig.identityLockStatement[locale] || siteAuthorityConfig.identityLockStatement.en}</p>
         </section>
         <section id="core-services" aria-labelledby="core-services-title">
           <h2 id="core-services-title" className="text-2xl font-bold mb-3">{homepage.coreServicesTitle}</h2>

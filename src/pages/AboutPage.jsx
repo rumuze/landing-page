@@ -5,7 +5,8 @@ import { Github, Linkedin, Mail, Award, Zap, ShieldCheck, Database, Layout, Serv
 import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
 import MagneticButton from '../components/MagneticButton';
-import { SiteConfig } from '../config/site';
+import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
+import { siteAuthorityConfig } from '../config/siteAuthorityConfig';
 
 const AboutPage = () => {
   const { t, i18n } = useTranslation();
@@ -98,7 +99,7 @@ const AboutPage = () => {
             {t('about.story.content')}
           </p>
           <p className="text-base md:text-lg text-slate-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mt-6">
-            {SiteConfig.authorityDescription[isAr ? 'ar' : 'en']}
+            {siteAuthorityConfig.authorityDescription[isAr ? 'ar' : 'en']}
           </p>
         </Motion.div>
 

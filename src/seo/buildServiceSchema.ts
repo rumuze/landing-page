@@ -1,6 +1,6 @@
 import { ENTITY, LanguageCode } from '../config/entity';
 import { SERVICES } from '../config/services';
-import { StableIds, buildServiceId, buildSubServiceId } from '../config/site';
+import { StableIds, buildServiceId, buildSubServiceId } from '../config/siteCoreConfig';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
 export function buildServiceSchemas(lang: LanguageCode) {

@@ -1,5 +1,6 @@
 import { ENTITY, LanguageCode } from '../config/entity';
-import { SiteConfig, StableIds } from '../config/site';
+import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
+import { siteMetaConfig } from '../config/siteMetaConfig';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
 export function buildOrganizationSchema(lang: LanguageCode) {
@@ -21,7 +22,7 @@ export function buildOrganizationSchema(lang: LanguageCode) {
       caption: isAr ? 'شعار روموز' : 'Rumuze Logo',
     },
     image: { '@id': StableIds.logo },
-    description: SiteConfig.authorityDescription[lang],
+    description: siteMetaConfig.defaultMetaDescription[lang],
     slogan: isAr ? ENTITY.slogan.ar : ENTITY.slogan.en,
     brand: { '@type': 'Brand', '@id': StableIds.brand, name: ENTITY.brand.name },
     founder: {
