@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, ZoomIn } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import OptimizedImage from './OptimizedImage';
 import { CardSkeleton } from './SkeletonLoader';
 
@@ -56,9 +57,11 @@ const Portfolio = () => {
               {t('portfolio.description')}
             </p>
           </div>
-          <button className="px-6 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-white dark:hover:bg-white/5 transition-all text-sm font-bold shadow-sm">
-            {t('portfolio.viewAll')}
-          </button>
+          <Link to={isRtl ? '/ar/portfolio' : '/portfolio'}>
+            <button className="px-6 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-white dark:hover:bg-white/5 transition-all text-sm font-bold shadow-sm">
+              {t('portfolio.viewAll')}
+            </button>
+          </Link>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">

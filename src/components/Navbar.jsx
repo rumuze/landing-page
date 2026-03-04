@@ -175,9 +175,11 @@ const Navbar = () => {
                   )}
               </div>
 
-              <button className="btn-primary text-sm px-5 py-2 shadow-lg shadow-cyan/20">
-                {t('navbar.startProject')}
-              </button>
+              <Link to={isAr ? '/ar/contact' : '/contact'}>
+                <button className="btn-primary text-sm px-5 py-2 shadow-lg shadow-cyan/20">
+                  {t('navbar.startProject')}
+                </button>
+              </Link>
             </div>
           </div>
         </div>
