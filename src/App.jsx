@@ -15,7 +15,6 @@ import ErrorBoundary from './components/ErrorBoundary';
 import CustomCursor from './components/CustomCursor';
 
 // Lazy load components
-const Hero = lazy(() => import('./components/Hero'));
 const Services = lazy(() => import('./components/Services'));
 const Portfolio = lazy(() => import('./components/Portfolio'));
 const TechStack = lazy(() => import('./components/TechStack'));
