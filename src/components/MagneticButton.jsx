@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { motion as Motion } from 'framer-motion';
 
 const MagneticButton = ({ children, className = "", onClick, ...props }) => {
   const ref = useRef(null);
@@ -22,14 +23,12 @@ const MagneticButton = ({ children, className = "", onClick, ...props }) => {
   };
 
   return (
-    <button
+    <Motion.button
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{
-        transform: `translate(${position.x}px, ${position.y}px)`,
-        transition: position.x === 0 && position.y === 0 ? 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)' : 'transform 0.1s linear',
-      }}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       className={`relative overflow-hidden group btn-primary cursor-pointer ${className}`}
       onClick={onClick}
       {...props}
@@ -39,7 +38,7 @@ const MagneticButton = ({ children, className = "", onClick, ...props }) => {
       </span>
       {/* Hover Glow Effect */}
       <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-cyan/20 to-purple/20 blur-xl"></div>
-    </button>
+    </Motion.button>
   );
 };
 
