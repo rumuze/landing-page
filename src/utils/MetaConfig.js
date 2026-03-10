@@ -272,6 +272,22 @@ export const META_CONFIG = {
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'روموز إطار المؤسسة - تنفيذ مشاريع منظم'
         }
+    },
+    '/qr-generator': {
+        en: {
+            title: `Free QR Code Generator With Logo | Mohamed Ashraf Developer Tools`,
+            description: 'Generate high quality QR codes with embedded logos. A free developer tool built by Mohamed Ashraf. Custom colors, instant PNG download, no sign-up.',
+            keywords: 'QR code generator, QR code with logo, free QR generator, branded QR code, QR code download PNG, developer tools',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free QR Code Generator With Logo - Rumuze Developer Tools'
+        },
+        ar: {
+            title: `مولد رمز QR مجاني مع شعار | أدوات المطور محمد أشرف`,
+            description: 'أنشئ رموز QR عالية الجودة مع شعارات مدمجة. أداة مطور مجانية من محمد أشرف. ألوان مخصصة، تحميل PNG فوري، بدون تسجيل.',
+            keywords: 'مولد رمز QR, رمز QR مع شعار, مولد QR مجاني, رمز QR مميز, تحميل QR PNG, أدوات المطور',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'مولد رمز QR مجاني مع شعار - أدوات مطور روموز'
+        }
     }
 };
 

@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer className={`bg-white dark:bg-background pt-20 pb-10 border-t border-slate-200 dark:border-white/5 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.03)] ${isRtl ? 'text-right' : 'text-left'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-4 gap-12 mb-16">
+        <div className="grid md:grid-cols-5 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
             <div className={`flex items-center gap-2 mb-6 ${isRtl ? 'flex-row-reverse' : ''}`}>
               <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-br from-cyan to-purple overflow-hidden">
@@ -62,6 +62,13 @@ const Footer = () => {
               <li><Link to={`${pathPrefix}/blog`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.cases')}</Link></li>
               <li><Link to={`${pathPrefix}/blog`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.careers')}</Link></li>
               <li><Link to={`${pathPrefix}/#contact`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.contact')}</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-slate-900 dark:text-white mb-6 uppercase tracking-widest text-xs">{isAr ? 'أدوات المطور' : 'Developer Tools'}</h4>
+            <ul className="space-y-4 text-sm text-slate-600 dark:text-gray-400">
+              <li><Link to={`${pathPrefix}/qr-generator`} className="hover:text-cyan dark:hover:text-white transition-colors">{isAr ? 'مولد رمز QR' : 'QR Code Generator'}</Link></li>
             </ul>
           </div>
         </div>

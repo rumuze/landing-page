@@ -53,6 +53,7 @@ const SeoRevenueSystemsPage = lazy(() => import('./pages/SeoRevenueSystemsPage')
 const CustomSoftwareDevelopmentPage = lazy(() => import('./pages/CustomSoftwareDevelopmentPage'));
 const EnterpriseApplicationDevelopmentPage = lazy(() => import('./pages/EnterpriseApplicationDevelopmentPage'));
 const ApiIntegrationArchitecturePage = lazy(() => import('./pages/ApiIntegrationArchitecturePage'));
+const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -531,6 +532,18 @@ function AppContent() {
             <Route path="/ar/contact" element={
               <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
+              </div>
+            } />
+
+            {/* QR Generator Routes */}
+            <Route path="/qr-generator" element={
+              <div className="animate-fade-in">
+                <Suspense fallback={<Skeleton />}><QrGeneratorPage /></Suspense>
+              </div>
+            } />
+            <Route path="/ar/qr-generator" element={
+              <div className="animate-fade-in">
+                <Suspense fallback={<Skeleton />}><QrGeneratorPage /></Suspense>
               </div>
             } />
 
