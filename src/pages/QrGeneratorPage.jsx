@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion as Motion } from 'framer-motion';
 import { Sparkles, Download, Palette, Zap, ChevronDown } from 'lucide-react';
@@ -223,12 +224,12 @@ const QrGeneratorPage = () => {
         >
           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">{c.ctaTitle}</h2>
           <p className="text-lg text-gray-300 mb-8 max-w-lg mx-auto">{c.ctaDesc}</p>
-          <a
-            href={`${pathPrefix}/services`}
+          <Link
+            to={`${pathPrefix}/services`}
             className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-cyan to-purple text-white font-bold rounded-xl hover:shadow-lg hover:shadow-cyan/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
           >
             {c.ctaBtn}
-          </a>
+          </Link>
         </Motion.div>
       </section>
     </div>
