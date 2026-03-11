@@ -10,7 +10,7 @@ const Hero = () => {
   const isRtl = i18n.dir() === 'rtl';
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 md:pt-28 overflow-hidden bg-transparent">
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-transparent pt-[60px] pb-[50px] md:pt-[80px] md:pb-[70px] lg:pt-[100px] lg:pb-[80px]">
       <Helmet>
         <link 
           rel="preload" 
@@ -30,18 +30,24 @@ const Hero = () => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid lg:grid-cols-2 gap-12 items-center z-10">
+      <div className="relative z-10 mx-auto grid max-w-[1200px] items-center gap-10 px-4 sm:px-6 md:gap-12 lg:grid-cols-2 lg:gap-16 lg:px-8">
         <div
-          className={`animate-hero-slide-in ${isRtl ? 'text-right' : 'text-left'}`}
+          className={`animate-hero-slide-in max-w-[640px] ${isRtl ? 'ml-auto text-right' : 'text-left'}`}
         >
           <div 
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-cyan text-xs font-bold mb-6 tracking-wider uppercase backdrop-blur-sm animate-hero-fade-up [animation-delay:200ms]"
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-700 backdrop-blur-sm animate-hero-fade-up [animation-delay:200ms] dark:border-white/10 dark:bg-white/5 dark:text-cyan sm:text-xs"
           >
             <Sparkles size={14} />
             {t('hero.badge')}
           </div>
           
-          <h1 className="text-fluid-h1 font-black leading-tight mb-6 text-slate-900 dark:text-white tracking-tight">
+          <h1
+            className={`mb-4 text-[32px] font-black text-slate-900 dark:text-white sm:text-[36px] md:text-[40px] lg:text-[50px] xl:text-[54px] ${
+              isRtl
+                ? 'leading-[1.2] md:leading-[1.18] lg:leading-[1.14] tracking-normal'
+                : 'leading-[1.12] md:leading-[1.1] lg:leading-[1.08] tracking-[-0.035em]'
+            }`}
+          >
             {t('hero.headline_part1')} 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-purple to-cyan bg-[length:200%_auto] animate-gradient-x">
               {t('hero.headline_part2')}
@@ -49,20 +55,24 @@ const Hero = () => {
             {t('hero.headline_part3')}
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-600 dark:text-gray-400 mb-10 max-w-xl leading-relaxed tracking-wide">
+          <p
+            className={`mb-6 max-w-[42rem] text-[15px] leading-[1.6] text-slate-600 dark:text-gray-400 sm:text-base md:text-[17px] lg:text-[18px] ${
+              isRtl ? 'tracking-normal' : 'tracking-[-0.012em]'
+            }`}
+          >
             {t('hero.subheadline')}
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
             <Link to={isRtl ? '/ar/contact' : '/contact'} className="w-full sm:w-auto">
-              <MagneticButton className="px-8 py-4 shadow-xl shadow-cyan/20 w-full">
+              <MagneticButton className="w-full px-7 py-[15px] text-[15px] leading-none shadow-xl shadow-cyan/20 sm:w-auto sm:text-base">
                 {t('hero.ctaExplore')}
                 <ArrowRight size={18} className="rtl-flip group-hover:translate-x-1 transition-transform" />
               </MagneticButton>
             </Link>
             
             <Link to={isRtl ? '/ar/services' : '/services'} className="w-full sm:w-auto">
-              <button className="px-8 py-4 rounded-xl font-bold border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-all shadow-sm w-full backdrop-blur-sm">
+              <button className="w-full rounded-xl border border-slate-200 px-7 py-[15px] text-[15px] font-bold leading-none text-slate-700 shadow-sm transition-all backdrop-blur-sm hover:bg-slate-50 dark:border-white/10 dark:text-white dark:hover:bg-white/5 sm:w-auto sm:text-base">
                 {t('hero.ctaServices')}
               </button>
             </Link>
@@ -101,7 +111,7 @@ const Hero = () => {
         </div>
 
         {/* Mobile Code Stream Animation — dynamically imported */}
-        <div className="lg:hidden mt-8 w-full">
+        <div className="mt-2 w-full md:mt-4 lg:hidden">
            <HeroMobileCode />
         </div>
       </div>
