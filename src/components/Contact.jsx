@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import {
   Send,
@@ -13,10 +13,12 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./LoadingSpinner";
+import { initContactIntegration } from "../utils/contactIntegration";
 
 const Contact = () => {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
+  const contactIntegration = initContactIntegration();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,6 +31,10 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    contactIntegration.preload();
+  }, [contactIntegration]);
 
   const validate = () => {
     let tempErrors = {};
@@ -46,6 +52,11 @@ const Contact = () => {
     if (!validate()) return;
 
     setLoading(true);
+    const contactMessage = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
 
     try {
       const response = await fetch('/api/contact', {
@@ -59,6 +70,7 @@ const Contact = () => {
       const result = await response.json();
 
       if (response.ok) {
+        void contactIntegration.saveMessage(contactMessage);
         setSuccess(true);
         setFormData({
           name: "",
