@@ -13,6 +13,7 @@ import InstallPrompt from './components/InstallPrompt';
 import OfflineFallback from './pages/OfflineFallback';
 import ErrorBoundary from './components/ErrorBoundary';
 import CustomCursor from './components/CustomCursor';
+import GoogleLoginButton from './components/GoogleLoginButton';
 
 // Lazy load components
 const Services = lazy(() => import('./components/Services'));
@@ -557,23 +558,16 @@ function AppContent() {
         
       </main>
 
-      {/* Floating Button Stack — WhatsApp above Share, safe-area positioned */}
       <div
+        className="fixed bottom-24 right-6 z-50 flex flex-col items-center gap-3 md:bottom-6"
         style={{
-          position: 'fixed',
           bottom: isMobile
-            ? 'calc(118px + env(safe-area-inset-bottom))'
-            : 'calc(28px + env(safe-area-inset-bottom))',
-          ...(isAr
-            ? { left: 'calc(20px + env(safe-area-inset-left))' }
-            : { right: 'calc(20px + env(safe-area-inset-right))' }),
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '12px',
-          zIndex: 40,
-          alignItems: 'center',
+            ? 'calc(96px + env(safe-area-inset-bottom))'
+            : 'calc(24px + env(safe-area-inset-bottom))',
+          right: 'calc(24px + env(safe-area-inset-right))',
         }}
       >
+        <GoogleLoginButton />
         <WhatsAppButton />
         <ShareButton />
       </div>

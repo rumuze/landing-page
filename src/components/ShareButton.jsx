@@ -3,7 +3,19 @@ import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Share2, Copy, Linkedin, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-const ShareButton = ({ title, url }) => {
+const DEFAULT_BUTTON_CLASSNAME = [
+  'group',
+  'relative',
+  'flex h-12 w-12 items-center justify-center rounded-full',
+  'border border-white/20 bg-slate-900 text-white',
+  'shadow-[0_18px_38px_rgba(15,23,42,0.34)]',
+  'backdrop-blur-xl transition duration-200 ease-out',
+  'hover:scale-110 hover:bg-slate-800 hover:shadow-[0_22px_46px_rgba(15,23,42,0.42)]',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+  'dark:border-white/10 dark:bg-slate-800 dark:hover:bg-slate-700',
+].join(' ');
+
+const ShareButton = ({ title, url, className = '', showTooltip = true }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -36,15 +48,21 @@ const ShareButton = ({ title, url }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="group relative">
+      {showTooltip ? (
+        <span className="pointer-events-none absolute right-14 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-slate-950 px-2.5 py-1 text-[11px] font-medium text-white opacity-0 shadow-lg transition duration-200 group-hover:opacity-100 dark:bg-white dark:text-slate-950">
+          Share
+        </span>
+      ) : null}
+
       <Motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={handleShare}
-        className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-cyan/20 hover:border-cyan/50 hover:text-cyan transition-all shadow-lg shadow-cyan/5"
+        className={`${DEFAULT_BUTTON_CLASSNAME} ${className}`.trim()}
         aria-label="Share this page"
       >
-        <Share2 size={20} />
+        <Share2 size={18} />
       </Motion.button>
 
       <AnimatePresence>
