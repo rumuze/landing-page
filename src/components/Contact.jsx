@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import {
   Send,
@@ -15,10 +15,11 @@ import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./LoadingSpinner";
 import { initContactIntegration } from "../utils/contactIntegration";
 
+const contactIntegration = initContactIntegration();
+
 const Contact = () => {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
-  const contactIntegration = initContactIntegration();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -31,10 +32,6 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-
-  useEffect(() => {
-    contactIntegration.preload();
-  }, [contactIntegration]);
 
   const validate = () => {
     let tempErrors = {};
@@ -52,42 +49,32 @@ const Contact = () => {
     if (!validate()) return;
 
     setLoading(true);
-    const contactMessage = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      message: formData.message.trim(),
-    };
-
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const contactMessage = {
+        ...formData,
+        message: formData.message,
+      };
 
-      const result = await response.json();
+      const saved = await contactIntegration.saveMessage(contactMessage);
 
-      if (response.ok) {
-        void contactIntegration.saveMessage(contactMessage);
-        setSuccess(true);
-        setFormData({
-          name: "",
-          company: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
-        setErrors({});
-        // Auto-hide success message after 8 seconds for new copy read time
-        setTimeout(() => setSuccess(false), 8000);
-      } else {
-        throw new Error(result.error);
+      if (!saved) {
+        throw new Error("Failed to send message.");
       }
-    } catch (error) {
-       console.error("Submission error:", error);
-       alert("Failed to send message. Please try again or email us directly.");
+
+      setSuccess(true);
+      setFormData({
+        name: "",
+        company: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+      setErrors({});
+      // Auto-hide success message after 8 seconds
+      setTimeout(() => setSuccess(false), 8000);
+    } catch (err) {
+      console.error("Submission error:", err);
+      alert("Failed to send message. Please try again or email us directly.");
     } finally {
       setLoading(false);
     }

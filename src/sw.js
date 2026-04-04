@@ -6,9 +6,8 @@
  * - Pre-caching of critical assets
  * - StaleWhileRevalidate for JS/CSS
  * - CacheFirst for Images/Fonts
- * - NetworkFirst for API
  * - Offline Fallback
- * - Background Sync for Forms
+ * - NetworkFirst for external API requests
  */
 
 import { clientsClaim } from 'workbox-core';
@@ -17,7 +16,6 @@ import { registerRoute, NavigationRoute, setCatchHandler } from 'workbox-routing
 import { StaleWhileRevalidate, CacheFirst, NetworkFirst } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { BackgroundSyncPlugin } from 'workbox-background-sync';
 
 // Claim control immediately
 self.skipWaiting();
@@ -99,7 +97,7 @@ registerRoute(
 // Try network, fallback to cache if offline.
 // Good for GET requests like blog posts, portfolio items.
 registerRoute(
-  ({ url }) => url.pathname.startsWith('/api/') || url.hostname === 'api.rumuze.com',
+  ({ url }) => url.hostname === 'api.rumuze.com',
   new NetworkFirst({
     cacheName: 'api-cache',
     networkTimeoutSeconds: 3, // Fallback to cache after 3s
@@ -115,44 +113,7 @@ registerRoute(
   })
 );
 
-// 4. Background Sync (Contact Form)
-// Queue failed POST requests and retry them when back online
-// OPTIMIZED: Added unique key strategy to prevent duplicate submissions
-const bgSyncPlugin = new BackgroundSyncPlugin('contactQueue', {
-  maxRetentionTime: 24 * 60, // Retry for 24 hours
-  onSync: async ({ queue }) => {
-    let entry;
-    while ((entry = await queue.shiftRequest())) {
-      try {
-        // Clone request with unique submission ID to prevent duplicates
-        const request = entry.request.clone();
-        const formData = await request.clone().formData();
-
-        // Add unique submission ID if not present
-        if (!formData.has('_submissionId')) {
-          const uniqueId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-          formData.append('_submissionId', uniqueId);
-        }
-
-        await fetch(request);
-      } catch (error) {
-        // Re-queue failed request
-        await queue.unshiftRequest(entry);
-        throw error;
-      }
-    }
-  },
-});
-
-registerRoute(
-  ({ url }) => url.pathname.includes('/api/contact'),
-  new NetworkFirst({
-    plugins: [bgSyncPlugin],
-  }),
-  'POST'
-);
-
-// 5. Global Offline Fallback (Comprehensive)
+// 4. Global Offline Fallback (Comprehensive)
 // If everything fails (network + cache miss), serve a custom offline page or placeholder
 setCatchHandler(async ({ event }) => {
   switch (event.request.destination) {
@@ -180,29 +141,8 @@ self.addEventListener('install', (event) => {
     caches.open('offline-fallback').then((cache) => cache.add(offlinePage))
   );
 });
-// 6. Periodic Background Sync
-// Fetch fresh data in the background (e.g., daily news/projects)
-self.addEventListener('periodicsync', (event) => {
-  if (event.tag === 'update-labs-data') {
-    event.waitUntil(updateLabsData());
-  }
-});
 
-async function updateLabsData() {
-  const cache = await caches.open('api-cache');
-  try {
-    // Attempt to fetch fresh data for critical dynamic content
-    // Adjust endpoint as needed for your specific data source
-    const response = await fetch('/api/labs/featured');
-    if (response.ok) {
-      await cache.put('/api/labs/featured', response);
-    }
-  } catch (error) {
-    console.log('Periodic sync failed:', error);
-  }
-}
-
-// 7. Push Notifications
+// 5. Push Notifications
 self.addEventListener('push', (event) => {
   const data = event.data ? event.data.json() : {};
   const title = data.title || 'New Notification from Rumuze';

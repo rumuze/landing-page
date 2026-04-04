@@ -47,7 +47,10 @@ const loadFirebaseContext = async () => {
           serverTimestamp: firestoreModule.serverTimestamp,
         };
       })
-      .catch(() => null);
+      .catch((error) => {
+        console.error("Firebase load error:", error);
+        return null;
+      });
   }
 
   return firebaseContextPromise;
@@ -79,7 +82,8 @@ export function initContactIntegration() {
         );
 
         return true;
-      } catch {
+      } catch (error) {
+        console.error("Firestore write error:", error);
         return false;
       }
     },
