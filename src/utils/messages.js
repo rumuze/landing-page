@@ -146,17 +146,26 @@ export const mapThreadDocument = (threadDoc) => {
 
 export async function createThread(formData, user = null, adminUid = "ADMIN_UID_PLACEHOLDER") {
   const db = getDb();
-  const batch = writeBatch(db);
-
+  
+  // 1. Validate Inputs
   const normalizedName = getSessionDisplayName(user) || sanitizeLine(formData.name);
   const normalizedEmail = normalizeEmail(user?.email || formData.email);
   const normalizedMessage = sanitizeMultiline(formData.message);
   
   if (!normalizedName) throw new Error("Sender name is required.");
-  if (!normalizedEmail) throw new Error("Sender email is required.");
-  if (!normalizedMessage) throw new Error("Message body is required.");
+  if (!normalizedEmail) throw new Error("A valid email is required.");
+  if (!normalizedMessage) throw new Error("Message body cannot be empty.");
 
+  const batch = writeBatch(db);
+
+  // 2. Prepare References
   const threadRef = doc(collection(db, "threads"));
+  const messageRef = doc(collection(db, `threads/${threadRef.id}/messages`));
+  const notificationRef = doc(collection(db, "notifications"));
+
+  const timestamp = serverTimestamp();
+
+  // 3. Set Thread
   batch.set(threadRef, {
     userId: user?.uid || null,
     userName: normalizedName,
@@ -165,31 +174,33 @@ export async function createThread(formData, user = null, adminUid = "ADMIN_UID_
     isGuest: !user,
     status: "open",
     lastMessage: normalizedMessage,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
+    createdAt: timestamp,
+    updatedAt: timestamp,
   });
 
-  const chatRef = doc(collection(db, `threads/${threadRef.id}/messages`));
-  batch.set(chatRef, {
+  // 4. Set Initial Message
+  batch.set(messageRef, {
     senderId: user?.uid || null,
     senderRole: "user",
     text: normalizedMessage,
-    createdAt: serverTimestamp(),
+    createdAt: timestamp,
   });
 
-  const notificationRef = doc(collection(db, "notifications"));
+  // 5. Create Admin Notification
   batch.set(notificationRef, {
     userId: adminUid,
     type: "message",
     isRead: false,
-    createdAt: serverTimestamp(),
+    createdAt: timestamp,
     threadId: threadRef.id,
   });
 
+  // 6. Update User Profile if authenticated
   if (user?.uid) {
     const userRef = doc(db, "users", user.uid);
     batch.update(userRef, {
       messagesCount: increment(1),
+      lastMessageAt: timestamp,
     });
   }
 
@@ -197,37 +208,43 @@ export async function createThread(formData, user = null, adminUid = "ADMIN_UID_
   return threadRef.id;
 }
 
-export async function sendChatMessage(threadId, senderId, senderRole, text, targetUserId) {
+export async function sendChatMessage({ threadId, senderId, senderRole, text, targetUserId }) {
+  // 1. Validate Inputs
+  if (!threadId) throw new Error("Thread ID is required.");
+  if (!senderRole || !["admin", "user"].includes(senderRole)) {
+    throw new Error("Invalid sender role.");
+  }
   const normalizedText = sanitizeMultiline(text);
-
-  if (!threadId) throw new Error("A thread must be selected.");
-  if (!normalizedText) throw new Error("Message text is required.");
+  if (!normalizedText) throw new Error("Message text cannot be empty.");
 
   const db = getDb();
   const batch = writeBatch(db);
+  const timestamp = serverTimestamp();
 
-  const chatRef = doc(collection(db, `threads/${threadId}/messages`));
-  batch.set(chatRef, {
-    senderId,
-    senderRole, // "admin" or "user"
+  // 2. Add Message
+  const messageRef = doc(collection(db, `threads/${threadId}/messages`));
+  batch.set(messageRef, {
+    senderId: senderId || null,
+    senderRole,
     text: normalizedText,
-    createdAt: serverTimestamp(),
+    createdAt: timestamp,
   });
 
+  // 3. Update Thread Metadata
   const threadRef = doc(db, "threads", threadId);
   batch.update(threadRef, {
     lastMessage: normalizedText,
-    updatedAt: serverTimestamp(),
+    updatedAt: timestamp,
   });
 
-  // Target User ID determines who gets notified (Admin notifies user, User notifies admin)
+  // 4. Create Notification for Receiver
   if (targetUserId) {
     const notificationRef = doc(collection(db, "notifications"));
     batch.set(notificationRef, {
       userId: targetUserId,
       type: senderRole === "admin" ? "reply" : "message",
       isRead: false,
-      createdAt: serverTimestamp(),
+      createdAt: timestamp,
       threadId,
     });
   }

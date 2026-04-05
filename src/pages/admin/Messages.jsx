@@ -98,7 +98,13 @@ const Messages = () => {
     try {
       setIsUpdating(true);
       setActionError("");
-      await sendChatMessage(thread.id, user.uid, "admin", replyText, thread.userId);
+      await sendChatMessage({
+        threadId: thread.id,
+        senderId: user.uid,
+        senderRole: "admin",
+        text: replyText,
+        targetUserId: thread.userId,
+      });
     } catch (replyError) {
       setActionError(replyError?.message ?? "Unable to send the reply.");
     } finally {

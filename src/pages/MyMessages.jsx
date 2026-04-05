@@ -60,13 +60,13 @@ const MyMessages = () => {
     try {
       setIsUpdating(true);
       setActionError("");
-      // Target User ID is ADMIN_UID placeholder or null. When user replies, they probably notify "admins". 
-      // Based on our implementation, user sends text, admin gets notified if targetUserId is set.
-      // But we don't have a single ADMIN_UID. The original code in sendChatMessage does:
-      // if (targetUserId) { ... batch.set(notificationRef, { userId: targetUserId ... }) }
-      // The user prompt logic states: On User Message -> notify admin.
-      // We will pass "ADMIN_ID_PLACEHOLDER" for now. In a real system, it would query admins or send to a general "admin_notifications" bucket.
-      await sendChatMessage(thread.id, user.uid, "user", replyText, "ADMIN_UID_PLACEHOLDER");
+      await sendChatMessage({
+        threadId: thread.id,
+        senderId: user.uid,
+        senderRole: "user",
+        text: replyText,
+        targetUserId: "ADMIN_UID_PLACEHOLDER",
+      });
     } catch (err) {
       setActionError(err?.message ?? "Unable to send message.");
     } finally {

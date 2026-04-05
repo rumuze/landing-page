@@ -43,6 +43,13 @@ export function useThreads() {
       }
     };
 
+    // 1. Reset state if no user
+    if (!user?.uid) {
+      teardown();
+      dispatch({ type: 'RESET' });
+      return;
+    }
+
     teardown();
     dispatch({ type: 'LOADING' });
 
@@ -53,20 +60,22 @@ export function useThreads() {
         const db = getDb();
         const threadsRef = collection(db, 'threads');
         
+        // 2. Index-Safe Query Selection
         let q;
-        if (user?.role === 'admin') {
-          // Admin sees all threads
+        if (user.role === 'admin') {
+          // Admin View: All threads, sorted by latest activity
           q = query(threadsRef, orderBy('updatedAt', 'desc'));
-        } else if (user?.uid) {
-          // Regular user sees only their threads
-          q = query(threadsRef, where('userId', '==', user.uid), orderBy('updatedAt', 'desc'));
         } else {
-          // Guests or logged out users cannot use useThreads easily unless we store thread IDs locally.
-          // For now, return empty. Guests rely on single thread views if they have the ID.
-          dispatch({ type: 'LOADED', payload: [] });
-          return;
+          // User View: Own threads, sorted by latest activity
+          // REQUIRES INDEX: userId (ASC) + updatedAt (DESC)
+          q = query(
+            threadsRef, 
+            where('userId', '==', user.uid), 
+            orderBy('updatedAt', 'desc')
+          );
         }
 
+        // 3. Real-time Subscription
         const unsubscribe = onSnapshot(
           q,
           (snapshot) => {
@@ -82,7 +91,11 @@ export function useThreads() {
           (err) => {
             if (!isMounted) return;
             console.error('[useThreads] onSnapshot error:', err);
-            dispatch({ type: 'ERROR', payload: err.message ?? 'Failed to load threads.' });
+            // Handle common index error with a helpful message
+            const errorMessage = err.code === 'failed-precondition' 
+              ? 'Required index missing. Please check console for the creation link.'
+              : 'Failed to load threads list.';
+            dispatch({ type: 'ERROR', payload: errorMessage });
           }
         );
 
@@ -94,7 +107,7 @@ export function useThreads() {
       } catch (err) {
         if (isMounted) {
           console.error('[useThreads] setup error:', err);
-          dispatch({ type: 'ERROR', payload: err.message ?? 'Failed to initialize threads listener.' });
+          dispatch({ type: 'ERROR', payload: 'Failed to initialize thread listener.' });
         }
       }
     };

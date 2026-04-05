@@ -6,7 +6,6 @@ import {
   onSnapshot,
 } from 'firebase/firestore';
 import { getDb } from '../utils/firebaseClient';
-import { useAuth } from '../context/auth-core';
 
 const INITIAL_STATE = {
   messages: [],
@@ -30,7 +29,6 @@ function reducer(state, action) {
 }
 
 export function useChat(threadId) {
-  const { user } = useAuth();
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const unsubscribeRef = useRef(null);
 
@@ -42,6 +40,7 @@ export function useChat(threadId) {
       }
     };
 
+    // 1. Validate threadId
     if (!threadId) {
       teardown();
       dispatch({ type: 'RESET' });
@@ -57,8 +56,11 @@ export function useChat(threadId) {
       try {
         const db = getDb();
         const chatRef = collection(db, `threads/${threadId}/messages`);
+        
+        // 2. Deterministic Query: Messages sorted ASC (oldest first)
         const q = query(chatRef, orderBy('createdAt', 'asc'));
 
+        // 3. Real-time Subscription
         const unsubscribe = onSnapshot(
           q,
           (snapshot) => {
@@ -73,7 +75,7 @@ export function useChat(threadId) {
           (err) => {
             if (!isMounted) return;
             console.error('[useChat] onSnapshot error:', err);
-            dispatch({ type: 'ERROR', payload: err.message ?? 'Failed to load chat messages.' });
+            dispatch({ type: 'ERROR', payload: 'Failed to load chat messages.' });
           }
         );
 
@@ -85,7 +87,7 @@ export function useChat(threadId) {
       } catch (err) {
         if (isMounted) {
           console.error('[useChat] setup error:', err);
-          dispatch({ type: 'ERROR', payload: err.message ?? 'Failed to initialize chat listener.' });
+          dispatch({ type: 'ERROR', payload: 'Failed to initialize chat listener.' });
         }
       }
     };
@@ -96,7 +98,7 @@ export function useChat(threadId) {
       isMounted = false;
       teardown();
     };
-  }, [threadId, user?.uid]);
+  }, [threadId]);
 
   return {
     messages: state.messages,

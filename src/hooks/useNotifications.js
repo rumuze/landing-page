@@ -3,13 +3,11 @@ import {
   collection,
   query,
   where,
-  or,
+  orderBy,
   onSnapshot,
   updateDoc,
   writeBatch,
   doc,
-  addDoc,
-  serverTimestamp,
 } from 'firebase/firestore';
 import { getDb } from '../utils/firebaseClient';
 import { useAuth } from '../context/auth-core';
@@ -45,12 +43,6 @@ function reducer(state, action) {
   }
 }
 
-function getNotificationTime(value) {
-  if (!value) return 0;
-  if (value instanceof Date) return value.getTime();
-  const date = typeof value?.toDate === 'function' ? value.toDate() : new Date(value);
-  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
-}
 
 /* ─── hook ─────────────────────────────────────────────────────── */
 
@@ -65,9 +57,7 @@ export function useNotifications() {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const unsubscribeRef = useRef(null);
 
-  /* ── Firestore real-time listener ─────────────────────────── */
   useEffect(() => {
-    // Clean up any previous listener before setting up a new one
     const teardown = () => {
       if (unsubscribeRef.current) {
         unsubscribeRef.current();
@@ -75,10 +65,11 @@ export function useNotifications() {
       }
     };
 
+    // 1. Validate User
     if (!user?.uid) {
       teardown();
       dispatch({ type: 'RESET' });
-      return teardown;
+      return;
     }
 
     teardown();
@@ -86,72 +77,63 @@ export function useNotifications() {
 
     let isMounted = true;
 
-    const setupListener = async () => {
+    const setup = () => {
       try {
         const db = getDb();
-        // Admins see notifications targeted to them OR any 'message' notification (from users/guests)
-        // Regular users only see notifications targeted to them (replies)
-        const q = user.role === 'admin'
-          ? query(
-              collection(db, 'notifications'),
-              or(
-                where('userId', '==', user.uid),
-                where('type', '==', 'message')
-              )
-            )
-          : query(
-              collection(db, 'notifications'),
-              where('userId', '==', user.uid)
-            );
+        
+        // 2. Index-Safe Query: User's notifications sorted by newest first
+        // REQUIRES INDEX: userId (ASC) + createdAt (DESC)
+        const q = query(
+          collection(db, 'notifications'),
+          where('userId', '==', user.uid),
+          orderBy('createdAt', 'desc')
+        );
 
+        // 3. Real-time Subscription
         const unsubscribe = onSnapshot(
           q,
           (snapshot) => {
             if (!isMounted) return;
-            const data = snapshot.docs
-              .map((docSnap) => ({
-                id: docSnap.id,
-                ...docSnap.data(),
-                createdAt: docSnap.data().createdAt?.toDate?.() ?? new Date(),
-              }))
-              .sort((left, right) => getNotificationTime(right.createdAt) - getNotificationTime(left.createdAt));
+            const data = snapshot.docs.map((docSnap) => ({
+              id: docSnap.id,
+              ...docSnap.data(),
+              createdAt: docSnap.data().createdAt?.toDate?.() ?? new Date(),
+            }));
             dispatch({ type: 'LOADED', payload: data });
           },
           (err) => {
             if (!isMounted) return;
             console.error('[useNotifications] onSnapshot error:', err);
-            dispatch({ type: 'ERROR', payload: err.message ?? 'Failed to load notifications.' });
+            const errorMessage = err.code === 'failed-precondition'
+              ? 'Notifications index missing. Check console.'
+              : 'Failed to load notifications.';
+            dispatch({ type: 'ERROR', payload: errorMessage });
           }
         );
 
         if (isMounted) {
           unsubscribeRef.current = unsubscribe;
         } else {
-          // Component unmounted before the promise resolved — clean up immediately
           unsubscribe();
         }
-      } catch (setupError) {
+      } catch (err) {
         if (isMounted) {
-          console.error('[useNotifications] setup error:', setupError);
-          dispatch({
-            type: 'ERROR',
-            payload: setupError.message ?? 'Failed to set up notifications listener.',
-          });
+          console.error('[useNotifications] setup error:', err);
+          dispatch({ type: 'ERROR', payload: 'Failed to initialize notifications.' });
         }
       }
     };
 
-    setupListener();
+    setup();
 
     return () => {
       isMounted = false;
       teardown();
     };
-  }, [user?.uid, user?.role]);
+  }, [user?.uid]);
 
-  /* ── actions ──────────────────────────────────────────────── */
+  /* ── Actions ────────────────────────────────────────────────── */
 
-  /** Mark a single notification as read in Firestore. */
   const markAsRead = useCallback(async (notificationId) => {
     try {
       const db = getDb();
@@ -161,7 +143,6 @@ export function useNotifications() {
     }
   }, []);
 
-  /** Batch-mark all unread notifications as read in one Firestore write. */
   const markAllAsRead = useCallback(async () => {
     const unread = state.notifications.filter((n) => !n.isRead);
     if (unread.length === 0) return;
@@ -178,49 +159,7 @@ export function useNotifications() {
     }
   }, [state.notifications]);
 
-  /**
-   * createNotification — programmatically create a Firestore notification.
-   *
-   * @example
-   * // Notify admin when a user sends a message
-   * await createNotification({
-   *   userId: adminUid,
-   *   type: 'message',
-   *   title: 'New message received',
-   *   body: 'A user sent a message',
-   *   link: '/messages/abc123',
-   * });
-   *
-   * // Notify user when admin replies
-   * await createNotification({
-   *   userId: userUid,
-   *   type: 'reply',
-   *   title: 'You got a reply',
-   *   body: 'Admin replied to your message',
-   *   link: '/messages/abc123',
-   * });
-   */
-  const createNotification = useCallback(
-    async ({ userId, type, title, body, link = null }) => {
-      try {
-        const db = getDb();
-        await addDoc(collection(db, 'notifications'), {
-          userId,
-          type, // 'message' | 'reply'
-          title,
-          body,
-          isRead: false,
-          link,
-          createdAt: serverTimestamp(),
-        });
-      } catch (err) {
-        console.error('[useNotifications] createNotification error:', err);
-      }
-    },
-    []
-  );
-
-  /* ── derived ──────────────────────────────────────────────── */
+  /* ── Derived ────────────────────────────────────────────────── */
   const unreadCount = state.notifications.filter((n) => !n.isRead).length;
 
   return {
@@ -230,6 +169,5 @@ export function useNotifications() {
     error: state.error,
     markAsRead,
     markAllAsRead,
-    createNotification,
   };
 }
