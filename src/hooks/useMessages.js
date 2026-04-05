@@ -1,13 +1,5 @@
 import { startTransition, useEffect, useReducer } from "react";
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
-import { getDb } from "../utils/firebaseClient";
-import { mapMessageDocument, sortMessagesByLatest } from "../utils/messages";
+import { getLegacyMessages } from "../services/chatService";
 
 const INITIAL_STATE = {
   messages: [],
@@ -53,36 +45,37 @@ export function useMessages({ mode = "user", userId = null } = {}) {
     }
 
     dispatch({ type: "LOADING" });
+    let isActive = true;
 
-    const messagesRef = collection(getDb(), "messages");
-    const messagesQuery =
-      mode === "admin"
-        ? query(messagesRef, orderBy("createdAt", "desc"))
-        : query(messagesRef, where("userId", "==", userId));
-
-    return onSnapshot(
-      messagesQuery,
-      (snapshot) => {
-        const nextMessages = snapshot.docs.map(mapMessageDocument);
-        const sortedMessages =
-          mode === "admin" ? nextMessages : sortMessagesByLatest(nextMessages);
+    void getLegacyMessages({ mode, userId })
+      .then((messages) => {
+        if (!isActive) {
+          return;
+        }
 
         startTransition(() => {
           dispatch({
             type: "LOADED",
-            payload: sortedMessages,
+            payload: messages,
           });
         });
-      },
-      (snapshotError) => {
+      })
+      .catch((snapshotError) => {
+        if (!isActive) {
+          return;
+        }
+
         dispatch({
           type: "ERROR",
           payload:
             snapshotError?.message ??
-            "Unable to subscribe to Firestore messages right now.",
+            "Unable to load legacy messages right now.",
         });
-      },
-    );
+      });
+
+    return () => {
+      isActive = false;
+    };
   }, [isEnabled, mode, userId]);
 
   return {

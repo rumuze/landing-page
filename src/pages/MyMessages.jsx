@@ -7,13 +7,15 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/auth-core";
 import { useThreads } from "../hooks/useThreads";
-import { sendChatMessage, matchesMessageSearch } from "../utils/messages";
+import { matchesMessageSearch } from "../utils/messages";
 import MessageList from "../components/MessageList";
 import MessageDetail from "../components/MessageDetail";
+import { useMessagingActions } from "../hooks/useMessagingActions";
 
 const MyMessages = () => {
   const { i18n } = useTranslation();
   const { user } = useAuth();
+  const { sendMessage } = useMessagingActions();
   const locale = i18n.language === "ar" ? "ar-EG" : "en-US";
   const isAr = i18n.language === "ar";
   
@@ -64,7 +66,7 @@ const MyMessages = () => {
 
       setIsUpdating(true);
       setActionError("");
-      await sendChatMessage({
+      await sendMessage({
         threadId: thread.id,
         senderId: user.uid,
         senderRole: "user",

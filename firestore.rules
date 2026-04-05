@@ -5,12 +5,22 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function isCurrentUser(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
     function getUser() {
       return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
     }
 
     function isAdmin() {
       return isSignedIn() && getUser().role == "admin";
+    }
+
+    function isAdminUserId(userId) {
+      return userId is string
+        && exists(/databases/$(database)/documents/users/$(userId))
+        && get(/databases/$(database)/documents/users/$(userId)).data.role == "admin";
     }
 
     function hasOnlyKeys(data, keys) {
@@ -119,6 +129,7 @@ service cloud.firestore {
         )
         && request.auth.uid == userId
         && request.resource.data.uid == userId
+        && request.resource.data.email == request.auth.token.email
         && request.resource.data.role == "user"
         && request.resource.data.createdAt == request.time
         && request.resource.data.lastLoginAt == request.time
@@ -130,11 +141,17 @@ service cloud.firestore {
     }
 
     function isValidUserUpdate(userId) {
-      return request.auth.uid == userId
+      return isCurrentUser(userId)
         && request.resource.data.uid == resource.data.uid
         && request.resource.data.role == resource.data.role
         && request.resource.data.createdAt == resource.data.createdAt
-        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["email", "name", "photoURL", "lastLoginAt", "messagesCount"])
+        && request.resource.data.messagesCount == resource.data.messagesCount
+        && request.resource.data.email == request.auth.token.email
+        && (
+          request.resource.data.lastLoginAt == resource.data.lastLoginAt
+          || request.resource.data.lastLoginAt == request.time
+        )
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["email", "name", "photoURL", "lastLoginAt"])
         && isNonEmptyString(request.resource.data.name, 1, 120)
         && isNonEmptyString(request.resource.data.email, 3, 320)
         && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
@@ -144,6 +161,13 @@ service cloud.firestore {
     function isValidAdminUserUpdate() {
       return isAdmin()
         && request.resource.data.diff(resource.data).changedKeys().hasOnly(["role"])
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.name == resource.data.name
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.photoURL == resource.data.photoURL
+        && request.resource.data.lastLoginAt == resource.data.lastLoginAt
+        && request.resource.data.messagesCount == resource.data.messagesCount
         && (request.resource.data.role == "admin" || request.resource.data.role == "user");
     }
 
@@ -217,7 +241,7 @@ service cloud.firestore {
         )
         && isNonEmptyString(request.resource.data.userName, 1, 120)
         && isValidEmail(request.resource.data.userEmail)
-        && isValidThreadStatus(request.resource.data.status)
+        && request.resource.data.status == "open"
         && isNonEmptyString(request.resource.data.lastMessage, 1, 5000)
         && request.resource.data.createdAt == request.time
         && request.resource.data.updatedAt == request.time;
@@ -232,9 +256,8 @@ service cloud.firestore {
         && (
           isAdmin()
           || (
-            isSignedIn()
-            && resource.data.userId != null
-            && request.auth.uid == resource.data.userId
+            isCurrentUser(resource.data.userId)
+            && resource.data.status == "open"
           )
         );
     }
@@ -265,16 +288,17 @@ service cloud.firestore {
           )
           || (
             request.resource.data.senderRole == "user"
+            && threadData.status == "open"
             && (
               (
                 request.auth == null
                 && threadData.userId == null
                 && request.resource.data.senderId == null
+                && !exists(/databases/$(database)/documents/threads/$(threadId))
               )
               || (
-                isSignedIn()
+                isCurrentUser(threadData.userId)
                 && threadData.userId != null
-                && request.auth.uid == threadData.userId
                 && request.resource.data.senderId == request.auth.uid
               )
             )
@@ -285,43 +309,25 @@ service cloud.firestore {
     function isValidThreadNotificationCreate(threadId) {
       let threadData = getThreadAfter(threadId).data;
       return existsAfter(/databases/$(database)/documents/threads/$(threadId))
+        && isAdmin()
         && hasOnlyKeys(
           request.resource.data,
           ["userId", "type", "isRead", "createdAt", "threadId"]
         )
         && isNonEmptyString(request.resource.data.userId, 1, 128)
         && request.resource.data.threadId == threadId
+        && request.resource.data.type == "reply"
+        && threadData.userId != null
+        && request.resource.data.userId == threadData.userId
         && request.resource.data.isRead == false
         && request.resource.data.createdAt == request.time
-        && (
-          (
-            request.resource.data.type == "reply"
-            && isAdmin()
-            && threadData.userId != null
-            && request.resource.data.userId == threadData.userId
-          )
-          || (
-            request.resource.data.type == "message"
-            && (
-              (
-                request.auth == null
-                && threadData.userId == null
-              )
-              || (
-                isSignedIn()
-                && threadData.userId != null
-                && request.auth.uid == threadData.userId
-              )
-            )
-          )
-        );
+        && !isAdminUserId(request.resource.data.userId);
     }
 
     match /messages/{messageId} {
-      allow create: if isValidMessageCreate();
+      allow create: if false;
       allow read: if isAdmin() || isMessageOwner();
-      allow update: if isAdmin() && isValidAdminMessageUpdate();
-      allow delete: if isAdmin();
+      allow update, delete: if false;
     }
 
     match /threads/{threadId} {
@@ -342,7 +348,7 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
-      allow read: if request.auth.uid == userId || isAdmin();
+      allow read: if isCurrentUser(userId) || isAdmin();
       allow create: if isSignedIn() && isValidUserCreate(userId);
       allow update: if (isSignedIn() && isValidUserUpdate(userId)) || isValidAdminUserUpdate();
       allow delete: if false;

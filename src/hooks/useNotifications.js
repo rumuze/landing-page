@@ -1,16 +1,10 @@
-import { startTransition, useCallback, useEffect, useReducer, useRef } from 'react';
+import { startTransition, useCallback, useEffect, useReducer, useRef } from "react";
+import { useAuth } from "../context/auth-core";
 import {
-  doc,
-  onSnapshot,
-  updateDoc,
-  writeBatch,
-} from 'firebase/firestore';
-import { getDb } from '../utils/firebaseClient';
-import { useAuth } from '../context/auth-core';
-import {
-  buildNotificationsQuery,
-  mapNotificationDocument,
-} from '../utils/messages';
+  markNotificationAsRead,
+  markNotificationsAsRead,
+  subscribeToNotifications,
+} from "../services/chatService";
 
 /* ─── state shape & reducer ────────────────────────────────────── */
 
@@ -86,18 +80,10 @@ export function useNotifications() {
 
     const setup = () => {
       try {
-        const notificationsQuery = buildNotificationsQuery({ uid: userUid });
-
-        if (!notificationsQuery) {
-          dispatch({ type: 'RESET' });
-          return;
-        }
-
-        const unsubscribe = onSnapshot(
-          notificationsQuery,
-          (snapshot) => {
+        const unsubscribe = subscribeToNotifications(
+          { userId: userUid },
+          (notifications) => {
             if (!isMounted) return;
-            const notifications = snapshot.docs.map(mapNotificationDocument);
             const unreadCount = notifications.reduce(
               (count, notification) => count + (notification.isRead ? 0 : 1),
               0,
@@ -105,19 +91,19 @@ export function useNotifications() {
 
             startTransition(() => {
               dispatch({
-                type: 'LOADED',
+                type: "LOADED",
                 payload: { notifications, unreadCount },
               });
             });
           },
           (err) => {
             if (!isMounted) return;
-            console.error('[useNotifications] onSnapshot error:', err);
-            const errorMessage = err.code === 'failed-precondition'
-              ? 'Missing Firestore index: notifications requires userId (ASC) + createdAt (DESC).'
-              : 'Failed to load notifications.';
-            dispatch({ type: 'ERROR', payload: errorMessage });
-          }
+            console.error("[useNotifications] subscription error:", err);
+            const errorMessage = err.code === "failed-precondition"
+              ? "Missing Firestore index: notifications requires userId (ASC) + createdAt (DESC)."
+              : "Failed to load notifications.";
+            dispatch({ type: "ERROR", payload: errorMessage });
+          },
         );
 
         if (isMounted) {
@@ -127,8 +113,8 @@ export function useNotifications() {
         }
       } catch (err) {
         if (isMounted) {
-          console.error('[useNotifications] setup error:', err);
-          dispatch({ type: 'ERROR', payload: 'Failed to initialize notifications.' });
+          console.error("[useNotifications] setup error:", err);
+          dispatch({ type: "ERROR", payload: "Failed to initialize notifications." });
         }
       }
     };
@@ -149,10 +135,9 @@ export function useNotifications() {
     }
 
     try {
-      const db = getDb();
-      await updateDoc(doc(db, 'notifications', notificationId), { isRead: true });
+      await markNotificationAsRead({ notificationId });
     } catch (err) {
-      console.error('[useNotifications] markAsRead error:', err);
+      console.error("[useNotifications] markAsRead error:", err);
     }
   }, []);
 
@@ -161,14 +146,11 @@ export function useNotifications() {
     if (unread.length === 0) return;
 
     try {
-      const db = getDb();
-      const batch = writeBatch(db);
-      unread.forEach((n) => {
-        batch.update(doc(db, 'notifications', n.id), { isRead: true });
+      await markNotificationsAsRead({
+        notificationIds: unread.map((notification) => notification.id),
       });
-      await batch.commit();
     } catch (err) {
-      console.error('[useNotifications] markAllAsRead error:', err);
+      console.error("[useNotifications] markAllAsRead error:", err);
     }
   }, [state.notifications]);
 

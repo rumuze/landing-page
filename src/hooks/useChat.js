@@ -1,6 +1,5 @@
-import { startTransition, useEffect, useReducer, useRef } from 'react';
-import { onSnapshot } from 'firebase/firestore';
-import { buildMessagesQuery, mapChatMessageDocument } from '../utils/messages';
+import { startTransition, useEffect, useReducer, useRef } from "react";
+import { subscribeToMessages } from "../services/chatService";
 
 const INITIAL_STATE = {
   messages: [],
@@ -49,23 +48,20 @@ export function useChat(threadId) {
 
     const setup = () => {
       try {
-        const chatQuery = buildMessagesQuery(threadId);
-
-        const unsubscribe = onSnapshot(
-          chatQuery,
-          (snapshot) => {
+        const unsubscribe = subscribeToMessages(
+          { threadId },
+          (data) => {
             if (!isMounted) return;
-            const data = snapshot.docs.map(mapChatMessageDocument);
 
             startTransition(() => {
-              dispatch({ type: 'LOADED', payload: data });
+              dispatch({ type: "LOADED", payload: data });
             });
           },
           (err) => {
             if (!isMounted) return;
-            console.error('[useChat] onSnapshot error:', err);
-            dispatch({ type: 'ERROR', payload: 'Failed to load chat messages.' });
-          }
+            console.error("[useChat] subscription error:", err);
+            dispatch({ type: "ERROR", payload: "Failed to load chat messages." });
+          },
         );
 
         if (isMounted) {
@@ -75,8 +71,8 @@ export function useChat(threadId) {
         }
       } catch (err) {
         if (isMounted) {
-          console.error('[useChat] setup error:', err);
-          dispatch({ type: 'ERROR', payload: 'Failed to initialize chat listener.' });
+          console.error("[useChat] setup error:", err);
+          dispatch({ type: "ERROR", payload: "Failed to initialize chat listener." });
         }
       }
     };

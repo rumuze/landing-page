@@ -1,11 +1,6 @@
-import { startTransition, useEffect, useReducer, useRef } from 'react';
-import { onSnapshot } from 'firebase/firestore';
-import { useAuth } from '../context/auth-core';
-import {
-  buildThreadsQuery,
-  mapThreadDocument,
-  sortThreadsByLatest,
-} from '../utils/messages';
+import { startTransition, useEffect, useReducer, useRef } from "react";
+import { useAuth } from "../context/auth-core";
+import { subscribeToThreads } from "../services/chatService";
 
 const INITIAL_STATE = {
   threads: [],
@@ -57,33 +52,23 @@ export function useThreads() {
 
     const setup = () => {
       try {
-        const threadsQuery = buildThreadsQuery({
-          user: { uid: userUid, role: userRole },
-        });
-
-        if (!threadsQuery) {
-          dispatch({ type: 'RESET' });
-          return;
-        }
-
-        const unsubscribe = onSnapshot(
-          threadsQuery,
-          (snapshot) => {
+        const unsubscribe = subscribeToThreads(
+          { user: { uid: userUid, role: userRole } },
+          (data) => {
             if (!isMounted) return;
-            const data = sortThreadsByLatest(snapshot.docs.map(mapThreadDocument));
 
             startTransition(() => {
-              dispatch({ type: 'LOADED', payload: data });
+              dispatch({ type: "LOADED", payload: data });
             });
           },
           (err) => {
             if (!isMounted) return;
-            console.error('[useThreads] onSnapshot error:', err);
-            const errorMessage = err.code === 'failed-precondition' 
-              ? 'Missing Firestore index on admin inbox query.'
-              : 'Failed to load threads list.';
-            dispatch({ type: 'ERROR', payload: errorMessage });
-          }
+            console.error("[useThreads] subscription error:", err);
+            const errorMessage = err.code === "failed-precondition"
+              ? "Missing Firestore index on admin inbox query."
+              : "Failed to load threads list.";
+            dispatch({ type: "ERROR", payload: errorMessage });
+          },
         );
 
         if (isMounted) {
@@ -93,8 +78,8 @@ export function useThreads() {
         }
       } catch (err) {
         if (isMounted) {
-          console.error('[useThreads] setup error:', err);
-          dispatch({ type: 'ERROR', payload: 'Failed to initialize thread listener.' });
+          console.error("[useThreads] setup error:", err);
+          dispatch({ type: "ERROR", payload: "Failed to initialize thread listener." });
         }
       }
     };

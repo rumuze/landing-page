@@ -1,13 +1,9 @@
 import {
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithCredential,
-} from "firebase/auth";
-import {
   ensureFirebaseAuthReady,
-  getFirebaseAuth,
   getFirebaseSetupStatus,
-} from "./firebaseClient";
+  signInWithGoogleCredentialToken,
+  subscribeToAuthenticatedUser,
+} from "../services/authService";
 
 const GOOGLE_IDENTITY_SCRIPT_URL = "https://accounts.google.com/gsi/client";
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? "";
@@ -268,12 +264,10 @@ export async function loginWithGoogleCredential(idToken) {
   }
 
   try {
-    const auth = await ensureFirebaseAuthReady();
-    const credential = GoogleAuthProvider.credential(idToken);
-    const result = await signInWithCredential(auth, credential);
+    const { user, result, auth } = await signInWithGoogleCredentialToken(idToken);
 
     return {
-      user: result.user ?? auth.currentUser ?? buildLocalGoogleUser(idToken),
+      user: user ?? result?.user ?? auth.currentUser ?? buildLocalGoogleUser(idToken),
       credential: idToken,
       provider: "firebase",
     };
@@ -320,7 +314,7 @@ export function subscribeToGoogleAuthUser(callback) {
   }
 
   try {
-    return onAuthStateChanged(getFirebaseAuth(), callback);
+    return subscribeToAuthenticatedUser(callback);
   } catch (error) {
     console.error("Google auth listener setup failed:", error);
     callback(null);

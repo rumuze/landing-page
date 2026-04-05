@@ -1,12 +1,6 @@
-import { useEffect, useReducer, useCallback, useRef } from 'react';
-import {
-  collection,
-  doc,
-  onSnapshot,
-  updateDoc,
-} from 'firebase/firestore';
-import { getDb } from '../utils/firebaseClient';
-import { useAuth } from '../context/auth-core';
+import { useEffect, useReducer, useCallback, useRef } from "react";
+import { useAuth } from "../context/auth-core";
+import { subscribeToUsers, updateUserRole } from "../services/userService";
 
 /* ─── reducer ───────────────────────────────────────────────────── */
 
@@ -62,23 +56,9 @@ export function useUsers() {
 
     const setup = async () => {
       try {
-        const db = getDb();
-        const unsubscribe = onSnapshot(
-          collection(db, 'users'),
-          (snapshot) => {
+        const unsubscribe = subscribeToUsers(
+          (data) => {
             if (!isMounted) return;
-            const data = snapshot.docs
-              .map((docSnap) => ({
-                uid: docSnap.id,
-                ...docSnap.data(),
-                createdAt: docSnap.data().createdAt?.toDate?.() ?? null,
-                lastLoginAt: docSnap.data().lastLoginAt?.toDate?.() ?? null,
-              }))
-              .sort((a, b) => {
-                const ta = a.createdAt?.getTime() ?? 0;
-                const tb = b.createdAt?.getTime() ?? 0;
-                return tb - ta;
-              });
             dispatch({ type: 'LOADED', payload: data });
           },
           (err) => {
@@ -112,7 +92,7 @@ export function useUsers() {
   /** Promote a user to admin role */
   const promoteToAdmin = useCallback(async (uid) => {
     try {
-      await updateDoc(doc(getDb(), 'users', uid), { role: 'admin' });
+      await updateUserRole({ uid, role: "admin" });
     } catch (err) {
       console.error('[useUsers] promoteToAdmin error:', err);
       throw err;
@@ -122,7 +102,7 @@ export function useUsers() {
   /** Demote a user to regular user role */
   const demoteToUser = useCallback(async (uid) => {
     try {
-      await updateDoc(doc(getDb(), 'users', uid), { role: 'user' });
+      await updateUserRole({ uid, role: "user" });
     } catch (err) {
       console.error('[useUsers] demoteToUser error:', err);
       throw err;

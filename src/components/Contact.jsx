@@ -15,11 +15,13 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
 import { useAuth } from "../context/auth-core";
-import { createThread, createThreadRequestId } from "../utils/messages";
+import { createThreadRequestId } from "../utils/messages";
+import { useMessagingActions } from "../hooks/useMessagingActions";
 
 const Contact = () => {
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
+  const { createThread } = useMessagingActions();
   const isRtl = i18n.dir() === "rtl";
   const isSignedIn = Boolean(user?.uid);
   const myMessagesRoute = isRtl ? "/ar/my-messages" : "/my-messages";
@@ -82,8 +84,12 @@ const Contact = () => {
         email: user?.email || formData.email,
       };
 
-      await createThread(contactMessage, user, {
-        clientRequestId: requestIdRef.current,
+      await createThread({
+        formData: contactMessage,
+        user,
+        options: {
+          clientRequestId: requestIdRef.current,
+        },
       });
 
       setSuccess(true);

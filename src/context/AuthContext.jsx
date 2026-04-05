@@ -1,16 +1,6 @@
 import { startTransition, useEffect, useState } from "react";
-import {
-  onAuthStateChanged,
-  signInWithPopup,
-  signOut,
-  updateProfile,
-} from "firebase/auth";
 import { AuthContext } from "./auth-core";
-import {
-  ensureFirebaseAuthReady,
-  getFirebaseSetupStatus,
-  googleProvider,
-} from "../utils/firebaseClient";
+import * as authService from "../services/authService";
 import {
   buildSessionUser,
   ensureUserProfile,
@@ -19,7 +9,7 @@ import {
 } from "../utils/userProfiles";
 
 export const AuthProvider = ({ children }) => {
-  const setupStatus = getFirebaseSetupStatus();
+  const setupStatus = authService.getFirebaseSetupStatus();
   const isConfigured = setupStatus.isConfigValid;
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(isConfigured);
@@ -55,13 +45,13 @@ export const AuthProvider = ({ children }) => {
       };
     }
 
-    void ensureFirebaseAuthReady()
-      .then((auth) => {
+    void authService.ensureFirebaseAuthReady()
+      .then(() => {
         if (!isMounted) {
           return;
         }
 
-        unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
+        unsubscribeAuth = authService.subscribeToAuthenticatedUser((firebaseUser) => {
           unsubscribeProfile();
           unsubscribeProfile = () => {};
 
@@ -129,9 +119,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       setError("");
-      const auth = await ensureFirebaseAuthReady();
-      const result = await signInWithPopup(auth, googleProvider);
-      const firebaseUser = result.user ?? auth.currentUser;
+      const { user: firebaseUser } = await authService.loginWithGoogle();
 
       await ensureUserProfile(firebaseUser);
       const profile = await getUserProfile(firebaseUser.uid);
@@ -159,8 +147,7 @@ export const AuthProvider = ({ children }) => {
       setError("");
 
       if (isConfigured) {
-        const auth = await ensureFirebaseAuthReady();
-        await signOut(auth);
+        await authService.logout();
       }
 
       setUser(null);
@@ -178,13 +165,13 @@ export const AuthProvider = ({ children }) => {
       throw new Error(configError);
     }
 
-    const auth = await ensureFirebaseAuthReady();
+    const auth = await authService.ensureFirebaseAuthReady();
 
     if (!auth.currentUser) {
       throw new Error("No authenticated user found.");
     }
 
-    await updateProfile(auth.currentUser, {
+    await authService.updateUserProfile({
       displayName: displayName?.trim() || null,
       photoURL: photoURL?.trim() || null,
     });

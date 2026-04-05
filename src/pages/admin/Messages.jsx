@@ -3,20 +3,19 @@ import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion as Motion } from "framer-motion";
 import { AlertCircle, Inbox, MessageSquareMore, ShieldCheck } from "lucide-react";
-import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import MessageDetail from "../../components/MessageDetail";
 import MessageList from "../../components/MessageList";
 import { useThreads } from "../../hooks/useThreads";
-import { getDb } from "../../utils/firebaseClient";
 import {
   matchesMessageSearch,
-  sendChatMessage,
 } from "../../utils/messages";
 import { useAuth } from "../../context/auth-core";
+import { useMessagingActions } from "../../hooks/useMessagingActions";
 
 const Messages = () => {
   const { user } = useAuth();
+  const { sendMessage, updateThreadStatus } = useMessagingActions();
   const { i18n } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedId, setSelectedId] = useState(searchParams.get("threadId"));
@@ -77,7 +76,7 @@ const Messages = () => {
     try {
       setIsUpdating(true);
       setActionError("");
-      await updateDoc(doc(getDb(), "threads", threadId), payload);
+      await updateThreadStatus({ threadId, status: payload.status });
     } catch (updateError) {
       setActionError(
         updateError?.message ?? "Unable to update the selected thread.",
@@ -90,7 +89,6 @@ const Messages = () => {
   const handleToggleStatus = async (thread) => {
     await updateThread(thread.id, {
       status: thread.status === "open" ? "closed" : "open",
-      updatedAt: serverTimestamp(),
     });
   };
 
@@ -102,7 +100,7 @@ const Messages = () => {
 
       setIsUpdating(true);
       setActionError("");
-      await sendChatMessage({
+      await sendMessage({
         threadId: thread.id,
         senderId: user.uid,
         senderRole: "admin",

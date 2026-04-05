@@ -1,4 +1,4 @@
-import { createThread } from "./messages";
+import { createThread } from "../services/chatService";
 
 let contactIntegration;
 
@@ -12,7 +12,7 @@ export function initContactIntegration() {
     async saveMessage(message, user = null) {
       try {
         // creates a thread and a first message in the subcollection
-        await createThread(message, user);
+        await createThread({ formData: message, user });
         return true;
       } catch (error) {
         console.error("Firestore thread creation error:", error);
