@@ -3,6 +3,7 @@ import { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 import SEO from './components/SEO';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -13,7 +14,8 @@ import InstallPrompt from './components/InstallPrompt';
 import OfflineFallback from './pages/OfflineFallback';
 import ErrorBoundary from './components/ErrorBoundary';
 import CustomCursor from './components/CustomCursor';
-import GoogleLoginButton from './components/GoogleLoginButton';
+import AuthProfile from './components/AuthProfile';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Lazy load components
 const Services = lazy(() => import('./components/Services'));
@@ -55,6 +57,8 @@ const CustomSoftwareDevelopmentPage = lazy(() => import('./pages/CustomSoftwareD
 const EnterpriseApplicationDevelopmentPage = lazy(() => import('./pages/EnterpriseApplicationDevelopmentPage'));
 const ApiIntegrationArchitecturePage = lazy(() => import('./pages/ApiIntegrationArchitecturePage'));
 const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage'));
+const ProfilePage = lazy(() => import('./pages/Profile'));
+const SettingsPage = lazy(() => import('./pages/Settings'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -548,6 +552,35 @@ function AppContent() {
               </div>
             } />
 
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><ProfilePage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
+            <Route path="/ar/profile" element={
+              <ProtectedRoute>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><ProfilePage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
+            <Route path="/settings" element={
+              <ProtectedRoute>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><SettingsPage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
+            <Route path="/ar/settings" element={
+              <ProtectedRoute>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><SettingsPage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
+
             {/* 404 Catch-All Route */}
             <Route path="*" element={
               <div className="animate-fade-in">
@@ -567,7 +600,7 @@ function AppContent() {
           right: 'calc(24px + env(safe-area-inset-right))',
         }}
       >
-        <GoogleLoginButton />
+        <AuthProfile />
         <WhatsAppButton />
         <ShareButton />
       </div>
@@ -598,7 +631,7 @@ function App() {
     <HelmetProvider>
       <ErrorBoundary>
         <ThemeProvider>
-          
+          <AuthProvider>
             {isInitialLoading && (
               <div
                 className="route-fade fixed inset-0 z-[10000]"
@@ -606,12 +639,12 @@ function App() {
                 <LoadingSpinner fullScreen />
               </div>
             )}
-          
-          <Router>
-            <CustomCursor />
-            <ScrollToTop />
-            <AppContent />
-          </Router>
+            <Router>
+              <CustomCursor />
+              <ScrollToTop />
+              <AppContent />
+            </Router>
+          </AuthProvider>
         </ThemeProvider>
       </ErrorBoundary>
     </HelmetProvider>

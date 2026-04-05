@@ -1,1 +1,1 @@
-export { default } from "./GoogleAdminAccess";
+export { default } from "./AuthProfile";
