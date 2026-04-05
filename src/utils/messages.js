@@ -140,13 +140,9 @@ export function buildThreadsQuery({ db = getDb(), user }) {
     return query(threadsRef, orderBy("updatedAt", "desc"));
   }
 
-  // Requires composite index:
-  // threads => userId (ASC), updatedAt (DESC)
-  return query(
-    threadsRef,
-    where("userId", "==", user.uid),
-    orderBy("updatedAt", "desc"),
-  );
+  // User inbox avoids the composite index by filtering only,
+  // then sorting client-side by updatedAt DESC.
+  return query(threadsRef, where("userId", "==", user.uid));
 }
 
 export function buildMessagesQuery(threadId, db = getDb()) {
@@ -185,6 +181,13 @@ export const createMessagePreview = (message, maxLength = 112) => {
 
   return `${plainMessage.slice(0, maxLength).trimEnd()}...`;
 };
+
+export const sortThreadsByLatest = (threads) =>
+  [...threads].sort(
+    (left, right) =>
+      getMessageTime(right.updatedAt ?? right.createdAt) -
+      getMessageTime(left.updatedAt ?? left.createdAt),
+  );
 
 export const getMessageDate = (value) => {
   if (!value) {

@@ -1,7 +1,11 @@
 import { startTransition, useEffect, useReducer, useRef } from 'react';
 import { onSnapshot } from 'firebase/firestore';
 import { useAuth } from '../context/auth-core';
-import { buildThreadsQuery, mapThreadDocument } from '../utils/messages';
+import {
+  buildThreadsQuery,
+  mapThreadDocument,
+  sortThreadsByLatest,
+} from '../utils/messages';
 
 const INITIAL_STATE = {
   threads: [],
@@ -66,7 +70,7 @@ export function useThreads() {
           threadsQuery,
           (snapshot) => {
             if (!isMounted) return;
-            const data = snapshot.docs.map(mapThreadDocument);
+            const data = sortThreadsByLatest(snapshot.docs.map(mapThreadDocument));
 
             startTransition(() => {
               dispatch({ type: 'LOADED', payload: data });
@@ -76,7 +80,7 @@ export function useThreads() {
             if (!isMounted) return;
             console.error('[useThreads] onSnapshot error:', err);
             const errorMessage = err.code === 'failed-precondition' 
-              ? 'Missing Firestore index: threads requires userId (ASC) + updatedAt (DESC) for account inbox queries.'
+              ? 'Missing Firestore index on admin inbox query.'
               : 'Failed to load threads list.';
             dispatch({ type: 'ERROR', payload: errorMessage });
           }
