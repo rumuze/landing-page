@@ -644,3 +644,50 @@ h4 {
     opacity: 1;
   }
 }
+
+/* ─── Notification System Animations ──────────────────────────── */
+
+/* Bell shake on new unread notification */
+@keyframes bellJingle {
+  0%   { transform: rotate(0deg); }
+  10%  { transform: rotate(14deg); }
+  20%  { transform: rotate(-10deg); }
+  30%  { transform: rotate(12deg); }
+  40%  { transform: rotate(-8deg); }
+  50%  { transform: rotate(8deg); }
+  60%  { transform: rotate(-6deg); }
+  70%  { transform: rotate(6deg); }
+  80%  { transform: rotate(-3deg); }
+  90%  { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}
+.animate-bell-jingle {
+  animation: bellJingle 0.7s ease-out;
+  transform-origin: top center;
+}
+
+/* Badge scale-in pop when count appears */
+@keyframes badgePop {
+  0%   { transform: scale(0); opacity: 0; }
+  70%  { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-badge-pop {
+  animation: badgePop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Dropdown slide-down + fade in */
+@keyframes notifDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-notif-drop {
+  animation: notifDrop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: top right;
+}

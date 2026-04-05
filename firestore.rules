@@ -95,5 +95,23 @@ service cloud.firestore {
       allow update: if isSignedIn() && isValidUserUpdate(userId);
       allow delete: if false;
     }
+
+    // ── Notifications ──────────────────────────────────────────
+    // Users can read and mark-as-read their own notifications.
+    // Creation is open so that Firestore-triggered flows or admin
+    // actions can deliver notifications without requiring auth
+    // context switching. Delete is always denied.
+    match /notifications/{notificationId} {
+      allow read: if isSignedIn() && request.auth.uid == resource.data.userId;
+      allow create: if isSignedIn()
+        && request.resource.data.keys().hasAll(['userId', 'type', 'title', 'body', 'isRead', 'createdAt'])
+        && request.resource.data.isRead == false
+        && request.resource.data.createdAt == request.time;
+      allow update: if isSignedIn()
+        && request.auth.uid == resource.data.userId
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(['isRead'])
+        && request.resource.data.isRead == true;
+      allow delete: if false;
+    }
   }
 }

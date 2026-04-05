@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/theme-core';
 import ThemeToggle from './ThemeToggle';
 import NavbarMobile from './NavbarMobile';
+import NotificationBell from './NotificationBell';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -141,6 +142,9 @@ const Navbar = () => {
 
               {/* Theme Toggle */}
               <ThemeToggle className="ltr:ml-2 rtl:mr-2" />
+
+              {/* Notification Bell — visible only when signed in */}
+              <NotificationBell isRtl={isAr} />
 
               {/* Language Switcher */}
               <div className="relative">
