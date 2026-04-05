@@ -116,7 +116,7 @@ export const getMessageDate = (value) => {
   return null;
 };
 
-const getMessageTime = (value) => getMessageDate(value)?.getTime() ?? 0;
+export const getMessageTime = (value) => getMessageDate(value)?.getTime() ?? 0;
 
 export const createMessagePreview = (message, maxLength = 112) => {
   const plainMessage = sanitizeMultiline(message).replace(/\s+/gu, " ");
@@ -183,8 +183,11 @@ export const normalizeThread = (id, data = {}) => ({
   isGuest: Boolean(data.isGuest),
   status: normalizeThreadStatus(data.status),
   lastMessage: typeof data.lastMessage === "string" ? data.lastMessage : "",
+  lastMessageSender: typeof data.lastMessageSender === "string" ? data.lastMessageSender : null,
   createdAt: data.createdAt ?? null,
   updatedAt: data.updatedAt ?? null,
+  lastSeenByAdmin: data.lastSeenByAdmin ?? null,
+  lastSeenByUser: data.lastSeenByUser ?? null,
 });
 
 export const normalizeChatMessage = (id, data = {}) => ({

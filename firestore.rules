@@ -220,8 +220,11 @@ service cloud.firestore {
             "isGuest",
             "status",
             "lastMessage",
+            "lastMessageSender",
             "createdAt",
-            "updatedAt"
+            "updatedAt",
+            "lastSeenByAdmin",
+            "lastSeenByUser"
           ]
         )
         && (
@@ -249,7 +252,7 @@ service cloud.firestore {
 
     function isValidThreadMessageUpdate() {
       return hasImmutableThreadFields()
-        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["lastMessage", "updatedAt"])
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["lastMessage", "lastMessageSender", "updatedAt"])
         && isNonEmptyString(request.resource.data.lastMessage, 1, 5000)
         && request.resource.data.status == resource.data.status
         && request.resource.data.updatedAt == request.time
@@ -265,10 +268,18 @@ service cloud.firestore {
     function isValidThreadStatusUpdate() {
       return hasImmutableThreadFields()
         && isAdmin()
-        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["status", "updatedAt"])
-        && request.resource.data.lastMessage == resource.data.lastMessage
+        && request.resource.data.diff(resource.data).changedKeys().hasAny(["status", "updatedAt"])
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["status", "updatedAt", "lastSeenByAdmin", "lastSeenByUser"])
         && isValidThreadStatus(request.resource.data.status)
         && request.resource.data.updatedAt == request.time;
+    }
+
+    function isValidThreadLastSeenUpdate() {
+      return hasImmutableThreadFields()
+        && (
+          (isAdmin() && request.resource.data.diff(resource.data).changedKeys().hasOnly(["lastSeenByAdmin"]))
+          || (isCurrentUser(resource.data.userId) && request.resource.data.diff(resource.data).changedKeys().hasOnly(["lastSeenByUser"]))
+        );
     }
 
     function isValidThreadChatMessageCreate(threadId) {
@@ -333,7 +344,7 @@ service cloud.firestore {
     match /threads/{threadId} {
       allow create: if isValidThreadCreate();
       allow read: if isAdmin() || (isSignedIn() && request.auth.uid == resource.data.userId);
-      allow update: if isValidThreadMessageUpdate() || isValidThreadStatusUpdate();
+      allow update: if isValidThreadMessageUpdate() || isValidThreadStatusUpdate() || isValidThreadLastSeenUpdate();
       allow delete: if false;
     }
 

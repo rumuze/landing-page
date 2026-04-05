@@ -93,6 +93,7 @@ export const firebaseProvider = {
       isGuest: !user?.uid,
       status: "open",
       lastMessage: normalizedMessage,
+      lastMessageSender: "user",
       createdAt: timestamp,
       updatedAt: timestamp,
     });
@@ -164,6 +165,7 @@ export const firebaseProvider = {
 
     batch.update(threadRef, {
       lastMessage: normalizedText,
+      lastMessageSender: normalizedRole,
       updatedAt: timestamp,
     });
 
@@ -228,6 +230,13 @@ export const firebaseProvider = {
     await updateDoc(doc(getFirestoreDb(), "threads", threadId), {
       status,
       updatedAt: serverTimestamp(),
+    });
+  },
+
+  async markThreadAsSeenByAdmin({ threadId }) {
+    if (!threadId) return;
+    await updateDoc(doc(getFirestoreDb(), "threads", threadId), {
+      lastSeenByAdmin: serverTimestamp(),
     });
   },
 

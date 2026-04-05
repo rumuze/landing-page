@@ -179,13 +179,16 @@ exports.createChatNotification = onDocumentCreated(
     }
 
     const targetUserId = senderRole === "admin" ? threadUserId : getAdminUid();
+    const resolvedThreadId = threadId;
 
-    logger.info("Resolved chat notification target.", {
-      targetUserId,
-      senderRole,
-      threadId,
+    console.log("[useNotifications] Routing debugging:", {
+      threadId: resolvedThreadId,
       messageId,
+      senderRole,
+      senderId,
       threadUserId,
+      targetUserId,
+      notificationType
     });
 
     if (!targetUserId) {

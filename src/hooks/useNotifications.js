@@ -6,155 +6,55 @@ import {
   subscribeToNotifications,
 } from "../services/chatService";
 
-const NOTIFICATION_SOUND_PATH = "/notification.wav";
-const NOTIFICATION_SOUND_COOLDOWN_MS = 1200;
+const NOTIFICATION_SOUND_PATH = "/notification.mp3";
+const NOTIFICATION_SOUND_COOLDOWN_MS = 1500;
 
 let notificationAudio = null;
-let notificationAudioContext = null;
-let hasRegisteredAudioUnlock = false;
-let hasLoggedAudioFailure = false;
+let hasRequestedInteraction = false;
 let lastNotificationSoundAt = 0;
 
 function getNotificationAudio() {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
+  if (typeof window === "undefined") return null;
   if (!notificationAudio) {
     notificationAudio = new Audio(NOTIFICATION_SOUND_PATH);
     notificationAudio.preload = "auto";
   }
-
   return notificationAudio;
 }
 
-function getNotificationAudioContext() {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
-
-  if (!AudioContextCtor) {
-    return null;
-  }
-
-  if (!notificationAudioContext) {
-    notificationAudioContext = new AudioContextCtor();
-  }
-
-  return notificationAudioContext;
-}
-
-async function playFallbackTone() {
-  const audioContext = getNotificationAudioContext();
-
-  if (!audioContext) {
-    return false;
-  }
-
-  if (audioContext.state === "suspended") {
-    await audioContext.resume();
-  }
-
-  const oscillator = audioContext.createOscillator();
-  const gainNode = audioContext.createGain();
-  const now = audioContext.currentTime;
-
-  oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(880, now);
-  gainNode.gain.setValueAtTime(0.0001, now);
-  gainNode.gain.exponentialRampToValueAtTime(0.08, now + 0.01);
-  gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
-
-  oscillator.connect(gainNode);
-  gainNode.connect(audioContext.destination);
-  oscillator.start(now);
-  oscillator.stop(now + 0.2);
-
-  return true;
-}
-
-async function primeNotificationAudio() {
-  const audio = getNotificationAudio();
-
-  if (audio) {
-    try {
-      audio.muted = true;
-      audio.currentTime = 0;
-      await audio.play();
-      audio.pause();
-      audio.currentTime = 0;
-      audio.muted = false;
-      return;
-    } catch {
-      audio.muted = false;
-    }
-  }
-
-  try {
-    const audioContext = getNotificationAudioContext();
-
-    if (audioContext && audioContext.state === "suspended") {
-      await audioContext.resume();
-    }
-  } catch {
-    // Browser autoplay restrictions can still block priming until a later interaction.
-  }
-}
-
 function registerNotificationSoundUnlock() {
-  if (typeof document === "undefined" || hasRegisteredAudioUnlock) {
-    return;
-  }
-
-  hasRegisteredAudioUnlock = true;
-  document.addEventListener(
-    "click",
-    () => {
-      void primeNotificationAudio();
-    },
-    { once: true, passive: true },
-  );
+  if (typeof document === "undefined" || hasRequestedInteraction) return;
+  hasRequestedInteraction = true;
+  document.addEventListener("click", () => {
+    const audio = getNotificationAudio();
+    if (audio) {
+      audio.play().then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+      }).catch(() => {});
+    }
+  }, { once: true, passive: true });
 }
 
 async function playNotificationSound() {
   const now = Date.now();
-
-  if (now - lastNotificationSoundAt < NOTIFICATION_SOUND_COOLDOWN_MS) {
-    return;
-  }
-
+  if (now - lastNotificationSoundAt < NOTIFICATION_SOUND_COOLDOWN_MS) return;
   lastNotificationSoundAt = now;
-  const audio = getNotificationAudio();
 
+  const audio = getNotificationAudio();
   if (audio) {
     try {
-      audio.pause();
       audio.currentTime = 0;
       await audio.play();
-      return;
     } catch (error) {
-      if (!hasLoggedAudioFailure) {
-        hasLoggedAudioFailure = true;
-        console.warn("[useNotifications] notification sound playback failed, using fallback tone.", error);
-      }
+      console.warn("[useNotifications] Playback blocked by browser:", error);
     }
-  }
-
-  try {
-    await playFallbackTone();
-  } catch (error) {
-    console.error("[useNotifications] notification sound failed:", error);
   }
 }
 
 function getNotificationSignature(notifications) {
   return notifications
-    .map((notification) => {
-      const createdAt = notification.createdAt?.getTime?.() ?? 0;
-      return `${notification.id}:${notification.isRead ? "1" : "0"}:${createdAt}`;
-    })
+    .map((n) => `${n.id}:${n.isRead ? "1" : "0"}:${n.createdAt?.getTime?.() ?? 0}`)
     .join("|");
 }
 
@@ -290,8 +190,9 @@ export function useNotifications() {
           (err) => {
             if (!isMounted) return;
             console.error("[useNotifications] subscription error:", err);
-            const errorMessage = err.code === "failed-precondition"
-              ? "Missing Firestore index: notifications requires userId (ASC) + createdAt (DESC)."
+            const isIndexError = err.code === "failed-precondition" || err.message?.includes("index");
+            const errorMessage = isIndexError
+              ? "Missing Firestore index for notifications (userId + createdAt). Please check the console link to create it."
               : "Failed to load notifications.";
             dispatch({ type: "ERROR", payload: errorMessage });
           },

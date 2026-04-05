@@ -3,6 +3,7 @@ import { Inbox, Search, Sparkles } from "lucide-react";
 import {
   createMessagePreview,
   formatMessageTimestamp,
+  getMessageTime,
 } from "../utils/messages";
 import { useMemo } from "react";
 
@@ -28,8 +29,8 @@ const ThreadList = ({
   // Sort threads by updatedAt DESC
   const sortedThreads = useMemo(() => {
     return [...threads].sort((a, b) => {
-      const aTime = a.updatedAt?.getTime() || a.createdAt?.getTime() || 0;
-      const bTime = b.updatedAt?.getTime() || b.createdAt?.getTime() || 0;
+      const aTime = getMessageTime(a.updatedAt || a.createdAt);
+      const bTime = getMessageTime(b.updatedAt || b.createdAt);
       return bTime - aTime;
     });
   }, [threads]);
@@ -126,8 +127,9 @@ const ThreadList = ({
           <div className="space-y-3">
             {sortedThreads.map((thread, index) => {
               const isSelected = selectedId === thread.id;
-              // UNREAD LOGIC: explicitly request thread.lastMessageSender !== "admin"
-              const isUnread = thread.lastMessageSender && thread.lastMessageSender !== "admin";
+              const aTime = getMessageTime(thread.updatedAt || thread.createdAt);
+              const lastSeenTime = getMessageTime(thread.lastSeenByAdmin);
+              const isUnread = thread.lastMessageSender === "user" && aTime > lastSeenTime;
 
               return (
                 <Motion.button

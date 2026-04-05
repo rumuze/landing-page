@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Mail, Send, UserRound } from "lucide-react";
 import { useAuth } from "../context/auth-core";
 import { useChat } from "../hooks/useChat";
-import { sendMessage, updateThreadStatus } from "../services/chatService";
+import { sendMessage, updateThreadStatus, markThreadAsSeenByAdmin } from "../services/chatService";
 import MessageBubble from "./MessageBubble";
 
 const ChatWindow = ({ thread, locale }) => {
@@ -12,9 +12,31 @@ const ChatWindow = ({ thread, locale }) => {
   const { messages, isEmpty, isLoading, error } = useChat(thread?.id);
   const endOfMessagesRef = useRef(null);
 
+  const scrollContainerRef = useRef(null);
+  const isAtBottomRef = useRef(true);
+
+  const handleScroll = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const isAtBottom = Math.abs(el.scrollHeight - el.scrollTop - el.clientHeight) < 50;
+    isAtBottomRef.current = isAtBottom;
+  };
+
   useEffect(() => {
-    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (isAtBottomRef.current) {
+      endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
+
+  // Mark as seen by admin when messages update AND user is viewing
+  useEffect(() => {
+    if (thread?.id && messages.length > 0 && user?.role === "admin") {
+      const lastMessageIsFromUser = messages[messages.length - 1].senderRole === "user";
+      if (lastMessageIsFromUser) {
+        void markThreadAsSeenByAdmin({ threadId: thread.id });
+      }
+    }
+  }, [thread?.id, messages, user?.role]);
 
   if (!thread) {
     return (
@@ -115,7 +137,11 @@ const ChatWindow = ({ thread, locale }) => {
       </div>
 
       {/* Chat Messages */}
-      <div className="relative flex-1 overflow-y-auto px-6 py-6 scroll-smooth">
+      <div 
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="relative flex-1 overflow-y-auto px-6 py-6 scroll-smooth"
+      >
         {isLoading ? (
           <div className="flex justify-center p-4">
              <div className="animate-pulse flex space-x-2">
