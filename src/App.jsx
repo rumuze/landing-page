@@ -14,7 +14,7 @@ import InstallPrompt from './components/InstallPrompt';
 import OfflineFallback from './pages/OfflineFallback';
 import ErrorBoundary from './components/ErrorBoundary';
 import CustomCursor from './components/CustomCursor';
-import AuthProfile from './components/AuthProfile';
+import AuthFloatingButton from './components/AuthFloatingButton';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Lazy load components
@@ -618,7 +618,7 @@ function AppContent() {
           right: 'calc(24px + env(safe-area-inset-right))',
         }}
       >
-        <AuthProfile />
+        <AuthFloatingButton />
         {!isAdminMessagesRoute ? <WhatsAppButton /> : null}
         {!isAdminMessagesRoute ? <ShareButton /> : null}
       </div>

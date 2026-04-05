@@ -1,15 +1,16 @@
 import { startTransition, useEffect, useState } from "react";
-import { signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 import { AuthContext } from "./auth-core";
 import {
   ensureFirebaseAuthReady,
   getFirebaseSetupStatus,
   googleProvider,
 } from "../utils/firebaseClient";
-import {
-  getCurrentGoogleUser,
-  subscribeToGoogleAuthUser,
-} from "../utils/googleAuth";
 import {
   buildSessionUser,
   ensureUserProfile,
@@ -18,13 +19,15 @@ import {
 } from "../utils/userProfiles";
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
   const setupStatus = getFirebaseSetupStatus();
+  const isConfigured = setupStatus.isConfigValid;
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(isConfigured);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     let isMounted = true;
+    let unsubscribeAuth = () => {};
     let unsubscribeProfile = () => {};
 
     const applyUser = (firebaseUser, profile) => {
@@ -46,79 +49,79 @@ export const AuthProvider = ({ children }) => {
       setIsLoading(false);
     };
 
-    const handleAuthUser = (nextFirebaseUser) => {
-      unsubscribeProfile();
+    if (!isConfigured) {
+      return () => {
+        isMounted = false;
+      };
+    }
 
-      if (!nextFirebaseUser) {
-        applyUser(null, null);
-        setError("");
-        setIsLoading(false);
-        return;
-      }
+    void ensureFirebaseAuthReady()
+      .then((auth) => {
+        if (!isMounted) {
+          return;
+        }
 
-      setIsLoading(true);
+        unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
+          unsubscribeProfile();
+          unsubscribeProfile = () => {};
 
-      void ensureUserProfile(nextFirebaseUser)
-        .then((userRef) => {
-          if (!isMounted || !userRef) {
+          if (!firebaseUser) {
+            setUser(null);
+            setError("");
+            setIsLoading(false);
             return;
           }
 
-          unsubscribeProfile = subscribeToUserProfile(
-            nextFirebaseUser.uid,
-            (profile) => {
-              applyUser(nextFirebaseUser, profile);
+          setIsLoading(true);
 
-              if (isMounted) {
-                setError("");
-                setIsLoading(false);
+          void ensureUserProfile(firebaseUser)
+            .then((userRef) => {
+              if (!isMounted || !userRef) {
+                return;
               }
-            },
-            handleProfileError,
-          );
-        })
-        .catch((authError) => {
-          if (!isMounted) {
-            return;
-          }
 
-          setError(authError?.message ?? "Unable to prepare your account.");
-          applyUser(nextFirebaseUser, null);
-          setIsLoading(false);
+              unsubscribeProfile = subscribeToUserProfile(
+                firebaseUser.uid,
+                (profile) => {
+                  applyUser(firebaseUser, profile);
+
+                  if (isMounted) {
+                    setError("");
+                    setIsLoading(false);
+                  }
+                },
+                handleProfileError,
+              );
+            })
+            .catch((authError) => {
+              if (!isMounted) {
+                return;
+              }
+
+              setError(authError?.message ?? "Unable to prepare your account.");
+              applyUser(firebaseUser, null);
+              setIsLoading(false);
+            });
         });
-    };
+      })
+      .catch((authError) => {
+        if (!isMounted) {
+          return;
+        }
 
-    const unsubscribeAuth = subscribeToGoogleAuthUser(handleAuthUser);
-
-    void getCurrentGoogleUser().then((nextUser) => {
-      if (!isMounted) {
-        return;
-      }
-
-      if (!nextUser) {
+        setError(authError?.message ?? "Unable to restore your session.");
         setIsLoading(false);
-        return;
-      }
-
-      handleAuthUser(nextUser);
-    }).catch((authError) => {
-      if (!isMounted) {
-        return;
-      }
-
-      setError(authError?.message ?? "Unable to restore your session.");
-      setIsLoading(false);
-    });
+      });
 
     return () => {
       isMounted = false;
       unsubscribeProfile();
       unsubscribeAuth();
     };
-  }, []);
+  }, [isConfigured]);
 
   const loginWithGoogle = async () => {
-    if (!setupStatus.isConfigValid) {
+    if (!isConfigured) {
       const configError = "Firebase Google Auth is not configured yet.";
       setError(configError);
       throw new Error(configError);
@@ -155,12 +158,13 @@ export const AuthProvider = ({ children }) => {
     try {
       setError("");
 
-      if (setupStatus.isConfigValid) {
+      if (isConfigured) {
         const auth = await ensureFirebaseAuthReady();
         await signOut(auth);
       }
 
       setUser(null);
+      setIsLoading(false);
     } catch (authError) {
       setError(authError?.message ?? "Unable to sign out right now.");
       throw authError;
@@ -168,7 +172,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateUserProfile = async ({ displayName, photoURL }) => {
-    if (!setupStatus.isConfigValid) {
+    if (!isConfigured) {
       const configError = "Firebase Google Auth is not configured yet.";
       setError(configError);
       throw new Error(configError);
@@ -201,8 +205,9 @@ export const AuthProvider = ({ children }) => {
         isAdmin: user?.role === "admin",
         setUser,
         isLoading,
+        loading: isLoading,
         error,
-        isConfigured: setupStatus.isConfigValid,
+        isConfigured,
         loginWithGoogle,
         logout,
         updateUserProfile,
