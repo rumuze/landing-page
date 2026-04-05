@@ -106,7 +106,7 @@ function NotificationRow({ notification, onAction }) {
           : 'bg-cyan/[0.03] dark:bg-cyan/[0.04] hover:bg-cyan/[0.06] dark:hover:bg-cyan/[0.07]'
         }
       `}
-      aria-label={`${notification.isRead ? '' : 'Unread: '}${notification.title}`}
+      aria-label={`${notification.isRead ? '' : 'Unread: '}${display.title}`}
     >
       {/* Unread indicator stripe */}
       {!notification.isRead && (

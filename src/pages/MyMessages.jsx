@@ -58,6 +58,10 @@ const MyMessages = () => {
 
   const handleSendReply = async (thread, replyText) => {
     try {
+      if (!user?.uid) {
+        throw new Error("You must be signed in to send a chat message.");
+      }
+
       setIsUpdating(true);
       setActionError("");
       await sendChatMessage({
@@ -65,10 +69,11 @@ const MyMessages = () => {
         senderId: user.uid,
         senderRole: "user",
         text: replyText,
-        targetUserId: "ADMIN_UID_PLACEHOLDER",
       });
+      return true;
     } catch (err) {
       setActionError(err?.message ?? "Unable to send message.");
+      throw err;
     } finally {
       setIsUpdating(false);
     }
@@ -162,7 +167,7 @@ const MyMessages = () => {
                 isUpdating={isUpdating}
                 locale={locale}
                 onToggleStatus={handleToggleStatus}
-                onSendReply={handleSendReply}
+                onSendMessage={handleSendReply}
               />
             </div>
           ) : (

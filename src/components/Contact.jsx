@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import {
   Send,
@@ -15,9 +15,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
 import { useAuth } from "../context/auth-core";
-import { initContactIntegration } from "../utils/contactIntegration";
-
-const contactIntegration = initContactIntegration();
+import { createThread, createThreadRequestId } from "../utils/messages";
 
 const Contact = () => {
   const { t, i18n } = useTranslation();
@@ -25,6 +23,8 @@ const Contact = () => {
   const isRtl = i18n.dir() === "rtl";
   const isSignedIn = Boolean(user?.uid);
   const myMessagesRoute = isRtl ? "/ar/my-messages" : "/my-messages";
+  const successTimeoutRef = useRef(null);
+  const requestIdRef = useRef(createThreadRequestId());
 
   const [formData, setFormData] = useState({
     name: "",
@@ -49,6 +49,12 @@ const Contact = () => {
       email: user?.email || current.email,
     }));
   }, [isSignedIn, user?.displayName, user?.email, user?.name]);
+
+  useEffect(() => () => {
+    if (successTimeoutRef.current) {
+      clearTimeout(successTimeoutRef.current);
+    }
+  }, []);
 
   const validate = () => {
     const tempErrors = {};
@@ -76,23 +82,26 @@ const Contact = () => {
         email: user?.email || formData.email,
       };
 
-      const saved = await contactIntegration.saveMessage(contactMessage, user);
-
-      if (!saved) {
-        throw new Error("Failed to send message.");
-      }
+      await createThread(contactMessage, user, {
+        clientRequestId: requestIdRef.current,
+      });
 
       setSuccess(true);
       setFormData({
-        name: "",
+        name: user?.displayName || user?.name || "",
         company: "",
-        email: "",
+        email: user?.email || "",
         subject: "",
         message: "",
       });
       setErrors({});
-      // Auto-hide success message after 8 seconds
-      setTimeout(() => setSuccess(false), 8000);
+      requestIdRef.current = createThreadRequestId();
+
+      if (successTimeoutRef.current) {
+        clearTimeout(successTimeoutRef.current);
+      }
+
+      successTimeoutRef.current = setTimeout(() => setSuccess(false), 8000);
     } catch (err) {
       console.error("Submission error:", err);
       alert("Failed to send message. Please try again or email us directly.");

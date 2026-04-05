@@ -1,14 +1,33 @@
 import {
   collection,
   doc,
-  serverTimestamp,
-  writeBatch,
-  increment,
   getDocs,
+  getDoc,
+  increment,
+  orderBy,
+  query,
+  serverTimestamp,
+  where,
+  writeBatch,
 } from "firebase/firestore";
 import { getDb } from "./firebaseClient";
 
 export const MESSAGE_STATUSES = ["new", "seen", "replied"];
+export const THREAD_STATUSES = ["open", "closed"];
+export const CHAT_SENDER_ROLES = ["admin", "user"];
+
+export const FIRESTORE_INDEX_REQUIREMENTS = Object.freeze({
+  threadsByUserUpdatedAt: {
+    collection: "threads",
+    fields: ["userId (ASC)", "updatedAt (DESC)"],
+    reason: "Required for user-scoped thread queries with latest activity ordering.",
+  },
+  notificationsByUserCreatedAt: {
+    collection: "notifications",
+    fields: ["userId (ASC)", "createdAt (DESC)"],
+    reason: "Required for user-scoped notification queries with newest-first ordering.",
+  },
+});
 
 export const MESSAGE_STATUS_META = {
   new: {
@@ -45,6 +64,22 @@ const sanitizeMultiline = (value) => {
 };
 
 const normalizeEmail = (value) => sanitizeLine(value).toLowerCase();
+const normalizeOptionalId = (value) => sanitizeLine(value) || null;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
+const REQUEST_ID_PATTERN = /[^a-zA-Z0-9_-]/gu;
+
+// Configure one or more admin notification recipients with
+// VITE_FIREBASE_ADMIN_UID or VITE_FIREBASE_ADMIN_UIDS="uid-a,uid-b".
+const adminNotificationUserIds = Array.from(
+  new Set(
+    [
+      import.meta.env.VITE_FIREBASE_ADMIN_UID,
+      ...(import.meta.env.VITE_FIREBASE_ADMIN_UIDS ?? "").split(","),
+    ]
+      .map((value) => sanitizeLine(value))
+      .filter(Boolean),
+  ),
+);
 
 const getMessageTime = (value) => getMessageDate(value)?.getTime() ?? 0;
 
@@ -56,8 +91,90 @@ const getSessionPhoto = (user) => sanitizeLine(user?.photoURL || "");
 export const normalizeMessageStatus = (status) =>
   MESSAGE_STATUSES.includes(status) ? status : "new";
 
+export const normalizeThreadStatus = (status) =>
+  THREAD_STATUSES.includes(status) ? status : "open";
+
 export const getMessageStatusMeta = (status) =>
   MESSAGE_STATUS_META[normalizeMessageStatus(status)] ?? MESSAGE_STATUS_META.new;
+
+export const getConfiguredAdminNotificationUserIds = () => [...adminNotificationUserIds];
+
+export const getPrimaryAdminNotificationUserId = () =>
+  adminNotificationUserIds[0] ?? null;
+
+export const createThreadRequestId = () => {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+
+  return `thread_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+};
+
+const normalizeThreadRequestId = (value) => {
+  const sanitizedId = sanitizeLine(value).replace(REQUEST_ID_PATTERN, "");
+  return sanitizedId.slice(0, 128) || null;
+};
+
+const assertValidEmail = (value, label = "Email") => {
+  if (!EMAIL_PATTERN.test(value)) {
+    throw new Error(`${label} is invalid.`);
+  }
+};
+
+const assertNonEmptyValue = (value, message) => {
+  if (!value) {
+    throw new Error(message);
+  }
+};
+
+const convertFirestoreTimestamp = (value) => getMessageDate(value);
+
+export function buildThreadsQuery({ db = getDb(), user }) {
+  if (!user?.uid) {
+    return null;
+  }
+
+  const threadsRef = collection(db, "threads");
+
+  if (user.role === "admin") {
+    return query(threadsRef, orderBy("updatedAt", "desc"));
+  }
+
+  // Requires composite index:
+  // threads => userId (ASC), updatedAt (DESC)
+  return query(
+    threadsRef,
+    where("userId", "==", user.uid),
+    orderBy("updatedAt", "desc"),
+  );
+}
+
+export function buildMessagesQuery(threadId, db = getDb()) {
+  const normalizedThreadId = sanitizeLine(threadId);
+
+  if (!normalizedThreadId) {
+    throw new Error("Missing threadId");
+  }
+
+  return query(
+    collection(db, "threads", normalizedThreadId, "messages"),
+    orderBy("createdAt", "asc"),
+  );
+}
+
+export function buildNotificationsQuery(user, db = getDb()) {
+  if (!user?.uid) {
+    return null;
+  }
+
+  // Requires composite index:
+  // notifications => userId (ASC), createdAt (DESC)
+  return query(
+    collection(db, "notifications"),
+    where("userId", "==", user.uid),
+    orderBy("createdAt", "desc"),
+  );
+}
 
 export const createMessagePreview = (message, maxLength = 112) => {
   const plainMessage = sanitizeMultiline(message).replace(/\s+/gu, " ");
@@ -137,48 +254,84 @@ export const mapThreadDocument = (threadDoc) => {
     userEmail: typeof data.userEmail === "string" ? data.userEmail : "",
     userPhoto: typeof data.userPhoto === "string" && data.userPhoto ? data.userPhoto : null,
     isGuest: Boolean(data.isGuest),
-    status: data.status === "closed" ? "closed" : "open",
+    status: normalizeThreadStatus(data.status),
     lastMessage: typeof data.lastMessage === "string" ? data.lastMessage : "",
     createdAt: data.createdAt ?? null,
     updatedAt: data.updatedAt ?? null,
   };
 };
 
-export async function createThread(formData, user = null, adminUid = "ADMIN_UID_PLACEHOLDER") {
+export const mapChatMessageDocument = (messageDoc) => {
+  const data = messageDoc.data();
+
+  return {
+    id: messageDoc.id,
+    senderId: typeof data.senderId === "string" && data.senderId ? data.senderId : null,
+    senderRole: CHAT_SENDER_ROLES.includes(data.senderRole) ? data.senderRole : "user",
+    text: typeof data.text === "string" ? data.text : "",
+    createdAt: convertFirestoreTimestamp(data.createdAt),
+  };
+};
+
+export const mapNotificationDocument = (notificationDoc) => {
+  const data = notificationDoc.data();
+
+  return {
+    id: notificationDoc.id,
+    userId: typeof data.userId === "string" && data.userId ? data.userId : null,
+    type: typeof data.type === "string" ? data.type : "message",
+    isRead: Boolean(data.isRead),
+    createdAt: convertFirestoreTimestamp(data.createdAt),
+    threadId: typeof data.threadId === "string" ? data.threadId : null,
+  };
+};
+
+const createNotificationDocumentId = ({ threadId, userId, type }) =>
+  `${type}_${threadId}_${userId}`;
+
+export async function createThread(formData, user = null, options = {}) {
   const db = getDb();
-  
-  // 1. Validate Inputs
   const normalizedName = getSessionDisplayName(user) || sanitizeLine(formData.name);
   const normalizedEmail = normalizeEmail(user?.email || formData.email);
   const normalizedMessage = sanitizeMultiline(formData.message);
-  
-  if (!normalizedName) throw new Error("Sender name is required.");
-  if (!normalizedEmail) throw new Error("A valid email is required.");
-  if (!normalizedMessage) throw new Error("Message body cannot be empty.");
+  const clientRequestId = normalizeThreadRequestId(options.clientRequestId);
+  const adminNotificationUserId =
+    normalizeOptionalId(options.adminUid) ?? getPrimaryAdminNotificationUserId();
 
+  assertNonEmptyValue(normalizedName, "Sender name is required.");
+  assertNonEmptyValue(normalizedEmail, "A valid email is required.");
+  assertValidEmail(normalizedEmail, "Email");
+  assertNonEmptyValue(normalizedMessage, "Message body cannot be empty.");
+
+  const threadRef = clientRequestId
+    ? doc(db, "threads", clientRequestId)
+    : doc(collection(db, "threads"));
+
+  if (clientRequestId) {
+    const existingThread = await getDoc(threadRef);
+
+    if (existingThread.exists()) {
+      return threadRef.id;
+    }
+  }
+
+  const messageRef = doc(collection(db, "threads", threadRef.id, "messages"));
   const batch = writeBatch(db);
-
-  // 2. Prepare References
-  const threadRef = doc(collection(db, "threads"));
-  const messageRef = doc(collection(db, `threads/${threadRef.id}/messages`));
-  const notificationRef = doc(collection(db, "notifications"));
 
   const timestamp = serverTimestamp();
 
-  // 3. Set Thread
   batch.set(threadRef, {
     userId: user?.uid || null,
     userName: normalizedName,
     userEmail: normalizedEmail,
     userPhoto: getSessionPhoto(user) || null,
-    isGuest: !user,
+    isGuest: !user?.uid,
     status: "open",
     lastMessage: normalizedMessage,
     createdAt: timestamp,
     updatedAt: timestamp,
   });
 
-  // 4. Set Initial Message
   batch.set(messageRef, {
     senderId: user?.uid || null,
     senderRole: "user",
@@ -186,22 +339,31 @@ export async function createThread(formData, user = null, adminUid = "ADMIN_UID_
     createdAt: timestamp,
   });
 
-  // 5. Create Admin Notification
-  batch.set(notificationRef, {
-    userId: adminUid,
-    type: "message",
-    isRead: false,
-    createdAt: timestamp,
-    threadId: threadRef.id,
-  });
+  if (adminNotificationUserId) {
+    const notificationRef = doc(
+      db,
+      "notifications",
+      createNotificationDocumentId({
+        threadId: threadRef.id,
+        userId: adminNotificationUserId,
+        type: "message",
+      }),
+    );
 
-  // 6. Update User Profile if authenticated
+    batch.set(notificationRef, {
+      userId: adminNotificationUserId,
+      type: "message",
+      isRead: false,
+      createdAt: timestamp,
+      threadId: threadRef.id,
+    });
+  }
+
   if (user?.uid) {
     const userRef = doc(db, "users", user.uid);
-    batch.update(userRef, {
+    batch.set(userRef, {
       messagesCount: increment(1),
-      lastMessageAt: timestamp,
-    });
+    }, { merge: true });
   }
 
   await batch.commit();
@@ -209,43 +371,76 @@ export async function createThread(formData, user = null, adminUid = "ADMIN_UID_
 }
 
 export async function sendChatMessage({ threadId, senderId, senderRole, text, targetUserId }) {
-  // 1. Validate Inputs
-  if (!threadId) throw new Error("Thread ID is required.");
-  if (!senderRole || !["admin", "user"].includes(senderRole)) {
+  const normalizedThreadId = sanitizeLine(threadId);
+  const normalizedSenderId = normalizeOptionalId(senderId);
+  const normalizedRole = sanitizeLine(senderRole);
+  const normalizedText = sanitizeMultiline(text);
+  const explicitTargetUserId = normalizeOptionalId(targetUserId);
+
+  if (!normalizedThreadId) {
+    throw new Error("Thread ID is required.");
+  }
+
+  if (!CHAT_SENDER_ROLES.includes(normalizedRole)) {
     throw new Error("Invalid sender role.");
   }
-  const normalizedText = sanitizeMultiline(text);
-  if (!normalizedText) throw new Error("Message text cannot be empty.");
+
+  assertNonEmptyValue(normalizedText, "Message text cannot be empty.");
+  assertNonEmptyValue(normalizedSenderId, "Sender ID is required.");
 
   const db = getDb();
+  const threadRef = doc(db, "threads", normalizedThreadId);
+  const threadSnapshot = await getDoc(threadRef);
+
+  if (!threadSnapshot.exists()) {
+    throw new Error("Thread does not exist.");
+  }
+
+  const thread = mapThreadDocument(threadSnapshot);
+
+  if (normalizedRole === "user" && thread.userId !== normalizedSenderId) {
+    throw new Error("This thread does not belong to the current user.");
+  }
+
+  const notificationUserId =
+    normalizedRole === "admin"
+      ? explicitTargetUserId ?? thread.userId
+      : explicitTargetUserId ?? getPrimaryAdminNotificationUserId();
+
+  const notificationType = normalizedRole === "admin" ? "reply" : "message";
+
   const batch = writeBatch(db);
   const timestamp = serverTimestamp();
-
-  // 2. Add Message
-  const messageRef = doc(collection(db, `threads/${threadId}/messages`));
+  const messageRef = doc(collection(db, "threads", normalizedThreadId, "messages"));
   batch.set(messageRef, {
-    senderId: senderId || null,
-    senderRole,
+    senderId: normalizedSenderId,
+    senderRole: normalizedRole,
     text: normalizedText,
     createdAt: timestamp,
   });
 
-  // 3. Update Thread Metadata
-  const threadRef = doc(db, "threads", threadId);
   batch.update(threadRef, {
     lastMessage: normalizedText,
     updatedAt: timestamp,
   });
 
-  // 4. Create Notification for Receiver
-  if (targetUserId) {
-    const notificationRef = doc(collection(db, "notifications"));
+  if (notificationUserId && notificationUserId !== normalizedSenderId) {
+    const notificationRef = doc(
+      db,
+      "notifications",
+      createNotificationDocumentId({
+        threadId: normalizedThreadId,
+        userId: notificationUserId,
+        type: notificationType,
+      }),
+    );
+
     batch.set(notificationRef, {
-      userId: targetUserId,
-      type: senderRole === "admin" ? "reply" : "message",
+      userId: notificationUserId,
+      type: notificationType,
       isRead: false,
       createdAt: timestamp,
-      threadId,
+      threadId: normalizedThreadId,
     });
   }
 

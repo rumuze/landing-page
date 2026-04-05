@@ -1,13 +1,7 @@
-import { useEffect, useReducer, useRef } from 'react';
-import {
-  collection,
-  query,
-  where,
-  orderBy,
-  onSnapshot,
-} from 'firebase/firestore';
-import { getDb } from '../utils/firebaseClient';
+import { startTransition, useEffect, useReducer, useRef } from 'react';
+import { onSnapshot } from 'firebase/firestore';
 import { useAuth } from '../context/auth-core';
+import { buildThreadsQuery, mapThreadDocument } from '../utils/messages';
 
 const INITIAL_STATE = {
   threads: [],
@@ -32,6 +26,8 @@ function reducer(state, action) {
 
 export function useThreads() {
   const { user } = useAuth();
+  const userUid = user?.uid ?? null;
+  const userRole = user?.role ?? null;
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const unsubscribeRef = useRef(null);
 
@@ -44,7 +40,7 @@ export function useThreads() {
     };
 
     // 1. Reset state if no user
-    if (!user?.uid) {
+    if (!userUid) {
       teardown();
       dispatch({ type: 'RESET' });
       return;
@@ -57,43 +53,30 @@ export function useThreads() {
 
     const setup = () => {
       try {
-        const db = getDb();
-        const threadsRef = collection(db, 'threads');
-        
-        // 2. Index-Safe Query Selection
-        let q;
-        if (user.role === 'admin') {
-          // Admin View: All threads, sorted by latest activity
-          q = query(threadsRef, orderBy('updatedAt', 'desc'));
-        } else {
-          // User View: Own threads, sorted by latest activity
-          // REQUIRES INDEX: userId (ASC) + updatedAt (DESC)
-          q = query(
-            threadsRef, 
-            where('userId', '==', user.uid), 
-            orderBy('updatedAt', 'desc')
-          );
+        const threadsQuery = buildThreadsQuery({
+          user: { uid: userUid, role: userRole },
+        });
+
+        if (!threadsQuery) {
+          dispatch({ type: 'RESET' });
+          return;
         }
 
-        // 3. Real-time Subscription
         const unsubscribe = onSnapshot(
-          q,
+          threadsQuery,
           (snapshot) => {
             if (!isMounted) return;
-            const data = snapshot.docs.map((docSnap) => ({
-              id: docSnap.id,
-              ...docSnap.data(),
-              createdAt: docSnap.data().createdAt?.toDate?.() ?? null,
-              updatedAt: docSnap.data().updatedAt?.toDate?.() ?? null,
-            }));
-            dispatch({ type: 'LOADED', payload: data });
+            const data = snapshot.docs.map(mapThreadDocument);
+
+            startTransition(() => {
+              dispatch({ type: 'LOADED', payload: data });
+            });
           },
           (err) => {
             if (!isMounted) return;
             console.error('[useThreads] onSnapshot error:', err);
-            // Handle common index error with a helpful message
             const errorMessage = err.code === 'failed-precondition' 
-              ? 'Required index missing. Please check console for the creation link.'
+              ? 'Missing Firestore index: threads requires userId (ASC) + updatedAt (DESC) for account inbox queries.'
               : 'Failed to load threads list.';
             dispatch({ type: 'ERROR', payload: errorMessage });
           }
@@ -118,10 +101,11 @@ export function useThreads() {
       isMounted = false;
       teardown();
     };
-  }, [user?.uid, user?.role]);
+  }, [userRole, userUid]);
 
   return {
     threads: state.threads,
+    isEmpty: !state.isLoading && state.threads.length === 0 && !state.error,
     isLoading: state.isLoading,
     error: state.error,
   };

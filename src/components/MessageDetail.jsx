@@ -1,16 +1,13 @@
-import { useState, useRef, useEffect } from "react";
-import { motion as Motion } from "framer-motion";
-import { Mail, Send, ShieldCheck, UserRound, ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Mail, Send, UserRound } from "lucide-react";
 import { formatMessageTimestamp } from "../utils/messages";
 import { useChat } from "../hooks/useChat";
 import { useAuth } from "../context/auth-core";
 
-
-
-const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendReply }) => {
+const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendMessage }) => {
   const { user } = useAuth();
   const [text, setText] = useState("");
-  const { messages, isLoading } = useChat(thread?.id);
+  const { messages, isEmpty, isLoading, error } = useChat(thread?.id);
   const endOfMessagesRef = useRef(null);
 
   useEffect(() => {
@@ -33,12 +30,17 @@ const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendReply
     );
   }
 
-  const isReplyDisabled = isUpdating || !text.trim();
+  const isSendDisabled = isUpdating || !text.trim();
 
-  const handleSend = () => {
-    if (isReplyDisabled) return;
-    onSendReply(thread, text);
-    setText("");
+  const handleSend = async () => {
+    if (isSendDisabled) return;
+
+    try {
+      await onSendMessage(thread, text);
+      setText("");
+    } catch (error) {
+      console.error("Chat send failed:", error);
+    }
   };
 
   return (
@@ -76,6 +78,7 @@ const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendReply
             </span>
             {user?.role === "admin" && (
               <button
+                type="button"
                 onClick={() => onToggleStatus(thread)}
                 disabled={isUpdating}
                 className="text-xs text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
@@ -96,6 +99,18 @@ const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendReply
                <div className="w-2 h-2 bg-slate-500 rounded-full"></div>
                <div className="w-2 h-2 bg-slate-500 rounded-full"></div>
              </div>
+          </div>
+        ) : error ? (
+          <div className="flex h-full items-center justify-center px-4 py-10 text-center">
+            <p className="max-w-md text-sm leading-6 text-rose-200">
+              {error}
+            </p>
+          </div>
+        ) : isEmpty ? (
+          <div className="flex h-full items-center justify-center px-4 py-10 text-center">
+            <p className="max-w-md text-sm leading-6 text-slate-400">
+              No messages yet in this thread. The next message will appear here in real time.
+            </p>
           </div>
         ) : (
           <div className="space-y-4 flex flex-col">
@@ -128,20 +143,22 @@ const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendReply
             <textarea
               value={text}
               onChange={(event) => setText(event.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSend();
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                  event.preventDefault();
+                  void handleSend();
                 }
               }}
               placeholder="Type your message..."
-              rows={text.split('\n').length > 2 ? 3 : 1}
+              rows={text.split("\n").length > 2 ? 3 : 1}
               className="flex-1 resize-none rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm leading-6 text-white placeholder:text-slate-500 focus:border-cyan-400/40 focus:outline-none focus:ring-1 focus:ring-cyan-400/40"
             />
             <button
               type="button"
-              disabled={isReplyDisabled}
-              onClick={handleSend}
+              disabled={isSendDisabled}
+              onClick={() => {
+                void handleSend();
+              }}
               className="mb-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-cyan-500 text-slate-950 transition-transform active:scale-95 disabled:opacity-50 disabled:active:scale-100 hover:bg-cyan-400"
             >
               <Send size={18} className="translate-x-[1px]" />

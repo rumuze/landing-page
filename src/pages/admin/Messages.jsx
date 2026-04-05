@@ -96,6 +96,10 @@ const Messages = () => {
 
   const handleSendReply = async (thread, replyText) => {
     try {
+      if (!user?.uid) {
+        throw new Error("Authenticated admin session is required.");
+      }
+
       setIsUpdating(true);
       setActionError("");
       await sendChatMessage({
@@ -105,8 +109,10 @@ const Messages = () => {
         text: replyText,
         targetUserId: thread.userId,
       });
+      return true;
     } catch (replyError) {
       setActionError(replyError?.message ?? "Unable to send the reply.");
+      throw replyError;
     } finally {
       setIsUpdating(false);
     }
@@ -233,7 +239,7 @@ const Messages = () => {
               isUpdating={isUpdating}
               locale={locale}
               onToggleStatus={handleToggleStatus}
-              onSendReply={handleSendReply}
+              onSendMessage={handleSendReply}
             />
           </div>
         </div>

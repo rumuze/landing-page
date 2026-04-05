@@ -1,21 +1,22 @@
-import { useEffect, useReducer, useCallback, useRef } from 'react';
+import { startTransition, useCallback, useEffect, useReducer, useRef } from 'react';
 import {
-  collection,
-  query,
-  where,
-  orderBy,
+  doc,
   onSnapshot,
   updateDoc,
   writeBatch,
-  doc,
 } from 'firebase/firestore';
 import { getDb } from '../utils/firebaseClient';
 import { useAuth } from '../context/auth-core';
+import {
+  buildNotificationsQuery,
+  mapNotificationDocument,
+} from '../utils/messages';
 
 /* ─── state shape & reducer ────────────────────────────────────── */
 
 const INITIAL_STATE = {
   notifications: [],
+  unreadCount: 0,
   isLoading: false,
   error: null,
 };
@@ -30,7 +31,12 @@ function reducer(state, action) {
       return { ...state, isLoading: true, error: null };
 
     case 'LOADED':
-      return { notifications: action.payload, isLoading: false, error: null };
+      return {
+        notifications: action.payload.notifications,
+        unreadCount: action.payload.unreadCount,
+        isLoading: false,
+        error: null,
+      };
 
     case 'ERROR':
       return { ...state, isLoading: false, error: action.payload };
@@ -54,6 +60,7 @@ function reducer(state, action) {
  */
 export function useNotifications() {
   const { user } = useAuth();
+  const userUid = user?.uid ?? null;
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const unsubscribeRef = useRef(null);
 
@@ -66,7 +73,7 @@ export function useNotifications() {
     };
 
     // 1. Validate User
-    if (!user?.uid) {
+    if (!userUid) {
       teardown();
       dispatch({ type: 'RESET' });
       return;
@@ -79,33 +86,35 @@ export function useNotifications() {
 
     const setup = () => {
       try {
-        const db = getDb();
-        
-        // 2. Index-Safe Query: User's notifications sorted by newest first
-        // REQUIRES INDEX: userId (ASC) + createdAt (DESC)
-        const q = query(
-          collection(db, 'notifications'),
-          where('userId', '==', user.uid),
-          orderBy('createdAt', 'desc')
-        );
+        const notificationsQuery = buildNotificationsQuery({ uid: userUid });
 
-        // 3. Real-time Subscription
+        if (!notificationsQuery) {
+          dispatch({ type: 'RESET' });
+          return;
+        }
+
         const unsubscribe = onSnapshot(
-          q,
+          notificationsQuery,
           (snapshot) => {
             if (!isMounted) return;
-            const data = snapshot.docs.map((docSnap) => ({
-              id: docSnap.id,
-              ...docSnap.data(),
-              createdAt: docSnap.data().createdAt?.toDate?.() ?? new Date(),
-            }));
-            dispatch({ type: 'LOADED', payload: data });
+            const notifications = snapshot.docs.map(mapNotificationDocument);
+            const unreadCount = notifications.reduce(
+              (count, notification) => count + (notification.isRead ? 0 : 1),
+              0,
+            );
+
+            startTransition(() => {
+              dispatch({
+                type: 'LOADED',
+                payload: { notifications, unreadCount },
+              });
+            });
           },
           (err) => {
             if (!isMounted) return;
             console.error('[useNotifications] onSnapshot error:', err);
             const errorMessage = err.code === 'failed-precondition'
-              ? 'Notifications index missing. Check console.'
+              ? 'Missing Firestore index: notifications requires userId (ASC) + createdAt (DESC).'
               : 'Failed to load notifications.';
             dispatch({ type: 'ERROR', payload: errorMessage });
           }
@@ -130,11 +139,15 @@ export function useNotifications() {
       isMounted = false;
       teardown();
     };
-  }, [user?.uid]);
+  }, [userUid]);
 
   /* ── Actions ────────────────────────────────────────────────── */
 
   const markAsRead = useCallback(async (notificationId) => {
+    if (!notificationId) {
+      return;
+    }
+
     try {
       const db = getDb();
       await updateDoc(doc(db, 'notifications', notificationId), { isRead: true });
@@ -159,12 +172,10 @@ export function useNotifications() {
     }
   }, [state.notifications]);
 
-  /* ── Derived ────────────────────────────────────────────────── */
-  const unreadCount = state.notifications.filter((n) => !n.isRead).length;
-
   return {
     notifications: state.notifications,
-    unreadCount,
+    unreadCount: state.unreadCount,
+    isEmpty: !state.isLoading && state.notifications.length === 0 && !state.error,
     isLoading: state.isLoading,
     error: state.error,
     markAsRead,

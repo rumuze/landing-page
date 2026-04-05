@@ -1,11 +1,6 @@
-import { useEffect, useReducer, useRef } from 'react';
-import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-} from 'firebase/firestore';
-import { getDb } from '../utils/firebaseClient';
+import { startTransition, useEffect, useReducer, useRef } from 'react';
+import { onSnapshot } from 'firebase/firestore';
+import { buildMessagesQuery, mapChatMessageDocument } from '../utils/messages';
 
 const INITIAL_STATE = {
   messages: [],
@@ -54,23 +49,17 @@ export function useChat(threadId) {
 
     const setup = () => {
       try {
-        const db = getDb();
-        const chatRef = collection(db, `threads/${threadId}/messages`);
-        
-        // 2. Deterministic Query: Messages sorted ASC (oldest first)
-        const q = query(chatRef, orderBy('createdAt', 'asc'));
+        const chatQuery = buildMessagesQuery(threadId);
 
-        // 3. Real-time Subscription
         const unsubscribe = onSnapshot(
-          q,
+          chatQuery,
           (snapshot) => {
             if (!isMounted) return;
-            const data = snapshot.docs.map((docSnap) => ({
-              id: docSnap.id,
-              ...docSnap.data(),
-              createdAt: docSnap.data().createdAt?.toDate?.() ?? null,
-            }));
-            dispatch({ type: 'LOADED', payload: data });
+            const data = snapshot.docs.map(mapChatMessageDocument);
+
+            startTransition(() => {
+              dispatch({ type: 'LOADED', payload: data });
+            });
           },
           (err) => {
             if (!isMounted) return;
@@ -102,6 +91,7 @@ export function useChat(threadId) {
 
   return {
     messages: state.messages,
+    isEmpty: !state.isLoading && state.messages.length === 0 && !state.error,
     isLoading: state.isLoading,
     error: state.error,
   };

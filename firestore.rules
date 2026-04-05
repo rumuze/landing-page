@@ -27,6 +27,11 @@ service cloud.firestore {
       return value == null || (value is string && value.size() <= maxLength);
     }
 
+    function isValidEmail(value) {
+      return isNonEmptyString(value, 3, 320)
+        && value.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$');
+    }
+
     function isValidMessageStatus(status) {
       return status == "new" || status == "seen" || status == "replied";
     }
@@ -159,6 +164,159 @@ service cloud.firestore {
         && request.resource.data.createdAt == resource.data.createdAt;
     }
 
+    function isValidThreadStatus(status) {
+      return status == "open" || status == "closed";
+    }
+
+    function getThread(threadId) {
+      return get(/databases/$(database)/documents/threads/$(threadId));
+    }
+
+    function getThreadAfter(threadId) {
+      return getAfter(/databases/$(database)/documents/threads/$(threadId));
+    }
+
+    function hasImmutableThreadFields() {
+      return request.resource.data.userId == resource.data.userId
+        && request.resource.data.userName == resource.data.userName
+        && request.resource.data.userEmail == resource.data.userEmail
+        && request.resource.data.userPhoto == resource.data.userPhoto
+        && request.resource.data.isGuest == resource.data.isGuest
+        && request.resource.data.createdAt == resource.data.createdAt;
+    }
+
+    function isValidThreadCreate() {
+      return hasOnlyKeys(
+          request.resource.data,
+          [
+            "userId",
+            "userName",
+            "userEmail",
+            "userPhoto",
+            "isGuest",
+            "status",
+            "lastMessage",
+            "createdAt",
+            "updatedAt"
+          ]
+        )
+        && (
+          (
+            request.auth == null
+            && request.resource.data.userId == null
+            && request.resource.data.isGuest == true
+            && request.resource.data.userPhoto == null
+          )
+          || (
+            isSignedIn()
+            && request.resource.data.userId == request.auth.uid
+            && request.resource.data.userEmail == request.auth.token.email
+            && request.resource.data.isGuest == false
+            && isOptionalString(request.resource.data.userPhoto, 2048)
+          )
+        )
+        && isNonEmptyString(request.resource.data.userName, 1, 120)
+        && isValidEmail(request.resource.data.userEmail)
+        && isValidThreadStatus(request.resource.data.status)
+        && isNonEmptyString(request.resource.data.lastMessage, 1, 5000)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function isValidThreadMessageUpdate() {
+      return hasImmutableThreadFields()
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["lastMessage", "updatedAt"])
+        && isNonEmptyString(request.resource.data.lastMessage, 1, 5000)
+        && request.resource.data.status == resource.data.status
+        && request.resource.data.updatedAt == request.time
+        && (
+          isAdmin()
+          || (
+            isSignedIn()
+            && resource.data.userId != null
+            && request.auth.uid == resource.data.userId
+          )
+        );
+    }
+
+    function isValidThreadStatusUpdate() {
+      return hasImmutableThreadFields()
+        && isAdmin()
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["status", "updatedAt"])
+        && request.resource.data.lastMessage == resource.data.lastMessage
+        && isValidThreadStatus(request.resource.data.status)
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function isValidThreadChatMessageCreate(threadId) {
+      let threadData = getThreadAfter(threadId).data;
+      return existsAfter(/databases/$(database)/documents/threads/$(threadId))
+        && hasOnlyKeys(
+          request.resource.data,
+          ["senderId", "senderRole", "text", "createdAt"]
+        )
+        && isNonEmptyString(request.resource.data.text, 1, 5000)
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.resource.data.senderRole == "admin"
+            && isAdmin()
+            && request.resource.data.senderId == request.auth.uid
+          )
+          || (
+            request.resource.data.senderRole == "user"
+            && (
+              (
+                request.auth == null
+                && threadData.userId == null
+                && request.resource.data.senderId == null
+              )
+              || (
+                isSignedIn()
+                && threadData.userId != null
+                && request.auth.uid == threadData.userId
+                && request.resource.data.senderId == request.auth.uid
+              )
+            )
+          )
+        );
+    }
+
+    function isValidThreadNotificationCreate(threadId) {
+      let threadData = getThreadAfter(threadId).data;
+      return existsAfter(/databases/$(database)/documents/threads/$(threadId))
+        && hasOnlyKeys(
+          request.resource.data,
+          ["userId", "type", "isRead", "createdAt", "threadId"]
+        )
+        && isNonEmptyString(request.resource.data.userId, 1, 128)
+        && request.resource.data.threadId == threadId
+        && request.resource.data.isRead == false
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.resource.data.type == "reply"
+            && isAdmin()
+            && threadData.userId != null
+            && request.resource.data.userId == threadData.userId
+          )
+          || (
+            request.resource.data.type == "message"
+            && (
+              (
+                request.auth == null
+                && threadData.userId == null
+              )
+              || (
+                isSignedIn()
+                && threadData.userId != null
+                && request.auth.uid == threadData.userId
+              )
+            )
+          )
+        );
+    }
+
     match /messages/{messageId} {
       allow create: if isValidMessageCreate();
       allow read: if isAdmin() || isMessageOwner();
@@ -167,16 +325,20 @@ service cloud.firestore {
     }
 
     match /threads/{threadId} {
-      allow create: if true;
+      allow create: if isValidThreadCreate();
       allow read: if isAdmin() || (isSignedIn() && request.auth.uid == resource.data.userId);
-      allow update: if isAdmin();
+      allow update: if isValidThreadMessageUpdate() || isValidThreadStatusUpdate();
+      allow delete: if false;
     }
 
     match /threads/{threadId}/messages/{messageId} {
-      allow read, write:
-        if isAdmin() ||
-        (isSignedIn() &&
-         request.auth.uid == get(/databases/$(database)/documents/threads/$(threadId)).data.userId);
+      allow read: if isAdmin() ||
+        (
+          isSignedIn()
+          && request.auth.uid == getThread(threadId).data.userId
+        );
+      allow create: if isValidThreadChatMessageCreate(threadId);
+      allow update, delete: if false;
     }
 
     match /users/{userId} {
@@ -187,14 +349,8 @@ service cloud.firestore {
     }
 
     match /notifications/{notificationId} {
-      allow read: if isSignedIn() && (
-        request.auth.uid == resource.data.userId || 
-        (isAdmin() && resource.data.type == "message")
-      );
-      allow create: if isValidNotificationCreate() && (
-        (request.resource.data.type == "reply" && isAdmin()) ||
-        (request.resource.data.type == "message")
-      );
+      allow read: if isSignedIn() && request.auth.uid == resource.data.userId;
+      allow create: if isValidThreadNotificationCreate(request.resource.data.threadId);
       allow update: if isSignedIn()
         && request.auth.uid == resource.data.userId
         && isValidNotificationUpdate();
