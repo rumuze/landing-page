@@ -41,6 +41,20 @@ export default defineConfig([
     },
   },
   {
+    files: ['firebase-functions/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.node,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'commonjs',
+      },
+    },
+    rules: {
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
+    },
+  },
+  {
     files: ['functions/**/*.js'],
     languageOptions: {
       ecmaVersion: 2020,

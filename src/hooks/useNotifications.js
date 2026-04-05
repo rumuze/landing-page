@@ -6,6 +6,158 @@ import {
   subscribeToNotifications,
 } from "../services/chatService";
 
+const NOTIFICATION_SOUND_PATH = "/notification.wav";
+const NOTIFICATION_SOUND_COOLDOWN_MS = 1200;
+
+let notificationAudio = null;
+let notificationAudioContext = null;
+let hasRegisteredAudioUnlock = false;
+let hasLoggedAudioFailure = false;
+let lastNotificationSoundAt = 0;
+
+function getNotificationAudio() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  if (!notificationAudio) {
+    notificationAudio = new Audio(NOTIFICATION_SOUND_PATH);
+    notificationAudio.preload = "auto";
+  }
+
+  return notificationAudio;
+}
+
+function getNotificationAudioContext() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+
+  if (!AudioContextCtor) {
+    return null;
+  }
+
+  if (!notificationAudioContext) {
+    notificationAudioContext = new AudioContextCtor();
+  }
+
+  return notificationAudioContext;
+}
+
+async function playFallbackTone() {
+  const audioContext = getNotificationAudioContext();
+
+  if (!audioContext) {
+    return false;
+  }
+
+  if (audioContext.state === "suspended") {
+    await audioContext.resume();
+  }
+
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  const now = audioContext.currentTime;
+
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(880, now);
+  gainNode.gain.setValueAtTime(0.0001, now);
+  gainNode.gain.exponentialRampToValueAtTime(0.08, now + 0.01);
+  gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  oscillator.start(now);
+  oscillator.stop(now + 0.2);
+
+  return true;
+}
+
+async function primeNotificationAudio() {
+  const audio = getNotificationAudio();
+
+  if (audio) {
+    try {
+      audio.muted = true;
+      audio.currentTime = 0;
+      await audio.play();
+      audio.pause();
+      audio.currentTime = 0;
+      audio.muted = false;
+      return;
+    } catch {
+      audio.muted = false;
+    }
+  }
+
+  try {
+    const audioContext = getNotificationAudioContext();
+
+    if (audioContext && audioContext.state === "suspended") {
+      await audioContext.resume();
+    }
+  } catch {
+    // Browser autoplay restrictions can still block priming until a later interaction.
+  }
+}
+
+function registerNotificationSoundUnlock() {
+  if (typeof document === "undefined" || hasRegisteredAudioUnlock) {
+    return;
+  }
+
+  hasRegisteredAudioUnlock = true;
+  document.addEventListener(
+    "click",
+    () => {
+      void primeNotificationAudio();
+    },
+    { once: true, passive: true },
+  );
+}
+
+async function playNotificationSound() {
+  const now = Date.now();
+
+  if (now - lastNotificationSoundAt < NOTIFICATION_SOUND_COOLDOWN_MS) {
+    return;
+  }
+
+  lastNotificationSoundAt = now;
+  const audio = getNotificationAudio();
+
+  if (audio) {
+    try {
+      audio.pause();
+      audio.currentTime = 0;
+      await audio.play();
+      return;
+    } catch (error) {
+      if (!hasLoggedAudioFailure) {
+        hasLoggedAudioFailure = true;
+        console.warn("[useNotifications] notification sound playback failed, using fallback tone.", error);
+      }
+    }
+  }
+
+  try {
+    await playFallbackTone();
+  } catch (error) {
+    console.error("[useNotifications] notification sound failed:", error);
+  }
+}
+
+function getNotificationSignature(notifications) {
+  return notifications
+    .map((notification) => {
+      const createdAt = notification.createdAt?.getTime?.() ?? 0;
+      return `${notification.id}:${notification.isRead ? "1" : "0"}:${createdAt}`;
+    })
+    .join("|");
+}
+
 /* ─── state shape & reducer ────────────────────────────────────── */
 
 const INITIAL_STATE = {
@@ -57,6 +209,13 @@ export function useNotifications() {
   const userUid = user?.uid ?? null;
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const unsubscribeRef = useRef(null);
+  const hasReceivedSnapshotRef = useRef(false);
+  const previousSignatureRef = useRef("");
+  const previousUnreadCountRef = useRef(0);
+
+  useEffect(() => {
+    registerNotificationSoundUnlock();
+  }, []);
 
   useEffect(() => {
     const teardown = () => {
@@ -66,14 +225,22 @@ export function useNotifications() {
       }
     };
 
+    const resetSnapshotState = () => {
+      hasReceivedSnapshotRef.current = false;
+      previousSignatureRef.current = "";
+      previousUnreadCountRef.current = 0;
+    };
+
     // 1. Validate User
     if (!userUid) {
       teardown();
+      resetSnapshotState();
       dispatch({ type: 'RESET' });
       return;
     }
 
     teardown();
+    resetSnapshotState();
     dispatch({ type: 'LOADING' });
 
     let isMounted = true;
@@ -88,6 +255,30 @@ export function useNotifications() {
               (count, notification) => count + (notification.isRead ? 0 : 1),
               0,
             );
+            const previousSignature = previousSignatureRef.current;
+            const previousUnreadCount = previousUnreadCountRef.current;
+            const hasReceivedSnapshot = hasReceivedSnapshotRef.current;
+            const nextSignature = getNotificationSignature(notifications);
+            const shouldPlaySound =
+              hasReceivedSnapshot
+              && unreadCount > previousUnreadCount
+              && notifications.some((notification) => !notification.isRead);
+            const shouldDispatch =
+              !hasReceivedSnapshot
+              || nextSignature !== previousSignature
+              || unreadCount !== previousUnreadCount;
+
+            hasReceivedSnapshotRef.current = true;
+            previousSignatureRef.current = nextSignature;
+            previousUnreadCountRef.current = unreadCount;
+
+            if (shouldPlaySound) {
+              void playNotificationSound();
+            }
+
+            if (!shouldDispatch) {
+              return;
+            }
 
             startTransition(() => {
               dispatch({
@@ -124,6 +315,7 @@ export function useNotifications() {
     return () => {
       isMounted = false;
       teardown();
+      resetSnapshotState();
     };
   }, [userUid]);
 

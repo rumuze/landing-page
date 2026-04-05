@@ -110,6 +110,19 @@ Rumuze is an enterprise software engineering authority building multilingual Saa
   - `npm run lint`
   - `npm run typecheck`
 
+## Real-Time Chat Notifications
+
+- Notifications are created only by the Firebase Cloud Function at `threads/{threadId}/messages/{messageId}`.
+- Client code never writes to `notifications`; users can only read their own records and mark `isRead` as `true`.
+- The function routes `senderRole: "admin"` messages to `thread.userId`, and `senderRole: "user"` messages to the configured admin UID after validating identities against Firestore user documents.
+- Notification reads rely on the composite Firestore index in [`firestore.indexes.json`](/Volumes/main/new/projects/Rumuze/landing-page/firestore.indexes.json).
+- The frontend listener uses [`useNotifications.js`](/Volumes/main/new/projects/Rumuze/landing-page/src/hooks/useNotifications.js) with `onSnapshot()` and plays [`notification.wav`](/Volumes/main/new/projects/Rumuze/landing-page/public/notification.wav) when unread counts increase.
+
+### Required env
+
+- Add `VITE_FIREBASE_ADMIN_UID=xxxxx` to the app env file.
+- Provide the same admin UID to the Cloud Functions runtime as `VITE_FIREBASE_ADMIN_UID` or `FIREBASE_ADMIN_UID` before deploying.
+
 ## Cross‑Platform Identity Policies
 
 - All bios start with the canonical authority sentence verbatim.

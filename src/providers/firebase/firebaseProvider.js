@@ -17,7 +17,6 @@ import {
   CHAT_SENDER_ROLES,
   assertNonEmptyValue,
   assertValidEmail,
-  createNotificationDocumentId,
   getSessionDisplayName,
   getSessionPhoto,
   normalizeChatMessage,
@@ -33,20 +32,6 @@ import {
   sortThreadsByLatest,
 } from "../../models/chat";
 import { createUserProfileDraft, getFallbackName, normalizeString } from "../../models/userProfile";
-
-const adminNotificationUserIds = Array.from(
-  new Set(
-    [
-      import.meta.env.VITE_FIREBASE_ADMIN_UID,
-      ...(import.meta.env.VITE_FIREBASE_ADMIN_UIDS ?? "").split(","),
-    ]
-      .map((value) => sanitizeLine(value))
-      .filter(Boolean),
-  ),
-);
-
-const getPrimaryAdminNotificationUserId = () =>
-  adminNotificationUserIds[0] ?? null;
 
 const mapThreadSnapshot = (snapshot) =>
   sortThreadsByLatest(snapshot.docs.map((threadDoc) => normalizeThread(threadDoc.id, threadDoc.data())));
@@ -123,13 +108,11 @@ export const firebaseProvider = {
     return threadRef.id;
   },
 
-  async sendMessage({ threadId, senderId, senderRole, text, targetUserId }) {
+  async sendMessage({ threadId, senderId, senderRole, text }) {
     const normalizedThreadId = sanitizeLine(threadId);
     const normalizedSenderId = normalizeOptionalId(senderId);
     const normalizedRole = sanitizeLine(senderRole);
     const normalizedText = sanitizeMultiline(text);
-    const explicitTargetUserId = normalizeOptionalId(targetUserId);
-
     if (!normalizedThreadId) {
       throw new Error("Thread ID is required.");
     }
@@ -143,24 +126,31 @@ export const firebaseProvider = {
 
     const db = getFirestoreDb();
     const threadRef = doc(db, "threads", normalizedThreadId);
-    const threadSnapshot = await getDoc(threadRef);
+    const senderProfileRef = doc(db, "users", normalizedSenderId);
+    const [threadSnapshot, senderProfileSnapshot] = await Promise.all([
+      getDoc(threadRef),
+      getDoc(senderProfileRef),
+    ]);
 
     if (!threadSnapshot.exists()) {
       throw new Error("Thread does not exist.");
     }
 
+    if (!senderProfileSnapshot.exists()) {
+      throw new Error("Sender profile could not be verified.");
+    }
+
     const thread = normalizeThread(threadSnapshot.id, threadSnapshot.data());
+    const senderProfile = senderProfileSnapshot.data() ?? {};
+
+    if (normalizedRole === "admin" && normalizeString(senderProfile.role) !== "admin") {
+      throw new Error("Only admins can send admin replies.");
+    }
 
     if (normalizedRole === "user" && thread.userId !== normalizedSenderId) {
       throw new Error("This thread does not belong to the current user.");
     }
 
-    const notificationUserId =
-      normalizedRole === "admin"
-        ? explicitTargetUserId ?? thread.userId
-        : explicitTargetUserId ?? getPrimaryAdminNotificationUserId();
-
-    const notificationType = normalizedRole === "admin" ? "reply" : "message";
     const batch = writeBatch(db);
     const timestamp = serverTimestamp();
     const messageRef = doc(collection(db, "threads", normalizedThreadId, "messages"));
@@ -176,30 +166,6 @@ export const firebaseProvider = {
       lastMessage: normalizedText,
       updatedAt: timestamp,
     });
-
-    if (
-      normalizedRole === "admin"
-      && notificationUserId
-      && notificationUserId !== normalizedSenderId
-    ) {
-      const notificationRef = doc(
-        db,
-        "notifications",
-        createNotificationDocumentId({
-          threadId: normalizedThreadId,
-          userId: notificationUserId,
-          type: notificationType,
-        }),
-      );
-
-      batch.set(notificationRef, {
-        userId: notificationUserId,
-        type: notificationType,
-        isRead: false,
-        createdAt: timestamp,
-        threadId: normalizedThreadId,
-      });
-    }
 
     await batch.commit();
   },

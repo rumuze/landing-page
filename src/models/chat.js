@@ -1,6 +1,7 @@
 export const MESSAGE_STATUSES = ["new", "seen", "replied"];
 export const THREAD_STATUSES = ["open", "closed"];
 export const CHAT_SENDER_ROLES = ["admin", "user"];
+export const NOTIFICATION_TYPES = ["message", "reply"];
 
 export const FIRESTORE_INDEX_REQUIREMENTS = Object.freeze({
   threadsByUserUpdatedAt: {
@@ -197,7 +198,7 @@ export const normalizeChatMessage = (id, data = {}) => ({
 export const normalizeNotification = (id, data = {}) => ({
   id,
   userId: typeof data.userId === "string" && data.userId ? data.userId : null,
-  type: typeof data.type === "string" ? data.type : "message",
+  type: NOTIFICATION_TYPES.includes(data.type) ? data.type : "message",
   isRead: Boolean(data.isRead),
   createdAt: getMessageDate(data.createdAt),
   threadId: typeof data.threadId === "string" ? data.threadId : null,
@@ -215,6 +216,3 @@ export const normalizeLegacyMessage = (id, data = {}) => ({
   createdAt: data.createdAt ?? null,
   repliedAt: data.repliedAt ?? null,
 });
-
-export const createNotificationDocumentId = ({ threadId, userId, type }) =>
-  `${type}_${threadId}_${userId}`;

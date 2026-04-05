@@ -105,7 +105,6 @@ const Messages = () => {
         senderId: user.uid,
         senderRole: "admin",
         text: replyText,
-        targetUserId: thread.userId,
       });
       return true;
     } catch (replyError) {
