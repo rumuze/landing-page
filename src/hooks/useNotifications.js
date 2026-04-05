@@ -3,6 +3,7 @@ import {
   collection,
   query,
   where,
+  or,
   onSnapshot,
   updateDoc,
   writeBatch,
@@ -88,10 +89,20 @@ export function useNotifications() {
     const setupListener = async () => {
       try {
         const db = getDb();
-        const q = query(
-          collection(db, 'notifications'),
-          where('userId', '==', user.uid)
-        );
+        // Admins see notifications targeted to them OR any 'message' notification (from users/guests)
+        // Regular users only see notifications targeted to them (replies)
+        const q = user.role === 'admin'
+          ? query(
+              collection(db, 'notifications'),
+              or(
+                where('userId', '==', user.uid),
+                where('type', '==', 'message')
+              )
+            )
+          : query(
+              collection(db, 'notifications'),
+              where('userId', '==', user.uid)
+            );
 
         const unsubscribe = onSnapshot(
           q,
@@ -136,7 +147,7 @@ export function useNotifications() {
       isMounted = false;
       teardown();
     };
-  }, [user?.uid]);
+  }, [user?.uid, user?.role]);
 
   /* ── actions ──────────────────────────────────────────────── */
 

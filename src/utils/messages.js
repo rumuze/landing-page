@@ -4,6 +4,7 @@ import {
   serverTimestamp,
   writeBatch,
   increment,
+  getDocs,
 } from "firebase/firestore";
 import { getDb } from "./firebaseClient";
 
@@ -118,134 +119,199 @@ export const matchesMessageSearch = (message, query) => {
   return [
     message.userName,
     message.userEmail,
-    message.message,
-    message.reply,
+    message.lastMessage,
+    message.message, // legacy
+    message.reply,   // legacy
   ]
     .filter(Boolean)
     .some((value) => value.toLowerCase().includes(normalizedQuery));
 };
 
-export const mapMessageDocument = (messageDoc) => {
-  const data = messageDoc.data();
+export const mapThreadDocument = (threadDoc) => {
+  const data = threadDoc.data();
 
   return {
-    id: messageDoc.id,
+    id: threadDoc.id,
     userId: typeof data.userId === "string" && data.userId ? data.userId : null,
     userName: typeof data.userName === "string" ? data.userName : "",
     userEmail: typeof data.userEmail === "string" ? data.userEmail : "",
     userPhoto: typeof data.userPhoto === "string" && data.userPhoto ? data.userPhoto : null,
-    message: typeof data.message === "string" ? data.message : "",
-    reply: typeof data.reply === "string" && data.reply ? data.reply : null,
-    status: normalizeMessageStatus(data.status),
+    isGuest: Boolean(data.isGuest),
+    status: data.status === "closed" ? "closed" : "open",
+    lastMessage: typeof data.lastMessage === "string" ? data.lastMessage : "",
     createdAt: data.createdAt ?? null,
-    repliedAt: data.repliedAt ?? null,
+    updatedAt: data.updatedAt ?? null,
   };
 };
 
-export const buildMessageCreatePayload = ({
-  user,
-  name,
-  email,
-  message,
-  subject,
-  company,
-}) => {
-  const normalizedName = getSessionDisplayName(user) || sanitizeLine(name);
-  const normalizedEmail = normalizeEmail(user?.email || email);
-  const normalizedMessage = sanitizeMultiline(message);
-  const normalizedSubject = sanitizeLine(subject);
-  const normalizedCompany = sanitizeLine(company);
-  const normalizedPhoto = getSessionPhoto(user);
-  const segments = [];
-
-  if (!normalizedName) {
-    throw new Error("Sender name is required.");
-  }
-
-  if (!normalizedEmail) {
-    throw new Error("Sender email is required.");
-  }
-
-  if (!normalizedMessage) {
-    throw new Error("Message body is required.");
-  }
-
-  if (normalizedSubject) {
-    segments.push(`Subject: ${normalizedSubject}`);
-  }
-
-  if (normalizedCompany) {
-    segments.push(`Company: ${normalizedCompany}`);
-  }
-
-  segments.push(normalizedMessage);
-
-  return {
-    userId: user?.uid ?? null,
-    userName: normalizedName,
-    userEmail: normalizedEmail,
-    userPhoto: normalizedPhoto || null,
-    message: segments.join("\n\n"),
-    reply: null,
-    status: "new",
-    repliedAt: null,
-  };
-};
-
-export async function createMessage(formData, user = null) {
+export async function createThread(formData, user = null, adminUid = "ADMIN_UID_PLACEHOLDER") {
   const db = getDb();
   const batch = writeBatch(db);
 
-  const messageDocRef = doc(collection(db, "messages"));
-  batch.set(messageDocRef, {
-    ...buildMessageCreatePayload({
-      ...formData,
-      user,
-    }),
+  const normalizedName = getSessionDisplayName(user) || sanitizeLine(formData.name);
+  const normalizedEmail = normalizeEmail(user?.email || formData.email);
+  const normalizedMessage = sanitizeMultiline(formData.message);
+  
+  if (!normalizedName) throw new Error("Sender name is required.");
+  if (!normalizedEmail) throw new Error("Sender email is required.");
+  if (!normalizedMessage) throw new Error("Message body is required.");
+
+  const threadRef = doc(collection(db, "threads"));
+  batch.set(threadRef, {
+    userId: user?.uid || null,
+    userName: normalizedName,
+    userEmail: normalizedEmail,
+    userPhoto: getSessionPhoto(user) || null,
+    isGuest: !user,
+    status: "open",
+    lastMessage: normalizedMessage,
     createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+
+  const chatRef = doc(collection(db, `threads/${threadRef.id}/messages`));
+  batch.set(chatRef, {
+    senderId: user?.uid || null,
+    senderRole: "user",
+    text: normalizedMessage,
+    createdAt: serverTimestamp(),
+  });
+
+  const notificationRef = doc(collection(db, "notifications"));
+  batch.set(notificationRef, {
+    userId: adminUid,
+    type: "message",
+    isRead: false,
+    createdAt: serverTimestamp(),
+    threadId: threadRef.id,
   });
 
   if (user?.uid) {
     const userRef = doc(db, "users", user.uid);
     batch.update(userRef, {
-      messagesCount: increment(1)
+      messagesCount: increment(1),
+    });
+  }
+
+  await batch.commit();
+  return threadRef.id;
+}
+
+export async function sendChatMessage(threadId, senderId, senderRole, text, targetUserId) {
+  const normalizedText = sanitizeMultiline(text);
+
+  if (!threadId) throw new Error("A thread must be selected.");
+  if (!normalizedText) throw new Error("Message text is required.");
+
+  const db = getDb();
+  const batch = writeBatch(db);
+
+  const chatRef = doc(collection(db, `threads/${threadId}/messages`));
+  batch.set(chatRef, {
+    senderId,
+    senderRole, // "admin" or "user"
+    text: normalizedText,
+    createdAt: serverTimestamp(),
+  });
+
+  const threadRef = doc(db, "threads", threadId);
+  batch.update(threadRef, {
+    lastMessage: normalizedText,
+    updatedAt: serverTimestamp(),
+  });
+
+  // Target User ID determines who gets notified (Admin notifies user, User notifies admin)
+  if (targetUserId) {
+    const notificationRef = doc(collection(db, "notifications"));
+    batch.set(notificationRef, {
+      userId: targetUserId,
+      type: senderRole === "admin" ? "reply" : "message",
+      isRead: false,
+      createdAt: serverTimestamp(),
+      threadId,
     });
   }
 
   await batch.commit();
 }
 
-export async function sendAdminReply(message, replyText) {
-  const normalizedReply = sanitizeMultiline(replyText);
+/**
+ * MIGRATION SCRIPT
+ * Run this function once from the Admin Panel or a cloud function to migrate
+ * all legacy `messages` into the new `threads` + `threads/{id}/messages` architecture.
+ * This function is idempotent in the sense that it uses the same ID for the thread 
+ * if you want, but here we just process all docs and write new ones to `threads`.
+ * Actually, to prevent duplicates, we can assign the thread ID = legacy message ID.
+ */
 
-  if (!message?.id) {
-    throw new Error("A message must be selected before sending a reply.");
-  }
 
-  if (!normalizedReply) {
-    throw new Error("Reply text is required.");
-  }
-
+export async function migrateMessagesToThreads() {
   const db = getDb();
-  const batch = writeBatch(db);
+  const legacyMessagesSnapshot = await getDocs(collection(db, "messages"));
+  
+  const batches = [];
+  let currentBatch = writeBatch(db);
+  let operationCount = 0;
 
-  batch.update(doc(db, "messages", message.id), {
-    reply: normalizedReply,
-    status: "replied",
-    repliedAt: serverTimestamp(),
-  });
+  for (const docSnap of legacyMessagesSnapshot.docs) {
+    const data = docSnap.data();
+    
+    // Check if it's already a thread format or already migrated. 
+    // Usually legacy data has "message" field. Threads use "lastMessage" field natively handled.
+    if (!data.message) continue;
 
-  if (message.userId) {
-    batch.set(doc(collection(db, "notifications")), {
-      userId: message.userId,
-      type: "reply",
-      title: "New reply received",
-      body: "Admin replied to your message",
-      isRead: false,
-      link: "/my-messages",
-      createdAt: serverTimestamp(),
-    });
+    const threadId = docSnap.id;
+    const threadRef = doc(db, "threads", threadId);
+    
+    currentBatch.set(threadRef, {
+      userId: typeof data.userId === "string" ? data.userId : null,
+      userName: data.userName || "Unknown",
+      userEmail: data.userEmail || "",
+      userPhoto: data.userPhoto || null,
+      isGuest: !data.userId,
+      status: data.status === "closed" ? "closed" : "open",
+      lastMessage: data.reply || data.message || "",
+      createdAt: data.createdAt || serverTimestamp(),
+      updatedAt: data.repliedAt || data.createdAt || serverTimestamp(),
+      migrated: true,
+    }, { merge: true });
+
+    operationCount++;
+
+    // User's original message
+    const firstMessageRef = doc(db, `threads/${threadId}/messages`, "msg_initial");
+    currentBatch.set(firstMessageRef, {
+      senderId: data.userId || null,
+      senderRole: "user",
+      text: data.message,
+      createdAt: data.createdAt || serverTimestamp(),
+    }, { merge: true });
+    operationCount++;
+
+    // Admin's reply if exists
+    if (data.reply) {
+      const replyRef = doc(db, `threads/${threadId}/messages`, "msg_reply");
+      currentBatch.set(replyRef, {
+        senderId: "ADMIN_MIGRATED",
+        senderRole: "admin",
+        text: data.reply,
+        createdAt: data.repliedAt || serverTimestamp(),
+      }, { merge: true });
+      operationCount++;
+    }
+
+    // Firestore batch limit is 500 operations
+    if (operationCount > 400) {
+      batches.push(currentBatch.commit());
+      currentBatch = writeBatch(db);
+      operationCount = 0;
+    }
   }
 
-  await batch.commit();
+  if (operationCount > 0) {
+    batches.push(currentBatch.commit());
+  }
+
+  await Promise.all(batches);
+  console.log(`Migrated ${legacyMessagesSnapshot.docs.length} legacy messages to threads architecture.`);
 }

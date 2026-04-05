@@ -49,6 +49,29 @@ function getTypeConfig(type) {
   return TYPE_CONFIG[type] ?? TYPE_CONFIG.default;
 }
 
+function getNotificationDisplay(n) {
+  if (n.type === "message") {
+    return {
+      title: "New Message",
+      body: "A user has sent you a new inquiry.",
+      link: n.threadId ? `/admin/messages?threadId=${n.threadId}` : "/admin/messages",
+    };
+  }
+  if (n.type === "reply") {
+    return {
+      title: "Admin Reply",
+      body: "An admin has replied to your message.",
+      link: n.threadId ? `/my-messages?threadId=${n.threadId}` : "/my-messages",
+    };
+  }
+  // Legacy / Default
+  return {
+    title: n.title || "Support Alert",
+    body: n.body || "View details in your dashboard.",
+    link: n.link || "#",
+  };
+}
+
 /* ─── skeleton ─────────────────────────────────────────────────── */
 
 function NotificationSkeleton() {
@@ -67,6 +90,7 @@ function NotificationSkeleton() {
 /* ─── single row ───────────────────────────────────────────────── */
 
 function NotificationRow({ notification, onAction }) {
+  const display = getNotificationDisplay(notification);
   const config = getTypeConfig(notification.type);
   const { Icon } = config;
 
@@ -113,7 +137,7 @@ function NotificationRow({ notification, onAction }) {
                 : 'font-semibold text-slate-900 dark:text-white'
             }`}
           >
-            {notification.title}
+            {display.title}
           </p>
           <span
             className={`
@@ -126,7 +150,7 @@ function NotificationRow({ notification, onAction }) {
         </div>
 
         <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5 line-clamp-2 leading-relaxed">
-          {notification.body}
+          {display.body}
         </p>
 
         <p className="text-[10px] text-slate-400 dark:text-gray-500 mt-1.5 font-medium">
@@ -218,8 +242,9 @@ const NotificationDropdown = ({
         await markAsRead(notification.id);
       }
       onClose();
-      if (notification.link) {
-        navigate(notification.link);
+      const display = getNotificationDisplay(notification);
+      if (display.link && display.link !== "#") {
+        navigate(display.link);
       }
     },
     [markAsRead, onClose, navigate]

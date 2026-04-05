@@ -1,22 +1,25 @@
 import { startTransition, useDeferredValue, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion as Motion } from "framer-motion";
 import { AlertCircle, Inbox, MessageSquareMore, ShieldCheck } from "lucide-react";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import MessageDetail from "../../components/MessageDetail";
 import MessageList from "../../components/MessageList";
-import { useMessages } from "../../hooks/useMessages";
+import { useThreads } from "../../hooks/useThreads";
 import { getDb } from "../../utils/firebaseClient";
 import {
   matchesMessageSearch,
-  normalizeMessageStatus,
-  sendAdminReply,
+  sendChatMessage,
 } from "../../utils/messages";
+import { useAuth } from "../../context/auth-core";
 
 const Messages = () => {
+  const { user } = useAuth();
   const { i18n } = useTranslation();
-  const [selectedId, setSelectedId] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedId, setSelectedId] = useState(searchParams.get("threadId"));
   const [searchValue, setSearchValue] = useState("");
   const [filter, setFilter] = useState("all");
   const [isUpdating, setIsUpdating] = useState(false);
@@ -25,74 +28,77 @@ const Messages = () => {
   const locale = i18n.language === "ar" ? "ar-EG" : "en-US";
 
   const {
-    messages,
+    threads,
     isLoading,
     error: subscriptionError,
-  } = useMessages({ mode: "admin" });
+  } = useThreads();
 
-  const filteredMessages = messages.filter((message) => {
-    const matchesFilter = filter === "all" || message.status === filter;
-    return matchesFilter && matchesMessageSearch(message, deferredSearch);
+  const filteredThreads = threads.filter((thread) => {
+    const matchesFilter = filter === "all" || thread.status === filter;
+    return matchesFilter && matchesMessageSearch(thread, deferredSearch); // Ensure matchesSearch checks thread fields
   });
 
   useEffect(() => {
-    if (filteredMessages.length === 0) {
+    if (filteredThreads.length === 0) {
       if (selectedId !== null) {
         startTransition(() => {
           setSelectedId(null);
         });
       }
-
       return;
     }
 
-    const selectedMessageStillVisible = filteredMessages.some(
-      (message) => message.id === selectedId,
+    const threadIdFromUrl = searchParams.get("threadId");
+    const selectedThreadStillVisible = filteredThreads.some(
+      (thread) => thread.id === selectedId,
     );
 
-    if (!selectedMessageStillVisible) {
+    if (threadIdFromUrl && filteredThreads.some(t => t.id === threadIdFromUrl)) {
+      if (selectedId !== threadIdFromUrl) {
+        setSelectedId(threadIdFromUrl);
+      }
+    } else if (!selectedThreadStillVisible) {
       startTransition(() => {
-        setSelectedId(filteredMessages[0].id);
+        setSelectedId(filteredThreads[0].id);
       });
     }
-  }, [filteredMessages, selectedId]);
+  }, [filteredThreads, selectedId, searchParams]);
 
-  const selectedMessage =
-    filteredMessages.find((message) => message.id === selectedId) ?? null;
+  const selectedThread =
+    filteredThreads.find((thread) => thread.id === selectedId) ?? null;
 
-  const newCount = messages.filter((message) => message.status === "new").length;
-  const repliedCount = messages.filter(
-    (message) => message.status === "replied",
-  ).length;
-  const linkedCount = messages.filter((message) => Boolean(message.userId)).length;
-  const guestCount = Math.max(messages.length - linkedCount, 0);
+  const openCount = threads.filter((thread) => thread.status === "open").length;
+  const closedCount = threads.filter((thread) => thread.status === "closed").length;
+  const linkedCount = threads.filter((thread) => Boolean(thread.userId)).length;
+  const guestCount = Math.max(threads.length - linkedCount, 0);
   const error = actionError || subscriptionError;
 
-  const updateMessage = async (messageId, payload) => {
+  const updateThread = async (threadId, payload) => {
     try {
       setIsUpdating(true);
       setActionError("");
-      await updateDoc(doc(getDb(), "messages", messageId), payload);
+      await updateDoc(doc(getDb(), "threads", threadId), payload);
     } catch (updateError) {
       setActionError(
-        updateError?.message ?? "Unable to update the selected message.",
+        updateError?.message ?? "Unable to update the selected thread.",
       );
     } finally {
       setIsUpdating(false);
     }
   };
 
-  const handleMarkSeen = async (messageId) => {
-    await updateMessage(messageId, {
-      status: normalizeMessageStatus("seen"),
+  const handleToggleStatus = async (thread) => {
+    await updateThread(thread.id, {
+      status: thread.status === "open" ? "closed" : "open",
+      updatedAt: serverTimestamp(),
     });
   };
 
-  const handleSendReply = async (message, replyText) => {
+  const handleSendReply = async (thread, replyText) => {
     try {
       setIsUpdating(true);
       setActionError("");
-      await sendAdminReply(message, replyText);
+      await sendChatMessage(thread.id, user.uid, "admin", replyText, thread.userId);
     } catch (replyError) {
       setActionError(replyError?.message ?? "Unable to send the reply.");
     } finally {
@@ -132,11 +138,11 @@ const Messages = () => {
               </div>
 
               <div className="grid gap-3 sm:grid-cols-4">
-                <div className="rounded-[1.5rem] border border-cyan-400/15 bg-cyan-400/10 px-4 py-4">
+                <div className="rounded-[1.5rem] border border-emerald-400/15 bg-emerald-400/10 px-4 py-4">
                   <p className="text-[11px] uppercase tracking-[0.24em] text-cyan-100/75">
-                    New
+                    Open
                   </p>
-                  <p className="mt-2 text-2xl font-black text-white">{newCount}</p>
+                  <p className="mt-2 text-2xl font-black text-white">{openCount}</p>
                 </div>
 
                 <div className="rounded-[1.5rem] border border-white/10 bg-white/5 px-4 py-4">
@@ -157,12 +163,12 @@ const Messages = () => {
                   </p>
                 </div>
 
-                <div className="rounded-[1.5rem] border border-emerald-400/15 bg-emerald-400/10 px-4 py-4">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-emerald-100/75">
-                    Replied
+                <div className="rounded-[1.5rem] border border-slate-400/15 bg-slate-400/10 px-4 py-4">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-slate-300/75">
+                    Closed
                   </p>
                   <p className="mt-2 text-2xl font-black text-white">
-                    {repliedCount}
+                    {closedCount}
                   </p>
                 </div>
               </div>
@@ -193,11 +199,12 @@ const Messages = () => {
 
           <div className="grid gap-6 xl:grid-cols-[23rem_minmax(0,1fr)]">
             <MessageList
-              messages={filteredMessages}
+              messages={filteredThreads}
               selectedId={selectedId}
-              onSelectMessage={(messageId) =>
+              onSelectMessage={(threadId) =>
                 startTransition(() => {
-                  setSelectedId(messageId);
+                  setSelectedId(threadId);
+                  setSearchParams({ threadId });
                 })
               }
               isLoading={isLoading}
@@ -209,17 +216,17 @@ const Messages = () => {
               }
               searchValue={searchValue}
               onSearchChange={setSearchValue}
-              newCount={newCount}
+              newCount={openCount}
               linkedCount={linkedCount}
               locale={locale}
             />
 
             <MessageDetail
-              key={selectedMessage?.id ?? "empty"}
-              message={selectedMessage}
+              key={selectedThread?.id ?? "empty"}
+              thread={selectedThread}
               isUpdating={isUpdating}
               locale={locale}
-              onMarkSeen={handleMarkSeen}
+              onToggleStatus={handleToggleStatus}
               onSendReply={handleSendReply}
             />
           </div>

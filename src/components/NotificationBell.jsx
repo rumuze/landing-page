@@ -104,6 +104,7 @@ const NotificationBell = ({ isRtl = false, className = '' }) => {
         markAsRead={markAsRead}
         markAllAsRead={markAllAsRead}
         isRtl={isRtl}
+        userRole={user.role}
       />
     </div>
   );
