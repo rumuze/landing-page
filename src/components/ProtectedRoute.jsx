@@ -22,6 +22,8 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
     return <Navigate to={isAr ? "/ar/" : "/"} replace />;
   }
 
+  console.log("USER ROLE:", user?.role);
+
   if (requireAdmin && user.role !== "admin") {
     return <Navigate to={isAr ? "/ar/profile" : "/profile"} replace />;
   }

@@ -37,26 +37,8 @@ async function getUserProfile(userId) {
   };
 }
 
-function getAdminUid() {
-  const candidates = [
-    process.env.FIREBASE_ADMIN_UID,
-    process.env.VITE_FIREBASE_ADMIN_UID,
-    ...(process.env.VITE_FIREBASE_ADMIN_UIDS ?? "").split(","),
-  ];
-
-  return candidates.map(sanitizeString).find(Boolean) ?? null;
-}
-
-function createNotificationId({ messageId, targetUserId }) {
-  return `msg_${sanitizeString(messageId)}_${sanitizeString(targetUserId)}`.slice(0, 240);
-}
-
 function isAlreadyExistsError(error) {
   return error?.code === 6 || error?.code === "already-exists";
-}
-
-if (!getAdminUid()) {
-  logger.warn("FIREBASE_ADMIN_UID or VITE_FIREBASE_ADMIN_UID is not configured. User-originated chat messages cannot be routed to admin notifications.");
 }
 
 exports.createChatNotification = onDocumentCreated(
@@ -178,7 +160,14 @@ exports.createChatNotification = onDocumentCreated(
       return;
     }
 
-    const targetUserId = senderRole === "admin" ? threadUserId : getAdminUid();
+    let targetUserIds = [];
+    if (senderRole === "admin") {
+      if (threadUserId) targetUserIds.push(threadUserId);
+    } else if (senderRole === "user") {
+      const adminDocs = await db.collection("users").where("role", "==", "admin").get();
+      targetUserIds = adminDocs.docs.map(doc => doc.id);
+    }
+
     const resolvedThreadId = threadId;
 
     console.log("[useNotifications] Routing debugging:", {
@@ -187,12 +176,12 @@ exports.createChatNotification = onDocumentCreated(
       senderRole,
       senderId,
       threadUserId,
-      targetUserId,
+      targetUserIds,
       notificationType
     });
 
-    if (!targetUserId) {
-      logger.warn("Skipping notification creation because no target user could be resolved.", {
+    if (targetUserIds.length === 0) {
+      logger.warn("Skipping notification creation because no target users could be resolved.", {
         threadId,
         messageId,
         senderRole,
@@ -200,80 +189,82 @@ exports.createChatNotification = onDocumentCreated(
       return;
     }
 
-    if (senderId && senderId === targetUserId) {
-      logger.info("Skipping self-notification for chat message.", {
-        threadId,
-        messageId,
-        senderId,
-        senderRole,
-        targetUserId,
-      });
-      return;
-    }
+    for (const targetUserId of targetUserIds) {
+      if (senderId && senderId === targetUserId) {
+        logger.info("Skipping self-notification for chat message.", {
+          threadId,
+          messageId,
+          senderId,
+          senderRole,
+          targetUserId,
+        });
+        continue;
+      }
 
-    const targetProfile = await getUserProfile(targetUserId);
+      const targetProfile = await getUserProfile(targetUserId);
 
-    if (!targetProfile) {
-      logger.warn("Skipping notification creation because the target profile was not found.", {
-        threadId,
-        messageId,
-        senderRole,
-        targetUserId,
-      });
-      return;
-    }
+      if (!targetProfile) {
+        logger.warn("Skipping notification creation because the target profile was not found.", {
+          threadId,
+          messageId,
+          senderRole,
+          targetUserId,
+        });
+        continue;
+      }
 
-    if (senderRole === "user" && sanitizeString(targetProfile.role) !== "admin") {
-      logger.warn("Skipping notification creation because the configured admin target is not an admin in Firestore.", {
-        threadId,
-        messageId,
-        senderRole,
-        targetUserId,
-        targetRole: sanitizeString(targetProfile.role),
-      });
-      return;
-    }
+      if (senderRole === "user" && sanitizeString(targetProfile.role) !== "admin") {
+        logger.warn("Skipping notification creation because the target is not an admin in Firestore.", {
+          threadId,
+          messageId,
+          senderRole,
+          targetUserId,
+          targetRole: sanitizeString(targetProfile.role),
+        });
+        continue;
+      }
 
-    const notificationRef = db
-      .collection("notifications")
-      .doc(createNotificationId({ messageId, targetUserId }));
+      const notificationRef = db
+        .collection("notifications")
+        .doc(`msg_${sanitizeString(messageId)}_${sanitizeString(targetUserId)}`.slice(0, 240));
 
-    try {
-      await notificationRef.create({
-        userId: targetUserId,
-        type: notificationType,
-        threadId,
-        isRead: false,
-        createdAt: serverTimestamp(),
-      });
+      try {
+        await notificationRef.create({
+          userId: targetUserId,
+          type: notificationType,
+          threadId,
+          isRead: false,
+          createdAt: serverTimestamp(),
+        });
 
-      logger.info("Created chat notification.", {
-        notificationId: notificationRef.id,
-        targetUserId,
-        senderRole,
-        threadId,
-        messageId,
-      });
-    } catch (error) {
-      if (isAlreadyExistsError(error)) {
-        logger.info("Notification already exists for this message; skipping duplicate write.", {
+        logger.info("Created chat notification.", {
           notificationId: notificationRef.id,
           targetUserId,
           senderRole,
           threadId,
           messageId,
         });
-        return;
-      }
+      } catch (error) {
+        if (isAlreadyExistsError(error)) {
+          logger.info("Notification already exists for this message; skipping duplicate write.", {
+            notificationId: notificationRef.id,
+            targetUserId,
+            senderRole,
+            threadId,
+            messageId,
+          });
+          continue;
+        }
 
-      logger.error("Failed to create chat notification.", {
-        threadId,
-        messageId,
-        senderRole,
-        targetUserId,
-        error: error?.message ?? String(error),
-      });
-      throw error;
+        logger.error("Failed to create chat notification.", {
+          threadId,
+          messageId,
+          senderRole,
+          targetUserId,
+          error: error?.message ?? String(error),
+        });
+        throw error;
+      }
     }
   },
 );
