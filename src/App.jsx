@@ -60,6 +60,7 @@ const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage'));
 const ProfilePage = lazy(() => import('./pages/Profile'));
 const SettingsPage = lazy(() => import('./pages/Settings'));
 const AdminMessagesPage = lazy(() => import('./pages/admin/Messages'));
+const AdminUsersPage = lazy(() => import('./pages/admin/Users'));
 const MyMessagesPage = lazy(() => import('./pages/MyMessages'));
 
 // Skeleton Loader
@@ -610,6 +611,21 @@ function AppContent() {
               <ProtectedRoute requireAdmin>
                 <div className="animate-fade-in">
                   <Suspense fallback={<Skeleton />}><AdminMessagesPage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
+
+            <Route path="/admin/users" element={
+              <ProtectedRoute requireAdmin>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><AdminUsersPage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
+            <Route path="/ar/admin/users" element={
+              <ProtectedRoute requireAdmin>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><AdminUsersPage /></Suspense>
                 </div>
               </ProtectedRoute>
             } />

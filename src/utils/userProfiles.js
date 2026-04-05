@@ -41,6 +41,8 @@ export const buildUserProfileDraft = (firebaseUser) => ({
   role: "user",
   createdAt: serverTimestamp(),
   photoURL: normalizeString(firebaseUser.photoURL),
+  lastLoginAt: serverTimestamp(),
+  messagesCount: 0,
 });
 
 export async function ensureUserProfile(firebaseUser) {
@@ -60,7 +62,7 @@ export async function ensureUserProfile(firebaseUser) {
   const nextEmail = normalizeString(firebaseUser.email);
   const nextName = getFallbackName(firebaseUser);
   const nextPhotoURL = normalizeString(firebaseUser.photoURL);
-  const updates = {};
+  const updates = { lastLoginAt: serverTimestamp() };
 
   if ((profile.email ?? "") !== nextEmail) {
     updates.email = nextEmail;

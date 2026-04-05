@@ -110,12 +110,14 @@ service cloud.firestore {
     function isValidUserCreate(userId) {
       return hasOnlyKeys(
           request.resource.data,
-          ["uid", "email", "name", "role", "createdAt", "photoURL"]
+          ["uid", "email", "name", "role", "createdAt", "photoURL", "lastLoginAt", "messagesCount"]
         )
         && request.auth.uid == userId
         && request.resource.data.uid == userId
         && request.resource.data.role == "user"
         && request.resource.data.createdAt == request.time
+        && request.resource.data.lastLoginAt == request.time
+        && request.resource.data.messagesCount == 0
         && isNonEmptyString(request.resource.data.name, 1, 120)
         && isNonEmptyString(request.resource.data.email, 3, 320)
         && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
@@ -127,11 +129,17 @@ service cloud.firestore {
         && request.resource.data.uid == resource.data.uid
         && request.resource.data.role == resource.data.role
         && request.resource.data.createdAt == resource.data.createdAt
-        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["email", "name", "photoURL"])
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["email", "name", "photoURL", "lastLoginAt", "messagesCount"])
         && isNonEmptyString(request.resource.data.name, 1, 120)
         && isNonEmptyString(request.resource.data.email, 3, 320)
         && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
         && isOptionalString(request.resource.data.photoURL, 2048);
+    }
+
+    function isValidAdminUserUpdate() {
+      return isAdmin()
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["role"])
+        && (request.resource.data.role == "admin" || request.resource.data.role == "user");
     }
 
     function isValidNotificationCreate() {
@@ -169,7 +177,7 @@ service cloud.firestore {
     match /users/{userId} {
       allow read: if request.auth.uid == userId || isAdmin();
       allow create: if isSignedIn() && isValidUserCreate(userId);
-      allow update: if isSignedIn() && isValidUserUpdate(userId);
+      allow update: if (isSignedIn() && isValidUserUpdate(userId)) || isValidAdminUserUpdate();
       allow delete: if false;
     }
 

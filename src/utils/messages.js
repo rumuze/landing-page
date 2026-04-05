@@ -1,9 +1,9 @@
 import {
-  addDoc,
   collection,
   doc,
   serverTimestamp,
   writeBatch,
+  increment,
 } from "firebase/firestore";
 import { getDb } from "./firebaseClient";
 
@@ -193,13 +193,26 @@ export const buildMessageCreatePayload = ({
 };
 
 export async function createMessage(formData, user = null) {
-  await addDoc(collection(getDb(), "messages"), {
+  const db = getDb();
+  const batch = writeBatch(db);
+
+  const messageDocRef = doc(collection(db, "messages"));
+  batch.set(messageDocRef, {
     ...buildMessageCreatePayload({
       ...formData,
       user,
     }),
     createdAt: serverTimestamp(),
   });
+
+  if (user?.uid) {
+    const userRef = doc(db, "users", user.uid);
+    batch.update(userRef, {
+      messagesCount: increment(1)
+    });
+  }
+
+  await batch.commit();
 }
 
 export async function sendAdminReply(message, replyText) {
