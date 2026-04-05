@@ -31,28 +31,80 @@ service cloud.firestore {
       return status == "new" || status == "seen" || status == "replied";
     }
 
-    function isValidPublicMessageCreate() {
+    function isMessageOwner() {
+      return isSignedIn()
+        && resource.data.userId != null
+        && request.auth.uid == resource.data.userId;
+    }
+
+    function hasImmutableMessageFields() {
+      return request.resource.data.userId == resource.data.userId
+        && request.resource.data.userName == resource.data.userName
+        && request.resource.data.userEmail == resource.data.userEmail
+        && request.resource.data.userPhoto == resource.data.userPhoto
+        && request.resource.data.message == resource.data.message
+        && request.resource.data.createdAt == resource.data.createdAt;
+    }
+
+    function isValidGuestMessageCreate() {
+      return request.resource.data.userId == null
+        && request.resource.data.userPhoto == null;
+    }
+
+    function isValidSignedInMessageCreate() {
+      return isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.userEmail == request.auth.token.email
+        && isOptionalString(request.resource.data.userPhoto, 2048);
+    }
+
+    function isValidMessageCreate() {
       return hasOnlyKeys(
           request.resource.data,
-          ["name", "email", "message", "createdAt", "status", "assignedTo"]
+          [
+            "userId",
+            "userName",
+            "userEmail",
+            "userPhoto",
+            "message",
+            "reply",
+            "status",
+            "createdAt",
+            "repliedAt"
+          ]
         )
-        && isNonEmptyString(request.resource.data.name, 1, 120)
-        && isNonEmptyString(request.resource.data.email, 3, 320)
-        && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+        && (isValidGuestMessageCreate() || isValidSignedInMessageCreate())
+        && isNonEmptyString(request.resource.data.userName, 1, 120)
+        && isNonEmptyString(request.resource.data.userEmail, 3, 320)
+        && request.resource.data.userEmail.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
         && isNonEmptyString(request.resource.data.message, 1, 5000)
-        && request.resource.data.createdAt == request.time
+        && request.resource.data.reply == null
         && request.resource.data.status == "new"
-        && request.resource.data.assignedTo == null;
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.repliedAt == null;
+    }
+
+    function isValidSeenUpdate() {
+      return request.resource.data.diff(resource.data).changedKeys().hasOnly(["status"])
+        && resource.data.status == "new"
+        && request.resource.data.status == "seen"
+        && request.resource.data.reply == resource.data.reply
+        && request.resource.data.repliedAt == resource.data.repliedAt;
+    }
+
+    function isValidReplyUpdate() {
+      return request.resource.data.diff(resource.data).changedKeys().hasOnly(["reply", "status", "repliedAt"])
+        && resource.data.status != "replied"
+        && resource.data.reply == null
+        && resource.data.repliedAt == null
+        && isNonEmptyString(request.resource.data.reply, 1, 5000)
+        && request.resource.data.status == "replied"
+        && request.resource.data.repliedAt == request.time;
     }
 
     function isValidAdminMessageUpdate() {
-      return request.resource.data.name == resource.data.name
-        && request.resource.data.email == resource.data.email
-        && request.resource.data.message == resource.data.message
-        && request.resource.data.createdAt == resource.data.createdAt
-        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["status", "assignedTo"])
-        && isValidMessageStatus(request.resource.data.status)
-        && isOptionalString(request.resource.data.assignedTo, 128);
+      return hasImmutableMessageFields()
+        && (isValidSeenUpdate() || isValidReplyUpdate());
     }
 
     function isValidUserCreate(userId) {
@@ -82,9 +134,34 @@ service cloud.firestore {
         && isOptionalString(request.resource.data.photoURL, 2048);
     }
 
+    function isValidNotificationCreate() {
+      return hasOnlyKeys(
+          request.resource.data,
+          ["userId", "type", "title", "body", "isRead", "link", "createdAt"]
+        )
+        && isNonEmptyString(request.resource.data.userId, 1, 128)
+        && request.resource.data.type == "reply"
+        && isNonEmptyString(request.resource.data.title, 1, 120)
+        && isNonEmptyString(request.resource.data.body, 1, 240)
+        && request.resource.data.isRead == false
+        && request.resource.data.link == "/my-messages"
+        && request.resource.data.createdAt == request.time;
+    }
+
+    function isValidNotificationUpdate() {
+      return request.resource.data.diff(resource.data).changedKeys().hasOnly(["isRead"])
+        && request.resource.data.isRead == true
+        && request.resource.data.userId == resource.data.userId
+        && request.resource.data.type == resource.data.type
+        && request.resource.data.title == resource.data.title
+        && request.resource.data.body == resource.data.body
+        && request.resource.data.link == resource.data.link
+        && request.resource.data.createdAt == resource.data.createdAt;
+    }
+
     match /messages/{messageId} {
-      allow create: if isValidPublicMessageCreate();
-      allow read: if isAdmin();
+      allow create: if isValidMessageCreate();
+      allow read: if isAdmin() || isMessageOwner();
       allow update: if isAdmin() && isValidAdminMessageUpdate();
       allow delete: if isAdmin();
     }
@@ -96,21 +173,12 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    // ── Notifications ──────────────────────────────────────────
-    // Users can read and mark-as-read their own notifications.
-    // Creation is open so that Firestore-triggered flows or admin
-    // actions can deliver notifications without requiring auth
-    // context switching. Delete is always denied.
     match /notifications/{notificationId} {
       allow read: if isSignedIn() && request.auth.uid == resource.data.userId;
-      allow create: if isSignedIn()
-        && request.resource.data.keys().hasAll(['userId', 'type', 'title', 'body', 'isRead', 'createdAt'])
-        && request.resource.data.isRead == false
-        && request.resource.data.createdAt == request.time;
+      allow create: if isAdmin() && isValidNotificationCreate();
       allow update: if isSignedIn()
         && request.auth.uid == resource.data.userId
-        && request.resource.data.diff(resource.data).changedKeys().hasOnly(['isRead'])
-        && request.resource.data.isRead == true;
+        && isValidNotificationUpdate();
       allow delete: if false;
     }
   }

@@ -32,9 +32,9 @@ const TYPE_CONFIG = {
   reply: {
     label: 'Reply',
     Icon: Reply,
-    colorClass: 'text-purple-400',
-    bgClass: 'bg-purple-400/10 dark:bg-purple-400/10',
-    dotClass: 'bg-purple-400',
+    colorClass: 'text-emerald-300',
+    bgClass: 'bg-emerald-400/10 dark:bg-emerald-400/10',
+    dotClass: 'bg-emerald-400',
   },
   default: {
     label: 'Alert',

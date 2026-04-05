@@ -5,7 +5,6 @@ import { buildFAQSchema } from '../src/seo/buildFAQSchema.ts';
 import { localeToBCP47 } from '../src/utils/localeToBCP47.ts';
 import { StableIds, SiteConfig } from '../src/config/site.ts';
 import { blogPosts } from '../src/data/blogPosts.js';
-import { getMetaForRoute } from '../src/utils/MetaConfig.js';
 
 global.window = {
     location: {

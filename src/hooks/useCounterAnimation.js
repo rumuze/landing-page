@@ -29,9 +29,20 @@ export function useCounterAnimation(targetValue, duration = 2000) {
     useEffect(() => {
         const strValue = String(targetValue);
         const match = strValue.match(/^([+-]?)(\d+\.?\d*)(.*)$/);
+        let resetFrameId = null;
 
         if (!match) {
-            setDisplay(strValue);
+            resetFrameId = requestAnimationFrame(() => {
+                setDisplay(strValue);
+            });
+
+            return () => {
+                if (resetFrameId) cancelAnimationFrame(resetFrameId);
+            };
+        }
+
+        const element = ref.current;
+        if (!element) {
             return;
         }
 
@@ -39,9 +50,6 @@ export function useCounterAnimation(targetValue, duration = 2000) {
         const targetNumber = parseFloat(match[2]);
         const suffix = match[3] || '';
         const isDecimal = strValue.includes('.');
-
-        const element = ref.current;
-        if (!element) return;
 
         let startTime = null;
         let animationFrameId = null;
@@ -65,6 +73,10 @@ export function useCounterAnimation(targetValue, duration = 2000) {
             }
         };
 
+        resetFrameId = requestAnimationFrame(() => {
+            setDisplay(`${prefix}${isDecimal ? '0.0' : '0'}${suffix}`);
+        });
+
         observer = new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting) {
                 // Stop any running frame, reset timestamp, start animation
@@ -77,11 +89,10 @@ export function useCounterAnimation(targetValue, duration = 2000) {
             }
         }, { threshold: 0.1 });
 
-        // Initial setup inside effect: set zero state before observing, to ensure it never shows 0 statically
-        setDisplay(`${prefix}${isDecimal ? '0.0' : '0'}${suffix}`);
         observer.observe(element);
 
         return () => {
+            if (resetFrameId) cancelAnimationFrame(resetFrameId);
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
             if (observer && element) observer.disconnect();
         };

@@ -2,85 +2,36 @@ import { startTransition, useDeferredValue, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion as Motion } from "framer-motion";
 import { AlertCircle, Inbox, MessageSquareMore, ShieldCheck } from "lucide-react";
-import {
-  collection,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import MessageDetail from "../../components/MessageDetail";
 import MessageList from "../../components/MessageList";
-import { useAuth } from "../../context/auth-core";
+import { useMessages } from "../../hooks/useMessages";
 import { getDb } from "../../utils/firebaseClient";
-import { matchesMessageSearch, normalizeMessageStatus } from "../../utils/messages";
+import {
+  matchesMessageSearch,
+  normalizeMessageStatus,
+  sendAdminReply,
+} from "../../utils/messages";
 
 const Messages = () => {
   const { i18n } = useTranslation();
-  const { user } = useAuth();
-  const [messages, setMessages] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [filter, setFilter] = useState("all");
-  const [isLoading, setIsLoading] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [error, setError] = useState("");
+  const [actionError, setActionError] = useState("");
   const deferredSearch = useDeferredValue(searchValue);
   const locale = i18n.language === "ar" ? "ar-EG" : "en-US";
 
-  useEffect(() => {
-    setIsLoading(true);
-
-    const messagesQuery = query(
-      collection(getDb(), "messages"),
-      orderBy("createdAt", "desc"),
-    );
-
-    return onSnapshot(
-      messagesQuery,
-      (snapshot) => {
-        const nextMessages = snapshot.docs.map((messageDoc) => {
-          const data = messageDoc.data();
-
-          return {
-            id: messageDoc.id,
-            name: typeof data.name === "string" ? data.name : "",
-            email: typeof data.email === "string" ? data.email : "",
-            message: typeof data.message === "string" ? data.message : "",
-            createdAt: data.createdAt ?? null,
-            status: normalizeMessageStatus(data.status),
-            assignedTo:
-              typeof data.assignedTo === "string" && data.assignedTo
-                ? data.assignedTo
-                : null,
-          };
-        });
-
-        startTransition(() => {
-          setMessages(nextMessages);
-        });
-
-        setError("");
-        setIsLoading(false);
-      },
-      (snapshotError) => {
-        setError(
-          snapshotError?.message ??
-            "Unable to subscribe to Firestore messages right now.",
-        );
-        setIsLoading(false);
-      },
-    );
-  }, []);
+  const {
+    messages,
+    isLoading,
+    error: subscriptionError,
+  } = useMessages({ mode: "admin" });
 
   const filteredMessages = messages.filter((message) => {
-    const matchesFilter =
-      filter === "all" ||
-      message.status === filter ||
-      (filter === "assigned" && message.assignedTo === user?.uid);
-
+    const matchesFilter = filter === "all" || message.status === filter;
     return matchesFilter && matchesMessageSearch(message, deferredSearch);
   });
 
@@ -113,36 +64,40 @@ const Messages = () => {
   const repliedCount = messages.filter(
     (message) => message.status === "replied",
   ).length;
-  const assignedToMeCount = messages.filter(
-    (message) => message.assignedTo === user?.uid,
-  ).length;
+  const linkedCount = messages.filter((message) => Boolean(message.userId)).length;
+  const guestCount = Math.max(messages.length - linkedCount, 0);
+  const error = actionError || subscriptionError;
 
   const updateMessage = async (messageId, payload) => {
     try {
       setIsUpdating(true);
-      setError("");
+      setActionError("");
       await updateDoc(doc(getDb(), "messages", messageId), payload);
     } catch (updateError) {
-      setError(updateError?.message ?? "Unable to update the selected message.");
+      setActionError(
+        updateError?.message ?? "Unable to update the selected message.",
+      );
     } finally {
       setIsUpdating(false);
     }
   };
 
-  const handleUpdateStatus = async (messageId, status) => {
-    await updateMessage(messageId, { status: normalizeMessageStatus(status) });
+  const handleMarkSeen = async (messageId) => {
+    await updateMessage(messageId, {
+      status: normalizeMessageStatus("seen"),
+    });
   };
 
-  const handleAssignToSelf = async (messageId) => {
-    if (!user?.uid) {
-      return;
+  const handleSendReply = async (message, replyText) => {
+    try {
+      setIsUpdating(true);
+      setActionError("");
+      await sendAdminReply(message, replyText);
+    } catch (replyError) {
+      setActionError(replyError?.message ?? "Unable to send the reply.");
+    } finally {
+      setIsUpdating(false);
     }
-
-    await updateMessage(messageId, { assignedTo: user.uid });
-  };
-
-  const handleClearAssignment = async (messageId) => {
-    await updateMessage(messageId, { assignedTo: null });
   };
 
   return (
@@ -170,13 +125,13 @@ const Messages = () => {
                   Admin Message Center
                 </h1>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
-                  Public visitors can submit messages, but only authenticated
-                  admins can read or manage them. Access is enforced in
-                  Firestore rules, not just in the UI.
+                  Public visitors can submit messages, authenticated users are
+                  linked to their accounts, and admins can reply in-app with
+                  Firestore-enforced access control.
                 </p>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-4">
                 <div className="rounded-[1.5rem] border border-cyan-400/15 bg-cyan-400/10 px-4 py-4">
                   <p className="text-[11px] uppercase tracking-[0.24em] text-cyan-100/75">
                     New
@@ -186,10 +141,19 @@ const Messages = () => {
 
                 <div className="rounded-[1.5rem] border border-white/10 bg-white/5 px-4 py-4">
                   <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400">
-                    Assigned To Me
+                    Linked Users
                   </p>
                   <p className="mt-2 text-2xl font-black text-white">
-                    {assignedToMeCount}
+                    {linkedCount}
+                  </p>
+                </div>
+
+                <div className="rounded-[1.5rem] border border-white/10 bg-white/5 px-4 py-4">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400">
+                    Guests
+                  </p>
+                  <p className="mt-2 text-2xl font-black text-white">
+                    {guestCount}
                   </p>
                 </div>
 
@@ -215,7 +179,7 @@ const Messages = () => {
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
                 <MessageSquareMore size={14} className="text-cyan-200" />
-                Search and filters
+                Reply workflow
               </span>
             </div>
           </section>
@@ -246,17 +210,17 @@ const Messages = () => {
               searchValue={searchValue}
               onSearchChange={setSearchValue}
               newCount={newCount}
+              linkedCount={linkedCount}
               locale={locale}
             />
 
             <MessageDetail
+              key={selectedMessage?.id ?? "empty"}
               message={selectedMessage}
-              currentUser={user}
               isUpdating={isUpdating}
               locale={locale}
-              onAssignToSelf={handleAssignToSelf}
-              onClearAssignment={handleClearAssignment}
-              onUpdateStatus={handleUpdateStatus}
+              onMarkSeen={handleMarkSeen}
+              onSendReply={handleSendReply}
             />
           </div>
         </div>

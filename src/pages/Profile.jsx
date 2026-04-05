@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { motion as Motion } from "framer-motion";
-import { CalendarDays, Edit3, Mail, ShieldCheck } from "lucide-react";
+import { CalendarDays, Edit3, Mail, MessageSquareText, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth-core";
@@ -33,6 +33,7 @@ const Profile = () => {
   const displayName = user?.displayName || user?.email || (isAr ? "المستخدم" : "User");
   const avatarInitial = displayName.trim().slice(0, 1).toUpperCase();
   const settingsRoute = getLocalizedAccountRoute(isAr, ACCOUNT_ROUTES.settings);
+  const myMessagesRoute = getLocalizedAccountRoute(isAr, ACCOUNT_ROUTES.myMessages);
   const role = user?.role ?? null;
 
   return (
@@ -112,13 +113,23 @@ const Profile = () => {
                 </div>
               </div>
 
-              <Link
-                to={settingsRoute}
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/8 px-5 text-sm font-semibold text-white transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white/12"
-              >
-                <Edit3 size={16} />
-                <span>{isAr ? "تعديل الملف" : "Edit Profile"}</span>
-              </Link>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to={myMessagesRoute}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-cyan/20 bg-cyan/10 px-5 text-sm font-semibold text-cyan transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-cyan/15"
+                >
+                  <MessageSquareText size={16} />
+                  <span>{isAr ? "رسائلي" : "My Messages"}</span>
+                </Link>
+
+                <Link
+                  to={settingsRoute}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/8 px-5 text-sm font-semibold text-white transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white/12"
+                >
+                  <Edit3 size={16} />
+                  <span>{isAr ? "تعديل الملف" : "Edit Profile"}</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { ENTITY } from '../config/entity';
 import { SERVICES } from '../config/services';
 import { getFAQsByService } from '../config/faq';
-import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
+import { siteCoreConfig as SiteConfig, StableIds, buildServiceId } from '../config/siteCoreConfig';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
 

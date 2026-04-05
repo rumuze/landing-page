@@ -1,6 +1,4 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { getDb } from "./firebaseClient";
-import { buildPublicMessagePayload } from "./messages";
+import { createMessage } from "./messages";
 
 let contactIntegration;
 
@@ -11,16 +9,9 @@ export function initContactIntegration() {
 
   contactIntegration = {
     preload() {},
-    async saveMessage(message) {
+    async saveMessage(message, user = null) {
       try {
-        await addDoc(
-          collection(getDb(), "messages"),
-          {
-            ...buildPublicMessagePayload(message),
-            createdAt: serverTimestamp(),
-          },
-        );
-
+        await createMessage(message, user);
         return true;
       } catch (error) {
         console.error("Firestore write error:", error);

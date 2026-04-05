@@ -3,7 +3,6 @@ import {
   collection,
   query,
   where,
-  orderBy,
   onSnapshot,
   updateDoc,
   writeBatch,
@@ -45,6 +44,13 @@ function reducer(state, action) {
   }
 }
 
+function getNotificationTime(value) {
+  if (!value) return 0;
+  if (value instanceof Date) return value.getTime();
+  const date = typeof value?.toDate === 'function' ? value.toDate() : new Date(value);
+  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
+}
+
 /* ─── hook ─────────────────────────────────────────────────────── */
 
 /**
@@ -84,20 +90,20 @@ export function useNotifications() {
         const db = getDb();
         const q = query(
           collection(db, 'notifications'),
-          where('userId', '==', user.uid),
-          orderBy('createdAt', 'desc')
+          where('userId', '==', user.uid)
         );
 
         const unsubscribe = onSnapshot(
           q,
           (snapshot) => {
             if (!isMounted) return;
-            const data = snapshot.docs.map((docSnap) => ({
-              id: docSnap.id,
-              ...docSnap.data(),
-              // Normalize Firestore Timestamp → plain JS Date
-              createdAt: docSnap.data().createdAt?.toDate?.() ?? new Date(),
-            }));
+            const data = snapshot.docs
+              .map((docSnap) => ({
+                id: docSnap.id,
+                ...docSnap.data(),
+                createdAt: docSnap.data().createdAt?.toDate?.() ?? new Date(),
+              }))
+              .sort((left, right) => getNotificationTime(right.createdAt) - getNotificationTime(left.createdAt));
             dispatch({ type: 'LOADED', payload: data });
           },
           (err) => {

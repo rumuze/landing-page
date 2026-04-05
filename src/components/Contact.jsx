@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import {
   Send,
@@ -12,14 +12,19 @@ import {
   Facebook,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
+import { useAuth } from "../context/auth-core";
 import { initContactIntegration } from "../utils/contactIntegration";
 
 const contactIntegration = initContactIntegration();
 
 const Contact = () => {
   const { t, i18n } = useTranslation();
+  const { user } = useAuth();
   const isRtl = i18n.dir() === "rtl";
+  const isSignedIn = Boolean(user?.uid);
+  const myMessagesRoute = isRtl ? "/ar/my-messages" : "/my-messages";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,12 +38,27 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  useEffect(() => {
+    if (!isSignedIn) {
+      return;
+    }
+
+    setFormData((current) => ({
+      ...current,
+      name: user?.displayName || user?.name || current.name,
+      email: user?.email || current.email,
+    }));
+  }, [isSignedIn, user?.displayName, user?.email, user?.name]);
+
   const validate = () => {
-    let tempErrors = {};
-    if (!formData.name) tempErrors.name = true;
-    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email))
+    const tempErrors = {};
+    const effectiveName = (user?.displayName || user?.name || formData.name).trim();
+    const effectiveEmail = (user?.email || formData.email).trim();
+
+    if (!effectiveName) tempErrors.name = true;
+    if (!effectiveEmail || !/\S+@\S+\.\S+/.test(effectiveEmail))
       tempErrors.email = true;
-    if (!formData.message) tempErrors.message = true;
+    if (!formData.message.trim()) tempErrors.message = true;
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -52,10 +72,11 @@ const Contact = () => {
     try {
       const contactMessage = {
         ...formData,
-        message: formData.message,
+        name: user?.displayName || user?.name || formData.name,
+        email: user?.email || formData.email,
       };
 
-      const saved = await contactIntegration.saveMessage(contactMessage);
+      const saved = await contactIntegration.saveMessage(contactMessage, user);
 
       if (!saved) {
         throw new Error("Failed to send message.");
@@ -232,10 +253,10 @@ const Contact = () => {
                   <p className="text-slate-600 dark:text-gray-400 max-w-xs">
                     {t("contact.success")}
                   </p>
-                  <button
-                    onClick={() => setSuccess(false)}
-                    className="mt-8 px-6 py-2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white font-bold hover:bg-slate-200 dark:hover:bg-white/20 transition-colors"
-                  >
+                <button
+                  onClick={() => setSuccess(false)}
+                  className="mt-8 px-6 py-2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white font-bold hover:bg-slate-200 dark:hover:bg-white/20 transition-colors"
+                >
                     Submit Another Inquiry
                   </button>
                 </Motion.div>
@@ -244,6 +265,32 @@ const Contact = () => {
 
             <div className="glass-card shadow-2xl cyan-glow !p-8 md:!p-10 border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/40">
               <form onSubmit={handleSubmit} className="space-y-6">
+                {isSignedIn ? (
+                  <div className="rounded-[1.5rem] border border-cyan/20 bg-cyan/10 px-5 py-4 text-sm text-slate-800 dark:text-cyan-50">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-cyan">
+                          Account-Linked Message
+                        </p>
+                        <p className="mt-2 leading-6">
+                          Sending as <span className="font-semibold">{user?.email}</span>. Any admin reply will appear in your inbox.
+                        </p>
+                      </div>
+
+                      <Link
+                        to={myMessagesRoute}
+                        className="inline-flex items-center justify-center rounded-full border border-cyan/30 bg-slate-950 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan transition-colors hover:bg-slate-900"
+                      >
+                        View My Messages
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="rounded-[1.5rem] border border-white/10 bg-white/50 px-5 py-4 text-sm leading-6 text-slate-600 dark:bg-white/5 dark:text-slate-300">
+                    Sign in with Google if you want replies and notifications tied directly to your account. Guests can still send messages normally.
+                  </div>
+                )}
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-gray-500 pl-1">
@@ -259,6 +306,7 @@ const Contact = () => {
                         onChange={handleChange}
                         className={inputClasses(errors.name)}
                         placeholder={t("contact.labels.name")}
+                        readOnly={isSignedIn}
                       />
                     </Motion.div>
                   </div>
@@ -292,6 +340,7 @@ const Contact = () => {
                         onChange={handleChange}
                         className={inputClasses(errors.email)}
                         placeholder="john@company.com"
+                        readOnly={isSignedIn}
                       />
                     </Motion.div>
                   </div>
