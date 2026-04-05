@@ -16,6 +16,11 @@ import ErrorBoundary from './components/ErrorBoundary';
 import CustomCursor from './components/CustomCursor';
 import AuthFloatingButton from './components/AuthFloatingButton';
 import ProtectedRoute from './components/ProtectedRoute';
+import {
+  clearChunkRecoveryAttempt,
+  isDynamicImportFailure,
+  recoverFromChunkError,
+} from './utils/chunkRecovery';
 
 // Lazy load components
 const Services = lazy(() => import('./components/Services'));
@@ -122,6 +127,14 @@ function AppContent() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    const timer = window.setTimeout(() => {
+      clearChunkRecoveryAttempt();
+    }, 5000);
+
+    return () => window.clearTimeout(timer);
+  }, [location.pathname]);
+
+  useEffect(() => {
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollTop || document.body.scrollTop;
       const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -218,6 +231,27 @@ function AppContent() {
     }
 
     registerPeriodicSync();
+  }, []);
+
+  useEffect(() => {
+    const handleChunkIssue = async (event) => {
+      const errorLike = event?.reason ?? event?.error ?? event?.message;
+
+      if (!isDynamicImportFailure(errorLike)) {
+        return;
+      }
+
+      event?.preventDefault?.();
+      await recoverFromChunkError();
+    };
+
+    window.addEventListener('error', handleChunkIssue);
+    window.addEventListener('unhandledrejection', handleChunkIssue);
+
+    return () => {
+      window.removeEventListener('error', handleChunkIssue);
+      window.removeEventListener('unhandledrejection', handleChunkIssue);
+    };
   }, []);
 
   return (
