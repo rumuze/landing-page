@@ -34,6 +34,7 @@ import { getMetadataService } from './services/MetadataService.js';
 
 /** @const {string} Base URL with www subdomain for consistency */
 const BASE_URL = 'https://www.rumuze.com';
+const FIREBASE_AUTH_ORIGIN = 'https://rumuze.firebaseapp.com';
 
 /**
  * Social media and Search Engine crawler User-Agent patterns
@@ -201,7 +202,7 @@ export async function onRequest(context) {
         "img-src 'self' https://images.unsplash.com https://developers.google.com https://lh3.googleusercontent.com https://*.googleusercontent.com data: blob:",
         "font-src 'self' https://fonts.gstatic.com data:",
         "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://accounts.google.com https://accounts.google.com/gsi/",
-        "frame-src 'self' https://accounts.google.com",
+        `frame-src 'self' https://accounts.google.com ${FIREBASE_AUTH_ORIGIN}`,
         "frame-ancestors 'none'",
         "base-uri 'self'",
         "form-action 'self'",
@@ -218,6 +219,7 @@ export async function onRequest(context) {
     // Add all security headers
     secureResponse.headers.set('Content-Security-Policy', cspHeader);
     secureResponse.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    secureResponse.headers.set('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
     secureResponse.headers.set('X-Content-Type-Options', 'nosniff');
     secureResponse.headers.set('X-Frame-Options', 'DENY');
     secureResponse.headers.set('X-XSS-Protection', '1; mode=block');
