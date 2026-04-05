@@ -1,5 +1,6 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { getDb } from "./firebaseClient";
+import { buildPublicMessagePayload } from "./messages";
 
 let contactIntegration;
 
@@ -15,7 +16,7 @@ export function initContactIntegration() {
         await addDoc(
           collection(getDb(), "messages"),
           {
-            ...message,
+            ...buildPublicMessagePayload(message),
             createdAt: serverTimestamp(),
           },
         );

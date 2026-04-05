@@ -10,34 +10,12 @@ import {
   getCurrentGoogleUser,
   subscribeToGoogleAuthUser,
 } from "../utils/googleAuth";
-
-const serializeUser = (firebaseUser) => {
-  if (!firebaseUser) {
-    return null;
-  }
-
-  return {
-    uid: firebaseUser.uid,
-    displayName: firebaseUser.displayName ?? null,
-    email: firebaseUser.email ?? null,
-    photoURL: firebaseUser.photoURL ?? null,
-    emailVerified: Boolean(firebaseUser.emailVerified),
-    providerData:
-      firebaseUser.providerData?.map((provider) => ({
-        providerId: provider.providerId ?? null,
-        uid: provider.uid ?? null,
-        displayName: provider.displayName ?? null,
-        email: provider.email ?? null,
-        photoURL: provider.photoURL ?? null,
-      })) ?? [],
-    metadata: firebaseUser.metadata
-      ? {
-          creationTime: firebaseUser.metadata.creationTime ?? null,
-          lastSignInTime: firebaseUser.metadata.lastSignInTime ?? null,
-        }
-      : null,
-  };
-};
+import {
+  buildSessionUser,
+  ensureUserProfile,
+  getUserProfile,
+  subscribeToUserProfile,
+} from "../utils/userProfiles";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -47,42 +25,95 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     let isMounted = true;
+    let unsubscribeProfile = () => {};
 
-    const applyUser = (nextUser) => {
+    const applyUser = (firebaseUser, profile) => {
       if (!isMounted) {
         return;
       }
 
       startTransition(() => {
-        setUser(serializeUser(nextUser));
+        setUser(buildSessionUser(firebaseUser, profile));
       });
     };
 
-    const unsubscribe = subscribeToGoogleAuthUser((nextUser) => {
-      applyUser(nextUser);
-      if (isMounted) {
-        setIsLoading(false);
+    const handleProfileError = (profileError) => {
+      if (!isMounted) {
+        return;
       }
-    });
 
-    void getCurrentGoogleUser()
-      .then((nextUser) => {
-        applyUser(nextUser);
-      })
-      .catch((authError) => {
-        if (isMounted) {
-          setError(authError?.message ?? "Unable to restore your session.");
-        }
-      })
-      .finally(() => {
-        if (isMounted) {
+      setError(profileError?.message ?? "Unable to load your account profile.");
+      setIsLoading(false);
+    };
+
+    const handleAuthUser = (nextFirebaseUser) => {
+      unsubscribeProfile();
+
+      if (!nextFirebaseUser) {
+        applyUser(null, null);
+        setError("");
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(true);
+
+      void ensureUserProfile(nextFirebaseUser)
+        .then((userRef) => {
+          if (!isMounted || !userRef) {
+            return;
+          }
+
+          unsubscribeProfile = subscribeToUserProfile(
+            nextFirebaseUser.uid,
+            (profile) => {
+              applyUser(nextFirebaseUser, profile);
+
+              if (isMounted) {
+                setError("");
+                setIsLoading(false);
+              }
+            },
+            handleProfileError,
+          );
+        })
+        .catch((authError) => {
+          if (!isMounted) {
+            return;
+          }
+
+          setError(authError?.message ?? "Unable to prepare your account.");
+          applyUser(nextFirebaseUser, null);
           setIsLoading(false);
-        }
-      });
+        });
+    };
+
+    const unsubscribeAuth = subscribeToGoogleAuthUser(handleAuthUser);
+
+    void getCurrentGoogleUser().then((nextUser) => {
+      if (!isMounted) {
+        return;
+      }
+
+      if (!nextUser) {
+        setIsLoading(false);
+        return;
+      }
+
+      handleAuthUser(nextUser);
+    }).catch((authError) => {
+      if (!isMounted) {
+        return;
+      }
+
+      setError(authError?.message ?? "Unable to restore your session.");
+      setIsLoading(false);
+    });
 
     return () => {
       isMounted = false;
-      unsubscribe();
+      unsubscribeProfile();
+      unsubscribeAuth();
     };
   }, []);
 
@@ -97,8 +128,12 @@ export const AuthProvider = ({ children }) => {
       setError("");
       const auth = await ensureFirebaseAuthReady();
       const result = await signInWithPopup(auth, googleProvider);
-      const nextUser = serializeUser(result.user ?? auth.currentUser);
+      const firebaseUser = result.user ?? auth.currentUser;
 
+      await ensureUserProfile(firebaseUser);
+      const profile = await getUserProfile(firebaseUser.uid);
+
+      const nextUser = buildSessionUser(firebaseUser, profile);
       setUser(nextUser);
       return nextUser;
     } catch (authError) {
@@ -150,7 +185,10 @@ export const AuthProvider = ({ children }) => {
       photoURL: photoURL?.trim() || null,
     });
 
-    const nextUser = serializeUser(auth.currentUser);
+    await ensureUserProfile(auth.currentUser);
+    const profile = await getUserProfile(auth.currentUser.uid);
+
+    const nextUser = buildSessionUser(auth.currentUser, profile);
     setUser(nextUser);
     setError("");
     return nextUser;
@@ -160,6 +198,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        isAdmin: user?.role === "admin",
         setUser,
         isLoading,
         error,

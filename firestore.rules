@@ -1,0 +1,99 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function getUser() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && getUser().role == "admin";
+    }
+
+    function hasOnlyKeys(data, keys) {
+      return data.keys().hasAll(keys) && data.keys().size() == keys.size();
+    }
+
+    function isNonEmptyString(value, minLength, maxLength) {
+      return value is string
+        && value.size() >= minLength
+        && value.size() <= maxLength;
+    }
+
+    function isOptionalString(value, maxLength) {
+      return value == null || (value is string && value.size() <= maxLength);
+    }
+
+    function isValidMessageStatus(status) {
+      return status == "new" || status == "seen" || status == "replied";
+    }
+
+    function isValidPublicMessageCreate() {
+      return hasOnlyKeys(
+          request.resource.data,
+          ["name", "email", "message", "createdAt", "status", "assignedTo"]
+        )
+        && isNonEmptyString(request.resource.data.name, 1, 120)
+        && isNonEmptyString(request.resource.data.email, 3, 320)
+        && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+        && isNonEmptyString(request.resource.data.message, 1, 5000)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.status == "new"
+        && request.resource.data.assignedTo == null;
+    }
+
+    function isValidAdminMessageUpdate() {
+      return request.resource.data.name == resource.data.name
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.message == resource.data.message
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["status", "assignedTo"])
+        && isValidMessageStatus(request.resource.data.status)
+        && isOptionalString(request.resource.data.assignedTo, 128);
+    }
+
+    function isValidUserCreate(userId) {
+      return hasOnlyKeys(
+          request.resource.data,
+          ["uid", "email", "name", "role", "createdAt", "photoURL"]
+        )
+        && request.auth.uid == userId
+        && request.resource.data.uid == userId
+        && request.resource.data.role == "user"
+        && request.resource.data.createdAt == request.time
+        && isNonEmptyString(request.resource.data.name, 1, 120)
+        && isNonEmptyString(request.resource.data.email, 3, 320)
+        && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+        && isOptionalString(request.resource.data.photoURL, 2048);
+    }
+
+    function isValidUserUpdate(userId) {
+      return request.auth.uid == userId
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(["email", "name", "photoURL"])
+        && isNonEmptyString(request.resource.data.name, 1, 120)
+        && isNonEmptyString(request.resource.data.email, 3, 320)
+        && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+        && isOptionalString(request.resource.data.photoURL, 2048);
+    }
+
+    match /messages/{messageId} {
+      allow create: if isValidPublicMessageCreate();
+      allow read: if isAdmin();
+      allow update: if isAdmin() && isValidAdminMessageUpdate();
+      allow delete: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if request.auth.uid == userId || isAdmin();
+      allow create: if isSignedIn() && isValidUserCreate(userId);
+      allow update: if isSignedIn() && isValidUserUpdate(userId);
+      allow delete: if false;
+    }
+  }
+}

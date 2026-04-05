@@ -59,6 +59,7 @@ const ApiIntegrationArchitecturePage = lazy(() => import('./pages/ApiIntegration
 const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage'));
 const ProfilePage = lazy(() => import('./pages/Profile'));
 const SettingsPage = lazy(() => import('./pages/Settings'));
+const AdminMessagesPage = lazy(() => import('./pages/admin/Messages'));
 
 // Skeleton Loader
 const Skeleton = () => (
@@ -100,6 +101,9 @@ function AppContent() {
   const { i18n } = useTranslation();
   const location = useLocation();
   const isAr = i18n.language === 'ar';
+  const isAdminMessagesRoute =
+    location.pathname === "/admin/messages" ||
+    location.pathname === "/ar/admin/messages";
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   // Reactive mobile breakpoint — no dependency, no animation
@@ -580,6 +584,20 @@ function AppContent() {
                 </div>
               </ProtectedRoute>
             } />
+            <Route path="/admin/messages" element={
+              <ProtectedRoute requireAdmin>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><AdminMessagesPage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
+            <Route path="/ar/admin/messages" element={
+              <ProtectedRoute requireAdmin>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><AdminMessagesPage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
 
             {/* 404 Catch-All Route */}
             <Route path="*" element={
@@ -601,8 +619,8 @@ function AppContent() {
         }}
       >
         <AuthProfile />
-        <WhatsAppButton />
-        <ShareButton />
+        {!isAdminMessagesRoute ? <WhatsAppButton /> : null}
+        {!isAdminMessagesRoute ? <ShareButton /> : null}
       </div>
 
 
@@ -612,8 +630,8 @@ function AppContent() {
         onClose={() => setNeedRefresh(false)} 
       />
       {/* Conditionally show InstallPrompt if online */}
-      {!isOffline && <InstallPrompt />}
-      <Footer />
+      {!isOffline && !isAdminMessagesRoute ? <InstallPrompt /> : null}
+      {!isAdminMessagesRoute ? <Footer /> : null}
     </div>
   );
 }

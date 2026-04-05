@@ -5,6 +5,7 @@ import {
 } from "react";
 import {
   ChevronDown,
+  Inbox,
   LoaderCircle,
   LogOut,
   Settings,
@@ -59,7 +60,13 @@ const AuthProfile = ({
 
     try {
       setIsWorking(true);
-      await loginWithGoogle();
+      const nextUser = await loginWithGoogle();
+
+      if (nextUser?.role === "admin") {
+        startTransition(() => {
+          navigate(adminMessagesRoute);
+        });
+      }
     } catch {
       // Shared auth context handles the error surface.
     } finally {
@@ -97,6 +104,11 @@ const AuthProfile = ({
   const tooltipLabel = t("auth.account", "Account");
   const profileRoute = getLocalizedAccountRoute(isAr, ACCOUNT_ROUTES.profile);
   const settingsRoute = getLocalizedAccountRoute(isAr, ACCOUNT_ROUTES.settings);
+  const adminMessagesRoute = getLocalizedAccountRoute(
+    isAr,
+    ACCOUNT_ROUTES.adminMessages,
+  );
+  const isAdminUser = user?.role === "admin";
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -204,6 +216,18 @@ const AuthProfile = ({
           <div className="my-2 h-px bg-white/10" />
 
           <div className="space-y-1">
+            {isAdminUser ? (
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => runMenuAction(adminMessagesRoute)}
+                className={MENU_ITEM_CLASSNAME}
+              >
+                <Inbox size={16} className="text-cyan-300" />
+                <span>{t("auth.adminMessages", "Admin Messages")}</span>
+              </button>
+            ) : null}
+
             <button
               type="button"
               role="menuitem"
