@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
@@ -65,6 +65,7 @@ const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage'));
 const ProfilePage = lazy(() => import('./pages/Profile'));
 const SettingsPage = lazy(() => import('./pages/Settings'));
 const AdminMessagesPage = lazy(() => import('./pages/admin/Messages'));
+const AdminInboxPage = lazy(() => import('./pages/admin/Inbox'));
 const AdminUsersPage = lazy(() => import('./pages/admin/Users'));
 const MyMessagesPage = lazy(() => import('./pages/MyMessages'));
 
@@ -109,8 +110,10 @@ function AppContent() {
   const location = useLocation();
   const isAr = i18n.language === 'ar';
   const isAdminMessagesRoute =
-    location.pathname === "/admin/messages" ||
-    location.pathname === "/ar/admin/messages";
+    location.pathname.startsWith("/admin/messages") ||
+    location.pathname.startsWith("/ar/admin/messages") ||
+    location.pathname.startsWith("/admin/inbox") ||
+    location.pathname.startsWith("/ar/admin/inbox");
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   // Reactive mobile breakpoint — no dependency, no animation
@@ -634,20 +637,22 @@ function AppContent() {
                 </div>
               </ProtectedRoute>
             } />
-            <Route path="/admin/messages" element={
+            <Route path="/admin/inbox" element={
               <ProtectedRoute requireAdmin>
                 <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><AdminMessagesPage /></Suspense>
+                  <Suspense fallback={<Skeleton />}><AdminInboxPage /></Suspense>
                 </div>
               </ProtectedRoute>
             } />
-            <Route path="/ar/admin/messages" element={
+            <Route path="/ar/admin/inbox" element={
               <ProtectedRoute requireAdmin>
                 <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><AdminMessagesPage /></Suspense>
+                  <Suspense fallback={<Skeleton />}><AdminInboxPage /></Suspense>
                 </div>
               </ProtectedRoute>
             } />
+            <Route path="/admin/messages" element={<Navigate to="/admin/inbox" replace />} />
+            <Route path="/ar/admin/messages" element={<Navigate to="/ar/admin/inbox" replace />} />
 
             <Route path="/admin/users" element={
               <ProtectedRoute requireAdmin>
