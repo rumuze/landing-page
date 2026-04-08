@@ -24,6 +24,18 @@ export interface Headquarters {
   countries: string[];
 }
 
+export interface ContactDetails {
+  email: string;
+  website: string;
+  location: LocalizedString;
+}
+
+export interface PublicProfiles {
+  linkedIn?: string;
+  github?: string;
+  website?: string;
+}
+
 export interface EntityConfig {
   id: string;
   legalName: string;
@@ -38,9 +50,8 @@ export interface EntityConfig {
   founder: Founder;
   foundingYear: number;
   headquarters: Headquarters;
-  contact: {
-    email: string;
-  };
+  contact: ContactDetails;
+  publicProfiles: PublicProfiles;
   languages: LanguageCode[];
   categories: string[];
   sameAs: string[];
@@ -95,7 +106,17 @@ export const ENTITY: EntityConfig = {
     ],
   },
   contact: {
-    email: 'contact@rumuze.com', // placeholder
+    email: 'connect@rumuze.com',
+    website: 'https://www.rumuze.com',
+    location: {
+      en: 'Obour City, Cairo, Egypt',
+      ar: 'مدينة العبور، القاهرة، مصر',
+    },
+  },
+  publicProfiles: {
+    linkedIn: 'https://www.linkedin.com/company/rumuze',
+    github: 'https://github.com/rumuze',
+    website: 'https://www.rumuze.com',
   },
   languages: ['en', 'ar'],
   categories: [
@@ -105,9 +126,7 @@ export const ENTITY: EntityConfig = {
   ],
   sameAs: [
     'https://www.linkedin.com/company/rumuze',
-    'https://twitter.com/rumuze',
     'https://github.com/rumuze',
-    'https://www.linkedin.com/in/ashraf-mohamed',
   ],
   industryFocus: [
     'Fintech',

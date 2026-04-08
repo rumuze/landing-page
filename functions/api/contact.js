@@ -68,13 +68,11 @@ export async function onRequestPost({ request, env }) {
         // 1. Save to Firebase Firestore (Server-side)
         let firebaseSuccess = false;
         try {
-            // Priority: Environment secrets, then fallback to placeholders
-            const projectId = env.FIREBASE_PROJECT_ID || "rumuze";
-            const clientEmail = env.FIREBASE_CLIENT_EMAIL || "firebase-adminsdk-fbsvc@rumuze.iam.gserviceaccount.com";
-            // Check if private key is in env or hardcoded (for testing - though not recommended for production)
+            const projectId = env.FIREBASE_PROJECT_ID;
+            const clientEmail = env.FIREBASE_CLIENT_EMAIL;
             const privateKey = env.FIREBASE_PRIVATE_KEY;
 
-            if (privateKey) {
+            if (projectId && clientEmail && privateKey) {
                 const accessToken = await getAccessToken(clientEmail, privateKey);
                 const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/rumuzr`;
 
@@ -107,8 +105,9 @@ export async function onRequestPost({ request, env }) {
         }
 
         // 2. Send Telegram Notification
-        const BOT_TOKEN = env.TELEGRAM_BOT_TOKEN || "7766861460:AAH8t24-6J0qGzHO0PTMPhC6yDq6G1j1p2w";
-        const CHAT_ID = env.TELEGRAM_CHAT_ID || "5000965306";
+        const botToken = env.TELEGRAM_BOT_TOKEN;
+        const chatId = env.TELEGRAM_CHAT_ID;
+        let telegramSuccess = false;
 
         const text = `
 🚀 *New Lead from Rumuze Website*
@@ -125,19 +124,26 @@ ${message}
 _Stored in Firebase: ${firebaseSuccess ? "✅" : "❌"}_
     `;
 
-        const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        if (botToken && chatId) {
+            const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            const telegramResponse = await fetch(telegramUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: text,
+                    parse_mode: 'Markdown'
+                })
+            });
 
-        await fetch(telegramUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: text,
-                parse_mode: 'Markdown'
-            })
-        });
+            telegramSuccess = telegramResponse.ok;
+        }
 
-        return new Response(JSON.stringify({ success: true, firebase: firebaseSuccess }), {
+        return new Response(JSON.stringify({
+            success: true,
+            firebase: firebaseSuccess,
+            telegram: telegramSuccess,
+        }), {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
@@ -155,4 +161,3 @@ _Stored in Firebase: ${firebaseSuccess ? "✅" : "❌"}_
         });
     }
 }
-

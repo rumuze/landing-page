@@ -75,7 +75,7 @@ const CRAWLER_PATTERNS = [
  * @returns {Promise<Response>} Modified response with injected meta tags
  */
 export async function onRequest(context) {
-    const { request, next, env: _env } = context; // Added env for caching/KV if needed later
+    const { request, next, env } = context;
     const url = new URL(request.url);
     const path = url.pathname;
 
@@ -100,7 +100,9 @@ export async function onRequest(context) {
     // PHASE 2: HYBRID PRE-RENDERING (SNAPSHOT SERVING)
     // ========================================================================
 
-    if (isCrawler && isValidSnapshotRoute(path)) {
+    const snapshotServingEnabled = env?.ENABLE_CRAWLER_SNAPSHOTS === 'true';
+
+    if (snapshotServingEnabled && isCrawler && isValidSnapshotRoute(path)) {
         // Construct snapshot URL
         // / -> /snapshots/index.html
         // /services -> /snapshots/services.html

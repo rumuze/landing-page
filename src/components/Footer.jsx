@@ -1,13 +1,34 @@
-import { Github, Twitter, Linkedin, Instagram, Facebook } from 'lucide-react';
+import { Github, Linkedin, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { siteCoreConfig } from '../config/siteCoreConfig';
 import { Link } from 'react-router-dom';
+import { ENTITY } from '../config/entity';
 
 const Footer = () => {
   const { t, i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
   const isRtl = i18n.dir() === 'rtl';
   const pathPrefix = isAr ? '/ar' : '';
+  const socialLinks = [
+    {
+      key: 'linkedin',
+      href: ENTITY.publicProfiles.linkedIn,
+      label: 'Connect with us on LinkedIn',
+      icon: <Linkedin size={20} />,
+    },
+    {
+      key: 'github',
+      href: ENTITY.publicProfiles.github,
+      label: 'View our GitHub projects',
+      icon: <Github size={20} />,
+    },
+    {
+      key: 'website',
+      href: ENTITY.publicProfiles.website,
+      label: 'Visit the Rumuze website',
+      icon: <Globe size={20} />,
+    },
+  ].filter((link) => Boolean(link.href));
 
   return (
     <footer className={`bg-white dark:bg-background pt-20 pb-10 border-t border-slate-200 dark:border-white/5 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.03)] ${isRtl ? 'text-right' : 'text-left'}`}>
@@ -26,13 +47,22 @@ const Footer = () => {
             <p className="text-slate-600 dark:text-gray-400 text-xs leading-relaxed mb-6">
               {siteCoreConfig.shortDescription[isAr ? 'ar' : 'en']}
             </p>
-            <div className={`flex gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
-              <a href="https://twitter.com/rumuze" aria-label="Follow us on Twitter" className="text-slate-200 hover:text-cyan transition-colors"><Twitter size={20} /></a>
-              <a href="https://linkedin.com/company/rumuze" aria-label="Connect with us on LinkedIn" className="text-slate-200 hover:text-cyan transition-colors"><Linkedin size={20} /></a>
-              <a href="https://github.com/rumuze" aria-label="View our GitHub projects" className="text-slate-200 hover:text-cyan transition-colors"><Github size={20} /></a>
-              <a href="https://www.facebook.com/rumuze" aria-label="Follow us on Facebook" className="text-slate-200 hover:text-cyan transition-colors"><Facebook size={20} /></a>
-              <a href="https://instagram.com/rumuze" aria-label="Follow us on Instagram" className="text-slate-200 hover:text-cyan transition-colors"><Instagram size={20} /></a>
-            </div>
+            {socialLinks.length > 0 ? (
+              <div className={`flex gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                {socialLinks.map(({ key, href, label, icon }) => (
+                  <a
+                    key={key}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="text-slate-200 hover:text-cyan transition-colors"
+                  >
+                    {icon}
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <div>

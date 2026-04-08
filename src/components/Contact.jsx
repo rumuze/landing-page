@@ -3,13 +3,11 @@ import { motion as Motion, AnimatePresence } from "framer-motion";
 import {
   Send,
   MapPin,
-  Phone,
   Mail,
   CheckCircle,
   Linkedin,
   Github,
   Globe,
-  Facebook,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -17,6 +15,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import { useAuth } from "../context/auth-core";
 import { createThreadRequestId } from "../utils/messages";
 import { useMessagingActions } from "../hooks/useMessagingActions";
+import { ENTITY } from "../config/entity";
 
 const Contact = () => {
   const { t, i18n } = useTranslation();
@@ -39,6 +38,26 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const publicLinks = [
+    {
+      key: "linkedin",
+      href: ENTITY.publicProfiles.linkedIn,
+      label: "LinkedIn",
+      icon: <Linkedin size={20} />,
+    },
+    {
+      key: "github",
+      href: ENTITY.publicProfiles.github,
+      label: "GitHub",
+      icon: <Github size={20} />,
+    },
+    {
+      key: "website",
+      href: ENTITY.publicProfiles.website,
+      label: "Website",
+      icon: <Globe size={20} />,
+    },
+  ].filter((link) => Boolean(link.href));
 
   useEffect(() => {
     if (!isSignedIn) {
@@ -160,7 +179,7 @@ const Contact = () => {
 
             <div className="space-y-8">
               <a
-                href="mailto:connect@rumuze.com"
+                href={`mailto:${ENTITY.contact.email}`}
                 className="flex items-center gap-6 group"
               >
                 <div className="w-14 h-14 rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center text-cyan shadow-lg shadow-cyan/5 group-hover:scale-110 transition-transform duration-300 border border-slate-100 dark:border-white/10">
@@ -171,24 +190,10 @@ const Contact = () => {
                     {t("contact.info.email")}
                   </h3>
                   <p className="text-slate-600 dark:text-gray-400 group-hover:text-cyan transition-colors">
-                    connect@rumuze.com
+                    {ENTITY.contact.email}
                   </p>
                 </div>
               </a>
-
-              <div className="flex items-center gap-6 group">
-                <div className="w-14 h-14 rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center text-purple shadow-lg shadow-purple/5 group-hover:scale-110 transition-transform duration-300 border border-slate-100 dark:border-white/10">
-                  <Phone size={24} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 dark:text-white text-lg">
-                    {t("contact.info.phone")}
-                  </h3>
-                  <p className="text-slate-600 dark:text-gray-400">
-                    +1 (555) 123-4567
-                  </p>
-                </div>
-              </div>
 
               <div className="flex items-center gap-6 group">
                 <div className="w-14 h-14 rounded-2xl bg-white dark:bg-white/5 flex items-center justify-center text-green-500 shadow-lg shadow-green-500/5 group-hover:scale-110 transition-transform duration-300 border border-slate-100 dark:border-white/10">
@@ -199,44 +204,30 @@ const Contact = () => {
                     {t("contact.info.hq")}
                   </h3>
                   <p className="text-slate-600 dark:text-gray-400">
-                    Obour City, Cairo, EG
+                    {isRtl ? ENTITY.contact.location.ar : ENTITY.contact.location.en}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="pt-8 border-t border-slate-200 dark:border-white/10">
-              <div className="flex gap-4">
-                <a
-                  href="#"
-                  aria-label="LinkedIn"
-                  className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
-                >
-                  <Linkedin size={20} />
-                </a>
-                <a
-                  href="https://github.com/rumuze"
-                  aria-label="GitHub"
-                  className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
-                >
-                  <Github size={20} />
-                </a>
-                <a
-                  href="https://www.facebook.com/rumuze"
-                  aria-label="Facebook"
-                  className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
-                >
-                  <Facebook size={20} />
-                </a>
-                <a
-                  href="#"
-                  aria-label="Website"
-                  className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
-                >
-                  <Globe size={20} />
-                </a>
+            {publicLinks.length > 0 ? (
+              <div className="pt-8 border-t border-slate-200 dark:border-white/10">
+                <div className="flex gap-4">
+                  {publicLinks.map(({ key, href, label, icon }) => (
+                    <a
+                      key={key}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="p-3 rounded-full bg-white dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:text-cyan hover:shadow-lg hover:shadow-cyan/20 transition-all border border-slate-200 dark:border-white/10"
+                    >
+                      {icon}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : null}
           </Motion.div>
 
           {/* Right Side: Form */}
