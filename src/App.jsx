@@ -16,6 +16,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import CustomCursor from './components/CustomCursor';
 import AuthFloatingButton from './components/AuthFloatingButton';
 import ProtectedRoute from './components/ProtectedRoute';
+import VisitTracker from './components/VisitTracker';
 import {
   clearChunkRecoveryAttempt,
   isDynamicImportFailure,
@@ -67,6 +68,7 @@ const SettingsPage = lazy(() => import('./pages/Settings'));
 const AdminMessagesPage = lazy(() => import('./pages/admin/Messages'));
 const AdminInboxPage = lazy(() => import('./pages/admin/Inbox'));
 const AdminUsersPage = lazy(() => import('./pages/admin/Users'));
+const AdminVisitsPage = lazy(() => import('./pages/admin/Visits'));
 const MyMessagesPage = lazy(() => import('./pages/MyMessages'));
 
 // Skeleton Loader
@@ -109,11 +111,9 @@ function AppContent() {
   const { i18n } = useTranslation();
   const location = useLocation();
   const isAr = i18n.language === 'ar';
-  const isAdminMessagesRoute =
-    location.pathname.startsWith("/admin/messages") ||
-    location.pathname.startsWith("/ar/admin/messages") ||
-    location.pathname.startsWith("/admin/inbox") ||
-    location.pathname.startsWith("/ar/admin/inbox");
+  const isAdminRoute =
+    location.pathname.startsWith("/admin") ||
+    location.pathname.startsWith("/ar/admin");
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   // Reactive mobile breakpoint — no dependency, no animation
@@ -259,6 +259,7 @@ function AppContent() {
 
   return (
     <div className={`min-h-screen bg-white dark:bg-background tech-grid transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
+      <VisitTracker />
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan to-purple origin-left z-[100] transition-transform duration-100 ease-out"
         style={{ transform: `scaleX(${scrollProgress})` }}
@@ -668,6 +669,20 @@ function AppContent() {
                 </div>
               </ProtectedRoute>
             } />
+            <Route path="/admin/visits" element={
+              <ProtectedRoute requireAdmin>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><AdminVisitsPage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
+            <Route path="/ar/admin/visits" element={
+              <ProtectedRoute requireAdmin>
+                <div className="animate-fade-in">
+                  <Suspense fallback={<Skeleton />}><AdminVisitsPage /></Suspense>
+                </div>
+              </ProtectedRoute>
+            } />
 
             {/* 404 Catch-All Route */}
             <Route path="*" element={
@@ -689,8 +704,8 @@ function AppContent() {
         }}
       >
         <AuthFloatingButton />
-        {!isAdminMessagesRoute ? <WhatsAppButton /> : null}
-        {!isAdminMessagesRoute ? <ShareButton /> : null}
+        {!isAdminRoute ? <WhatsAppButton /> : null}
+        {!isAdminRoute ? <ShareButton /> : null}
       </div>
 
 
@@ -700,8 +715,8 @@ function AppContent() {
         onClose={() => setNeedRefresh(false)} 
       />
       {/* Conditionally show InstallPrompt if online */}
-      {!isOffline && !isAdminMessagesRoute ? <InstallPrompt /> : null}
-      {!isAdminMessagesRoute ? <Footer /> : null}
+      {!isOffline && !isAdminRoute ? <InstallPrompt /> : null}
+      {!isAdminRoute ? <Footer /> : null}
     </div>
   );
 }

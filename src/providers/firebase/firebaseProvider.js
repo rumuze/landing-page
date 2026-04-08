@@ -12,7 +12,7 @@ import {
   where,
   writeBatch,
 } from "firebase/firestore";
-import { getFirestoreDb } from "./firebaseApp";
+import { getFirebaseAuth, getFirestoreDb, firebaseConfig } from "./firebaseApp";
 import {
   CHAT_SENDER_ROLES,
   assertNonEmptyValue,
@@ -32,6 +32,7 @@ import {
   sortThreadsByLatest,
 } from "../../models/chat";
 import { createUserProfileDraft, getFallbackName, normalizeString } from "../../models/userProfile";
+import { normalizeVisit } from "../../models/visit";
 
 const mapThreadSnapshot = (snapshot) =>
   sortThreadsByLatest(snapshot.docs.map((threadDoc) => normalizeThread(threadDoc.id, threadDoc.data())));
@@ -49,6 +50,7 @@ const mapUsersSnapshot = (snapshot) =>
       ...docSnap.data(),
       createdAt: docSnap.data().createdAt?.toDate?.() ?? null,
       lastLoginAt: docSnap.data().lastLoginAt?.toDate?.() ?? null,
+      lastVisitAt: docSnap.data().lastVisitAt?.toDate?.() ?? null,
     }))
     .sort((a, b) => {
       const left = a.createdAt?.getTime?.() ?? 0;
@@ -56,7 +58,51 @@ const mapUsersSnapshot = (snapshot) =>
       return right - left;
     });
 
+const mapVisitsSnapshot = (snapshot) =>
+  snapshot.docs.map((visitDoc) => normalizeVisit(visitDoc.id, visitDoc.data()));
+
+const visitTrackingEndpoint =
+  import.meta.env.VITE_VISIT_TRACKING_ENDPOINT
+  || (
+    firebaseConfig.projectId
+      ? `https://us-central1-${firebaseConfig.projectId}.cloudfunctions.net/trackVisit`
+      : ""
+  );
+
 export const firebaseProvider = {
+  async trackVisit(payload) {
+    if (!visitTrackingEndpoint) {
+      return null;
+    }
+
+    let authToken = null;
+
+    try {
+      const auth = getFirebaseAuth();
+      authToken = auth.currentUser
+        ? await auth.currentUser.getIdToken().catch(() => null)
+        : null;
+    } catch {
+      authToken = null;
+    }
+
+    const response = await fetch(visitTrackingEndpoint, {
+      method: "POST",
+      keepalive: payload?.eventType === "page_view",
+      headers: {
+        "Content-Type": "application/json",
+        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+      },
+      body: JSON.stringify(payload ?? {}),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Visit tracking failed with ${response.status}.`);
+    }
+
+    return response.status === 204 ? null : response.json().catch(() => null);
+  },
+
   async createThread({ formData, user = null, options = {} }) {
     const db = getFirestoreDb();
     const normalizedName = getSessionDisplayName(user) || sanitizeLine(formData.name);
@@ -265,6 +311,17 @@ export const firebaseProvider = {
     return onSnapshot(
       collection(getFirestoreDb(), "users"),
       (snapshot) => onData(mapUsersSnapshot(snapshot)),
+      onError,
+    );
+  },
+
+  subscribeToVisits(_params, onData, onError) {
+    return onSnapshot(
+      query(
+        collection(getFirestoreDb(), "visits"),
+        orderBy("visitedAt", "desc"),
+      ),
+      (snapshot) => onData(mapVisitsSnapshot(snapshot)),
       onError,
     );
   },

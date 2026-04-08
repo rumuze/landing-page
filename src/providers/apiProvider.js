@@ -61,6 +61,13 @@ const createPollingSubscription = (fetcher, onData, onError) => {
 };
 
 export const apiProvider = {
+  async trackVisit(payload) {
+    return requestJson("/visits", {
+      method: "POST",
+      body: payload,
+    });
+  },
+
   async createThread({ formData, user, options = {} }) {
     const response = await requestJson("/threads", {
       method: "POST",
@@ -125,6 +132,14 @@ export const apiProvider = {
   subscribeToUsers(_params, onData, onError) {
     return createPollingSubscription(
       () => requestJson("/users"),
+      onData,
+      onError,
+    );
+  },
+
+  subscribeToVisits(_params, onData, onError) {
+    return createPollingSubscription(
+      () => requestJson("/visits"),
       onData,
       onError,
     );

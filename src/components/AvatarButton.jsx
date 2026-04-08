@@ -1,5 +1,6 @@
 import { startTransition, useEffect, useState } from "react";
 import {
+  Activity,
   Inbox,
   LogOut,
   Settings,
@@ -72,6 +73,10 @@ const AvatarButton = () => {
   const adminMessagesRoute = getLocalizedAccountRoute(
     isAr,
     ACCOUNT_ROUTES.adminMessages,
+  );
+  const adminVisitsRoute = getLocalizedAccountRoute(
+    isAr,
+    ACCOUNT_ROUTES.adminVisits,
   );
   const isAdminUser = user.role === "admin";
 
@@ -170,15 +175,27 @@ const AvatarButton = () => {
 
         <div className="space-y-1">
           {isAdminUser ? (
-            <button
-              type="button"
-              role="menuitem"
-              onClick={() => runMenuAction(adminMessagesRoute)}
-              className={MENU_ITEM_CLASSNAME}
-            >
-              <Inbox size={16} className="text-cyan-300" />
-              <span>{t("auth.adminMessages", "Admin Messages")}</span>
-            </button>
+            <>
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => runMenuAction(adminMessagesRoute)}
+                className={MENU_ITEM_CLASSNAME}
+              >
+                <Inbox size={16} className="text-cyan-300" />
+                <span>{t("auth.adminMessages", "Admin Messages")}</span>
+              </button>
+
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => runMenuAction(adminVisitsRoute)}
+                className={MENU_ITEM_CLASSNAME}
+              >
+                <Activity size={16} className="text-emerald-300" />
+                <span>{t("auth.adminVisits", "Visit Analytics")}</span>
+              </button>
+            </>
           ) : null}
 
           <button

@@ -41,6 +41,9 @@ const UserRow = ({ user, onPromote, onDemote }) => {
     }).format(date);
   };
 
+  const activityLabel = user.lastVisitAt ? 'Last visit' : 'Last login';
+  const activityValue = user.lastVisitAt || user.lastLoginAt;
+
   return (
     <div className="group relative flex flex-col md:grid md:grid-cols-7 gap-4 md:items-center rounded-2xl border border-white/5 bg-white/[0.02] p-4 transition-all hover:border-cyan-400/20 hover:bg-white/[0.04]">
       {/* Avatar & Name */}
@@ -95,7 +98,7 @@ const UserRow = ({ user, onPromote, onDemote }) => {
         </div>
         <div className="flex items-center gap-1.5 text-xs text-slate-500">
           <LogOut size={14} className="rotate-180" />
-          <span>{formatLastLogin(user.lastLoginAt)}</span>
+          <span>{activityLabel}: {formatLastLogin(activityValue)}</span>
         </div>
       </div>
 

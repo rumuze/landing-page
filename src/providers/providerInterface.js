@@ -4,6 +4,8 @@ export const dataProviderInterface = {
   subscribeToThreads: "function",
   subscribeToMessages: "function",
   subscribeToNotifications: "function",
+  trackVisit: "function",
+  subscribeToVisits: "function",
 };
 
 export function assertProviderInterface(provider) {

@@ -373,5 +373,15 @@ service cloud.firestore {
         && isValidNotificationUpdate();
       allow delete: if false;
     }
+
+    match /visits/{visitId} {
+      allow read: if isAdmin();
+      allow create, update, delete: if false;
+    }
+
+    match /visitSessions/{sessionId} {
+      allow read: if isAdmin();
+      allow create, update, delete: if false;
+    }
   }
 }

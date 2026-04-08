@@ -122,6 +122,13 @@ Rumuze is an enterprise software engineering authority building multilingual Saa
 
 - Add `VITE_FIREBASE_ADMIN_UID=xxxxx` to the app env file.
 - Provide the same admin UID to the Cloud Functions runtime as `VITE_FIREBASE_ADMIN_UID` or `FIREBASE_ADMIN_UID` before deploying.
+- Optional: set `VITE_VISIT_TRACKING_ENDPOINT` if you want the frontend to post visits to a custom HTTPS function URL instead of the default `trackVisit` endpoint for the configured Firebase project.
+
+## Visit Analytics
+
+- `trackVisit` is a Firebase HTTPS function that verifies Firebase ID tokens, stores `page_view` records in `/visits`, and maintains session state in `/visitSessions`.
+- Each stored visit includes server-side timestamp, page path, referrer, attribution params, IP, user agent, session identifiers, and authenticated account linkage when available.
+- Admins can review the live dashboard at `/admin/visits` (and `/ar/admin/visits`).
 
 ## Cross‑Platform Identity Policies
 

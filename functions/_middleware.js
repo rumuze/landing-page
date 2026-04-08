@@ -201,7 +201,7 @@ export async function onRequest(context) {
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",  // unsafe-inline for critical CSS
         "img-src 'self' https://images.unsplash.com https://developers.google.com https://lh3.googleusercontent.com https://*.googleusercontent.com data: blob:",
         "font-src 'self' https://fonts.gstatic.com data:",
-        "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://accounts.google.com https://accounts.google.com/gsi/",
+        "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://accounts.google.com https://accounts.google.com/gsi/ https://*.cloudfunctions.net https://*.run.app",
         `frame-src 'self' https://accounts.google.com ${FIREBASE_AUTH_ORIGIN}`,
         "frame-ancestors 'none'",
         "base-uri 'self'",
