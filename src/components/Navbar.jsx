@@ -3,6 +3,7 @@ import { Globe, ChevronDown, FlaskConical } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/theme-core';
+import { hasLocalePrefix, localizePath } from '../seo/linking';
 import ThemeToggle from './ThemeToggle';
 import NavbarMobile from './NavbarMobile';
 import NotificationBell from './NotificationBell';
@@ -39,17 +40,9 @@ const Navbar = () => {
 
   const changeLanguage = (lng) => {
     const currentPath = location.pathname;
-    let newPath = currentPath;
-    
-    if (lng === 'ar') {
-      if (!currentPath.startsWith('/ar')) {
-        newPath = '/ar' + (currentPath === '/' ? '' : currentPath);
-      }
-    } else {
-      if (currentPath.startsWith('/ar')) {
-        newPath = currentPath.replace('/ar', '') || '/';
-      }
-    }
+    const targetLocale = lng === 'ar' ? 'ar' : 'en';
+    const currentLocale = hasLocalePrefix(currentPath, 'ar') ? 'ar' : 'en';
+    const newPath = currentLocale === targetLocale ? currentPath : localizePath(currentPath, targetLocale);
     
     // Just navigate. App.jsx will handle the i18n switch.
     navigate(newPath);

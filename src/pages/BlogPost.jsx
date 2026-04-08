@@ -13,8 +13,7 @@ const BlogPost = () => {
     const { t, i18n } = useTranslation();
     const isAr = i18n.language === 'ar';
     const post = getPostBySlug(slug);
-
-    const content = isAr ? post.ar : (post?.en || {});
+    const content = isAr ? (post?.ar || {}) : (post?.en || {});
 
     // Scroll to top on mount
     useEffect(() => {

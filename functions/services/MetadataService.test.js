@@ -34,6 +34,7 @@ describe('MetadataService', () => {
             expect(service.detectLocale('/')).toBe('en');
             expect(service.detectLocale('/services')).toBe('en');
             expect(service.detectLocale('/about')).toBe('en');
+            expect(service.detectLocale('/architecture-principles')).toBe('en');
         });
 
         test('handles edge cases', () => {
@@ -96,6 +97,10 @@ describe('MetadataService', () => {
             expect(service.normalizePath('/ar/services')).toBe('/services');
             expect(service.normalizePath('/ar/about')).toBe('/about');
             expect(service.normalizePath('/ar')).toBe('/');
+        });
+
+        test('does not strip english routes that happen to begin with ar', () => {
+            expect(service.normalizePath('/architecture-principles')).toBe('/architecture-principles');
         });
 
         test('removes trailing slashes', () => {
@@ -261,7 +266,7 @@ describe('MetadataService', () => {
         test('handles root path', () => {
             const alternates = service.getAlternateUrls('/');
             expect(alternates.en).toBe(`${BASE_URL}/`);
-            expect(alternates.ar).toBe(`${BASE_URL}/ar/`);
+            expect(alternates.ar).toBe(`${BASE_URL}/ar`);
         });
     });
 

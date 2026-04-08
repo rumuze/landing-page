@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion as Motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
 import {
   ArrowRight, ArrowLeft, ChevronRight, ChevronLeft,
   Check, X, Rocket, FileText
@@ -80,11 +79,6 @@ const ComparisonPage = ({ isAr = false }) => {
         path={currentPath}
         schemas={schemaGraph['@graph']}
       />
-      <Helmet>
-        <link rel="alternate" hrefLang="en" href={`${SiteConfig.baseUrl}${pathEn}`} />
-        <link rel="alternate" hrefLang="ar" href={`${SiteConfig.baseUrl}${pathAr}`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SiteConfig.baseUrl}${pathEn}`} />
-      </Helmet>
 
       {/* ─── Hero ─── */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-slate-50 dark:bg-background">

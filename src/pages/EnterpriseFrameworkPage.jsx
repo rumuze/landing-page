@@ -4,7 +4,7 @@ import { motion as Motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import SEO from '../components/SEO';
-import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
+import { siteCoreConfig as SiteConfig } from '../config/siteCoreConfig';
 import MagneticButton from '../components/MagneticButton';
 
 const BASE_URL = SiteConfig.baseUrl;
@@ -16,11 +16,8 @@ const EnterpriseFrameworkPage = () => {
   const [openFaq, setOpenFaq] = React.useState(null);
 
   const faqItems = t('enterpriseFramework.faq.items', { returnObjects: true });
-
-  // Inject FAQPage schema
-  React.useEffect(() => {
+  const schemas = React.useMemo(() => {
     const breadcrumb = {
-      '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       '@id': `${BASE_URL}${path}#breadcrumb`,
       itemListElement: [
@@ -28,7 +25,7 @@ const EnterpriseFrameworkPage = () => {
           '@type': 'ListItem',
           position: 1,
           name: isAr ? 'الرئيسية' : 'Home',
-          item: `${BASE_URL}/${isAr ? 'ar' : ''}`,
+          item: `${BASE_URL}${isAr ? '/ar' : '/'}`,
         },
         {
           '@type': 'ListItem',
@@ -39,7 +36,6 @@ const EnterpriseFrameworkPage = () => {
       ],
     };
     const faqSchema = {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       '@id': `${BASE_URL}${path}#faq`,
       mainEntity: Array.isArray(faqItems)
@@ -53,11 +49,9 @@ const EnterpriseFrameworkPage = () => {
           }))
         : [],
     };
-    window.rumuzeContextGraph = [breadcrumb, faqSchema];
-    return () => {
-      window.rumuzeContextGraph = null;
-    };
-  }, [path, isAr, faqItems]);
+
+    return [breadcrumb, faqSchema];
+  }, [faqItems, isAr, path]);
 
   const sectionKeys = [
     'governance',
@@ -88,7 +82,7 @@ const EnterpriseFrameworkPage = () => {
 
   return (
     <div className={`pt-32 pb-20 ${isAr ? 'rtl' : 'ltr'}`}>
-      <SEO path={path} />
+      <SEO path={path} schemas={schemas} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 

@@ -1,88 +1,61 @@
 /**
  * Automated Sitemap & Robots.txt Generator
- * 
+ *
  * Runs after build to generate SEO-critical files with:
- * - All bilingual routes with hreflang
- * - Proper priority and changefreq
+ * - All bilingual public routes
+ * - Dynamic service, case study, comparison, and blog URLs
+ * - Per-URL lastmod support
  * - robots.txt with sitemap reference
- * 
+ *
  * Usage: node scripts/generate-sitemap.js
  */
 
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { writeFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { getPublicRouteManifest, SUPPORTED_LOCALES } from './lib/publicRouteManifest.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-// ============================================================================
-// CONFIGURATION
-// ============================================================================
-
-// Read siteCoreConfig from source file to avoid hardcoding domain
-const siteConfigPath = join(__dirname, '../src/config/siteCoreConfig.ts');
-const siteConfigContent = readFileSync(siteConfigPath, 'utf8');
-const baseUrlMatch = siteConfigContent.match(/baseUrl:\s*['"]([^'"]+)['"]/);
-
-const BASE_URL = baseUrlMatch ? baseUrlMatch[1] : 'https://www.rumuze.com';
+const BASE_URL = 'https://www.rumuze.com';
 const BUILD_DATE = new Date().toISOString().split('T')[0];
-
-/**
- * Route definitions with SEO metadata
- * Each route generates both EN and AR versions with hreflang
- */
-const ROUTES = [
-    { path: '/', priority: 1.0, changefreq: 'weekly' },
-    { path: '/services', priority: 0.9, changefreq: 'monthly' },
-    { path: '/labs', priority: 0.8, changefreq: 'weekly' },
-    { path: '/about', priority: 0.7, changefreq: 'monthly' },
-    { path: '/blog', priority: 0.8, changefreq: 'weekly' },
-    { path: '/contact', priority: 0.8, changefreq: 'monthly' },
-    { path: '/privacy', priority: 0.3, changefreq: 'yearly' },
-    { path: '/terms', priority: 0.3, changefreq: 'yearly' },
-    { path: '/methodology', priority: 0.6, changefreq: 'monthly' },
-    { path: '/architecture-principles', priority: 0.6, changefreq: 'monthly' },
-    { path: '/engineering-standards', priority: 0.6, changefreq: 'monthly' },
-    { path: '/slo-framework', priority: 0.6, changefreq: 'monthly' },
-    { path: '/multilingual-systems', priority: 0.6, changefreq: 'monthly' },
-    { path: '/knowledge-graph-architecture', priority: 0.6, changefreq: 'monthly' },
-];
 
 // ============================================================================
 // SITEMAP GENERATOR
 // ============================================================================
 
+function localizePath(path, locale) {
+    if (locale === 'en') {
+        return path;
+    }
+
+    return path === '/' ? '/ar' : `/ar${path}`;
+}
+
+function buildAlternateLinks(path) {
+    return SUPPORTED_LOCALES.map((locale) => (
+        `    <xhtml:link rel="alternate" hreflang="${locale}" href="${BASE_URL}${localizePath(path, locale)}"/>`
+    )).concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}${path}"/>`);
+}
+
 function generateSitemap() {
+    const routes = getPublicRouteManifest(BUILD_DATE);
     const urls = [];
 
-    for (const route of ROUTES) {
-        const enPath = route.path === '/' ? '/' : route.path;
-        const arPath = route.path === '/' ? '/ar' : `/ar${route.path}`;
+    for (const route of routes) {
+        const alternates = buildAlternateLinks(route.path).join('\n');
 
-        // English version
-        urls.push(`
+        SUPPORTED_LOCALES.forEach((locale) => {
+            const localizedPath = localizePath(route.path, locale);
+            urls.push(`
   <url>
-    <loc>${BASE_URL}${enPath}</loc>
-    <lastmod>${BUILD_DATE}</lastmod>
+    <loc>${BASE_URL}${localizedPath}</loc>
+    <lastmod>${route.lastmod || BUILD_DATE}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
     <priority>${route.priority}</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="${BASE_URL}${enPath}"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="${BASE_URL}${arPath}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}${enPath}"/>
+${alternates}
   </url>`);
-
-        // Arabic version
-        urls.push(`
-  <url>
-    <loc>${BASE_URL}${arPath}</loc>
-    <lastmod>${BUILD_DATE}</lastmod>
-    <changefreq>${route.changefreq}</changefreq>
-    <priority>${route.priority}</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="${BASE_URL}${enPath}"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="${BASE_URL}${arPath}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}${enPath}"/>
-  </url>`);
+        });
     }
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -144,7 +117,8 @@ function main() {
     const sitemap = generateSitemap();
     const sitemapPath = join(distDir, 'sitemap.xml');
     writeFileSync(sitemapPath, sitemap, 'utf8');
-    console.log('✅ Generated sitemap.xml with', ROUTES.length * 2, 'URLs');
+    const routeManifest = getPublicRouteManifest(BUILD_DATE);
+    console.log('✅ Generated sitemap.xml with', routeManifest.length * SUPPORTED_LOCALES.length, 'URLs');
 
     // Generate and write robots.txt
     const robotsTxt = generateRobotsTxt();

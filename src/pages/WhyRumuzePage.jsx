@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import {
   ArrowRight, ArrowLeft, ChevronRight, ChevronLeft,
   Shield, Zap, BarChart3, Globe, Ban, Layers, Rocket, FileText
@@ -114,11 +113,6 @@ const WhyRumuzePage = ({ isAr = false }) => {
         path={isAr ? pathAr : pathEn}
         schemas={schemaGraph['@graph']}
       />
-      <Helmet>
-        <link rel="alternate" hrefLang="en" href={`${SiteConfig.baseUrl}${pathEn}`} />
-        <link rel="alternate" hrefLang="ar" href={`${SiteConfig.baseUrl}${pathAr}`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SiteConfig.baseUrl}${pathEn}`} />
-      </Helmet>
 
       {/* ─── Hero + CTA Above Fold ─── */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-slate-50 dark:bg-background">

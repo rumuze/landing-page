@@ -13,11 +13,8 @@ const SaudiArabiaPage = () => {
   const { t, i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
   const path = isAr ? '/ar/saudi-arabia' : '/saudi-arabia';
-
-  // Inject page-specific schema context
-  React.useEffect(() => {
+  const schemas = React.useMemo(() => {
     const breadcrumb = {
-      '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       '@id': `${BASE_URL}${path}#breadcrumb`,
       itemListElement: [
@@ -36,7 +33,6 @@ const SaudiArabiaPage = () => {
       ],
     };
     const article = {
-      '@context': 'https://schema.org',
       '@type': 'Article',
       '@id': `${BASE_URL}${path}#article`,
       headline: isAr
@@ -59,10 +55,7 @@ const SaudiArabiaPage = () => {
       },
       mentions: { '@id': StableIds.organization },
     };
-    window.rumuzeContextGraph = [breadcrumb, article];
-    return () => {
-      window.rumuzeContextGraph = null;
-    };
+    return [breadcrumb, article];
   }, [path, isAr]);
 
   const sections = [
@@ -115,7 +108,7 @@ const SaudiArabiaPage = () => {
 
   return (
     <div className={`pt-32 pb-20 ${isAr ? 'rtl' : 'ltr'}`}>
-      <SEO path={path} />
+      <SEO path={path} schemas={schemas} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 

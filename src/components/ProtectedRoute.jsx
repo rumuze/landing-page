@@ -2,11 +2,12 @@ import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/auth-core";
 import LoadingSpinner from "./LoadingSpinner";
+import { hasLocalePrefix } from "../seo/linking";
 
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
   const { user, isLoading } = useAuth();
   const location = useLocation();
-  const isAr = location.pathname.startsWith("/ar");
+  const isAr = hasLocalePrefix(location.pathname, "ar");
 
   if (isLoading) {
     return (

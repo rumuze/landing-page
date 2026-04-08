@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { motion as Motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
 import { CASE_STUDIES } from '../config/caseStudies';
 import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfig';
 import SEO from '../components/SEO';
@@ -98,13 +97,6 @@ const CaseStudyDetailPage = ({ isAr = false }) => {
         path={currentPath}
         schemas={schemaGraph['@graph']}
       />
-
-      <Helmet>
-        {/* Hreflang Tags */}
-        <link rel="alternate" hrefLang="en" href={`${SiteConfig.baseUrl}${pathEn}`} />
-        <link rel="alternate" hrefLang="ar" href={`${SiteConfig.baseUrl}${pathAr}`} />
-        <link rel="alternate" hrefLang="x-default" href={`${SiteConfig.baseUrl}${pathEn}`} />
-      </Helmet>
 
       <CaseStudyHeroSection caseStudy={caseStudy} />
       <CaseStudyProblemSection caseStudy={caseStudy} />

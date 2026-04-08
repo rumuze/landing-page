@@ -27,6 +27,11 @@ describe('MetaConfig SEO Logic', () => {
             const meta = getMetaForRoute('/ar/services', 'ar');
             expect(meta.url).toBe(`${BASE_URL}/ar/services`);
         });
+
+        it('should not treat english routes beginning with ar as Arabic-prefixed pages', () => {
+            const meta = getMetaForRoute('/architecture-principles', 'en');
+            expect(meta.url).toBe(`${BASE_URL}/architecture-principles`);
+        });
     });
 
     describe('Query Parameter Handling', () => {

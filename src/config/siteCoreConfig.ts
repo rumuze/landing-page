@@ -1,6 +1,6 @@
 export const siteCoreConfig = {
   baseUrl: "https://www.rumuze.com",
-  supportedLocales: ["en", "ar", "fr", "de"],
+  supportedLocales: ["en", "ar"],
   defaultLocale: "en",
   shortDescription: {
     en: "Rumuze is an enterprise software engineering authority building SaaS, ERP, CRM, and digital marketing infrastructure.",

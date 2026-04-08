@@ -14,12 +14,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion as Motion } from 'framer-motion';
 import { Home, ArrowLeft, Search } from 'lucide-react';
 import SEO from '../components/SEO';
+import { hasLocalePrefix } from '../seo/linking';
 
 const NotFound = () => {
   const location = useLocation();
 
   // Detect locale from URL (no effect needed, computed value)
-  const isArabic = useMemo(() => location.pathname.startsWith('/ar'), [location.pathname]);
+  const isArabic = useMemo(() => hasLocalePrefix(location.pathname, 'ar'), [location.pathname]);
 
   // Bilingual content
   const content = {

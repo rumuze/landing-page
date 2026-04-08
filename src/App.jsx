@@ -17,6 +17,7 @@ import CustomCursor from './components/CustomCursor';
 import AuthFloatingButton from './components/AuthFloatingButton';
 import ProtectedRoute from './components/ProtectedRoute';
 import VisitTracker from './components/VisitTracker';
+import { hasLocalePrefix } from './seo/linking';
 import {
   clearChunkRecoveryAttempt,
   isDynamicImportFailure,
@@ -183,7 +184,7 @@ function AppContent() {
   // Language Synchronizer with Path
   useEffect(() => {
     // 1. Determine target language from URL
-    const isPathAr = location.pathname.startsWith('/ar');
+    const isPathAr = hasLocalePrefix(location.pathname, 'ar');
     const targetLang = isPathAr ? 'ar' : 'en';
 
     // 2. Sync i18n instance if mismatched
@@ -547,6 +548,26 @@ function AppContent() {
             <Route path="/ar/blog" element={
               <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
+              </div>
+            } />
+            <Route path="/blog/:slug" element={
+              <div className="animate-fade-in">
+                <Suspense fallback={<Skeleton />}><BlogPost /></Suspense>
+              </div>
+            } />
+            <Route path="/ar/blog/:slug" element={
+              <div className="animate-fade-in">
+                <Suspense fallback={<Skeleton />}><BlogPost /></Suspense>
+              </div>
+            } />
+            <Route path="/manifesto" element={
+              <div className="animate-fade-in">
+                <Suspense fallback={<Skeleton />}><ManifestoPage /></Suspense>
+              </div>
+            } />
+            <Route path="/ar/manifesto" element={
+              <div className="animate-fade-in">
+                <Suspense fallback={<Skeleton />}><ManifestoPage /></Suspense>
               </div>
             } />
 

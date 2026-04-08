@@ -99,8 +99,7 @@ export class MetadataService {
      * service.detectLocale('/services')  // Returns: 'en'
      */
     detectLocale(path) {
-        // Check if path starts with /ar
-        if (path.startsWith('/ar')) {
+        if (/^\/ar(?:\/|$)/.test(path || '')) {
             return 'ar';
         }
 
@@ -187,7 +186,9 @@ export class MetadataService {
 
         SUPPORTED_LOCALES.forEach(locale => {
             if (locale === 'ar') {
-                alternates[locale] = `${this.baseUrl}/ar${normalizedPath}`;
+                alternates[locale] = normalizedPath === '/'
+                    ? `${this.baseUrl}/ar`
+                    : `${this.baseUrl}/ar${normalizedPath}`;
             } else {
                 alternates[locale] = `${this.baseUrl}${normalizedPath}`;
             }
@@ -214,8 +215,8 @@ export class MetadataService {
     normalizePath(path) {
         let normalized = path;
 
-        // Remove /ar prefix if present
-        if (normalized.startsWith('/ar')) {
+        // Remove /ar prefix only when it is the first path segment
+        if (/^\/ar(?:\/|$)/.test(normalized)) {
             normalized = normalized.substring(3);
         }
 

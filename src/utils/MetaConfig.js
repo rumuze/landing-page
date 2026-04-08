@@ -325,7 +325,7 @@ function normalizePath(path) {
 
     // Remove /ar prefix for lookup (but we might need it for the final URL)
     // The lookup key in META_CONFIG is always clean (e.g. '/services')
-    const withoutAr = normalized.replace(/^\/ar/, '') || '/';
+    const withoutAr = normalized.replace(/^\/ar(?=\/|$)/, '') || '/';
 
     return withoutAr;
 }
