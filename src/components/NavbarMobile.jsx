@@ -32,11 +32,11 @@ const NavbarMobile = ({
               <span className="text-[10px] font-bold">{t('navbar.labs')}</span>
            </Link>
 
-           <a href={isAr ? '/ar/contact' : '/contact'} onClick={(e) => { e.preventDefault(); navigate(isAr ? '/ar/contact' : '/contact'); }} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/contact' : '/contact') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
+           <a href={isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'} onClick={(e) => { e.preventDefault(); navigate(isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'); }} className={`p-2 rounded-xl flex flex-col items-center gap-1 ${isActive(isAr ? '/ar/contact' : '/contact') ? 'text-cyan' : 'text-slate-700 dark:text-gray-400'}`}>
               <div className={`transition-transform active:scale-90 ${isActive(isAr ? '/ar/contact' : '/contact') ? 'bg-cyan/10 p-1.5 rounded-lg' : 'p-1.5'}`}>
                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
-              <span className="text-[10px] font-bold">{t('navbar.contact', 'Contact')}</span>
+              <span className="text-[10px] font-bold">{isAr ? 'Discovery' : 'Discovery'}</span>
            </a>
 
            <button 
@@ -137,10 +137,10 @@ const NavbarMobile = ({
             {/* Footer */}
             <div className="p-8">
               <button 
-                onClick={() => { setIsOpen(false); navigate(isAr ? '/ar/contact' : '/contact'); }}
-                className="w-full btn-primary py-4 text-lg shadow-xl shadow-cyan/20"
+                onClick={() => { setIsOpen(false); navigate(isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'); }}
+                className="w-full rounded-lg border border-cyan bg-cyan py-4 text-lg font-semibold text-slate-950 transition-colors hover:bg-cyan/90"
               >
-                {t('navbar.startProject')}
+                {isAr ? 'احجز Systems Discovery' : 'Book a Systems Discovery'}
               </button>
             </div>
           </div>

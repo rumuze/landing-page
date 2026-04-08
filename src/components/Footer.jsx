@@ -91,7 +91,7 @@ const Footer = () => {
               <li><Link to={`${pathPrefix}/about`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.about')}</Link></li>
               <li><Link to={`${pathPrefix}/blog`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.cases')}</Link></li>
               <li><Link to={`${pathPrefix}/blog`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.careers')}</Link></li>
-              <li><Link to={`${pathPrefix}/#contact`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.contact')}</Link></li>
+              <li><Link to={`${pathPrefix}/contact?intent=discovery`} className="hover:text-cyan dark:hover:text-white transition-colors">{t('footer.sections.links.contact')}</Link></li>
             </ul>
           </div>
 

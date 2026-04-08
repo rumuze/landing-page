@@ -172,9 +172,9 @@ const Navbar = () => {
                   )}
               </div>
 
-              <Link to={isAr ? '/ar/contact' : '/contact'}>
-                <button className="btn-primary text-sm px-5 py-2 shadow-lg shadow-cyan/20">
-                  {t('navbar.startProject')}
+              <Link to={isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'}>
+                <button className="rounded-lg border border-cyan bg-cyan px-5 py-2 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan/90">
+                  {isAr ? 'احجز Systems Discovery' : 'Book a Systems Discovery'}
                 </button>
               </Link>
             </div>
