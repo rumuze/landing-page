@@ -87,42 +87,47 @@ export const conversionContent = {
         ],
       },
       proof: {
-        eyebrow: "Proof Structure",
-        title: "Confidence without fabricated proof.",
+        eyebrow: "Proof Layer",
+        title: "Trust should map to a system, not a slogan.",
         intro:
-          "The structure is ready for live evidence. Every outcome label should map back to the claims registry before publication.",
+          "The proof below shows what Rumuze has actually structured, what changed in the operating flow, and how the evidence is classified.",
+        registryNote:
+          "Every proof item is labeled by source type and confidence before it is used in a trust-critical surface.",
         cards: [
           {
-            label: "verified",
-            clientType: "Multi-location professional services operator",
-            problem: "Leads were entering the business without consistent routing or audit-ready source data.",
-            built: "A bilingual qualification flow, CRM-connected lead routing logic, and executive reporting layer.",
-            outcome: "Structured outcome block reserved for confirmed post-launch evidence.",
+            kind: "case-study",
+            label: "Case study",
+            badgeType: "internal",
+            confidence: "medium",
+            title: "Structured intake replaced generic inquiry capture",
+            summary:
+              "Rumuze rebuilt its own commercial intake layer so audit, build, and infrastructure requests arrive with declared intent, business context, and system detail.",
+            outcome:
+              "Review-ready submissions instead of generic contact messages.",
           },
           {
-            label: "internal benchmark",
-            clientType: "Regional B2B SaaS team preparing to scale acquisition",
-            problem: "Pipeline quality could not be tied back to campaign and lifecycle data with confidence.",
-            built: "Event taxonomy, attribution reset, and lifecycle reporting architecture.",
-            outcome: "Benchmark slot reserved for internal measured improvement once validation is complete.",
+            kind: "system",
+            label: "System proof",
+            badgeType: "internal",
+            confidence: "medium",
+            title: "Built around qualification and routing",
+            summary:
+              "The system includes engagement-path logic, bilingual intake, source capture, and normalized thread creation for internal review.",
+            outcome:
+              "Consistent qualification context before follow-up begins.",
           },
           {
-            label: "illustrative",
-            clientType: "Industrial services company expanding into Saudi Arabia",
-            problem: "Arabic-English demand capture and handoff logic were not designed for regional rollout.",
-            built: "Illustrative engagement structure for bilingual intake, qualification, and delivery governance.",
-            outcome: "Illustrative scenario only. Replace with live client evidence when available.",
+            kind: "commercial",
+            label: "Commercial proof",
+            badgeType: "internal",
+            confidence: "medium",
+            title: "Improves pipeline clarity before the call",
+            summary:
+              "The commercial team no longer starts from an unstructured message. Each request arrives with role, company context, system stack, market, and declared buying intent.",
+            outcome:
+              "Audit, build, and infrastructure opportunities can be reviewed as different operating decisions.",
           },
         ],
-        auditCard: {
-          eyebrow: "Delivery proof",
-          title: "Each engagement is sold as a defined operating decision.",
-          details: [
-            "Engagement type: scoped build, standalone audit, or infrastructure setup",
-            "Typical structure: phased delivery with named outputs and review points",
-            "Commercial posture: no open-ended task retainer as the entry point",
-          ],
-        },
       },
       offers: {
         eyebrow: "Offers",
@@ -146,6 +151,8 @@ export const conversionContent = {
             ],
             outcome:
               "A production-ready system that supports qualification, routing, reporting, and revenue operations.",
+            proofLine:
+              "Supporting proof: the internal commercial system already uses structured intake, source capture, and routing logic instead of generic inquiry handling.",
             cta: "Book a Build Consultation",
           },
           {
@@ -164,6 +171,8 @@ export const conversionContent = {
             ],
             outcome:
               "Leadership gets a prioritized action plan instead of opinion-driven debate.",
+            proofLine:
+              "Supporting proof: the intake workflow captures the stated bottleneck, current systems, and engagement intent before diagnostic review starts.",
             cta: "Request a System Audit",
           },
           {
@@ -182,6 +191,8 @@ export const conversionContent = {
             ],
             outcome:
               "Sales, growth, and leadership operate from one reporting logic before spend is scaled further.",
+            proofLine:
+              "Supporting proof: request source and declared engagement intent are preserved at submission, which makes later reporting easier to inspect.",
             cta: "Start Infrastructure Setup",
           },
         ],
@@ -198,6 +209,16 @@ export const conversionContent = {
         ],
       },
       finalCta: {
+        proof: {
+          label: "Trust signal",
+          badgeType: "internal",
+          confidence: "medium",
+          title: "Current homepage proof is grounded in the internal commercial system.",
+          items: [
+            "Proof is labeled by source type before it is promoted in trust-critical copy.",
+            "The current case proof is an internal benchmark, not a disguised client claim.",
+          ],
+        },
         title:
           "If the system is already costing you revenue, do not add another disconnected vendor.",
         body:
@@ -410,42 +431,47 @@ export const conversionContent = {
         ],
       },
       proof: {
-        eyebrow: "هيكل الإثبات",
-        title: "ثقة بدون ادعاءات مصطنعة.",
+        eyebrow: "طبقة الإثبات",
+        title: "الثقة يجب أن ترتبط بنظام، لا بشعار.",
         intro:
-          "الهيكل جاهز لإضافة الأدلة الحية. يجب أن يعود كل تصنيف نتيجة إلى سجل الادعاءات قبل النشر.",
+          "توضح الأدلة التالية ما الذي نظمته Rumuze فعلاً، وما الذي تغير في التدفق التشغيلي، وكيف تم تصنيف مصدر الدليل.",
+        registryNote:
+          "يتم وسم كل عنصر إثبات حسب نوع المصدر ومستوى الثقة قبل استخدامه في أي مساحة تعتمد على الثقة.",
         cards: [
           {
-            label: "verified",
-            clientType: "شركة خدمات مهنية متعددة الفروع",
-            problem: "كانت الطلبات تدخل العمل بدون توجيه متسق أو بيانات مصدر قابلة للتدقيق.",
-            built: "تدفق تأهيل ثنائي اللغة ومنطق توجيه متصل بـ CRM وطبقة تقارير تنفيذية.",
-            outcome: "مكان مخصص لنتيجة مؤكدة بعد الإطلاق عندما تصبح الأدلة متاحة.",
+            kind: "case-study",
+            label: "دراسة حالة",
+            badgeType: "internal",
+            confidence: "medium",
+            title: "حلّ intake منظم محل رسائل الاستفسار العامة",
+            summary:
+              "أعادت Rumuze بناء طبقة الاستقبال التجاري الداخلية بحيث تصل طلبات audit وbuild وinfrastructure مع نية واضحة وسياق تجاري وتفاصيل نظامية.",
+            outcome:
+              "طلبات جاهزة للمراجعة بدلاً من رسائل تواصل عامة.",
           },
           {
-            label: "internal benchmark",
-            clientType: "فريق SaaS إقليمي B2B يستعد لتوسيع الاستحواذ",
-            problem: "جودة الـ pipeline لم يكن ممكناً ربطها بالحملات وبيانات دورة الحياة بثقة.",
-            built: "تصنيف أحداث وإعادة ضبط الإسناد وبنية تقارير دورة الحياة.",
-            outcome: "مكان مخصص لمعيار داخلي بعد اكتمال التحقق.",
+            kind: "system",
+            label: "دليل نظام",
+            badgeType: "internal",
+            confidence: "medium",
+            title: "تم البناء حول التأهيل والتوجيه",
+            summary:
+              "يتضمن النظام منطق مسارات engagement واستقبالاً ثنائي اللغة والتقاط المصدر وإنشاء thread منظم للمراجعة الداخلية.",
+            outcome:
+              "سياق تأهيل متسق قبل بدء المتابعة.",
           },
           {
-            label: "illustrative",
-            clientType: "شركة خدمات صناعية تتوسع في السعودية",
-            problem: "التقاط الطلب ثنائي اللغة ومنطق التسليم لم يكونا مصممين للتوسع الإقليمي.",
-            built: "هيكل توضيحي لتأهيل ثنائي اللغة ومنطق توجيه وحوكمة تسليم.",
-            outcome: "سيناريو توضيحي فقط. يُستبدل بدليل عميل حي عند توفره.",
+            kind: "commercial",
+            label: "دليل تجاري",
+            badgeType: "internal",
+            confidence: "medium",
+            title: "يحسن وضوح الـ pipeline قبل المكالمة",
+            summary:
+              "لم يعد الفريق التجاري يبدأ من رسالة غير منظمة. كل طلب يصل مع المنصب وسياق الشركة والأنظمة المستخدمة والسوق ونية الشراء.",
+            outcome:
+              "يمكن مراجعة فرص audit وbuild وinfrastructure كقرارات تشغيلية مختلفة.",
           },
         ],
-        auditCard: {
-          eyebrow: "دليل التنفيذ",
-          title: "كل engagement يُباع كقرار تشغيلي محدد.",
-          details: [
-            "نوع engagement: build محدد أو audit مستقل أو setup للبنية",
-            "الهيكل المعتاد: تنفيذ مرحلي مع مخرجات واضحة ونقاط مراجعة",
-            "المنهج التجاري: لا يوجد retainer مفتوح كنقطة دخول",
-          ],
-        },
       },
       offers: {
         eyebrow: "العروض",
@@ -468,6 +494,8 @@ export const conversionContent = {
             ],
             outcome:
               "نظام جاهز للإنتاج يدعم التأهيل والتوجيه والتقارير وعمليات الإيرادات.",
+            proofLine:
+              "دليل داعم: النظام التجاري الداخلي يعمل الآن على intake منظم والتقاط مصدر الطلب ومنطق توجيه بدلاً من تواصل عام غير منظم.",
             cta: "احجز Build Consultation",
           },
           {
@@ -486,6 +514,8 @@ export const conversionContent = {
             ],
             outcome:
               "تحصل الإدارة على خطة أولويات واضحة بدلاً من نقاش قائم على الآراء.",
+            proofLine:
+              "دليل داعم: مسار intake يلتقط الاختناق المعلن والأنظمة الحالية ونية engagement قبل بدء المراجعة التشخيصية.",
             cta: "اطلب System Audit",
           },
           {
@@ -504,6 +534,8 @@ export const conversionContent = {
             ],
             outcome:
               "تعمل فرق المبيعات والنمو والإدارة من منطق تقارير واحد قبل زيادة الإنفاق.",
+            proofLine:
+              "دليل داعم: يتم حفظ مصدر الطلب ونية engagement عند الإرسال، ما يجعل مراجعة التقارير لاحقاً أوضح.",
             cta: "ابدأ Infrastructure Setup",
           },
         ],
@@ -520,6 +552,16 @@ export const conversionContent = {
         ],
       },
       finalCta: {
+        proof: {
+          label: "إشارة ثقة",
+          badgeType: "internal",
+          confidence: "medium",
+          title: "الإثبات الحالي في الصفحة مبني على النظام التجاري الداخلي.",
+          items: [
+            "يتم وسم الإثبات حسب نوع المصدر قبل استخدامه في النسخ الحساسة للثقة.",
+            "إثبات الحالة الحالي معيار داخلي، وليس ادعاء عميل مخفياً.",
+          ],
+        },
         title: "إذا كان النظام يكلفك إيراداً بالفعل، فلا تضف مورداً منفصلاً آخر.",
         body:
           "اختر نوع engagement المناسب لوضعك. سنراجع النطاق ونؤكد الملاءمة ونحدد إن كانت الخطوة التالية audit أو build أو setup للبنية.",

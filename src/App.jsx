@@ -18,6 +18,7 @@ import AuthFloatingButton from './components/AuthFloatingButton';
 import ProtectedRoute from './components/ProtectedRoute';
 import VisitTracker from './components/VisitTracker';
 import { hasLocalePrefix } from './seo/linking';
+import { useTheme } from './context/theme-core';
 import {
   clearChunkRecoveryAttempt,
   isDynamicImportFailure,
@@ -74,13 +75,13 @@ const MyMessagesPage = lazy(() => import('./pages/MyMessages'));
 
 // Skeleton Loader
 const Skeleton = () => (
-    <div className="min-h-screen bg-white dark:bg-background p-8 space-y-8 animate-pulse">
-        <div className="h-20 bg-white/5 rounded-2xl w-full"></div>
-        <div className="h-[500px] bg-white/5 rounded-3xl w-full"></div>
+    <div className="surface-page min-h-screen p-8 space-y-8 animate-pulse">
+        <div className="h-20 w-full rounded-2xl bg-slate-200/80 dark:bg-white/5"></div>
+        <div className="h-[500px] w-full rounded-3xl bg-slate-200/70 dark:bg-white/5"></div>
         <div className="grid grid-cols-3 gap-8">
-            <div className="h-64 bg-white/5 rounded-2xl"></div>
-            <div className="h-64 bg-white/5 rounded-2xl"></div>
-            <div className="h-64 bg-white/5 rounded-2xl"></div>
+            <div className="h-64 rounded-2xl bg-slate-200/70 dark:bg-white/5"></div>
+            <div className="h-64 rounded-2xl bg-slate-200/70 dark:bg-white/5"></div>
+            <div className="h-64 rounded-2xl bg-slate-200/70 dark:bg-white/5"></div>
         </div>
     </div>
 );
@@ -110,23 +111,13 @@ const ScrollToTop = () => {
 
 function AppContent() {
   const { i18n } = useTranslation();
+  const { theme } = useTheme();
   const location = useLocation();
   const isAr = i18n.language === 'ar';
   const isAdminRoute =
     location.pathname.startsWith("/admin") ||
     location.pathname.startsWith("/ar/admin");
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
-
-  // Reactive mobile breakpoint — no dependency, no animation
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' && window.innerWidth < 768
-  );
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 767px)');
-    const handler = (e) => setIsMobile(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -204,9 +195,9 @@ function AppContent() {
     // Set theme color dynamically for mobile status bar
     const themeColor = document.querySelector('meta[name="theme-color"]');
     if (themeColor) {
-      themeColor.setAttribute('content', '#000B18');
+      themeColor.setAttribute('content', theme === 'dark' ? '#020617' : '#f8fafc');
     }
-  }, [i18n, location.pathname]);
+  }, [i18n, location.pathname, theme]);
 
   // Periodic Sync Registration
   useEffect(() => {
@@ -259,7 +250,7 @@ function AppContent() {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-white dark:bg-background tech-grid transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
+    <div className={`surface-page min-h-screen tech-grid transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
       <VisitTracker />
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan to-purple origin-left z-[100] transition-transform duration-100 ease-out"
@@ -269,7 +260,7 @@ function AppContent() {
       <OfflineToast />
       <Navbar />
       
-      <main>
+      <main className={!isAdminRoute ? 'main-mobile-nav-clearance' : undefined}>
         
           <Routes location={location} key={location.pathname}>
             {/* Home Routes */}
@@ -712,17 +703,11 @@ function AppContent() {
               </div>
             } />
           </Routes>
-        
+      
       </main>
 
       <div
-        className="fixed bottom-24 right-6 z-50 flex flex-col items-center gap-3 md:bottom-6"
-        style={{
-          bottom: isMobile
-            ? 'calc(96px + env(safe-area-inset-bottom))'
-            : 'calc(24px + env(safe-area-inset-bottom))',
-          right: 'calc(24px + env(safe-area-inset-right))',
-        }}
+        className="bottom-safe-nav-clearance fixed right-4 z-[72] flex flex-col items-center gap-3 md:right-6"
       >
         <AuthFloatingButton />
         {!isAdminRoute ? <WhatsAppButton /> : null}

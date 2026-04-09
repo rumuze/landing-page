@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { ThemeContext } from './theme-core';
 
+const THEME_STORAGE_KEY = 'rumuze-theme';
+
+const getPreferredTheme = () => {
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+
+  if (savedTheme === 'light' || savedTheme === 'dark') {
+    return savedTheme;
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+};
+
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    // Check localStorage first
-    const savedTheme = localStorage.getItem('rumuze-theme');
-    if (savedTheme) return savedTheme;
-    
-    // Fallback to system preference
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  });
+  const [theme, setTheme] = useState(getPreferredTheme);
 
   useEffect(() => {
     const root = window.document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('rumuze-theme', theme);
+    const isDark = theme === 'dark';
+
+    root.classList.toggle('dark', isDark);
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
   const toggleTheme = () => {
