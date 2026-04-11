@@ -1,16 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlaskConical, Home, Layers3, Menu, Moon, PhoneCall, Sun, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const joinClasses = (...classes) => classes.filter(Boolean).join(' ');
+
 const NavbarMobile = ({
-  isOpen, setIsOpen, isAr, navLinks, isActive, t,
-  languages, i18n, changeLanguage, theme, toggleTheme, navigate
+  currentLang,
+  isOpen,
+  setIsOpen,
+  isAr,
+  navLinks,
+  isActive,
+  t,
+  languages,
+  i18n,
+  changeLanguage,
+  theme,
+  toggleTheme,
+  navigate,
+  useHeroNav,
 }) => {
   const handleClose = () => setIsOpen(false);
   const handleDiscoveryNavigate = () => {
     setIsOpen(false);
     navigate(isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery');
   };
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, setIsOpen]);
 
   const primaryItems = [
     {
@@ -40,17 +68,58 @@ const NavbarMobile = ({
     },
   ];
 
+  const topBarSurfaceClass = useHeroNav
+    ? 'border-b border-[rgb(var(--border-subtle)/0.68)] bg-[rgb(var(--surface-page)/0.78)] shadow-[0_14px_32px_-28px_rgba(15,23,42,0.14)] backdrop-blur-xl dark:border-[rgb(var(--border-subtle)/0.66)] dark:bg-[rgb(var(--surface-page)/0.76)]'
+    : 'border-b border-[rgb(var(--border-subtle)/0.82)] bg-[rgb(var(--surface-section)/0.88)] shadow-[0_14px_32px_-26px_rgba(15,23,42,0.18)] backdrop-blur-xl dark:border-[rgb(var(--border-subtle)/0.78)] dark:bg-[rgb(var(--surface-section)/0.86)]';
+
+  const chipSurfaceClass = useHeroNav
+    ? 'border border-[rgb(var(--border-subtle)/0.8)] bg-[rgb(var(--surface-card)/0.88)] text-slate-900 shadow-[0_14px_30px_-24px_rgba(15,23,42,0.16)] dark:border-[rgb(var(--border-subtle)/0.74)] dark:bg-[rgb(var(--surface-card)/0.78)] dark:text-white'
+    : 'border border-[rgb(var(--border-subtle)/0.84)] bg-[rgb(var(--surface-card)/0.94)] text-slate-900 shadow-sm dark:border-[rgb(var(--border-subtle)/0.78)] dark:bg-[rgb(var(--surface-card)/0.82)] dark:text-white';
+
   const navItemClass = (active) =>
-    `flex h-full min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1.5 text-[10px] font-semibold leading-none transition-all duration-300 ${
+    joinClasses(
+      'flex h-full min-w-0 flex-col items-center justify-center gap-1 rounded-2xl px-1.5 text-[10px] font-semibold leading-none transition-all duration-300',
       active
-        ? 'bg-cyan/12 text-cyan shadow-[0_14px_30px_-24px_rgba(0,229,255,0.75)]'
-        : 'text-slate-600 hover:bg-slate-900/5 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-white/6 dark:hover:text-white'
-    }`;
+        ? 'border border-cyan/22 bg-cyan/[0.08] text-slate-950 shadow-[0_14px_28px_-24px_rgba(0,229,255,0.34)] dark:border-cyan/26 dark:text-white'
+        : 'border border-transparent text-slate-600 hover:border-slate-200/75 hover:bg-slate-900/[0.045] hover:text-slate-950 dark:text-slate-300 dark:hover:border-white/10 dark:hover:bg-white/8 dark:hover:text-white'
+    );
 
   return (
     <>
+      <header className="fixed inset-x-0 top-0 z-50 md:hidden" dir={isAr ? 'rtl' : 'ltr'}>
+        <div className={joinClasses('transition-all duration-300', topBarSurfaceClass)}>
+          <div className="content-shell">
+            <div className="flex h-16 items-center justify-between gap-3">
+              <Link to={isAr ? '/ar' : '/'} onClick={handleClose} className="flex min-w-0 items-center gap-3">
+                <div className={joinClasses('flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl', chipSurfaceClass)}>
+                  <picture>
+                    <source srcSet="/rumuze-symbol-112.avif" type="image/avif" />
+                    <source srcSet="/rumuze-symbol-112.webp" type="image/webp" />
+                    <img src="/rumuze-symbol-112.webp" width="28" height="28" alt="Rumuze Symbol" className="h-7 w-7" />
+                  </picture>
+                </div>
+                <picture className="h-5 min-w-0">
+                  <source srcSet="/rumuze-text.avif" type="image/avif" />
+                  <img src="/rumuze-text.png" alt="RUMUZE" className="h-full w-auto object-contain dark:invert" />
+                </picture>
+              </Link>
+
+              <button
+                onClick={() => setIsOpen(true)}
+                className={joinClasses('inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium transition-all duration-300', chipSurfaceClass)}
+                type="button"
+                aria-label="Open menu"
+              >
+                <span>{t('navbar.more', 'Menu')}</span>
+                <Menu size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
       <nav
-        className="fixed inset-x-0 bottom-0 z-[70] border-t border-slate-200/80 bg-slate-50/92 backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/92 md:hidden"
+        className="fixed inset-x-0 bottom-0 z-[70] border-t border-slate-200/70 bg-[rgb(var(--surface-section)/0.88)] backdrop-blur-xl dark:border-white/10 dark:bg-[rgb(var(--surface-section)/0.84)] md:hidden"
         style={{
           paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.75rem)',
         }}
@@ -70,80 +139,68 @@ const NavbarMobile = ({
             }
 
             return (
-              <button
-                key={item.key}
-                type="button"
-                onClick={item.onClick}
-                className={navItemClass(active)}
-              >
+              <button key={item.key} type="button" onClick={item.onClick} className={navItemClass(active)}>
                 <Icon size={20} />
                 <span className="max-w-full truncate">{item.label}</span>
               </button>
             );
           })}
 
-          <button
-            onClick={() => setIsOpen(true)}
-            aria-label="Open menu"
-            className={navItemClass(isOpen)}
-            type="button"
-          >
+          <button onClick={() => setIsOpen(true)} aria-label="Open menu" className={navItemClass(isOpen)} type="button">
             <Menu size={20} />
             <span className="max-w-full truncate">{t('navbar.more', 'More')}</span>
           </button>
         </div>
       </nav>
 
-      {isOpen && (
+      {isOpen ? (
         <div
-          className="fixed inset-0 z-[11000] h-[100dvh] overflow-y-auto bg-slate-50/96 backdrop-blur-2xl dark:bg-slate-950/96 md:hidden"
+          className="fixed inset-0 z-[11000] h-[100dvh] overflow-y-auto bg-white/88 backdrop-blur-2xl dark:bg-slate-950/88 md:hidden"
           style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}
         >
           <div className="flex min-h-[100dvh] flex-col">
-            <div className={`content-shell flex h-20 shrink-0 items-center justify-between ${isAr ? 'flex-row-reverse' : ''}`}>
+            <div className="content-shell flex h-16 shrink-0 items-center justify-between gap-3">
               <div className="flex min-w-0 items-center gap-3">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200/90 bg-white shadow-sm dark:border-white/10 dark:bg-slate-900/88">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/92 shadow-sm dark:border-white/10 dark:bg-slate-900/90">
                   <picture>
                     <source srcSet="/rumuze-symbol-112.avif" type="image/avif" />
                     <source srcSet="/rumuze-symbol-112.webp" type="image/webp" />
-                    <img src="/rumuze-symbol-112.webp" width="28" height="28" alt="Logo" className="h-7 w-7" />
+                    <img src="/rumuze-symbol-112.webp" width="28" height="28" alt="Rumuze Symbol" className="h-7 w-7" />
                   </picture>
                 </div>
                 <picture className="h-5 min-w-0">
                   <source srcSet="/rumuze-text.avif" type="image/avif" />
-                  <img
-                    src="/rumuze-text.png"
-                    alt="RUMUZE"
-                    className={`h-full object-contain ${theme === 'dark' ? '' : 'invert'}`}
-                  />
+                  <img src="/rumuze-text.png" alt="RUMUZE" className="h-full w-auto object-contain dark:invert" />
                 </picture>
               </div>
+
               <button
                 onClick={handleClose}
-                className="rounded-full border border-slate-200/90 bg-white p-2.5 text-slate-900 shadow-sm dark:border-white/10 dark:bg-slate-900/88 dark:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/80 bg-white/92 text-slate-900 shadow-sm transition-all duration-300 dark:border-white/10 dark:bg-slate-900/90 dark:text-white"
                 type="button"
               >
-                <X size={22} />
+                <X size={20} />
               </button>
             </div>
 
-            <div className="content-shell pb-4">
-              <div className="surface-card-soft flex items-center gap-3 p-2">
+            <div className="content-shell pb-4 pt-2">
+              <div className="surface-card-soft flex items-center gap-3 p-2.5">
                 <div className="grid flex-1 grid-cols-2 gap-2">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
                       onClick={() => changeLanguage(lang.code)}
-                      className={`rounded-xl px-3 py-3 text-xs font-semibold transition-all ${
+                      className={joinClasses(
+                        'rounded-2xl px-3 py-3 text-xs font-semibold transition-all duration-300',
                         i18n.language === lang.code
                           ? 'bg-white text-slate-950 shadow-sm dark:bg-slate-950 dark:text-white'
                           : 'copy-secondary hover:bg-white/70 dark:hover:bg-white/6'
-                      }`}
+                      )}
                       type="button"
                     >
                       <span className="flex items-center justify-center gap-2">
                         <span>{lang.flag}</span>
-                        <span>{lang.name.split(' ')[0]}</span>
+                        <span>{lang.code === currentLang.code ? currentLang.name.split(' ')[0] : lang.name.split(' ')[0]}</span>
                       </span>
                     </button>
                   ))}
@@ -151,8 +208,9 @@ const NavbarMobile = ({
 
                 <button
                   onClick={toggleTheme}
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-slate-200/90 bg-white text-slate-800 shadow-sm dark:border-white/10 dark:bg-slate-950 dark:text-yellow-300"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/92 text-slate-800 shadow-sm transition-all duration-300 dark:border-white/10 dark:bg-slate-950 dark:text-yellow-300"
                   type="button"
+                  aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
                 >
                   {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
@@ -161,31 +219,33 @@ const NavbarMobile = ({
 
             <div className="content-shell flex-1 py-2">
               <div className="flex flex-col gap-3">
-              {navLinks.map((link, index) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  onClick={handleClose}
-                  className={`animate-fade-right rounded-[1.5rem] border px-5 py-4 text-xl font-semibold transition-all sm:text-2xl ${
-                    isActive(link.href)
-                      ? 'border-cyan/30 bg-cyan/10 text-cyan shadow-[0_24px_44px_-34px_rgba(0,229,255,0.75)]'
-                      : 'border-slate-200/90 bg-white/82 text-slate-950 hover:border-cyan/20 hover:bg-white dark:border-white/10 dark:bg-slate-900/78 dark:text-white dark:hover:bg-slate-900'
-                  } ${isAr ? 'text-right' : 'text-left'}`}
-                  style={{ animationDelay: `${index * 0.08}s`, animationFillMode: 'both' }}
-                >
-                  <span className="flex items-center justify-between gap-3">
-                    <span>{link.name}</span>
-                    {link.icon ? <span className="text-cyan">{link.icon}</span> : null}
-                  </span>
-                </Link>
-              ))}
+                {navLinks.map((link, index) => (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={handleClose}
+                    className={joinClasses(
+                      'animate-fade-right rounded-[1.5rem] border px-5 py-4 text-xl font-semibold transition-all duration-300 sm:text-2xl',
+                      isActive(link.href)
+                        ? 'border-cyan/24 bg-cyan/[0.08] text-slate-950 shadow-[0_18px_34px_-28px_rgba(0,229,255,0.32)] dark:text-white'
+                        : 'border-slate-200/80 bg-white/88 text-slate-950 hover:border-slate-300/80 hover:bg-white dark:border-white/10 dark:bg-slate-900/82 dark:text-white dark:hover:bg-slate-900',
+                      isAr ? 'text-right' : 'text-left'
+                    )}
+                    style={{ animationDelay: `${index * 0.08}s`, animationFillMode: 'both' }}
+                  >
+                    <span className="flex items-center justify-between gap-3">
+                      <span>{link.name}</span>
+                      {link.icon ? <span className="text-cyan">{link.icon}</span> : null}
+                    </span>
+                  </Link>
+                ))}
               </div>
             </div>
 
             <div className="content-shell shrink-0 pt-6">
               <button
                 onClick={handleDiscoveryNavigate}
-                className="w-full rounded-2xl border border-cyan bg-cyan py-4 text-base font-semibold text-slate-950 shadow-[0_20px_42px_-26px_rgba(0,229,255,0.68)] transition-all hover:-translate-y-0.5 hover:bg-cyan/90"
+                className="w-full rounded-2xl border border-cyan bg-cyan py-4 text-base font-semibold text-slate-950 shadow-[0_18px_40px_-26px_rgba(0,229,255,0.54)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan/90"
                 type="button"
               >
                 {isAr ? 'احجز Systems Discovery' : 'Book a Systems Discovery'}
@@ -193,7 +253,7 @@ const NavbarMobile = ({
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

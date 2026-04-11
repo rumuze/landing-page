@@ -69,7 +69,7 @@ const ServicesPage = () => {
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen bg-slate-50 dark:bg-[#000B18] overflow-hidden ${isAr ? "rtl" : "ltr"}`}
+      className={`surface-page tech-grid min-h-screen bg-slate-50 dark:bg-[#000B18] overflow-hidden ${isAr ? "rtl" : "ltr"}`}
     >
       <SEO path={isAr ? "/ar/services" : "/services"} />
 

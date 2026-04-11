@@ -4,32 +4,32 @@ const typeConfig = {
   internal: {
     label: "Internal benchmark",
     className:
-      "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:border-amber-400/20 dark:bg-amber-400/10 dark:text-amber-300",
+      "border-[rgb(var(--border-subtle)/0.88)] bg-[rgb(var(--surface-card-soft)/0.88)] text-slate-700 dark:border-[rgb(var(--border-subtle)/0.72)] dark:bg-[rgb(var(--surface-card-soft)/0.66)] dark:text-slate-100",
   },
   verified: {
     label: "Verified",
     className:
-      "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300",
+      "border-[rgb(var(--border-subtle)/0.88)] bg-[rgb(var(--surface-card-soft)/0.88)] text-slate-700 dark:border-[rgb(var(--border-subtle)/0.72)] dark:bg-[rgb(var(--surface-card-soft)/0.66)] dark:text-slate-100",
   },
   illustrative: {
     label: "Illustrative",
     className:
-      "border-slate-400/25 bg-slate-500/10 text-slate-700 dark:border-slate-300/20 dark:bg-slate-400/10 dark:text-slate-300",
+      "border-[rgb(var(--border-subtle)/0.82)] bg-[rgb(var(--surface-card-soft)/0.84)] text-slate-700 dark:border-[rgb(var(--border-subtle)/0.7)] dark:bg-[rgb(var(--surface-card-soft)/0.64)] dark:text-slate-200",
   },
 };
 
 const confidenceConfig = {
   high: {
     label: "High confidence",
-    dot: "bg-emerald-500",
+    dot: "bg-cyan",
   },
   medium: {
     label: "Medium confidence",
-    dot: "bg-amber-500",
+    dot: "bg-cyan/70",
   },
   low: {
     label: "Low confidence",
-    dot: "bg-slate-400",
+    dot: "bg-slate-500 dark:bg-slate-400",
   },
 };
 
@@ -48,7 +48,7 @@ const ProofBadge = ({
   return (
     <span
       className={joinClasses(
-        "inline-flex max-w-full min-w-0 shrink-0 flex-wrap items-center gap-x-2 gap-y-1 rounded-full border px-3 py-1 text-[11px] font-semibold leading-4 tracking-[0.12em]",
+        "inline-flex max-w-full min-w-0 shrink-0 flex-wrap items-center gap-x-2 gap-y-1 rounded-full border px-3 py-1.5 text-[11px] font-semibold leading-4 tracking-[0.1em]",
         typeEntry.className,
         className,
       )}

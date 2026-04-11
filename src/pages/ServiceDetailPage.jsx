@@ -185,7 +185,7 @@ const ServiceDetailPage = () => {
       </Helmet>
 
       {/* Page content — semantic article wrapper for AI chunking */}
-      <article itemScope itemType="https://schema.org/Service">
+      <article itemScope itemType="https://schema.org/Service" className="surface-page tech-grid min-h-screen">
         <meta itemProp="serviceType" content={title} />
         <meta itemProp="provider" content="Rumuze" />
 

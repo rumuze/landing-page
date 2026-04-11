@@ -57,7 +57,7 @@ const ManifestoPage = () => {
   const currentContent = isAr ? content.ar : content.en;
 
   return (
-    <div className="pt-32 pb-20 min-h-screen bg-slate-50 dark:bg-background">
+    <div className="surface-page tech-grid min-h-screen pt-32 pb-20 bg-slate-50 dark:bg-background">
       <SEO 
         path={isAr ? '/ar/manifesto' : '/manifesto'}
         overrideMeta={{

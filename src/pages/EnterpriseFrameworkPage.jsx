@@ -81,7 +81,7 @@ const EnterpriseFrameworkPage = () => {
   };
 
   return (
-    <div className={`pt-32 pb-20 ${isAr ? 'rtl' : 'ltr'}`}>
+    <div className={`surface-page tech-grid min-h-screen pt-32 pb-20 ${isAr ? 'rtl' : 'ltr'}`}>
       <SEO path={path} schemas={schemas} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

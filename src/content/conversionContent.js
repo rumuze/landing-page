@@ -14,20 +14,31 @@ export const conversionContent = {
     },
     homepage: {
       hero: {
-        badge: "B2B Revenue Systems for GCC and MENA",
+        badge: "Revenue systems for GCC and MENA B2B teams",
         headline:
-          "We build the systems B2B companies need to scale revenue without losing operational control.",
+          "Revenue systems for B2B teams that have outgrown disconnected tools.",
         subheadline:
-          "Rumuze designs and delivers web platforms, CRM-connected workflows, tracking architecture, and attribution infrastructure for B2B companies in the Gulf and wider MENA region that have outgrown fragmented vendors and disconnected systems.",
+          "Rumuze designs and implements the website, CRM workflows, tracking architecture, and attribution logic that let growth, sales, and operations work from one system.",
         microcopy:
-          "For companies with active growth, real operational complexity, and a need for one accountable delivery partner.",
+          "Built for companies that need one accountable partner for platform execution and revenue operations.",
         primaryCta: "Book a Systems Discovery",
         secondaryCta: "Request a System Audit",
+        reviewNote: "Every qualified request is reviewed within one business day.",
+        supportEyebrow: "What Rumuze fixes",
+        supportTitle: "One operating layer instead of fragmented vendors.",
+        supportBody:
+          "We connect the commercial surface, routing logic, and measurement layer so your team can qualify demand, move faster, and trust the numbers.",
+        supportItems: [
+          "Website and conversion paths that qualify serious demand",
+          "CRM-connected workflows that route the next action clearly",
+          "Tracking and attribution architecture leadership can trust",
+        ],
         fitLabel: "Best fit",
+        fitIntro: "Usually a strong fit for:",
         fitItems: [
           "B2B services and SaaS",
           "20 to 250 employees",
-          "Saudi Arabia, UAE, Egypt, and GCC growth teams",
+          "Teams fixing qualification, routing, or attribution gaps",
         ],
       },
       problem: {
@@ -359,20 +370,31 @@ export const conversionContent = {
     },
     homepage: {
       hero: {
-        badge: "أنظمة إيرادات B2B للخليج والمنطقة",
+        badge: "أنظمة الإيرادات لفرق B2B في الخليج والمنطقة",
         headline:
-          "نبني الأنظمة التي تحتاجها شركات B2B لتوسيع الإيرادات بدون فقدان السيطرة التشغيلية.",
+          "أنظمة إيرادات لفرق B2B التي تجاوزت الأدوات والجهات المنفصلة.",
         subheadline:
-          "تصمم Rumuze وتنفذ منصات الويب وسير العمل المتصل بـ CRM وبنية التتبع وبنية الإسناد للشركات B2B في الخليج والمنطقة التي تجاوزت الموردين المتفرقين والأنظمة غير المترابطة.",
+          "تصمم Rumuze وتنفذ الموقع وسير العمل المتصل بـ CRM وبنية التتبع ومنطق الإسناد بحيث تعمل فرق النمو والمبيعات والعمليات من نظام واحد.",
         microcopy:
-          "للشركات التي لديها نمو فعلي وتعقيد تشغيلي واضح وتحتاج إلى جهة تنفيذ واحدة مسؤولة.",
+          "مناسب للشركات التي تحتاج إلى جهة تنفيذ واحدة مسؤولة عن المنصة والتشغيل التجاري.",
         primaryCta: "احجز Systems Discovery",
         secondaryCta: "اطلب System Audit",
+        reviewNote: "تتم مراجعة كل طلب مؤهل خلال يوم عمل واحد.",
+        supportEyebrow: "ما الذي تصلحه Rumuze",
+        supportTitle: "طبقة تشغيل واحدة بدل الموردين المتفرقين.",
+        supportBody:
+          "نربط الواجهة التجارية ومنطق التوجيه وطبقة القياس حتى يتمكن الفريق من تأهيل الطلب والتحرك أسرع ومتابعة الأرقام بوضوح.",
+        supportItems: [
+          "مسارات موقع وتأهيل تحول الطلب الجاد إلى طلب منظم",
+          "سير عمل متصل بـ CRM يوجّه الخطوة التالية بوضوح",
+          "بنية تتبع وإسناد يمكن للإدارة الاعتماد عليها",
+        ],
         fitLabel: "الملاءمة الأفضل",
+        fitIntro: "يكون مناسباً عادةً لـ:",
         fitItems: [
           "خدمات B2B وSaaS",
           "من 20 إلى 250 موظفاً",
-          "السعودية والإمارات ومصر وفرق النمو في الخليج",
+          "فرق تعالج فجوات التأهيل أو التوجيه أو الإسناد",
         ],
       },
       problem: {

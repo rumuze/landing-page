@@ -58,7 +58,7 @@ const PortfolioPage = () => {
         3. Removed physical text alignment (text-left/right) favor of text-start
       */}
       <div 
-        className="pt-32 pb-20 min-h-screen bg-slate-50 dark:bg-background"
+        className="surface-page tech-grid min-h-screen pt-32 pb-20 bg-slate-50 dark:bg-background"
         dir={isRtl ? 'rtl' : 'ltr'}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

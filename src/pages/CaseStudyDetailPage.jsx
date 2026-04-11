@@ -89,7 +89,7 @@ const CaseStudyDetailPage = ({ isAr = false }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen"
+      className="surface-page tech-grid min-h-screen"
     >
       <SEO
         title={`${caseStudy.title[lang]} | Rumuze`}

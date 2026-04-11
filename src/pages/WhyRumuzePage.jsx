@@ -106,7 +106,7 @@ const WhyRumuzePage = ({ isAr = false }) => {
   };
 
   return (
-    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen">
+    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="surface-page tech-grid min-h-screen">
       <SEO
         title={isAr ? 'لماذا روموز مختلفة | روموز' : 'Why Rumuze is Different | Rumuze'}
         description={isAr ? 'اكتشف لماذا روموز مختلفة هيكلياً عن الوكالات التقليدية.' : 'Discover why Rumuze is structurally different from traditional agencies.'}

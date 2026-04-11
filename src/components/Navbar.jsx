@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Globe, ChevronDown, FlaskConical } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -8,22 +8,36 @@ import ThemeToggle from './ThemeToggle';
 import NavbarMobile from './NavbarMobile';
 import NotificationBell from './NotificationBell';
 
+const MOBILE_MEDIA_QUERY = '(max-width: 767px)';
+const SCROLL_THRESHOLD = 18;
+
+const joinClasses = (...classes) => classes.filter(Boolean).join(' ');
+
+const normalizePath = (path) => {
+  if (!path) return '/';
+  const trimmed = path.replace(/\/+$/, '');
+  return trimmed || '/';
+};
+
 const Navbar = () => {
-  const joinClasses = (...classes) => classes.filter(Boolean).join(' ');
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(() =>
+    typeof window !== 'undefined' ? window.scrollY > SCROLL_THRESHOLD : false
+  );
   const [showLangMenu, setShowLangMenu] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+    typeof window !== 'undefined' ? window.matchMedia(MOBILE_MEDIA_QUERY).matches : false
   );
+  const langMenuRef = useRef(null);
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
   const isAr = i18n.language === 'ar';
-  const isHomepage = location.pathname === '/' || location.pathname === '/ar';
+  const isHomepage = ['/', '/ar'].includes(normalizePath(location.pathname));
   const useHeroNav = isHomepage && !scrolled;
+
   const closeMenus = () => {
     setShowLangMenu(false);
     setIsOpen(false);
@@ -31,14 +45,18 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const nextScrolled = window.scrollY > SCROLL_THRESHOLD;
+      setScrolled((current) => (current === nextScrolled ? current : nextScrolled));
     };
-    window.addEventListener('scroll', handleScroll);
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
     const handleChange = (event) => {
       setIsMobileViewport(event.matches);
       if (!event.matches) {
@@ -51,13 +69,42 @@ const Navbar = () => {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
+  useEffect(() => {
+    if (!showLangMenu) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (langMenuRef.current && !langMenuRef.current.contains(event.target)) {
+        setShowLangMenu(false);
+      }
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setShowLangMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showLangMenu]);
+
   const navLinks = [
     { name: t('navbar.home'), href: isAr ? '/ar' : '/' },
     { name: t('navbar.services'), href: isAr ? '/ar/services' : '/services' },
     { name: t('navbar.portfolio'), href: isAr ? '/ar/portfolio' : '/portfolio' },
     { name: t('navbar.blog'), href: isAr ? '/ar/blog' : '/blog' },
     { name: t('navbar.about'), href: isAr ? '/ar/about' : '/about' },
-    { name: t('navbar.labs'), href: isAr ? '/ar/labs' : '/labs', highlight: true, icon: <FlaskConical size={14} /> },
+    {
+      name: t('navbar.labs'),
+      href: isAr ? '/ar/labs' : '/labs',
+      highlight: true,
+      icon: <FlaskConical size={14} />,
+    },
   ];
 
   const changeLanguage = (lng) => {
@@ -65,24 +112,17 @@ const Navbar = () => {
     const targetLocale = lng === 'ar' ? 'ar' : 'en';
     const currentLocale = hasLocalePrefix(currentPath, 'ar') ? 'ar' : 'en';
     const newPath = currentLocale === targetLocale ? currentPath : localizePath(currentPath, targetLocale);
-    
-    // Just navigate. App.jsx will handle the i18n switch.
+
     navigate(newPath);
     closeMenus();
   };
 
   const languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' }
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
   ];
 
-  const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
-
-  const normalizePath = (path) => {
-    if (!path) return '/';
-    const trimmed = path.replace(/\/+$/, '');
-    return trimmed || '/';
-  };
+  const currentLang = languages.find((language) => language.code === i18n.language) || languages[0];
 
   const isActive = (href) => {
     const currentPath = normalizePath(location.pathname);
@@ -96,35 +136,42 @@ const Navbar = () => {
       return true;
     }
 
-    if (href.startsWith('/#') && location.hash === href.substring(1)) return true;
-    return false;
+    return href.startsWith('/#') && location.hash === href.substring(1);
   };
 
-  const desktopFrameClass = scrolled
-    ? 'border-b border-slate-200/80 bg-white/78 shadow-[0_20px_60px_-42px_rgba(15,23,42,0.22)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/78'
-    : 'bg-transparent';
+  const navSurfaceClass = useHeroNav
+    ? 'border-b border-[rgb(var(--border-subtle)/0.68)] bg-[rgb(var(--surface-page)/0.76)] shadow-[0_18px_42px_-38px_rgba(15,23,42,0.14)] backdrop-blur-xl dark:border-[rgb(var(--border-subtle)/0.66)] dark:bg-[rgb(var(--surface-page)/0.74)]'
+    : 'border-b border-[rgb(var(--border-subtle)/0.82)] bg-[rgb(var(--surface-section)/0.88)] shadow-[0_18px_42px_-36px_rgba(15,23,42,0.18)] backdrop-blur-xl dark:border-[rgb(var(--border-subtle)/0.78)] dark:bg-[rgb(var(--surface-section)/0.86)]';
+
+  const topSurfaceClass =
+    'border border-[rgb(var(--border-subtle)/0.8)] bg-[rgb(var(--surface-card)/0.88)] shadow-[0_16px_32px_-28px_rgba(15,23,42,0.14)] backdrop-blur-xl dark:border-[rgb(var(--border-subtle)/0.74)] dark:bg-[rgb(var(--surface-card)/0.78)] dark:shadow-[0_18px_40px_-30px_rgba(2,6,23,0.68)]';
+
+  const solidSurfaceClass =
+    'border border-[rgb(var(--border-subtle)/0.84)] bg-[rgb(var(--surface-card)/0.94)] shadow-[0_16px_34px_-30px_rgba(15,23,42,0.16)] dark:border-[rgb(var(--border-subtle)/0.78)] dark:bg-[rgb(var(--surface-card)/0.82)] dark:shadow-[0_20px_42px_-32px_rgba(2,6,23,0.76)]';
+
+  const controlClass = joinClasses(
+    'inline-flex h-10 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-all duration-300',
+    useHeroNav ? topSurfaceClass : solidSurfaceClass,
+    'text-slate-900 hover:border-slate-300/80 hover:text-slate-950 dark:text-white dark:hover:border-white/20'
+  );
 
   const getDesktopLinkClass = (link) => {
     const active = isActive(link.href);
 
     if (link.highlight) {
       return joinClasses(
-        'inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-semibold transition-all duration-300',
+        'inline-flex h-10 items-center gap-2 rounded-full border px-4 text-sm font-semibold transition-all duration-300',
         active
-          ? 'border-cyan/40 bg-cyan/14 text-cyan shadow-[0_18px_35px_-28px_rgba(0,229,255,0.6)]'
-          : 'border-cyan/18 bg-cyan/8 text-cyan hover:border-cyan/40 hover:bg-cyan/12'
+          ? 'border-cyan/26 bg-cyan/[0.08] text-slate-950 shadow-[0_16px_30px_-26px_rgba(0,229,255,0.28)] dark:text-white'
+          : 'border-cyan/18 text-slate-700 hover:border-cyan/28 hover:bg-cyan/[0.06] hover:text-slate-950 dark:text-slate-100 dark:hover:bg-cyan/[0.08] dark:hover:text-white'
       );
     }
 
     return joinClasses(
-      'inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-semibold transition-all duration-300',
+      'inline-flex h-10 items-center rounded-full border border-transparent px-4 text-sm font-medium transition-all duration-300',
       active
-        ? useHeroNav
-          ? 'bg-white/12 text-white shadow-[0_18px_36px_-28px_rgba(2,6,23,0.72)]'
-          : 'border border-slate-200/80 bg-slate-900/5 text-slate-950 shadow-[0_18px_34px_-30px_rgba(15,23,42,0.2)] dark:border-white/10 dark:bg-white/8 dark:text-white'
-        : useHeroNav
-          ? 'text-slate-300 hover:bg-white/8 hover:text-white'
-          : 'text-slate-600 hover:bg-slate-900/5 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/6 dark:hover:text-white'
+        ? 'border-[rgb(var(--border-subtle)/0.82)] bg-[rgb(var(--surface-card-soft)/0.8)] text-slate-950 shadow-sm dark:border-white/10 dark:bg-white/[0.06] dark:text-white'
+        : 'text-slate-600 hover:border-[rgb(var(--border-subtle)/0.86)] hover:bg-[rgb(var(--surface-card-soft)/0.72)] hover:text-slate-950 dark:text-slate-300 dark:hover:border-white/10 dark:hover:bg-white/[0.05] dark:hover:text-white'
     );
   };
 
@@ -132,69 +179,59 @@ const Navbar = () => {
     <>
       {isMobileViewport ? (
         <NavbarMobile
+          currentLang={currentLang}
+          changeLanguage={changeLanguage}
+          i18n={i18n}
+          isActive={isActive}
           isAr={isAr}
           isOpen={isOpen}
-          isActive={isActive}
-          i18n={i18n}
           languages={languages}
           navLinks={navLinks}
           navigate={navigate}
-          changeLanguage={changeLanguage}
           setIsOpen={setIsOpen}
           t={t}
           theme={theme}
           toggleTheme={toggleTheme}
+          useHeroNav={useHeroNav}
         />
       ) : (
         <header className="fixed inset-x-0 top-0 z-50" dir={isAr ? 'rtl' : 'ltr'}>
-          <nav className={`w-full py-4 transition-all duration-500 ${desktopFrameClass}`}>
-            <div className="content-shell flex items-center justify-between gap-6">
-              <Link to={isAr ? '/ar' : '/'} onClick={closeMenus} className="group flex shrink-0 items-center gap-4">
-                <div
-                  className={`relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border backdrop-blur-md transition-all duration-500 ${
-                    useHeroNav
-                      ? 'border-white/10 bg-slate-900/50 shadow-lg shadow-cyan/10 group-hover:border-cyan/50'
-                      : 'border-slate-200/90 bg-white/88 shadow-sm shadow-slate-900/5 group-hover:border-cyan/40 dark:border-white/10 dark:bg-slate-950/88 dark:shadow-cyan/10'
-                  }`}
-                >
-                  <picture>
-                    <source srcSet="/rumuze-symbol-112.avif" type="image/avif" />
-                    <source srcSet="/rumuze-symbol-112.webp" type="image/webp" />
-                    <img
-                      src="/rumuze-symbol-112.webp"
-                      width="36"
-                      height="36"
-                      alt="Rumuze Symbol"
-                      fetchpriority="high"
-                      decoding="async"
-                      className="z-10 h-9 w-9 filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-transform group-hover:scale-110"
-                    />
-                  </picture>
-
+          <nav className={joinClasses('w-full transition-all duration-300', navSurfaceClass)}>
+            <div className="content-shell">
+              <div className="grid h-16 grid-cols-[auto_1fr_auto] items-center gap-6 lg:h-20 lg:gap-8">
+                <Link to={isAr ? '/ar' : '/'} onClick={closeMenus} className="group flex shrink-0 items-center gap-3">
                   <div
-                    className="absolute left-0 right-0 z-20 h-[2px] bg-cyan/40 opacity-0 shadow-[0_0_15px_rgba(0,229,255,0.8)] transition-opacity group-hover:opacity-100"
-                    style={{ animation: 'scan 2.5s linear infinite' }}
-                  />
-                  <style>{`@keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }`}</style>
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan/20 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-                </div>
+                    className={joinClasses(
+                      'flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl transition-all duration-300',
+                      useHeroNav ? topSurfaceClass : solidSurfaceClass
+                    )}
+                  >
+                    <picture>
+                      <source srcSet="/rumuze-symbol-112.avif" type="image/avif" />
+                      <source srcSet="/rumuze-symbol-112.webp" type="image/webp" />
+                      <img
+                        src="/rumuze-symbol-112.webp"
+                        width="32"
+                        height="32"
+                        alt="Rumuze Symbol"
+                        fetchPriority="high"
+                        decoding="async"
+                        className="h-8 w-8 drop-shadow-[0_0_12px_rgba(0,229,255,0.28)] transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </picture>
+                  </div>
 
-                <div className="flex h-6 items-center overflow-hidden">
-                  <picture className="flex h-full items-center">
+                  <picture className="flex h-5 items-center">
                     <source srcSet="/rumuze-text.avif" type="image/avif" />
                     <img
                       src="/rumuze-text.png"
                       alt="RUMUZE"
-                      className={`h-full object-contain opacity-90 transition-opacity group-hover:opacity-100 ${
-                        useHeroNav && theme !== 'dark' ? 'invert' : ''
-                      }`}
+                      className="h-full w-auto object-contain opacity-95 transition-opacity duration-300 group-hover:opacity-100 dark:invert"
                     />
                   </picture>
-                </div>
-              </Link>
+                </Link>
 
-              <div className="flex min-w-0 flex-1 items-center justify-end gap-4 xl:gap-6">
-                <div className="flex min-w-0 items-center gap-2 xl:gap-3">
+                <div className="flex min-w-0 items-center justify-center gap-1.5 justify-self-center xl:gap-2">
                   {navLinks.map((link) => (
                     <Link
                       key={link.name}
@@ -203,66 +240,71 @@ const Navbar = () => {
                       aria-current={isActive(link.href) ? 'page' : undefined}
                       className={getDesktopLinkClass(link)}
                     >
-                      {link.icon && <span aria-hidden="true">{link.icon}</span>}
+                      {link.icon ? <span aria-hidden="true">{link.icon}</span> : null}
                       <span className="whitespace-nowrap">{link.name}</span>
                     </Link>
                   ))}
                 </div>
 
-                <ThemeToggle className="shrink-0 ltr:ml-2 rtl:mr-2" />
-                <NotificationBell isRtl={isAr} />
+                <div className="flex items-center justify-end gap-2.5 justify-self-end">
+                  <ThemeToggle className="shrink-0" />
+                  <NotificationBell isRtl={isAr} />
 
-                <div className="relative shrink-0">
-                  <button
-                    onClick={() => setShowLangMenu((current) => !current)}
-                    aria-label="Change language"
-                    aria-expanded={showLangMenu}
-                    className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all ${
-                      useHeroNav
-                        ? 'border-white/14 bg-white/[0.04] text-white shadow-[0_16px_34px_-26px_rgba(2,6,23,0.9)] hover:border-white/25 hover:text-cyan'
-                        : 'border-slate-200/90 bg-white/88 text-slate-800 shadow-sm hover:border-cyan/30 hover:text-cyan dark:border-white/10 dark:bg-slate-950/85 dark:text-slate-200'
-                    }`}
-                  >
-                    <Globe size={16} className="text-cyan" aria-hidden="true" />
-                    <span>{currentLang.name}</span>
-                    <ChevronDown
-                      size={14}
-                      className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`}
-                      aria-hidden="true"
-                    />
-                  </button>
-
-                  {showLangMenu && (
-                    <div
-                      className={`absolute top-full mt-2 min-w-[160px] overflow-hidden rounded-2xl border border-slate-200/90 bg-white/95 shadow-[0_26px_64px_-36px_rgba(15,23,42,0.34)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95 ${isAr ? 'left-0' : 'right-0'}`}
+                  <div ref={langMenuRef} className="relative shrink-0">
+                    <button
+                      onClick={() => setShowLangMenu((current) => !current)}
+                      aria-label="Change language"
+                      aria-expanded={showLangMenu}
+                      className={controlClass}
+                      type="button"
                     >
-                      {languages.map((lang) => (
-                        <button
-                          key={lang.code}
-                          onClick={() => changeLanguage(lang.code)}
-                          className={`flex w-full items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-slate-100/80 dark:hover:bg-white/5 ${
-                            i18n.language === lang.code
-                              ? 'bg-slate-100 text-cyan dark:bg-white/6'
-                              : 'text-slate-800 dark:text-slate-300'
-                          } ${isAr ? 'flex-row-reverse text-right' : 'text-left'}`}
-                        >
-                          <span className="text-lg">{lang.flag}</span>
-                          <span className="font-semibold">{lang.name}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                      <Globe size={16} className="text-cyan" aria-hidden="true" />
+                      <span>{currentLang.name}</span>
+                      <ChevronDown
+                        size={14}
+                        className={joinClasses('transition-transform duration-300', showLangMenu ? 'rotate-180' : '')}
+                        aria-hidden="true"
+                      />
+                    </button>
 
-                <Link
-                  to={isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'}
-                  onClick={closeMenus}
-                  className="shrink-0"
-                >
-                  <button className="rounded-full border border-cyan bg-cyan px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_38px_-24px_rgba(0,229,255,0.6)] transition-all hover:-translate-y-0.5 hover:bg-cyan/90 hover:shadow-[0_24px_48px_-24px_rgba(0,229,255,0.66)]">
-                    {isAr ? 'احجز Systems Discovery' : 'Book a Systems Discovery'}
-                  </button>
-                </Link>
+                    {showLangMenu ? (
+                      <div
+                        className={joinClasses(
+                          'absolute top-full mt-2 min-w-[180px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white/96 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.34)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/96',
+                          isAr ? 'left-0' : 'right-0'
+                        )}
+                      >
+                        {languages.map((lang) => (
+                          <button
+                            key={lang.code}
+                            onClick={() => changeLanguage(lang.code)}
+                            className={joinClasses(
+                              'flex w-full items-center gap-3 px-4 py-3 text-sm font-medium transition-colors duration-300 hover:bg-slate-100/90 dark:hover:bg-white/6',
+                              i18n.language === lang.code
+                                ? 'bg-slate-100 text-slate-950 dark:bg-white/8 dark:text-white'
+                                : 'text-slate-700 dark:text-slate-200',
+                              isAr ? 'flex-row-reverse text-right' : 'text-left'
+                            )}
+                            type="button"
+                          >
+                            <span className="text-lg">{lang.flag}</span>
+                            <span>{lang.name}</span>
+                          </button>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <Link
+                    to={isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'}
+                    onClick={closeMenus}
+                    className="shrink-0"
+                  >
+                    <span className="inline-flex h-10 items-center rounded-full border border-cyan bg-cyan px-5 text-sm font-semibold text-slate-950 shadow-[0_18px_36px_-24px_rgba(0,229,255,0.52)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan/90 hover:shadow-[0_20px_40px_-24px_rgba(0,229,255,0.56)]">
+                      {isAr ? 'احجز Systems Discovery' : 'Book a Systems Discovery'}
+                    </span>
+                  </Link>
+                </div>
               </div>
             </div>
           </nav>

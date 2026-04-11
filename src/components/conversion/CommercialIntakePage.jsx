@@ -12,7 +12,7 @@ const CommercialIntakePage = ({ intent = "discovery" }) => {
   const isAr = locale === "ar";
 
   return (
-    <section className="bg-slate-50 pb-20 pt-28 dark:bg-slate-950">
+    <section className="surface-page tech-grid bg-slate-50 pb-20 pt-28 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Link
           className={`mb-6 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white ${

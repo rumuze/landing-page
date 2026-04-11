@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BarChart3,
+  CheckCircle2,
   ClipboardList,
+  Clock3,
   Database,
   Languages,
   LayoutTemplate,
@@ -14,14 +16,18 @@ import { conversionContent } from "../../content/conversionContent";
 import ConversionButton from "./ConversionButton";
 import LeadCaptureModal from "./LeadCaptureModal";
 import ProofBadge from "./ProofBadge";
-import ConversionProofSection from "./ProofSection";
 
 const pillarIcons = [LayoutTemplate, Database, ClipboardList];
 const whyIcons = [Workflow, Languages, ShieldCheck, BarChart3, Database];
+const offerIcons = {
+  build: LayoutTemplate,
+  audit: ClipboardList,
+  infrastructure: Database,
+};
 
 const joinClasses = (...classes) => classes.filter(Boolean).join(" ");
 
-const useReveal = (threshold = 0.18) => {
+const useReveal = (threshold = 0.16) => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(() =>
     typeof window === "undefined" ||
@@ -31,11 +37,7 @@ const useReveal = (threshold = 0.18) => {
   useEffect(() => {
     const node = ref.current;
 
-    if (!node) {
-      return undefined;
-    }
-
-    if (isVisible) {
+    if (!node || isVisible) {
       return undefined;
     }
 
@@ -50,7 +52,7 @@ const useReveal = (threshold = 0.18) => {
       },
       {
         threshold,
-        rootMargin: "0px 0px -10% 0px",
+        rootMargin: "0px 0px -8% 0px",
       },
     );
 
@@ -77,9 +79,30 @@ const Reveal = ({ as = "div", children, className = "", delay = 0 }) => {
 };
 
 const sectionToneClasses = {
-  default: "surface-section",
-  alt: "surface-section-alt",
+  default:
+    "relative overflow-hidden border-t border-[rgb(var(--border-subtle)/0.58)] bg-transparent first:border-t-0",
+  alt:
+    "relative overflow-hidden border-t border-[rgb(var(--border-subtle)/0.58)] bg-[rgb(var(--surface-section-alt)/0.34)] dark:bg-[rgb(var(--surface-section-alt)/0.14)]",
 };
+
+const toneOverlayClasses = {
+  default:
+    "bg-[radial-gradient(circle_at_top_left,rgba(0,229,255,0.04),transparent_30%),radial-gradient(circle_at_100%_0%,rgba(15,23,42,0.035),transparent_24%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(0,229,255,0.06),transparent_30%),radial-gradient(circle_at_100%_0%,rgba(15,23,42,0.14),transparent_26%)]",
+  alt:
+    "bg-[radial-gradient(circle_at_100%_0%,rgba(0,229,255,0.035),transparent_24%),radial-gradient(circle_at_0%_100%,rgba(15,23,42,0.03),transparent_28%)] dark:bg-[radial-gradient(circle_at_100%_0%,rgba(0,229,255,0.055),transparent_28%),radial-gradient(circle_at_0%_100%,rgba(15,23,42,0.14),transparent_30%)]",
+};
+
+const sectionSpaceClass = "py-16 md:py-20 xl:py-24";
+
+const panelClass = "home-panel";
+
+const softPanelClass = "home-panel-soft";
+
+const darkPanelClass = "home-panel-strong";
+
+const chipClass = "home-chip";
+const iconBadgeClass = "home-icon-badge";
+const numberBadgeClass = "home-number-badge";
 
 const ConversionHomepage = () => {
   const { i18n } = useTranslation();
@@ -92,6 +115,42 @@ const ConversionHomepage = () => {
     source: "hero-primary",
   });
 
+  const signalItems = useMemo(
+    () => [
+      {
+        label: isAr ? "فريق واحد" : "One accountable team",
+        value: copy.why.points[0],
+      },
+      {
+        label: isAr ? "تنفيذ إقليمي" : "Regional execution",
+        value: copy.why.points[1],
+      },
+      {
+        label: isAr ? "مراجعة سريعة" : "Review window",
+        value: copy.hero.reviewNote,
+      },
+    ],
+    [copy, isAr],
+  );
+
+  const systemSteps = useMemo(
+    () => [
+      {
+        label: isAr ? "التأهيل" : "Qualification",
+        text: copy.hero.supportItems[0],
+      },
+      {
+        label: isAr ? "التوجيه" : "Routing",
+        text: copy.hero.supportItems[1],
+      },
+      {
+        label: isAr ? "القياس" : "Measurement",
+        text: copy.hero.supportItems[2],
+      },
+    ],
+    [copy, isAr],
+  );
+
   const openLeadCapture = (intent, source) => {
     setModalState({
       isOpen: true,
@@ -102,13 +161,22 @@ const ConversionHomepage = () => {
 
   return (
     <>
-      <div className="surface-page">
-        <HeroSection copy={copy.hero} isAr={isAr} onOpenLeadCapture={openLeadCapture} />
+      <div className="relative overflow-hidden">
+        <div className="pointer-events-none absolute left-[-8rem] top-[-10rem] h-[22rem] w-[22rem] rounded-full bg-cyan/[0.05] blur-3xl dark:bg-cyan/[0.08]" />
+        <div className="pointer-events-none absolute right-[-9rem] top-[14rem] h-[20rem] w-[20rem] rounded-full bg-slate-300/16 blur-3xl dark:bg-slate-500/10" />
+
+        <HeroSection
+          copy={copy.hero}
+          isAr={isAr}
+          onOpenLeadCapture={openLeadCapture}
+          signalItems={signalItems}
+          systemSteps={systemSteps}
+        />
         <ProblemSection copy={copy.problem} isAr={isAr} />
-        <ConversionProofSection RevealComponent={Reveal} copy={copy.proof} isAr={isAr} />
         <SolutionSection copy={copy.solution} isAr={isAr} />
         <OffersSection copy={copy.offers} isAr={isAr} onOpenLeadCapture={openLeadCapture} />
-        <WhyRumuzeSection copy={copy.why} isAr={isAr} />
+        <ProofSection copy={copy.proof} isAr={isAr} />
+        <WhySection copy={copy.why} isAr={isAr} />
         <FinalCtaSection copy={copy.finalCta} isAr={isAr} onOpenLeadCapture={openLeadCapture} />
       </div>
 
@@ -124,144 +192,336 @@ const ConversionHomepage = () => {
 
 const SectionShell = ({ children, className = "", tone = "default" }) => (
   <section className={joinClasses(sectionToneClasses[tone], className)}>
-    <div className="content-shell">{children}</div>
+    <div className={joinClasses("pointer-events-none absolute inset-0", toneOverlayClasses[tone])} />
+    <div className="content-shell relative z-10">{children}</div>
   </section>
 );
 
-const SectionHeader = ({ eyebrow, title, intro, isAr }) => (
-  <Reveal className={joinClasses("max-w-3xl", isAr ? "mr-auto text-right" : "text-left")}>
+const SectionHeading = ({ eyebrow, title, intro, isAr, className = "" }) => (
+  <Reveal className={joinClasses(isAr ? "text-right" : "text-left", className)}>
     <p className="eyebrow-label mb-3">{eyebrow}</p>
-    <h2 className="copy-primary text-3xl font-semibold tracking-tight md:text-4xl">
+    <h2 className="copy-primary max-w-3xl text-[clamp(2rem,4vw,3rem)] font-semibold leading-[1.08] tracking-tight dark:text-white">
       {title}
     </h2>
     {intro ? (
-      <p className="copy-secondary mt-4 max-w-2xl text-base leading-8">{intro}</p>
+      <p className="copy-secondary mt-4 max-w-[44rem] text-[15px] leading-8 md:text-[17px]">
+        {intro}
+      </p>
     ) : null}
   </Reveal>
 );
 
-const HeroSection = ({ copy, isAr, onOpenLeadCapture }) => (
-  <section className="border-b border-slate-900/80 bg-[linear-gradient(180deg,#06111d_0%,#081725_56%,#0d1a2d_100%)] py-24 text-white dark:border-white/10 md:py-32">
-    <div className="content-shell">
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(0,229,255,0.14),transparent_32%),linear-gradient(180deg,rgba(15,23,42,0.96)_0%,rgba(2,6,23,0.98)_100%)] px-6 py-10 shadow-[0_38px_85px_-52px_rgba(0,229,255,0.45)] md:px-10 md:py-12">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:28px_28px] opacity-20" />
-        <div className="relative max-w-4xl">
-          <Reveal delay={40}>
-            <span className="inline-flex rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan">
-              {copy.badge}
-            </span>
-          </Reveal>
-          <Reveal delay={120}>
-            <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">
-              {copy.headline}
-            </h1>
-          </Reveal>
-          <Reveal delay={190}>
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-200">
-              {copy.subheadline}
-            </p>
-          </Reveal>
-          <Reveal delay={250}>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-400">
-              {copy.microcopy}
-            </p>
-          </Reveal>
+const HeroSection = ({ copy, isAr, onOpenLeadCapture, signalItems, systemSteps }) => (
+  <SectionShell
+    className="pt-[calc(5.75rem+var(--safe-area-top))] md:pt-[calc(6.5rem+var(--safe-area-top))] lg:pt-[calc(7rem+var(--safe-area-top))]"
+    tone="default"
+  >
+    <div className="grid gap-8 pb-12 md:pb-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] lg:items-start lg:gap-10">
+      <div className={joinClasses("max-w-[42rem]", isAr ? "text-right lg:order-2" : "text-left")}>
+        <Reveal delay={40}>
+          <span className={chipClass}>{copy.badge}</span>
+        </Reveal>
 
-          <Reveal delay={310}>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ConversionButton onClick={() => onOpenLeadCapture("discovery", "hero-primary")}>
-                {copy.primaryCta}
-                <ArrowRight size={16} />
-              </ConversionButton>
-              <ConversionButton
-                onClick={() => onOpenLeadCapture("audit", "hero-secondary")}
-                variant="secondary-dark"
-              >
-                {copy.secondaryCta}
-              </ConversionButton>
-            </div>
-          </Reveal>
+        <Reveal delay={120}>
+          <h1
+            className={joinClasses(
+              "mt-6 text-[clamp(3rem,7.2vw,4.75rem)] font-semibold tracking-tight text-slate-950 dark:text-white",
+              isAr ? "max-w-[13ch] leading-[1.14]" : "max-w-[11ch] leading-[0.96]",
+            )}
+          >
+            {copy.headline}
+          </h1>
+        </Reveal>
 
-          <Reveal delay={380}>
-            <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-[0_24px_50px_-34px_rgba(2,6,23,0.8)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">
-                {copy.fitLabel}
+        <Reveal delay={190}>
+          <p className="copy-secondary mt-6 max-w-[44rem] text-[1.0625rem] leading-8 dark:text-slate-300 md:text-[1.125rem]">
+            {copy.subheadline}
+          </p>
+        </Reveal>
+
+        <Reveal delay={260}>
+          <p className="copy-muted mt-4 max-w-xl text-sm leading-7 dark:text-slate-400">
+            {copy.microcopy}
+          </p>
+        </Reveal>
+
+        <Reveal delay={320}>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <ConversionButton
+              className="min-h-[3.5rem] w-full px-7 text-sm shadow-[0_20px_44px_-24px_rgba(0,229,255,0.75)] sm:w-auto"
+              onClick={() => onOpenLeadCapture("discovery", "hero-primary")}
+            >
+              {copy.primaryCta}
+              <ArrowRight size={16} />
+            </ConversionButton>
+            <ConversionButton
+              className="min-h-[3.5rem] w-full px-7 text-sm sm:w-auto"
+              onClick={() => onOpenLeadCapture("audit", "hero-secondary")}
+              variant="secondary"
+            >
+              {copy.secondaryCta}
+            </ConversionButton>
+          </div>
+        </Reveal>
+
+        <Reveal delay={380}>
+          <div
+            className={joinClasses(
+              softPanelClass,
+              "mt-7 flex items-start gap-3 px-4 py-4 text-sm text-slate-600 dark:text-slate-300",
+              isAr ? "flex-row-reverse text-right" : "",
+            )}
+          >
+            <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-cyan" />
+            <p>{copy.reviewNote}</p>
+          </div>
+        </Reveal>
+      </div>
+
+      <Reveal className={joinClasses(isAr ? "lg:order-1" : "")} delay={160}>
+        <div
+          className={joinClasses(
+            panelClass,
+            "relative overflow-hidden p-6 md:p-7 lg:ml-auto lg:max-w-[31rem]",
+          )}
+        >
+          <div className="relative z-10">
+            <div
+              className={joinClasses(
+                "flex flex-wrap items-center gap-3",
+                isAr ? "justify-end text-right" : "text-left",
+              )}
+            >
+              <p className="eyebrow-label">
+                {copy.supportEyebrow}
               </p>
-              <div className={joinClasses("mt-3 grid gap-3 md:grid-cols-3", isAr ? "text-right" : "text-left")}>
-                {copy.fitItems.map((item, index) => (
-                  <Reveal
-                    key={item}
-                    as="div"
-                    className="motion-card rounded-xl border border-white/10 bg-slate-950/55 px-4 py-3 text-sm text-slate-100"
-                    delay={440 + index * 80}
-                  >
-                    {item}
-                  </Reveal>
-                ))}
-              </div>
+              <ProofBadge
+                className="max-sm:self-start"
+                confidence="medium"
+                confidenceLabel={isAr ? "ثقة متوسطة" : undefined}
+                type="internal"
+                typeLabel={isAr ? "مرجع داخلي" : undefined}
+              />
             </div>
-          </Reveal>
+
+            <h2 className="copy-primary mt-5 max-w-[18ch] text-[1.5rem] font-semibold leading-[1.15] dark:text-white">
+              {copy.supportTitle}
+            </h2>
+
+            <p className="copy-secondary mt-4 max-w-xl text-sm leading-7 dark:text-slate-300">
+              {copy.supportBody}
+            </p>
+
+            <div className="mt-6 grid gap-3">
+              {systemSteps.map((step, index) => (
+                <Reveal
+                  key={step.label}
+                    className={joinClasses(
+                      softPanelClass,
+                      "px-4 py-4",
+                      isAr ? "text-right" : "text-left",
+                    )}
+                    delay={240 + index * 80}
+                >
+                  <div
+                    className={joinClasses(
+                      "flex items-start gap-3",
+                      isAr ? "flex-row-reverse" : "",
+                    )}
+                    >
+                    <span className={numberBadgeClass}>
+                      0{index + 1}
+                    </span>
+                    <div>
+                      <p className="copy-primary text-sm font-semibold dark:text-white">
+                        {step.label}
+                      </p>
+                      <p className="copy-secondary mt-1 text-sm leading-6 dark:text-slate-300">
+                        {step.text}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </div>
+      </Reveal>
+    </div>
+
+    <div className="pb-14 md:pb-16">
+      <div className="grid items-start gap-4 md:grid-cols-3">
+        {signalItems.map((item, index) => (
+          <Reveal
+            key={item.label}
+            className={joinClasses(softPanelClass, "px-5 py-5")}
+            delay={180 + index * 70}
+          >
+            <p className="copy-muted text-xs font-semibold uppercase tracking-[0.16em]">
+              {item.label}
+            </p>
+            <p className="copy-primary mt-3 text-base font-medium leading-7 dark:text-white">
+              {item.value}
+            </p>
+          </Reveal>
+        ))}
       </div>
     </div>
-  </section>
+  </SectionShell>
 );
 
-const ProblemSection = ({ copy, isAr }) => (
-  <SectionShell className="py-20 md:py-24">
-    <SectionHeader eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
-    <div className="mt-10 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-      <div className="space-y-4">
-        {copy.bullets.map((point, index) => (
+const ProblemSection = ({ copy, isAr }) => {
+  const lenses = isAr
+    ? ["الموقع", "CRM", "الإسناد", "الوضوح التنفيذي"]
+    : ["Website", "CRM", "Attribution", "Executive visibility"];
+
+  return (
+    <SectionShell className={sectionSpaceClass} tone="alt">
+      <div className="grid items-start gap-8 lg:grid-cols-[minmax(280px,0.85fr)_minmax(0,1.15fr)]">
+        <Reveal className={joinClasses(panelClass, "self-start p-6 md:p-7")}>
+          <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
+
+          <div className="mt-8 flex flex-wrap gap-2">
+            {lenses.map((item) => (
+              <span key={item} className={chipClass}>
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <div className={joinClasses(darkPanelClass, "mt-8 p-5 md:p-6", isAr ? "text-right" : "text-left")}>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">
+              {isAr ? "الأثر التجاري" : "Commercial impact"}
+            </p>
+            <p className="mt-4 text-2xl font-semibold leading-tight text-white">{copy.impact}</p>
+            <p className="mt-4 text-sm leading-7 text-slate-300">
+              {isAr
+                ? "كل طبقة غير مترابطة تزيد الضوضاء داخل الـ pipeline وتدفع الفريق إلى عمل يدوي كان يفترض أن يقوم به النظام نفسه."
+                : "Every disconnected layer adds pipeline noise and forces the team into manual work that the system should already be handling."}
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="grid items-start gap-4 sm:grid-cols-2">
+          {copy.bullets.map((point, index) => (
+            <Reveal
+              key={point}
+              className={joinClasses(softPanelClass, "self-start px-5 py-5")}
+              delay={120 + index * 70}
+            >
+              <div className="flex items-start gap-4">
+                <span className={numberBadgeClass}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="copy-secondary text-sm leading-7 dark:text-slate-300">{point}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </SectionShell>
+  );
+};
+
+const ProofSection = ({ copy, isAr }) => (
+  <SectionShell className={sectionSpaceClass} tone="default">
+    <div className="grid items-start gap-8 xl:grid-cols-[minmax(280px,0.82fr)_minmax(0,1.18fr)]">
+      <Reveal className={joinClasses(panelClass, "self-start p-6 md:p-7")}>
+        <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
+
+        <div className={joinClasses(softPanelClass, "mt-8 p-5", isAr ? "text-right" : "text-left")}>
+          <div className="flex flex-wrap items-center gap-3">
+            <ProofBadge
+              confidence="medium"
+              confidenceLabel={isAr ? "ثقة متوسطة" : undefined}
+              type="internal"
+              typeLabel={isAr ? "معيار داخلي" : undefined}
+            />
+            <span className="copy-muted text-xs uppercase tracking-[0.16em]">
+              {isAr ? "سياسة الإثبات" : "Proof policy"}
+            </span>
+          </div>
+          <p className="copy-secondary mt-4 text-sm leading-7 dark:text-slate-300">
+            {copy.registryNote}
+          </p>
+        </div>
+      </Reveal>
+
+      <div className="grid items-start gap-5 md:grid-cols-2">
+        {copy.cards.map((card, index) => (
           <Reveal
-            key={point}
-            className="surface-card-soft motion-card px-5 py-5"
-            delay={90 + index * 70}
+            key={card.title}
+            className={joinClasses(panelClass, "self-start p-6 md:p-7", index === 0 ? "md:col-span-2" : "")}
+            delay={140 + index * 80}
           >
-            <div className="flex items-start gap-4">
-              <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-cyan shadow-[0_0_12px_rgba(0,229,255,0.5)]" />
-              <p className="copy-secondary text-sm leading-7">{point}</p>
+            <div className="min-w-0">
+              <p className="copy-muted text-xs font-semibold uppercase tracking-[0.16em]">
+                {card.label}
+              </p>
+              <h3 className="copy-primary mt-3 text-xl font-semibold leading-snug dark:text-white">
+                {card.title}
+              </h3>
+            </div>
+            <div className="mt-4">
+              <ProofBadge
+                className="max-sm:self-start"
+                confidence={card.confidence}
+                confidenceLabel={isAr ? "ثقة متوسطة" : undefined}
+                type={card.badgeType}
+                typeLabel={isAr ? "معيار داخلي" : undefined}
+              />
+            </div>
+
+            <p className="copy-secondary mt-5 text-sm leading-7 dark:text-slate-300">
+              {card.summary}
+            </p>
+
+            <div className={joinClasses(softPanelClass, "mt-6 px-4 py-4")}>
+              <p className="copy-muted text-[11px] font-semibold uppercase tracking-[0.16em]">
+                {isAr ? "النتيجة" : "Outcome"}
+              </p>
+              <p className="copy-primary mt-2 text-sm font-medium leading-7 dark:text-white">
+                {card.outcome}
+              </p>
             </div>
           </Reveal>
         ))}
       </div>
-
-      <Reveal className="surface-card-strong px-7 py-7 md:px-8 md:py-8" delay={220}>
-        <p className="eyebrow-label">{isAr ? "الأثر التجاري" : "Commercial impact"}</p>
-        <p className="mt-4 text-2xl font-semibold leading-tight text-white">{copy.impact}</p>
-        <p className="mt-4 text-sm leading-7 text-slate-300">
-          {isAr
-            ? "تظهر الكلفة في تسرب الطلبات وبطء التنفيذ وضعف الثقة في المصدر واعتماد الفرق على العمل اليدوي لتعويض نظام كان يفترض أن يؤدي هذه المهمة."
-            : "The cost appears as lead leakage, slower execution, weak source confidence, and teams compensating manually for a system that should already be doing the work."}
-        </p>
-      </Reveal>
     </div>
   </SectionShell>
 );
 
 const SolutionSection = ({ copy, isAr }) => (
-  <SectionShell className="py-20 md:py-24" tone="alt">
-    <SectionHeader eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
-    <div className="mt-10 grid gap-5 lg:grid-cols-3">
+  <SectionShell className={sectionSpaceClass} tone="alt">
+    <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
+
+    <div className="mt-12 grid gap-5 lg:grid-cols-3">
       {copy.pillars.map((pillar, index) => {
         const Icon = pillarIcons[index] || Workflow;
 
         return (
-          <Reveal
-            key={pillar.title}
-            as="article"
-            className="surface-card motion-card h-full p-6 md:p-7"
-            delay={110 + index * 80}
-          >
-            <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-cyan/30 bg-cyan/10 text-cyan">
-              <Icon size={20} />
+          <Reveal key={pillar.title} className={joinClasses(panelClass, "p-6 md:p-7")} delay={120 + index * 80}>
+            <div className="flex items-center justify-between gap-4">
+              <span className={iconBadgeClass}>
+                <Icon size={20} />
+              </span>
+              <span className="copy-muted text-xs font-semibold uppercase tracking-[0.16em]">
+                0{index + 1}
+              </span>
             </div>
-            <h3 className="copy-primary text-xl font-semibold">{pillar.title}</h3>
-            <p className="copy-secondary mt-3 text-sm leading-7">{pillar.description}</p>
-            <ul className="mt-5 space-y-3">
+            <h3 className="copy-primary mt-5 text-xl font-semibold dark:text-white">
+              {pillar.title}
+            </h3>
+            <p className="copy-secondary mt-3 text-sm leading-7 dark:text-slate-300">
+              {pillar.description}
+            </p>
+            <ul className="mt-6 space-y-3">
               {pillar.points.map((point) => (
-                <li key={point} className="copy-secondary flex items-start gap-3 text-sm leading-7">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan" />
+                <li
+                  key={point}
+                  className="copy-secondary flex items-start gap-3 text-sm leading-7 dark:text-slate-300"
+                >
+                  <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-cyan" />
                   <span>{point}</span>
                 </li>
               ))}
@@ -274,79 +534,88 @@ const SolutionSection = ({ copy, isAr }) => (
 );
 
 const OffersSection = ({ copy, isAr, onOpenLeadCapture }) => (
-  <SectionShell className="py-20 md:py-24" tone="alt">
-    <SectionHeader eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
-    <div className="mt-10 grid gap-5 xl:grid-cols-3">
-      {copy.cards.map((offer, index) => (
-        <Reveal
-          key={offer.key}
-          as="article"
-          className="surface-card motion-card flex h-full flex-col p-6"
-          delay={120 + index * 80}
-        >
-          <h3 className="copy-primary text-2xl font-semibold">{offer.title}</h3>
-          <div className="copy-secondary mt-5 space-y-4 text-sm leading-7">
-            <div>
-              <p className="copy-primary font-semibold">{isAr ? "مناسب لمن" : "Who it is for"}</p>
-              <p>{offer.who}</p>
-            </div>
-            <div>
-              <p className="copy-primary font-semibold">{isAr ? "المشكلة" : "Problem"}</p>
-              <p>{offer.problem}</p>
-            </div>
-            <div>
-              <p className="copy-primary font-semibold">{isAr ? "المخرجات" : "Outputs"}</p>
-              <ul className="mt-2 space-y-2">
-                {offer.outputs.map((output) => (
-                  <li key={output} className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan" />
-                    <span>{output}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="copy-primary font-semibold">
-                {isAr ? "النتيجة المتوقعة" : "Expected outcome"}
-              </p>
-              <p>{offer.outcome}</p>
-            </div>
-          </div>
-          <div className="surface-card-soft mt-6 px-4 py-4">
-            <p className="copy-muted text-[11px] font-semibold uppercase tracking-[0.16em]">
-              {isAr ? "دليل داعم" : "Supporting proof"}
-            </p>
-            <p className="copy-secondary mt-2 text-sm leading-7">{offer.proofLine}</p>
-          </div>
-          <div className="mt-auto pt-6">
-            <ConversionButton onClick={() => onOpenLeadCapture(offer.key, `offer-${offer.key}`)}>
-              {offer.cta}
-            </ConversionButton>
-          </div>
-        </Reveal>
-      ))}
-    </div>
-  </SectionShell>
-);
+  <SectionShell className={sectionSpaceClass} tone="default">
+    <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
 
-const WhyRumuzeSection = ({ copy, isAr }) => (
-  <SectionShell className="py-20 md:py-24">
-    <SectionHeader eyebrow={copy.eyebrow} isAr={isAr} title={copy.title} />
-    <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
-      {copy.points.map((point, index) => {
-        const Icon = whyIcons[index] || Workflow;
+    <div className="mt-12 grid items-start gap-6 xl:grid-cols-3">
+      {copy.cards.map((offer, index) => {
+        const Icon = offerIcons[offer.key] || Workflow;
 
         return (
           <Reveal
-            key={point}
-            as="article"
-            className="surface-card-soft motion-card p-5"
-            delay={100 + index * 55}
+            key={offer.key}
+            className={joinClasses(panelClass, "flex flex-col self-start p-6 md:p-7")}
+            delay={130 + index * 80}
           >
-            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-cyan/25 bg-cyan/10 text-cyan">
-              <Icon size={18} />
+            <div className="flex items-center justify-between gap-4">
+              <span className={iconBadgeClass}>
+                <Icon size={20} />
+              </span>
+              <span className="copy-muted text-xs font-semibold uppercase tracking-[0.16em]">
+                0{index + 1}
+              </span>
             </div>
-            <p className="copy-secondary text-sm leading-7">{point}</p>
+
+            <h3 className="copy-primary mt-6 text-[1.75rem] font-semibold leading-[1.12] dark:text-white">
+              {offer.title}
+            </h3>
+
+            <div className="copy-secondary mt-5 space-y-4 text-sm leading-7 dark:text-slate-300">
+              <div>
+                <p className="copy-primary font-semibold dark:text-white">
+                  {isAr ? "مناسب لمن" : "Who it is for"}
+                </p>
+                <p>{offer.who}</p>
+              </div>
+              <div>
+                <p className="copy-primary font-semibold dark:text-white">
+                  {isAr ? "المشكلة" : "Problem"}
+                </p>
+                <p>{offer.problem}</p>
+              </div>
+            </div>
+
+            <div className={joinClasses(softPanelClass, "mt-6 px-4 py-4")}>
+              <p className="copy-muted text-[11px] font-semibold uppercase tracking-[0.16em]">
+                {isAr ? "المخرجات" : "Outputs"}
+              </p>
+              <div className="mt-3 space-y-2">
+                {offer.outputs.map((output) => (
+                  <div
+                    key={output}
+                    className="copy-secondary flex items-start gap-2 text-sm leading-6 dark:text-slate-300"
+                  >
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan" />
+                    <span>{output}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <p className="copy-primary text-sm font-semibold dark:text-white">
+                {isAr ? "النتيجة المتوقعة" : "Expected outcome"}
+              </p>
+              <p className="copy-secondary mt-2 text-sm leading-7 dark:text-slate-300">
+                {offer.outcome}
+              </p>
+            </div>
+
+            <div className={joinClasses(softPanelClass, "mt-6 px-4 py-4")}>
+              <p className="copy-secondary text-sm leading-7 dark:text-slate-300">
+                {offer.proofLine}
+              </p>
+            </div>
+
+            <div className="mt-auto pt-7">
+              <ConversionButton
+                className="w-full justify-center"
+                onClick={() => onOpenLeadCapture(offer.key, `offer-${offer.key}`)}
+                variant="primary"
+              >
+                {offer.cta}
+              </ConversionButton>
+            </div>
           </Reveal>
         );
       })}
@@ -354,52 +623,89 @@ const WhyRumuzeSection = ({ copy, isAr }) => (
   </SectionShell>
 );
 
+const WhySection = ({ copy, isAr }) => (
+  <SectionShell className={sectionSpaceClass} tone="alt">
+    <div className="grid gap-8 lg:grid-cols-[minmax(280px,0.82fr)_minmax(0,1.18fr)]">
+      <Reveal className={joinClasses(panelClass, "self-start p-6 md:p-7")}>
+        <SectionHeading
+          eyebrow={copy.eyebrow}
+          intro={
+            isAr
+              ? "الشراء هنا لا يقوم على الوعود العامة. الفكرة الأساسية هي أن طبقة التشغيل نفسها تصبح أوضح وأكثر قابلية للتدقيق من أول صفحة."
+              : "The point is not louder messaging. The point is making the operating layer legible, inspectable, and commercially precise from the first screen."
+          }
+          isAr={isAr}
+          title={copy.title}
+        />
+      </Reveal>
+
+      <div className="grid items-start gap-4 sm:grid-cols-2">
+        {copy.points.map((point, index) => {
+          const Icon = whyIcons[index] || Workflow;
+
+          return (
+            <Reveal key={point} className={joinClasses(softPanelClass, "p-5")} delay={120 + index * 60}>
+              <span className={iconBadgeClass}>
+                <Icon size={18} />
+              </span>
+              <p className="copy-secondary mt-4 text-sm leading-7 dark:text-slate-300">
+                {point}
+              </p>
+            </Reveal>
+          );
+        })}
+      </div>
+    </div>
+  </SectionShell>
+);
+
 const FinalCtaSection = ({ copy, isAr, onOpenLeadCapture }) => (
-  <section className="bg-slate-950 py-20 text-white">
-    <div className="content-shell">
-      <Reveal className="rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(0,229,255,0.12),transparent_30%),linear-gradient(180deg,rgba(15,23,42,0.98)_0%,rgba(2,6,23,0.98)_100%)] px-6 py-8 shadow-[0_30px_70px_-42px_rgba(0,229,255,0.35)] md:px-10 md:py-10">
-        <div className="mb-8 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-5">
-          <div className="flex min-w-0 flex-col gap-4 md:flex-row md:items-start md:justify-between">
-            <div className={joinClasses("max-w-2xl", isAr ? "text-right" : "text-left")}>
-              <p className="eyebrow-label text-[11px]">{copy.proof.label}</p>
-              <p className="mt-3 text-base font-semibold text-white">{copy.proof.title}</p>
-              <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-300">
-                {copy.proof.items.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <ProofBadge
-              className="max-md:self-start"
-              confidence={copy.proof.confidence}
-              confidenceLabel={isAr ? "ثقة متوسطة" : undefined}
-              type={copy.proof.badgeType}
-              typeLabel={isAr ? "معيار داخلي" : undefined}
-            />
+  <SectionShell className={sectionSpaceClass} tone="default">
+    <Reveal className={joinClasses(darkPanelClass, "overflow-hidden p-6 md:p-8 lg:p-10")}>
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(280px,0.95fr)] lg:items-start">
+        <div className={isAr ? "text-right" : "text-left"}>
+          <ProofBadge
+            confidence={copy.proof.confidence}
+            confidenceLabel={isAr ? "ثقة متوسطة" : undefined}
+            type={copy.proof.badgeType}
+            typeLabel={isAr ? "معيار داخلي" : undefined}
+          />
+          <h2 className="mt-5 max-w-3xl text-[clamp(2rem,4vw,3rem)] font-semibold leading-[1.08] tracking-tight text-white">
+            {copy.title}
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">{copy.body}</p>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <ConversionButton onClick={() => onOpenLeadCapture("discovery", "final-primary")}>
+              {copy.primaryCta}
+              <ArrowRight size={16} />
+            </ConversionButton>
+            <ConversionButton
+              onClick={() => onOpenLeadCapture("audit", "final-secondary")}
+              variant="secondary-dark"
+            >
+              {copy.secondaryCta}
+            </ConversionButton>
           </div>
         </div>
-        <h2 className="max-w-4xl text-3xl font-semibold text-white md:text-4xl">
-          {copy.title}
-        </h2>
-        <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">{copy.body}</p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <ConversionButton onClick={() => onOpenLeadCapture("discovery", "final-primary")}>
-            {copy.primaryCta}
-            <ArrowRight size={16} />
-          </ConversionButton>
-          <ConversionButton
-            onClick={() => onOpenLeadCapture("audit", "final-secondary")}
-            variant="secondary-dark"
-          >
-            {copy.secondaryCta}
-          </ConversionButton>
+
+        <div className="rounded-[1.375rem] border border-white/10 bg-white/[0.05] p-5 md:p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan">
+            {copy.proof.label}
+          </p>
+          <p className="mt-4 text-base font-semibold text-white">{copy.proof.title}</p>
+          <div className="mt-5 space-y-3">
+            {copy.proof.items.map((item) => (
+              <div key={item} className="flex items-start gap-3 text-sm leading-7 text-slate-300">
+                <ShieldCheck className="mt-1 h-4 w-4 shrink-0 text-cyan" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </Reveal>
-    </div>
-  </section>
+      </div>
+    </Reveal>
+  </SectionShell>
 );
 
 export default ConversionHomepage;

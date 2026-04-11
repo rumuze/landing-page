@@ -14,7 +14,7 @@ const CaseStudiesPage = ({ isAr = false }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen pt-32 pb-24 bg-slate-50 dark:bg-background"
+      className="surface-page tech-grid min-h-screen pt-32 pb-24 bg-slate-50 dark:bg-background"
     >
       <SEO 
         title={isAr ? 'عقيدة الإنجاز | دراسات الحالة' : 'Impact Doctrine | Case Studies'}

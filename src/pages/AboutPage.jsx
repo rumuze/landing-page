@@ -63,7 +63,7 @@ const AboutPage = () => {
   };
 
   return (
-    <div className={`pt-32 pb-20 overflow-hidden ${isAr ? 'rtl' : 'ltr'}`}>
+    <div className={`surface-page tech-grid min-h-screen pt-32 pb-20 overflow-hidden ${isAr ? 'rtl' : 'ltr'}`}>
       <SEO path={isAr ? '/ar/about' : '/about'} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

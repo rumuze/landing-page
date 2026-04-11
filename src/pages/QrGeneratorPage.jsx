@@ -120,7 +120,7 @@ const QrGeneratorPage = () => {
   const [openFaq, setOpenFaq] = useState(null);
 
   return (
-    <div className="pt-28 pb-20 min-h-screen bg-slate-50 dark:bg-background">
+    <div className="surface-page tech-grid min-h-screen pt-28 pb-20 bg-slate-50 dark:bg-background">
       <SEO
         path={`${pathPrefix}/qr-generator`}
         schemas={[buildSoftwareAppSchema()]}

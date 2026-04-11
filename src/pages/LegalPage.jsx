@@ -54,7 +54,7 @@ const LegalPage = ({ type }) => {
   };
 
   return (
-    <div className={`min-h-screen bg-white dark:bg-[#050505] pt-28 pb-20 ${isAr ? 'rtl' : 'ltr'}`}>
+    <div className={`surface-page tech-grid min-h-screen bg-white dark:bg-[#050505] pt-28 pb-20 ${isAr ? 'rtl' : 'ltr'}`}>
       <SEO path={isAr ? `/ar/${type}` : `/${type}`} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

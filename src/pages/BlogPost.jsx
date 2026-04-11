@@ -26,7 +26,7 @@ const BlogPost = () => {
     }
 
     return (
-        <div className="pt-32 pb-20 min-h-screen">
+        <div className="surface-page tech-grid min-h-screen pt-32 pb-20">
             <SEO 
                 path={isAr ? `/ar/blog/${slug}` : `/blog/${slug}`} 
                 overrideMeta={{

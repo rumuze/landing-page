@@ -72,7 +72,7 @@ const ComparisonPage = ({ isAr = false }) => {
   };
 
   return (
-    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen">
+    <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="surface-page tech-grid min-h-screen">
       <SEO
         title={isAr ? `روموز مقابل ${target.name.ar} | روموز` : `Rumuze vs ${target.name.en} | Rumuze`}
         description={target.description[lang].substring(0, 160)}

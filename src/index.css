@@ -220,6 +220,91 @@ h4 {
     @apply text-xs font-semibold uppercase tracking-[0.18em] text-cyan;
   }
 
+  .home-panel {
+    border: 1px solid rgb(var(--border-subtle) / 0.88);
+    border-radius: 1.5rem;
+    background-color: rgb(var(--surface-card) / 0.88);
+    box-shadow: 0 24px 56px -42px rgba(15, 23, 42, 0.16);
+    backdrop-filter: blur(20px);
+  }
+
+  .dark .home-panel {
+    border-color: rgb(var(--border-subtle) / 0.76);
+    background-color: rgb(var(--surface-card) / 0.82);
+    box-shadow: 0 28px 74px -50px rgba(2, 6, 23, 0.8);
+  }
+
+  .home-panel-soft {
+    border: 1px solid rgb(var(--border-subtle) / 0.82);
+    border-radius: 1.375rem;
+    background-color: rgb(var(--surface-card-soft) / 0.9);
+    box-shadow: 0 18px 40px -34px rgba(15, 23, 42, 0.12);
+    backdrop-filter: blur(16px);
+  }
+
+  .dark .home-panel-soft {
+    border-color: rgb(var(--border-subtle) / 0.72);
+    background-color: rgb(var(--surface-card-soft) / 0.72);
+    box-shadow: 0 24px 56px -42px rgba(2, 6, 23, 0.72);
+  }
+
+  .home-panel-strong {
+    border: 1px solid rgb(var(--border-strong) / 0.34);
+    border-radius: 1.5rem;
+    background:
+      radial-gradient(circle at top left, rgba(0, 229, 255, 0.08), transparent 32%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98));
+    color: white;
+    box-shadow: var(--shadow-card-strong);
+  }
+
+  .home-chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgb(var(--border-subtle) / 0.9);
+    border-radius: 9999px;
+    background-color: rgb(var(--surface-card-soft) / 0.86);
+    color: rgb(var(--text-secondary) / 1);
+    padding: 0.425rem 0.875rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .dark .home-chip {
+    border-color: rgb(var(--border-subtle) / 0.74);
+    background-color: rgb(var(--surface-card-soft) / 0.68);
+    color: rgb(var(--text-secondary) / 1);
+  }
+
+  .home-icon-badge {
+    display: inline-flex;
+    height: 2.75rem;
+    width: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 229, 255, 0.18);
+    border-radius: 1rem;
+    background-color: rgba(0, 229, 255, 0.08);
+    color: var(--brand-cyan);
+  }
+
+  .home-number-badge {
+    display: inline-flex;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 229, 255, 0.18);
+    border-radius: 1rem;
+    background-color: rgba(0, 229, 255, 0.08);
+    color: var(--brand-cyan);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
   .btn-primary {
     @apply px-6 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-cyan dark:to-cyan text-white dark:text-background font-bold hover:scale-105 transition-transform duration-300 shadow-lg shadow-indigo-500/20 dark:shadow-[0_0_15px_rgba(0,229,255,0.4)];
   }
