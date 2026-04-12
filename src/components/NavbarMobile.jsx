@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { FlaskConical, Home, Layers3, Menu, Moon, PhoneCall, Sun, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import BrandWordmark from './BrandWordmark';
 
 const joinClasses = (...classes) => classes.filter(Boolean).join(' ');
 
@@ -86,7 +87,7 @@ const NavbarMobile = ({
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 md:hidden" dir={isAr ? 'rtl' : 'ltr'}>
+      <header className="fixed inset-x-0 top-0 z-50 lg:hidden" dir={isAr ? 'rtl' : 'ltr'}>
         <div className={joinClasses('transition-all duration-300', topBarSurfaceClass)}>
           <div className="content-shell">
             <div className="flex h-16 items-center justify-between gap-3">
@@ -98,10 +99,7 @@ const NavbarMobile = ({
                     <img src="/rumuze-symbol-112.webp" width="28" height="28" alt="Rumuze Symbol" className="h-7 w-7" />
                   </picture>
                 </div>
-                <picture className="h-5 min-w-0">
-                  <source srcSet="/rumuze-text.avif" type="image/avif" />
-                  <img src="/rumuze-text.png" alt="RUMUZE" className="h-full w-auto object-contain dark:invert" />
-                </picture>
+                <BrandWordmark />
               </Link>
 
               <button
@@ -119,7 +117,7 @@ const NavbarMobile = ({
       </header>
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-[70] border-t border-slate-200/70 bg-[rgb(var(--surface-section)/0.88)] backdrop-blur-xl dark:border-white/10 dark:bg-[rgb(var(--surface-section)/0.84)] md:hidden"
+        className="fixed inset-x-0 bottom-0 z-[70] border-t border-slate-200/70 bg-[rgb(var(--surface-section)/0.88)] backdrop-blur-xl dark:border-white/10 dark:bg-[rgb(var(--surface-section)/0.84)] lg:hidden"
         style={{
           paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.75rem)',
         }}
@@ -155,7 +153,7 @@ const NavbarMobile = ({
 
       {isOpen ? (
         <div
-          className="fixed inset-0 z-[11000] h-[100dvh] overflow-y-auto bg-white/88 backdrop-blur-2xl dark:bg-slate-950/88 md:hidden"
+          className="fixed inset-0 z-[11000] h-[100dvh] overflow-y-auto bg-white/88 backdrop-blur-2xl dark:bg-slate-950/88 lg:hidden"
           style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}
         >
           <div className="flex min-h-[100dvh] flex-col">
@@ -168,10 +166,7 @@ const NavbarMobile = ({
                     <img src="/rumuze-symbol-112.webp" width="28" height="28" alt="Rumuze Symbol" className="h-7 w-7" />
                   </picture>
                 </div>
-                <picture className="h-5 min-w-0">
-                  <source srcSet="/rumuze-text.avif" type="image/avif" />
-                  <img src="/rumuze-text.png" alt="RUMUZE" className="h-full w-auto object-contain dark:invert" />
-                </picture>
+                <BrandWordmark />
               </div>
 
               <button

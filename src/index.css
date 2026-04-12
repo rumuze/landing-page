@@ -714,7 +714,7 @@ h4 {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .main-mobile-nav-clearance {
     padding-bottom: 0;
   }

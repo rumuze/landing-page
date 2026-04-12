@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/theme-core';
 import { hasLocalePrefix, localizePath } from '../seo/linking';
+import BrandWordmark from './BrandWordmark';
 import ThemeToggle from './ThemeToggle';
 import NavbarMobile from './NavbarMobile';
 import NotificationBell from './NotificationBell';
 
-const MOBILE_MEDIA_QUERY = '(max-width: 767px)';
+const MOBILE_MEDIA_QUERY = '(max-width: 1023px)';
 const SCROLL_THRESHOLD = 18;
 
 const joinClasses = (...classes) => classes.filter(Boolean).join(' ');
@@ -221,14 +222,7 @@ const Navbar = () => {
                     </picture>
                   </div>
 
-                  <picture className="flex h-5 items-center">
-                    <source srcSet="/rumuze-text.avif" type="image/avif" />
-                    <img
-                      src="/rumuze-text.png"
-                      alt="RUMUZE"
-                      className="h-full w-auto object-contain opacity-95 transition-opacity duration-300 group-hover:opacity-100 dark:invert"
-                    />
-                  </picture>
+                  <BrandWordmark className="opacity-95 group-hover:opacity-100" />
                 </Link>
 
                 <div className="flex min-w-0 items-center justify-center gap-1.5 justify-self-center xl:gap-2">
