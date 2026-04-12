@@ -46,10 +46,10 @@ const LeadCaptureModal = ({ isOpen, intent, source, onClose }) => {
       >
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white/95 px-5 py-4 backdrop-blur dark:border-white/10 dark:bg-slate-950/95">
           <div>
-            <p className="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
+            <p className="type-label text-slate-500 dark:text-slate-400">
               Rumuze
             </p>
-            <h2 className="text-base font-semibold text-slate-950 dark:text-white">
+            <h2 className="type-h4 text-slate-950 dark:text-white">
               {isAr ? "طلب مؤهل" : "Qualified request"}
             </h2>
           </div>

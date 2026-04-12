@@ -200,11 +200,11 @@ const SectionShell = ({ children, className = "", tone = "default" }) => (
 const SectionHeading = ({ eyebrow, title, intro, isAr, className = "" }) => (
   <Reveal className={joinClasses(isAr ? "text-right" : "text-left", className)}>
     <p className="eyebrow-label mb-3">{eyebrow}</p>
-    <h2 className="copy-primary max-w-3xl text-[clamp(2rem,4vw,3rem)] font-semibold leading-[1.08] tracking-tight dark:text-white">
+    <h2 className="type-h2 copy-primary max-w-3xl dark:text-white">
       {title}
     </h2>
     {intro ? (
-      <p className="copy-secondary mt-4 max-w-[44rem] text-[15px] leading-8 md:text-[17px]">
+      <p className="type-body-lg copy-secondary mt-4 max-w-[44rem]">
         {intro}
       </p>
     ) : null}
@@ -225,8 +225,8 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture, signalItems, systemSteps }
         <Reveal delay={120}>
           <h1
             className={joinClasses(
-              "mt-6 text-[clamp(3rem,7.2vw,4.75rem)] font-semibold tracking-tight text-slate-950 dark:text-white",
-              isAr ? "max-w-[13ch] leading-[1.14]" : "max-w-[11ch] leading-[0.96]",
+              "type-h1 mt-6 text-slate-950 dark:text-white",
+              isAr ? "max-w-[13ch]" : "max-w-[11ch]",
             )}
           >
             {copy.headline}
@@ -234,13 +234,13 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture, signalItems, systemSteps }
         </Reveal>
 
         <Reveal delay={190}>
-          <p className="copy-secondary mt-6 max-w-[44rem] text-[1.0625rem] leading-8 dark:text-slate-300 md:text-[1.125rem]">
+          <p className="type-body-lg copy-secondary mt-6 max-w-[44rem] dark:text-slate-300">
             {copy.subheadline}
           </p>
         </Reveal>
 
         <Reveal delay={260}>
-          <p className="copy-muted mt-4 max-w-xl text-sm leading-7 dark:text-slate-400">
+          <p className="type-small copy-muted mt-4 max-w-xl dark:text-slate-400">
             {copy.microcopy}
           </p>
         </Reveal>
@@ -248,14 +248,14 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture, signalItems, systemSteps }
         <Reveal delay={320}>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <ConversionButton
-              className="min-h-[3.5rem] w-full px-7 text-sm shadow-[0_20px_44px_-24px_rgba(0,229,255,0.75)] sm:w-auto"
+              className="min-h-[3.5rem] w-full px-7 shadow-[0_20px_44px_-24px_rgba(0,229,255,0.75)] sm:w-auto"
               onClick={() => onOpenLeadCapture("discovery", "hero-primary")}
             >
               {copy.primaryCta}
               <ArrowRight size={16} />
             </ConversionButton>
             <ConversionButton
-              className="min-h-[3.5rem] w-full px-7 text-sm sm:w-auto"
+              className="min-h-[3.5rem] w-full px-7 sm:w-auto"
               onClick={() => onOpenLeadCapture("audit", "hero-secondary")}
               variant="secondary"
             >
@@ -268,12 +268,12 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture, signalItems, systemSteps }
           <div
             className={joinClasses(
               softPanelClass,
-              "mt-7 flex items-start gap-3 px-4 py-4 text-sm text-slate-600 dark:text-slate-300",
+              "mt-7 flex items-start gap-3 px-4 py-4 text-slate-600 dark:text-slate-300",
               isAr ? "flex-row-reverse text-right" : "",
             )}
           >
             <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-cyan" />
-            <p>{copy.reviewNote}</p>
+            <p className="type-small">{copy.reviewNote}</p>
           </div>
         </Reveal>
       </div>
@@ -304,11 +304,11 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture, signalItems, systemSteps }
               />
             </div>
 
-            <h2 className="copy-primary mt-5 max-w-[18ch] text-[1.5rem] font-semibold leading-[1.15] dark:text-white">
+            <h2 className="type-h3 copy-primary mt-5 max-w-[18ch] dark:text-white">
               {copy.supportTitle}
             </h2>
 
-            <p className="copy-secondary mt-4 max-w-xl text-sm leading-7 dark:text-slate-300">
+            <p className="type-body copy-secondary mt-4 max-w-xl dark:text-slate-300">
               {copy.supportBody}
             </p>
 
@@ -333,10 +333,10 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture, signalItems, systemSteps }
                       0{index + 1}
                     </span>
                     <div>
-                      <p className="copy-primary text-sm font-semibold dark:text-white">
+                      <p className="type-small copy-primary font-semibold dark:text-white">
                         {step.label}
                       </p>
-                      <p className="copy-secondary mt-1 text-sm leading-6 dark:text-slate-300">
+                      <p className="type-small copy-secondary mt-1 dark:text-slate-300">
                         {step.text}
                       </p>
                     </div>
@@ -357,10 +357,10 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture, signalItems, systemSteps }
             className={joinClasses(softPanelClass, "px-5 py-5")}
             delay={180 + index * 70}
           >
-            <p className="copy-muted text-xs font-semibold uppercase tracking-[0.16em]">
+            <p className="type-label copy-muted">
               {item.label}
             </p>
-            <p className="copy-primary mt-3 text-base font-medium leading-7 dark:text-white">
+            <p className="type-body copy-primary mt-3 font-medium dark:text-white">
               {item.value}
             </p>
           </Reveal>
@@ -390,11 +390,11 @@ const ProblemSection = ({ copy, isAr }) => {
           </div>
 
           <div className={joinClasses(darkPanelClass, "mt-8 p-5 md:p-6", isAr ? "text-right" : "text-left")}>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">
+            <p className="type-label text-cyan">
               {isAr ? "الأثر التجاري" : "Commercial impact"}
             </p>
-            <p className="mt-4 text-2xl font-semibold leading-tight text-white">{copy.impact}</p>
-            <p className="mt-4 text-sm leading-7 text-slate-300">
+            <p className="type-h3 mt-4 text-white">{copy.impact}</p>
+            <p className="type-body mt-4 text-slate-300">
               {isAr
                 ? "كل طبقة غير مترابطة تزيد الضوضاء داخل الـ pipeline وتدفع الفريق إلى عمل يدوي كان يفترض أن يقوم به النظام نفسه."
                 : "Every disconnected layer adds pipeline noise and forces the team into manual work that the system should already be handling."}
@@ -413,7 +413,7 @@ const ProblemSection = ({ copy, isAr }) => {
                 <span className={numberBadgeClass}>
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <p className="copy-secondary text-sm leading-7 dark:text-slate-300">{point}</p>
+                <p className="type-body copy-secondary dark:text-slate-300">{point}</p>
               </div>
             </Reveal>
           ))}
@@ -437,11 +437,11 @@ const ProofSection = ({ copy, isAr }) => (
               type="internal"
               typeLabel={isAr ? "معيار داخلي" : undefined}
             />
-            <span className="copy-muted text-xs uppercase tracking-[0.16em]">
+            <span className="type-label copy-muted">
               {isAr ? "سياسة الإثبات" : "Proof policy"}
             </span>
           </div>
-          <p className="copy-secondary mt-4 text-sm leading-7 dark:text-slate-300">
+          <p className="type-body copy-secondary mt-4 dark:text-slate-300">
             {copy.registryNote}
           </p>
         </div>
@@ -455,10 +455,10 @@ const ProofSection = ({ copy, isAr }) => (
             delay={140 + index * 80}
           >
             <div className="min-w-0">
-              <p className="copy-muted text-xs font-semibold uppercase tracking-[0.16em]">
+              <p className="type-label copy-muted">
                 {card.label}
               </p>
-              <h3 className="copy-primary mt-3 text-xl font-semibold leading-snug dark:text-white">
+              <h3 className="type-h4 copy-primary mt-3 dark:text-white">
                 {card.title}
               </h3>
             </div>
@@ -472,15 +472,15 @@ const ProofSection = ({ copy, isAr }) => (
               />
             </div>
 
-            <p className="copy-secondary mt-5 text-sm leading-7 dark:text-slate-300">
+            <p className="type-body copy-secondary mt-5 dark:text-slate-300">
               {card.summary}
             </p>
 
             <div className={joinClasses(softPanelClass, "mt-6 px-4 py-4")}>
-              <p className="copy-muted text-[11px] font-semibold uppercase tracking-[0.16em]">
+              <p className="type-label copy-muted">
                 {isAr ? "النتيجة" : "Outcome"}
               </p>
-              <p className="copy-primary mt-2 text-sm font-medium leading-7 dark:text-white">
+              <p className="type-body copy-primary mt-2 font-medium dark:text-white">
                 {card.outcome}
               </p>
             </div>
@@ -505,21 +505,21 @@ const SolutionSection = ({ copy, isAr }) => (
               <span className={iconBadgeClass}>
                 <Icon size={20} />
               </span>
-              <span className="copy-muted text-xs font-semibold uppercase tracking-[0.16em]">
+              <span className="type-label copy-muted">
                 0{index + 1}
               </span>
             </div>
-            <h3 className="copy-primary mt-5 text-xl font-semibold dark:text-white">
+            <h3 className="type-h4 copy-primary mt-5 dark:text-white">
               {pillar.title}
             </h3>
-            <p className="copy-secondary mt-3 text-sm leading-7 dark:text-slate-300">
+            <p className="type-body copy-secondary mt-3 dark:text-slate-300">
               {pillar.description}
             </p>
             <ul className="mt-6 space-y-3">
               {pillar.points.map((point) => (
                 <li
                   key={point}
-                  className="copy-secondary flex items-start gap-3 text-sm leading-7 dark:text-slate-300"
+                  className="type-body copy-secondary flex items-start gap-3 dark:text-slate-300"
                 >
                   <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-cyan" />
                   <span>{point}</span>
@@ -551,39 +551,39 @@ const OffersSection = ({ copy, isAr, onOpenLeadCapture }) => (
               <span className={iconBadgeClass}>
                 <Icon size={20} />
               </span>
-              <span className="copy-muted text-xs font-semibold uppercase tracking-[0.16em]">
+              <span className="type-label copy-muted">
                 0{index + 1}
               </span>
             </div>
 
-            <h3 className="copy-primary mt-6 text-[1.75rem] font-semibold leading-[1.12] dark:text-white">
+            <h3 className="type-h3 copy-primary mt-6 dark:text-white">
               {offer.title}
             </h3>
 
-            <div className="copy-secondary mt-5 space-y-4 text-sm leading-7 dark:text-slate-300">
+            <div className="copy-secondary mt-5 space-y-4 dark:text-slate-300">
               <div>
-                <p className="copy-primary font-semibold dark:text-white">
+                <p className="type-small copy-primary font-semibold dark:text-white">
                   {isAr ? "مناسب لمن" : "Who it is for"}
                 </p>
-                <p>{offer.who}</p>
+                <p className="type-body mt-1">{offer.who}</p>
               </div>
               <div>
-                <p className="copy-primary font-semibold dark:text-white">
+                <p className="type-small copy-primary font-semibold dark:text-white">
                   {isAr ? "المشكلة" : "Problem"}
                 </p>
-                <p>{offer.problem}</p>
+                <p className="type-body mt-1">{offer.problem}</p>
               </div>
             </div>
 
             <div className={joinClasses(softPanelClass, "mt-6 px-4 py-4")}>
-              <p className="copy-muted text-[11px] font-semibold uppercase tracking-[0.16em]">
+              <p className="type-label copy-muted">
                 {isAr ? "المخرجات" : "Outputs"}
               </p>
               <div className="mt-3 space-y-2">
                 {offer.outputs.map((output) => (
                   <div
                     key={output}
-                    className="copy-secondary flex items-start gap-2 text-sm leading-6 dark:text-slate-300"
+                    className="type-small copy-secondary flex items-start gap-2 dark:text-slate-300"
                   >
                     <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan" />
                     <span>{output}</span>
@@ -593,16 +593,16 @@ const OffersSection = ({ copy, isAr, onOpenLeadCapture }) => (
             </div>
 
             <div className="mt-6">
-              <p className="copy-primary text-sm font-semibold dark:text-white">
+              <p className="type-small copy-primary font-semibold dark:text-white">
                 {isAr ? "النتيجة المتوقعة" : "Expected outcome"}
               </p>
-              <p className="copy-secondary mt-2 text-sm leading-7 dark:text-slate-300">
+              <p className="type-body copy-secondary mt-2 dark:text-slate-300">
                 {offer.outcome}
               </p>
             </div>
 
             <div className={joinClasses(softPanelClass, "mt-6 px-4 py-4")}>
-              <p className="copy-secondary text-sm leading-7 dark:text-slate-300">
+              <p className="type-body copy-secondary dark:text-slate-300">
                 {offer.proofLine}
               </p>
             </div>
@@ -648,7 +648,7 @@ const WhySection = ({ copy, isAr }) => (
               <span className={iconBadgeClass}>
                 <Icon size={18} />
               </span>
-              <p className="copy-secondary mt-4 text-sm leading-7 dark:text-slate-300">
+              <p className="type-body copy-secondary mt-4 dark:text-slate-300">
                 {point}
               </p>
             </Reveal>
@@ -670,10 +670,10 @@ const FinalCtaSection = ({ copy, isAr, onOpenLeadCapture }) => (
             type={copy.proof.badgeType}
             typeLabel={isAr ? "معيار داخلي" : undefined}
           />
-          <h2 className="mt-5 max-w-3xl text-[clamp(2rem,4vw,3rem)] font-semibold leading-[1.08] tracking-tight text-white">
+          <h2 className="type-h2 mt-5 max-w-3xl text-white">
             {copy.title}
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">{copy.body}</p>
+          <p className="type-body-lg mt-5 max-w-2xl text-slate-300">{copy.body}</p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <ConversionButton onClick={() => onOpenLeadCapture("discovery", "final-primary")}>
@@ -690,13 +690,13 @@ const FinalCtaSection = ({ copy, isAr, onOpenLeadCapture }) => (
         </div>
 
         <div className="rounded-[1.375rem] border border-white/10 bg-white/[0.05] p-5 md:p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan">
+          <p className="type-label text-cyan">
             {copy.proof.label}
           </p>
-          <p className="mt-4 text-base font-semibold text-white">{copy.proof.title}</p>
+          <p className="type-h4 mt-4 text-white">{copy.proof.title}</p>
           <div className="mt-5 space-y-3">
             {copy.proof.items.map((item) => (
-              <div key={item} className="flex items-start gap-3 text-sm leading-7 text-slate-300">
+              <div key={item} className="type-body flex items-start gap-3 text-slate-300">
                 <ShieldCheck className="mt-1 h-4 w-4 shrink-0 text-cyan" />
                 <span>{item}</span>
               </div>

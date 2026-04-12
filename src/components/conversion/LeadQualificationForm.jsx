@@ -16,9 +16,9 @@ import ConversionButton from "./ConversionButton";
 const fieldWrapper =
   "space-y-2";
 const labelClass =
-  "text-sm font-medium text-slate-800 dark:text-slate-100";
+  "type-small font-medium text-slate-800 dark:text-slate-100";
 const inputClass =
-  "w-full rounded-lg border border-slate-300 bg-white px-3 py-3 text-sm text-slate-950 outline-none transition-colors focus:border-cyan dark:border-white/15 dark:bg-slate-950 dark:text-white";
+  "w-full rounded-lg border border-slate-300 bg-white px-3 py-3 text-[15px] leading-6 tracking-[-0.01em] text-slate-950 outline-none transition-colors focus:border-cyan dark:border-white/15 dark:bg-slate-950 dark:text-white";
 const textareaClass = `${inputClass} min-h-[132px] resize-y`;
 
 const selectInputClasses = (hasError) =>
@@ -28,7 +28,7 @@ const textInputClasses = (hasError) =>
   `${inputClass} ${hasError ? "border-red-500 focus:border-red-500" : ""}`;
 
 const badgeClass =
-  "inline-flex items-center rounded-md border border-slate-200 bg-slate-100 px-2 py-1 text-[11px] font-semibold uppercase text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300";
+  "type-label inline-flex items-center rounded-md border border-slate-200 bg-slate-100 px-2 py-1 text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300";
 
 const LeadQualificationForm = ({
   intent = "discovery",
@@ -137,10 +137,10 @@ const LeadQualificationForm = ({
           <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-full bg-green-500/15 text-green-600 dark:text-green-300">
             <CheckCircle2 size={28} />
           </div>
-          <h3 className="text-2xl font-semibold text-slate-950 dark:text-white">
+          <h3 className="type-h3 text-slate-950 dark:text-white">
             {copy.confirmationTitle}
           </h3>
-          <p className="mt-3 max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+          <p className="type-body mt-3 max-w-xl text-slate-600 dark:text-slate-300">
             {copy.confirmationBody}
           </p>
           {!isModal ? (
@@ -164,19 +164,19 @@ const LeadQualificationForm = ({
         <div className="space-y-5">
           <span className={badgeClass}>{copy.pageEyebrow}</span>
           <div>
-            <h3 className="text-2xl font-semibold text-slate-950 dark:text-white md:text-3xl">
+            <h3 className="type-h3 text-slate-950 dark:text-white">
               {intentConfig.title}
             </h3>
-            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            <p className="type-body mt-3 text-slate-600 dark:text-slate-300">
               {intentConfig.description}
             </p>
           </div>
 
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-white/5">
-            <p className="text-sm font-medium text-slate-950 dark:text-white">
+            <p className="type-small font-medium text-slate-950 dark:text-white">
               {copy.pageIntro}
             </p>
-            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            <p className="type-body mt-3 text-slate-600 dark:text-slate-300">
               {copy.reviewNote}
             </p>
           </div>
@@ -184,7 +184,7 @@ const LeadQualificationForm = ({
 
         <form className="space-y-6" noValidate onSubmit={handleSubmit}>
           {errors.form ? (
-            <div className="rounded-lg border border-red-500/30 bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-500/10 dark:text-red-200">
+            <div className="type-small rounded-lg border border-red-500/30 bg-red-50 px-4 py-3 text-red-700 dark:bg-red-500/10 dark:text-red-200">
               {errors.form}
             </div>
           ) : null}
@@ -338,7 +338,7 @@ const LeadQualificationForm = ({
           </div>
 
           <div className="flex flex-col gap-3 border-t border-slate-200 pt-5 dark:border-white/10 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs leading-6 text-slate-500 dark:text-slate-400">
+            <p className="type-small text-slate-500 dark:text-slate-400">
               {copy.reviewNote}
             </p>
             <ConversionButton className="sm:min-w-[220px]" disabled={isSubmitting} type="submit">
@@ -364,10 +364,10 @@ const LeadQualificationForm = ({
 const FieldMeta = ({ requiredLabel, optionalLabel, helper, error, fieldMessages }) => (
   <>
     {helper ? (
-      <p className="text-xs leading-6 text-slate-500 dark:text-slate-400">{helper}</p>
+      <p className="type-small text-slate-500 dark:text-slate-400">{helper}</p>
     ) : null}
     {error ? (
-      <p className="text-xs text-red-600 dark:text-red-300">
+      <p className="type-small text-red-600 dark:text-red-300">
         {error === "email"
           ? fieldMessages.invalidEmail
           : error === "url"
@@ -376,7 +376,7 @@ const FieldMeta = ({ requiredLabel, optionalLabel, helper, error, fieldMessages 
       </p>
     ) : null}
     {!error && (requiredLabel || optionalLabel) ? (
-      <p className="text-[11px] uppercase text-slate-400 dark:text-slate-500">
+      <p className="type-label text-slate-400 dark:text-slate-500">
         {requiredLabel || optionalLabel}
       </p>
     ) : null}

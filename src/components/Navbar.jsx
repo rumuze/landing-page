@@ -156,6 +156,17 @@ const Navbar = () => {
     'text-slate-900 hover:border-slate-300/80 hover:text-slate-950 dark:text-white dark:hover:border-white/20'
   );
 
+  const langMenuPanelClass =
+    'absolute top-full mt-2 min-w-[180px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white/96 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.34)] backdrop-blur-xl dark:border-[rgb(var(--border-subtle)/0.82)] dark:bg-[rgb(var(--surface-card-strong)/0.98)] dark:shadow-[0_28px_70px_-38px_rgba(2,6,23,0.92)]';
+
+  const getLangOptionClass = (isActiveLanguage) =>
+    joinClasses(
+      'flex w-full items-center gap-3 px-4 py-3 text-sm font-medium transition-colors duration-300',
+      isActiveLanguage
+        ? 'bg-slate-100 text-slate-950 dark:bg-[rgb(var(--surface-card-soft)/0.92)] dark:text-white'
+        : 'text-slate-700 hover:bg-slate-100/90 hover:text-slate-950 dark:text-slate-200 dark:hover:bg-[rgb(var(--surface-card-soft)/0.78)] dark:hover:text-white'
+    );
+
   const getDesktopLinkClass = (link) => {
     const active = isActive(link.href);
 
@@ -264,7 +275,7 @@ const Navbar = () => {
                     {showLangMenu ? (
                       <div
                         className={joinClasses(
-                          'absolute top-full mt-2 min-w-[180px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white/96 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.34)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/96',
+                          langMenuPanelClass,
                           isAr ? 'left-0' : 'right-0'
                         )}
                       >
@@ -273,10 +284,7 @@ const Navbar = () => {
                             key={lang.code}
                             onClick={() => changeLanguage(lang.code)}
                             className={joinClasses(
-                              'flex w-full items-center gap-3 px-4 py-3 text-sm font-medium transition-colors duration-300 hover:bg-slate-100/90 dark:hover:bg-white/6',
-                              i18n.language === lang.code
-                                ? 'bg-slate-100 text-slate-950 dark:bg-white/8 dark:text-white'
-                                : 'text-slate-700 dark:text-slate-200',
+                              getLangOptionClass(i18n.language === lang.code),
                               isAr ? 'flex-row-reverse text-right' : 'text-left'
                             )}
                             type="button"

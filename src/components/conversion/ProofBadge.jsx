@@ -48,7 +48,7 @@ const ProofBadge = ({
   return (
     <span
       className={joinClasses(
-        "inline-flex max-w-full min-w-0 shrink-0 flex-wrap items-center gap-x-2 gap-y-1 rounded-full border px-3 py-1.5 text-[11px] font-semibold leading-4 tracking-[0.1em]",
+        "inline-flex max-w-full min-w-0 shrink-0 flex-wrap items-center gap-x-2 gap-y-1 rounded-full border px-3 py-1.5 text-[12px] font-semibold leading-[1.35] tracking-[0.12em]",
         typeEntry.className,
         className,
       )}

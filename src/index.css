@@ -31,21 +31,78 @@
   --shadow-card-soft: 0 18px 42px -34px rgba(15, 23, 42, 0.16);
   --shadow-card-strong: 0 30px 75px -42px rgba(2, 6, 23, 0.78);
 
-  /* Latin System Font Stack (similar to Inter) */
+  /* Latin System Font Stack */
   --font-system-sans:
-    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-  /* Display Font Stack (similar to Montserrat) */
+  /* Display Font Stack */
   --font-system-display:
-    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
 
-  /* Arabic System Font Stack (similar to Cairo) */
+  /* Arabic System Font Stack */
   --font-system-arabic:
     "Segoe UI Arabic", Tahoma, "Noto Sans Arabic", "Droid Arabic Naskh", Arial,
     sans-serif;
+
+  --font-family-body: "Inter", var(--font-system-sans);
+  --font-family-heading: "Sora", var(--font-system-display);
+  --font-family-ui: "Inter", var(--font-system-sans);
+  --font-family-arabic: "Cairo", var(--font-system-arabic);
+
+  --type-h1-size: 40px;
+  --type-h1-leading: 1.02;
+  --type-h1-tracking: -0.055em;
+  --type-h2-size: 32px;
+  --type-h2-leading: 1.1;
+  --type-h2-tracking: -0.04em;
+  --type-h3-size: 24px;
+  --type-h3-leading: 1.16;
+  --type-h3-tracking: -0.03em;
+  --type-h4-size: 20px;
+  --type-h4-leading: 1.24;
+  --type-h4-tracking: -0.02em;
+  --type-body-lg-size: 18px;
+  --type-body-lg-leading: 1.65;
+  --type-body-lg-tracking: -0.012em;
+  --type-body-size: 16px;
+  --type-body-leading: 1.625;
+  --type-body-tracking: -0.01em;
+  --type-small-size: 14px;
+  --type-small-leading: 1.55;
+  --type-small-tracking: -0.006em;
+  --type-label-size: 12px;
+  --type-label-leading: 1.35;
+  --type-label-tracking: 0.14em;
+  --type-button-size: 15px;
+  --type-button-leading: 1.2;
+  --type-button-tracking: -0.01em;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --type-h1-size: 56px;
+    --type-h2-size: 40px;
+    --type-h3-size: 28px;
+    --type-h4-size: 22px;
+    --type-body-lg-size: 19px;
+    --type-body-size: 17px;
+    --type-small-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --type-h1-size: 72px;
+    --type-h2-size: 48px;
+    --type-h3-size: 32px;
+    --type-h4-size: 24px;
+    --type-body-lg-size: 20px;
+    --type-body-size: 18px;
+    --type-button-size: 16px;
+  }
 }
 
 .dark {
@@ -69,23 +126,28 @@
 
 /* Pre-load state: Use system fonts immediately */
 html {
-  font-family: "Inter", var(--font-system-sans);
+  font-family: var(--font-family-body);
   background-color: rgb(var(--surface-page) / 1);
   color: rgb(var(--text-primary) / 1);
 }
 [dir="rtl"] {
-  font-family: "Cairo", var(--font-system-arabic);
+  font-family: var(--font-family-arabic);
 }
 h1,
 h2,
 h3,
-h4 {
-  font-family: "Montserrat", var(--font-system-display);
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
 }
 [dir="rtl"] h1,
 [dir="rtl"] h2,
-[dir="rtl"] h3 {
-  font-family: "Cairo", var(--font-system-arabic);
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--font-family-arabic);
 }
 
 @tailwind base;
@@ -108,8 +170,12 @@ h4 {
     color: rgb(var(--text-primary) / 1);
     @apply font-sans antialiased overflow-x-hidden;
     scroll-behavior: smooth;
-    letter-spacing: -0.015em; /* Premium tight tracking */
-    line-height: 1.6; /* Editorial readability */
+    font-family: var(--font-family-body);
+    font-feature-settings: "cv11" 1, "ss01" 1;
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.01em;
+    line-height: 1.6;
   }
 
   /* Premium Glow Effect for Glass Cards */
@@ -124,20 +190,23 @@ h4 {
   }
 
   [dir="rtl"] body {
-    font-family: "Cairo", sans-serif;
+    font-family: var(--font-family-arabic);
   }
 
   [dir="rtl"] h1,
   [dir="rtl"] h2,
-  [dir="rtl"] h3 {
-    line-height: 1.25;
+  [dir="rtl"] h3,
+  [dir="rtl"] h4 {
+    line-height: 1.2;
     letter-spacing: 0;
   }
 
   h1,
   h2,
   h3,
-  h4 {
+  h4,
+  h5,
+  h6 {
     @apply font-display;
   }
 
@@ -217,7 +286,112 @@ h4 {
   }
 
   .eyebrow-label {
-    @apply text-xs font-semibold uppercase tracking-[0.18em] text-cyan;
+    color: var(--brand-cyan);
+    font-family: var(--font-family-ui);
+    font-size: var(--type-label-size);
+    font-weight: 600;
+    letter-spacing: var(--type-label-tracking);
+    line-height: var(--type-label-leading);
+    text-transform: uppercase;
+  }
+
+  .type-h1 {
+    font-family: var(--font-family-heading);
+    font-size: var(--type-h1-size);
+    font-weight: 700;
+    letter-spacing: var(--type-h1-tracking);
+    line-height: var(--type-h1-leading);
+  }
+
+  .type-h2 {
+    font-family: var(--font-family-heading);
+    font-size: var(--type-h2-size);
+    font-weight: 600;
+    letter-spacing: var(--type-h2-tracking);
+    line-height: var(--type-h2-leading);
+  }
+
+  .type-h3 {
+    font-family: var(--font-family-heading);
+    font-size: var(--type-h3-size);
+    font-weight: 600;
+    letter-spacing: var(--type-h3-tracking);
+    line-height: var(--type-h3-leading);
+  }
+
+  .type-h4 {
+    font-family: var(--font-family-heading);
+    font-size: var(--type-h4-size);
+    font-weight: 600;
+    letter-spacing: var(--type-h4-tracking);
+    line-height: var(--type-h4-leading);
+  }
+
+  .type-body-lg {
+    font-family: var(--font-family-body);
+    font-size: var(--type-body-lg-size);
+    font-weight: 400;
+    letter-spacing: var(--type-body-lg-tracking);
+    line-height: var(--type-body-lg-leading);
+  }
+
+  .type-body {
+    font-family: var(--font-family-body);
+    font-size: var(--type-body-size);
+    font-weight: 400;
+    letter-spacing: var(--type-body-tracking);
+    line-height: var(--type-body-leading);
+  }
+
+  .type-small {
+    font-family: var(--font-family-ui);
+    font-size: var(--type-small-size);
+    font-weight: 400;
+    letter-spacing: var(--type-small-tracking);
+    line-height: var(--type-small-leading);
+  }
+
+  .type-label {
+    font-family: var(--font-family-ui);
+    font-size: var(--type-label-size);
+    font-weight: 600;
+    letter-spacing: var(--type-label-tracking);
+    line-height: var(--type-label-leading);
+    text-transform: uppercase;
+  }
+
+  .type-button {
+    font-family: var(--font-family-ui);
+    font-size: var(--type-button-size);
+    font-weight: 600;
+    letter-spacing: var(--type-button-tracking);
+    line-height: var(--type-button-leading);
+  }
+
+  [dir="rtl"] .eyebrow-label,
+  [dir="rtl"] .type-h1,
+  [dir="rtl"] .type-h2,
+  [dir="rtl"] .type-h3,
+  [dir="rtl"] .type-h4,
+  [dir="rtl"] .type-body-lg,
+  [dir="rtl"] .type-body,
+  [dir="rtl"] .type-small,
+  [dir="rtl"] .type-label,
+  [dir="rtl"] .type-button {
+    letter-spacing: 0;
+  }
+
+  [dir="rtl"] .type-h1 {
+    line-height: 1.14;
+  }
+
+  [dir="rtl"] .type-h2 {
+    line-height: 1.16;
+  }
+
+  [dir="rtl"] .type-h3,
+  [dir="rtl"] .type-h4 {
+    line-height: 1.22;
   }
 
   .home-panel {
@@ -266,9 +440,11 @@ h4 {
     background-color: rgb(var(--surface-card-soft) / 0.86);
     color: rgb(var(--text-secondary) / 1);
     padding: 0.425rem 0.875rem;
-    font-size: 0.7rem;
+    font-family: var(--font-family-ui);
+    font-size: var(--type-label-size);
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: var(--type-label-tracking);
+    line-height: var(--type-label-leading);
     text-transform: uppercase;
   }
 
@@ -300,9 +476,11 @@ h4 {
     border-radius: 1rem;
     background-color: rgba(0, 229, 255, 0.08);
     color: var(--brand-cyan);
-    font-size: 0.75rem;
+    font-family: var(--font-family-ui);
+    font-size: var(--type-label-size);
     font-weight: 700;
     letter-spacing: 0.08em;
+    line-height: var(--type-label-leading);
   }
 
   .btn-primary {
