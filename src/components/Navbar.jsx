@@ -114,7 +114,8 @@ const Navbar = () => {
     const currentLocale = hasLocalePrefix(currentPath, 'ar') ? 'ar' : 'en';
     const newPath = currentLocale === targetLocale ? currentPath : localizePath(currentPath, targetLocale);
 
-    // Sync preferences explicitly first to prevent redirect loops when navigating to /
+    // Save language preference in our independent redirection key to prevent race conditions
+    localStorage.setItem('i18n_lang_pref', lng);
     i18n.changeLanguage(lng);
     localStorage.setItem('i18nextLng', lng);
 

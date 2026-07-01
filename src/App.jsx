@@ -124,15 +124,23 @@ function AppContent() {
 
   // Redirection logic to default to Arabic only if landing on the root English URL
   useEffect(() => {
-    console.log('[DEBUG-REDIRECT] Path:', location.pathname, 'i18nextLng:', localStorage.getItem('i18nextLng'), 'i18n.language:', i18n.language);
     if (location.pathname === '/') {
-      const preferredLng = localStorage.getItem('i18nextLng');
+      const preferredLng = localStorage.getItem('i18n_lang_pref');
       if (preferredLng !== 'en') {
-        console.log('[DEBUG-REDIRECT] Redirecting to /ar because preferredLng is:', preferredLng);
         navigate('/ar', { replace: true });
       }
     }
-  }, [location.pathname, navigate, i18n.language]);
+  }, [location.pathname, navigate]);
+
+  // Sync the independent preference key based on the route the user is visiting
+  useEffect(() => {
+    const isPathAr = hasLocalePrefix(location.pathname, 'ar');
+    if (isPathAr) {
+      localStorage.setItem('i18n_lang_pref', 'ar');
+    } else if (location.pathname !== '/' && !location.pathname.startsWith('/admin')) {
+      localStorage.setItem('i18n_lang_pref', 'en');
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
