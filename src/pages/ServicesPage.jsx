@@ -69,7 +69,7 @@ const ServicesPage = () => {
   return (
     <div
       ref={containerRef}
-      className={`surface-page tech-grid min-h-screen bg-slate-50 dark:bg-[#000B18] overflow-hidden ${isAr ? "rtl" : "ltr"}`}
+      className={`surface-page tech-grid min-h-screen bg-slate-50 dark:bg-[#06150f] overflow-hidden ${isAr ? "rtl" : "ltr"}`}
     >
       <SEO path={isAr ? "/ar/services" : "/services"} />
 
@@ -244,7 +244,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Bilingual High-Impact CTA */}
-      <section className="py-32 px-4 text-center bg-gradient-to-br from-slate-50 to-white dark:from-[#000B18] dark:to-slate-900 relative overflow-hidden">
+      <section className="py-32 px-4 text-center bg-gradient-to-br from-slate-50 to-white dark:from-[#06150f] dark:to-slate-900 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan via-purple to-cyan"></div>
 
         <div className="max-w-4xl mx-auto relative z-10">

@@ -32,7 +32,7 @@ const QR_DEFAULTS = {
 const QrGenerator = ({ isAr }) => {
   const [qrCode, setQrCode] = useState(null);
   const [currentUrl, setCurrentUrl] = useState('');
-  const [dotColor, setDotColor] = useState('#000B18');
+  const [dotColor, setDotColor] = useState('#06150f');
   const [bgColor, setBgColor] = useState('#ffffff');
   const qrInstanceRef = useRef(null);
 

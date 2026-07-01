@@ -22,7 +22,7 @@ const LoadingSpinner = ({ fullScreen = false }) => {
     <div 
       className={`flex items-center justify-center transition-colors duration-300 ${
         fullScreen 
-        ? 'fixed inset-0 z-[9999] bg-white dark:bg-[#000B18] tech-grid' 
+        ? 'fixed inset-0 z-[9999] bg-white dark:bg-[#06150f] tech-grid' 
         : 'w-full h-full'
       }`}
       role="alert"

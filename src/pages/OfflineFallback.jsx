@@ -4,7 +4,7 @@ import { WifiOff, RefreshCcw } from 'lucide-react';
 
 const OfflineFallback = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#000B18] px-4 text-center text-white">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[#06150f] px-4 text-center text-white">
       <Motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
