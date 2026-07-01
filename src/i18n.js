@@ -20,15 +20,14 @@ i18n
             ar: { translation: arTranslations },
         },
         fallbackLng: 'ar',
+        supportedLngs: ['en', 'ar'],
         interpolation: {
             escapeValue: false,
         },
         detection: {
-            // Order: check localStorage first, then navigator (which we biased), then others
             order: ['localStorage', 'navigator', 'htmlTag', 'cookie'],
             lookupLocalStorage: 'i18nextLng',
             caches: ['localStorage'],
-            checkWhitelist: true,
         },
     });
 

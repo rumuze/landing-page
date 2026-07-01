@@ -124,13 +124,15 @@ function AppContent() {
 
   // Redirection logic to default to Arabic only if landing on the root English URL
   useEffect(() => {
+    console.log('[DEBUG-REDIRECT] Path:', location.pathname, 'i18nextLng:', localStorage.getItem('i18nextLng'), 'i18n.language:', i18n.language);
     if (location.pathname === '/') {
       const preferredLng = localStorage.getItem('i18nextLng');
       if (preferredLng !== 'en') {
+        console.log('[DEBUG-REDIRECT] Redirecting to /ar because preferredLng is:', preferredLng);
         navigate('/ar', { replace: true });
       }
     }
-  }, [location.pathname, navigate]);
+  }, [location.pathname, navigate, i18n.language]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
