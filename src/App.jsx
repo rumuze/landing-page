@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
@@ -17,7 +17,7 @@ import CustomCursor from './components/CustomCursor';
 import AuthFloatingButton from './components/AuthFloatingButton';
 import ProtectedRoute from './components/ProtectedRoute';
 import VisitTracker from './components/VisitTracker';
-import { hasLocalePrefix } from './seo/linking';
+import { hasLocalePrefix, localizePath } from './seo/linking';
 import { useTheme } from './context/theme-core';
 import {
   clearChunkRecoveryAttempt,
@@ -113,6 +113,7 @@ function AppContent() {
   const { i18n } = useTranslation();
   const { theme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
   const isAr = i18n.language === 'ar';
   const isAdminRoute =
     location.pathname.startsWith("/admin") ||
@@ -120,6 +121,18 @@ function AppContent() {
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Redirection logic to default to Arabic if no English preference exists
+  useEffect(() => {
+    const isPathAr = hasLocalePrefix(location.pathname, 'ar');
+    if (!isPathAr) {
+      const preferredLng = localStorage.getItem('i18nextLng');
+      if (preferredLng !== 'en') {
+        const arPath = localizePath(location.pathname, 'ar');
+        navigate(arPath, { replace: true });
+      }
+    }
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {

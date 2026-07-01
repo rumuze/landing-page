@@ -19,7 +19,7 @@ i18n
             en: { translation: enTranslations },
             ar: { translation: arTranslations },
         },
-        fallbackLng: 'en',
+        fallbackLng: 'ar',
         interpolation: {
             escapeValue: false,
         },
@@ -34,9 +34,7 @@ i18n
 
 // Handle initial detection bias if no localStorage is set
 if (!localStorage.getItem('i18nextLng')) {
-    if (isInitialArabicPreferred()) {
-        i18n.changeLanguage('ar');
-    }
+    i18n.changeLanguage('ar');
 }
 
 
