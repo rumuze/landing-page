@@ -122,14 +122,12 @@ function AppContent() {
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Redirection logic to default to Arabic if no English preference exists
+  // Redirection logic to default to Arabic only if landing on the root English URL
   useEffect(() => {
-    const isPathAr = hasLocalePrefix(location.pathname, 'ar');
-    if (!isPathAr) {
+    if (location.pathname === '/') {
       const preferredLng = localStorage.getItem('i18nextLng');
       if (preferredLng !== 'en') {
-        const arPath = localizePath(location.pathname, 'ar');
-        navigate(arPath, { replace: true });
+        navigate('/ar', { replace: true });
       }
     }
   }, [location.pathname, navigate]);
