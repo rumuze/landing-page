@@ -1,0 +1,8 @@
+{
+  "name": "Rumuze",
+  "description": "Enterprise software engineering company developing multi-tenant SaaS platforms, ERP systems, CRM solutions, and digital marketing infrastructure.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

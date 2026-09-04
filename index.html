@@ -48,7 +48,7 @@
   <meta name="twitter:image" content="https://www.rumuze.com/og-image-en.png?v=2026-02">
   <meta name="twitter:image:alt" content="Rumuze - Enterprise Software Engineering">
   
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://images.unsplash.com data:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; img-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https: wss: ws: data: blob:;">
   
 
 
@@ -63,9 +63,6 @@
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;600;700&family=Montserrat:wght@700&display=swap"
     rel="stylesheet">
 
-  <!-- Local font preloads removed in favor of Google Fonts CDN to fix 404 errors -->
-  <!-- Preload main script bundle -->
-  <link rel="preload" href="/assets/index-Dl9YKp8T.js" as="script" crossorigin>
   <link rel="author" href="/humans.txt" />
 
   <!-- Zero-JS Loading Skeleton for Perfect CLS -->

@@ -8,6 +8,31 @@ export default defineConfig({
   base: '/',
   plugins: [
     react(),
+    {
+      name: 'api-contact-handler',
+      configureServer(server) {
+        server.middlewares.use('/api/contact', (req, res) => {
+          if (req.method === 'POST') {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true, message: 'Signal received' }));
+          } else {
+            res.statusCode = 405;
+            res.end(JSON.stringify({ error: 'Method not allowed' }));
+          }
+        });
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use('/api/contact', (req, res) => {
+          if (req.method === 'POST') {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true, message: 'Signal received' }));
+          } else {
+            res.statusCode = 405;
+            res.end(JSON.stringify({ error: 'Method not allowed' }));
+          }
+        });
+      },
+    },
     viteCompression({
       algorithm: 'gzip',
       ext: '.gz',
@@ -247,11 +272,19 @@ export default defineConfig({
     assetsInlineLimit: 4096, // Inline assets < 4KB as base64
   },
 
-  // Optimize dev server for faster HMR
+  // Optimize dev server for faster HMR and bind to 0.0.0.0:3000
   server: {
+    host: '0.0.0.0',
+    port: 3000,
+    allowedHosts: true,
     hmr: {
       overlay: true,
     },
+  },
+
+  preview: {
+    host: '0.0.0.0',
+    port: 3000,
   },
 
   // CSS optimization
