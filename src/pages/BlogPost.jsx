@@ -25,12 +25,29 @@ const BlogPost = () => {
         return <Navigate to="/404" replace />;
     }
 
+    const blogPostingSchema = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": content.title,
+        "description": content.excerpt,
+        "datePublished": post.date,
+        "image": post.image ? [post.image] : undefined,
+        "author": { "@type": "Organization", "name": isAr ? "رموز" : "Rumuze" },
+        "publisher": {
+            "@type": "Organization",
+            "name": isAr ? "رموز" : "Rumuze",
+            "logo": "https://www.rumuze.com/rumuze-symbol-112.webp"
+        }
+    };
+
     return (
         <div className="surface-page tech-grid min-h-screen pt-32 pb-20">
             <SEO 
                 path={isAr ? `/ar/blog/${slug}` : `/blog/${slug}`} 
+                canonical={`https://www.rumuze.com${isAr ? `/ar/blog/${slug}` : `/blog/${slug}`}`}
+                schemas={[blogPostingSchema]}
                 overrideMeta={{
-                    title: content.title,
+                    title: `${content.title} | ${isAr ? 'رموز للهندسة' : 'Rumuze Engineering'}`,
                     description: content.excerpt,
                     image: post.image,
                     type: 'article',

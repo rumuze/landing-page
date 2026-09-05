@@ -3,34 +3,29 @@ export const LEAD_INTENTS = ["discovery", "audit", "build", "infrastructure"];
 export const EMPTY_LEAD_FORM = {
   fullName: "",
   workEmail: "",
+  whatsapp: "",
+  serviceType: "build",
+  engagementType: "build",
   companyName: "",
+  description: "",
   role: "",
   website: "",
   companySize: "",
   market: "",
-  engagementType: "",
   primaryChallenge: "",
   timeline: "",
   systems: "",
   monthlyActivity: "",
-  description: "",
 };
 
-const REQUIRED_FIELDS = [
+const STEP1_REQUIRED_FIELDS = [
   "fullName",
   "workEmail",
-  "companyName",
-  "role",
-  "website",
-  "companySize",
-  "market",
   "engagementType",
-  "primaryChallenge",
-  "timeline",
 ];
 
 export const INTENT_TO_ENGAGEMENT = {
-  discovery: "",
+  discovery: "build",
   audit: "audit",
   build: "build",
   infrastructure: "infrastructure",
@@ -53,15 +48,28 @@ export function ensureUrlProtocol(value) {
 export function validateLeadQualification(formData) {
   const errors = {};
 
-  REQUIRED_FIELDS.forEach((fieldName) => {
-    if (!String(formData[fieldName] || "").trim()) {
-      errors[fieldName] = "required";
-    }
-  });
+  if (!String(formData.fullName || "").trim()) {
+    errors.fullName = "required";
+  }
 
-  const email = String(formData.workEmail || "").trim();
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/u.test(email)) {
-    errors.workEmail = "email";
+  const contactValue = String(formData.workEmail || formData.whatsapp || "").trim();
+  if (!contactValue) {
+    errors.workEmail = "required";
+  } else if (contactValue.includes("@")) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/u.test(contactValue)) {
+      errors.workEmail = "email";
+    }
+  } else {
+    // Treat as phone / whatsapp - must have at least 7 digits
+    const digitsOnly = contactValue.replace(/\D/g, "");
+    if (digitsOnly.length < 7) {
+      errors.workEmail = "email";
+    }
+  }
+
+  const engagement = formData.engagementType || formData.serviceType;
+  if (!String(engagement || "").trim()) {
+    errors.engagementType = "required";
   }
 
   const website = String(formData.website || "").trim();
@@ -87,7 +95,8 @@ export function buildLeadThreadSubject({ intent, formData }) {
     ? labelize(formData.engagementType)
     : "Needs qualification";
 
-  return `Rumuze Intake | ${labelize(safeIntent)} | ${formData.companyName} | ${engagement}`;
+  const companyOrName = formData.companyName || formData.fullName || "Direct Lead";
+  return `Rumuze Intake | ${labelize(safeIntent)} | ${companyOrName} | ${engagement}`;
 }
 
 export function buildLeadThreadMessage({ intent, formData, source = "website-homepage" }) {

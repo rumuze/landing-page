@@ -363,9 +363,9 @@ export const conversionContent = {
           "تبني Rumuze منصات الويب وسير العمل المتصل بـ CRM وبنية التتبع ونسب الإسناد للشركات B2B التي تجاوزت حالة الموردين المتفرقين والأنظمة المنفصلة.",
       },
       contact: {
-        title: "احجز Systems Discovery | Rumuze",
+        title: "احجز جلسة تشخيص مجانية | Rumuze",
         description:
-          "قدّم طلباً منظماً إلى Rumuze لخدمة System Build أو System Audit أو Growth Infrastructure Setup. تتم مراجعة كل طلب خلال يوم عمل واحد.",
+          "استخدم هذا المسار إذا كنت تحتاج بناء منصة رقمية، تدقيق منظومتك الحالية، أو إعداد بنية نمو متكاملة. تتم مراجعة كل طلب خلال يوم عمل واحد.",
       },
     },
     homepage: {
@@ -377,8 +377,8 @@ export const conversionContent = {
           "تصمم Rumuze وتنفذ الموقع وسير العمل المتصل بـ CRM وبنية التتبع ومنطق الإسناد بحيث تعمل فرق النمو والمبيعات والعمليات من نظام واحد.",
         microcopy:
           "مناسب للشركات التي تحتاج إلى جهة تنفيذ واحدة مسؤولة عن المنصة والتشغيل التجاري.",
-        primaryCta: "احجز Systems Discovery",
-        secondaryCta: "اطلب System Audit",
+        primaryCta: "احجز جلسة تشخيص مجانية",
+        secondaryCta: "اطلب تدقيقاً تقنياً شاملاً",
         reviewNote: "تتم مراجعة كل طلب مؤهل خلال يوم عمل واحد.",
         supportEyebrow: "ما الذي تصلحه Rumuze",
         supportTitle: "طبقة تشغيل واحدة بدل الموردين المتفرقين.",
@@ -586,78 +586,78 @@ export const conversionContent = {
         },
         title: "إذا كان النظام يكلفك إيراداً بالفعل، فلا تضف مورداً منفصلاً آخر.",
         body:
-          "اختر نوع engagement المناسب لوضعك. سنراجع النطاق ونؤكد الملاءمة ونحدد إن كانت الخطوة التالية audit أو build أو setup للبنية.",
-        primaryCta: "احجز Systems Discovery",
-        secondaryCta: "اطلب System Audit",
+          "اختر مسار العمل المناسب لوضعك. سنراجع النطاق ونؤكد الملاءمة ونحدد إن كانت الخطوة التالية تدقيقاً تقنياً، أو بناء منظومة، أو تهيئة بنية النمو.",
+        primaryCta: "احجز جلسة تشخيص مجانية",
+        secondaryCta: "اطلب تدقيقاً تقنياً شاملاً",
       },
     },
     intake: {
       pageEyebrow: "الاستقبال التجاري",
-      pageTitle: "ابدأ engagement الصحيح، لا رسالة بريد أخرى.",
+      pageTitle: "ابدأ بالمسار الهندسي الصحيح لمنظومتك.",
       pageIntro:
-        "استخدم هذا النموذج لتقديم طلب مؤهل لخدمة System Build أو System Audit أو Growth Infrastructure Setup. تتم مراجعة كل طلب بناءً على الملاءمة والإلحاح وتعقيد النظام.",
+        "استخدم هذا المسار إذا كنت تحتاج بناء منصة رقمية، تدقيق منظومتك الحالية، أو إعداد بنية نمو متكاملة. تتم مراجعة كل طلب بناءً على الملاءمة والإلحاح وتعقيد النظام.",
       reviewNote:
         "يمر طلبك عبر مراجعة النطاق والتحقق من الملاءمة وتحديد الخطوة التالية خلال يوم عمل واحد.",
-      confirmationTitle: "تم استلام الطلب",
+      confirmationTitle: "تم استلام الطلب بنجاح",
       confirmationBody:
-        "Your request has been received. We will review your submission and respond within one business day.",
+        "تم استلام طلبك بنجاح. سنراجع تفاصيل مشروعك ونتواصل معك خلال يوم عمل واحد لتحديد موعد جلسة التشخيص.",
       fields: {
         fullName: "الاسم الكامل",
-        workEmail: "البريد المهني",
-        companyName: "اسم الشركة",
+        workEmail: "واتساب / بريد العمل",
+        companyName: "اسم الشركة / المنظمة",
         role: "المنصب",
         website: "الموقع الإلكتروني",
         companySize: "حجم الشركة",
         market: "السوق الأساسي",
-        engagementType: "نوع engagement",
+        engagementType: "ما تحتاجه بالضبط",
         primaryChallenge: "التحدي الأساسي",
         timeline: "الإطار الزمني",
         systems: "الأنظمة المستخدمة حالياً",
         monthlyActivity: "مستوى النشاط الشهري",
-        description: "اشرح الاختناق الحالي",
+        description: "تفاصيل إضافية عن المشروع أو المنظومة",
       },
       placeholders: {
-        fullName: "الاسم الكامل",
-        workEmail: "name@company.com",
-        companyName: "اسم الشركة",
-        role: "Founder, COO, Head of Growth, CTO...",
+        fullName: "محمد أحمد",
+        workEmail: "name@company.com أو +966 5x xxx xxxx",
+        companyName: "اسم شركتك أو مشروعك",
+        role: "المؤسس، المدير التنفيذي، مدير النمو، CTO...",
         website: "company.com",
-        systems: "Website/CMS, CRM, analytics stack, paid media stack",
-        description: "اشرح أين يتعطل الإيراد أو التوجيه أو التقارير أو التنفيذ حالياً.",
+        systems: "منصة الموقع، CRM، أدوات التحليلات، إعلانات",
+        description: "صف باختصار ما ترغب في إنجازه، التحديات التقنية، أو المتطلبات الخاصة...",
       },
       helper: {
         engagementType:
-          "اختر أقرب مسار. سنؤكد إذا كانت الخطوة الصحيحة build أو audit أو infrastructure setup.",
+          "اختر ما تحتاجه بالضبط. سنراجع النطاق ونؤكد أفضل خطوة للبدء.",
         systems:
-          "اذكر منصة الموقع وCRM وأدوات التحليلات ومنصات الإعلانات أو الأدوات الداخلية المستخدمة اليوم.",
+          "اذكر منصة الموقع وCRM وأدوات التحليلات أو الأدوات الداخلية المستخدمة اليوم.",
       },
       requiredLabel: "مطلوب",
       optionalLabel: "اختياري",
-      submit: "إرسال طلب مؤهل",
-      submitting: "جارٍ الإرسال",
+      submit: "إرسال الطلب",
+      submitting: "جارٍ الإرسال...",
       close: "إغلاق",
       backToSite: "العودة إلى الرئيسية",
       intents: {
         discovery: {
-          title: "احجز Systems Discovery",
+          title: "احجز جلسة تشخيص مجانية",
           description:
-            "استخدم هذا المسار عندما تعرف أن هناك مشكلة أنظمة حقيقية وتريد تحديد شكل engagement المناسب.",
+            "استخدم هذا المسار عندما تعرف أن هناك مشكلة أنظمة حقيقية وتريد تحديد مسار العمل المناسب.",
           defaultEngagementType: "",
         },
         audit: {
-          title: "اطلب System Audit",
+          title: "اطلب تدقيقاً تقنياً شاملاً",
           description:
             "استخدم هذا المسار عندما يكون الخلل واضحاً لكن السبب الجذري غير محسوم بين المنصة وCRM والتتبع والتقارير.",
           defaultEngagementType: "audit",
         },
         build: {
-          title: "احجز Build Consultation",
+          title: "استشارة بناء منصة رقمية",
           description:
-            "استخدم هذا المسار عندما تستعد لمشروع build أو rebuild أو إطلاق منصة تشغيلية مهمة.",
+            "استخدم هذا المسار عندما تستعد لمشروع بناء منصة SaaS، نظام داخلي، أو إطلاق منظومة تشغيلية متكاملة.",
           defaultEngagementType: "build",
         },
         infrastructure: {
-          title: "ابدأ Infrastructure Setup",
+          title: "إعداد بنية تحتية للنمو",
           description:
             "استخدم هذا المسار عندما تكون الحملات أو المبيعات موجودة بالفعل لكن طبقة القياس والإسناد غير موثوقة.",
           defaultEngagementType: "infrastructure",
@@ -679,9 +679,9 @@ export const conversionContent = {
           { value: "other", label: "أخرى" },
         ],
         engagementType: [
-          { value: "build", label: "System Build" },
-          { value: "audit", label: "System Audit" },
-          { value: "infrastructure", label: "Growth Infrastructure Setup" },
+          { value: "build", label: "بناء منصة / SaaS / ERP" },
+          { value: "audit", label: "تدقيق تقني للمنظومة الحالية" },
+          { value: "infrastructure", label: "بنية تحتية للنمو والتسويق" },
         ],
         primaryChallenge: [
           { value: "website-platform", label: "ضعف الموقع أو المنصة" },

@@ -50,7 +50,12 @@ const NotFound = () => {
       className={`min-h-screen bg-background flex items-center justify-center p-6 ${isArabic ? 'rtl' : 'ltr'}`}
       dir={isArabic ? 'rtl' : 'ltr'}
     >
-      <SEO path="/404" />
+      <SEO
+        path="/404"
+        title={isArabic ? "الصفحة غير موجودة | رموز" : "Page Not Found | Rumuze"}
+        description={isArabic ? "الصفحة التي تبحث عنها غير موجودة." : "The page you are looking for does not exist."}
+        noindex={true}
+      />
       
       {/* Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">

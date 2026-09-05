@@ -11,45 +11,38 @@ export function buildOrganizationSchema(lang: LanguageCode) {
     '@id': StableIds.organization,
     name: ENTITY.name,
     legalName: ENTITY.legalName,
-    alternateName: isAr ? ENTITY.alternateName.ar : ENTITY.alternateName.en,
+    alternateName: isAr
+      ? ["رموز", "رمرز", "Rumuze", "Rumuze Agency"]
+      : ["Rumuze", "رموز", "رمرز", "Rumuze Agency"],
     url: SiteConfig.baseUrl,
-    logo: {
-      '@type': 'ImageObject',
-      '@id': StableIds.logo,
-      url: `${SiteConfig.baseUrl}/rumuze.png`,
-      width: 512,
-      height: 512,
-      caption: isAr ? 'شعار روموز' : 'Rumuze Logo',
-    },
-    image: { '@id': StableIds.logo },
-    description: siteMetaConfig.defaultMetaDescription[lang],
+    logo: "https://www.rumuze.com/rumuze-symbol-112.webp",
+    image: "https://www.rumuze.com/rumuze-symbol-112.webp",
+    description: isAr
+      ? "رموز شركة هندسة برمجيات ومنصات SaaS تبني أنظمة إيرادات وبنية تحتية رقمية للمؤسسات في منطقة الخليج والشرق الأوسط."
+      : siteMetaConfig.defaultMetaDescription[lang],
     slogan: isAr ? ENTITY.slogan.ar : ENTITY.slogan.en,
     brand: { '@type': 'Brand', '@id': StableIds.brand, name: ENTITY.brand.name },
     founder: {
+      '@type': 'Person',
       '@id': StableIds.founder,
+      name: 'Mohamed Ashraf',
     },
-    foundingDate: String(ENTITY.foundingYear),
-    areaServed: {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": "25.2048",
-        "longitude": "55.2708"
-      },
-      "geoRadius": "500000"
-    },
-    sameAs: Array.from(new Set([
-      ...ENTITY.sameAs,
+    foundingDate: "2026",
+    areaServed: ["SA", "AE", "EG", "KW", "QA", "BH", "OM"],
+    sameAs: [
       "https://www.linkedin.com/company/rumuze",
+      "https://x.com/rumuze",
       "https://github.com/rumuze"
-    ])),
+    ],
     contactPoint: {
       '@type': 'ContactPoint',
+      telephone: '+20-100-006-1409',
       contactType: 'sales',
       email: ENTITY.contact.email,
-      availableLanguage: ['English', 'Arabic'],
+      availableLanguage: ['Arabic', 'English'],
     },
     availableLanguage: ['English', 'Arabic'],
+
     knowsAbout: Array.from(new Set([
       ...ENTITY.technologyStack,
       "Enterprise Software Architecture",

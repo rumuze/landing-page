@@ -79,7 +79,7 @@ const buildDefaultSchemasForPath = (path, lang) => {
   return [];
 };
 
-const SEO = ({ title, description, image, type, path, schemas, overrideMeta = {} }) => {
+const SEO = ({ title, description, image, type, path, schemas, canonical, noindex = false, overrideMeta = {} }) => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const currentLang = normalizeSeoLocale(i18n.language);
@@ -106,7 +106,9 @@ const SEO = ({ title, description, image, type, path, schemas, overrideMeta = {}
   const metaDescription = mergedMeta.description || configMeta.description;
   const metaImage = buildAbsoluteUrl(baseUrl, mergedMeta.image || configMeta.image);
   const metaType = mergedMeta.type || configMeta.type || 'website';
-  const canonicalUrl = generateCanonical(baseUrl, currentPath);
+  const canonicalUrl = canonical || generateCanonical(baseUrl, currentPath);
+  const isNoIndex = Boolean(noindex || mergedMeta.noindex);
+
   const metaKeywords = mergedMeta.keywords || configMeta.keywords || t('seo.keywords');
   const imageAlt = mergedMeta.imageAlt || configMeta.imageAlt || metaTitle;
   const articleAuthor = mergedMeta.author;
@@ -237,7 +239,11 @@ const SEO = ({ title, description, image, type, path, schemas, overrideMeta = {}
       ))}
 
       {/* Additional Meta Tags for Better Indexing */}
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      {isNoIndex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      )}
       <meta name="author" content="Rumuze" />
       <meta name="publisher" content="Rumuze" />
 

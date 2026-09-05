@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import SEO from './components/SEO';
+import { organizationSchema } from './seo/organizationSchema';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -272,6 +273,11 @@ function AppContent() {
 
   return (
     <div className={`surface-page min-h-screen tech-grid transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
+      </Helmet>
       <VisitTracker />
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan to-purple origin-left z-[100] transition-transform duration-100 ease-out"

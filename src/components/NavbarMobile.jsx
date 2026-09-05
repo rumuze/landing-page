@@ -243,7 +243,7 @@ const NavbarMobile = ({
                 className="w-full rounded-2xl border border-cyan bg-cyan py-4 text-base font-semibold text-slate-950 shadow-[0_18px_40px_-26px_rgba(0,229,255,0.54)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan/90"
                 type="button"
               >
-                {isAr ? 'احجز Systems Discovery' : 'Book a Systems Discovery'}
+                {isAr ? 'احجز جلسة تشخيص مجانية' : 'Book a Systems Discovery'}
               </button>
             </div>
           </div>

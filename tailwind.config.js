@@ -8,40 +8,56 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#06150f", // Dark green-black midnight
+        background: "#030E09", // Deep dark background from brand system
+        surface: {
+          dark: "#030E09",
+          "dark-card": "#071A11",
+          "dark-section": "#0A2117",
+          light: "#F5FAF7",
+          "light-card": "#FFFFFF",
+          "light-section": "#EDFAF2",
+        },
         primary: {
-          DEFAULT: "#135f40", // Dark green from logo
-          light: "#1c825a",
+          DEFAULT: "#006B54", // Forest Teal from logo
+          deep: "#004D3D",
+          light: "#008567",
+          ghost: "rgba(0, 107, 84, 0.10)",
+        },
+        accent: {
+          DEFAULT: "#3CBF00", // Lime Green from logo
+          vivid: "#4ED100",
+          soft: "#C6F088",
+          ghost: "rgba(60, 191, 0, 0.12)",
         },
         cyan: {
-          DEFAULT: "#a4d37a", // Lime green from logo
-          glow: "rgba(164, 211, 122, 0.3)",
-          50: "#f7fee7",
-          100: "#ecfccb",
-          200: "#d9f99d",
-          300: "#bef264",
-          400: "#a4d37a",
-          500: "#84cc16",
-          600: "#65a30d",
-          700: "#4d7c0f",
-          800: "#3f6212",
-          900: "#365314",
-          950: "#1a2e05",
+          DEFAULT: "#3CBF00", // Mapped to brand lime green for backwards compatibility
+          glow: "rgba(60, 191, 0, 0.25)",
+          50: "#f4fdf0",
+          100: "#e5fbdc",
+          200: "#c6f088",
+          300: "#9ee647",
+          400: "#4ED100",
+          500: "#3CBF00",
+          600: "#2FAD00",
+          700: "#248a00",
+          800: "#1d6c00",
+          900: "#175505",
+          950: "#061a00",
         },
         purple: {
-          DEFAULT: "#10b981", // Emerald green
-          glow: "rgba(16, 185, 129, 0.3)",
-          50: "#ecfdf5",
-          100: "#d1fae5",
-          200: "#a7f3d0",
-          300: "#6ee7b7",
-          400: "#34d399",
-          500: "#10b981",
-          600: "#059669",
-          700: "#047857",
-          800: "#065f46",
-          900: "#064e3b",
-          950: "#022c22",
+          DEFAULT: "#006B54", // Forest teal
+          glow: "rgba(0, 107, 84, 0.3)",
+          50: "#f0fdf9",
+          100: "#ccfbf1",
+          200: "#99f6e4",
+          300: "#5eead4",
+          400: "#2dd4bf",
+          500: "#008567",
+          600: "#006B54",
+          700: "#004D3D",
+          800: "#00382d",
+          900: "#00241d",
+          950: "#001410",
         }
       },
       fontFamily: {

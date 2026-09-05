@@ -75,32 +75,38 @@ export const firebaseProvider = {
       return null;
     }
 
-    let authToken = null;
-
     try {
-      const auth = getFirebaseAuth();
-      authToken = auth.currentUser
-        ? await auth.currentUser.getIdToken().catch(() => null)
-        : null;
+      let authToken = null;
+
+      try {
+        const auth = getFirebaseAuth();
+        authToken = auth.currentUser
+          ? await auth.currentUser.getIdToken().catch(() => null)
+          : null;
+      } catch {
+        authToken = null;
+      }
+
+      const response = await fetch(visitTrackingEndpoint, {
+        method: "POST",
+        keepalive: payload?.eventType === "page_view",
+        headers: {
+          "Content-Type": "application/json",
+          ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+        },
+        body: JSON.stringify(payload ?? {}),
+      });
+
+      if (!response.ok) {
+        // Silently swallow IAM / HTTP error status to avoid console noise or breaking flow
+        return null;
+      }
+
+      return response.status === 204 ? null : response.json().catch(() => null);
     } catch {
-      authToken = null;
+      // Telemetry should never cause unhandled rejections
+      return null;
     }
-
-    const response = await fetch(visitTrackingEndpoint, {
-      method: "POST",
-      keepalive: payload?.eventType === "page_view",
-      headers: {
-        "Content-Type": "application/json",
-        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
-      },
-      body: JSON.stringify(payload ?? {}),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Visit tracking failed with ${response.status}.`);
-    }
-
-    return response.status === 204 ? null : response.json().catch(() => null);
   },
 
   async createThread({ formData, user = null, options = {} }) {
