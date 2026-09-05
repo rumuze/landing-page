@@ -17,7 +17,7 @@ import CustomCursor from './components/CustomCursor';
 import AuthFloatingButton from './components/AuthFloatingButton';
 import ProtectedRoute from './components/ProtectedRoute';
 import VisitTracker from './components/VisitTracker';
-import { hasLocalePrefix, localizePath } from './seo/linking';
+import { hasLocalePrefix } from './seo/linking';
 import { useTheme } from './context/theme-core';
 import {
   clearChunkRecoveryAttempt,

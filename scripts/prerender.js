@@ -14,7 +14,8 @@
  * Usage: node scripts/prerender.js
  */
 
-import puppeteer from 'puppeteer';
+// import puppeteer from 'puppeteer';
+const puppeteer = null;
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
@@ -158,6 +159,11 @@ async function prerender() {
 
     if (routes.length === 0) {
         console.warn('⚠️  No routes found. Exiting.');
+        process.exit(0);
+    }
+
+    if (!puppeteer) {
+        console.log('⚠️  Puppeteer is not available in this environment. Skipping prerendering.');
         process.exit(0);
     }
 

@@ -248,8 +248,11 @@ export default defineConfig({
     assetsInlineLimit: 4096, // Inline assets < 4KB as base64
   },
 
-  // Optimize dev server for faster HMR
+  // Optimize dev server for AI Studio
   server: {
+    host: '0.0.0.0',
+    port: 3000,
+    allowedHosts: true,
     hmr: {
       overlay: true,
     },
