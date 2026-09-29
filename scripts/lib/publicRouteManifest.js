@@ -12,27 +12,11 @@ const STATIC_ROUTE_DEFINITIONS = [
   { path: '/', priority: 1.0, changefreq: 'weekly', section: 'core' },
   { path: '/services', priority: 0.95, changefreq: 'weekly', section: 'services' },
   { path: '/blog', priority: 0.85, changefreq: 'weekly', section: 'blog' },
-  { path: '/why-rumuze', priority: 0.8, changefreq: 'monthly', section: 'commercial' },
   { path: '/contact', priority: 0.8, changefreq: 'monthly', section: 'commercial' },
   { path: '/about', priority: 0.75, changefreq: 'monthly', section: 'commercial' },
   { path: '/portfolio', priority: 0.75, changefreq: 'monthly', section: 'commercial' },
   { path: '/saudi-arabia', priority: 0.75, changefreq: 'monthly', section: 'authority' },
-  { path: '/enterprise-framework', priority: 0.75, changefreq: 'monthly', section: 'authority' },
-  { path: '/methodology', priority: 0.7, changefreq: 'monthly', section: 'authority' },
-  { path: '/architecture-principles', priority: 0.7, changefreq: 'monthly', section: 'authority' },
-  { path: '/engineering-standards', priority: 0.7, changefreq: 'monthly', section: 'authority' },
-  { path: '/slo-framework', priority: 0.7, changefreq: 'monthly', section: 'authority' },
-  { path: '/multilingual-systems', priority: 0.7, changefreq: 'monthly', section: 'authority' },
-  { path: '/knowledge-graph-architecture', priority: 0.7, changefreq: 'monthly', section: 'authority' },
-  { path: '/enterprise-web-development', priority: 0.72, changefreq: 'monthly', section: 'authority' },
-  { path: '/saas-architecture', priority: 0.72, changefreq: 'monthly', section: 'authority' },
-  { path: '/marketing-infrastructure', priority: 0.72, changefreq: 'monthly', section: 'authority' },
-  { path: '/seo-revenue-systems', priority: 0.72, changefreq: 'monthly', section: 'authority' },
-  { path: '/custom-software-development', priority: 0.72, changefreq: 'monthly', section: 'authority' },
-  { path: '/enterprise-application-development', priority: 0.72, changefreq: 'monthly', section: 'authority' },
-  { path: '/api-integration-architecture', priority: 0.72, changefreq: 'monthly', section: 'authority' },
   { path: '/labs', priority: 0.6, changefreq: 'monthly', section: 'labs' },
-  { path: '/manifesto', priority: 0.58, changefreq: 'monthly', section: 'authority' },
   { path: '/qr-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/privacy', priority: 0.3, changefreq: 'yearly', section: 'legal' },
   { path: '/terms', priority: 0.3, changefreq: 'yearly', section: 'legal' },
@@ -53,12 +37,6 @@ function unique(values) {
 function extractServiceSlugs() {
   const source = readSource('src/config/services.ts');
   return unique(extractQuotedValues(source, /^\s{4}slug:\s*'([^']+)'/gm));
-}
-
-function extractComparisonSlugs() {
-  const source = readSource('src/config/comparison.ts');
-  const comparisonTargetBlock = source.split('export const COMPARISON_TARGETS')[1] || '';
-  return unique(extractQuotedValues(comparisonTargetBlock, /^\s{4}slug:\s*'([^']+)'/gm));
 }
 
 function extractBlogEntries() {
@@ -91,14 +69,6 @@ export function getPublicRouteManifest(buildDate = new Date().toISOString().spli
     lastmod: buildDate,
   }));
 
-  const comparisonRoutes = extractComparisonSlugs().map((slug) => ({
-    path: `/comparison/${slug}`,
-    priority: 0.68,
-    changefreq: 'monthly',
-    section: 'comparison-detail',
-    lastmod: buildDate,
-  }));
-
   const blogRoutes = extractBlogEntries().map((entry) => ({
     path: `/blog/${entry.slug}`,
     priority: 0.76,
@@ -110,7 +80,6 @@ export function getPublicRouteManifest(buildDate = new Date().toISOString().spli
   const manifest = [
     ...STATIC_ROUTE_DEFINITIONS.map((route) => ({ ...route, lastmod: buildDate })),
     ...serviceDetailRoutes,
-    ...comparisonRoutes,
     ...blogRoutes,
   ];
 

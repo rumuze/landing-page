@@ -25,7 +25,7 @@ const AR = {
   twitterDescription: 'منصات مخصصة وتطبيقات موبايل وأنظمة خلفية، مبنية بالعربية والإنجليزية.',
   imageAlt: 'رموز - هندسة البرمجيات',
   siteName: 'رموز',
-  url: 'https://www.rumuze.com/ar/',
+  url: 'https://www.rumuze.com/ar',
   image: 'https://www.rumuze.com/og-image-ar.png?v=2026-02',
 };
 
@@ -90,7 +90,7 @@ function build() {
     /("description":\s*")Rumuze is a software engineering company[^"]*(")/,
     `$1${AR.description}$2`,
   );
-  html = html.replace(/"name":\s*"Rumuze",(\s*"alternateName":\s*)\["رموز"/, '"name": "رموز",$1["Rumuze"');
+  html = html.replace(/"name":\s*"Rumuze",(\s*"alternateName":\s*)\["رموز"\]/, '"name": "رموز",$1["Rumuze"]');
 
   const outDir = path.join(distDir, 'ar');
   fs.mkdirSync(outDir, { recursive: true });

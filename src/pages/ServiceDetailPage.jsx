@@ -8,7 +8,7 @@
  * Route: /services/:slug | /ar/services/:slug
  *
  * Schema output: Service + FAQPage + Organization + Person (merged graph)
- * Content source: config/services.ts + config/faq.ts
+ * Content source: config/services.ts
  * All content is config-driven — zero hardcoded text.
  */
 
@@ -19,7 +19,6 @@ import { useTranslation } from 'react-i18next';
 
 import { ENTITY } from '../config/entity';
 import { SERVICES } from '../config/services';
-import { getFAQsByService } from '../config/faq';
 import { siteCoreConfig as SiteConfig, StableIds, buildServiceId } from '../config/siteCoreConfig';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
@@ -77,12 +76,9 @@ function buildPageServiceSchema(service, lang) {
   };
 }
 
-function buildPageFAQSchema(service, masterFAQs, lang) {
+function buildPageFAQSchema(service, lang) {
   const isAr = lang === 'ar';
-  const allFAQs = [
-    ...(service.faqs || []),
-    ...masterFAQs.map((f) => ({ question: f.question, answer: f.answer })),
-  ];
+  const allFAQs = service.faqs || [];
   if (allFAQs.length === 0) return null;
 
   return {
@@ -144,22 +140,16 @@ const ServiceDetailPage = () => {
   // Resolve service from config
   const service = useMemo(() => SERVICES.find((s) => s.slug === slug), [slug]);
 
-  // Get related master FAQs (must be before any early return — React hooks rule)
-  const masterFAQs = useMemo(
-    () => (service ? getFAQsByService(service.slug) : []),
-    [service]
-  );
-
   // Build merged schema graph (must be before any early return)
   const schemaGraph = useMemo(() => {
     if (!service) return null;
     const graph = [];
     graph.push(buildPageServiceSchema(service, lang));
     graph.push(buildPageBreadcrumb(service, lang));
-    const faqSchema = buildPageFAQSchema(service, masterFAQs, lang);
+    const faqSchema = buildPageFAQSchema(service, lang);
     if (faqSchema) graph.push(faqSchema);
     return { '@context': 'https://schema.org', '@graph': graph };
-  }, [service, masterFAQs, lang]);
+  }, [service, lang]);
 
   // Redirect if service not found
   if (!service) {
@@ -193,46 +183,7 @@ const ServiceDetailPage = () => {
         <ServiceProblemSection service={service} isAr={isAr} />
         <ServiceFeaturesSection service={service} isAr={isAr} />
         <ServiceDifferentiatorsSection service={service} isAr={isAr} />
-        <ServiceFAQSection service={service} isAr={isAr} masterFAQs={masterFAQs} />
-
-        {/* Deep Capabilities — Software Engineering cluster links */}
-        {slug === 'software-engineering' && (
-          <>
-            <p className="text-sm text-slate-500 dark:text-gray-400 leading-relaxed max-w-4xl mx-auto px-6 pt-8">
-              {isAr
-                ? 'تُهيكل روموز خدمات الهندسة البرمجية عبر ثلاثة مجالات تنفيذية رئيسية: تطوير الأنظمة المخصصة، بناء التطبيقات المؤسسية، وبنية التكامل القائمة على واجهات البرمجة. يعمل كل مجال ضمن نطاق عمل محدد، وحوكمة سباقات تطوير، ومعايير معمارية واضحة.'
-                : 'Rumuze structures software engineering across three execution domains: custom software systems, enterprise-grade application development, and API-first integration architecture. Each domain operates under defined scope documents, sprint governance, and architectural enforcement standards.'}
-            </p>
-            <nav
-              aria-label={isAr ? 'قدرات هندسية متعمقة' : 'Explore Deep Engineering Capabilities'}
-              className="py-8 px-6 max-w-4xl mx-auto"
-            >
-              <p className="text-sm font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-3">
-                {isAr ? 'القدرات الهندسية المتعمقة' : 'Explore Deep Engineering Capabilities'}
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  to={isAr ? '/ar/custom-software-development' : '/custom-software-development'}
-                  className="text-sm font-medium text-cyan-400 hover:text-cyan-300 hover:underline transition-colors"
-                >
-                  {isAr ? 'أنظمة البرمجيات المخصصة' : 'Custom Software Systems'}
-                </Link>
-                <Link
-                  to={isAr ? '/ar/enterprise-application-development' : '/enterprise-application-development'}
-                  className="text-sm font-medium text-cyan-400 hover:text-cyan-300 hover:underline transition-colors"
-                >
-                  {isAr ? 'هندسة التطبيقات المؤسسية' : 'Enterprise Application Engineering'}
-                </Link>
-                <Link
-                  to={isAr ? '/ar/api-integration-architecture' : '/api-integration-architecture'}
-                  className="text-sm font-medium text-cyan-400 hover:text-cyan-300 hover:underline transition-colors"
-                >
-                  {isAr ? 'معمارية التكامل القائمة على API-First' : 'API-First Integration Architecture'}
-                </Link>
-              </div>
-            </nav>
-          </>
-        )}
+        <ServiceFAQSection service={service} isAr={isAr} />
 
         {/* Related Capabilities — internal service network (Phase 4) */}
         {service.relatedServices?.length > 0 && (

@@ -29,9 +29,9 @@ export default defineConfig({
         'fonts/*.woff2'       // Pre-cache critical fonts
       ],
       manifest: {
-        name: 'Rumuze | Digital Agency',
+        name: 'Rumuze | Software Engineering',
         short_name: 'Rumuze',
-        description: 'Elite Software Development & Growth Marketing Agency v2',
+        description: 'Custom platforms, mobile apps, and backend systems for businesses in the Gulf and MENA region.',
         theme_color: '#000B18',
         background_color: '#000B18',
         display: 'standalone',

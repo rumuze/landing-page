@@ -75,12 +75,12 @@ export const OG_IMAGES = {
  * @const {Object<string, string>}
  */
 export const OG_IMAGE_ALT = {
-    en: 'Rumuze - Complexity Decoded. Potential Unleashed.',
-    ar: 'روموز - نفك شفرة التعقيد.. نطلق العنان للمستقبل',
+    en: 'Rumuze - Software Engineering',
+    ar: 'رموز - هندسة البرمجيات',
 };
 
-// Canonical Authority Sentence (must be reused without modification)
-export const AUTHORITY_DESCRIPTION = 'Rumuze is an enterprise software engineering authority building multilingual SaaS, ERP, CRM, and digital marketing infrastructure with entity-first architecture and stable identifiers recognized by AI systems.';
+// Canonical one-sentence description of the company
+export const AUTHORITY_DESCRIPTION = 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in the Gulf and MENA region.';
 
 // ============================================================================
 // DEFAULT METADATA (Fallback for all routes)
@@ -224,63 +224,19 @@ export const BLOG_ARTICLE_METADATA = {
             publishedTime: '2026-02-12',
             modifiedTime: '2026-02-12',
             section: 'Engineering',
-            tags: ['Architecture', 'Microservices', 'Scalability'],
+            tags: ['Architecture', 'Modular Monolith', 'Laravel'],
             image: `${BASE_URL}/assets/images/blog-1.webp`,
         },
         en: {
-            title: 'The Modular Monolith: Why Microservices Fail | Rumuze',
-            description: 'Microservices are a premature optimization for most teams. Learn when a modular monolith outperforms distributed complexity.',
-            imageAlt: 'The Modular Monolith article cover',
+            title: 'Why We Start with a Modular Monolith | Rumuze',
+            description: 'For most teams, microservices are a premature optimisation. Why Rumuze starts with a modular monolith and when it splits out services.',
+            imageAlt: 'Why We Start with a Modular Monolith',
             type: 'article',
         },
         ar: {
-            title: 'الكتلة المعيارية: لماذا تفشل الخدمات المصغرة | روموز',
+            title: 'لماذا نبدأ بالكتلة المعيارية (Modular Monolith) | رموز',
             description: 'لماذا تكون الخدمات المصغرة تحسينًا سابقًا لأوانه، ومتى تصبح الكتلة المعيارية خيارًا أكثر كفاءة واستدامة.',
             imageAlt: 'غلاف مقال الكتلة المعيارية',
-            type: 'article',
-        },
-    },
-    'retention-is-king': {
-        shared: {
-            author: 'Strategy Team',
-            publishedTime: '2026-02-08',
-            modifiedTime: '2026-02-08',
-            section: 'Growth Strategy',
-            tags: ['Retention', 'LTV', 'Growth'],
-            image: `${BASE_URL}/assets/images/blog-2.webp`,
-        },
-        en: {
-            title: 'Vanity Metrics vs. Value: Why Retention is King | Rumuze',
-            description: 'Acquisition without retention burns budget. Understand why retention is the clearest signal of sustainable product growth.',
-            imageAlt: 'Retention is King article cover',
-            type: 'article',
-        },
-        ar: {
-            title: 'مقاييس الغرور مقابل القيمة: لماذا الاحتفاظ هو الملك | روموز',
-            description: 'الاستحواذ وحده لا يبني نموًا صحيًا. تعرّف كيف يصبح الاحتفاظ بالمستخدمين أساس التوسع الحقيقي طويل المدى.',
-            imageAlt: 'غلاف مقال لماذا الاحتفاظ هو الملك',
-            type: 'article',
-        },
-    },
-    'deterministic-ai-engineering': {
-        shared: {
-            author: 'Mohamed Ashraf',
-            publishedTime: '2026-02-01',
-            modifiedTime: '2026-02-01',
-            section: 'AI Engineering',
-            tags: ['AI', 'Deterministic Systems', 'LLM'],
-            image: `${BASE_URL}/assets/images/blog-3.webp`,
-        },
-        en: {
-            title: 'Deterministic AI: Configuring Probabilities | Rumuze',
-            description: 'Enterprise AI needs guardrails. See how deterministic wrappers turn probabilistic models into reliable production systems.',
-            imageAlt: 'Deterministic AI article cover',
-            type: 'article',
-        },
-        ar: {
-            title: 'الذكاء الاصطناعي الحتمي: تكوين الاحتمالات | روموز',
-            description: 'النجاح المؤسسي في الذكاء الاصطناعي يتطلب حواجز صارمة. تعرّف كيف نضبط النماذج الاحتمالية لتعمل بثقة في الإنتاج.',
-            imageAlt: 'غلاف مقال الذكاء الاصطناعي الحتمي',
             type: 'article',
         },
     },

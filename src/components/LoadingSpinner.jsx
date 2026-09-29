@@ -1,22 +1,15 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
 
-const loadingMessages = [
-  "DECODING TECHNOLOGY...",
-  "SCALING BRANDS...",
-  "ENGINEERING SOVEREIGNTY...",
-  "INITIALIZING LABS..."
-];
+const loadingMessages = {
+  en: ["LOADING..."],
+  ar: ["جارٍ التحميل..."],
+};
 
 const LoadingSpinner = ({ fullScreen = false }) => {
-  const [currentMessage, setCurrentMessage] = React.useState(0);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentMessage((prev) => (prev + 1) % loadingMessages.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
+  const lang =
+    typeof document !== 'undefined' && document.documentElement.lang === 'ar' ? 'ar' : 'en';
+  const message = loadingMessages[lang][0];
 
   return (
     <div 
@@ -75,13 +68,13 @@ const LoadingSpinner = ({ fullScreen = false }) => {
         {/* Intelligent Progress Text */}
         <div className="mt-8 text-center min-h-[1.5rem]">
           <Motion.p
-            key={currentMessage}
+            key={message}
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -5 }}
             className="text-[10px] font-black tracking-[0.3em] text-cyan uppercase"
           >
-            {loadingMessages[currentMessage]}
+            {message}
           </Motion.p>
           <div className="mt-2 w-32 h-[1px] bg-slate-200 dark:bg-white/10 mx-auto overflow-hidden">
             <Motion.div 

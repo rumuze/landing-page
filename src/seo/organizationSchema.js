@@ -5,7 +5,7 @@ export const organizationSchema = {
   "@type": ["Organization", "SoftwareCompany"],
   "@id": "https://www.rumuze.com/#organization",
   "name": "Rumuze",
-  "alternateName": ["رموز", "Rumuze Technologies"],
+  "alternateName": ["رموز"],
   "url": "https://www.rumuze.com",
   "logo": "https://www.rumuze.com/rumuze-symbol-112.webp",
   "sameAs": [

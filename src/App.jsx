@@ -40,25 +40,8 @@ import OfflineToast from './components/OfflineToast';
 import WhatsAppButton from './components/WhatsAppButton';
 const HomePage = lazy(() => import('./pages/HomePage'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
-const ManifestoPage = lazy(() => import('./pages/ManifestoPage'));
-const Methodology = lazy(() => import('./pages/Methodology'));
-const ArchitecturePrinciples = lazy(() => import('./pages/ArchitecturePrinciples'));
-const EngineeringStandards = lazy(() => import('./pages/EngineeringStandards'));
-const SLOFramework = lazy(() => import('./pages/SLOFramework'));
-const MultilingualSystems = lazy(() => import('./pages/MultilingualSystems'));
-const KnowledgeGraphArchitecture = lazy(() => import('./pages/KnowledgeGraphArchitecture'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
-const WhyRumuzePage = lazy(() => import('./pages/WhyRumuzePage'));
-const ComparisonPage = lazy(() => import('./pages/ComparisonPage'));
 const SaudiArabiaPage = lazy(() => import('./pages/SaudiArabiaPage'));
-const EnterpriseFrameworkPage = lazy(() => import('./pages/EnterpriseFrameworkPage'));
-const EnterpriseWebDevelopmentPage = lazy(() => import('./pages/EnterpriseWebDevelopmentPage'));
-const SaaSArchitecturePage = lazy(() => import('./pages/SaaSArchitecturePage'));
-const MarketingInfrastructurePage = lazy(() => import('./pages/MarketingInfrastructurePage'));
-const SeoRevenueSystemsPage = lazy(() => import('./pages/SeoRevenueSystemsPage'));
-const CustomSoftwareDevelopmentPage = lazy(() => import('./pages/CustomSoftwareDevelopmentPage'));
-const EnterpriseApplicationDevelopmentPage = lazy(() => import('./pages/EnterpriseApplicationDevelopmentPage'));
-const ApiIntegrationArchitecturePage = lazy(() => import('./pages/ApiIntegrationArchitecturePage'));
 const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage'));
 const ProfilePage = lazy(() => import('./pages/Profile'));
 const SettingsPage = lazy(() => import('./pages/Settings'));
@@ -344,28 +327,6 @@ function AppContent() {
             <Route path="/case-studies/*" element={<Navigate to="/portfolio" replace />} />
             <Route path="/ar/case-studies/*" element={<Navigate to="/ar/portfolio" replace />} />
 
-            {/* Why Rumuze & Comparison Routes */}
-            <Route path="/why-rumuze" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><WhyRumuzePage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/why-rumuze" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><WhyRumuzePage isAr={true} /></Suspense>
-              </div>
-            } />
-            <Route path="/comparison/:slug" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ComparisonPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/comparison/:slug" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ComparisonPage isAr={true} /></Suspense>
-              </div>
-            } />
-
             {/* Saudi Arabia & Enterprise Framework Routes */}
             <Route path="/saudi-arabia" element={
               <div className="animate-fade-in">
@@ -375,16 +336,6 @@ function AppContent() {
             <Route path="/ar/saudi-arabia" element={
               <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><SaudiArabiaPage /></Suspense>
-              </div>
-            } />
-            <Route path="/enterprise-framework" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><EnterpriseFrameworkPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/enterprise-framework" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><EnterpriseFrameworkPage /></Suspense>
               </div>
             } />
 
@@ -400,138 +351,41 @@ function AppContent() {
               </div>
             } />
 
-            {/* Authority Pages */}
-            <Route path="/methodology" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><Methodology /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/methodology" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><Methodology /></Suspense>
-              </div>
-            } />
-            <Route path="/architecture-principles" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ArchitecturePrinciples /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/architecture-principles" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ArchitecturePrinciples /></Suspense>
-              </div>
-            } />
-            <Route path="/engineering-standards" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><EngineeringStandards /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/engineering-standards" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><EngineeringStandards /></Suspense>
-              </div>
-            } />
-            <Route path="/slo-framework" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><SLOFramework /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/slo-framework" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><SLOFramework /></Suspense>
-              </div>
-            } />
-            <Route path="/multilingual-systems" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><MultilingualSystems /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/multilingual-systems" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><MultilingualSystems /></Suspense>
-              </div>
-            } />
-            <Route path="/knowledge-graph-architecture" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><KnowledgeGraphArchitecture /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/knowledge-graph-architecture" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><KnowledgeGraphArchitecture /></Suspense>
-              </div>
-            } />
-            {/* Topical Authority Routes */}
-            <Route path="/enterprise-web-development" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><EnterpriseWebDevelopmentPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/enterprise-web-development" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><EnterpriseWebDevelopmentPage /></Suspense>
-              </div>
-            } />
-            <Route path="/saas-architecture" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><SaaSArchitecturePage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/saas-architecture" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><SaaSArchitecturePage /></Suspense>
-              </div>
-            } />
-            <Route path="/marketing-infrastructure" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><MarketingInfrastructurePage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/marketing-infrastructure" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><MarketingInfrastructurePage /></Suspense>
-              </div>
-            } />
-            <Route path="/seo-revenue-systems" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><SeoRevenueSystemsPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/seo-revenue-systems" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><SeoRevenueSystemsPage /></Suspense>
-              </div>
-            } />
-            <Route path="/custom-software-development" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><CustomSoftwareDevelopmentPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/custom-software-development" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><CustomSoftwareDevelopmentPage /></Suspense>
-              </div>
-            } />
-            <Route path="/enterprise-application-development" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><EnterpriseApplicationDevelopmentPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/enterprise-application-development" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><EnterpriseApplicationDevelopmentPage /></Suspense>
-              </div>
-            } />
-            <Route path="/api-integration-architecture" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ApiIntegrationArchitecturePage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/api-integration-architecture" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ApiIntegrationArchitecturePage /></Suspense>
-              </div>
-            } />
+            {/* Retired pages resolve to their closest live equivalent */}
+            <Route path="/why-rumuze" element={<Navigate to="/about" replace />} />
+            <Route path="/ar/why-rumuze" element={<Navigate to="/ar/about" replace />} />
+            <Route path="/enterprise-framework" element={<Navigate to="/services" replace />} />
+            <Route path="/ar/enterprise-framework" element={<Navigate to="/ar/services" replace />} />
+            <Route path="/methodology" element={<Navigate to="/about" replace />} />
+            <Route path="/ar/methodology" element={<Navigate to="/ar/about" replace />} />
+            <Route path="/architecture-principles" element={<Navigate to="/about" replace />} />
+            <Route path="/ar/architecture-principles" element={<Navigate to="/ar/about" replace />} />
+            <Route path="/engineering-standards" element={<Navigate to="/about" replace />} />
+            <Route path="/ar/engineering-standards" element={<Navigate to="/ar/about" replace />} />
+            <Route path="/slo-framework" element={<Navigate to="/services" replace />} />
+            <Route path="/ar/slo-framework" element={<Navigate to="/ar/services" replace />} />
+            <Route path="/multilingual-systems" element={<Navigate to="/services/web-development" replace />} />
+            <Route path="/ar/multilingual-systems" element={<Navigate to="/ar/services/web-development" replace />} />
+            <Route path="/knowledge-graph-architecture" element={<Navigate to="/services" replace />} />
+            <Route path="/ar/knowledge-graph-architecture" element={<Navigate to="/ar/services" replace />} />
+            <Route path="/enterprise-web-development" element={<Navigate to="/services/web-development" replace />} />
+            <Route path="/ar/enterprise-web-development" element={<Navigate to="/ar/services/web-development" replace />} />
+            <Route path="/saas-architecture" element={<Navigate to="/services/saas-erp" replace />} />
+            <Route path="/ar/saas-architecture" element={<Navigate to="/ar/services/saas-erp" replace />} />
+            <Route path="/marketing-infrastructure" element={<Navigate to="/services/marketing-infrastructure" replace />} />
+            <Route path="/ar/marketing-infrastructure" element={<Navigate to="/ar/services/marketing-infrastructure" replace />} />
+            <Route path="/seo-revenue-systems" element={<Navigate to="/services/seo-services" replace />} />
+            <Route path="/ar/seo-revenue-systems" element={<Navigate to="/ar/services/seo-services" replace />} />
+            <Route path="/custom-software-development" element={<Navigate to="/services/software-engineering" replace />} />
+            <Route path="/ar/custom-software-development" element={<Navigate to="/ar/services/software-engineering" replace />} />
+            <Route path="/enterprise-application-development" element={<Navigate to="/services/saas-erp" replace />} />
+            <Route path="/ar/enterprise-application-development" element={<Navigate to="/ar/services/saas-erp" replace />} />
+            <Route path="/api-integration-architecture" element={<Navigate to="/services/software-engineering" replace />} />
+            <Route path="/ar/api-integration-architecture" element={<Navigate to="/ar/services/software-engineering" replace />} />
+            <Route path="/manifesto" element={<Navigate to="/about" replace />} />
+            <Route path="/ar/manifesto" element={<Navigate to="/ar/about" replace />} />
+            <Route path="/comparison/*" element={<Navigate to="/services" replace />} />
+            <Route path="/ar/comparison/*" element={<Navigate to="/ar/services" replace />} />
 
             {/* Blog Routes */}
             <Route path="/blog" element={
@@ -552,16 +406,6 @@ function AppContent() {
             <Route path="/ar/blog/:slug" element={
               <div className="animate-fade-in">
                 <Suspense fallback={<Skeleton />}><BlogPost /></Suspense>
-              </div>
-            } />
-            <Route path="/manifesto" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ManifestoPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/manifesto" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ManifestoPage /></Suspense>
               </div>
             } />
 

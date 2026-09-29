@@ -38,7 +38,6 @@ export interface PublicProfiles {
 
 export interface EntityConfig {
   id: string;
-  legalName: string;
   name: string;
   alternateName: LocalizedString;
   slogan: LocalizedString;
@@ -62,11 +61,10 @@ export interface EntityConfig {
 
 export const ENTITY: EntityConfig = {
   id: 'https://www.rumuze.com/#organization',
-  legalName: 'Rumuze Technologies LLC',
   name: 'Rumuze',
   alternateName: {
-    en: 'Rumuze Technologies',
-    ar: 'روموز للتقنيات',
+    en: 'Rumuze',
+    ar: 'رموز',
   },
   slogan: {
     en: 'We build the software your business runs on.',
