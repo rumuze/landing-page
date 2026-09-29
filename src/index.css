@@ -93,7 +93,7 @@
 
   --type-h1-size: 40px;
   --type-h1-leading: 1.02;
-  --type-h1-tracking: -0.055em;
+  --type-h1-tracking: -0.035em;
   --type-h2-size: 32px;
   --type-h2-leading: 1.1;
   --type-h2-tracking: -0.04em;
@@ -329,13 +329,17 @@ h6 {
   }
 
   .eyebrow-label {
-    color: var(--brand-cyan);
+    color: #287700; /* 5.4:1 on the light surfaces; the dark theme uses the bright accent */
     font-family: var(--font-family-ui);
     font-size: var(--type-label-size);
     font-weight: 600;
     letter-spacing: var(--type-label-tracking);
     line-height: var(--type-label-leading);
     text-transform: uppercase;
+  }
+
+  .dark .eyebrow-label {
+    color: var(--brand-cyan);
   }
 
   .type-h1 {
@@ -1299,4 +1303,11 @@ h6 {
 .animate-notif-drop {
   animation: notifDrop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
   transform-origin: top right;
+}
+
+/* Brand green on light surfaces: darker shade for 4.5:1 text contrast. */
+html:not(.dark) main a.text-cyan,
+html:not(.dark) main span.text-cyan,
+html:not(.dark) main .home-number-badge {
+  color: #287700;
 }

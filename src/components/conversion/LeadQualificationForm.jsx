@@ -89,6 +89,7 @@ const LeadQualificationForm = ({
   }, [safeIntent, user?.displayName, user?.email, user?.name]);
 
   const isModal = variant === "modal";
+  const HeadingTag = isModal ? "h3" : "h1";
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -209,13 +210,13 @@ const LeadQualificationForm = ({
         <div className="space-y-5">
           <span className={badgeClass}>
             <Sparkles size={14} />
-            {isAr ? "جلسة تشخيص ومراجعة معمارية" : "Architecture Discovery"}
+            {isAr ? "استقبال المشاريع" : "Project intake"}
           </span>
 
           <div>
-            <h3 className="type-h3 text-slate-950 dark:text-white">
+            <HeadingTag className="type-h3 text-slate-950 dark:text-white">
               {intentConfig.title}
-            </h3>
+            </HeadingTag>
             <p className="type-body mt-2 text-slate-600 dark:text-slate-300">
               {intentConfig.description}
             </p>
@@ -301,7 +302,7 @@ const LeadQualificationForm = ({
               <div className={fieldWrapper}>
                 <label className={labelClass} htmlFor="engagementType">
                   <span>{isAr ? "ما تحتاجه بالضبط" : "What you need"}</span>
-                  <span className="type-label text-slate-400 dark:text-slate-500">
+                  <span className="type-label text-slate-600 dark:text-slate-400">
                     {copy.requiredLabel}
                   </span>
                 </label>
@@ -384,7 +385,7 @@ const LeadQualificationForm = ({
                       ? "تفاصيل المنظومة أو التحدي الحالي"
                       : "Current architecture or bottleneck"}
                   </span>
-                  <span className="type-label text-slate-400 dark:text-slate-500">
+                  <span className="type-label text-slate-600 dark:text-slate-400">
                     {isAr ? "(اختياري)" : "(Optional)"}
                   </span>
                 </label>
@@ -459,11 +460,11 @@ const FormField = ({
     <label className={labelClass} htmlFor={name}>
       <span>{label}</span>
       {requiredLabel ? (
-        <span className="type-label text-slate-400 dark:text-slate-500">
+        <span className="type-label text-slate-600 dark:text-slate-400">
           {requiredLabel}
         </span>
       ) : optionalLabel ? (
-        <span className="type-label text-slate-400 dark:text-slate-500">
+        <span className="type-label text-slate-600 dark:text-slate-400">
           {optionalLabel}
         </span>
       ) : null}

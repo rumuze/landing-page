@@ -4,15 +4,15 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import enTranslations from './locales/en.json';
 import arTranslations from './locales/ar.json';
 
-// Simple check for Arabic-speaking countries based on browser locale if no saved preference exists
-const _isInitialArabicPreferred = () => {
-    const browserLangs = navigator.languages || [navigator.language];
-    const arLocales = ['ar', 'ar-SA', 'ar-AE', 'ar-EG', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-QA'];
-    return browserLangs.some(lang => arLocales.includes(lang));
-};
+const isBrowser = typeof window !== 'undefined';
+
+// The language detector needs the browser; during prerendering the language is
+// set explicitly per route (see entry-server.jsx).
+if (isBrowser) {
+    i18n.use(LanguageDetector);
+}
 
 i18n
-    .use(LanguageDetector)
     .use(initReactI18next)
     .init({
         resources: {
@@ -32,7 +32,7 @@ i18n
     });
 
 // Handle initial detection bias if no localStorage is set
-if (!localStorage.getItem('i18nextLng')) {
+if (isBrowser && !window.localStorage.getItem('i18nextLng')) {
     i18n.changeLanguage('ar');
 }
 

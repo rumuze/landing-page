@@ -117,6 +117,7 @@ const NavbarMobile = ({
       </header>
 
       <nav
+        aria-label="Mobile"
         className="fixed inset-x-0 bottom-0 z-[70] border-t border-slate-200/70 bg-[rgb(var(--surface-section)/0.88)] backdrop-blur-xl dark:border-white/10 dark:bg-[rgb(var(--surface-section)/0.84)] lg:hidden"
         style={{
           paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.75rem)',

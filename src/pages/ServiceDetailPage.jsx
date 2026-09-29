@@ -17,6 +17,7 @@ import { useParams, Navigate, useLocation, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
+import SEO from '../components/SEO';
 import { ENTITY } from '../config/entity';
 import { SERVICES } from '../config/services';
 import { siteCoreConfig as SiteConfig, StableIds, buildServiceId } from '../config/siteCoreConfig';

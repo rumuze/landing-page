@@ -19,13 +19,13 @@ npm run dev          # http://localhost:3000
 npm run lint
 npm run typecheck
 npm test             # vitest
-npm run build        # build, inline critical CSS, generate /ar entry, sitemap, robots
+npm run build        # client build, SSR build, prerender, sitemap, robots
 npm run preview
 ```
 
 ## Environment
 
-Copy `.env.example` to `.env` and fill in the Firebase and Google client values. `functions/api/contact.js` additionally reads `FIREBASE_*` and `TELEGRAM_*` secrets from the hosting environment.
+Copy `.env.example` to `.env` and fill in the Firebase and Google client values.
 
 ## Structure
 
@@ -37,11 +37,11 @@ src/
   pages/           route pages (services, work, about, tools, legal, admin)
   seo/             JSON-LD builders and hreflang/canonical helpers
   locales/         navigation, footer, blog, and legal strings
-functions/         Cloudflare middleware and API handlers
+functions/         Cloudflare Pages middleware (metadata injection, security headers)
 firebase-functions/ Firebase Cloud Functions (notifications, visit tracking)
-scripts/           build helpers (sitemap, critical CSS, /ar entry generation)
+scripts/           build helpers (prerender, sitemap, build verification, Open Graph image generation)
 public/            static assets, robots.txt, llms.txt
-docs/              audits, deployment notes, and CLAIMS_REGISTRY.md
+docs/              deployment notes and CLAIMS_REGISTRY.md
 ```
 
 ## Content rules
@@ -51,7 +51,7 @@ Every public claim must be traceable to code or documentation. `docs/CLAIMS_REGI
 ## SEO, GEO, and AEO
 
 - Each language has its own URL, canonical tag, `hreflang` alternates, and sitemap entry.
-- `dist/ar/index.html` is generated from the production entry point by `scripts/generate-locale-html.js`.
+- Every public route is prerendered to static HTML at build time (`src/entry-server.jsx` + `scripts/prerender.js`), so crawlers and answer engines that do not run JavaScript see the full page. The browser then hydrates it. `dist/200.html` is the unrendered app shell used as the fallback for account pages and unknown paths. Set `PRERENDER=false` to skip the step.
 - JSON-LD is emitted from `src/components/SEO.jsx`. FAQ markup is generated from the FAQ shown on the homepage (`src/content/homeContent.js`), so it always matches the visible page.
 - `public/robots.txt` and the generated robots file address search and answer-engine crawlers, and `public/llms.txt` summarises the company for language models.
 - Retired pages are redirected in `public/_redirects`, `vercel.json`, and in the router.

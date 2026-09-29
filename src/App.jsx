@@ -18,6 +18,7 @@ import CustomCursor from './components/CustomCursor';
 import AuthFloatingButton from './components/AuthFloatingButton';
 import ProtectedRoute from './components/ProtectedRoute';
 import VisitTracker from './components/VisitTracker';
+import ConsentBanner from './components/ConsentBanner';
 import { hasLocalePrefix } from './seo/linking';
 import { useTheme } from './context/theme-core';
 import {
@@ -96,7 +97,7 @@ function AppContent() {
   const isAdminRoute =
     location.pathname.startsWith("/admin") ||
     location.pathname.startsWith("/ar/admin");
-  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [isOffline, setIsOffline] = useState(false);
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -161,6 +162,7 @@ function AppContent() {
     const handleOnline = () => setIsOffline(false);
     const handleOffline = () => setIsOffline(true);
 
+    setIsOffline(!navigator.onLine);
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
@@ -256,6 +258,7 @@ function AppContent() {
         </script>
       </Helmet>
       <VisitTracker />
+      <ConsentBanner />
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan to-purple origin-left z-[100] transition-transform duration-100 ease-out"
         style={{ transform: `scaleX(${scrollProgress})` }}
@@ -553,13 +556,14 @@ function AppContent() {
       
       </main>
 
-      <div
+      <aside
+        aria-label={isAr ? 'إجراءات سريعة' : 'Quick actions'}
         className="bottom-safe-nav-clearance fixed right-4 z-[72] flex flex-col items-center gap-3 md:right-6"
       >
         <AuthFloatingButton />
         {!isAdminRoute ? <WhatsAppButton /> : null}
         {!isAdminRoute ? <ShareButton /> : null}
-      </div>
+      </aside>
 
 
       <UpdateToast 
@@ -574,32 +578,24 @@ function AppContent() {
   );
 }
 
-function App() {
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
-
-  useEffect(() => {
-    // Initial load simulation or actual asset checking
-    const timer = setTimeout(() => setIsInitialLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
+/**
+ * Root component.
+ *
+ * `RouterComponent`, `routerProps`, and `helmetContext` let the prerender build
+ * (entry-server.jsx) render the same tree with a StaticRouter and collect the
+ * <head> tags. In the browser the defaults apply.
+ */
+function App({ RouterComponent = Router, routerProps = {}, helmetContext }) {
   return (
-    <HelmetProvider>
+    <HelmetProvider context={helmetContext}>
       <ErrorBoundary>
         <ThemeProvider>
           <AuthProvider>
-            {isInitialLoading && (
-              <div
-                className="route-fade fixed inset-0 z-[10000]"
-              >
-                <LoadingSpinner fullScreen />
-              </div>
-            )}
-            <Router>
+            <RouterComponent {...routerProps}>
               <CustomCursor />
               <ScrollToTop />
               <AppContent />
-            </Router>
+            </RouterComponent>
           </AuthProvider>
         </ThemeProvider>
       </ErrorBoundary>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{lang}}" dir="{{dir}}">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: 'Sora'; font-weight: 700; src: url('{{sora}}/sora-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-weight: 500; src: url('{{inter}}/inter-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Cairo'; font-weight: 700; unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; src: url('{{cairo}}/cairo-arabic-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Cairo'; font-weight: 400; unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; src: url('{{cairo}}/cairo-arabic-400-normal.woff2') format('woff2'); }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1200px; height: 630px; overflow: hidden; color: #fff;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(60,191,0,.22), transparent 60%),
+      radial-gradient(700px 500px at 0% 110%, rgba(0,107,84,.55), transparent 60%),
+      linear-gradient(135deg, #04170F 0%, #082A1D 100%);
+    font-family: {{bodyFont}}; position: relative; }
+  .grid { position: absolute; inset: 0; opacity: .07;
+    background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+    background-size: 48px 48px; }
+  .wrap { position: absolute; inset: 0; padding: 72px 84px; display: flex; flex-direction: column; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 18px; }
+  .brand img { width: 64px; height: 64px; border-radius: 16px; background: #fff; padding: 8px; }
+  .brand span { font-family: {{headFont}}; font-weight: 700; font-size: 34px; letter-spacing: .14em; }
+  h1 { font-family: {{headFont}}; font-weight: 700; font-size: {{h1Size}}px; line-height: 1.12; letter-spacing: {{tracking}}; max-width: 980px; }
+  p.sub { margin-top: 22px; font-size: 30px; line-height: 1.4; color: rgba(255,255,255,.78); max-width: 900px; font-weight: {{subWeight}}; }
+  .foot { display: flex; justify-content: space-between; align-items: center; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 24px; color: rgba(255,255,255,.7); }
+  .chips { display: flex; gap: 12px; }
+  .chip { border: 1.5px solid rgba(255,255,255,.28); border-radius: 999px; padding: 8px 18px; font-size: 22px; }
+  .accent { color: #3CBF00; }
+  .rule { width: 88px; height: 6px; border-radius: 3px; background: #3CBF00; margin-bottom: 28px; }
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="wrap">
+  <div class="brand"><img src="{{logo}}" alt=""><span>{{brand}}</span></div>
+  <div>
+    <div class="rule"></div>
+    <h1>{{headline}}</h1>
+    <p class="sub">{{sub}}</p>
+  </div>
+  <div class="foot" dir="ltr">
+    <div class="chips"><span class="chip">Laravel</span><span class="chip">NestJS</span><span class="chip">Flutter</span><span class="chip">Next.js</span></div>
+    <span class="accent">rumuze.com</span>
+  </div>
+</div>
+</body>
+</html>

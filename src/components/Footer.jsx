@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ENTITY } from '../config/entity';
 import { SERVICES } from '../config/services';
 import { siteCoreConfig } from '../config/siteCoreConfig';
+import { writeConsent } from '../utils/consent';
 
 const copyByLocale = {
   en: {
@@ -17,6 +18,7 @@ const copyByLocale = {
     contact: 'Start a project',
     privacy: 'Privacy Policy',
     terms: 'Terms of Use',
+    cookies: 'Analytics preferences',
     linkedin: 'Rumuze on LinkedIn',
     github: 'Rumuze on GitHub',
   },
@@ -31,6 +33,7 @@ const copyByLocale = {
     contact: 'ابدأ مشروعك',
     privacy: 'سياسة الخصوصية',
     terms: 'شروط الاستخدام',
+    cookies: 'تفضيلات الإحصاءات',
     linkedin: 'رموز على LinkedIn',
     github: 'رموز على GitHub',
   },
@@ -86,7 +89,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="copy-primary mb-5 text-xs font-bold uppercase tracking-widest">{c.services}</h4>
+            <h2 className="copy-primary mb-5 text-xs font-bold uppercase tracking-widest">{c.services}</h2>
             <ul className="copy-secondary space-y-3 text-sm">
               {SERVICES.map((service) => (
                 <li key={service.slug}>
@@ -99,7 +102,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="copy-primary mb-5 text-xs font-bold uppercase tracking-widest">{c.company}</h4>
+            <h2 className="copy-primary mb-5 text-xs font-bold uppercase tracking-widest">{c.company}</h2>
             <ul className="copy-secondary space-y-3 text-sm">
               <li><Link to={`${prefix}/about`} className={linkClass}>{c.about}</Link></li>
               <li><Link to={`${prefix}/portfolio`} className={linkClass}>{c.work}</Link></li>
@@ -109,7 +112,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="copy-primary mb-5 text-xs font-bold uppercase tracking-widest">{c.contactTitle}</h4>
+            <h2 className="copy-primary mb-5 text-xs font-bold uppercase tracking-widest">{c.contactTitle}</h2>
             <ul className="copy-secondary space-y-3 text-sm">
               <li><Link to={`${prefix}/contact?intent=discovery`} className={linkClass}>{c.contact}</Link></li>
               <li>
@@ -131,6 +134,9 @@ const Footer = () => {
           <div className={`copy-muted flex gap-8 text-xs ${isRtl ? 'flex-row-reverse' : ''}`}>
             <Link to={`${prefix}/privacy`} className={linkClass}>{c.privacy}</Link>
             <Link to={`${prefix}/terms`} className={linkClass}>{c.terms}</Link>
+            <button type="button" onClick={() => writeConsent(null)} className={linkClass}>
+              {c.cookies}
+            </button>
           </div>
         </div>
       </div>

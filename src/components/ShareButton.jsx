@@ -20,17 +20,18 @@ const ShareButton = ({ title, url, className = '', showTooltip = true }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const shareData = {
+  // Built lazily: window does not exist while the page is prerendered.
+  const getShareData = () => ({
     title: title || 'Rumuze',
     text: t('seo.ogDescription'),
     url: url || window.location.href,
-  };
+  });
 
   const handleShare = async () => {
     // Try Native Share API first (Mobile)
     if (navigator.share) {
       try {
-        await navigator.share(shareData);
+        await navigator.share(getShareData());
       } catch (err) {
         console.log('Error sharing:', err);
       }
@@ -41,7 +42,7 @@ const ShareButton = ({ title, url, className = '', showTooltip = true }) => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(shareData.url).then(() => {
+    navigator.clipboard.writeText(getShareData().url).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -78,7 +79,7 @@ const ShareButton = ({ title, url, className = '', showTooltip = true }) => {
               
               <div className="grid grid-cols-2 gap-2">
                 <a 
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareData.url)}`}
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(getShareData().url)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 p-2 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 transition-colors border border-blue-500/20"
@@ -88,7 +89,7 @@ const ShareButton = ({ title, url, className = '', showTooltip = true }) => {
                 </a>
                 
                 <a 
-                  href={`https://wa.me/?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(getShareData().text + ' ' + getShareData().url)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 p-2 rounded-lg bg-green-500/20 hover:bg-green-500/40 text-green-400 transition-colors border border-green-500/20"
@@ -102,7 +103,7 @@ const ShareButton = ({ title, url, className = '', showTooltip = true }) => {
                 <input 
                   type="text" 
                   readOnly 
-                  value={shareData.url}
+                  value={getShareData().url}
                   className="w-full bg-black/30 border border-white/10 rounded-lg py-2 px-3 text-xs text-gray-400 focus:outline-none"
                 />
                 <button 

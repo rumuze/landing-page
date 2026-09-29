@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const setupStatus = authService.getFirebaseSetupStatus();
   const isConfigured = setupStatus.isConfigValid;
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(isConfigured);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     if (!isConfigured) {
+      setIsLoading(false);
       return () => {
         isMounted = false;
       };

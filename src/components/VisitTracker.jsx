@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../context/auth-core";
 import { trackVisit } from "../services/visitService";
+import { useConsent } from "../hooks/useConsent";
+import { CONSENT_GRANTED } from "../utils/consent";
 
 const VISITOR_ID_KEY = "rumuze.visit.visitorId";
 const SESSION_ID_KEY = "rumuze.visit.sessionId";
@@ -93,9 +95,11 @@ const sendVisit = async (payload) => {
 const VisitTracker = () => {
   const location = useLocation();
   const { user, isLoading } = useAuth();
+  // Nothing is recorded until the visitor accepts (see ConsentBanner).
+  const hasConsent = useConsent() === CONSENT_GRANTED;
 
   useEffect(() => {
-    if (!isBrowser || isLoading) {
+    if (!isBrowser || isLoading || !hasConsent) {
       return;
     }
 
@@ -113,10 +117,10 @@ const VisitTracker = () => {
 
     safeStorageSet(window.sessionStorage, dedupKey, payload.eventId);
     void sendVisit(payload);
-  }, [isLoading, location]);
+  }, [isLoading, hasConsent, location]);
 
   useEffect(() => {
-    if (!isBrowser || isLoading || !user?.uid) {
+    if (!isBrowser || isLoading || !hasConsent || !user?.uid) {
       return;
     }
 
@@ -135,7 +139,7 @@ const VisitTracker = () => {
 
     safeStorageSet(window.sessionStorage, dedupKey, payload.eventId);
     void sendVisit(payload);
-  }, [isLoading, location, user?.uid]);
+  }, [isLoading, hasConsent, location, user?.uid]);
 
   return null;
 };

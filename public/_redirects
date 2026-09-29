@@ -35,4 +35,4 @@
 /ar/comparison/* /ar/services 301
 
 # SPA Fallback for Client-Side Routing
-/* / 200
+/* /200.html 200

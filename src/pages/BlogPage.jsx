@@ -83,13 +83,13 @@ const BlogPage = () => {
               transition={{ delay: index * 0.1 }}
               className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 flex flex-col h-full"
             >
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative aspect-[1200/630] overflow-hidden">
                 <div className="w-full h-full group-hover:scale-110 transition-transform duration-700">
                   <OptimizedImage
                     src={post.image}
                     alt={post.title}
-                    width={800}
-                    height={600}
+                    width={1200}
+                    height={630}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="w-full h-full"
                   />

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import { homeContent } from '../content/homeContent';
+import { architectureDiagrams } from '../content/architectureDiagrams';
+import ArchitectureDiagram from '../components/ArchitectureDiagram';
 
 const copyByLocale = {
   en: {
@@ -82,6 +84,9 @@ const PortfolioPage = () => {
                       </span>
                     ))}
                   </div>
+                </div>
+                <div className="lg:col-span-2">
+                  <ArchitectureDiagram diagram={architectureDiagrams[card.title]} lang={locale} />
                 </div>
               </article>
             ))}
