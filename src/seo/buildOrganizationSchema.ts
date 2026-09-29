@@ -38,6 +38,7 @@ export function buildOrganizationSchema(lang: LanguageCode) {
       'https://www.facebook.com/rumuze/',
       'https://www.instagram.com/rumuze_flow/',
       'https://www.tiktok.com/@rumuze_flow',
+      'https://www.youtube.com/@Rumuze',
     ],
     contactPoint: {
       '@type': 'ContactPoint',

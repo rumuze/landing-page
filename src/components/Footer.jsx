@@ -1,4 +1,4 @@
-import { Facebook, Github, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Github, Instagram, Linkedin, Youtube } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ENTITY } from '../config/entity';
@@ -24,6 +24,7 @@ const copyByLocale = {
     facebook: 'Rumuze on Facebook',
     instagram: 'Rumuze on Instagram',
     tiktok: 'Rumuze on TikTok',
+    youtube: 'Rumuze on YouTube',
   },
   ar: {
     services: 'الخدمات',
@@ -42,6 +43,7 @@ const copyByLocale = {
     facebook: 'رموز على Facebook',
     instagram: 'رموز على Instagram',
     tiktok: 'رموز على TikTok',
+    youtube: 'رموز على YouTube',
   },
 };
 
@@ -67,6 +69,7 @@ const Footer = () => {
     { key: 'facebook', href: ENTITY.publicProfiles.facebook, label: c.facebook, icon: <Facebook size={20} /> },
     { key: 'instagram', href: ENTITY.publicProfiles.instagram, label: c.instagram, icon: <Instagram size={20} /> },
     { key: 'tiktok', href: ENTITY.publicProfiles.tiktok, label: c.tiktok, icon: <TikTokIcon /> },
+    { key: 'youtube', href: ENTITY.publicProfiles.youtube, label: c.youtube, icon: <Youtube size={20} /> },
     { key: 'github', href: ENTITY.publicProfiles.github, label: c.github, icon: <Github size={20} /> },
   ].filter((link) => Boolean(link.href));
 
