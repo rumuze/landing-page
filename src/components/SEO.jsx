@@ -231,8 +231,8 @@ const SEO = ({ title, description, image, type, path, schemas, canonical, noinde
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={metaImage} />
       <meta name="twitter:image:alt" content={imageAlt} />
-      <meta name="twitter:site" content="@rumuze" />
-      <meta name="twitter:creator" content="@rumuze" />
+      <meta name="twitter:site" content="@Rumuzeflow" />
+      <meta name="twitter:creator" content="@Rumuzeflow" />
 
       {/* Article metadata */}
       {metaType === 'article' && articleAuthor ? <meta property="article:author" content={articleAuthor} /> : null}

@@ -25,6 +25,7 @@ const copyByLocale = {
     instagram: 'Rumuze on Instagram',
     tiktok: 'Rumuze on TikTok',
     youtube: 'Rumuze on YouTube',
+    x: 'Rumuze on X',
   },
   ar: {
     services: 'الخدمات',
@@ -44,6 +45,7 @@ const copyByLocale = {
     instagram: 'رموز على Instagram',
     tiktok: 'رموز على TikTok',
     youtube: 'رموز على YouTube',
+    x: 'رموز على X',
   },
 };
 
@@ -51,6 +53,12 @@ const copyByLocale = {
 const TikTokIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M16.6 2h-3.2v13.2a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .8.1V9.2a6 6 0 1 0 5.2 5.9V8.6a7.4 7.4 0 0 0 4.3 1.4V6.8a4.3 4.3 0 0 1-4.3-4.8z" />
+  </svg>
+);
+
+const XIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
 );
 
@@ -70,6 +78,7 @@ const Footer = () => {
     { key: 'instagram', href: ENTITY.publicProfiles.instagram, label: c.instagram, icon: <Instagram size={20} /> },
     { key: 'tiktok', href: ENTITY.publicProfiles.tiktok, label: c.tiktok, icon: <TikTokIcon /> },
     { key: 'youtube', href: ENTITY.publicProfiles.youtube, label: c.youtube, icon: <Youtube size={20} /> },
+    { key: 'x', href: ENTITY.publicProfiles.x, label: c.x, icon: <XIcon /> },
     { key: 'github', href: ENTITY.publicProfiles.github, label: c.github, icon: <Github size={20} /> },
   ].filter((link) => Boolean(link.href));
 

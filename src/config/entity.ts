@@ -37,6 +37,7 @@ export interface PublicProfiles {
   instagram?: string;
   tiktok?: string;
   youtube?: string;
+  x?: string;
   website?: string;
 }
 
@@ -118,6 +119,7 @@ export const ENTITY: EntityConfig = {
     instagram: 'https://www.instagram.com/rumuze_flow/',
     tiktok: 'https://www.tiktok.com/@rumuze_flow',
     youtube: 'https://www.youtube.com/@Rumuze',
+    x: 'https://x.com/Rumuzeflow',
     website: 'https://www.rumuze.com',
   },
   languages: ['en', 'ar'],
@@ -133,6 +135,7 @@ export const ENTITY: EntityConfig = {
     'https://www.instagram.com/rumuze_flow/',
     'https://www.tiktok.com/@rumuze_flow',
     'https://www.youtube.com/@Rumuze',
+    'https://x.com/Rumuzeflow',
   ],
   // Domains of the products Rumuze has built (see docs/CLAIMS_REGISTRY.md).
   industryFocus: [

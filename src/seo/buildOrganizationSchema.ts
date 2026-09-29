@@ -33,7 +33,7 @@ export function buildOrganizationSchema(lang: LanguageCode) {
     areaServed: ['SA', 'AE', 'EG', 'KW', 'QA', 'BH', 'OM'],
     sameAs: [
       'https://www.linkedin.com/company/rumuze-%D8%B1%D9%85%D9%88%D8%B2',
-      'https://x.com/rumuze',
+      'https://x.com/Rumuzeflow',
       'https://github.com/rumuze',
       'https://www.facebook.com/rumuze/',
       'https://www.instagram.com/rumuze_flow/',

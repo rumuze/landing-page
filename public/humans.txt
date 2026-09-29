@@ -1,7 +1,7 @@
 /* TEAM */
   Founder: Mohamed Ashraf
   Contact: connect@rumuze.com
-  Twitter: @rumuze
+  Twitter: @Rumuzeflow
   From: Cairo, Egypt
 
 /* THANKS */

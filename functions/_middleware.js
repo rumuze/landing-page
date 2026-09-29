@@ -373,8 +373,8 @@ function buildMetaTags(metadata) {
         `<meta name="twitter:description" content="${metadata.description}">`,
         `<meta name="twitter:image" content="${metadata.image}">`,
         `<meta name="twitter:image:alt" content="${metadata.imageAlt}">`,
-        `<meta name="twitter:site" content="@rumuze">`,
-        `<meta name="twitter:creator" content="@rumuze">`,
+        `<meta name="twitter:site" content="@Rumuzeflow">`,
+        `<meta name="twitter:creator" content="@Rumuzeflow">`,
 
         // ========================================================================
         // ADDITIONAL SEO TAGS

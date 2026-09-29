@@ -161,6 +161,6 @@ Do not publish: internal architecture scores, "known risks" lists, environment d
 | Item | Why |
 | --- | --- |
 | Company founding year (2026) | Published in Organization JSON-LD; unverified. |
-| Phone, email, X profile | Published in JSON-LD and footer from earlier configuration; unverified. LinkedIn company page, Facebook page and Instagram and TikTok (rumuze_flow) and YouTube (@Rumuze) accounts confirmed by the owner (2026-09-29). |
+| Phone, email, X profile | Published in JSON-LD and footer from earlier configuration; unverified. LinkedIn company page, Facebook page and Instagram and TikTok (rumuze_flow) YouTube (@Rumuze) and X (@Rumuzeflow) accounts confirmed by the owner (2026-09-29). |
 | "Every request is reviewed within one business day" | Existing commitment; confirm it is operationally true (CR-020). |
 | Rveta description | Written from the driver app README; confirm the product description and status. |
