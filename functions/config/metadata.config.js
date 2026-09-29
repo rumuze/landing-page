@@ -53,7 +53,7 @@ export const TWITTER_HANDLE = '@rumuze';
  * Update this when images change to force social crawlers to re-fetch
  * Format: YYYY-MM or YYYY-MM-patchN
  */
-export const OG_IMAGE_VERSION = '2026-02';
+export const OG_IMAGE_VERSION = '2026-09';
 
 // ============================================================================
 // OG IMAGE CONFIGURATION
