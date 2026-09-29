@@ -28,7 +28,7 @@ class ErrorBoundary extends React.Component {
             animate={{ opacity: 1, y: 0 }}
             className="glass-card max-w-md w-full p-8 border-red-500/20"
           >
-            <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-2xl bg-gradient-to-br from-red-500/20 to-purple-500/20 border border-red-500/20 shadow-2xl shadow-red-500/10">
+            <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-2xl bg-red-500/10 border border-red-500/20 shadow-2xl shadow-red-500/10">
                <img src="/rumuze.svg" alt="Rumuze Logo" className="w-8 h-8 opacity-50 grayscale hover:grayscale-0 transition-all duration-500" />
             </div>
             <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-4">System Interruption</h1>
@@ -40,7 +40,7 @@ class ErrorBoundary extends React.Component {
             </div>
             <button 
               onClick={() => window.location.reload()}
-              className="btn-primary w-full shadow-lg shadow-cyan/20"
+              className="btn-primary w-full"
             >
               Reinitialize System
             </button>

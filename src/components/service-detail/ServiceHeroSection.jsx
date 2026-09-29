@@ -15,12 +15,6 @@ const ServiceHeroSection = ({ service, isAr }) => {
       className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden"
       aria-labelledby="service-hero-title"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple/10 rounded-full blur-3xl" />
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" dir={isAr ? 'rtl' : 'ltr'}>
         {/* Breadcrumb */}
         <Motion.nav
@@ -96,7 +90,7 @@ const ServiceHeroSection = ({ service, isAr }) => {
         >
           <Link
             to={isAr ? '/ar/contact' : '/contact'}
-            className="btn-primary px-8 py-3.5 text-base shadow-lg shadow-cyan/20 flex items-center gap-2"
+            className="btn-primary px-8 py-3.5 text-base flex items-center gap-2"
           >
             {isAr ? 'احجز استشارة فنية' : 'Request Technical Consultation'}
             {isAr ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}

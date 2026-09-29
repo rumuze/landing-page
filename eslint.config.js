@@ -61,21 +61,4 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
     },
   },
-  {
-    files: ['functions/**/*.js'],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: {
-        ...globals.worker,
-        HTMLRewriter: 'readonly',
-      },
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
-    },
-    rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
-    },
-  },
 ])

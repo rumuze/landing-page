@@ -117,11 +117,11 @@ const OptimizedImage = ({
 
       {/* Error fallback - Branded glassmorphism placeholder */}
       {hasError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-md">
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-slate-800">
           <div className="text-center">
             {/* Branded "R" Logo Placeholder */}
-            <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-br from-cyan/20 to-purple/20 border border-white/10 flex items-center justify-center">
-              <span className="text-2xl font-black bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent">R</span>
+            <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-white dark:bg-white/5 border border-white/10 flex items-center justify-center">
+              <span className="text-2xl font-black text-slate-900 dark:text-white">R</span>
             </div>
             <p className="text-sm text-white/40 font-medium">Image unavailable</p>
           </div>

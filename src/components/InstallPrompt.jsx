@@ -57,9 +57,6 @@ const InstallPrompt = () => {
           className="bottom-safe-nav-clearance fixed right-4 z-[10000] w-[320px] max-w-[calc(100vw-32px)] md:right-6"
         >
           <div className="surface-card relative overflow-hidden p-6 backdrop-blur-xl">
-            {/* Background elements */}
-            <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-cyan-500/10 blur-3xl" />
-            
             <button
               onClick={() => setShow(false)}
               className="absolute right-3 top-3 rounded-full p-2 copy-muted hover:bg-slate-100 dark:hover:bg-white/5"
@@ -69,7 +66,7 @@ const InstallPrompt = () => {
 
             <div className="relative">
               <div className="mb-4 flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 p-2 shadow-lg">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 p-2 shadow-lg">
                   <img src="/rumuze.svg" alt="R" className="h-full w-full invert" />
                 </div>
                 <div>
@@ -87,7 +84,7 @@ const InstallPrompt = () => {
 
               <button
                 onClick={handleInstall}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 py-3 font-bold text-white transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-cyan-500/20"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-cyan text-slate-950 py-3 font-bold transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-cyan-500/20"
               >
                 <Download className="h-5 w-5" />
                 <span>Install Rumuze App</span>

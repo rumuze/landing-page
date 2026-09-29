@@ -38,13 +38,6 @@ const LoadingSpinner = ({ fullScreen = false }) => {
             className="absolute w-40 h-40 border-t-2 border-r-2 border-cyan/40 rounded-full"
           />
 
-          {/* Pulsing Core Shadow */}
-          <Motion.div
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute w-24 h-24 bg-cyan/20 blur-2xl rounded-full"
-          />
-
           {/* Logo Symbol */}
           <Motion.div 
             animate={{ scale: [0.95, 1.05, 0.95] }}
@@ -59,7 +52,7 @@ const LoadingSpinner = ({ fullScreen = false }) => {
                 width="64"
                 height="64"
                 alt="Rumuze Symbol" 
-                className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,229,255,0.6)]" 
+                className="w-full h-full object-contain filter" 
               />
             </picture>
           </Motion.div>
@@ -80,7 +73,7 @@ const LoadingSpinner = ({ fullScreen = false }) => {
             <Motion.div 
               animate={{ x: ['-100%', '100%'] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-1/2 h-full bg-cyan shadow-[0_0_10px_rgba(0,229,255,0.8)]"
+              className="w-1/2 h-full bg-cyan"
             />
           </div>
         </div>

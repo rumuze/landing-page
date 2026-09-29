@@ -125,7 +125,7 @@ const BlogPost = () => {
                     className="prose prose-lg dark:prose-invert max-w-none 
                         prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white
                         prose-p:text-slate-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed
-                        prose-a:text-cyan hover:prose-a:text-purple prose-a:transition-colors
+                        prose-a:text-cyan hover:prose-a:underline prose-a:transition-colors
                         prose-blockquote:border-l-4 prose-blockquote:border-cyan prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-white/5 prose-blockquote:px-8 prose-blockquote:py-4 prose-blockquote:rounded-r-lg prose-blockquote:italic
                         prose-strong:text-slate-900 dark:prose-strong:text-white prose-code:before:content-none prose-code:after:content-none prose-code:rounded prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-[0.85em] prose-code:font-medium dark:prose-code:bg-white/10
                         rtl:prose-blockquote:border-l-0 rtl:prose-blockquote:border-r-4 rtl:prose-blockquote:rounded-l-lg rtl:prose-blockquote:rounded-r-none"

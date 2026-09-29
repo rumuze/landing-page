@@ -130,12 +130,12 @@ const AvatarButton = () => {
             referrerPolicy="no-referrer"
           />
         ) : (
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan/80 via-cyan to-sky-400 text-sm font-semibold text-slate-950">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan text-sm font-semibold text-slate-950">
             {avatarInitial}
           </span>
         )}
 
-        <span className="absolute bottom-0.5 right-0.5 h-3.5 w-3.5 rounded-full border-2 border-slate-950 bg-emerald-400 shadow-[0_0_12px_rgba(74,222,128,0.7)] dark:border-slate-900" />
+        <span className="absolute bottom-0.5 right-0.5 h-3.5 w-3.5 rounded-full border-2 border-slate-950 bg-emerald-400 dark:border-slate-900" />
       </button>
 
       <div
@@ -157,7 +157,7 @@ const AvatarButton = () => {
                 referrerPolicy="no-referrer"
               />
             ) : (
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-cyan/80 via-cyan to-sky-400 text-sm font-semibold text-slate-950">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cyan text-sm font-semibold text-slate-950">
                 {avatarInitial}
               </span>
             )}

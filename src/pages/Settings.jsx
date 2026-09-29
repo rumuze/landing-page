@@ -65,7 +65,7 @@ const Settings = () => {
         className="min-h-screen px-4 pb-24 pt-32 sm:px-6"
       >
         <div className="mx-auto max-w-3xl space-y-6">
-          <div className="rounded-[2rem] border border-white/10 bg-slate-950/78 p-6 shadow-[0_30px_100px_rgba(2,6,23,0.5)] backdrop-blur-2xl sm:p-8">
+          <div className="rounded-[2rem] border border-white/10 bg-slate-950 p-6 sm:p-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan/80">
@@ -88,7 +88,7 @@ const Settings = () => {
           </div>
 
           <form onSubmit={handleSave} className="space-y-6">
-            <section className="rounded-[1.75rem] border border-white/10 bg-slate-950/78 p-5 backdrop-blur-2xl sm:p-6">
+            <section className="rounded-[1.75rem] border border-white/10 bg-slate-950 p-5 sm:p-6">
               <div className="mb-5 flex items-center gap-3 text-white">
                 <Sparkles size={16} className="text-cyan" />
                 <h2 className="text-lg font-semibold">
@@ -106,7 +106,7 @@ const Settings = () => {
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    <div className="flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-gradient-to-br from-cyan via-sky-400 to-cyan text-3xl font-semibold text-slate-950">
+                    <div className="flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-cyan text-3xl font-semibold text-slate-950">
                       {previewInitial}
                     </div>
                   )}
@@ -151,7 +151,7 @@ const Settings = () => {
               </div>
             </section>
 
-            <section className="rounded-[1.75rem] border border-white/10 bg-slate-950/78 p-5 backdrop-blur-2xl sm:p-6">
+            <section className="rounded-[1.75rem] border border-white/10 bg-slate-950 p-5 sm:p-6">
               <div className="mb-5">
                 <h2 className="text-lg font-semibold text-white">
                   {isAr ? "الأمان" : "Security"}

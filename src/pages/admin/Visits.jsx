@@ -104,8 +104,7 @@ const Visits = () => {
         className="min-h-screen px-4 pb-24 pt-28 sm:px-6"
       >
         <div className="mx-auto max-w-7xl space-y-6">
-          <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/82 px-6 py-7 shadow-[0_30px_100px_rgba(2,6,23,0.5)] backdrop-blur-2xl sm:px-8">
-            <div className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.16),transparent_62%)]" />
+          <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950 px-6 py-7 sm:px-8">
 
             <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-3xl">
@@ -194,7 +193,7 @@ const Visits = () => {
             </div>
 
             <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-white/10">
-              <div className="hidden grid-cols-[minmax(0,1.5fr)_minmax(0,1.1fr)_minmax(0,1fr)_minmax(0,0.9fr)] gap-4 bg-slate-950/70 px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 lg:grid">
+              <div className="hidden grid-cols-[minmax(0,1.5fr)_minmax(0,1.1fr)_minmax(0,1fr)_minmax(0,0.9fr)] gap-4 bg-slate-950 px-5 py-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 lg:grid">
                 <div>Visit</div>
                 <div>Source</div>
                 <div>Account</div>

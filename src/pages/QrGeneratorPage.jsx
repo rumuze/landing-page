@@ -135,7 +135,7 @@ const QrGeneratorPage = () => {
           className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter mb-4"
         >
           {c.heroTitle}{' '}
-          <span className="bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent">
+          <span className="text-cyan">
             {c.heroHighlight}
           </span>
         </Motion.h1>
@@ -185,7 +185,7 @@ const QrGeneratorPage = () => {
                 transition={{ duration: 0.4, delay: i * 0.08 }}
                 className="group bg-white dark:bg-white/[0.03] rounded-2xl border border-slate-200 dark:border-white/5 p-6 hover:border-cyan/40 transition-colors"
               >
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan/10 to-purple/10 flex items-center justify-center mb-4 group-hover:from-cyan/20 group-hover:to-purple/20 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-cyan/10 flex items-center justify-center mb-4 transition-colors">
                   <Icon size={20} className="text-cyan" />
                 </div>
                 <h3 className="font-bold text-slate-900 dark:text-white mb-2">{f.title}</h3>
@@ -220,13 +220,13 @@ const QrGeneratorPage = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-br from-primary-light to-primary rounded-3xl p-10 sm:p-14 border border-white/5"
+          className="bg-slate-900 rounded-3xl p-10 sm:p-14 border border-white/5"
         >
           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">{c.ctaTitle}</h2>
           <p className="text-lg text-gray-300 mb-8 max-w-lg mx-auto">{c.ctaDesc}</p>
           <Link
             to={`${pathPrefix}/services`}
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-cyan to-purple text-white font-bold rounded-xl hover:shadow-lg hover:shadow-cyan/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-cyan text-slate-950 font-bold rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
           >
             {c.ctaBtn}
           </Link>

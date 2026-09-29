@@ -53,7 +53,7 @@ const WhatsAppButton = ({ className = '', showTooltip = true }) => {
         </span>
       ) : null}
 
-      <span className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-600">
+      <span className="flex h-full w-full items-center justify-center rounded-full bg-[#25D366]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

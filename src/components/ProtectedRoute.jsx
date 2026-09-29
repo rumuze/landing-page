@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
   if (isLoading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center px-4 pt-32">
-        <div className="rounded-[2rem] border border-white/10 bg-slate-950/70 p-8 shadow-[0_24px_70px_rgba(2,6,23,0.45)] backdrop-blur-2xl">
+        <div className="rounded-[2rem] border border-white/10 bg-slate-950 p-8">
           <LoadingSpinner />
         </div>
       </div>

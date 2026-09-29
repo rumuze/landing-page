@@ -75,13 +75,6 @@ const sectionToneClasses = {
     "relative overflow-hidden border-t border-[rgb(var(--border-subtle)/0.58)] bg-[rgb(var(--surface-section-alt)/0.34)] dark:bg-[rgb(var(--surface-section-alt)/0.14)]",
 };
 
-const toneOverlayClasses = {
-  default:
-    "bg-[radial-gradient(circle_at_top_left,rgba(0,229,255,0.04),transparent_30%),radial-gradient(circle_at_100%_0%,rgba(15,23,42,0.035),transparent_24%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(0,229,255,0.06),transparent_30%),radial-gradient(circle_at_100%_0%,rgba(15,23,42,0.14),transparent_26%)]",
-  alt:
-    "bg-[radial-gradient(circle_at_100%_0%,rgba(0,229,255,0.035),transparent_24%),radial-gradient(circle_at_0%_100%,rgba(15,23,42,0.03),transparent_28%)] dark:bg-[radial-gradient(circle_at_100%_0%,rgba(0,229,255,0.055),transparent_28%),radial-gradient(circle_at_0%_100%,rgba(15,23,42,0.14),transparent_30%)]",
-};
-
 const sectionSpaceClass = "py-16 md:py-20 xl:py-24";
 
 const panelClass = "home-panel";
@@ -114,8 +107,6 @@ const ConversionHomepage = () => {
   return (
     <>
       <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute left-[-8rem] top-[-10rem] h-[22rem] w-[22rem] rounded-full bg-cyan/[0.05] blur-3xl dark:bg-cyan/[0.08]" />
-        <div className="pointer-events-none absolute right-[-9rem] top-[14rem] h-[20rem] w-[20rem] rounded-full bg-slate-300/16 blur-3xl dark:bg-slate-500/10" />
 
         <HeroSection copy={copy.hero} isAr={isAr} onOpenLeadCapture={openLeadCapture} />
         <CapabilitiesSection copy={copy.capabilities} isAr={isAr} />
@@ -137,7 +128,6 @@ const ConversionHomepage = () => {
 
 const SectionShell = ({ children, className = "", tone = "default" }) => (
   <section className={joinClasses(sectionToneClasses[tone], className)}>
-    <div className={joinClasses("pointer-events-none absolute inset-0", toneOverlayClasses[tone])} />
     <div className="content-shell relative z-10">{children}</div>
   </section>
 );

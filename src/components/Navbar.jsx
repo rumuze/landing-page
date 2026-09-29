@@ -231,7 +231,7 @@ const Navbar = () => {
                         alt="Rumuze Symbol"
                         fetchPriority="high"
                         decoding="async"
-                        className="h-8 w-8 drop-shadow-[0_0_12px_rgba(0,229,255,0.28)] transition-transform duration-300 group-hover:scale-105"
+                        className="h-8 w-8 transition-transform duration-300 group-hover:scale-105"
                       />
                     </picture>
                   </div>

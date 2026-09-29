@@ -57,12 +57,6 @@ const NotFound = () => {
         noindex={true}
       />
       
-      {/* Background Effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-cyan/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-purple/10 rounded-full blur-3xl" />
-      </div>
-
       <Motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -76,7 +70,7 @@ const NotFound = () => {
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="text-8xl md:text-9xl font-black bg-gradient-to-r from-cyan via-purple to-cyan bg-clip-text text-transparent mb-4"
+            className="text-8xl md:text-9xl font-black text-cyan mb-4"
           >
             {t.title}
           </Motion.h1>
@@ -110,7 +104,7 @@ const NotFound = () => {
           >
             <Link
               to={homePath}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-cyan to-cyan/80 text-background font-bold hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,229,255,0.4)]"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-cyan text-background font-bold hover:scale-105 transition-transform duration-300"
             >
               <Home className="w-5 h-5" />
               {t.backHome}

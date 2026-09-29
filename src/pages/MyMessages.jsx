@@ -98,8 +98,7 @@ const MyMessages = () => {
         className="min-h-screen px-4 pb-24 pt-32 sm:px-6"
       >
         <div className="mx-auto max-w-7xl space-y-6">
-          <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/82 px-6 py-7 shadow-[0_30px_100px_rgba(2,6,23,0.5)] backdrop-blur-2xl sm:px-8">
-            <div className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.16),transparent_62%)]" />
+          <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950 px-6 py-7 sm:px-8">
 
             <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">
@@ -173,7 +172,7 @@ const MyMessages = () => {
               />
             </div>
           ) : (
-            <section className="rounded-[2rem] border border-dashed border-white/10 bg-slate-950/72 px-6 py-12 text-center shadow-[0_30px_100px_rgba(2,6,23,0.36)] backdrop-blur-2xl">
+            <section className="rounded-[2rem] border border-dashed border-white/10 bg-slate-950 px-6 py-12 text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-100">
                 <BellRing size={26} />
               </div>

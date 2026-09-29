@@ -36,8 +36,7 @@ const ThreadList = ({
   }, [threads]);
 
   return (
-    <section className="relative flex h-full min-h-[32rem] flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/78 shadow-[0_30px_100px_rgba(2,6,23,0.48)] backdrop-blur-2xl">
-      <div className="absolute inset-x-0 top-0 h-48 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_62%)]" />
+    <section className="relative flex h-full min-h-[32rem] flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950">
 
       <div className="relative border-b border-white/10 px-5 pb-5 pt-6 sm:px-6">
         <div className="flex items-start justify-between gap-4">
@@ -56,7 +55,7 @@ const ThreadList = ({
           <label className="sr-only" htmlFor="admin-message-search">
             Search threads
           </label>
-          <div className="flex items-center gap-3 rounded-[1rem] bg-slate-950/70 px-4 py-3">
+          <div className="flex items-center gap-3 rounded-[1rem] bg-slate-950 px-4 py-3">
             <Search size={16} className="text-slate-500" />
             <input
               id="admin-message-search"
@@ -80,7 +79,7 @@ const ThreadList = ({
                 onClick={() => onFilterChange(option.id)}
                 className={`rounded-full border px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition-all duration-200 ${
                   isActive
-                    ? "border-cyan-300/30 bg-cyan-400/12 text-cyan-100 shadow-[0_0_20px_rgba(34,211,238,0.12)]"
+                    ? "border-cyan-300/30 bg-cyan-400/12 text-cyan-100"
                     : "border-white/10 bg-white/5 text-slate-300 hover:border-white/20 hover:bg-white/10"
                 }`}
               >
