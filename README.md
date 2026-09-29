@@ -25,7 +25,7 @@ npm run preview
 
 ## Environment
 
-Copy `.env.example` to `.env` and fill in the Firebase and Google client values. `functions/api/contact.js` additionally reads `FIREBASE_*` and `TELEGRAM_*` secrets from the hosting environment.
+Copy `.env.example` to `.env` and fill in the Firebase and Google client values.
 
 ## Structure
 
@@ -37,11 +37,11 @@ src/
   pages/           route pages (services, work, about, tools, legal, admin)
   seo/             JSON-LD builders and hreflang/canonical helpers
   locales/         navigation, footer, blog, and legal strings
-functions/         Cloudflare middleware and API handlers
+functions/         Cloudflare Pages middleware (metadata injection, security headers)
 firebase-functions/ Firebase Cloud Functions (notifications, visit tracking)
 scripts/           build helpers (sitemap, critical CSS, /ar entry generation)
 public/            static assets, robots.txt, llms.txt
-docs/              audits, deployment notes, and CLAIMS_REGISTRY.md
+docs/              deployment notes and CLAIMS_REGISTRY.md
 ```
 
 ## Content rules
