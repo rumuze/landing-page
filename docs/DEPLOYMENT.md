@@ -223,3 +223,11 @@ For issues or questions:
 2. Review test failures (`npm test`)
 3. Verify configuration in `metadata.config.js`
 4. Test with Facebook Sharing Debugger
+
+
+## Cloudflare Workers Builds
+
+- Build command: `npm run build`. Deploy command: `npx wrangler deploy`.
+- The Worker name in `wrangler.jsonc` must equal the Cloudflare project name (`landing-page`).
+- Node: Vite 7 needs Node 20.19 or newer. `.node-version` pins 22, which Workers Builds reads; if the build image ignores it, set the `NODE_VERSION` build variable to `22`.
+- If a build fails within seconds, open "View logs" in the dashboard; the first error line names the cause.
