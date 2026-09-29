@@ -55,6 +55,8 @@ Open Graph images live in `public/og-image-en.png` and `public/og-image-ar.png` 
 
 ## Firebase
 
+Build variables (Cloudflare, Settings, Variables and Secrets): the `VITE_FIREBASE_*` values, `VITE_VISIT_TRACKING_ENDPOINT` (optional) and `VITE_RECAPTCHA_SITE_KEY` (App Check; see `docs/SECURITY.md`).
+
 Sign-in, Firestore and the Cloud Functions in `firebase-functions/` (chat notifications, consent-gated visit tracking) are deployed separately with the Firebase CLI. Rules are in `firestore.rules`. The page CSP in `index.html` must allow the function origin (`*.cloudfunctions.net`, `*.run.app`).
 
 ### Retention of usage data
