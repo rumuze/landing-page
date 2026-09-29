@@ -112,6 +112,12 @@ describe('Cloudflare deployment config', () => {
     expect(JSON.parse(read('vercel.json')).git.deploymentEnabled).toBe(false);
   });
 
+  it('allows reCAPTCHA and App Check in the page CSP', () => {
+    const html = read('index.html');
+    expect(html).toMatch(/frame-src[^;]*google\.com\/recaptcha/);
+    expect(html).toMatch(/connect-src[^;]*firebaseappcheck\.googleapis\.com/);
+  });
+
   it('allows the visit-tracking function in the page CSP', () => {
     expect(read('index.html')).toMatch(/connect-src[^;]*cloudfunctions\.net/);
   });

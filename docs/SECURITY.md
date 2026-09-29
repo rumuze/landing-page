@@ -12,8 +12,20 @@ The site is static HTML plus a client app. Visitors can create a contact thread 
 - **Dependencies**: `npm audit` is clean; CI runs lint, typecheck, tests and the full build.
 - **Reporting**: `public/.well-known/security.txt`.
 
+## App Check rollout
+The site starts Firebase App Check when `VITE_RECAPTCHA_SITE_KEY` is set at build time, attaches its token to Firestore requests (automatic) and to `trackVisit` (`X-Firebase-AppCheck` header). Turn it on in this order so nothing breaks:
+
+1. Firebase Console, App Check, Apps: register the web app with **reCAPTCHA v3** and copy the site key.
+2. Cloudflare, project `landing-page`, Settings, Variables and Secrets (build): add `VITE_RECAPTCHA_SITE_KEY` with that key. Redeploy.
+3. Watch App Check, APIs, Cloud Firestore metrics for a day or two: the share of verified requests should be close to 100%.
+4. Enforce it: App Check, APIs, Cloud Firestore, Enforce. Guests can still create threads from the site, and requests from scripts are rejected.
+5. Deploy the function with `APP_CHECK_ENFORCE=true` (set it as a function environment variable) to make `trackVisit` require a token too. Until then it only logs requests without one.
+6. Local development: run `npm run dev`, copy the debug token the SDK prints in the console, and add it under App Check, Apps, Manage debug tokens.
+
+The privacy text discloses reCAPTCHA. If you later switch to reCAPTCHA Enterprise, change `ReCaptchaV3Provider` to `ReCaptchaEnterpriseProvider` in `src/providers/firebase/firebaseApp.js`.
+
 ## Known gaps
-1. **Guest threads can be spammed.** Anyone can create a thread without signing in, and the rules cannot rate-limit. Options, strongest first: move thread creation behind an HTTPS function with per-address limits and a bot check (for example Cloudflare Turnstile), or enable Firebase App Check with reCAPTCHA Enterprise and enforce it for Firestore. Both need Firebase Console changes.
-2. **The visit rate limit is per function instance** and resets on cold start. App Check is the real fix.
+1. **Guest threads can be spammed until App Check is enforced.** Anyone can create a thread without signing in, and the rules cannot rate-limit. The code for App Check is in place (see below) but does nothing until the steps below are done in the Firebase Console.
+2. **The visit rate limit is per function instance** and resets on cold start. Enforcing App Check on `trackVisit` (`APP_CHECK_ENFORCE=true`) is the real fix.
 3. **Retention** only takes effect after the TTL policy is enabled (see `docs/DEPLOYMENT.md`).
 4. **IP addresses** are stored in full. Truncating them (for example the last octet) would reduce what is kept; it changes what the admin visits page can show.

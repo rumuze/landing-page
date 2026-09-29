@@ -12,7 +12,7 @@ import {
   where,
   writeBatch,
 } from "firebase/firestore";
-import { getFirebaseAuth, getFirestoreDb, firebaseConfig } from "./firebaseApp";
+import { getAppCheckToken, getFirebaseAuth, getFirestoreDb, firebaseConfig } from "./firebaseApp";
 import {
   CHAT_SENDER_ROLES,
   assertNonEmptyValue,
@@ -87,12 +87,15 @@ export const firebaseProvider = {
         authToken = null;
       }
 
+      const appCheckToken = await getAppCheckToken();
+
       const response = await fetch(visitTrackingEndpoint, {
         method: "POST",
         keepalive: payload?.eventType === "page_view",
         headers: {
           "Content-Type": "application/json",
           ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+          ...(appCheckToken ? { "X-Firebase-AppCheck": appCheckToken } : {}),
         },
         body: JSON.stringify(payload ?? {}),
       });

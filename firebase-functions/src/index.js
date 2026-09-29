@@ -1,5 +1,6 @@
 const { initializeApp } = require("firebase-admin/app");
 const { getAuth } = require("firebase-admin/auth");
+const { getAppCheck } = require("firebase-admin/app-check");
 const { FieldValue, Timestamp, getFirestore } = require("firebase-admin/firestore");
 const { logger } = require("firebase-functions");
 const { setGlobalOptions } = require("firebase-functions/v2");
@@ -546,6 +547,27 @@ exports.createChatNotification = onDocumentCreated(
   },
 );
 
+// App Check: with APP_CHECK_ENFORCE=true a request without a valid token is
+// rejected. Until then a missing or invalid token is only logged, so the
+// endpoint keeps working while the site rolls out its reCAPTCHA key.
+const APP_CHECK_ENFORCE = process.env.APP_CHECK_ENFORCE === "true";
+
+async function hasValidAppCheckToken(request) {
+  const token = sanitizeOptionalString(getHeader(request, "x-firebase-appcheck"), 4096);
+
+  if (!token) {
+    return false;
+  }
+
+  try {
+    await getAppCheck().verifyToken(token);
+    return true;
+  } catch (error) {
+    logger.warn("App Check token rejected.", { reason: error?.message ?? String(error) });
+    return false;
+  }
+}
+
 exports.trackVisit = onRequest(
   {
     timeoutSeconds: 15,
@@ -572,6 +594,15 @@ exports.trackVisit = onRequest(
     if (isRateLimited(getIpAddress(request) || "unknown")) {
       response.status(429).json({ error: "Too many requests." });
       return;
+    }
+
+    if (!(await hasValidAppCheckToken(request))) {
+      if (APP_CHECK_ENFORCE) {
+        response.status(401).json({ error: "App Check token required." });
+        return;
+      }
+
+      logger.info("trackVisit called without a valid App Check token.");
     }
 
     const body = request.body && typeof request.body === "object" ? request.body : {};
