@@ -46,7 +46,7 @@ export const SITE_NAME = 'Rumuze';
 export const SITE_NAME_AR = 'روموز';
 
 /** @const {string} Twitter handle */
-export const TWITTER_HANDLE = '@rumuze';
+export const TWITTER_HANDLE = '@Rumuzeflow';
 
 /** 
  * Cache busting version for OG images
