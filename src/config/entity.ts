@@ -89,11 +89,7 @@ export const ENTITY: EntityConfig = {
       ar: 'المؤسس',
     },
     url: 'https://www.rumuze.com/about',
-    sameAs: [
-      'https://www.linkedin.com/in/ashraf-mohamed',
-      'https://twitter.com/ashraf_arch',
-      'https://github.com/ashraf-mohamed',
-    ],
+    sameAs: ['https://github.com/elbayoumi'],
   },
   foundingYear: 2026,
   headquarters: {

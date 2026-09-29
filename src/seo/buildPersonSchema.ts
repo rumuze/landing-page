@@ -1,10 +1,8 @@
 /**
  * Person Schema Builder
  *
- * Generates schema.org Person JSON-LD for the founder.
- * Compatible with existing schema graph (Organization, WebSite, Service).
- *
- * Used by: SEO component, index.html @graph, AboutPage
+ * Generates schema.org Person JSON-LD for the founder, merged into the site
+ * graph next to the Organization and WebSite nodes.
  */
 
 import type { LanguageCode } from '../config/entity';
@@ -20,10 +18,9 @@ export function buildPersonSchema(lang: LanguageCode) {
     '@type': 'Person',
     '@id': StableIds.founder,
     name: FOUNDER.name,
-    jobTitle: isAr ? 'المؤسس' : 'Founder',
+    jobTitle: isAr ? FOUNDER.role.ar : FOUNDER.role.en,
     description: isAr ? FOUNDER.description.ar : FOUNDER.description.en,
     url: FOUNDER.url,
-    image: FOUNDER.image,
     sameAs: FOUNDER.sameAs,
     worksFor: {
       '@id': StableIds.organization,
