@@ -58,7 +58,23 @@ const TEMPLATE_HEAD_PATTERNS = [
   /<script\s+type="application\/ld\+json">[\s\S]*?<\/script>/gi,
 ];
 
-function buildPage(template, { html, head }) {
+// Fonts worth preloading for each locale's first paint (hashed file names are
+// looked up in dist/assets at build time).
+const PRELOAD_FONTS = {
+  en: ['inter-latin-400-normal', 'sora-latin-700-normal'],
+  ar: ['cairo-arabic-400-normal', 'cairo-arabic-700-normal'],
+};
+
+function fontPreloadTags(locale) {
+  const assets = fs.readdirSync(path.join(distDir, 'assets'));
+  return PRELOAD_FONTS[locale]
+    .map((name) => assets.find((file) => file.startsWith(`${name}-`) && file.endsWith('.woff2')))
+    .filter(Boolean)
+    .map((file) => `<link rel="preload" as="font" type="font/woff2" href="/assets/${file}" crossorigin>`)
+    .join('\n  ');
+}
+
+function buildPage(template, { html, head }, locale) {
   let page = template;
 
   for (const pattern of TEMPLATE_HEAD_PATTERNS) {
@@ -67,7 +83,7 @@ function buildPage(template, { html, head }) {
 
   page = page.replace(/<html[^>]*>/i, `<html ${head.htmlAttributes}>`);
 
-  const headTags = [head.title, head.meta, head.link, head.script]
+  const headTags = [head.title, head.meta, head.link, head.script, fontPreloadTags(locale)]
     .filter(Boolean)
     .join('\n  ');
   const viewportPattern = /(<meta\s+name="viewport"[\s\S]*?>)/i;
@@ -114,7 +130,7 @@ async function main() {
     for (const locale of SUPPORTED_LOCALES) {
       const url = localizePath(route, locale);
       const rendered = await render(url, locale);
-      const page = buildPage(template, rendered);
+      const page = buildPage(template, rendered, locale);
       assertRenderedPage(url, page);
 
       const target = url === '/' ? 'index.html' : path.join(url.slice(1), 'index.html');

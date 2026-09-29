@@ -39,7 +39,6 @@ export default defineConfig(({ isSsrBuild }) => ({
         'favicon.ico',
         'rumuze-192.png',     // Small icon for manifest (36KB)
         'offline.html',       // Critical for offline fallback
-        'fonts/*.woff2'       // Pre-cache critical fonts
       ],
       manifest: {
         name: 'Rumuze | Software Engineering',
