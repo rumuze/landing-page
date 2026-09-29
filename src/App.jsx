@@ -1,234 +1,46 @@
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
-import SEO from './components/SEO';
 import { organizationSchema } from './seo/organizationSchema';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import LoadingSpinner from './components/LoadingSpinner';
-import { useRegisterSW } from 'virtual:pwa-register/react';
 import UpdateToast from './components/UpdateToast';
 import InstallPrompt from './components/InstallPrompt';
-import OfflineFallback from './pages/OfflineFallback';
 import ErrorBoundary from './components/ErrorBoundary';
 import CustomCursor from './components/CustomCursor';
 import AuthFloatingButton from './components/AuthFloatingButton';
-import ProtectedRoute from './components/ProtectedRoute';
 import VisitTracker from './components/VisitTracker';
 import ConsentBanner from './components/ConsentBanner';
-import { hasLocalePrefix } from './seo/linking';
-import { useTheme } from './context/theme-core';
-import {
-  clearChunkRecoveryAttempt,
-  isDynamicImportFailure,
-  recoverFromChunkError,
-} from './utils/chunkRecovery';
-
-// Lazy load components
-const Labs = lazy(() => import('./components/Labs'));
-const ServicesPage = lazy(() => import('./pages/ServicesPage'));
-const AboutPage = lazy(() => import('./pages/AboutPage'));
-const BlogPage = lazy(() => import('./pages/BlogPage'));
-const LegalPage = lazy(() => import('./pages/LegalPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
-const NotFound = lazy(() => import('./pages/NotFound'));
 import ShareButton from './components/ShareButton';
 import OfflineToast from './components/OfflineToast';
 import WhatsAppButton from './components/WhatsAppButton';
-const HomePage = lazy(() => import('./pages/HomePage'));
-const BlogPost = lazy(() => import('./pages/BlogPost'));
-const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
-const SaudiArabiaPage = lazy(() => import('./pages/SaudiArabiaPage'));
-const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage'));
-const ProfilePage = lazy(() => import('./pages/Profile'));
-const SettingsPage = lazy(() => import('./pages/Settings'));
-const AdminMessagesPage = lazy(() => import('./pages/admin/Messages'));
-const AdminInboxPage = lazy(() => import('./pages/admin/Inbox'));
-const AdminUsersPage = lazy(() => import('./pages/admin/Users'));
-const AdminVisitsPage = lazy(() => import('./pages/admin/Visits'));
-const MyMessagesPage = lazy(() => import('./pages/MyMessages'));
-
-// Skeleton Loader
-const Skeleton = () => (
-    <div className="surface-page min-h-screen p-8 space-y-8 animate-pulse">
-        <div className="h-20 w-full rounded-2xl bg-slate-200/80 dark:bg-white/5"></div>
-        <div className="h-[500px] w-full rounded-3xl bg-slate-200/70 dark:bg-white/5"></div>
-        <div className="grid grid-cols-3 gap-8">
-            <div className="h-64 rounded-2xl bg-slate-200/70 dark:bg-white/5"></div>
-            <div className="h-64 rounded-2xl bg-slate-200/70 dark:bg-white/5"></div>
-            <div className="h-64 rounded-2xl bg-slate-200/70 dark:bg-white/5"></div>
-        </div>
-    </div>
-);
-
-// ScrollToTop Component
-const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
-  
-  useEffect(() => {
-    if (hash) {
-      // Add a small delay for lazy-loaded components to mount
-      const timer = setTimeout(() => {
-        const id = hash.substring(1);
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 300);
-      return () => clearTimeout(timer);
-    } else {
-      window.scrollTo(0, 0);
-    }
-  }, [pathname, hash]);
-  
-  return null;
-};
+import ScrollToTop from './components/ScrollToTop';
+import AppRoutes from './routes/AppRoutes';
+import { useChunkErrorRecovery } from './hooks/useChunkErrorRecovery';
+import { useLanguageSync } from './hooks/useLanguageSync';
+import { useIsOffline } from './hooks/useOnlineStatus';
+import { usePwaUpdate } from './hooks/usePwaUpdate';
+import { useScrollProgress } from './hooks/useScrollProgress';
 
 function AppContent() {
   const { i18n } = useTranslation();
-  const { theme } = useTheme();
   const location = useLocation();
-  const navigate = useNavigate();
   const isAr = i18n.language === 'ar';
   const isAdminRoute =
-    location.pathname.startsWith("/admin") ||
-    location.pathname.startsWith("/ar/admin");
-  const [isOffline, setIsOffline] = useState(false);
+    location.pathname.startsWith('/admin') || location.pathname.startsWith('/ar/admin');
 
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  // The English root stays English for crawlers and English browsers. Send a
-  // visitor to /ar only when they chose Arabic before or their browser is Arabic.
-  useEffect(() => {
-    if (location.pathname === '/') {
-      const preferredLng = localStorage.getItem('i18n_lang_pref');
-      const browserIsArabic = (navigator.language ?? '').toLowerCase().startsWith('ar');
-      if (preferredLng === 'ar' || (!preferredLng && browserIsArabic)) {
-        navigate('/ar', { replace: true });
-      }
-    }
-  }, [location.pathname, navigate]);
-
-  // Sync the independent preference key based on the route the user is visiting
-  useEffect(() => {
-    const isPathAr = hasLocalePrefix(location.pathname, 'ar');
-    if (isPathAr) {
-      localStorage.setItem('i18n_lang_pref', 'ar');
-    } else if (location.pathname !== '/' && !location.pathname.startsWith('/admin')) {
-      localStorage.setItem('i18n_lang_pref', 'en');
-    }
-  }, [location.pathname]);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      clearChunkRecoveryAttempt();
-    }, 5000);
-
-    return () => window.clearTimeout(timer);
-  }, [location.pathname]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollTop || document.body.scrollTop;
-      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      if (windowHeight === 0) return;
-      setScrollProgress(totalScroll / windowHeight);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // PWA Register Logic
-  const {
-    needRefresh: [needRefresh, setNeedRefresh],
-    updateServiceWorker,
-  } = useRegisterSW({
-    onRegistered() {
-      console.log('SW Registered');
-    },
-    onRegisterError(error) {
-      console.error('SW registration error', error);
-    },
-    onOfflineReady() {
-      console.log('App ready for offline use');
-    },
-  });
-
-
-  useEffect(() => {
-    const handleOnline = () => setIsOffline(false);
-    const handleOffline = () => setIsOffline(true);
-
-    setIsOffline(!navigator.onLine);
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
-
-  // Language Synchronizer with Path
-  // Language Synchronizer with Path
-  useEffect(() => {
-    // 1. Determine target language from URL
-    const isPathAr = hasLocalePrefix(location.pathname, 'ar');
-    const targetLang = isPathAr ? 'ar' : 'en';
-
-    // 2. Sync i18n instance if mismatched
-    if (i18n.language !== targetLang) {
-      i18n.changeLanguage(targetLang);
-    }
-
-    // 3. Update document attributes
-    const dir = targetLang === 'ar' ? 'rtl' : 'ltr';
-    if (document.documentElement.dir !== dir) {
-       document.documentElement.dir = dir;
-    }
-    if (document.documentElement.lang !== targetLang) {
-       document.documentElement.lang = targetLang;
-    }
-    
-    // Set theme color dynamically for mobile status bar
-    const themeColor = document.querySelector('meta[name="theme-color"]');
-    if (themeColor) {
-      themeColor.setAttribute('content', theme === 'dark' ? '#020617' : '#f8fafc');
-    }
-  }, [i18n, location.pathname, theme]);
-
-  useEffect(() => {
-    const handleChunkIssue = async (event) => {
-      const errorLike = event?.reason ?? event?.error ?? event?.message;
-
-      if (!isDynamicImportFailure(errorLike)) {
-        return;
-      }
-
-      event?.preventDefault?.();
-      await recoverFromChunkError();
-    };
-
-    window.addEventListener('error', handleChunkIssue);
-    window.addEventListener('unhandledrejection', handleChunkIssue);
-
-    return () => {
-      window.removeEventListener('error', handleChunkIssue);
-      window.removeEventListener('unhandledrejection', handleChunkIssue);
-    };
-  }, []);
+  const isOffline = useIsOffline();
+  const scrollProgress = useScrollProgress();
+  const { needRefresh, applyUpdate, dismissUpdate } = usePwaUpdate();
+  useLanguageSync(location.pathname);
+  useChunkErrorRecovery(location.pathname);
 
   return (
     <div className={`surface-page min-h-screen tech-grid transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>
       <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify(organizationSchema)}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
       </Helmet>
       <VisitTracker />
       <ConsentBanner />
@@ -236,297 +48,12 @@ function AppContent() {
         className="fixed top-0 left-0 right-0 h-1 bg-cyan origin-left z-[100] transition-transform duration-100 ease-out"
         style={{ transform: `scaleX(${scrollProgress})` }}
       />
-      
+
       <OfflineToast />
       <Navbar />
-      
+
       <main className={!isAdminRoute ? 'main-mobile-nav-clearance' : undefined}>
-        
-          <Routes location={location} key={location.pathname}>
-            {/* Home Routes */}
-            <Route path="/" element={<HomePage />} />
-            <Route path="/ar" element={<HomePage isAr={true} />} />
-
-            {/* Portfolio Page Routes */}
-            <Route path="/portfolio" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/portfolio" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><PortfolioPage /></Suspense>
-              </div>
-            } />
-
-            {/* Offline Page */}
-            <Route path="/offline" element={<OfflineFallback />} />
-            <Route path="/ar/offline" element={<OfflineFallback />} />
-
-            {/* Labs Routes */}
-            <Route path="/labs" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><Labs /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/labs" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><Labs /></Suspense>
-              </div>
-            } />
-
-            {/* Services Routes */}
-            <Route path="/services" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/services" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ServicesPage /></Suspense>
-              </div>
-            } />
-
-            {/* Service Detail Routes */}
-            <Route path="/services/:slug" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ServiceDetailPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/services/:slug" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ServiceDetailPage /></Suspense>
-              </div>
-            } />
-
-            {/* Retired case-study pages now resolve to the portfolio */}
-            <Route path="/case-studies/*" element={<Navigate to="/portfolio" replace />} />
-            <Route path="/ar/case-studies/*" element={<Navigate to="/ar/portfolio" replace />} />
-
-            {/* Saudi Arabia & Enterprise Framework Routes */}
-            <Route path="/saudi-arabia" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><SaudiArabiaPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/saudi-arabia" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><SaudiArabiaPage /></Suspense>
-              </div>
-            } />
-
-            {/* About Routes */}
-            <Route path="/about" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Suspense />}><AboutPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/about" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><AboutPage /></Suspense>
-              </div>
-            } />
-
-            {/* Retired pages resolve to their closest live equivalent */}
-            <Route path="/why-rumuze" element={<Navigate to="/about" replace />} />
-            <Route path="/ar/why-rumuze" element={<Navigate to="/ar/about" replace />} />
-            <Route path="/enterprise-framework" element={<Navigate to="/services" replace />} />
-            <Route path="/ar/enterprise-framework" element={<Navigate to="/ar/services" replace />} />
-            <Route path="/methodology" element={<Navigate to="/about" replace />} />
-            <Route path="/ar/methodology" element={<Navigate to="/ar/about" replace />} />
-            <Route path="/architecture-principles" element={<Navigate to="/about" replace />} />
-            <Route path="/ar/architecture-principles" element={<Navigate to="/ar/about" replace />} />
-            <Route path="/engineering-standards" element={<Navigate to="/about" replace />} />
-            <Route path="/ar/engineering-standards" element={<Navigate to="/ar/about" replace />} />
-            <Route path="/slo-framework" element={<Navigate to="/services" replace />} />
-            <Route path="/ar/slo-framework" element={<Navigate to="/ar/services" replace />} />
-            <Route path="/multilingual-systems" element={<Navigate to="/services/web-development" replace />} />
-            <Route path="/ar/multilingual-systems" element={<Navigate to="/ar/services/web-development" replace />} />
-            <Route path="/knowledge-graph-architecture" element={<Navigate to="/services" replace />} />
-            <Route path="/ar/knowledge-graph-architecture" element={<Navigate to="/ar/services" replace />} />
-            <Route path="/enterprise-web-development" element={<Navigate to="/services/web-development" replace />} />
-            <Route path="/ar/enterprise-web-development" element={<Navigate to="/ar/services/web-development" replace />} />
-            <Route path="/saas-architecture" element={<Navigate to="/services/saas-erp" replace />} />
-            <Route path="/ar/saas-architecture" element={<Navigate to="/ar/services/saas-erp" replace />} />
-            <Route path="/marketing-infrastructure" element={<Navigate to="/services/marketing-infrastructure" replace />} />
-            <Route path="/ar/marketing-infrastructure" element={<Navigate to="/ar/services/marketing-infrastructure" replace />} />
-            <Route path="/seo-revenue-systems" element={<Navigate to="/services/seo-services" replace />} />
-            <Route path="/ar/seo-revenue-systems" element={<Navigate to="/ar/services/seo-services" replace />} />
-            <Route path="/custom-software-development" element={<Navigate to="/services/software-engineering" replace />} />
-            <Route path="/ar/custom-software-development" element={<Navigate to="/ar/services/software-engineering" replace />} />
-            <Route path="/enterprise-application-development" element={<Navigate to="/services/saas-erp" replace />} />
-            <Route path="/ar/enterprise-application-development" element={<Navigate to="/ar/services/saas-erp" replace />} />
-            <Route path="/api-integration-architecture" element={<Navigate to="/services/software-engineering" replace />} />
-            <Route path="/ar/api-integration-architecture" element={<Navigate to="/ar/services/software-engineering" replace />} />
-            <Route path="/manifesto" element={<Navigate to="/about" replace />} />
-            <Route path="/ar/manifesto" element={<Navigate to="/ar/about" replace />} />
-            <Route path="/comparison/*" element={<Navigate to="/services" replace />} />
-            <Route path="/ar/comparison/*" element={<Navigate to="/ar/services" replace />} />
-
-            {/* Blog Routes */}
-            <Route path="/blog" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/blog" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><BlogPage /></Suspense>
-              </div>
-            } />
-            <Route path="/blog/:slug" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><BlogPost /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/blog/:slug" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><BlogPost /></Suspense>
-              </div>
-            } />
-
-            {/* Legal Routes */}
-            <Route path="/privacy" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/privacy" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><LegalPage type="privacy" /></Suspense>
-              </div>
-            } />
-            <Route path="/terms" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/terms" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><LegalPage type="terms" /></Suspense>
-              </div>
-            } />
-
-            {/* Contact Routes */}
-            <Route path="/contact" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/contact" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><ContactPage /></Suspense>
-              </div>
-            } />
-
-            {/* QR Generator Routes */}
-            <Route path="/qr-generator" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><QrGeneratorPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/qr-generator" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><QrGeneratorPage /></Suspense>
-              </div>
-            } />
-
-            <Route path="/profile" element={
-              <ProtectedRoute>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><ProfilePage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/ar/profile" element={
-              <ProtectedRoute>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><ProfilePage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/settings" element={
-              <ProtectedRoute>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><SettingsPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/ar/settings" element={
-              <ProtectedRoute>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><SettingsPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/my-messages" element={
-              <ProtectedRoute>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><MyMessagesPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/ar/my-messages" element={
-              <ProtectedRoute>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><MyMessagesPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/inbox" element={
-              <ProtectedRoute requireAdmin>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><AdminInboxPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/ar/admin/inbox" element={
-              <ProtectedRoute requireAdmin>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><AdminInboxPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/messages" element={<Navigate to="/admin/inbox" replace />} />
-            <Route path="/ar/admin/messages" element={<Navigate to="/ar/admin/inbox" replace />} />
-
-            <Route path="/admin/users" element={
-              <ProtectedRoute requireAdmin>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><AdminUsersPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/ar/admin/users" element={
-              <ProtectedRoute requireAdmin>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><AdminUsersPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/visits" element={
-              <ProtectedRoute requireAdmin>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><AdminVisitsPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-            <Route path="/ar/admin/visits" element={
-              <ProtectedRoute requireAdmin>
-                <div className="animate-fade-in">
-                  <Suspense fallback={<Skeleton />}><AdminVisitsPage /></Suspense>
-                </div>
-              </ProtectedRoute>
-            } />
-
-            {/* 404 Catch-All Route */}
-            <Route path="*" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><NotFound /></Suspense>
-              </div>
-            } />
-          </Routes>
-      
+        <AppRoutes location={location} />
       </main>
 
       <aside
@@ -538,13 +65,7 @@ function AppContent() {
         {!isAdminRoute ? <ShareButton /> : null}
       </aside>
 
-
-      <UpdateToast 
-        show={needRefresh} 
-        onUpdate={() => updateServiceWorker(true)} 
-        onClose={() => setNeedRefresh(false)} 
-      />
-      {/* Conditionally show InstallPrompt if online */}
+      <UpdateToast show={needRefresh} onUpdate={applyUpdate} onClose={dismissUpdate} />
       {!isOffline && !isAdminRoute ? <InstallPrompt /> : null}
       {!isAdminRoute ? <Footer /> : null}
     </div>
