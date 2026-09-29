@@ -34,6 +34,7 @@ export interface PublicProfiles {
   linkedIn?: string;
   github?: string;
   facebook?: string;
+  instagram?: string;
   website?: string;
 }
 
@@ -112,6 +113,7 @@ export const ENTITY: EntityConfig = {
     linkedIn: 'https://www.linkedin.com/company/rumuze-%D8%B1%D9%85%D9%88%D8%B2',
     github: 'https://github.com/rumuze',
     facebook: 'https://www.facebook.com/rumuze/',
+    instagram: 'https://www.instagram.com/rumuze_flow/',
     website: 'https://www.rumuze.com',
   },
   languages: ['en', 'ar'],
@@ -124,6 +126,7 @@ export const ENTITY: EntityConfig = {
     'https://www.linkedin.com/company/rumuze-%D8%B1%D9%85%D9%88%D8%B2',
     'https://github.com/rumuze',
     'https://www.facebook.com/rumuze/',
+    'https://www.instagram.com/rumuze_flow/',
   ],
   // Domains of the products Rumuze has built (see docs/CLAIMS_REGISTRY.md).
   industryFocus: [
