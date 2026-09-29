@@ -47,159 +47,30 @@ export default defineConfig(({ isSsrBuild }) => ({
         theme_color: '#000B18',
         background_color: '#000B18',
         display: 'standalone',
-        display_override: ['tabbed', 'standalone', 'window-controls-overlay'],
-        // Tabbed Application Mode
-        tab_strip: {
-          home_tab: {
-            images: [
-              {
-                src: '/rumuze-192.png',
-                sizes: '192x192',
-                type: 'image/png'
-              }
-            ]
-          },
-          new_tab_button: {
-            url: '/',
-            icons: [
-              {
-                src: '/rumuze-192.png',
-                sizes: '192x192',
-                type: 'image/png'
-              }
-            ]
-          }
-        },
-        orientation: 'any',
         scope: '/',
-        start_url: '/?utm_source=pwa',
+        start_url: '/',
         id: '/',
         dir: 'auto',
-        lang: 'en-US',
-        scope_extensions: [
-          { origin: "*.rumuze.com" },
-          { origin: "rumuze.com" }
-        ],
-        // Push Notifications
-        gcm_sender_id: "103953800507", // Example ID - User should replace with real one if needed, or rely on VAPID
-        categories: ['productivity', 'business', 'developer tools'],
-        iarc_rating_id: "e58c735d-9967-466d-9477-d933748e0000",
-        related_applications: [],
-        prefer_related_applications: false,
-
-        launch_handler: {
-          client_mode: 'navigate-new'
-        },
-
-        edge_side_panel: {
-          preferred_width: 400
-        },
-
+        lang: 'en',
+        categories: ['business', 'productivity'],
         icons: [
-          {
-            src: '/rumuze-512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          },
-          {
-            src: '/rumuze-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
-          }
+          { src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' },
+          { src: '/rumuze-512.png', sizes: '512x512', type: 'image/png' },
         ],
-
         shortcuts: [
           {
             name: 'Our Services',
             short_name: 'Services',
-            description: 'Explore our digital solutions',
             url: '/services',
-            icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }]
+            icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }],
           },
           {
-            name: 'Innovation Labs',
-            short_name: 'Labs',
-            description: 'Experimental projects and R&D',
-            url: '/labs',
-            icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }]
-          },
-          {
-            name: 'Get in Touch',
+            name: 'Start a project',
             short_name: 'Contact',
-            description: 'Start your project today',
             url: '/contact',
-            icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }]
-          }
-        ],
-
-        // System Integration
-        note_taking: { new_note_url: "/contact" },
-        widgets: [
-          {
-            name: "Rumuze Insights",
-            description: "Stay updated with our latest Lab experiments and software solutions.",
-            tag: "rumuze-news",
-            msAcTemplate: "widgets/labs-template.json",
-            data: "widgets/labs-template.json",
-            type: "application/json",
-            screenshots: [
-              {
-                src: "/og-image.png",
-                sizes: "640x640",
-                type: "image/jpeg",
-                label: "Insights Widget Preview"
-              }
-            ],
-            icons: [
-              {
-                src: "/rumuze-192.png",
-                sizes: "192x192",
-                type: "image/png"
-              }
-            ]
-          }
-        ],
-        file_handlers: [{ action: "/portfolio", accept: { "image/*": [".png", ".jpg", ".webp"] } }],
-
-        // Security & Scope
-        // scope_extensions moved to top level for better visibility
-
-
-        share_target: {
-          action: '/contact',
-          method: 'GET',
-          enctype: 'application/x-www-form-urlencoded',
-          params: {
-            title: 'title',
-            text: 'text',
-            url: 'url'
-          }
-        },
-
-        protocol_handlers: [
-          {
-            protocol: 'web+rumuze',
-            url: '/%s'
-          }
-        ],
-
-        screenshots: [
-          {
-            src: 'og-image.png',
-            sizes: '640x640',
-            type: 'image/jpeg',
-            form_factor: 'wide',
-            label: 'Rumuze Experience'
+            icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }],
           },
-          {
-            src: 'rumuze-192.png', // Fallback/Mobile screenshot placeholder
-            sizes: '192x192',
-            type: 'image/png',
-            form_factor: 'narrow',
-            label: 'Mobile View'
-          }
-        ]
+        ],
       },
       injectManifest: {
         // Precache scripts, styles, and fonts only. HTML is prerendered per

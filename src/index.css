@@ -204,6 +204,11 @@ h6 {
     @apply transition-colors duration-300;
   }
 
+  /* Off-screen reveal animations start translated sideways; clip them so they cannot widen the page. */
+  main {
+    overflow-x: clip;
+  }
+
   body {
     background-color: rgb(var(--surface-page) / 1);
     color: rgb(var(--text-primary) / 1);

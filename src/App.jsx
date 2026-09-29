@@ -202,35 +202,6 @@ function AppContent() {
     }
   }, [i18n, location.pathname, theme]);
 
-  // Periodic Sync Registration
-  useEffect(() => {
-    async function registerPeriodicSync() {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready
-          .then(async (registration) => {
-            if (registration && 'periodicSync' in registration) {
-              try {
-                // Check if already registered to avoid redundant calls
-                const tags = await registration.periodicSync.getTags();
-                if (!tags.includes('update-labs-data')) {
-                  await registration.periodicSync.register('update-labs-data', {
-                    // Minimum interval in milliseconds (24 hours)
-                    minInterval: 24 * 60 * 60 * 1000,
-                  });
-                  console.log('Periodic Sync registered: update-labs-data');
-                }
-              } catch (error) {
-                console.error('Periodic Sync registration failed:', error);
-              }
-            }
-          })
-          .catch(() => {});
-      }
-    }
-
-    registerPeriodicSync();
-  }, []);
-
   useEffect(() => {
     const handleChunkIssue = async (event) => {
       const errorLike = event?.reason ?? event?.error ?? event?.message;

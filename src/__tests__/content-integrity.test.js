@@ -117,6 +117,16 @@ describe('Cloudflare deployment config', () => {
   });
 });
 
+describe('search snippets', () => {
+  it.each(SERVICES.map((service) => [service.slug, service]))('%s has a snippet-length meta description', (_slug, service) => {
+    for (const lang of ['en', 'ar']) {
+      const length = service.metaDescription[lang].length;
+      expect(length, `${lang} description is ${length} characters`).toBeGreaterThanOrEqual(80);
+      expect(length, `${lang} description is ${length} characters`).toBeLessThanOrEqual(165);
+    }
+  });
+});
+
 describe('claims guard', () => {
   // Phrases that were removed because they cannot be evidenced. See docs/CLAIMS_REGISTRY.md.
   const banned = [
