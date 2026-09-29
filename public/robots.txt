@@ -1,14 +1,40 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /ar/admin
 
-# GEO / AI Crawler Optimization
+# Search and answer engines (SEO / AEO / GEO)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 User-agent: CCBot
 Allow: /
 
-User-agent: Google-Extended
-Allow: /
+# Machine-readable summary for language models
+# https://www.rumuze.com/llms.txt
 
 Sitemap: https://www.rumuze.com/sitemap.xml

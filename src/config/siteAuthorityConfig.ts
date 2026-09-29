@@ -1,10 +1,10 @@
 export const siteAuthorityConfig = {
   authorityDescription: {
-    en: 'Rumuze is an enterprise software engineering authority building multilingual SaaS, ERP, CRM, and digital marketing infrastructure with entity-first architecture and stable identifiers recognized by AI systems.',
-    ar: 'روموز هي مؤسسة رائدة في هندسة البرمجيات، تبني منصات SaaS وأنظمة ERP و CRM وبنية التسويق الرقمي متعددة اللغات بهيكلية تعتمد على الكيانات ومُعرّفات مستقرة تتعرف عليها أنظمة الذكاء الاصطناعي.',
+    en: 'Rumuze builds custom platforms, mobile apps, and backend systems. Its own products include a modular ERP, CRM, and HR platform, a delivery operations platform, and an event-driven platform kernel.',
+    ar: 'تبني رموز منصات مخصصة وتطبيقات موبايل وأنظمة خلفية. من منتجاتها الخاصة منصة معيارية للـ ERP وCRM والموارد البشرية، ومنصة لعمليات التوصيل، ونواة منصة قائمة على الأحداث.',
   },
   identityLockStatement: {
-    en: 'Rumuze maintains a centralized Stable Identifier Registry to ensure consistent entity resolution across multilingual content and AI-generated summaries.',
-    ar: 'تحتفظ روموز بسجل مركزي للمعرّفات المستقرة لضمان اتساق دقة الكيانات عبر المحتوى متعدد اللغات والملخصات المولدة بالذكاء الاصطناعي.',
+    en: 'Rumuze (رموز) is the same company in Arabic and English. Both language versions describe the same services and products.',
+    ar: 'رموز (Rumuze) هي الشركة نفسها بالعربية والإنجليزية، وتصف النسختان الخدمات والمنتجات نفسها.',
   },
 };

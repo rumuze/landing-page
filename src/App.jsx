@@ -27,10 +27,6 @@ import {
 } from './utils/chunkRecovery';
 
 // Lazy load components
-const Services = lazy(() => import('./components/Services'));
-const Portfolio = lazy(() => import('./components/Portfolio'));
-const TechStack = lazy(() => import('./components/TechStack'));
-const Contact = lazy(() => import('./components/Contact'));
 const Labs = lazy(() => import('./components/Labs'));
 const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));

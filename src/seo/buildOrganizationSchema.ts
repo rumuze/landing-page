@@ -3,36 +3,38 @@ import { siteCoreConfig as SiteConfig, StableIds } from '../config/siteCoreConfi
 import { siteMetaConfig } from '../config/siteMetaConfig';
 import { localeToBCP47 } from '../utils/localeToBCP47';
 
+// legalName is deliberately not emitted: it has not been verified against
+// company registration documents (see docs/CLAIMS_REGISTRY.md).
 export function buildOrganizationSchema(lang: LanguageCode) {
   const isAr = lang === 'ar';
   return {
     '@context': 'https://schema.org',
-    '@type': ['Organization', 'SoftwareCompany', 'ProfessionalService'],
+    '@type': ['Organization', 'SoftwareCompany'],
     '@id': StableIds.organization,
     name: ENTITY.name,
-    legalName: ENTITY.legalName,
-    alternateName: isAr
-      ? ["رموز", "رمرز", "Rumuze", "Rumuze Agency"]
-      : ["Rumuze", "رموز", "رمرز", "Rumuze Agency"],
+    alternateName: isAr ? ['رموز', 'Rumuze'] : ['Rumuze', 'رموز'],
     url: SiteConfig.baseUrl,
-    logo: "https://www.rumuze.com/rumuze-symbol-112.webp",
-    image: "https://www.rumuze.com/rumuze-symbol-112.webp",
-    description: isAr
-      ? "رموز شركة هندسة برمجيات ومنصات SaaS تبني أنظمة إيرادات وبنية تحتية رقمية للمؤسسات في منطقة الخليج والشرق الأوسط."
-      : siteMetaConfig.defaultMetaDescription[lang],
+    logo: 'https://www.rumuze.com/rumuze-symbol-112.webp',
+    image: 'https://www.rumuze.com/rumuze-symbol-112.webp',
+    description: siteMetaConfig.defaultMetaDescription[lang],
     slogan: isAr ? ENTITY.slogan.ar : ENTITY.slogan.en,
     brand: { '@type': 'Brand', '@id': StableIds.brand, name: ENTITY.brand.name },
     founder: {
       '@type': 'Person',
       '@id': StableIds.founder,
-      name: 'Mohamed Ashraf',
+      name: ENTITY.founder.name,
     },
-    foundingDate: "2026",
-    areaServed: ["SA", "AE", "EG", "KW", "QA", "BH", "OM"],
+    foundingDate: String(ENTITY.foundingYear),
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Obour City, Cairo',
+      addressCountry: 'EG',
+    },
+    areaServed: ['SA', 'AE', 'EG', 'KW', 'QA', 'BH', 'OM'],
     sameAs: [
-      "https://www.linkedin.com/company/rumuze",
-      "https://x.com/rumuze",
-      "https://github.com/rumuze"
+      'https://www.linkedin.com/company/rumuze',
+      'https://x.com/rumuze',
+      'https://github.com/rumuze',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -42,40 +44,29 @@ export function buildOrganizationSchema(lang: LanguageCode) {
       availableLanguage: ['Arabic', 'English'],
     },
     availableLanguage: ['English', 'Arabic'],
-
     knowsAbout: Array.from(new Set([
       ...ENTITY.technologyStack,
-      "Enterprise Software Architecture",
-      "React Native Development", 
-      "Cloud Infrastructure",
-      "Generative AI Integration",
-      "Web Performance Optimization",
-      "Search Engine Optimization",
-      "Arabic Language Digital Products"
+      'Custom software development',
+      'SaaS platform architecture',
+      'API and webhook integration',
+      'Mobile app development',
     ])),
     hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      "name": isAr ? "خدمات روموز" : "Rumuze Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": isAr ? "تطوير تفاعل المستخدم" : "React Development"
-          }
-        },
-        {
-          "@type": "Offer", 
-          "itemOffered": {
-            "@type": "Service",
-            "name": isAr ? "تكامل الذكاء الاصطناعي" : "AI Integration"
-          }
-        }
-      ]
+      '@type': 'OfferCatalog',
+      name: isAr ? 'خدمات رموز' : 'Rumuze Services',
+      itemListElement: [
+        isAr ? 'برمجيات مخصصة وSaaS' : 'Custom software and SaaS',
+        isAr ? 'تطبيقات الموبايل' : 'Mobile apps',
+        isAr ? 'الأنظمة الخلفية وواجهات API' : 'Backend and API platforms',
+        isAr ? 'التكامل والبيانات' : 'Integrations and data',
+      ].map((name) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name },
+      })),
     },
     audience: {
       '@type': 'Audience',
-      audienceType: ENTITY.targetAudience,
+      audienceType: ENTITY.targetAudience.join(', '),
     },
     inLanguage: localeToBCP47(lang),
   };

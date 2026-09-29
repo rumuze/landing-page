@@ -1,270 +1,136 @@
-import React, { useRef } from "react";
-import { useTranslation } from "react-i18next";
-import { motion as Motion, useScroll, useTransform } from "framer-motion";
-import {
-  Code2,
-  BrainCircuit,
-  Rocket,
-  ArrowRight,
-  CheckCircle2,
-  Zap,
-} from "lucide-react";
-import SEO from "../components/SEO";
-import { TiltCard } from "../components/TiltCard";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import SEO from "../components/SEO";
+import { SERVICES } from "../config/services";
+
+const copyByLocale = {
+  en: {
+    eyebrow: "Services",
+    title: "What we build, and how we work.",
+    intro:
+      "Rumuze is a software engineering company. Each service below has its own page with what it covers, how it works, and answers to common questions.",
+    learnMore: "Read more",
+    processTitle: "How an engagement runs",
+    steps: [
+      { title: "Review", text: "We read your request and reply within one business day." },
+      { title: "Scope", text: "A short call to confirm scope, constraints, and what success looks like." },
+      { title: "Proposal", text: "A written proposal covering architecture, milestones, and estimate." },
+      { title: "Build and hand over", text: "Iterative delivery, with documentation and runbooks handed over with the code." },
+    ],
+    ctaTitle: "Not sure which service fits?",
+    ctaBody: "Describe what you are working on and we will recommend the right starting point.",
+    ctaLabel: "Start a project",
+  },
+  ar: {
+    eyebrow: "الخدمات",
+    title: "ما الذي نبنيه، وكيف نعمل.",
+    intro:
+      "رموز شركة هندسة برمجيات. لكل خدمة أدناه صفحتها الخاصة بما تغطيه وكيف تعمل وإجابات عن الأسئلة الشائعة.",
+    learnMore: "اقرأ المزيد",
+    processTitle: "كيف يسير التعاقد",
+    steps: [
+      { title: "المراجعة", text: "نقرأ طلبك ونرد خلال يوم عمل واحد." },
+      { title: "النطاق", text: "مكالمة قصيرة لتأكيد النطاق والقيود وما يعنيه النجاح." },
+      { title: "العرض", text: "عرض مكتوب يشمل المعمارية والمراحل والتقدير." },
+      { title: "البناء والتسليم", text: "تسليم تدريجي، مع توثيق ودلائل تشغيل تُسلَّم مع الكود." },
+    ],
+    ctaTitle: "لست متأكداً أي خدمة تناسبك؟",
+    ctaBody: "صف ما تعمل عليه وسنوصي بنقطة البداية المناسبة.",
+    ctaLabel: "ابدأ مشروعك",
+  },
+};
 
 const ServicesPage = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isAr = i18n.language === "ar";
-
-  // Parallax Scroll Hook
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const yBackend = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-
-  const services = [
-    {
-      id: "software",
-      icon: <Code2 className="text-cyan w-16 h-16" />,
-      title: t("services_page.software.title"),
-      description: t("services_page.software.description"),
-      tech: t("services_page.software.tech", { returnObjects: true }),
-      benefits: t("services_page.software.benefits", { returnObjects: true }),
-      color: "from-cyan/20 to-blue-600/20",
-      border: "group-hover:border-cyan/50",
-      glow: "shadow-[0_0_50px_-12px_rgba(0,229,255,0.5)]",
-    },
-    {
-      id: "ai",
-      icon: <BrainCircuit className="text-purple w-16 h-16" />,
-      title: t("services_page.ai.title"),
-      description: t("services_page.ai.description"),
-      tech: t("services_page.ai.tech", { returnObjects: true }),
-      benefits: t("services_page.ai.benefits", { returnObjects: true }),
-      color: "from-purple/20 to-pink-600/20",
-      border: "group-hover:border-purple/50",
-      glow: "shadow-[0_0_50px_-12px_rgba(168,85,247,0.5)]",
-    },
-    {
-      id: "growth",
-      icon: <Rocket className="text-orange-500 w-16 h-16" />,
-      title: t("services_page.growth.title"),
-      description: t("services_page.growth.description"),
-      tech: t("services_page.growth.tech", { returnObjects: true }),
-      benefits: t("services_page.growth.benefits", { returnObjects: true }),
-      color: "from-orange-500/20 to-yellow-500/20",
-      border: "group-hover:border-orange-500/50",
-      glow: "shadow-[0_0_50px_-12px_rgba(249,115,22,0.5)]",
-    },
-  ];
-
-  const processSteps = t("services_page.process.steps", {
-    returnObjects: true,
-  });
+  const lang = isAr ? "ar" : "en";
+  const page = copyByLocale[lang];
+  const align = isAr ? "text-right" : "text-left";
+  const prefix = isAr ? "/ar" : "";
 
   return (
-    <div
-      ref={containerRef}
-      className={`surface-page tech-grid min-h-screen bg-slate-50 dark:bg-[#06150f] overflow-hidden ${isAr ? "rtl" : "ltr"}`}
-    >
+    <>
       <SEO path={isAr ? "/ar/services" : "/services"} />
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <Motion.div
-          style={{ y: yBackend }}
-          className="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-cyan/5 via-purple/5 to-transparent pointer-events-none"
-        />
+      <section className="surface-page pb-16 pt-[calc(6.5rem+var(--safe-area-top))] md:pb-24 md:pt-[calc(7.5rem+var(--safe-area-top))]">
+        <div className="content-shell">
+          <header className={`max-w-3xl ${align}`}>
+            <p className="eyebrow-label mb-3">{page.eyebrow}</p>
+            <h1 className="type-h1 copy-primary dark:text-white">{page.title}</h1>
+            <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
+          </header>
 
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <Motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan/30 bg-cyan/5 text-cyan text-sm font-bold tracking-widest mb-8 uppercase"
-          >
-            <Zap size={16} />
-            {t("hero.badge")}
-          </Motion.div>
-
-          <Motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-5xl md:text-7xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-cyan via-purple to-cyan bg-[length:200%_auto] animate-gradient-x leading-tight"
-          >
-            {t("services_page.title")}
-          </Motion.h1>
-
-          <Motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl md:text-2xl text-slate-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
-          >
-            {t("services.description")}
-          </Motion.p>
-        </div>
-      </section>
-
-      {/* Services Cards with Tilt Effect */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="space-y-16 md:space-y-32">
-          {services.map((service, index) => (
-            <div
-              key={service.id}
-              className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}
-            >
-              {/* Text Content */}
-              <Motion.div
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8 }}
-                className="flex-1 space-y-8"
+          <div className="mt-14 divide-y divide-[rgb(var(--border-subtle)/0.7)] border-y border-[rgb(var(--border-subtle)/0.7)]">
+            {SERVICES.map((service) => (
+              <article
+                key={service.slug}
+                className={`grid gap-8 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14 ${align}`}
               >
-                <div
-                  className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center`}
-                >
-                  {service.icon}
+                <div>
+                  <h2 className="type-h2 copy-primary dark:text-white">{service.title[lang]}</h2>
+                  <p className="type-body copy-secondary mt-4 dark:text-slate-300">
+                    {service.summary[lang]}
+                  </p>
+                  <Link
+                    to={`${prefix}/services/${service.slug}`}
+                    className={`mt-6 inline-flex items-center gap-2 font-semibold text-cyan hover:underline ${
+                      isAr ? "flex-row-reverse" : ""
+                    }`}
+                  >
+                    {page.learnMore}
+                    <ArrowRight size={16} className={isAr ? "rotate-180" : ""} />
+                  </Link>
                 </div>
 
-                <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
-                  {service.title}
-                </h2>
-                <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed border-l-4 border-slate-200 dark:border-white/10 pl-6 rtl:pl-0 rtl:pr-6">
-                  {service.description}
-                </p>
-
-                <ul className="space-y-4">
-                  {service.benefits.map((benefit, i) => (
+                <ul className="space-y-3">
+                  {service.definitions.bullets[lang].map((item) => (
                     <li
-                      key={i}
-                      className="flex items-center gap-3 text-slate-800 dark:text-gray-200 font-medium"
+                      key={item}
+                      className={`type-body copy-secondary flex items-start gap-3 dark:text-slate-300 ${
+                        isAr ? "flex-row-reverse" : ""
+                      }`}
                     >
-                      <CheckCircle2 className="text-green-500 w-5 h-5 flex-shrink-0" />
-                      {benefit}
+                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-cyan" />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-
-                <div className="flex flex-wrap gap-3 pt-4">
-                  {service.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </Motion.div>
-
-              {/* Tilt Card Visual */}
-              <Motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                className="flex-1 w-full h-auto aspect-square md:aspect-auto md:h-[500px]"
-              >
-                <TiltCard
-                  className={`group relative rounded-3xl bg-gradient-to-br ${service.color} border border-transparent ${service.border} transition-all duration-500 overflow-hidden`}
-                >
-                  <div
-                    className={`absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl ${service.glow}`}
-                  ></div>
-
-                  {/* Floating Elements inside Tilt Card */}
-                  <div className="relative z-10 flex flex-col items-center justify-center text-center p-6 md:p-10 h-full">
-                    <div className="p-8 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 shadow-2xl mb-8 group-hover:scale-110 transition-transform duration-500">
-                      {service.icon}
-                    </div>
-                    <h3 className="text-2xl font-black text-white mb-2">
-                      {service.title}
-                    </h3>
-                    <span className="text-white/60 text-sm tracking-widest uppercase">
-                      {t("services_page.tilt_card.label")}
-                    </span>
-                  </div>
-
-                  {/* Decorative Background Pattern */}
-                  <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
-                </TiltCard>
-              </Motion.div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Animated Work Process Timeline */}
-      <section className="py-32 relative bg-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900 to-slate-900"></div>
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="text-center mb-24">
-            <h2 className="text-3xl md:text-5xl font-black mb-6">
-              {t("services_page.methodology.heading")}
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              {t("services_page.methodology.subtitle")}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8 relative">
-            {/* Connecting Line */}
-            <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-cyan/20 via-purple/20 to-cyan/20"></div>
-
-            {processSteps.map((step, idx) => (
-              <Motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.2 }}
-                className="relative text-center group"
-              >
-                <div className="w-24 h-24 mx-auto bg-slate-800 rounded-full border-4 border-slate-900 flex items-center justify-center relative z-10 group-hover:border-cyan transition-colors duration-300">
-                  <span className="text-2xl font-black text-white/20 group-hover:text-cyan transition-colors duration-300">
-                    {step.num}
-                  </span>
-                </div>
-                <div className="mt-8">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-cyan transition-colors">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-gray-500">{step.desc}</p>
-                </div>
-              </Motion.div>
+              </article>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Bilingual High-Impact CTA */}
-      <section className="py-32 px-4 text-center bg-gradient-to-br from-slate-50 to-white dark:from-[#06150f] dark:to-slate-900 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan via-purple to-cyan"></div>
+          <div className="mt-20">
+            <h2 className={`type-h2 copy-primary dark:text-white ${align}`}>{page.processTitle}</h2>
+            <ol className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+              {page.steps.map((step, index) => (
+                <li key={step.title} className={align}>
+                  <span className="home-number-badge">{String(index + 1).padStart(2, "0")}</span>
+                  <h3 className="type-h4 copy-primary mt-4 dark:text-white">{step.title}</h3>
+                  <p className="type-body copy-secondary mt-2 dark:text-slate-300">{step.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
 
-        <div className="max-w-4xl mx-auto relative z-10">
-          <h2 className="text-4xl md:text-6xl font-black mb-8 text-slate-900 dark:text-white leading-tight">
-            {t("services_page.cta.heading")}
-          </h2>
-          <p className="text-xl text-slate-600 dark:text-gray-400 mb-12">
-            {t("services_page.cta.subheading")}
-          </p>
-
-          <Link
-            to={isAr ? "/ar/contact" : "/contact"}
-            className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-cyan to-blue-600 text-white font-bold text-lg hover:shadow-[0_0_40px_-5px_rgba(0,229,255,0.6)] hover:scale-105 transition-all duration-300"
+          <div
+            className={`mt-20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between ${align}`}
           >
-            <span>{t("services_page.cta.button")}</span>
-            <ArrowRight className={isAr ? "rotate-180" : ""} />
-          </Link>
+            <div>
+              <h2 className="type-h3 copy-primary dark:text-white">{page.ctaTitle}</h2>
+              <p className="type-body copy-secondary mt-2">{page.ctaBody}</p>
+            </div>
+            <Link
+              to={`${prefix}/contact?intent=discovery`}
+              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full bg-cyan px-7 font-semibold text-slate-950 transition hover:opacity-90"
+            >
+              {page.ctaLabel}
+            </Link>
+          </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

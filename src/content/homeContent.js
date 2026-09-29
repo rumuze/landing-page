@@ -180,6 +180,40 @@ export const homeContent = {
         },
       ],
     },
+    faq: {
+      eyebrow: "Questions",
+      title: "Answers to common questions.",
+      items: [
+        {
+          q: "What does Rumuze do?",
+          a: "Rumuze is a software engineering company. It builds custom platforms, mobile apps, backend and API systems, and integrations for businesses in Saudi Arabia, the UAE, and the wider MENA region.",
+        },
+        {
+          q: "Does Rumuze build in both Arabic and English?",
+          a: "Yes. Arabic (right-to-left) and English (left-to-right) are built into the same codebase from the start, including routing, layout, and search metadata, rather than translated afterwards.",
+        },
+        {
+          q: "What technologies does Rumuze use?",
+          a: "Laravel and NestJS for backends, Next.js and React for web, Flutter for mobile, PostgreSQL, MySQL and Redis for data, and Docker for deployment. The choice depends on the problem.",
+        },
+        {
+          q: "Can Rumuze review or take over an existing codebase?",
+          a: "Yes. A technical review covers architecture, code quality, deployment, and risks, and ends with a written recommendation on whether to repair, extend, or rebuild.",
+        },
+        {
+          q: "Which products has Rumuze built?",
+          a: "RumuzePMO (a modular ERP, CRM, and HR platform), Rveta (a delivery operations platform with a Flutter driver app), and Rumuze Core (an event-driven API kernel with an admin dashboard). Rveta Connector, a device control app, is in development.",
+        },
+        {
+          q: "How do I start a project with Rumuze?",
+          a: "Send a request through the contact form. It is reviewed within one business day, followed by a short call to confirm scope and a written proposal covering architecture, milestones, and estimate.",
+        },
+        {
+          q: "Where is Rumuze based?",
+          a: "Rumuze is based in Obour City, Cairo, Egypt, and works with clients in Saudi Arabia, the UAE, and the wider MENA region.",
+        },
+      ],
+    },
     finalCta: {
       title: "Have a system to build, fix, or take over?",
       body: "Tell us what you are working on. We will review the scope and reply with a clear next step: a build plan, a technical review, or an honest answer that it is not a fit.",
@@ -367,6 +401,40 @@ export const homeContent = {
         {
           title: "توثيق قابل للتسليم",
           text: "ملاحظات المعمارية ودلائل التشغيل وأدلة الإعداد تُسلَّم مع الكود.",
+        },
+      ],
+    },
+    faq: {
+      eyebrow: "أسئلة",
+      title: "إجابات عن الأسئلة الشائعة.",
+      items: [
+        {
+          q: "ماذا تفعل رموز؟",
+          a: "رموز شركة هندسة برمجيات. تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية وواجهات API وتكاملات لشركات في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا.",
+        },
+        {
+          q: "هل تبني رموز بالعربية والإنجليزية معاً؟",
+          a: "نعم. العربية (من اليمين لليسار) والإنجليزية (من اليسار لليمين) مبنيتان في قاعدة كود واحدة من البداية، بما في ذلك المسارات والتخطيط وبيانات البحث، وليس بالترجمة لاحقاً.",
+        },
+        {
+          q: "ما التقنيات التي تستخدمها رموز؟",
+          a: "Laravel وNestJS للأنظمة الخلفية، وNext.js وReact للويب، وFlutter للموبايل، وPostgreSQL وMySQL وRedis للبيانات، وDocker للنشر. ويعتمد الاختيار على طبيعة المشكلة.",
+        },
+        {
+          q: "هل تستطيع رموز مراجعة قاعدة كود قائمة أو تسلّمها؟",
+          a: "نعم. تشمل المراجعة التقنية المعمارية وجودة الكود والنشر والمخاطر، وتنتهي بتوصية مكتوبة: إصلاح أو توسعة أو إعادة بناء.",
+        },
+        {
+          q: "ما المنتجات التي بنتها رموز؟",
+          a: "RumuzePMO (منصة معيارية للـ ERP وCRM والموارد البشرية)، وRveta (منصة عمليات توصيل مع تطبيق Flutter للسائقين)، وRumuze Core (نواة API قائمة على الأحداث مع لوحة إدارة). أما Rveta Connector، وهو تطبيق للتحكم بالأجهزة، فقيد التطوير.",
+        },
+        {
+          q: "كيف أبدأ مشروعاً مع رموز؟",
+          a: "أرسل طلباً عبر نموذج التواصل. تتم مراجعته خلال يوم عمل واحد، ثم مكالمة قصيرة لتأكيد النطاق وعرض مكتوب يشمل المعمارية والمراحل والتقدير.",
+        },
+        {
+          q: "أين مقر رموز؟",
+          a: "مقر رموز في مدينة العبور بالقاهرة، مصر، وتعمل مع عملاء في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا.",
         },
       ],
     },

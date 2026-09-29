@@ -8,14 +8,14 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "Rumuze Labs",
+                    "text": "Rumuze Tools",
                     "weight": "Bolder",
                     "size": "Medium",
                     "color": "Accent"
                 },
                 {
                     "type": "TextBlock",
-                    "text": "Discover our latest R&D projects and experimental interfaces.",
+                    "text": "Free small tools from Rumuze, starting with a QR code generator.",
                     "wrap": true,
                     "size": "Default",
                     "spacing": "Small"
@@ -26,7 +26,7 @@
             "type": "Image",
             "url": "https://rumuze.com/og-image-en.png",
             "size": "Stretch",
-            "altText": "Rumuze Labs Preview"
+            "altText": "Rumuze Tools Preview"
         },
         {
             "type": "ActionSet",

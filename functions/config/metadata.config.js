@@ -167,15 +167,15 @@ export const ROUTE_METADATA = {
 
     '/labs': {
         en: {
-            title: 'Rumuze Labs | Where Research Meets Reality',
-            description: 'The R&D division dedicated to the edge of possibility. From self-healing networks to generative design, we engineer tomorrow\'s tools.',
-            imageAlt: 'Rumuze Labs - Research & Development',
+            title: 'Tools | Free Utilities from Rumuze',
+            description: 'Small free tools built by Rumuze, starting with a QR code generator.',
+            imageAlt: 'Rumuze Tools',
             type: 'website',
         },
         ar: {
-            title: 'معامل روموز | حيث يلتقي البحث العلمي بالواقع التطبيقي',
-            description: 'قسم البحث والتطوير المكرس لاستكشاف حدود الممكن. من الشبكات ذاتية الإصلاح إلى التصميم التوليدي، نهندس أدوات الغد.',
-            imageAlt: 'معامل روموز - البحث والتطوير',
+            title: 'الأدوات | أدوات مجانية من رموز',
+            description: 'أدوات صغيرة مجانية من رموز، تبدأ بمولّد رموز QR.',
+            imageAlt: 'أدوات رموز',
             type: 'website',
         },
     },

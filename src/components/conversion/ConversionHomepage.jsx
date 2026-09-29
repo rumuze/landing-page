@@ -121,6 +121,7 @@ const ConversionHomepage = () => {
         <CapabilitiesSection copy={copy.capabilities} isAr={isAr} />
         <WorkSection copy={copy.work} isAr={isAr} />
         <EngineeringSection copy={copy.engineering} isAr={isAr} />
+        <FaqSection copy={copy.faq} isAr={isAr} />
         <FinalCtaSection copy={copy.finalCta} isAr={isAr} onOpenLeadCapture={openLeadCapture} />
       </div>
 
@@ -393,6 +394,34 @@ const EngineeringSection = ({ copy, isAr }) => (
           </Reveal>
         ))}
       </ol>
+    </div>
+  </SectionShell>
+);
+
+const FaqSection = ({ copy, isAr }) => (
+  <SectionShell className={sectionSpaceClass} tone="default">
+    <div className="grid gap-10 lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+      <SectionHeading eyebrow={copy.eyebrow} isAr={isAr} title={copy.title} />
+
+      <div className="divide-y divide-[rgb(var(--border-subtle)/0.7)] border-y border-[rgb(var(--border-subtle)/0.7)]">
+        {copy.items.map((item) => (
+          <details
+            key={item.q}
+            className={joinClasses("group py-5", isAr ? "text-right" : "text-left")}
+          >
+            <summary className="type-h4 copy-primary flex cursor-pointer list-none items-center justify-between gap-4 dark:text-white [&::-webkit-details-marker]:hidden">
+              <span>{item.q}</span>
+              <span
+                aria-hidden="true"
+                className="shrink-0 text-cyan transition-transform group-open:rotate-45"
+              >
+                +
+              </span>
+            </summary>
+            <p className="type-body copy-secondary mt-3 dark:text-slate-300">{item.a}</p>
+          </details>
+        ))}
+      </div>
     </div>
   </SectionShell>
 );

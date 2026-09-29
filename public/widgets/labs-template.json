@@ -15,7 +15,7 @@
                 },
                 {
                     "type": "TextBlock",
-                    "text": "Latest updates from our experimental labs and software solutions.",
+                    "text": "Free small tools from Rumuze, starting with a QR code generator.",
                     "wrap": true,
                     "size": "Default",
                     "spacing": "Small"

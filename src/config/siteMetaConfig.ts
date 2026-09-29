@@ -1,6 +1,6 @@
 export const siteMetaConfig = {
   defaultMetaDescription: {
-    en: 'Rumuze is an enterprise software engineering company founded in 2026. We build multi-tenant SaaS platforms, ERP systems, CRM solutions, and digital infrastructure for organizations in UAE, Saudi Arabia, and the MENA region.',
-    ar: 'روموز هي شركة هندسة برمجيات تأسست عام 2026. نقوم ببناء منصات SaaS وأنظمة التخطيط لموارد المؤسسات (ERP) وحلول إدارة علاقات العملاء (CRM) للشركات في الإمارات والسعودية ومنطقة الشرق الأوسط وشمال أفريقيا.'
+    en: 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.',
+    ar: 'رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات والمنطقة، بالعربية والإنجليزية.'
   }
 };

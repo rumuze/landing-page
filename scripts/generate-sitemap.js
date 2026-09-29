@@ -71,32 +71,45 @@ ${alternates}
 // ROBOTS.TXT GENERATOR
 // ============================================================================
 
+// Crawlers that get an explicit allow. Keep public/robots.txt in sync.
+const ALLOWED_CRAWLERS = [
+    // Search engines
+    'Googlebot',
+    'Bingbot',
+    // Answer engines and AI assistants (AEO / GEO)
+    'GPTBot',
+    'OAI-SearchBot',
+    'ChatGPT-User',
+    'ClaudeBot',
+    'Claude-SearchBot',
+    'PerplexityBot',
+    'Google-Extended',
+    'CCBot',
+    // Social link previews
+    'facebookexternalhit',
+    'Twitterbot',
+];
+
 function generateRobotsTxt() {
-    return `# Rumuze Robots.txt
+    const crawlerBlocks = ALLOWED_CRAWLERS
+        .map((agent) => `User-agent: ${agent}\nAllow: /`)
+        .join('\n\n');
+
+    return `# Rumuze robots.txt
 # Generated: ${BUILD_DATE}
 
 User-agent: *
 Allow: /
-
-# Sitemap location
-Sitemap: ${BASE_URL}/sitemap.xml
-
-# Disallow admin and API routes
 Disallow: /api/
-Disallow: /admin/
+Disallow: /admin
+Disallow: /ar/admin
 
-# Allow all crawlers
-User-agent: Googlebot
-Allow: /
+${crawlerBlocks}
 
-User-agent: Bingbot
-Allow: /
+# Machine-readable summary for language models
+# ${BASE_URL}/llms.txt
 
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
+Sitemap: ${BASE_URL}/sitemap.xml
 `;
 }
 

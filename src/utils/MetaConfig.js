@@ -99,18 +99,18 @@ export const META_CONFIG = {
     },
     '/labs': {
         en: {
-            title: `Rumuze Labs | R&D Division`,
-            description: 'Where research meets reality. Pioneering post-quantum cryptography, neural search, and autonomous systems. The future, engineered today.',
-            keywords: 'R&D lab, innovation lab, quantum computing, neural networks, edge computing, experimental technology',
+            title: `Tools | ${BRAND_NAME}`,
+            description: 'Small free tools built by Rumuze, starting with a QR code generator.',
+            keywords: 'free tools, QR code generator, developer tools',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze Labs - Pioneering Tomorrow\'s Technology'
+            imageAlt: 'Rumuze Tools'
         },
         ar: {
-            title: `معامل روموز | قسم البحث والتطوير`,
-            description: 'حيث يلتقي البحث بالواقع. نرود تشفير ما بعد الكم، البحث العصبي، والأنظمة ذاتية الحكم. المستقبل، مهندس اليوم.',
-            keywords: 'مختبر البحث والتطوير, مختبر الابتكار, الحوسبة الكمومية, الشبكات العصبية, الحوسبة الطرفية',
+            title: `الأدوات | ${BRAND_NAME}`,
+            description: 'أدوات صغيرة مجانية من رموز، تبدأ بمولّد رموز QR.',
+            keywords: 'أدوات مجانية, مولد رموز QR, أدوات المطورين',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'معامل روموز - رواد تكنولوجيا الغد'
+            imageAlt: 'أدوات رموز'
         }
     },
     '/contact': {

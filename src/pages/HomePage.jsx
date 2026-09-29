@@ -1,6 +1,5 @@
 import React from 'react';
 import SEO from '../components/SEO';
-import { organizationSchema } from '../seo/organizationSchema';
 import { conversionContent } from '../content/conversionContent';
 import ConversionHomepage from '../components/conversion/ConversionHomepage';
 
@@ -10,16 +9,10 @@ const HomePage = ({ isAr = false }) => {
 
   return (
     <div className="animate-fade-in">
-      <SEO
-        title={title}
-        description={description}
-        path={path}
-        schemas={[organizationSchema]}
-      />
+      <SEO title={title} description={description} path={path} />
       <ConversionHomepage />
     </div>
   );
 };
 
 export default HomePage;
-
