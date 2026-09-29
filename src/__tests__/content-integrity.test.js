@@ -98,12 +98,22 @@ describe('redirects', () => {
     }
   });
 
-  it('are mirrored in vercel.json', () => {
-    const vercel = JSON.parse(read('vercel.json')).redirects;
-    const vercelSources = new Set(vercel.map((rule) => rule.source.replace(':path*', '*')));
-    for (const [from] of rules) {
-      expect(vercelSources.has(from), `${from} missing from vercel.json`).toBe(true);
-    }
+});
+
+describe('Cloudflare deployment config', () => {
+  it('ships security and cache headers with the assets', () => {
+    const headers = read('public/_headers');
+    expect(headers).toMatch(/X-Frame-Options: DENY/);
+    expect(headers).toMatch(/Strict-Transport-Security/);
+    expect(headers).toMatch(/\/assets\/\*\s+Cache-Control: public, max-age=31536000, immutable/);
+  });
+
+  it('keeps Vercel Git deployments off', () => {
+    expect(JSON.parse(read('vercel.json')).git.deploymentEnabled).toBe(false);
+  });
+
+  it('allows the visit-tracking function in the page CSP', () => {
+    expect(read('index.html')).toMatch(/connect-src[^;]*cloudfunctions\.net/);
   });
 });
 

@@ -66,8 +66,8 @@ Inter, Sora, and Cairo are self-hosted through `@fontsource` (`src/fonts.js`); t
 - Every public route is prerendered to static HTML at build time (`src/entry-server.jsx` + `scripts/prerender.js`), so crawlers and answer engines that do not run JavaScript see the full page. The browser then hydrates it. `dist/200.html` is the unrendered app shell used as the fallback for account pages and unknown paths. Set `PRERENDER=false` to skip the step.
 - JSON-LD is emitted from `src/components/SEO.jsx`. FAQ markup is generated from the FAQ shown on the homepage (`src/content/homeContent.js`), so it always matches the visible page.
 - `public/robots.txt` and the generated robots file address search and answer-engine crawlers, and `public/llms.txt` summarises the company for language models.
-- Retired pages are redirected in `public/_redirects`, `vercel.json`, and in the router.
+- Retired pages are redirected in `public/_redirects` and in the router.
 
 ## Deployment
 
-See `docs/DEPLOYMENT.md`. The repository also carries Vercel, Netlify, and Cloudflare configuration; production runs on one of them, so keep the redirect lists in sync if you change routes.
+Production runs on Cloudflare Workers (`wrangler.jsonc`, headers in `public/_headers`, redirects in `public/_redirects`). Vercel Git deployments are disabled in `vercel.json`. See `docs/DEPLOYMENT.md`.
