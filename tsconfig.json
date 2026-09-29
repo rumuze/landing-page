@@ -12,6 +12,6 @@
     "noEmit": true,
     "types": ["vite/client", "react", "react-dom"]
   },
-  "include": ["src/**/*", "functions/**/*", "scripts/**/*"],
+  "include": ["src/**/*", "scripts/**/*"],
   "exclude": ["dist", "node_modules"]
 }

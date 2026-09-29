@@ -6,8 +6,8 @@
  *   npm i --no-save playwright-core
  *   CHROMIUM_PATH=/path/to/chrome node scripts/og/generate.mjs
  *
- * Remember to bump OG_IMAGE_VERSION in src/utils/MetaConfig.js,
- * functions/config/metadata.config.js and index.html after changing the images.
+ * Remember to bump OG_IMAGE_VERSION in src/utils/MetaConfig.js
+ * and index.html after changing the images.
  */
 import fs from 'node:fs';
 import path from 'node:path';

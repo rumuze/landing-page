@@ -8,7 +8,6 @@ The public website for [Rumuze](https://www.rumuze.com), a software engineering 
 - `react-i18next` for language state, with routes under `/` (English) and `/ar` (Arabic)
 - `react-helmet-async` for per-route metadata, plus JSON-LD generated in `src/seo`
 - Firebase (Auth, Firestore, Functions) for sign-in, messaging, and consent-gated visit tracking
-- Cloudflare Pages Functions in `functions/` for crawler-friendly metadata and security headers
 - Progressive web app via `vite-plugin-pwa`
 
 ## Scripts
@@ -37,7 +36,6 @@ src/
   pages/           route pages (services, work, about, tools, legal, admin)
   seo/             JSON-LD builders and hreflang/canonical helpers
   locales/         navigation, footer, blog, and legal strings
-functions/         Cloudflare Pages middleware (metadata injection, security headers)
 firebase-functions/ Firebase Cloud Functions (notifications, visit tracking)
 scripts/           build helpers (prerender, sitemap, build verification, Open Graph image generation)
 public/            static assets, robots.txt, llms.txt
