@@ -2,7 +2,7 @@
 
 > Rumuze is a software engineering company based in Cairo, Egypt. It builds custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.
 
-Rumuze designs, builds, and operates its own software products, and applies the same architecture and delivery practices to client projects. Every request through the contact form is reviewed within one business day.
+Rumuze designs, builds, and operates its own software products, and applies the same architecture and delivery practices to client projects. Every request through the contact form is read and answered by email.
 
 ## What Rumuze builds
 

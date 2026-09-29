@@ -11,7 +11,7 @@ export const conversionContent = {
       contact: {
         title: "Start a Project | Rumuze",
         description:
-          "Tell us what you want to build, fix, or take over. Every request is reviewed within one business day.",
+          "Tell us what you want to build, fix, or take over. We read every request and reply by email.",
       },
     },
     homepage: homeContent.en,
@@ -21,10 +21,10 @@ export const conversionContent = {
       pageIntro:
         "Use this form to start a project, request a technical review, or ask about integrations and data work. Every submission is reviewed against fit, urgency, and system complexity.",
       reviewNote:
-        "Your request goes through scope review and fit validation, and you get a recommended next step within one business day.",
+        "Your request goes through scope review and fit validation, and you get a recommended next step by email.",
       confirmationTitle: "Request received",
       confirmationBody:
-        "Your request has been received. We will review your submission and respond within one business day.",
+        "Your request has been received. We will review your submission and reply by email.",
       fields: {
         fullName: "Full Name",
         workEmail: "Work Email",
@@ -142,7 +142,7 @@ export const conversionContent = {
       contact: {
         title: "ابدأ مشروعك | Rumuze",
         description:
-          "أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. تتم مراجعة كل طلب خلال يوم عمل واحد.",
+          "أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. نقرأ كل طلب ونرد عليه بالبريد الإلكتروني.",
       },
     },
     homepage: homeContent.ar,
@@ -152,10 +152,10 @@ export const conversionContent = {
       pageIntro:
         "استخدم هذا النموذج لبدء مشروع أو طلب مراجعة تقنية أو الاستفسار عن التكامل والبيانات. تتم مراجعة كل طلب بناءً على الملاءمة والاستعجال وتعقيد النظام.",
       reviewNote:
-        "يمر طلبك عبر مراجعة النطاق والتحقق من الملاءمة وتحديد الخطوة التالية خلال يوم عمل واحد.",
+        "يمر طلبك عبر مراجعة النطاق والتحقق من الملاءمة وتحديد الخطوة التالية عبر البريد الإلكتروني.",
       confirmationTitle: "تم استلام الطلب بنجاح",
       confirmationBody:
-        "تم استلام طلبك بنجاح. سنراجع تفاصيل مشروعك ونتواصل معك خلال يوم عمل واحد لتحديد موعد جلسة التشخيص.",
+        "تم استلام طلبك بنجاح. سنراجع تفاصيل مشروعك ونتواصل معك عبر البريد الإلكتروني لتحديد موعد جلسة التشخيص.",
       fields: {
         fullName: "الاسم الكامل",
         workEmail: "واتساب / بريد العمل",

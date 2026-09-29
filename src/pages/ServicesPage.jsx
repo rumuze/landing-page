@@ -14,7 +14,7 @@ const copyByLocale = {
     learnMore: "Read more",
     processTitle: "How an engagement runs",
     steps: [
-      { title: "Review", text: "We read your request and reply within one business day." },
+      { title: "Review", text: "We read your request and reply by email." },
       { title: "Scope", text: "A short call to confirm scope, constraints, and what success looks like." },
       { title: "Proposal", text: "A written proposal covering architecture, milestones, and estimate." },
       { title: "Build and hand over", text: "Iterative delivery, with documentation and runbooks handed over with the code." },
@@ -31,7 +31,7 @@ const copyByLocale = {
     learnMore: "اقرأ المزيد",
     processTitle: "كيف يسير التعاقد",
     steps: [
-      { title: "المراجعة", text: "نقرأ طلبك ونرد خلال يوم عمل واحد." },
+      { title: "المراجعة", text: "نقرأ طلبك ونرد عليك بالبريد الإلكتروني." },
       { title: "النطاق", text: "مكالمة قصيرة لتأكيد النطاق والقيود وما يعنيه النجاح." },
       { title: "العرض", text: "عرض مكتوب يشمل المعمارية والمراحل والتقدير." },
       { title: "البناء والتسليم", text: "تسليم تدريجي، مع توثيق ودلائل تشغيل تُسلَّم مع الكود." },

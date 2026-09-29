@@ -198,13 +198,13 @@ export const ROUTE_METADATA = {
     '/contact': {
         en: {
             title: 'Contact Us | Start a Project with Rumuze',
-            description: 'Tell us what you want to build, fix, or take over. Every request is reviewed within one business day.',
+            description: 'Tell us what you want to build, fix, or take over. We read every request and reply by email.',
             imageAlt: 'Contact Rumuze',
             type: 'website',
         },
         ar: {
             title: 'تواصل معنا | ابدأ مشروعك مع رموز',
-            description: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. تتم مراجعة كل طلب خلال يوم عمل واحد.',
+            description: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. نقرأ كل طلب ونرد عليه بالبريد الإلكتروني.',
             imageAlt: 'تواصل مع رموز',
             type: 'website',
         },

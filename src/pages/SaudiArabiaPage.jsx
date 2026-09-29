@@ -37,7 +37,7 @@ const copyByLocale = {
     servicesLink: 'Read more',
     ctaTitle: 'Planning a project in Saudi Arabia?',
     ctaBody:
-      'Tell us what you want to build, fix, or take over. Every request is reviewed within one business day.',
+      'Tell us what you want to build, fix, or take over. We read every request and reply by email.',
     ctaLabel: 'Start a project',
     note: 'Rumuze is based in Cairo, Egypt and works with clients across Saudi Arabia, the UAE, and the wider MENA region.',
   },
@@ -68,7 +68,7 @@ const copyByLocale = {
     servicesTitle: 'ما الذي نبنيه',
     servicesLink: 'اقرأ المزيد',
     ctaTitle: 'تخطط لمشروع في السعودية؟',
-    ctaBody: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. تتم مراجعة كل طلب خلال يوم عمل واحد.',
+    ctaBody: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. نقرأ كل طلب ونرد عليه بالبريد الإلكتروني.',
     ctaLabel: 'ابدأ مشروعك',
     note: 'مقر رموز في القاهرة، مصر، وتعمل مع عملاء في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا.',
   },
