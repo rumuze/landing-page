@@ -42,7 +42,7 @@ const ConsentBanner = () => {
         {c.body}{' '}
         <Link
           to={lang === 'ar' ? '/ar/privacy' : '/privacy'}
-          className="font-semibold text-cyan underline-offset-2 hover:underline"
+          className="font-semibold text-[#287700] underline-offset-2 hover:underline dark:text-cyan"
         >
           {c.policy}
         </Link>

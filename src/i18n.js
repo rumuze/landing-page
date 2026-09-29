@@ -31,11 +31,6 @@ i18n
         },
     });
 
-// Handle initial detection bias if no localStorage is set
-if (isBrowser && !window.localStorage.getItem('i18nextLng')) {
-    i18n.changeLanguage('ar');
-}
-
 
 
 export default i18n;

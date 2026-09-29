@@ -118,6 +118,7 @@ describe('claims guard', () => {
     /Complexity Decoded/i,
     /\b47\+|12\+ countries/i,
     /Rumuze Technologies LLC/,
+    /within one business day|خلال يوم عمل/i,
   ];
   const files = [
     'src/content/homeContent.js',

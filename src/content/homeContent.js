@@ -11,7 +11,7 @@ export const homeContent = {
         "Rumuze is a software engineering company. We design and build custom platforms, mobile apps, and backend systems, in Arabic and English from day one, and built to be operated for years, not just launched.",
       primaryCta: "Start a project",
       secondaryCta: "Request a technical review",
-      reviewNote: "Every request is reviewed within one business day.",
+      reviewNote: "We read every request and reply by email.",
       supportEyebrow: "How we build",
       supportTitle: "Engineering you can inspect.",
       supportBody:
@@ -206,7 +206,7 @@ export const homeContent = {
         },
         {
           q: "How do I start a project with Rumuze?",
-          a: "Send a request through the contact form. It is reviewed within one business day, followed by a short call to confirm scope and a written proposal covering architecture, milestones, and estimate.",
+          a: "Send a request through the contact form. We reply by email, followed by a short call to confirm scope and a written proposal covering architecture, milestones, and estimate.",
         },
         {
           q: "Where is Rumuze based?",
@@ -221,7 +221,7 @@ export const homeContent = {
       secondaryCta: "Request a technical review",
       nextLabel: "What happens next",
       nextSteps: [
-        "We read your request and reply within one business day.",
+        "We read your request and reply by email.",
         "A short call to confirm scope and constraints.",
         "A written proposal covering architecture, milestones, and estimate.",
       ],
@@ -235,7 +235,7 @@ export const homeContent = {
         "رموز شركة هندسة برمجيات. نصمم وننفذ منصات مخصصة وتطبيقات موبايل وأنظمة خلفية، بالعربية والإنجليزية من اليوم الأول، ومصممة لتعمل سنوات طويلة لا لتُطلق فقط.",
       primaryCta: "ابدأ مشروعك",
       secondaryCta: "اطلب مراجعة تقنية",
-      reviewNote: "تتم مراجعة كل طلب خلال يوم عمل واحد.",
+      reviewNote: "نقرأ كل طلب ونرد عليه بالبريد الإلكتروني.",
       supportEyebrow: "كيف نبني",
       supportTitle: "هندسة يمكن فحصها.",
       supportBody:
@@ -430,7 +430,7 @@ export const homeContent = {
         },
         {
           q: "كيف أبدأ مشروعاً مع رموز؟",
-          a: "أرسل طلباً عبر نموذج التواصل. تتم مراجعته خلال يوم عمل واحد، ثم مكالمة قصيرة لتأكيد النطاق وعرض مكتوب يشمل المعمارية والمراحل والتقدير.",
+          a: "أرسل طلباً عبر نموذج التواصل. نرد عليه بالبريد الإلكتروني، ثم مكالمة قصيرة لتأكيد النطاق وعرض مكتوب يشمل المعمارية والمراحل والتقدير.",
         },
         {
           q: "أين مقر رموز؟",
@@ -445,7 +445,7 @@ export const homeContent = {
       secondaryCta: "اطلب مراجعة تقنية",
       nextLabel: "ماذا يحدث بعد ذلك",
       nextSteps: [
-        "نقرأ طلبك ونرد خلال يوم عمل واحد.",
+        "نقرأ طلبك ونرد عليك بالبريد الإلكتروني.",
         "مكالمة قصيرة لتأكيد النطاق والقيود.",
         "عرض مكتوب يشمل المعمارية والمراحل والتقدير.",
       ],

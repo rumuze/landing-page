@@ -238,6 +238,9 @@ export default defineConfig(({ isSsrBuild }) => ({
 
         // Manual chunks for optimal code splitting
         manualChunks(id) {
+          if (id.includes('node_modules/firebase') || id.includes('node_modules/@firebase')) {
+            return 'firebase';
+          }
           if (id.includes('framer-motion')) {
             return 'framer';
           }

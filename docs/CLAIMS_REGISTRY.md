@@ -135,7 +135,7 @@ The homepage, portfolio page, navigation, intake form, and page metadata were re
 | CR-017 | Rveta includes a Flutter driver app with live location tracking, biometric lock, push notifications, customer chat, and Arabic/English localisation, backed by a Laravel API. | verified | `rumuze/rveta-delivery-app` README | confirmed |
 | CR-018 | Rumuze Core is a NestJS API with a transactional outbox, webhook engine, Socket.IO realtime, and trace ID propagation, plus a Next.js dashboard. | verified | `rumuze/core` README | confirmed |
 | CR-019 | Rveta Connector is a Flutter app with device pairing, token rotation, and a foreground command channel. It is labelled "In development". | verified | `rumuze/connector-app` README | confirmed |
-| CR-020 | Every request is reviewed within one business day. | internal benchmark | Existing site commitment | needs validation |
+| CR-020 | ~~Every request is reviewed within one business day.~~ | removed 2026-09-29 | The time commitment was unverified; copy now says requests are read and answered by email. | retired |
 
 Do not publish: internal architecture scores, "known risks" lists, environment details, or any client name or figure until it has been approved and evidenced.
 
@@ -160,7 +160,13 @@ Do not publish: internal architecture scores, "known risks" lists, environment d
 
 | Item | Why |
 | --- | --- |
-| Company founding year (2026) | Published in Organization JSON-LD; unverified. |
-| Phone, email, X profile | Published in JSON-LD and footer from earlier configuration; unverified. LinkedIn company page, Facebook page and Instagram and TikTok (rumuze_flow) YouTube (@Rumuze) and X (@Rumuzeflow) accounts confirmed by the owner (2026-09-29). |
-| "Every request is reviewed within one business day" | Existing commitment; confirm it is operationally true (CR-020). |
-| Rveta description | Written from the driver app README; confirm the product description and status. |
+| Email | Published in JSON-LD and footer from earlier configuration; unverified. |
+
+### Confirmed by the owner (2026-09-29)
+
+| Item | Value |
+| --- | --- |
+| Company founding year | 2026 |
+| Phone / WhatsApp | +20 100 006 1409 |
+| Rveta | A Rumuze product (owner statement) |
+| Social accounts | LinkedIn company page, Facebook (rumuze), Instagram and TikTok (rumuze_flow), YouTube (@Rumuze), X (@Rumuzeflow), GitHub (rumuze) |

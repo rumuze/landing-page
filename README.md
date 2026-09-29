@@ -7,7 +7,7 @@ The public website for [Rumuze](https://www.rumuze.com), a software engineering 
 - React 19, Vite 7, Tailwind CSS 3, React Router 7
 - `react-i18next` for language state, with routes under `/` (English) and `/ar` (Arabic)
 - `react-helmet-async` for per-route metadata, plus JSON-LD generated in `src/seo`
-- Firebase (Auth, Firestore, Functions) for sign-in, messaging, and visit tracking
+- Firebase (Auth, Firestore, Functions) for sign-in, messaging, and consent-gated visit tracking
 - Cloudflare Pages Functions in `functions/` for crawler-friendly metadata and security headers
 - Progressive web app via `vite-plugin-pwa`
 
@@ -47,6 +47,18 @@ docs/              deployment notes and CLAIMS_REGISTRY.md
 ## Content rules
 
 Every public claim must be traceable to code or documentation. `docs/CLAIMS_REGISTRY.md` lists what is published and where it comes from. Do not add client names, revenue figures, uptime numbers, compliance certifications, or years of experience until they can be evidenced.
+
+## Privacy and consent
+
+Visit tracking is off until the visitor accepts the banner (`src/components/ConsentBanner.jsx`, `src/utils/consent.js`). The choice is stored under `rumuze.consent.analytics`, and the footer's "Analytics preferences" button reopens it. Declining removes any stored visitor and session identifiers. Keep the privacy text in `src/locales/*.json` in step with what the code collects.
+
+## Fonts
+
+Inter, Sora, and Cairo are self-hosted through `@fontsource` (`src/fonts.js`); there are no requests to Google Fonts and the CSP does not allow them. `scripts/prerender.js` adds per-language font preloads.
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs lint, typecheck, tests, and the full build (including prerender) on every push and pull request. Run the same four commands before pushing.
 
 ## SEO, GEO, and AEO
 

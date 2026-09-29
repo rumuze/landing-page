@@ -116,14 +116,14 @@ export const META_CONFIG = {
     '/contact': {
         en: {
             title: `Contact Us | ${BRAND_NAME}`,
-            description: 'Tell us what you want to build, fix, or take over. Every request is reviewed within one business day.',
+            description: 'Tell us what you want to build, fix, or take over. We read every request and reply by email.',
             keywords: 'contact rumuze, start a software project, technical review',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'Contact Rumuze'
         },
         ar: {
             title: `تواصل معنا | ${BRAND_NAME}`,
-            description: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. تتم مراجعة كل طلب خلال يوم عمل واحد.',
+            description: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. نقرأ كل طلب ونرد عليه بالبريد الإلكتروني.',
             keywords: 'تواصل مع رموز, ابدأ مشروع برمجي, مراجعة تقنية',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'تواصل مع رموز'

@@ -106,7 +106,6 @@ const NavbarMobile = ({
                 onClick={() => setIsOpen(true)}
                 className={joinClasses('inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium transition-all duration-300', chipSurfaceClass)}
                 type="button"
-                aria-label="Open menu"
               >
                 <span>{t('navbar.more', 'Menu')}</span>
                 <Menu size={18} />
@@ -145,7 +144,7 @@ const NavbarMobile = ({
             );
           })}
 
-          <button onClick={() => setIsOpen(true)} aria-label="Open menu" className={navItemClass(isOpen)} type="button">
+          <button onClick={() => setIsOpen(true)} className={navItemClass(isOpen)} type="button">
             <Menu size={20} />
             <span className="max-w-full truncate">{t('navbar.more', 'More')}</span>
           </button>

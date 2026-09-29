@@ -113,13 +113,13 @@ const BlogPage = () => {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white group-hover:text-cyan transition-colors leading-tight">
+                <h2 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white group-hover:text-cyan transition-colors leading-tight">
                   {post.title}
-                </h3>
+                </h2>
 
                 <div className="mt-auto pt-6 border-t border-slate-100 dark:border-white/5 flex justify-between items-center">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-cyan/20 flex items-center justify-center text-[10px] font-black text-cyan">
+                    <div className="w-8 h-8 rounded-full bg-cyan/20 flex items-center justify-center text-[10px] font-black text-[#287700] dark:text-cyan">
                       {post.author.split(' ').map(n => n[0]).join('')}
                     </div>
                     <span className="text-sm font-bold text-slate-700 dark:text-gray-300">{post.author}</span>

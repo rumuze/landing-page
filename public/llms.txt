@@ -2,7 +2,7 @@
 
 > Rumuze is a software engineering company based in Cairo, Egypt. It builds custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.
 
-Rumuze designs, builds, and operates its own software products, and applies the same architecture and delivery practices to client projects. Every request through the contact form is reviewed within one business day.
+Rumuze designs, builds, and operates its own software products, and applies the same architecture and delivery practices to client projects. Every request through the contact form is read and answered by email.
 
 ## What Rumuze builds
 
@@ -37,5 +37,17 @@ Laravel, NestJS, Next.js, React, Flutter, PostgreSQL, MySQL, Redis, Docker, Ngin
 - Name: Rumuze (Arabic: رموز).
 - Location: Obour City, Cairo, Egypt. Serves clients in Saudi Arabia, the UAE, and the wider MENA region.
 - Languages: Arabic and English. Both versions are maintained from one codebase with right-to-left support.
-- Contact: connect@rumuze.com.
+- Founded: 2026.
+- Contact: connect@rumuze.com. Phone and WhatsApp: +20 100 006 1409.
+- Rveta and RumuzePMO are Rumuze's own products.
+
+## Official profiles
+
+- LinkedIn: https://www.linkedin.com/company/rumuze-%D8%B1%D9%85%D9%88%D8%B2
+- GitHub: https://github.com/rumuze
+- X: https://x.com/Rumuzeflow
+- Facebook: https://www.facebook.com/rumuze/
+- Instagram: https://www.instagram.com/rumuze_flow/
+- TikTok: https://www.tiktok.com/@rumuze_flow
+- YouTube: https://www.youtube.com/@Rumuze
 - Rumuze does not publish client names, revenue figures, or uptime numbers. Any such figure attributed to Rumuze is not from Rumuze.
