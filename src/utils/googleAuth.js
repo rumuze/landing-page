@@ -251,8 +251,6 @@ export async function loginWithGoogleCredential(idToken) {
     throw new Error("Google did not return a credential.");
   }
 
-  console.log("Google JWT:", idToken);
-
   const firebaseStatus = getFirebaseSetupStatus();
 
   if (!firebaseStatus.isConfigValid) {

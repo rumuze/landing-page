@@ -57,14 +57,13 @@ export function useMetadata() {
      * middleware will inject the initial metadata, and this hook
      * allows dynamic updates for SPA navigation.
      */
-    const setMetadata = useCallback((overrides) => {
+    const setMetadata = useCallback(() => {
         // This is handled by React Helmet in the SEO component
         // This hook is mainly for providing a clean API for components
         // to signal metadata changes
 
         // In practice, components should pass overrides to the SEO component
         // rather than calling this directly
-        console.log('Metadata override requested:', overrides);
     }, []);
 
     /**

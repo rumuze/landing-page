@@ -60,11 +60,71 @@ async function getAccessToken(email, privateKey) {
     return data.access_token;
 }
 
-export async function onRequestPost({ request, env }) {
-    try {
-        const data = await request.json();
-        const { name, email, company, subject, message, phone } = data;
+const ALLOWED_ORIGINS = new Set([
+    'https://rumuze.com',
+    'https://www.rumuze.com',
+]);
 
+const LIMITS = { name: 120, email: 320, company: 200, subject: 200, phone: 40, message: 5000 };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function json(body, status, origin) {
+    const headers = { 'Content-Type': 'application/json', 'Vary': 'Origin' };
+    if (origin) headers['Access-Control-Allow-Origin'] = origin;
+    return new Response(JSON.stringify(body), { status, headers });
+}
+
+function clean(value, max) {
+    return typeof value === 'string' ? value.trim().slice(0, max) : '';
+}
+
+// Telegram legacy Markdown treats these as formatting characters.
+function escapeMarkdown(value) {
+    return value.replace(/([_*`[\]])/g, '\\$1');
+}
+
+export async function onRequestOptions({ request }) {
+    const origin = request.headers.get('Origin');
+    if (!ALLOWED_ORIGINS.has(origin)) {
+        return new Response(null, { status: 403 });
+    }
+    return new Response(null, {
+        status: 204,
+        headers: {
+            'Access-Control-Allow-Origin': origin,
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Max-Age': '3600',
+            'Vary': 'Origin',
+        },
+    });
+}
+
+export async function onRequestPost({ request, env }) {
+    const origin = request.headers.get('Origin');
+    if (!ALLOWED_ORIGINS.has(origin)) {
+        return json({ success: false, error: 'Origin not allowed.' }, 403, null);
+    }
+
+    let data;
+    try {
+        data = await request.json();
+    } catch {
+        return json({ success: false, error: 'Invalid JSON body.' }, 400, origin);
+    }
+
+    const name = clean(data?.name, LIMITS.name);
+    const email = clean(data?.email, LIMITS.email);
+    const company = clean(data?.company, LIMITS.company);
+    const subject = clean(data?.subject, LIMITS.subject);
+    const phone = clean(data?.phone, LIMITS.phone);
+    const message = clean(data?.message, LIMITS.message);
+
+    if (!name || !message || !EMAIL_RE.test(email)) {
+        return json({ success: false, error: 'name, a valid email and message are required.' }, 400, origin);
+    }
+
+    try {
         // 1. Save to Firebase Firestore (Server-side)
         let firebaseSuccess = false;
         try {
@@ -85,20 +145,18 @@ export async function onRequestPost({ request, env }) {
                     body: JSON.stringify({
                         fields: {
                             id:      { integerValue: Date.now() },
-                            name:    { stringValue: name    || "" },
-                            email:   { stringValue: email   || "" },
-                            orgName: { stringValue: company || "" },
-                            phone:   { stringValue: phone   || "" },
-                            message: { stringValue: message || "" },
-                            subject: { stringValue: subject || "" },
+                            name:    { stringValue: name },
+                            email:   { stringValue: email },
+                            orgName: { stringValue: company },
+                            phone:   { stringValue: phone },
+                            message: { stringValue: message },
+                            subject: { stringValue: subject },
                             createdAt: { timestampValue: new Date().toISOString() }
                         }
                     })
                 });
 
-                if (firestoreResponse.ok) {
-                    firebaseSuccess = true;
-                }
+                firebaseSuccess = firestoreResponse.ok;
             }
         } catch (firebaseErr) {
             console.error("Firebase Error:", firebaseErr.message);
@@ -109,55 +167,34 @@ export async function onRequestPost({ request, env }) {
         const chatId = env.TELEGRAM_CHAT_ID;
         let telegramSuccess = false;
 
-        const text = `
-🚀 *New Lead from Rumuze Website*
-
-👤 *Name:* ${name}
-🏢 *Company:* ${company || "N/A"}
-📧 *Email:* ${email}
-
-📝 *Subject:* ${subject || "N/A"}
-💬 *Message:*
-${message}
-
-----------------------------------
-_Stored in Firebase: ${firebaseSuccess ? "✅" : "❌"}_
-    `;
+        const text = [
+            '🚀 *New Lead from Rumuze Website*',
+            '',
+            `👤 *Name:* ${escapeMarkdown(name)}`,
+            `🏢 *Company:* ${escapeMarkdown(company || 'N/A')}`,
+            `📧 *Email:* ${escapeMarkdown(email)}`,
+            '',
+            `📝 *Subject:* ${escapeMarkdown(subject || 'N/A')}`,
+            '💬 *Message:*',
+            escapeMarkdown(message),
+            '',
+            '----------------------------------',
+            `_Stored in Firebase: ${firebaseSuccess ? '✅' : '❌'}_`,
+        ].join('\n');
 
         if (botToken && chatId) {
-            const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-            const telegramResponse = await fetch(telegramUrl, {
+            const telegramResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: text,
-                    parse_mode: 'Markdown'
-                })
+                body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' })
             });
 
             telegramSuccess = telegramResponse.ok;
         }
 
-        return new Response(JSON.stringify({
-            success: true,
-            firebase: firebaseSuccess,
-            telegram: telegramSuccess,
-        }), {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            status: 200
-        });
-
+        return json({ success: true, firebase: firebaseSuccess, telegram: telegramSuccess }, 200, origin);
     } catch (err) {
-        return new Response(JSON.stringify({ success: false, error: err.message }), {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            status: 500
-        });
+        console.error('Contact API error:', err.message);
+        return json({ success: false, error: 'Internal error.' }, 500, origin);
     }
 }
