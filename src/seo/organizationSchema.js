@@ -13,7 +13,8 @@ export const organizationSchema = {
     "https://x.com/rumuze",
     "https://github.com/rumuze",
     "https://www.facebook.com/rumuze/",
-    "https://www.instagram.com/rumuze_flow/"
+    "https://www.instagram.com/rumuze_flow/",
+    "https://www.tiktok.com/@rumuze_flow"
   ],
   "knowsAbout": [
     "Custom software development",

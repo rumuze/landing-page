@@ -35,6 +35,7 @@ export interface PublicProfiles {
   github?: string;
   facebook?: string;
   instagram?: string;
+  tiktok?: string;
   website?: string;
 }
 
@@ -114,6 +115,7 @@ export const ENTITY: EntityConfig = {
     github: 'https://github.com/rumuze',
     facebook: 'https://www.facebook.com/rumuze/',
     instagram: 'https://www.instagram.com/rumuze_flow/',
+    tiktok: 'https://www.tiktok.com/@rumuze_flow',
     website: 'https://www.rumuze.com',
   },
   languages: ['en', 'ar'],
@@ -127,6 +129,7 @@ export const ENTITY: EntityConfig = {
     'https://github.com/rumuze',
     'https://www.facebook.com/rumuze/',
     'https://www.instagram.com/rumuze_flow/',
+    'https://www.tiktok.com/@rumuze_flow',
   ],
   // Domains of the products Rumuze has built (see docs/CLAIMS_REGISTRY.md).
   industryFocus: [

@@ -23,6 +23,7 @@ const copyByLocale = {
     github: 'Rumuze on GitHub',
     facebook: 'Rumuze on Facebook',
     instagram: 'Rumuze on Instagram',
+    tiktok: 'Rumuze on TikTok',
   },
   ar: {
     services: 'الخدمات',
@@ -40,8 +41,16 @@ const copyByLocale = {
     github: 'رموز على GitHub',
     facebook: 'رموز على Facebook',
     instagram: 'رموز على Instagram',
+    tiktok: 'رموز على TikTok',
   },
 };
+
+// lucide-react has no TikTok glyph, so draw it inline.
+const TikTokIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M16.6 2h-3.2v13.2a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .8.1V9.2a6 6 0 1 0 5.2 5.9V8.6a7.4 7.4 0 0 0 4.3 1.4V6.8a4.3 4.3 0 0 1-4.3-4.8z" />
+  </svg>
+);
 
 const linkClass = 'hover:text-cyan dark:hover:text-white transition-colors';
 
@@ -57,6 +66,7 @@ const Footer = () => {
     { key: 'linkedin', href: ENTITY.publicProfiles.linkedIn, label: c.linkedin, icon: <Linkedin size={20} /> },
     { key: 'facebook', href: ENTITY.publicProfiles.facebook, label: c.facebook, icon: <Facebook size={20} /> },
     { key: 'instagram', href: ENTITY.publicProfiles.instagram, label: c.instagram, icon: <Instagram size={20} /> },
+    { key: 'tiktok', href: ENTITY.publicProfiles.tiktok, label: c.tiktok, icon: <TikTokIcon /> },
     { key: 'github', href: ENTITY.publicProfiles.github, label: c.github, icon: <Github size={20} /> },
   ].filter((link) => Boolean(link.href));
 
