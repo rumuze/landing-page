@@ -35,22 +35,22 @@
     "breadcrumbs": {
         "home": "Home",
         "labs": "R&D",
-        "services": "Capabilities",
-        "about": "Philosophy",
-        "blog": "Intelligence",
+        "services": "Services",
+        "about": "About",
+        "blog": "Insights",
         "privacy": "Privacy",
         "terms": "Terms"
     },
     "navbar": {
         "home": "Home",
-        "services": "Capabilities",
-        "portfolio": "Impact",
+        "services": "Services",
+        "portfolio": "Work",
         "techStack": "Engine",
         "labs": "Labs",
-        "blog": "Intelligence",
-        "about": "Philosophy",
+        "blog": "Insights",
+        "about": "About",
         "contact": "Contact",
-        "startProject": "Partner with us"
+        "startProject": "Start a project"
     },
     "hero": {
         "badge": "Smart Business Apps",

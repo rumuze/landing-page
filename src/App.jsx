@@ -52,8 +52,6 @@ const SLOFramework = lazy(() => import('./pages/SLOFramework'));
 const MultilingualSystems = lazy(() => import('./pages/MultilingualSystems'));
 const KnowledgeGraphArchitecture = lazy(() => import('./pages/KnowledgeGraphArchitecture'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
-const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage'));
-const CaseStudyDetailPage = lazy(() => import('./pages/CaseStudyDetailPage'));
 const WhyRumuzePage = lazy(() => import('./pages/WhyRumuzePage'));
 const ComparisonPage = lazy(() => import('./pages/ComparisonPage'));
 const SaudiArabiaPage = lazy(() => import('./pages/SaudiArabiaPage'));
@@ -346,27 +344,9 @@ function AppContent() {
               </div>
             } />
 
-            {/* Case Studies Routes */}
-            <Route path="/case-studies" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><CaseStudiesPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/case-studies" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><CaseStudiesPage isAr={true} /></Suspense>
-              </div>
-            } />
-            <Route path="/case-studies/:slug" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><CaseStudyDetailPage /></Suspense>
-              </div>
-            } />
-            <Route path="/ar/case-studies/:slug" element={
-              <div className="animate-fade-in">
-                <Suspense fallback={<Skeleton />}><CaseStudyDetailPage isAr={true} /></Suspense>
-              </div>
-            } />
+            {/* Retired case-study pages now resolve to the portfolio */}
+            <Route path="/case-studies/*" element={<Navigate to="/portfolio" replace />} />
+            <Route path="/ar/case-studies/*" element={<Navigate to="/ar/portfolio" replace />} />
 
             {/* Why Rumuze & Comparison Routes */}
             <Route path="/why-rumuze" element={

@@ -114,7 +114,6 @@ const EnterpriseWebDevelopmentPage = () => {
                   {sec.key === 'revenue' && (
                     <p className="text-sm text-slate-500 dark:text-gray-500">
                       {isAr ? 'انظر دراسة حالة ' : 'Demonstrated in the '}
-                      <Link to={isAr ? '/ar/case-studies/revenue-platform-engineering' : '/case-studies/revenue-platform-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline">revenue-platform-engineering</Link>
                       {isAr ? '.' : ' case study.'}
                     </p>
                   )}
@@ -138,8 +137,7 @@ const EnterpriseWebDevelopmentPage = () => {
           <p className="text-sm text-slate-500 dark:text-gray-500">
             {isAr ? 'القدرات ذات الصلة: ' : 'Related Capabilities: '}
             <Link to={isAr ? '/ar/services/web-development' : '/services/web-development'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'تطوير منصات الويب' : 'Web Platform Development'}</Link>·
-            <Link to={isAr ? '/ar/services/software-engineering' : '/services/software-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'هندسة البرمجيات' : 'Software Engineering'}</Link>·
-            <Link to={isAr ? '/ar/case-studies/revenue-platform-engineering' : '/case-studies/revenue-platform-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'دراسة حالة: هندسة منصة الإيرادات' : 'Case Study: revenue-platform-engineering'}</Link>
+            <Link to={isAr ? '/ar/services/software-engineering' : '/services/software-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'هندسة البرمجيات' : 'Software Engineering'}</Link>
           </p>
         </Motion.div>
         <Motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-24">

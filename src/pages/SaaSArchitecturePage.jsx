@@ -131,8 +131,7 @@ const SaaSArchitecturePage = () => {
           <p className="text-sm text-slate-500 dark:text-gray-500">
             {isAr ? 'القدرات ذات الصلة: ' : 'Related Capabilities: '}
             <Link to={isAr ? '/ar/services/saas-erp' : '/services/saas-erp'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'أنظمة SaaS وERP' : 'SaaS & ERP Systems'}</Link>·
-            <Link to={isAr ? '/ar/services/software-engineering' : '/services/software-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'هندسة البرمجيات' : 'Software Engineering'}</Link>·
-            <Link to={isAr ? '/ar/case-studies/fintech-saas-platform' : '/case-studies/fintech-saas-platform'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'دراسة حالة: منصة فنتك SaaS' : 'Case Study: fintech-saas-platform'}</Link>
+            <Link to={isAr ? '/ar/services/software-engineering' : '/services/software-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'هندسة البرمجيات' : 'Software Engineering'}</Link>
           </p>
         </Motion.div>
         <Motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-24">

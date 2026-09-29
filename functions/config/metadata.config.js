@@ -92,14 +92,14 @@ export const AUTHORITY_DESCRIPTION = 'Rumuze is an enterprise software engineeri
  */
 export const DEFAULT_METADATA = {
     en: {
-        title: 'Rumuze | Complexity Decoded. Potential Unleashed.',
-        description: 'Rumuze is a global digital powerhouse. We engineer bespoke digital ecosystems and master search dominance for industry leaders.',
+        title: 'Rumuze | Software Engineering for Gulf and MENA Businesses',
+        description: 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region.',
         imageAlt: OG_IMAGE_ALT.en,
         type: 'website',
     },
     ar: {
-        title: 'روموز | نفك شفرة التعقيد.. نهيمن على المستقبل',
-        description: 'روموز: القوة الرقمية العالمية. نهندس أنظمة رقمية نخبوية ونفرض هيمنة شركائنا على محركات البحث والأسواق.',
+        title: 'رموز | هندسة برمجيات لشركات الخليج والمنطقة',
+        description: 'رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات والمنطقة.',
         imageAlt: OG_IMAGE_ALT.ar,
         type: 'website',
     },
@@ -122,45 +122,45 @@ export const DEFAULT_METADATA = {
 export const ROUTE_METADATA = {
     '/services': {
         en: {
-            title: 'Our Services | Architecting Scalable Ecosystems',
-            description: 'Bespoke digital ecosystems, high-availability architectures, and enterprise-grade software engineering. We build the invisible giants.',
-            imageAlt: 'Rumuze Services - Enterprise Software & Digital Growth',
+            title: 'Our Services | Custom Software, Mobile, and Backend Engineering',
+            description: 'Custom software and SaaS, Flutter mobile apps, backend and API platforms, and system integrations, built in Arabic and English.',
+            imageAlt: 'Rumuze Services - Software Engineering',
             type: 'website',
         },
         ar: {
-            title: 'خدماتنا | هندسة النظم البرمجية فائقة التوسع',
-            description: 'أنظمة رقمية نخبوية، معماريات ذات توافر عالٍ، وهندسة برمجية مؤسسية. نبني العمالقة غير المرئيين.',
-            imageAlt: 'خدمات روموز - برمجيات المؤسسات والنمو الرقمي',
+            title: 'خدماتنا | برمجيات مخصصة وتطبيقات موبايل وأنظمة خلفية',
+            description: 'برمجيات مخصصة وSaaS وتطبيقات Flutter ومنصات خلفية وواجهات API وتكامل بين الأنظمة، بالعربية والإنجليزية.',
+            imageAlt: 'خدمات رموز - هندسة البرمجيات',
             type: 'website',
         },
     },
 
     '/about': {
         en: {
-            title: 'About Us | The Architects of the Digital Future',
-            description: 'Learn about the Rumuze story and our founder\'s vision. We don\'t follow trends; we research the breakthroughs that define them.',
-            imageAlt: 'About Rumuze - Digital Mastery & Innovation',
+            title: 'About Us | Rumuze Software Engineering',
+            description: 'Learn who is behind Rumuze, how we work, and the products we build and run ourselves.',
+            imageAlt: 'About Rumuze',
             type: 'website',
         },
         ar: {
-            title: 'عن الشركة | مهندسو المستقبل الرقمي',
-            description: 'تعرف على قصة روموز ورؤية مؤسسنا. نحن لا نتبع الاتجاهات؛ نحن نبحث في الاختراقات التي تحددها.',
-            imageAlt: 'عن روموز - الإتقان الرقمي والابتكار',
+            title: 'من نحن | رموز لهندسة البرمجيات',
+            description: 'تعرف على من يقف وراء رموز وكيف نعمل والمنتجات التي نبنيها ونشغّلها بأنفسنا.',
+            imageAlt: 'عن رموز',
             type: 'website',
         },
     },
 
     '/blog': {
         en: {
-            title: 'Corporate Intelligence | Insights & Case Studies',
-            description: 'Technical deep-dives and strategic growth analysis from Rumuze. Engineering paradigms and market shifts decoded.',
-            imageAlt: 'Rumuze Blog - Technical Insights & Strategic Analysis',
+            title: 'Insights | Engineering Articles from Rumuze',
+            description: 'Articles on software architecture, multilingual systems, and engineering practice from the Rumuze team.',
+            imageAlt: 'Rumuze Blog - Engineering Insights',
             type: 'website',
         },
         ar: {
-            title: 'الذكاء المؤسسي | الرؤى ودراسات الحالة',
-            description: 'تحليلات تقنية معمقة واستراتيجيات نمو مدروسة من روموز. نماذج الهندسة وتحولات السوق مفككة الشفرة.',
-            imageAlt: 'مدونة روموز - رؤى تقنية وتحليلات استراتيجية',
+            title: 'مقالات | هندسة البرمجيات من رموز',
+            description: 'مقالات عن معمارية البرمجيات والأنظمة متعددة اللغات والممارسات الهندسية من فريق رموز.',
+            imageAlt: 'مدونة رموز - مقالات هندسية',
             type: 'website',
         },
     },
@@ -182,30 +182,30 @@ export const ROUTE_METADATA = {
 
     '/portfolio': {
         en: {
-            title: 'Impact Case Studies | Transforming Ambition into Benchmarks',
-            description: 'A chronicle of how we\'ve transformed ambition into industry-defining benchmarks. National fintech cores, multi-region retail scale, and autonomous supply chains.',
-            imageAlt: 'Rumuze Portfolio - Impact Case Studies',
+            title: 'Our Work | Products Built by Rumuze',
+            description: 'Platforms we design, build, and operate: a modular ERP and CRM SaaS, a delivery operations platform, an event-driven platform kernel, and a device control app.',
+            imageAlt: 'Rumuze Work - Products Built by Rumuze',
             type: 'website',
         },
         ar: {
-            title: 'دراسات الحالة والأثر | تحويل الطموحات إلى معايير قياسية',
-            description: 'سجل توثيقي لكيفية تحويلنا للطموحات إلى معايير قياسية تُعرف بها الصناعات. نوى مالية وطنية، توسع تجزئة متعدد الأقاليم، وسلاسل إمداد ذاتية القيادة.',
-            imageAlt: 'محفظة روموز - دراسات الحالة والأثر',
+            title: 'أعمالنا | منتجات بنتها رموز',
+            description: 'منصات نصممها ونبنيها ونشغّلها: منصة ERP وCRM معيارية، ومنصة لعمليات التوصيل، ونواة منصة قائمة على الأحداث، وتطبيق للتحكم بالأجهزة.',
+            imageAlt: 'أعمال رموز - منتجات بنتها رموز',
             type: 'website',
         },
     },
 
     '/contact': {
         en: {
-            title: 'Partner with Us | Let\'s Discuss Your Legacy',
-            description: 'If you are ready to lead your industry, we are ready to engineer the path. Contact Rumuze for strategic partnerships.',
-            imageAlt: 'Contact Rumuze - Strategic Partnerships',
+            title: 'Contact Us | Start a Project with Rumuze',
+            description: 'Tell us what you want to build, fix, or take over. Every request is reviewed within one business day.',
+            imageAlt: 'Contact Rumuze',
             type: 'website',
         },
         ar: {
-            title: 'ابنِ شراكة معنا | دعونا نناقش إرثكم القادم',
-            description: 'إذا كنتم مستعدين لقيادة صناعتكم، فنحن جاهزون لهندسة المسار. تواصل مع روموز للشراكات الاستراتيجية.',
-            imageAlt: 'تواصل مع روموز - الشراكات الاستراتيجية',
+            title: 'تواصل معنا | ابدأ مشروعك مع رموز',
+            description: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. تتم مراجعة كل طلب خلال يوم عمل واحد.',
+            imageAlt: 'تواصل مع رموز',
             type: 'website',
         },
     },

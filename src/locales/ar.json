@@ -35,22 +35,22 @@
     "breadcrumbs": {
         "home": "الرئيسية",
         "labs": "البحث والتطوير",
-        "services": "القدرات",
-        "about": "الفلسفة",
-        "blog": "الذكاء المؤسسي",
+        "services": "الخدمات",
+        "about": "من نحن",
+        "blog": "مقالات",
         "privacy": "الخصوصية",
         "terms": "الشروط"
     },
     "navbar": {
         "home": "الرئيسية",
-        "services": "القدرات",
-        "portfolio": "الأثر الرقمي",
+        "services": "الخدمات",
+        "portfolio": "أعمالنا",
         "techStack": "المحرك",
         "labs": "المختبر",
-        "blog": "الذكاء المؤسسي",
-        "about": "الفلسفة",
+        "blog": "مقالات",
+        "about": "من نحن",
         "contact": "تواصل معنا",
-        "startProject": "شراكة استراتيجية"
+        "startProject": "ابدأ مشروعك"
     },
     "hero": {
         "badge": "تطبيقات أعمال ذكية",

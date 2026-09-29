@@ -19,50 +19,50 @@ const OG_IMAGE_VERSION = '2026-02';
 export const META_CONFIG = {
     '/': {
         en: {
-            title: `${BRAND_NAME} | Enterprise Software Engineering & SaaS Architecture`,
-            description: 'Rumuze is an enterprise software engineering company. We build multi-tenant SaaS platforms, ERP systems, and digital infrastructure for organizations in UAE, Saudi Arabia, and the MENA region.',
-            keywords: 'enterprise software engineering, SaaS platform development, ERP systems, multilingual architecture, UAE software company, Saudi Arabia digital infrastructure',
+            title: `${BRAND_NAME} | Software Engineering for Gulf and MENA Businesses`,
+            description: 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.',
+            keywords: 'software engineering company, custom software development, SaaS platform development, Flutter mobile apps, backend development, Saudi Arabia, UAE, MENA',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze - Enterprise Software Engineering'
+            imageAlt: 'Rumuze - Software Engineering'
         },
         ar: {
-            title: `${BRAND_NAME} | هندسة البرمجيات المؤسسية ومعمارية SaaS`,
-            description: 'روموز شركة هندسة برمجيات مؤسسية. نبني منصات SaaS متعددة المستأجرين وأنظمة ERP والبنية التحتية الرقمية للمؤسسات في الإمارات والسعودية ومنطقة الشرق الأوسط.',
-            keywords: 'هندسة برمجيات مؤسسية, تطوير منصات SaaS, أنظمة ERP, معمارية متعددة اللغات, شركة برمجيات الإمارات, بنية رقمية السعودية',
+            title: 'رموز | هندسة برمجيات لشركات الخليج والمنطقة',
+            description: 'رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات والمنطقة، بالعربية والإنجليزية.',
+            keywords: 'شركة هندسة برمجيات, تطوير برمجيات مخصصة, تطوير منصات SaaS, تطبيقات Flutter, تطوير أنظمة خلفية, السعودية, الإمارات',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'روموز - هندسة البرمجيات المؤسسية'
+            imageAlt: 'رموز - هندسة البرمجيات'
         }
     },
     '/services': {
         en: {
-            title: `Strategic Capabilities | ${BRAND_NAME}`,
-            description: 'Enterprise-grade software engineering, AI R&D, and data-driven market dominance. We architect scalable ecosystems for industry leaders.',
-            keywords: 'software development services, AI integration, digital marketing, enterprise architecture, scalable systems',
+            title: `Services | ${BRAND_NAME}`,
+            description: 'Custom software and SaaS, Flutter mobile apps, backend and API platforms, and system integrations, built in Arabic and English.',
+            keywords: 'software development services, SaaS development, Flutter app development, backend development, API integration',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze Strategic Capabilities - Enterprise Software & AI'
+            imageAlt: 'Rumuze Services - Software Engineering'
         },
         ar: {
-            title: `القدرات الاستراتيجية | ${BRAND_NAME}`,
-            description: 'هندسة برمجيات مؤسسية، بحث وتطوير الذكاء الاصطناعي، وهيمنة سوقية قائمة على البيانات. نهندس أنظمة قابلة للتوسع لقادة الصناعة.',
-            keywords: 'خدمات تطوير البرمجيات, تكامل الذكاء الاصطناعي, تسويق رقمي, معمارية مؤسسية, أنظمة قابلة للتوسع',
+            title: `الخدمات | ${BRAND_NAME}`,
+            description: 'برمجيات مخصصة وSaaS وتطبيقات Flutter ومنصات خلفية وواجهات API وتكامل بين الأنظمة، بالعربية والإنجليزية.',
+            keywords: 'خدمات تطوير البرمجيات, تطوير SaaS, تطبيقات Flutter, تطوير أنظمة خلفية, تكامل API',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'القدرات الاستراتيجية لروموز - برمجيات مؤسسية وذكاء اصطناعي'
+            imageAlt: 'خدمات رموز - هندسة البرمجيات'
         }
     },
     '/portfolio': {
         en: {
-            title: `Impact Case Studies | ${BRAND_NAME}`,
-            description: 'Explore how Rumuze transformed ambitious visions into industry-defining benchmarks. Real results for fintech, e-commerce, and logistics.',
-            keywords: 'portfolio, case studies, fintech solutions, e-commerce platforms, logistics automation, digital transformation',
+            title: `Our Work | ${BRAND_NAME}`,
+            description: 'Platforms we design, build, and operate: a modular ERP and CRM SaaS, a delivery operations platform, an event-driven platform kernel, and a device control app.',
+            keywords: 'software portfolio, SaaS platform, Laravel, NestJS, Flutter, delivery platform',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze Portfolio - Industry-Defining Digital Solutions'
+            imageAlt: 'Rumuze Work - Products Built by Rumuze'
         },
         ar: {
-            title: `دراسات الحالة والأثر | ${BRAND_NAME}`,
-            description: 'استكشف كيف حولت روموز الرؤى الطموحة إلى معايير قياسية تُعرف بها الصناعات. نتائج حقيقية للتكنولوجيا المالية والتجارة الإلكترونية.',
-            keywords: 'معرض الأعمال, دراسات الحالة, حلول التكنولوجيا المالية, منصات التجارة الإلكترونية, أتمتة اللوجستيات',
+            title: `أعمالنا | ${BRAND_NAME}`,
+            description: 'منصات نصممها ونبنيها ونشغّلها: منصة ERP وCRM معيارية، ومنصة لعمليات التوصيل، ونواة منصة قائمة على الأحداث، وتطبيق للتحكم بالأجهزة.',
+            keywords: 'أعمال رموز, منصة SaaS, Laravel, NestJS, Flutter, منصة توصيل',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'معرض أعمال روموز - حلول رقمية رائدة في الصناعة'
+            imageAlt: 'أعمال رموز - منتجات بنتها رموز'
         }
     },
     '/about': {

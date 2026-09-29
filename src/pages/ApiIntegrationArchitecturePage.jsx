@@ -136,13 +136,6 @@ const ApiIntegrationArchitecturePage = () => {
                     <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white">{sec.title[lang]}</h2>
                   </div>
                   <p className="text-slate-600 dark:text-gray-400 leading-relaxed mb-3">{sec.body[lang]}</p>
-                  {sec.key === 'impact' && (
-                    <p className="text-sm text-slate-500 dark:text-gray-500">
-                      {isAr ? 'انظر دراسة حالة ' : 'Demonstrated in the '}
-                      <Link to={isAr ? '/ar/case-studies/revenue-platform-engineering' : '/case-studies/revenue-platform-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline">revenue-platform-engineering</Link>
-                      {isAr ? '.' : ' case study.'}
-                    </p>
-                  )}
                 </div>
                 <div className={`p-8 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 ${idx % 2 !== 0 ? 'md:order-1' : ''}`}>
                   <ul className="space-y-4">
@@ -163,8 +156,7 @@ const ApiIntegrationArchitecturePage = () => {
           <p className="text-sm text-slate-500 dark:text-gray-500">
             {isAr ? 'القدرات ذات الصلة: ' : 'Related Capabilities: '}
             <Link to={isAr ? '/ar/services/software-engineering' : '/services/software-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'هندسة البرمجيات' : 'Software Engineering'}</Link>·
-            <Link to={isAr ? '/ar/custom-software-development' : '/custom-software-development'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'أنظمة البرمجيات المخصصة' : 'Custom Software Systems'}</Link>·
-            <Link to={isAr ? '/ar/case-studies/revenue-platform-engineering' : '/case-studies/revenue-platform-engineering'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'دراسة حالة: هندسة منصة الإيرادات' : 'Case Study: revenue-platform-engineering'}</Link>
+            <Link to={isAr ? '/ar/custom-software-development' : '/custom-software-development'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'أنظمة البرمجيات المخصصة' : 'Custom Software Systems'}</Link>
           </p>
         </Motion.div>
         <Motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-24">

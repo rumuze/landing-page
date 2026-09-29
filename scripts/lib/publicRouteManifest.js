@@ -11,7 +11,6 @@ export const SUPPORTED_LOCALES = ['en', 'ar'];
 const STATIC_ROUTE_DEFINITIONS = [
   { path: '/', priority: 1.0, changefreq: 'weekly', section: 'core' },
   { path: '/services', priority: 0.95, changefreq: 'weekly', section: 'services' },
-  { path: '/case-studies', priority: 0.9, changefreq: 'monthly', section: 'case-studies' },
   { path: '/blog', priority: 0.85, changefreq: 'weekly', section: 'blog' },
   { path: '/why-rumuze', priority: 0.8, changefreq: 'monthly', section: 'commercial' },
   { path: '/contact', priority: 0.8, changefreq: 'monthly', section: 'commercial' },
@@ -56,11 +55,6 @@ function extractServiceSlugs() {
   return unique(extractQuotedValues(source, /^\s{4}slug:\s*'([^']+)'/gm));
 }
 
-function extractCaseStudySlugs() {
-  const source = readSource('src/config/caseStudies.ts');
-  return unique(extractQuotedValues(source, /^\s{4}slug:\s*'([^']+)'/gm));
-}
-
 function extractComparisonSlugs() {
   const source = readSource('src/config/comparison.ts');
   const comparisonTargetBlock = source.split('export const COMPARISON_TARGETS')[1] || '';
@@ -97,14 +91,6 @@ export function getPublicRouteManifest(buildDate = new Date().toISOString().spli
     lastmod: buildDate,
   }));
 
-  const caseStudyRoutes = extractCaseStudySlugs().map((slug) => ({
-    path: `/case-studies/${slug}`,
-    priority: 0.8,
-    changefreq: 'monthly',
-    section: 'case-study-detail',
-    lastmod: buildDate,
-  }));
-
   const comparisonRoutes = extractComparisonSlugs().map((slug) => ({
     path: `/comparison/${slug}`,
     priority: 0.68,
@@ -124,7 +110,6 @@ export function getPublicRouteManifest(buildDate = new Date().toISOString().spli
   const manifest = [
     ...STATIC_ROUTE_DEFINITIONS.map((route) => ({ ...route, lastmod: buildDate })),
     ...serviceDetailRoutes,
-    ...caseStudyRoutes,
     ...comparisonRoutes,
     ...blogRoutes,
   ];

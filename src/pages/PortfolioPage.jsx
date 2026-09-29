@@ -1,201 +1,106 @@
-import React, { useState, useEffect } from 'react';
-import { motion as Motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, X, ZoomIn } from 'lucide-react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import OptimizedImage from '../components/OptimizedImage';
-import { CardSkeleton } from '../components/SkeletonLoader';
 import SEO from '../components/SEO';
+import { homeContent } from '../content/homeContent';
+
+const copyByLocale = {
+  en: {
+    eyebrow: 'Our work',
+    title: 'Products we have built and run.',
+    intro:
+      'Rumuze designs, builds, and operates its own platforms. Each one is described below with the architecture and practices it is built on.',
+    ctaTitle: 'Have something similar in mind?',
+    ctaBody: 'Tell us what you want to build, fix, or take over.',
+    ctaLabel: 'Start a project',
+  },
+  ar: {
+    eyebrow: 'أعمالنا',
+    title: 'منتجات بنيناها ونشغّلها.',
+    intro:
+      'تصمم رموز منصاتها الخاصة وتبنيها وتشغّلها. نعرض هنا كل منصة مع المعمارية والممارسات التي تقوم عليها.',
+    ctaTitle: 'هل لديك فكرة مشابهة؟',
+    ctaBody: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه.',
+    ctaLabel: 'ابدأ مشروعك',
+  },
+};
 
 const PortfolioPage = () => {
-  const { t, i18n } = useTranslation();
-  const isRtl = i18n.dir() === 'rtl';
-  const [selectedId, setSelectedId] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  // Simulate loading effect
-  useEffect(() => {
-    // Scroll to top on mount
-    window.scrollTo(0, 0);
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const projects = [
-    {
-      id: 1,
-      title: t('portfolio.items.fintech'),
-      category: t('services.software.title'),
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
-      description: "A high-performance analytics platform for real-time market tracking.",
-      longDesc: "Full-scale implementation of a real-time analytics dashboard handling over 1M transactions per second."
-    },
-    {
-      id: 2,
-      title: t('portfolio.items.ecommerce'),
-      category: t('services.marketing.title'),
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-      description: "Scaling a lifestyle brand from zero to 1M+ monthly recurring revenue.",
-      longDesc: "Strategic growth hacking combined with a headless commerce architecture."
-    },
-    {
-      id: 3,
-      title: t('portfolio.items.logistics'),
-      category: t('services.software.title'),
-      image: "https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?auto=format&fit=crop&q=80&w=800",
-      description: "Automating supply chain workflows with cloud-native microservices.",
-      longDesc: "IoT integration and predictive logistics driven by machine learning models."
-    }
-  ];
+  const { i18n } = useTranslation();
+  const isAr = i18n.language === 'ar';
+  const locale = isAr ? 'ar' : 'en';
+  const page = copyByLocale[locale];
+  const { work } = homeContent[locale];
+  const align = isAr ? 'text-right' : 'text-left';
 
   return (
     <>
-      <SEO path={isRtl ? '/ar/portfolio' : '/portfolio'} />
-      
-      {/* 
-        RTL Fix: 
-        1. Explicit dir prop
-        2. Logical properties (text-start, ms-auto, me-auto) 
-        3. Removed physical text alignment (text-left/right) favor of text-start
-      */}
-      <div 
-        className="surface-page tech-grid min-h-screen pt-32 pb-20 bg-slate-50 dark:bg-background"
-        dir={isRtl ? 'rtl' : 'ltr'}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div className="max-w-xl text-start">
-              <Motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple/10 border border-purple/20 text-purple text-xs font-bold mb-4 tracking-wider uppercase"
+      <SEO path={isAr ? '/ar/portfolio' : '/portfolio'} />
+
+      <section className="surface-page pb-16 pt-[calc(6.5rem+var(--safe-area-top))] md:pb-24 md:pt-[calc(7.5rem+var(--safe-area-top))]">
+        <div className="content-shell">
+          <header className={`max-w-3xl ${align}`}>
+            <p className="eyebrow-label mb-3">{page.eyebrow}</p>
+            <h1 className="type-h1 copy-primary dark:text-white">{page.title}</h1>
+            <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
+          </header>
+
+          <div className="mt-14 divide-y divide-[rgb(var(--border-subtle)/0.7)] border-y border-[rgb(var(--border-subtle)/0.7)]">
+            {work.cards.map((card) => (
+              <article
+                key={card.title}
+                className={`grid gap-8 py-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 ${align}`}
               >
-                {t('navbar.portfolio')}
-              </Motion.div>
-              <h1 className="text-4xl md:text-5xl font-black mb-6 text-slate-900 dark:text-white leading-tight">
-                {t('portfolio.title').split(' ')[0]} <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-purple">{t('portfolio.title').split(' ').slice(1).join(' ')}</span>
-              </h1>
-              <p className="text-xl text-slate-600 dark:text-gray-400">
-                {t('portfolio.description')}
-              </p>
+                <div>
+                  <div className={`flex flex-wrap items-center gap-3 ${isAr ? 'flex-row-reverse' : ''}`}>
+                    <span className="type-label copy-muted">{card.tag}</span>
+                    {card.status ? <span className="home-chip">{card.status}</span> : null}
+                  </div>
+                  <h2 className="type-h2 copy-primary mt-3 dark:text-white">{card.title}</h2>
+                  <p className="type-body copy-secondary mt-4 dark:text-slate-300">{card.summary}</p>
+                </div>
+
+                <div>
+                  <ul className="space-y-3">
+                    {card.highlights.map((item) => (
+                      <li
+                        key={item}
+                        className={`type-body copy-secondary flex items-start gap-3 dark:text-slate-300 ${
+                          isAr ? 'flex-row-reverse' : ''
+                        }`}
+                      >
+                        <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className={`mt-6 flex flex-wrap items-center gap-2 ${isAr ? 'flex-row-reverse' : ''}`}>
+                    <span className="type-label copy-muted">{work.stackLabel}</span>
+                    {card.stack.map((tech) => (
+                      <span key={tech} className="home-chip" dir="ltr">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className={`mt-14 flex flex-col gap-4 md:flex-row md:items-center md:justify-between ${align}`}>
+            <div>
+              <h2 className="type-h3 copy-primary dark:text-white">{page.ctaTitle}</h2>
+              <p className="type-body copy-secondary mt-2">{page.ctaBody}</p>
             </div>
+            <Link
+              to={isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'}
+              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full bg-cyan px-7 font-semibold text-slate-950 transition hover:opacity-90"
+            >
+              {page.ctaLabel}
+            </Link>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {loading ? (
-               <>
-                 <CardSkeleton />
-                 <CardSkeleton />
-                 <CardSkeleton />
-                 <CardSkeleton />
-                 <CardSkeleton />
-                 <CardSkeleton />
-               </>
-            ) : (
-              projects.map((project, idx) => (
-              <Motion.div
-                layoutId={project.id}
-                onClick={() => setSelectedId(project.id)}
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="group relative overflow-hidden rounded-3xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 cursor-pointer text-start"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <Motion.div
-                    className="w-full h-full transition-transform duration-700 group-hover:scale-110"
-                  >
-                    <OptimizedImage
-                      src={project.image}
-                      alt={project.title}
-                      width={800}
-                      height={600}
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="w-full h-full object-cover"
-                    />
-                  </Motion.div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                <div className="absolute inset-0 p-8 flex flex-col justify-end transform transition-transform duration-500 group-hover:translate-y-[-8px]">
-                  <span className="text-cyan text-xs font-bold tracking-widest uppercase mb-2">{project.category}</span>
-                  <h3 className="text-2xl font-bold mb-2 flex items-center gap-2 text-white">
-                    {project.title}
-                    <ZoomIn size={18} className="opacity-0 group-hover:opacity-100 transition-opacity text-cyan" />
-                  </h3>
-                  <p className="text-gray-300 text-sm line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0">
-                    {project.description}
-                  </p>
-                </div>
-              </Motion.div>
-            ))
-            )}
-          </div>
-
-          <AnimatePresence>
-            {selectedId && (
-              <div 
-                className="fixed inset-0 z-[100] grid place-items-center p-4"
-                dir={isRtl ? 'rtl' : 'ltr'}
-              >
-                 <Motion.div 
-                    initial={{ opacity: 0 }} 
-                    animate={{ opacity: 1 }} 
-                    exit={{ opacity: 0 }}
-                    onClick={() => setSelectedId(null)}
-                    className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
-                 />
-                 {projects.map(item => item.id === selectedId && (
-                    <Motion.div 
-                      layoutId={selectedId} 
-                      className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-2xl relative z-10 text-start"
-                      key={item.id}
-                    >
-                       <Motion.button 
-                          onClick={() => setSelectedId(null)}
-                          className={`absolute top-4 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full z-20 transition-colors backdrop-blur-sm ${isRtl ? 'left-4' : 'right-4'}`}
-                       >
-                          <X size={20} />
-                       </Motion.button>
-                       <Motion.div className="aspect-video relative">
-                          <OptimizedImage
-                            src={item.image}
-                            alt={item.title}
-                            width={1200}
-                            height={675}
-                            priority={true}
-                            sizes="(max-width: 768px) 100vw, 70vw"
-                            className="w-full h-full object-cover"
-                          />
-                       </Motion.div>
-                       <Motion.div className="p-8">
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="px-3 py-1 rounded-full bg-cyan/10 text-cyan text-xs font-bold tracking-widest uppercase">{item.category}</span>
-                          </div>
-                          
-                          <Motion.h2 className="text-3xl font-black text-slate-900 dark:text-white mb-3">{item.title}</Motion.h2>
-                          <Motion.p className="text-lg text-slate-600 dark:text-gray-300 mb-8 leading-relaxed">{item.description}</Motion.p>
-                          
-                          <Motion.div className="bg-slate-50 dark:bg-white/5 p-6 rounded-2xl border border-slate-100 dark:border-white/10">
-                             <h4 className="font-bold text-sm mb-3 text-slate-900 dark:text-white uppercase tracking-wide opacity-70">Project Impact</h4>
-                             <p className="text-base text-slate-700 dark:text-gray-300 leading-relaxed font-medium">{item.longDesc}</p>
-                          </Motion.div>
-                          
-                          <div className="mt-8 flex gap-4">
-                              <button className="flex-1 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:opacity-90 transition-opacity">
-                                View Case Study
-                              </button>
-                              <button className="px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
-                                <ExternalLink size={20} />
-                              </button>
-                          </div>
-                       </Motion.div>
-                    </Motion.div>
-                 ))}
-              </div>
-            )}
-          </AnimatePresence>
         </div>
-      </div>
+      </section>
     </>
   );
 };

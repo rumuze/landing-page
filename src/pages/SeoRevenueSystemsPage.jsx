@@ -131,8 +131,7 @@ const SeoRevenueSystemsPage = () => {
           <p className="text-sm text-slate-500 dark:text-gray-500">
             {isAr ? 'القدرات ذات الصلة: ' : 'Related Capabilities: '}
             <Link to={isAr ? '/ar/services/seo-services' : '/services/seo-services'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'خدمات SEO والظهور العضوي' : 'SEO & Organic Visibility'}</Link>·
-            <Link to={isAr ? '/ar/services/performance-marketing' : '/services/performance-marketing'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'التسويق الأدائي' : 'Performance Marketing'}</Link>·
-            <Link to={isAr ? '/ar/case-studies/ecommerce-performance-marketing' : '/case-studies/ecommerce-performance-marketing'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'دراسة حالة: تسويق أداء التجارة الإلكترونية' : 'Case Study: ecommerce-performance-marketing'}</Link>
+            <Link to={isAr ? '/ar/services/performance-marketing' : '/services/performance-marketing'} className="text-cyan-600 dark:text-cyan-400 hover:underline mx-1">{isAr ? 'التسويق الأدائي' : 'Performance Marketing'}</Link>
           </p>
         </Motion.div>
         <Motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-24">

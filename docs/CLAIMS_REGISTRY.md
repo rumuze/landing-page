@@ -115,3 +115,26 @@ Recommended label text:
 2. Mark each case study as `verified`, `composite`, or `illustrative` in the page UI.
 3. Create a proof artifact folder or source index for validated client outcomes.
 4. Link future ADRs or marketing approval records back to claim IDs.
+
+## 6. Update 2026-09-29: repositioning as a software engineering company
+
+The homepage, portfolio page, navigation, intake form, and page metadata were rewritten around claims that can be traced to code in Rumuze's own repositories.
+
+### Removed from public pages
+
+| ID | Change |
+| --- | --- |
+| CR-006 to CR-012 | The `/case-studies` pages, aggregate metrics (47+ projects, 12+ countries, average ROAS), the fabricated testimonial, and the "internal benchmark / confidence" badges are gone. `/case-studies/*` redirects to `/portfolio`. |
+
+### Added (source: repository READMEs and code)
+
+| ID | Claim Text | Type | Source | Status |
+| --- | --- | --- | --- | --- |
+| CR-015 | RumuzePMO is a Laravel 12 modular monolith with seven modules (CRM, ERP, HRM, LandingPage, Payment, ProjectManagement, Support) that can be switched on independently. | verified | `rumuze/rumuzePMO` README, `modules_statuses.json` | confirmed |
+| CR-016 | RumuzePMO integrates multiple payment gateways and runs on FrankenPHP/Octane with Redis queues. | verified | `rumuze/rumuzePMO` README | confirmed |
+| CR-017 | Rveta includes a Flutter driver app with live location tracking, biometric lock, push notifications, customer chat, and Arabic/English localisation, backed by a Laravel API. | verified | `rumuze/rveta-delivery-app` README | confirmed |
+| CR-018 | Rumuze Core is a NestJS API with a transactional outbox, webhook engine, Socket.IO realtime, and trace ID propagation, plus a Next.js dashboard. | verified | `rumuze/core` README | confirmed |
+| CR-019 | Rveta Connector is a Flutter app with device pairing, token rotation, and a foreground command channel. It is labelled "In development". | verified | `rumuze/connector-app` README | confirmed |
+| CR-020 | Every request is reviewed within one business day. | internal benchmark | Existing site commitment | needs validation |
+
+Do not publish: internal architecture scores, "known risks" lists, environment details, or any client name or figure until it has been approved and evidenced.
