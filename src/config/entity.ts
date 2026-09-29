@@ -1,36 +1,36 @@
 export type LanguageCode = 'en' | 'ar';
 
-export interface LocalizedString {
+interface LocalizedString {
   en: string;
   ar: string;
 }
 
-export interface StableIds {
+interface StableIds {
   organization: string;
   website: string;
   brand: string;
   founder: string;
 }
 
-export interface Founder {
+interface Founder {
   name: string;
   jobTitle: LocalizedString;
   url: string;
   sameAs: string[];
 }
 
-export interface Headquarters {
+interface Headquarters {
   region: string;
   countries: string[];
 }
 
-export interface ContactDetails {
+interface ContactDetails {
   email: string;
   website: string;
   location: LocalizedString;
 }
 
-export interface PublicProfiles {
+interface PublicProfiles {
   linkedIn?: string;
   github?: string;
   facebook?: string;

@@ -31,7 +31,7 @@ function getReloadMarker() {
   return `${window.location.pathname}${window.location.search}`;
 }
 
-export function shouldAttemptChunkRecovery() {
+function shouldAttemptChunkRecovery() {
   if (typeof window === "undefined" || typeof sessionStorage === "undefined") {
     return false;
   }

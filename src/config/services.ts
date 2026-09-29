@@ -1,16 +1,16 @@
-export type LanguageCode = 'en' | 'ar';
+type LanguageCode = 'en' | 'ar';
 
-export interface Localized {
+interface Localized {
   en: string;
   ar: string;
 }
 
-export interface LocalizedArray {
+interface LocalizedArray {
   en: string[];
   ar: string[];
 }
 
-export interface ServiceFAQ {
+interface ServiceFAQ {
   question: Localized;
   answer: Localized;
 }

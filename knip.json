@@ -1,0 +1,7 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "entry": ["src/entry-server.jsx", "scripts/**/*.{js,mjs}"],
+  "project": ["src/**/*.{js,jsx,ts,tsx}", "scripts/**/*.{js,mjs}"],
+  "ignoreBinaries": ["wrangler"],
+  "ignoreDependencies": ["playwright-core"]
+}

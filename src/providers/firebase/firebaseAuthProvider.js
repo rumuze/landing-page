@@ -1,7 +1,6 @@
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
-  signInWithCredential,
   signInWithPopup,
   signOut,
   updateProfile,
@@ -41,16 +40,4 @@ export async function updateAuthenticatedUserProfile(profile) {
 
 export function subscribeToAuthState(callback) {
   return onAuthStateChanged(getFirebaseAuth(), callback);
-}
-
-export async function exchangeGoogleCredential(idToken) {
-  const auth = await ensureFirebaseAuthReady();
-  const credential = GoogleAuthProvider.credential(idToken);
-  const result = await signInWithCredential(auth, credential);
-
-  return {
-    auth,
-    result,
-    user: result.user ?? auth.currentUser ?? null,
-  };
 }

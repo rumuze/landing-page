@@ -1,38 +1,6 @@
-export const MESSAGE_STATUSES = ["new", "seen", "replied"];
-export const THREAD_STATUSES = ["open", "closed"];
+const THREAD_STATUSES = ["open", "closed"];
 export const CHAT_SENDER_ROLES = ["admin", "user"];
-export const NOTIFICATION_TYPES = ["message", "reply"];
-
-export const FIRESTORE_INDEX_REQUIREMENTS = Object.freeze({
-  threadsByUserUpdatedAt: {
-    collection: "threads",
-    fields: ["userId (ASC)", "updatedAt (DESC)"],
-    reason: "Required for user-scoped thread queries with latest activity ordering.",
-  },
-  notificationsByUserCreatedAt: {
-    collection: "notifications",
-    fields: ["userId (ASC)", "createdAt (DESC)"],
-    reason: "Required for user-scoped notification queries with newest-first ordering.",
-  },
-});
-
-export const MESSAGE_STATUS_META = {
-  new: {
-    label: "New",
-    badgeClassName:
-      "border-cyan-400/20 bg-cyan-400/12 text-cyan-100 shadow-[0_0_18px_rgba(34,211,238,0.18)]",
-  },
-  seen: {
-    label: "Seen",
-    badgeClassName:
-      "border-amber-300/20 bg-amber-400/12 text-amber-100 shadow-[0_0_18px_rgba(251,191,36,0.12)]",
-  },
-  replied: {
-    label: "Replied",
-    badgeClassName:
-      "border-emerald-300/20 bg-emerald-400/12 text-emerald-100 shadow-[0_0_18px_rgba(16,185,129,0.12)]",
-  },
-};
+const NOTIFICATION_TYPES = ["message", "reply"];
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
 const REQUEST_ID_PATTERN = /[^a-zA-Z0-9_-]/gu;
@@ -56,14 +24,8 @@ export const sanitizeMultiline = (value) => {
 export const normalizeEmail = (value) => sanitizeLine(value).toLowerCase();
 export const normalizeOptionalId = (value) => sanitizeLine(value) || null;
 
-export const normalizeMessageStatus = (status) =>
-  MESSAGE_STATUSES.includes(status) ? status : "new";
-
-export const normalizeThreadStatus = (status) =>
+const normalizeThreadStatus = (status) =>
   THREAD_STATUSES.includes(status) ? status : "open";
-
-export const getMessageStatusMeta = (status) =>
-  MESSAGE_STATUS_META[normalizeMessageStatus(status)] ?? MESSAGE_STATUS_META.new;
 
 export const getSessionDisplayName = (user) =>
   sanitizeLine(user?.displayName || user?.name || "");
@@ -95,7 +57,7 @@ export const assertNonEmptyValue = (value, message) => {
   }
 };
 
-export const getMessageDate = (value) => {
+const getMessageDate = (value) => {
   if (!value) {
     return null;
   }
@@ -133,11 +95,6 @@ export const sortThreadsByLatest = (threads) =>
     (left, right) =>
       getMessageTime(right.updatedAt ?? right.createdAt) -
       getMessageTime(left.updatedAt ?? left.createdAt),
-  );
-
-export const sortMessagesByLatest = (messages) =>
-  [...messages].sort(
-    (left, right) => getMessageTime(right.createdAt) - getMessageTime(left.createdAt),
   );
 
 export const formatMessageTimestamp = (value, locale = "en-US") => {
@@ -205,17 +162,4 @@ export const normalizeNotification = (id, data = {}) => ({
   isRead: Boolean(data.isRead),
   createdAt: getMessageDate(data.createdAt),
   threadId: typeof data.threadId === "string" ? data.threadId : null,
-});
-
-export const normalizeLegacyMessage = (id, data = {}) => ({
-  id,
-  userId: typeof data.userId === "string" && data.userId ? data.userId : null,
-  userName: typeof data.userName === "string" ? data.userName : "",
-  userEmail: typeof data.userEmail === "string" ? data.userEmail : "",
-  userPhoto: typeof data.userPhoto === "string" && data.userPhoto ? data.userPhoto : null,
-  message: typeof data.message === "string" ? data.message : "",
-  reply: typeof data.reply === "string" ? data.reply : "",
-  status: normalizeMessageStatus(data.status),
-  createdAt: data.createdAt ?? null,
-  repliedAt: data.repliedAt ?? null,
 });

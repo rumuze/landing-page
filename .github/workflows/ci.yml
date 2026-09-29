@@ -34,6 +34,10 @@ jobs:
       - name: Test
         run: npm test
 
+      # Unused files, exports and dependencies (config: knip.json).
+      - name: Unused code
+        run: npm run knip
+
       # Builds the client and server bundles and prerenders every public route.
       # A route that fails to render, or renders without a title, h1, canonical
       # or JSON-LD, fails the build.

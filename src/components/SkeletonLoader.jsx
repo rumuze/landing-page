@@ -8,7 +8,7 @@ const SkeletonLoader = ({ className = "" }) => {
   );
 };
 
-export const CardSkeleton = () => (
+const CardSkeleton = () => (
     <div className="p-0 rounded-3xl overflow-hidden bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 h-full flex flex-col">
         <div className="aspect-[4/3] w-full relative">
              <SkeletonLoader className="w-full h-full rounded-none" />
@@ -44,4 +44,3 @@ export const ArticleSkeleton = () => (
     </div>
 );
 
-export default SkeletonLoader;
