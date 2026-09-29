@@ -1,4 +1,4 @@
-import { Github, Linkedin } from 'lucide-react';
+import { Facebook, Github, Linkedin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ENTITY } from '../config/entity';
@@ -21,6 +21,7 @@ const copyByLocale = {
     cookies: 'Analytics preferences',
     linkedin: 'Rumuze on LinkedIn',
     github: 'Rumuze on GitHub',
+    facebook: 'Rumuze on Facebook',
   },
   ar: {
     services: 'الخدمات',
@@ -36,6 +37,7 @@ const copyByLocale = {
     cookies: 'تفضيلات الإحصاءات',
     linkedin: 'رموز على LinkedIn',
     github: 'رموز على GitHub',
+    facebook: 'رموز على Facebook',
   },
 };
 
@@ -51,6 +53,7 @@ const Footer = () => {
 
   const socialLinks = [
     { key: 'linkedin', href: ENTITY.publicProfiles.linkedIn, label: c.linkedin, icon: <Linkedin size={20} /> },
+    { key: 'facebook', href: ENTITY.publicProfiles.facebook, label: c.facebook, icon: <Facebook size={20} /> },
     { key: 'github', href: ENTITY.publicProfiles.github, label: c.github, icon: <Github size={20} /> },
   ].filter((link) => Boolean(link.href));
 

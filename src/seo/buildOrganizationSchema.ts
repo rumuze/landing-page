@@ -35,6 +35,7 @@ export function buildOrganizationSchema(lang: LanguageCode) {
       'https://www.linkedin.com/company/rumuze-%D8%B1%D9%85%D9%88%D8%B2',
       'https://x.com/rumuze',
       'https://github.com/rumuze',
+      'https://www.facebook.com/rumuze/',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
