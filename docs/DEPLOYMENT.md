@@ -225,6 +225,14 @@ For issues or questions:
 4. Test with Facebook Sharing Debugger
 
 
+## Production platform
+
+Production is **Cloudflare Workers** (static assets from `dist/`, see `wrangler.jsonc`). Vercel is not used: `vercel.json` only switches its Git deployments off. Netlify configuration (`netlify.toml`) is unused.
+
+- Response headers (security, long cache for `/assets/*`) come from `public/_headers`. Redirects and the `/200.html` fallback come from `public/_redirects`.
+- `functions/_middleware.js` is a Cloudflare Pages Function. It does not run on Workers static assets; per-route metadata is prerendered at build time instead, and the older Pages sections above only apply if the site is moved back to Pages.
+- To fully disconnect Vercel: Vercel dashboard, project `landing-page`, Settings, Git, Disconnect (or delete the project), and remove the Vercel GitHub App from the repository.
+
 ## Cloudflare Workers Builds
 
 - Build command: `npm run build`. Deploy command: `npx wrangler deploy`.
