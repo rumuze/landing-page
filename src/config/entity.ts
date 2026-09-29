@@ -38,7 +38,6 @@ export interface PublicProfiles {
 
 export interface EntityConfig {
   id: string;
-  legalName: string;
   name: string;
   alternateName: LocalizedString;
   slogan: LocalizedString;
@@ -62,15 +61,14 @@ export interface EntityConfig {
 
 export const ENTITY: EntityConfig = {
   id: 'https://www.rumuze.com/#organization',
-  legalName: 'Rumuze Technologies LLC',
   name: 'Rumuze',
   alternateName: {
-    en: 'Rumuze Technologies',
-    ar: 'روموز للتقنيات',
+    en: 'Rumuze',
+    ar: 'رموز',
   },
   slogan: {
-    en: 'Complexity Decoded. Potential Unleashed.',
-    ar: 'فك شفرة التعقيد.. إطلاق العنان للمستقبل',
+    en: 'We build the software your business runs on.',
+    ar: 'نبني البرمجيات التي تعتمد عليها شركتك.',
   },
   brand: {
     id: 'https://www.rumuze.com/#brand',
@@ -89,11 +87,7 @@ export const ENTITY: EntityConfig = {
       ar: 'المؤسس',
     },
     url: 'https://www.rumuze.com/about',
-    sameAs: [
-      'https://www.linkedin.com/in/ashraf-mohamed',
-      'https://twitter.com/ashraf_arch',
-      'https://github.com/ashraf-mohamed',
-    ],
+    sameAs: ['https://github.com/elbayoumi'],
   },
   foundingYear: 2026,
   headquarters: {
@@ -120,37 +114,35 @@ export const ENTITY: EntityConfig = {
   },
   languages: ['en', 'ar'],
   categories: [
-    'Enterprise Software Development',
-    'Web Development Company',
-    'Digital Marketing Technology Provider',
+    'Custom Software Development',
+    'Mobile App Development',
+    'SaaS Platform Development',
   ],
   sameAs: [
     'https://www.linkedin.com/company/rumuze',
     'https://github.com/rumuze',
   ],
+  // Domains of the products Rumuze has built (see docs/CLAIMS_REGISTRY.md).
   industryFocus: [
-    'Fintech',
-    'Retail',
-    'Logistics',
-    'Healthcare Technology',
-    'Real Estate Technology',
+    'Business operations software (ERP, CRM, HR)',
+    'Delivery and field operations',
+    'Integration and event-driven platforms',
   ],
   targetAudience: [
-    'Mid-sized enterprises',
-    'Large organizations',
-    'Digital transformation programs',
-    'Technology leaders',
+    'Small and mid-sized businesses',
+    'Product teams',
+    'Companies building or inheriting a software platform',
   ],
   technologyStack: [
-    'SaaS',
-    'ERP',
-    'CRM',
-    'Multilingual Systems',
-    'API-First Architecture',
-    'Enterprise Software Development',
-    'React',
-    'Node.js',
     'Laravel',
-    'AWS',
+    'NestJS',
+    'Next.js',
+    'React',
+    'Flutter',
+    'PostgreSQL',
+    'MySQL',
+    'Redis',
+    'Docker',
+    'Arabic and English bilingual systems',
   ],
 };

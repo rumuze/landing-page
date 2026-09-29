@@ -115,3 +115,52 @@ Recommended label text:
 2. Mark each case study as `verified`, `composite`, or `illustrative` in the page UI.
 3. Create a proof artifact folder or source index for validated client outcomes.
 4. Link future ADRs or marketing approval records back to claim IDs.
+
+## 6. Update 2026-09-29: repositioning as a software engineering company
+
+The homepage, portfolio page, navigation, intake form, and page metadata were rewritten around claims that can be traced to code in Rumuze's own repositories.
+
+### Removed from public pages
+
+| ID | Change |
+| --- | --- |
+| CR-006 to CR-012 | The `/case-studies` pages, aggregate metrics (47+ projects, 12+ countries, average ROAS), the fabricated testimonial, and the "internal benchmark / confidence" badges are gone. `/case-studies/*` redirects to `/portfolio`. |
+
+### Added (source: repository READMEs and code)
+
+| ID | Claim Text | Type | Source | Status |
+| --- | --- | --- | --- | --- |
+| CR-015 | RumuzePMO is a Laravel 12 modular monolith with seven modules (CRM, ERP, HRM, LandingPage, Payment, ProjectManagement, Support) that can be switched on independently. | verified | `rumuze/rumuzePMO` README, `modules_statuses.json` | confirmed |
+| CR-016 | RumuzePMO integrates multiple payment gateways and runs on FrankenPHP/Octane with Redis queues. | verified | `rumuze/rumuzePMO` README | confirmed |
+| CR-017 | Rveta includes a Flutter driver app with live location tracking, biometric lock, push notifications, customer chat, and Arabic/English localisation, backed by a Laravel API. | verified | `rumuze/rveta-delivery-app` README | confirmed |
+| CR-018 | Rumuze Core is a NestJS API with a transactional outbox, webhook engine, Socket.IO realtime, and trace ID propagation, plus a Next.js dashboard. | verified | `rumuze/core` README | confirmed |
+| CR-019 | Rveta Connector is a Flutter app with device pairing, token rotation, and a foreground command channel. It is labelled "In development". | verified | `rumuze/connector-app` README | confirmed |
+| CR-020 | Every request is reviewed within one business day. | internal benchmark | Existing site commitment | needs validation |
+
+Do not publish: internal architecture scores, "known risks" lists, environment details, or any client name or figure until it has been approved and evidenced.
+
+## 7. Update 2026-09-29 (stage 2): SEO, GEO, AEO and content cleanup
+
+### Removed or corrected
+
+| Area | Change |
+| --- | --- |
+| Uptime and SLO claims | "99.9% uptime", "p95 latency under 300ms", "SLO dashboards" removed (SLO framework page and README). No monitored SLA exists. |
+| Technology claims | Kubernetes, AWS, TensorFlow, PyTorch, Three.js and similar removed from the About page, FAQ schema, and person/entity data. Only Laravel, NestJS, Next.js, React, Flutter, PostgreSQL, MySQL, Redis, Docker, Nginx, and Firebase are listed. |
+| Compliance claims | "GDPR and CCPA compliant", "military-grade encryption", and Standard Contractual Clauses removed. The privacy policy and terms were rewritten to describe what the site actually collects. Have counsel review them and add jurisdiction and governing law. |
+| Founder data | "6+ years of experience", "Digital Marketing Strategist", "Cloud Infrastructure Specialist", and guessed LinkedIn/X/GitHub handles removed. Only the confirmed GitHub profile remains. |
+| Company data | `legalName` ("Rumuze Technologies LLC") is no longer published: it has not been verified. `humans.txt` no longer claims Silicon Valley or Lagos. |
+| Services | Performance marketing and social media management were retired (no evidence in Rumuze's products or repositories); mobile apps was added. Retired URLs redirect. |
+| Pages retired | 17 keyword-cluster and "authority" pages (enterprise frameworks, SLO framework, knowledge graph, comparison pages, manifesto, and others) now redirect to the closest live page. |
+| Labs | The fabricated R&D projects (quantum encryption, holographic UI, autonomous DAO, and others) were replaced by a Tools page listing the real QR generator. |
+| Blog | Two off-brand posts were unpublished; the remaining post no longer states an unsupported "95%" figure. |
+| Structured data | FAQPage markup now mirrors the visible homepage FAQ. Service FAQ no longer duplicates a master FAQ. |
+
+### Still to confirm with the owner
+
+| Item | Why |
+| --- | --- |
+| Company founding year (2026) | Published in Organization JSON-LD; unverified. |
+| Phone, email, LinkedIn, and X profile | Published in JSON-LD and footer from earlier configuration. |
+| "Every request is reviewed within one business day" | Existing commitment; confirm it is operationally true (CR-020). |
+| Rveta description | Written from the driver app README; confirm the product description and status. |

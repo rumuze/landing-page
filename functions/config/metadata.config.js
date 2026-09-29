@@ -75,12 +75,12 @@ export const OG_IMAGES = {
  * @const {Object<string, string>}
  */
 export const OG_IMAGE_ALT = {
-    en: 'Rumuze - Complexity Decoded. Potential Unleashed.',
-    ar: 'روموز - نفك شفرة التعقيد.. نطلق العنان للمستقبل',
+    en: 'Rumuze - Software Engineering',
+    ar: 'رموز - هندسة البرمجيات',
 };
 
-// Canonical Authority Sentence (must be reused without modification)
-export const AUTHORITY_DESCRIPTION = 'Rumuze is an enterprise software engineering authority building multilingual SaaS, ERP, CRM, and digital marketing infrastructure with entity-first architecture and stable identifiers recognized by AI systems.';
+// Canonical one-sentence description of the company
+export const AUTHORITY_DESCRIPTION = 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in the Gulf and MENA region.';
 
 // ============================================================================
 // DEFAULT METADATA (Fallback for all routes)
@@ -92,14 +92,14 @@ export const AUTHORITY_DESCRIPTION = 'Rumuze is an enterprise software engineeri
  */
 export const DEFAULT_METADATA = {
     en: {
-        title: 'Rumuze | Complexity Decoded. Potential Unleashed.',
-        description: 'Rumuze is a global digital powerhouse. We engineer bespoke digital ecosystems and master search dominance for industry leaders.',
+        title: 'Rumuze | Software Engineering for Gulf and MENA Businesses',
+        description: 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region.',
         imageAlt: OG_IMAGE_ALT.en,
         type: 'website',
     },
     ar: {
-        title: 'روموز | نفك شفرة التعقيد.. نهيمن على المستقبل',
-        description: 'روموز: القوة الرقمية العالمية. نهندس أنظمة رقمية نخبوية ونفرض هيمنة شركائنا على محركات البحث والأسواق.',
+        title: 'رموز | هندسة برمجيات لشركات الخليج والمنطقة',
+        description: 'رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات والمنطقة.',
         imageAlt: OG_IMAGE_ALT.ar,
         type: 'website',
     },
@@ -122,90 +122,90 @@ export const DEFAULT_METADATA = {
 export const ROUTE_METADATA = {
     '/services': {
         en: {
-            title: 'Our Services | Architecting Scalable Ecosystems',
-            description: 'Bespoke digital ecosystems, high-availability architectures, and enterprise-grade software engineering. We build the invisible giants.',
-            imageAlt: 'Rumuze Services - Enterprise Software & Digital Growth',
+            title: 'Our Services | Custom Software, Mobile, and Backend Engineering',
+            description: 'Custom software and SaaS, Flutter mobile apps, backend and API platforms, and system integrations, built in Arabic and English.',
+            imageAlt: 'Rumuze Services - Software Engineering',
             type: 'website',
         },
         ar: {
-            title: 'خدماتنا | هندسة النظم البرمجية فائقة التوسع',
-            description: 'أنظمة رقمية نخبوية، معماريات ذات توافر عالٍ، وهندسة برمجية مؤسسية. نبني العمالقة غير المرئيين.',
-            imageAlt: 'خدمات روموز - برمجيات المؤسسات والنمو الرقمي',
+            title: 'خدماتنا | برمجيات مخصصة وتطبيقات موبايل وأنظمة خلفية',
+            description: 'برمجيات مخصصة وSaaS وتطبيقات Flutter ومنصات خلفية وواجهات API وتكامل بين الأنظمة، بالعربية والإنجليزية.',
+            imageAlt: 'خدمات رموز - هندسة البرمجيات',
             type: 'website',
         },
     },
 
     '/about': {
         en: {
-            title: 'About Us | The Architects of the Digital Future',
-            description: 'Learn about the Rumuze story and our founder\'s vision. We don\'t follow trends; we research the breakthroughs that define them.',
-            imageAlt: 'About Rumuze - Digital Mastery & Innovation',
+            title: 'About Us | Rumuze Software Engineering',
+            description: 'Learn who is behind Rumuze, how we work, and the products we build and run ourselves.',
+            imageAlt: 'About Rumuze',
             type: 'website',
         },
         ar: {
-            title: 'عن الشركة | مهندسو المستقبل الرقمي',
-            description: 'تعرف على قصة روموز ورؤية مؤسسنا. نحن لا نتبع الاتجاهات؛ نحن نبحث في الاختراقات التي تحددها.',
-            imageAlt: 'عن روموز - الإتقان الرقمي والابتكار',
+            title: 'من نحن | رموز لهندسة البرمجيات',
+            description: 'تعرف على من يقف وراء رموز وكيف نعمل والمنتجات التي نبنيها ونشغّلها بأنفسنا.',
+            imageAlt: 'عن رموز',
             type: 'website',
         },
     },
 
     '/blog': {
         en: {
-            title: 'Corporate Intelligence | Insights & Case Studies',
-            description: 'Technical deep-dives and strategic growth analysis from Rumuze. Engineering paradigms and market shifts decoded.',
-            imageAlt: 'Rumuze Blog - Technical Insights & Strategic Analysis',
+            title: 'Insights | Engineering Articles from Rumuze',
+            description: 'Articles on software architecture, multilingual systems, and engineering practice from the Rumuze team.',
+            imageAlt: 'Rumuze Blog - Engineering Insights',
             type: 'website',
         },
         ar: {
-            title: 'الذكاء المؤسسي | الرؤى ودراسات الحالة',
-            description: 'تحليلات تقنية معمقة واستراتيجيات نمو مدروسة من روموز. نماذج الهندسة وتحولات السوق مفككة الشفرة.',
-            imageAlt: 'مدونة روموز - رؤى تقنية وتحليلات استراتيجية',
+            title: 'مقالات | هندسة البرمجيات من رموز',
+            description: 'مقالات عن معمارية البرمجيات والأنظمة متعددة اللغات والممارسات الهندسية من فريق رموز.',
+            imageAlt: 'مدونة رموز - مقالات هندسية',
             type: 'website',
         },
     },
 
     '/labs': {
         en: {
-            title: 'Rumuze Labs | Where Research Meets Reality',
-            description: 'The R&D division dedicated to the edge of possibility. From self-healing networks to generative design, we engineer tomorrow\'s tools.',
-            imageAlt: 'Rumuze Labs - Research & Development',
+            title: 'Tools | Free Utilities from Rumuze',
+            description: 'Small free tools built by Rumuze, starting with a QR code generator.',
+            imageAlt: 'Rumuze Tools',
             type: 'website',
         },
         ar: {
-            title: 'معامل روموز | حيث يلتقي البحث العلمي بالواقع التطبيقي',
-            description: 'قسم البحث والتطوير المكرس لاستكشاف حدود الممكن. من الشبكات ذاتية الإصلاح إلى التصميم التوليدي، نهندس أدوات الغد.',
-            imageAlt: 'معامل روموز - البحث والتطوير',
+            title: 'الأدوات | أدوات مجانية من رموز',
+            description: 'أدوات صغيرة مجانية من رموز، تبدأ بمولّد رموز QR.',
+            imageAlt: 'أدوات رموز',
             type: 'website',
         },
     },
 
     '/portfolio': {
         en: {
-            title: 'Impact Case Studies | Transforming Ambition into Benchmarks',
-            description: 'A chronicle of how we\'ve transformed ambition into industry-defining benchmarks. National fintech cores, multi-region retail scale, and autonomous supply chains.',
-            imageAlt: 'Rumuze Portfolio - Impact Case Studies',
+            title: 'Our Work | Products Built by Rumuze',
+            description: 'Platforms we design, build, and operate: a modular ERP and CRM SaaS, a delivery operations platform, an event-driven platform kernel, and a device control app.',
+            imageAlt: 'Rumuze Work - Products Built by Rumuze',
             type: 'website',
         },
         ar: {
-            title: 'دراسات الحالة والأثر | تحويل الطموحات إلى معايير قياسية',
-            description: 'سجل توثيقي لكيفية تحويلنا للطموحات إلى معايير قياسية تُعرف بها الصناعات. نوى مالية وطنية، توسع تجزئة متعدد الأقاليم، وسلاسل إمداد ذاتية القيادة.',
-            imageAlt: 'محفظة روموز - دراسات الحالة والأثر',
+            title: 'أعمالنا | منتجات بنتها رموز',
+            description: 'منصات نصممها ونبنيها ونشغّلها: منصة ERP وCRM معيارية، ومنصة لعمليات التوصيل، ونواة منصة قائمة على الأحداث، وتطبيق للتحكم بالأجهزة.',
+            imageAlt: 'أعمال رموز - منتجات بنتها رموز',
             type: 'website',
         },
     },
 
     '/contact': {
         en: {
-            title: 'Partner with Us | Let\'s Discuss Your Legacy',
-            description: 'If you are ready to lead your industry, we are ready to engineer the path. Contact Rumuze for strategic partnerships.',
-            imageAlt: 'Contact Rumuze - Strategic Partnerships',
+            title: 'Contact Us | Start a Project with Rumuze',
+            description: 'Tell us what you want to build, fix, or take over. Every request is reviewed within one business day.',
+            imageAlt: 'Contact Rumuze',
             type: 'website',
         },
         ar: {
-            title: 'ابنِ شراكة معنا | دعونا نناقش إرثكم القادم',
-            description: 'إذا كنتم مستعدين لقيادة صناعتكم، فنحن جاهزون لهندسة المسار. تواصل مع روموز للشراكات الاستراتيجية.',
-            imageAlt: 'تواصل مع روموز - الشراكات الاستراتيجية',
+            title: 'تواصل معنا | ابدأ مشروعك مع رموز',
+            description: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. تتم مراجعة كل طلب خلال يوم عمل واحد.',
+            imageAlt: 'تواصل مع رموز',
             type: 'website',
         },
     },
@@ -224,63 +224,19 @@ export const BLOG_ARTICLE_METADATA = {
             publishedTime: '2026-02-12',
             modifiedTime: '2026-02-12',
             section: 'Engineering',
-            tags: ['Architecture', 'Microservices', 'Scalability'],
+            tags: ['Architecture', 'Modular Monolith', 'Laravel'],
             image: `${BASE_URL}/assets/images/blog-1.webp`,
         },
         en: {
-            title: 'The Modular Monolith: Why Microservices Fail | Rumuze',
-            description: 'Microservices are a premature optimization for most teams. Learn when a modular monolith outperforms distributed complexity.',
-            imageAlt: 'The Modular Monolith article cover',
+            title: 'Why We Start with a Modular Monolith | Rumuze',
+            description: 'For most teams, microservices are a premature optimisation. Why Rumuze starts with a modular monolith and when it splits out services.',
+            imageAlt: 'Why We Start with a Modular Monolith',
             type: 'article',
         },
         ar: {
-            title: 'الكتلة المعيارية: لماذا تفشل الخدمات المصغرة | روموز',
+            title: 'لماذا نبدأ بالكتلة المعيارية (Modular Monolith) | رموز',
             description: 'لماذا تكون الخدمات المصغرة تحسينًا سابقًا لأوانه، ومتى تصبح الكتلة المعيارية خيارًا أكثر كفاءة واستدامة.',
             imageAlt: 'غلاف مقال الكتلة المعيارية',
-            type: 'article',
-        },
-    },
-    'retention-is-king': {
-        shared: {
-            author: 'Strategy Team',
-            publishedTime: '2026-02-08',
-            modifiedTime: '2026-02-08',
-            section: 'Growth Strategy',
-            tags: ['Retention', 'LTV', 'Growth'],
-            image: `${BASE_URL}/assets/images/blog-2.webp`,
-        },
-        en: {
-            title: 'Vanity Metrics vs. Value: Why Retention is King | Rumuze',
-            description: 'Acquisition without retention burns budget. Understand why retention is the clearest signal of sustainable product growth.',
-            imageAlt: 'Retention is King article cover',
-            type: 'article',
-        },
-        ar: {
-            title: 'مقاييس الغرور مقابل القيمة: لماذا الاحتفاظ هو الملك | روموز',
-            description: 'الاستحواذ وحده لا يبني نموًا صحيًا. تعرّف كيف يصبح الاحتفاظ بالمستخدمين أساس التوسع الحقيقي طويل المدى.',
-            imageAlt: 'غلاف مقال لماذا الاحتفاظ هو الملك',
-            type: 'article',
-        },
-    },
-    'deterministic-ai-engineering': {
-        shared: {
-            author: 'Mohamed Ashraf',
-            publishedTime: '2026-02-01',
-            modifiedTime: '2026-02-01',
-            section: 'AI Engineering',
-            tags: ['AI', 'Deterministic Systems', 'LLM'],
-            image: `${BASE_URL}/assets/images/blog-3.webp`,
-        },
-        en: {
-            title: 'Deterministic AI: Configuring Probabilities | Rumuze',
-            description: 'Enterprise AI needs guardrails. See how deterministic wrappers turn probabilistic models into reliable production systems.',
-            imageAlt: 'Deterministic AI article cover',
-            type: 'article',
-        },
-        ar: {
-            title: 'الذكاء الاصطناعي الحتمي: تكوين الاحتمالات | روموز',
-            description: 'النجاح المؤسسي في الذكاء الاصطناعي يتطلب حواجز صارمة. تعرّف كيف نضبط النماذج الاحتمالية لتعمل بثقة في الإنتاج.',
-            imageAlt: 'غلاف مقال الذكاء الاصطناعي الحتمي',
             type: 'article',
         },
     },

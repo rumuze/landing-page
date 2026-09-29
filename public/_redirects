@@ -1,2 +1,38 @@
+# Retired pages (301)
+/why-rumuze /about 301
+/ar/why-rumuze /ar/about 301
+/enterprise-framework /services 301
+/ar/enterprise-framework /ar/services 301
+/methodology /about 301
+/ar/methodology /ar/about 301
+/architecture-principles /about 301
+/ar/architecture-principles /ar/about 301
+/engineering-standards /about 301
+/ar/engineering-standards /ar/about 301
+/slo-framework /services 301
+/ar/slo-framework /ar/services 301
+/multilingual-systems /services/web-development 301
+/ar/multilingual-systems /ar/services/web-development 301
+/knowledge-graph-architecture /services 301
+/ar/knowledge-graph-architecture /ar/services 301
+/enterprise-web-development /services/web-development 301
+/ar/enterprise-web-development /ar/services/web-development 301
+/saas-architecture /services/saas-erp 301
+/ar/saas-architecture /ar/services/saas-erp 301
+/marketing-infrastructure /services/marketing-infrastructure 301
+/ar/marketing-infrastructure /ar/services/marketing-infrastructure 301
+/seo-revenue-systems /services/seo-services 301
+/ar/seo-revenue-systems /ar/services/seo-services 301
+/custom-software-development /services/software-engineering 301
+/ar/custom-software-development /ar/services/software-engineering 301
+/enterprise-application-development /services/saas-erp 301
+/ar/enterprise-application-development /ar/services/saas-erp 301
+/api-integration-architecture /services/software-engineering 301
+/ar/api-integration-architecture /ar/services/software-engineering 301
+/manifesto /about 301
+/ar/manifesto /ar/about 301
+/comparison/* /services 301
+/ar/comparison/* /ar/services 301
+
 # SPA Fallback for Client-Side Routing
 /* / 200

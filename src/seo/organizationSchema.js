@@ -1,9 +1,11 @@
+// Static Organization node for the homepage. Keep in sync with the JSON-LD in
+// index.html; facts here must match docs/CLAIMS_REGISTRY.md.
 export const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["Organization", "SoftwareCompany"],
   "@id": "https://www.rumuze.com/#organization",
-  "name": "رموز",
-  "alternateName": ["Rumuze", "رمرز", "Rumuze Agency"],
+  "name": "Rumuze",
+  "alternateName": ["رموز"],
   "url": "https://www.rumuze.com",
   "logo": "https://www.rumuze.com/rumuze-symbol-112.webp",
   "sameAs": [
@@ -11,14 +13,30 @@ export const organizationSchema = {
     "https://x.com/rumuze",
     "https://github.com/rumuze"
   ],
+  "knowsAbout": [
+    "Custom software development",
+    "SaaS platforms",
+    "Laravel",
+    "NestJS",
+    "Next.js",
+    "Flutter",
+    "Arabic and English bilingual systems",
+    "API and webhook integration"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Obour City, Cairo",
+    "addressCountry": "EG"
+  },
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+20-100-006-1409",
+    "email": "connect@rumuze.com",
     "contactType": "sales",
     "availableLanguage": ["Arabic", "English"]
   },
   "areaServed": ["SA", "AE", "EG", "KW", "QA", "BH", "OM"],
-  "description": "رموز شركة هندسة برمجيات ومنصات SaaS تبني أنظمة إيرادات وبنية تحتية رقمية للمؤسسات في منطقة الخليج والشرق الأوسط.",
+  "description": "Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.",
   "foundingDate": "2026",
   "founder": {
     "@type": "Person",

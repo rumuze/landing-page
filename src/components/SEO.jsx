@@ -72,8 +72,13 @@ const dedupeSchemaNodes = (nodes) => {
 const buildDefaultSchemasForPath = (path, lang) => {
   const normalizedPath = normalizePath(path);
 
-  if (normalizedPath === '/' || normalizedPath === '/ar' || normalizedPath === '/services' || normalizedPath === '/ar/services') {
+  // The FAQ markup is only valid where the same FAQ is visible: the homepage.
+  if (normalizedPath === '/' || normalizedPath === '/ar') {
     return [...buildServiceSchemas(lang), buildFAQSchema(lang)];
+  }
+
+  if (normalizedPath === '/services' || normalizedPath === '/ar/services') {
+    return buildServiceSchemas(lang);
   }
 
   return [];

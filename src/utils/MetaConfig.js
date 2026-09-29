@@ -19,130 +19,130 @@ const OG_IMAGE_VERSION = '2026-02';
 export const META_CONFIG = {
     '/': {
         en: {
-            title: `${BRAND_NAME} | Enterprise Software Engineering & SaaS Architecture`,
-            description: 'Rumuze is an enterprise software engineering company. We build multi-tenant SaaS platforms, ERP systems, and digital infrastructure for organizations in UAE, Saudi Arabia, and the MENA region.',
-            keywords: 'enterprise software engineering, SaaS platform development, ERP systems, multilingual architecture, UAE software company, Saudi Arabia digital infrastructure',
+            title: `${BRAND_NAME} | Software Engineering for Gulf and MENA Businesses`,
+            description: 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.',
+            keywords: 'software engineering company, custom software development, SaaS platform development, Flutter mobile apps, backend development, Saudi Arabia, UAE, MENA',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze - Enterprise Software Engineering'
+            imageAlt: 'Rumuze - Software Engineering'
         },
         ar: {
-            title: `${BRAND_NAME} | هندسة البرمجيات المؤسسية ومعمارية SaaS`,
-            description: 'روموز شركة هندسة برمجيات مؤسسية. نبني منصات SaaS متعددة المستأجرين وأنظمة ERP والبنية التحتية الرقمية للمؤسسات في الإمارات والسعودية ومنطقة الشرق الأوسط.',
-            keywords: 'هندسة برمجيات مؤسسية, تطوير منصات SaaS, أنظمة ERP, معمارية متعددة اللغات, شركة برمجيات الإمارات, بنية رقمية السعودية',
+            title: 'رموز | هندسة برمجيات لشركات الخليج والمنطقة',
+            description: 'رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات والمنطقة، بالعربية والإنجليزية.',
+            keywords: 'شركة هندسة برمجيات, تطوير برمجيات مخصصة, تطوير منصات SaaS, تطبيقات Flutter, تطوير أنظمة خلفية, السعودية, الإمارات',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'روموز - هندسة البرمجيات المؤسسية'
+            imageAlt: 'رموز - هندسة البرمجيات'
         }
     },
     '/services': {
         en: {
-            title: `Strategic Capabilities | ${BRAND_NAME}`,
-            description: 'Enterprise-grade software engineering, AI R&D, and data-driven market dominance. We architect scalable ecosystems for industry leaders.',
-            keywords: 'software development services, AI integration, digital marketing, enterprise architecture, scalable systems',
+            title: `Services | ${BRAND_NAME}`,
+            description: 'Custom software and SaaS, Flutter mobile apps, backend and API platforms, and system integrations, built in Arabic and English.',
+            keywords: 'software development services, SaaS development, Flutter app development, backend development, API integration',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze Strategic Capabilities - Enterprise Software & AI'
+            imageAlt: 'Rumuze Services - Software Engineering'
         },
         ar: {
-            title: `القدرات الاستراتيجية | ${BRAND_NAME}`,
-            description: 'هندسة برمجيات مؤسسية، بحث وتطوير الذكاء الاصطناعي، وهيمنة سوقية قائمة على البيانات. نهندس أنظمة قابلة للتوسع لقادة الصناعة.',
-            keywords: 'خدمات تطوير البرمجيات, تكامل الذكاء الاصطناعي, تسويق رقمي, معمارية مؤسسية, أنظمة قابلة للتوسع',
+            title: `الخدمات | ${BRAND_NAME}`,
+            description: 'برمجيات مخصصة وSaaS وتطبيقات Flutter ومنصات خلفية وواجهات API وتكامل بين الأنظمة، بالعربية والإنجليزية.',
+            keywords: 'خدمات تطوير البرمجيات, تطوير SaaS, تطبيقات Flutter, تطوير أنظمة خلفية, تكامل API',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'القدرات الاستراتيجية لروموز - برمجيات مؤسسية وذكاء اصطناعي'
+            imageAlt: 'خدمات رموز - هندسة البرمجيات'
         }
     },
     '/portfolio': {
         en: {
-            title: `Impact Case Studies | ${BRAND_NAME}`,
-            description: 'Explore how Rumuze transformed ambitious visions into industry-defining benchmarks. Real results for fintech, e-commerce, and logistics.',
-            keywords: 'portfolio, case studies, fintech solutions, e-commerce platforms, logistics automation, digital transformation',
+            title: `Our Work | ${BRAND_NAME}`,
+            description: 'Platforms we design, build, and operate: a modular ERP and CRM SaaS, a delivery operations platform, an event-driven platform kernel, and a device control app.',
+            keywords: 'software portfolio, SaaS platform, Laravel, NestJS, Flutter, delivery platform',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze Portfolio - Industry-Defining Digital Solutions'
+            imageAlt: 'Rumuze Work - Products Built by Rumuze'
         },
         ar: {
-            title: `دراسات الحالة والأثر | ${BRAND_NAME}`,
-            description: 'استكشف كيف حولت روموز الرؤى الطموحة إلى معايير قياسية تُعرف بها الصناعات. نتائج حقيقية للتكنولوجيا المالية والتجارة الإلكترونية.',
-            keywords: 'معرض الأعمال, دراسات الحالة, حلول التكنولوجيا المالية, منصات التجارة الإلكترونية, أتمتة اللوجستيات',
+            title: `أعمالنا | ${BRAND_NAME}`,
+            description: 'منصات نصممها ونبنيها ونشغّلها: منصة ERP وCRM معيارية، ومنصة لعمليات التوصيل، ونواة منصة قائمة على الأحداث، وتطبيق للتحكم بالأجهزة.',
+            keywords: 'أعمال رموز, منصة SaaS, Laravel, NestJS, Flutter, منصة توصيل',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'معرض أعمال روموز - حلول رقمية رائدة في الصناعة'
+            imageAlt: 'أعمال رموز - منتجات بنتها رموز'
         }
     },
     '/about': {
         en: {
-            title: `Our Philosophy | ${BRAND_NAME}`,
-            description: 'Meet the architects behind Rumuze. We decode complexity and engineer digital legacies that outlast technological cycles.',
-            keywords: 'about rumuze, company philosophy, digital innovation, software engineering team, technology leadership',
+            title: `About | ${BRAND_NAME}`,
+            description: 'Learn who is behind Rumuze, how we work, and the products we build and run ourselves.',
+            keywords: 'about rumuze, software engineering company Cairo, Rumuze founder, Rumuze technology stack',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'About Rumuze - Architects of Digital Excellence'
+            imageAlt: 'About Rumuze'
         },
         ar: {
-            title: `فلسفتنا | ${BRAND_NAME}`,
-            description: 'تعرف على المهندسين وراء روموز. نفك شفرة التعقيد ونهندس إرثاً رقمياً يتجاوز الدورات التكنولوجية.',
-            keywords: 'عن روموز, فلسفة الشركة, الابتكار الرقمي, فريق هندسة البرمجيات, قيادة تكنولوجية',
+            title: `من نحن | ${BRAND_NAME}`,
+            description: 'تعرف على من يقف وراء رموز وكيف نعمل والمنتجات التي نبنيها ونشغّلها بأنفسنا.',
+            keywords: 'عن رموز, شركة هندسة برمجيات القاهرة, مؤسس رموز, تقنيات رموز',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'عن روموز - مهندسو التميز الرقمي'
+            imageAlt: 'عن رموز'
         }
     },
     '/blog': {
         en: {
-            title: `Corporate Intelligence | ${BRAND_NAME}`,
-            description: 'Deep dives into engineering paradigms, market shifts, and AI research. Strategic insights from the digital frontier.',
-            keywords: 'tech blog, engineering insights, AI research, digital marketing strategies, industry analysis',
+            title: `Insights | ${BRAND_NAME}`,
+            description: 'Articles on software architecture, multilingual systems, and engineering practice from the Rumuze team.',
+            keywords: 'software architecture articles, modular monolith, engineering blog',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze Blog - Engineering Insights & Market Intelligence'
+            imageAlt: 'Rumuze Blog - Engineering Insights'
         },
         ar: {
-            title: `الذكاء المؤسسي | ${BRAND_NAME}`,
-            description: 'غوص عميق في نماذج الهندسة، تحولات السوق، وأبحاث الذكاء الاصطناعي. رؤى استراتيجية من الحدود الرقمية.',
-            keywords: 'مدونة تقنية, رؤى هندسية, أبحاث الذكاء الاصطناعي, استراتيجيات التسويق الرقمي, تحليل الصناعة',
+            title: `مقالات | ${BRAND_NAME}`,
+            description: 'مقالات عن معمارية البرمجيات والأنظمة متعددة اللغات والممارسات الهندسية من فريق رموز.',
+            keywords: 'مقالات معمارية البرمجيات, مدونة هندسية',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'مدونة روموز - رؤى هندسية وذكاء سوقي'
+            imageAlt: 'مدونة رموز - مقالات هندسية'
         }
     },
     '/labs': {
         en: {
-            title: `Rumuze Labs | R&D Division`,
-            description: 'Where research meets reality. Pioneering post-quantum cryptography, neural search, and autonomous systems. The future, engineered today.',
-            keywords: 'R&D lab, innovation lab, quantum computing, neural networks, edge computing, experimental technology',
+            title: `Tools | ${BRAND_NAME}`,
+            description: 'Small free tools built by Rumuze, starting with a QR code generator.',
+            keywords: 'free tools, QR code generator, developer tools',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze Labs - Pioneering Tomorrow\'s Technology'
+            imageAlt: 'Rumuze Tools'
         },
         ar: {
-            title: `معامل روموز | قسم البحث والتطوير`,
-            description: 'حيث يلتقي البحث بالواقع. نرود تشفير ما بعد الكم، البحث العصبي، والأنظمة ذاتية الحكم. المستقبل، مهندس اليوم.',
-            keywords: 'مختبر البحث والتطوير, مختبر الابتكار, الحوسبة الكمومية, الشبكات العصبية, الحوسبة الطرفية',
+            title: `الأدوات | ${BRAND_NAME}`,
+            description: 'أدوات صغيرة مجانية من رموز، تبدأ بمولّد رموز QR.',
+            keywords: 'أدوات مجانية, مولد رموز QR, أدوات المطورين',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'معامل روموز - رواد تكنولوجيا الغد'
+            imageAlt: 'أدوات رموز'
         }
     },
     '/contact': {
         en: {
-            title: `Partner With Us | ${BRAND_NAME}`,
-            description: 'Ready to lead your industry? Let\'s engineer your digital legacy. Contact Rumuze for enterprise-grade solutions.',
-            keywords: 'contact rumuze, partnership inquiry, enterprise solutions, digital transformation consultation',
+            title: `Contact Us | ${BRAND_NAME}`,
+            description: 'Tell us what you want to build, fix, or take over. Every request is reviewed within one business day.',
+            keywords: 'contact rumuze, start a software project, technical review',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Contact Rumuze - Strategic Partnerships'
+            imageAlt: 'Contact Rumuze'
         },
         ar: {
-            title: `شراكة استراتيجية | ${BRAND_NAME}`,
-            description: 'مستعد لقيادة صناعتك؟ دعنا نهندس إرثك الرقمي. تواصل مع روموز للحلول المؤسسية.',
-            keywords: 'تواصل مع روموز, استفسار شراكة, حلول مؤسسية, استشارات التحول الرقمي',
+            title: `تواصل معنا | ${BRAND_NAME}`,
+            description: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه. تتم مراجعة كل طلب خلال يوم عمل واحد.',
+            keywords: 'تواصل مع رموز, ابدأ مشروع برمجي, مراجعة تقنية',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'تواصل مع روموز - شراكات استراتيجية'
+            imageAlt: 'تواصل مع رموز'
         }
     },
     '/privacy': {
         en: {
             title: `Privacy Policy | ${BRAND_NAME}`,
-            description: 'Rumuze\'s commitment to data protection and privacy. GDPR & CCPA compliant. Learn how we safeguard your information.',
-            keywords: 'privacy policy, data protection, GDPR compliance, CCPA, information security',
+            description: 'How Rumuze collects, uses, and protects information submitted through this website.',
+            keywords: 'privacy policy, data protection, personal data',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze Privacy Policy - Data Protection & Security'
+            imageAlt: 'Rumuze Privacy Policy'
         },
         ar: {
             title: `سياسة الخصوصية | ${BRAND_NAME}`,
-            description: 'التزام روموز بحماية البيانات والخصوصية. متوافق مع GDPR و CCPA. تعرف على كيفية حماية معلوماتك.',
-            keywords: 'سياسة الخصوصية, حماية البيانات, الامتثال لـ GDPR, أمن المعلومات',
+            description: 'كيف تجمع رموز المعلومات المرسلة عبر هذا الموقع وتستخدمها وتحميها.',
+            keywords: 'سياسة الخصوصية, حماية البيانات, البيانات الشخصية',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'سياسة الخصوصية لروموز - حماية البيانات والأمان'
+            imageAlt: 'سياسة الخصوصية لرموز'
         }
     },
     '/terms': {
@@ -164,14 +164,14 @@ export const META_CONFIG = {
     '/404': {
         en: {
             title: `Page Not Found | ${BRAND_NAME}`,
-            description: 'The page you\'re looking for doesn\'t exist. Explore Rumuze\'s enterprise solutions and digital innovation services.',
+            description: 'The page you\'re looking for doesn\'t exist. Explore Rumuze\'s services and products.',
             keywords: '404, page not found, rumuze',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'Rumuze - Page Not Found'
         },
         ar: {
             title: `الصفحة غير موجودة | ${BRAND_NAME}`,
-            description: 'الصفحة التي تبحث عنها غير موجودة. استكشف حلول روموز المؤسسية وخدمات الابتكار الرقمي.',
+            description: 'الصفحة التي تبحث عنها غير موجودة. استكشف خدمات رموز ومنتجاتها.',
             keywords: '404, صفحة غير موجودة, روموز',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'روموز - الصفحة غير موجودة'
@@ -179,114 +179,34 @@ export const META_CONFIG = {
     },
     '/saudi-arabia': {
         en: {
-            title: `Software Engineering & Performance Marketing for Saudi Enterprises | ${BRAND_NAME}`,
-            description: 'Rumuze delivers structured software engineering and performance marketing for enterprises in Saudi Arabia. Defined governance, clear reporting, measurable ROI.',
-            keywords: 'software engineering Saudi Arabia, performance marketing Saudi Arabia, digital transformation, enterprise software Riyadh, Rumuze Saudi',
+            title: `Software Development in Saudi Arabia | ${BRAND_NAME}`,
+            description: 'Rumuze builds custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, with Arabic-first interfaces and regional payment integration.',
+            keywords: 'software development Saudi Arabia, custom software Riyadh, Arabic app development, Flutter Saudi Arabia',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze - Software Engineering & Marketing for Saudi Enterprises'
+            imageAlt: 'Rumuze - Software Development for Saudi Arabia'
         },
         ar: {
-            title: `هندسة البرمجيات والتسويق الأدائي للمؤسسات السعودية | ${BRAND_NAME}`,
-            description: 'روموز تقدم هندسة برمجيات منظمة وتسويقاً أدائياً للمؤسسات في المملكة العربية السعودية. حوكمة محددة وتقارير واضحة وعائد استثمار قابل للقياس.',
-            keywords: 'هندسة برمجيات المملكة العربية السعودية, تسويق أدائي السعودية, تحول رقمي, برمجيات مؤسسية الرياض, روموز السعودية',
+            title: `تطوير البرمجيات في السعودية | ${BRAND_NAME}`,
+            description: 'تبني رموز منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية، بواجهات عربية أولاً وتكامل مع بوابات الدفع الإقليمية.',
+            keywords: 'تطوير برمجيات السعودية, برمجيات مخصصة الرياض, تطوير تطبيقات عربية, Flutter السعودية',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'روموز - هندسة البرمجيات والتسويق للمؤسسات السعودية'
-        }
-    },
-    '/enterprise-web-development': {
-        en: {
-            title: `Enterprise Web Platform Engineering | ${BRAND_NAME}`,
-            description: 'Rumuze engineers enterprise web platforms to production standards: Next.js architecture, API-first backends, CRM integration, and sprint-governed delivery with measurable revenue outcomes.',
-            keywords: 'enterprise web development, Next.js platform engineering, API-first architecture, CRM integration, web platform governance, bilingual web platform',
-            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze - Enterprise Web Platform Engineering'
-        },
-        ar: {
-            title: `هندسة منصات الويب المؤسسية | ${BRAND_NAME}`,
-            description: 'روموز تهندس منصات ويب مؤسسية بمعايير الإنتاج: معمارية Next.js وخلفيات API-first وتكامل CRM وتسليم محكوم بالسبرينت بنتائج إيرادات قابلة للقياس.',
-            keywords: 'تطوير ويب مؤسسي, هندسة منصات Next.js, معمارية API-first, تكامل CRM, حوكمة منصة ويب, منصة ويب ثنائية اللغة',
-            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'روموز - هندسة منصات الويب المؤسسية'
-        }
-    },
-    '/saas-architecture': {
-        en: {
-            title: `SaaS Architecture & Multi-Tenant Platform Engineering | ${BRAND_NAME}`,
-            description: 'Rumuze engineers multi-tenant SaaS platforms with schema-level tenant isolation, granular RBAC, scalable provisioning pipelines, and structured delivery governance from the first architecture document.',
-            keywords: 'SaaS architecture, multi-tenant platform engineering, tenant isolation, RBAC, SaaS subscription management, bilingual SaaS platform',
-            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze - SaaS Architecture & Multi-Tenant Platform Engineering'
-        },
-        ar: {
-            title: `معمارية SaaS وهندسة المنصات متعددة المستأجرين | ${BRAND_NAME}`,
-            description: 'روموز تهندس منصات SaaS متعددة المستأجرين مع عزل مستوى المخطط وRBAC حبيبي وخطوط أنابيب توفير قابلة للتوسع وحوكمة تسليم منظمة منذ وثيقة المعمارية الأولى.',
-            keywords: 'معمارية SaaS, هندسة منصات متعددة المستأجرين, عزل المستأجرين, RBAC, إدارة اشتراكات SaaS, منصة SaaS ثنائية اللغة',
-            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'روموز - معمارية SaaS وهندسة المنصات متعددة المستأجرين'
-        }
-    },
-    '/marketing-infrastructure': {
-        en: {
-            title: `Performance Marketing Infrastructure Engineering | ${BRAND_NAME}`,
-            description: 'Rumuze engineers performance marketing infrastructure with server-side attribution, CAPI integration, campaign governance, and revenue-attributed pipeline reporting — not just campaign management.',
-            keywords: 'performance marketing infrastructure, server-side tracking, Meta CAPI, attribution modeling, marketing governance, ROAS optimization',
-            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze - Performance Marketing Infrastructure Engineering'
-        },
-        ar: {
-            title: `هندسة البنية التحتية للتسويق الأدائي | ${BRAND_NAME}`,
-            description: 'روموز تهندس البنية التحتية للتسويق الأدائي مع إسناد من جانب الخادم وتكامل CAPI وحوكمة الحملات وتقارير خط الأنابيب المنسوبة للإيرادات — وليس فقط إدارة الحملات.',
-            keywords: 'بنية تحتية للتسويق الأدائي, تتبع من جانب الخادم, Meta CAPI, نمذجة الإسناد, حوكمة التسويق, تحسين ROAS',
-            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'روموز - هندسة البنية التحتية للتسويق الأدائي'
-        }
-    },
-    '/seo-revenue-systems': {
-        en: {
-            title: `SEO & Revenue Attribution Systems Engineering | ${BRAND_NAME}`,
-            description: 'Rumuze engineers technical SEO infrastructure and revenue attribution systems: JSON-LD @graph implementation, server-side analytics, bilingual hreflang, and organic pipeline contribution reporting.',
-            keywords: 'technical SEO, revenue attribution, JSON-LD structured data, hreflang, bilingual SEO, AEO optimization, organic pipeline attribution',
-            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze - SEO & Revenue Attribution Systems Engineering'
-        },
-        ar: {
-            title: `هندسة أنظمة SEO وإسناد الإيرادات | ${BRAND_NAME}`,
-            description: 'روموز تهندس البنية التحتية التقنية لـ SEO وأنظمة إسناد الإيرادات: تنفيذ JSON-LD @graph والتحليلات من جانب الخادم وhreflang ثنائي اللغة وتقارير مساهمة خط الأنابيب العضوي.',
-            keywords: 'SEO تقني, إسناد إيرادات, بيانات JSON-LD مهيكلة, hreflang, SEO ثنائي اللغة, تحسين AEO, إسناد خط الأنابيب العضوي',
-            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'روموز - هندسة أنظمة SEO وإسناد الإيرادات'
-        }
-    },
-    '/enterprise-framework': {
-        en: {
-            title: `Structured Project Execution Framework | ${BRAND_NAME}`,
-            description: 'The Rumuze Enterprise Delivery Framework: governance model, sprint cadence, accountability structure, SLA philosophy, and technology standards for all client engagements.',
-            keywords: 'enterprise delivery framework, software project governance, sprint methodology, SLA commitments, structured project execution',
-            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Rumuze Enterprise Framework - Structured Project Execution'
-        },
-        ar: {
-            title: `إطار تنفيذ المشاريع المنظم | ${BRAND_NAME}`,
-            description: 'إطار تسليم روموز المؤسسي: نموذج الحوكمة وإيقاع السبرينت وهيكل المساءلة وفلسفة مستوى الخدمة ومعايير التكنولوجيا لجميع العملاء.',
-            keywords: 'إطار تسليم مؤسسي, حوكمة مشاريع برمجية, منهجية السبرينت, التزامات مستوى الخدمة, تنفيذ مشاريع منظم',
-            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'روموز إطار المؤسسة - تنفيذ مشاريع منظم'
+            imageAlt: 'رموز - تطوير البرمجيات للسعودية'
         }
     },
     '/qr-generator': {
         en: {
-            title: `Free QR Code Generator With Logo | Mohamed Ashraf Developer Tools`,
-            description: 'Generate high quality QR codes with embedded logos. A free developer tool built by Mohamed Ashraf. Custom colors, instant PNG download, no sign-up.',
+            title: `Free QR Code Generator With Logo | ${BRAND_NAME}`,
+            description: 'Generate high quality QR codes with embedded logos. A free tool from Rumuze. Custom colors, instant PNG download, no sign-up.',
             keywords: 'QR code generator, QR code with logo, free QR generator, branded QR code, QR code download PNG, developer tools',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'Free QR Code Generator With Logo - Rumuze Developer Tools'
+            imageAlt: 'Free QR Code Generator With Logo - Rumuze'
         },
         ar: {
-            title: `مولد رمز QR مجاني مع شعار | أدوات المطور محمد أشرف`,
-            description: 'أنشئ رموز QR عالية الجودة مع شعارات مدمجة. أداة مطور مجانية من محمد أشرف. ألوان مخصصة، تحميل PNG فوري، بدون تسجيل.',
+            title: `مولد رمز QR مجاني مع شعار | ${BRAND_NAME}`,
+            description: 'أنشئ رموز QR عالية الجودة مع شعارات مدمجة. أداة مجانية من رموز. ألوان مخصصة، تحميل PNG فوري، بدون تسجيل.',
             keywords: 'مولد رمز QR, رمز QR مع شعار, مولد QR مجاني, رمز QR مميز, تحميل QR PNG, أدوات المطور',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-            imageAlt: 'مولد رمز QR مجاني مع شعار - أدوات مطور روموز'
+            imageAlt: 'مولد رمز QR مجاني مع شعار - رموز'
         }
     }
 };
@@ -296,18 +216,18 @@ export const META_CONFIG = {
  */
 const FALLBACK_META = {
     en: {
-        title: `${BRAND_NAME} | Complexity Decoded. Potential Unleashed.`,
-        description: 'Rumuze is a global digital powerhouse engineering bespoke ecosystems and AI-powered systems for visionary brands.',
-        keywords: 'enterprise software, AI development, digital transformation, rumuze',
+        title: `${BRAND_NAME} | Software Engineering for Gulf and MENA Businesses`,
+        description: 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in the Gulf and MENA region.',
+        keywords: 'software engineering company, custom software, mobile apps, rumuze',
         image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
-        imageAlt: 'Rumuze - Digital Excellence'
+        imageAlt: 'Rumuze - Software Engineering'
     },
     ar: {
-        title: `${BRAND_NAME} | نفك شفرة التعقيد.. نطلق العنان للمستقبل`,
-        description: 'روموز قوة رقمية عالمية تهندس أنظمة نخبوية وحلول ذكاء اصطناعي للعلامات التجارية الرائدة.',
-        keywords: 'برمجيات مؤسسية, تطوير الذكاء الاصطناعي, تحول رقمي, روموز',
+        title: `${BRAND_NAME} | هندسة برمجيات لشركات الخليج والمنطقة`,
+        description: 'رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات الخليج والمنطقة.',
+        keywords: 'شركة هندسة برمجيات, برمجيات مخصصة, تطبيقات موبايل, رموز',
         image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
-        imageAlt: 'روموز - التميز الرقمي'
+        imageAlt: 'رموز - هندسة البرمجيات'
     }
 };
 

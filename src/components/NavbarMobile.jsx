@@ -63,7 +63,7 @@ const NavbarMobile = ({
     {
       key: 'discovery',
       icon: PhoneCall,
-      label: 'Discovery',
+      label: isAr ? 'ابدأ مشروعك' : 'Start a project',
       onClick: handleDiscoveryNavigate,
       isCurrent: isActive(isAr ? '/ar/contact' : '/contact'),
     },
@@ -243,7 +243,7 @@ const NavbarMobile = ({
                 className="w-full rounded-2xl border border-cyan bg-cyan py-4 text-base font-semibold text-slate-950 shadow-[0_18px_40px_-26px_rgba(0,229,255,0.54)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan/90"
                 type="button"
               >
-                {isAr ? 'احجز جلسة تشخيص مجانية' : 'Book a Systems Discovery'}
+                {isAr ? 'ابدأ مشروعك' : 'Start a project'}
               </button>
             </div>
           </div>

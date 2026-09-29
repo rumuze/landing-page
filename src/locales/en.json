@@ -1,651 +1,141 @@
 {
     "seo": {
-        "defaultTitle": "Rumuze | Software Engineering & Marketing Infrastructure Company",
-        "defaultDescription": "Rumuze is a software engineering and marketing infrastructure company. We build web platforms, SaaS systems, and ERP solutions, and engineer performance marketing and SEO infrastructure that generates measurable revenue.",
-        "orgDescription": "An engineering-driven growth company that builds software systems and marketing infrastructure for organizations that require structured execution and measurable outcomes.",
-        "keywords": "software engineering company, marketing infrastructure, SaaS development, ERP systems, website development company, SEO company, enterprise software, performance marketing",
-        "ogTitle": "Rumuze | Software Engineering & Marketing Infrastructure",
-        "ogDescription": "Rumuze builds software systems and marketing infrastructure that generate and manage revenue — with structured delivery, defined governance, and measurable outcomes.",
-        "titles": {
-            "services": "Our Services",
-            "labs": "Rumuze Labs"
-        }
-    },
-    "faq": {
-        "title": "About Rumuze",
-        "items": [
-            {
-                "question": "What does Rumuze do?",
-                "answer": "Rumuze is a software engineering and marketing infrastructure company. We build web platforms, SaaS products, ERP systems, and custom integrations. We also engineer performance marketing infrastructure — paid acquisition systems, SEO, attribution modeling, and analytics pipelines — structured to generate and measure revenue."
-            },
-            {
-                "question": "Is Rumuze a software company or a marketing agency?",
-                "answer": "Rumuze is neither a traditional software house nor a marketing agency. We operate as an engineering-driven growth company: we build the systems that generate revenue (software) and the systems that acquire customers (marketing infrastructure). These two capabilities are integrated, not separate services."
-            },
-            {
-                "question": "What types of software does Rumuze build?",
-                "answer": "Rumuze engineers web platforms, SaaS applications, multi-tenant ERP systems, CRM integrations, API-first backends, and operational automation solutions. All systems are delivered with documented architecture, structured deployment, and defined governance from the first sprint."
-            },
-            {
-                "question": "What organizations does Rumuze work with?",
-                "answer": "Rumuze works with mid-to-large organizations globally that require structured software delivery and measurable marketing outcomes. We are not restricted to any single region, industry, or platform. Engagements are governed by a Statement of Work, defined KPIs, and weekly reporting."
-            }
-        ]
-    },
-    "breadcrumbs": {
-        "home": "Home",
-        "labs": "R&D",
-        "services": "Capabilities",
-        "about": "Philosophy",
-        "blog": "Intelligence",
-        "privacy": "Privacy",
-        "terms": "Terms"
+        "keywords": "software engineering company, custom software, mobile apps, SaaS platforms, Laravel, NestJS, Flutter",
+        "ogDescription": "Rumuze builds custom platforms, mobile apps, and backend systems for businesses in the Gulf and MENA region."
     },
     "navbar": {
         "home": "Home",
-        "services": "Capabilities",
-        "portfolio": "Impact",
+        "services": "Services",
+        "portfolio": "Work",
         "techStack": "Engine",
-        "labs": "Labs",
-        "blog": "Intelligence",
-        "about": "Philosophy",
+        "labs": "Tools",
+        "blog": "Insights",
+        "about": "About",
         "contact": "Contact",
-        "startProject": "Partner with us"
-    },
-    "hero": {
-        "badge": "Smart Business Apps",
-        "headline_part1": "We Build Software.",
-        "headline_part2": "We Engineer Growth.",
-        "headline_part3": "We Measure Everything.",
-        "subheadline": "Rumuze is a software engineering and marketing infrastructure company. We build the systems organizations run on — web platforms, SaaS, ERP — and the infrastructure that generates revenue: performance marketing, SEO, attribution, and analytics. Structured delivery. Defined governance. Measurable outcomes.",
-        "ctaExplore": "Schedule a Consultation",
-        "ctaServices": "View Capabilities",
-        "code": {
-            "comment": "Systems deployed",
-            "optimized": "🚀 Revenue Online"
-        }
-    },
-    "services": {
-        "title": "Two Pillars. One Company.",
-        "description": "Rumuze operates across two integrated engineering disciplines: Software Engineering — building the systems organizations run on — and Marketing Infrastructure — engineering the systems that generate and measure revenue. Both delivered with structured governance and defined accountability.",
-        "software": {
-            "title": "Pillar 1 — Software Engineering",
-            "description": "We build web platforms, SaaS applications, ERP systems, CRM integrations, API-first backends, and operational automation. Every system is delivered with documented architecture, structured sprints, and production-grade deployment from day one.",
-            "items": {
-                "erp": {
-                    "name": "SaaS & ERP Systems",
-                    "text": "Multi-tenant SaaS platforms and custom ERP modules with role-based access, audit logging, and data isolation."
-                },
-                "api": {
-                    "name": "Web Platforms & APIs",
-                    "text": "React, Next.js, and Node.js applications with API-first backends, bilingual support, and SSR/ISR performance architecture."
-                },
-                "mobile": {
-                    "name": "CRM & Custom Integrations",
-                    "text": "HubSpot, Salesforce, and custom CRM integrations with defined data contracts and cross-system consistency."
-                }
-            }
-        },
-        "marketing": {
-            "title": "Pillar 2 — Marketing Infrastructure",
-            "description": "We engineer performance marketing systems, SEO infrastructure, paid acquisition campaigns, funnel architecture, analytics pipelines, and conversion optimization — structured around measurable revenue outcomes, not reporting vanity metrics.",
-            "items": {
-                "growth": {
-                    "name": "SEO & Organic Visibility",
-                    "text": "Technical SEO, structured data implementation, bilingual content strategy, and AI search (GEO/AEO) optimization."
-                },
-                "brand": {
-                    "name": "Analytics & Attribution",
-                    "text": "Server-side tracking, multi-touch attribution modeling, GA4, and Looker Studio dashboards tied to revenue impact."
-                },
-                "ads": {
-                    "name": "Paid Acquisition & Funnels",
-                    "text": "Google Ads, Meta Ads, and LinkedIn campaigns governed by defined ROAS targets and documented performance benchmarks."
-                }
-            }
-        }
-    },
-    "portfolio": {
-        "title": "Delivery Record",
-        "description": "Selected engagements with documented outcomes, system specifications, and measurable results.",
-        "viewAll": "View Case Studies",
-        "items": {
-            "fintech": "Financial Platform Infrastructure",
-            "ecommerce": "Multi-Region Commerce Architecture",
-            "logistics": "Operational Automation Systems"
-        }
-    },
-    "techStack": {
-        "badge": "The Corporate Engine"
-    },
-    "contact": {
-        "title": "Initiate a Scoped Engagement",
-        "description": "Submit your project requirements to initiate a structured discovery engagement. Your submission enters a documented intake process: requirements review, preliminary SOW scoping, and a response from a designated project lead within one business day.",
-        "labels": {
-            "name": "Full Name",
-            "company": "Organization Name",
-            "email": "Work Email",
-            "subject": "Subject",
-            "message": "Project Details",
-            "send": "Submit Inquiry"
-        },
-        "info": {
-            "hq": "Headquarters",
-            "email": "Project Inquiries",
-            "phone": "Direct Line"
-        },
-        "success": "Your scoped engagement request has been received. A designated project lead will review your submission within one business day."
+        "startProject": "Start a project"
     },
     "footer": {
-        "tagline": "Smart Business Apps. Structured Execution.",
-        "rights": "© 2026 Rumuze Technologies LLC. All rights reserved.",
-        "sections": {
-            "solutions": "Solutions",
-            "services": "Capabilities",
-            "company": "Company",
-            "links": {
-                "cloud": "Cloud Infrastructure",
-                "about": "About Rumuze",
-                "cases": "Case Studies",
-                "careers": "Careers",
-                "contact": "Contact",
-                "privacy": "Privacy Policy",
-                "terms": "Terms of Service"
-            }
-        }
-    },
-    "about": {
-        "title": "About Rumuze",
-        "subtitle": "A software engineering and marketing infrastructure company. We build the systems that run businesses and the systems that grow them.",
-        "story": {
-            "title": "What Rumuze Is",
-            "content": "Rumuze is a software engineering and marketing infrastructure company founded in 2026 by Mohamed Ashraf. We build web platforms, SaaS products, ERP systems, and custom integrations. We also engineer performance marketing programs, SEO infrastructure, attribution systems, and analytics pipelines. Every engagement is governed by a defined Statement of Work, structured sprint delivery, and weekly reporting. We do not operate as a traditional agency. We operate as an engineering-driven growth partner — with documented accountability at every stage."
-        },
-        "values": {
-            "innovation": {
-                "title": "Engineered, Not Assembled",
-                "text": "Every system is designed from first principles — modular, documented, and built for sustained operation."
-            },
-            "precision": {
-                "title": "Measured, Not Estimated",
-                "text": "All outcomes are tied to defined KPIs. Performance is reported against agreed benchmarks, not subjective assessment."
-            },
-            "scalability": {
-                "title": "Governed, Not Improvised",
-                "text": "Projects run under a documented governance model: defined scope, milestone sign-off, and structured reporting cadence."
-            }
-        },
-        "cto": {
-            "name": "Mohamed Ashraf",
-            "role": "Founder & Principal Engineer",
-            "bio": "Software architect and growth engineer specializing in platform systems, multi-tenant SaaS, performance marketing infrastructure, and structured project delivery."
-        }
-    },
-    "services_page": {
-        "title": "Software Engineering & Marketing Infrastructure",
-        "software": {
-            "title": "Software Engineering",
-            "process": [
-                "Discovery",
-                "Architecture",
-                "Build",
-                "Deploy"
-            ],
-            "tech": [
-                "Laravel / Node.js",
-                "React / Next.js",
-                "React Native",
-                "PostgreSQL / Redis"
-            ],
-            "description": "We build web platforms, SaaS applications, ERP systems, and custom integrations. Modular architecture. Documented delivery. Production-grade from the first sprint.",
-            "benefits": [
-                "Defined Scope & Architecture",
-                "Sprint-Based Delivery",
-                "Governed Security & Access Control"
-            ]
-        },
-        "ai": {
-            "title": "Analytics & Revenue Attribution",
-            "process": [
-                "Data Audit",
-                "Attribution Setup",
-                "Pipeline Integration",
-                "Reporting & Optimization"
-            ],
-            "tech": [
-                "GA4 & GTM Server-Side",
-                "Meta CAPI",
-                "Looker Studio",
-                "HubSpot / Segment"
-            ],
-            "description": "We implement analytics infrastructure, multi-touch attribution modeling, and automated reporting pipelines that connect marketing spend to revenue outcomes.",
-            "benefits": [
-                "Attribution-Governed Analytics",
-                "Revenue-Tied Reporting",
-                "Automated Performance Dashboards"
-            ]
-        },
-        "growth": {
-            "title": "Performance Marketing & SEO",
-            "process": [
-                "Audit & Benchmark",
-                "Strategy & Structure",
-                "Execution & Testing",
-                "Performance Accountability"
-            ],
-            "tech": [
-                "Google Ads / Meta Ads",
-                "Technical SEO",
-                "Structured Data (JSON-LD)",
-                "Conversion Infrastructure"
-            ],
-            "description": "We engineer paid acquisition campaigns, technical SEO, and funnel systems structured around defined KPIs, attribution accountability, and documented revenue outcomes.",
-            "benefits": [
-                "Organic & Paid Authority",
-                "Conversion-Governed Funnels",
-                "Revenue-Attributed Acquisition"
-            ]
-        },
-        "methodology": {
-            "heading": "Why Engineering-Driven Growth Requires Structured Governance",
-            "subtitle": "Structured execution from discovery through deployment, with defined accountability at every phase."
-        },
-        "process": {
-            "steps": [
-                {
-                    "num": "01",
-                    "title": "Discovery",
-                    "desc": "Requirements analysis, scope definition, and baseline audit."
-                },
-                {
-                    "num": "02",
-                    "title": "Architecture",
-                    "desc": "System design, technology selection, and KPI definition."
-                },
-                {
-                    "num": "03",
-                    "title": "Build",
-                    "desc": "Sprint-based implementation with weekly client reviews."
-                },
-                {
-                    "num": "04",
-                    "title": "Deploy & Measure",
-                    "desc": "Staged release, monitoring setup, and performance reporting."
-                }
-            ]
-        },
-        "tilt_card": {
-            "label": "Engineering-Driven Delivery"
-        },
-        "cta": {
-            "heading": "Schedule a Consultation for Software Engineering or Marketing Infrastructure",
-            "subheading": "Define scope, review requirements, and establish a delivery governance model with a named project owner.",
-            "button": "Start Engagement"
-        }
+        "tagline": "Software engineering for Gulf and MENA businesses.",
+        "rights": "© 2026 Rumuze. All rights reserved."
     },
     "blog": {
-        "title": "Corporate Intelligence",
-        "subtitle": "Deep dives into engineering paradigms and market shifts.",
+        "title": "Insights",
+        "subtitle": "Articles on software architecture and engineering practice from the Rumuze team.",
         "categories": {
             "tech": "Engineering",
-            "marketing": "Dominance",
+            "marketing": "Product",
             "ai": "Research"
         },
-        "readTime": "min briefing"
+        "readTime": "min read"
     },
     "legal": {
         "privacy": {
-            "title": "Global Privacy Policy",
-            "lastUpdated": "Last Updated: February 7, 2026",
-            "intro": "Rumuze is not just a service provider; we are the architects of your digital existence. Specializing in bespoke software engineering, corporate identity formulation, and data-driven digital marketing, we handle your data with the same precision we apply to our code.",
+            "title": "Privacy Policy",
+            "lastUpdated": "Last updated: September 29, 2026",
+            "intro": "This policy explains what information Rumuze collects through this website, why, and the choices you have. It covers rumuze.com and its Arabic version.",
             "sections": [
                 {
-                    "id": "introduction",
-                    "title": "1. Introduction",
-                    "content": "Welcome to Rumuze. We define the digital frontier. As a premier agency, we are committed to protecting the integrity of your personal information, proprietary software assets, and strategic brand data."
+                    "id": "who",
+                    "title": "1. Who we are",
+                    "content": "Rumuze is a software engineering company based in Obour City, Cairo, Egypt. You can reach us at connect@rumuze.com."
                 },
                 {
                     "id": "collection",
-                    "title": "2. Information We Collect",
-                    "content": "To engineer your success, we collect specific data points:\n\n• **Client Identity:** Name, corporate email, and business registration details required for contract initiation.\n• **Brand Assets:** Logos, brand guidelines, and visual assets uploaded for design projects.\n• **Marketing Data:** Access credentials for ad platforms (Meta, Google Ads) and analytics data needed for campaign optimization.\n• **Technical Telemetry:** Usage logs, API calls, and error reports from software we develop or manage."
+                    "title": "2. Information we collect",
+                    "content": "• **What you send us:** your name, email, company, role, website, and the message or project details you submit through the contact form or chat.\n• **Account details:** if you sign in with Google, your name, email address, profile photo, and Google account identifier.\n• **Usage data:** the pages you view, referrer and campaign parameters (such as UTM tags), language, time zone, screen size, browser user agent, IP address, and random visitor and session identifiers.\n• **Browser storage:** your theme and language preferences, your sign-in session, and the visitor and session identifiers above."
                 },
                 {
-                    "id": "usage",
-                    "title": "3. How We Use Your Data",
-                    "content": "Data is the fuel for your digital engine. We utilize it for:\n\n• **Software Lifecycle Management:** Developing, testing, and deploying robust applications.\n• **Campaign Optimization:** Analyzing market trends and user behavior to refine ad targeting and ROI.\n• **Brand Strategy:** Crafting visual identities that resonate with your specific audience demographics.\n• **Operational Security:** Protecting your intellectual property and our infrastructure."
+                    "id": "use",
+                    "title": "3. How we use information",
+                    "content": "• To reply to your requests and run any engagement that follows.\n• To provide, secure, and troubleshoot the website and your account.\n• To understand how the site is used and improve it.\n\nWe do not sell your personal information."
                 },
                 {
                     "id": "sharing",
-                    "title": "4. Data Sharing & Disclosure",
-                    "content": "Your data stays within our ecosystem, except when:\n\n• **Strategic Partners:** We collaborate with cloud providers (AWS, Vercel) and media platforms (Meta, Google) to execute your projects.\n• **Legal Mandates:** We comply with strict legal requirements to protect our agency and clients."
+                    "title": "4. Who we share it with",
+                    "content": "We use service providers to run the site, such as Google (Firebase authentication, database, and functions) and Cloudflare (hosting and network). They process information on our behalf. We may also disclose information when the law requires it."
                 },
                 {
-                    "id": "sovereignty",
-                    "title": "5. International Data Transfers",
-                    "content": "As a global entity, Rumuze may process your data in multiple jurisdictions. We rely on Standard Contractual Clauses (SCCs) and adequacy decisions to ensure your data remains protected regardless of borders, in full compliance with GDPR and CCPA frameworks."
+                    "id": "transfers",
+                    "title": "5. International processing",
+                    "content": "Our providers may process information in countries other than yours. By using the site you understand that your information may be processed outside your country of residence."
                 },
                 {
                     "id": "retention",
-                    "title": "6. Data Retention",
-                    "content": "We retain client data only as long as necessary to fulfill contractual obligations or legal requirements. \n\n• **Active Projects:** Retained for the duration of the service agreement + 1 year.\n• **Financial Records:** Retained for 7 years for tax and audit compliance.\n• **Marketing Data:** Anonymized or deleted upon contract termination."
+                    "title": "6. How long we keep it",
+                    "content": "We keep messages for as long as needed to handle your request and any resulting engagement. Usage data is kept for as long as it is useful for understanding site traffic. You can ask us to delete your information at any time."
                 },
                 {
                     "id": "security",
-                    "title": "7. Data Security",
-                    "content": "We employ military-grade encryption for all client assets. Source code is stored in secure, private repositories. Marketing data is handled with strict role-based access controls (RBAC) to ensure confidentiality."
+                    "title": "7. Security",
+                    "content": "The site is served over HTTPS and access to stored information is restricted. No online service is completely secure, so we cannot guarantee absolute security."
                 },
                 {
                     "id": "rights",
-                    "title": "8. Your Privacy Rights",
-                    "content": "You retain full ownership of your intellectual property. You have the right to:\n\n• **Access:** Review the data we hold on your projects.\n• **Portability:** Request a transfer of your brand assets and code repositories.\n• **Deletion:** Request removal of sensitive data upon contract termination, subject to retention laws."
+                    "title": "8. Your choices",
+                    "content": "You can ask to access, correct, or delete the personal information we hold about you by emailing connect@rumuze.com. You can clear browser storage at any time, and sign out to end your session. Depending on where you live, the law may give you additional rights."
                 },
                 {
-                    "id": "contact",
-                    "title": "9. Contact Us",
-                    "content": "For privacy concerns regarding your software or brand assets, contact our Legal Team:\n\n**Email:** legal@rumuze.com\n**Address:** Rumuze HQ, Global Tech Park."
+                    "id": "changes",
+                    "title": "9. Changes and contact",
+                    "content": "We may update this policy and will change the date above when we do. Questions about privacy can be sent to connect@rumuze.com."
                 }
             ]
         },
         "terms": {
-            "title": "Master Services Agreement",
-            "lastUpdated": "Last Updated: February 7, 2026",
-            "intro": "These Terms constitute a binding Master Services Agreement (MSA) between Rumuze ('The Agency') and you ('The Client'). By engaging our services, you agree to these terms governing intellectual property, liability, and performance standards.",
+            "title": "Terms of Use",
+            "lastUpdated": "Last updated: September 29, 2026",
+            "intro": "These terms apply to your use of the Rumuze website. Work we do for clients is governed by a separate written agreement.",
             "sections": [
                 {
                     "id": "acceptance",
-                    "title": "1. Scope of Engagement",
-                    "content": "Rumuze agrees to provide software development, design, and marketing services as detailed in specific Statements of Work (SOW). This MSA governs all such SOWs and prevails over any conflicting terms in purchase orders."
+                    "title": "1. Using the website",
+                    "content": "By using this website you agree to these terms. If you do not agree, please do not use it."
+                },
+                {
+                    "id": "services",
+                    "title": "2. Our services",
+                    "content": "Information on this website describes what Rumuze offers and is not a binding offer, quote, or guarantee. Engagements are defined in a written proposal or agreement agreed by both parties."
                 },
                 {
                     "id": "ip",
-                    "title": "2. Intellectual Property Rights",
-                    "content": "To ensure mutual protection of assets:\n\n• **Client Ownership:** Upon full payment, the Client owns all 'Deliverables' created specifically for them (e.g., custom code, logos, campaign strategies).\n• **Agency Background IP:** Rumuze retains all rights to its pre-existing code libraries, tools, frameworks, and methodologies used to create the Deliverables. The Client is granted a perpetual, non-exclusive license to use this Background IP within the scope of the project."
+                    "title": "3. Intellectual property",
+                    "content": "The content and design of this website belong to Rumuze unless stated otherwise. Open-source components remain under their own licences. You may not copy or reuse our content in a way that suggests it is yours."
                 },
                 {
-                    "id": "confidentiality",
-                    "title": "3. Confidentiality",
-                    "content": "Both parties agree to hold all 'Confidential Information' (trade secrets, strategy documents, code repositories) in strict confidence. This obligation survives the termination of this Agreement for a period of five (5) years."
+                    "id": "use",
+                    "title": "4. Acceptable use",
+                    "content": "Do not misuse the website: no attempts to disrupt it, gain unauthorised access, scrape it in a way that harms its operation, or submit unlawful or harmful content."
                 },
                 {
-                    "id": "payment",
-                    "title": "4. Payment & Commercial Terms",
-                    "content": "• **Invoicing:** Services are billed according to the SOW schedule. Invoices are due Net-30 from receipt.\n• **Late Fees:** Overdue payments shall accrue interest at the lesser of 1.5% per month or the maximum rate permitted by law.\n• **Suspension:** Rumuze reserves the right to suspend services for accounts more than 15 days overdue."
+                    "id": "accounts",
+                    "title": "5. Accounts",
+                    "content": "If you sign in, you are responsible for activity under your account. Tell us at connect@rumuze.com if you believe it has been compromised."
                 },
                 {
-                    "id": "warranties",
-                    "title": "5. Warranties & Disclaimers",
-                    "content": "Rumuze warrants that services will be performed in a professional manner in accordance with industry standards. EXCEPT AS EXPRESSLY STATED, ALL DELIVERABLES ARE PROVIDED 'AS IS'. WE DISCLAIM ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE."
+                    "id": "warranty",
+                    "title": "6. No warranty",
+                    "content": "The website and its content are provided as they are, without warranties of any kind, to the extent permitted by law."
                 },
                 {
                     "id": "liability",
-                    "title": "6. Limitation of Liability",
-                    "content": "IN NO EVENT SHALL RUMUZE BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES. OUR TOTAL AGGREGATE LIABILITY ARISING OUT OF THIS AGREEMENT SHALL NOT EXCEED THE TOTAL FEES PAID BY THE CLIENT IN THE SIX (6) MONTHS PRECEDING THE CLAIM."
+                    "title": "7. Limitation of liability",
+                    "content": "To the extent permitted by law, Rumuze is not liable for indirect or consequential loss arising from your use of the website."
                 },
                 {
-                    "id": "termination",
-                    "title": "7. Termination",
-                    "content": "• **For Convenience:** Either party may terminate an SOW with 30 days written notice, subject to payment for work completed.\n• **For Cause:** Immediate termination permitted for material breach uncured after 10 days notice."
+                    "id": "links",
+                    "title": "8. Third-party links",
+                    "content": "The website may link to other sites. We are not responsible for their content or practices."
                 },
                 {
-                    "id": "jurisdiction",
-                    "title": "8. Governing Law",
-                    "content": "This Agreement shall be governed by international commercial standards and the laws of the jurisdiction where Rumuze's invoicing entity is registered. Disputes shall be resolved through binding arbitration."
+                    "id": "changes",
+                    "title": "9. Changes and contact",
+                    "content": "We may update these terms and will change the date above when we do. Questions can be sent to connect@rumuze.com."
                 }
             ]
-        }
-    },
-    "labs": {
-        "title": "Rumuze Labs: Where Research Meets Reality",
-        "subtitle": "The R&D division dedicated to the edge of possibility.",
-        "description": "Rumuze Labs is our dedicated research facility. Here, we transform academic theories into industrial-grade reality. From self-healing networks to generative design, Labs is where we engineer the tools of tomorrow, ensuring our partners are always a decade ahead.",
-        "badge": "Research Division",
-        "heading": "THE LABORATORY",
-        "intro": "Welcome to the bleeding edge. Here, we build the technologies that will define the next decade.",
-        "intro_highlight": "No clients. No deadlines. Just raw innovation.",
-        "cta_beta": "Interested in our beta program?",
-        "terminal": {
-            "init": "> INITIALIZING RUMUZE_CORE_V2.0...",
-            "neural": "> LOADING NEURAL_NETWORKS...",
-            "quantum": "> CONNECTING TO QUANTUM_NODES...",
-            "status": "> SYSTEM_STATUS: ONLINE",
-            "location": "> DETECTING USER_LOCATION...",
-            "optimize": "> OPTIMIZING ASSETS FOR ENTROPY REDUCTION...",
-            "access": "> ACCESS GRANTED: WELCOME TO THE LAB.",
-            "authorized": "Authorized Personnel Only"
-        },
-        "projects": {
-            "holo_ui": {
-                "title": "Holo-Interface V1",
-                "category": "UX / SPATIAL",
-                "status": "BETA",
-                "description": "Experimental spatial UI patterns for Apple Vision Pro and Meta Quest 3."
-            },
-            "quantum_encryption": {
-                "title": "Post-Quantum Cryptography",
-                "category": "SECURITY",
-                "status": "R&D",
-                "description": "Lattice-based cryptography implementation resistant to quantum decryption attacks."
-            },
-            "neural_search": {
-                "title": "Neural Search Engine",
-                "category": "AI / BACKEND",
-                "status": "LIVE ALPHA",
-                "description": "Semantic search engine using vector embeddings for context-aware query resolution."
-            },
-            "edge_compute": {
-                "title": "Edge Mesh Network",
-                "category": "INFRASTRUCTURE",
-                "status": "PROTOTYPE",
-                "description": "Decentralized CDN logic running entirely on client-side service workers."
-            },
-            "generative_branding": {
-                "title": "Generative Branding",
-                "category": "DESIGN",
-                "status": "CONCEPT",
-                "description": "AI model generating real-time brand assets based on user behavioral sentiment."
-            },
-            "autonomous_dao": {
-                "title": "Autonomous Enterprise DAO",
-                "category": "WEB3",
-                "status": "CLOSED BETA",
-                "description": "Smart contract system for fully automated corporate treasury management."
-            }
-        }
-    },
-    "saudiPage": {
-        "h1": "Software Engineering & Performance Marketing for Saudi Enterprises",
-        "intro": "Rumuze executes structured software engineering and performance marketing for enterprises operating in Saudi Arabia. We work with decision-makers who require defined governance, clear accountability, and outcomes tied to measurable performance criteria.",
-        "authorityStatement": "Rumuze is a remote-first project execution partner for Saudi enterprises. Every engagement is governed by a documented statement of work, structured reporting cadence, and defined deliverable acceptance criteria.",
-        "sections": {
-            "execution": {
-                "title": "Digital Project Execution for Saudi Businesses",
-                "body": "Saudi enterprises require digital partners who operate with documented clarity. We begin every engagement with a structured discovery session that produces a written scope document — not a proposal deck. That document defines what will be built, what constitutes acceptance, what the timeline is, and what happens if scope changes. Project status is reported weekly in a written format appropriate for internal distribution to leadership. No milestone progresses without client sign-off. This is not a communication preference — it is a structural requirement of how we operate.",
-                "points": [
-                    "Written scope document produced before any development begins",
-                    "Defined deliverables with documented acceptance criteria",
-                    "Weekly written status reports structured for leadership distribution",
-                    "Milestone sign-off required before phase progression"
-                ]
-            },
-            "softwareDelivery": {
-                "title": "Structured Software Delivery Model",
-                "body": "We engineer custom software systems — web platforms, enterprise applications, ERP integrations, and operational automation. Development is structured in two-week sprints, each beginning with a defined scope and ending with a client review session. Every sprint produces a written summary delivered within 24 hours of the review. Systems are architected to production standards from the first sprint: separate environments, version-controlled codebase, peer-reviewed code, and no production deployment without documented testing evidence. Maintainability is a contractual requirement, not an optional quality consideration.",
-                "points": [
-                    "Two-week sprint cycles with written scope per sprint",
-                    "Sprint review with client and written summary within 24 hours",
-                    "Separate development, staging, and production environments",
-                    "No production deployment without documented testing evidence"
-                ]
-            },
-            "marketing": {
-                "title": "Performance Marketing Measured Against Defined Acquisition Metrics",
-                "body": "We execute performance marketing programs against predefined acquisition criteria. Every campaign is structured before launch around specific, agreed KPIs: cost per qualified lead, conversion rate by channel, customer acquisition cost, and revenue attribution by source. We do not manage campaigns on an open retainer. Campaigns run under a defined budget with weekly performance reports covering actual versus target metrics. If a channel is not performing against its defined benchmark by the agreed review date, we adjust or stop it. Marketing spend without attribution accountability is not something we accept on behalf of clients.",
-                "points": [
-                    "Campaign KPIs defined and agreed before any spend begins",
-                    "Weekly performance reports: actual vs. target by channel",
-                    "Budget-defined engagements — no open retainer without benchmarks",
-                    "Underperforming channels adjusted or paused at agreed review intervals"
-                ]
-            },
-            "governance": {
-                "title": "Governance, Reporting & Accountability",
-                "body": "We operate under a clear accountability structure. Project status is reported weekly. All deliverables are documented. Milestones require sign-off before progression. We provide a single point of contact for all projects, ensuring your team is never chasing updates or managing ambiguity. Contracts define scope, timelines, and success metrics before work begins.",
-                "points": [
-                    "Weekly project status reports delivered to stakeholders",
-                    "Single point of contact for all project communications",
-                    "Milestone sign-off process before phase progression",
-                    "Defined contracts with scope, timelines, and KPIs"
-                ]
-            },
-            "whyStructured": {
-                "title": "Why Saudi Companies Prefer Structured Execution Partners",
-                "body": "Enterprise decision-makers in Saudi Arabia have encountered poorly governed digital projects: missed timelines, unclear deliverables, and no accountability when outcomes are not met. A structured execution partner operates differently. Scope is defined. Deliverables are documented. Reporting is consistent. Performance is measured against agreed benchmarks, not subjective assessment.",
-                "points": [
-                    "Defined scope eliminates scope creep and budget overruns",
-                    "Documented deliverables create clear acceptance criteria",
-                    "Consistent reporting reduces management overhead",
-                    "Measurable performance creates accountable partnerships"
-                ]
-            }
-        },
-        "cta": {
-            "title": "Book a Project Discovery Session",
-            "body": "If your organization is evaluating a software engineering or performance marketing engagement, the first step is a structured discovery session. We review your current system environment, define preliminary scope, and produce a written outline of the execution approach — before any commitment is required on either side.",
-            "button": "Book Project Discovery Session",
-            "whatsappLabel": "Prefer a direct conversation?",
-            "whatsappText": "WhatsApp: +20 1000061409",
-            "whatsappHref": "https://wa.me/201000061409"
-        },
-        "serviceArea": "Rumuze operates as a remote-first execution partner for Saudi enterprises. All engagements are governed by documented agreements, structured communication protocols, and defined deliverable schedules. We do not maintain a physical office in Saudi Arabia."
-    },
-    "enterpriseFramework": {
-        "badge": "Delivery Framework",
-        "h1": "Structured Project Execution Framework",
-        "intro": "Rumuze operates under a defined project governance and delivery model. This framework applies to all software engineering and performance marketing engagements regardless of project size.",
-        "authorityStatement": "The Rumuze Enterprise Delivery Framework defines governance, sprint cadence, reporting structure, SLA commitments, and technology standards for all client engagements.",
-        "sections": {
-            "governance": {
-                "title": "Governance & Architecture Model",
-                "body": "Every project is governed by a defined structure: a Project Owner on the Rumuze side, a client-designated point of contact, and a documented escalation path. Before any development begins, we establish a Statement of Work (SOW) that defines scope boundaries, deliverable acceptance criteria, and change request protocols. Architecture decisions are documented and require client review before implementation.",
-                "points": [
-                    "Defined project ownership and escalation path",
-                    "Statement of Work established before development begins",
-                    "Architecture decisions documented and reviewed",
-                    "Change request protocol for scope modifications"
-                ]
-            },
-            "lifecycle": {
-                "title": "Project Lifecycle Framework",
-                "body": "Our project lifecycle consists of five phases: Discovery, Architecture, Development, Validation, and Deployment. Each phase has defined entry and exit criteria. No phase begins until the prior phase is formally closed. This prevents scope drift, reduces rework, and ensures client alignment at every stage.",
-                "phases": [
-                    {
-                        "name": "Discovery",
-                        "desc": "Requirements gathering, scope definition, and feasibility assessment"
-                    },
-                    {
-                        "name": "Architecture",
-                        "desc": "System design, technology selection, and security planning"
-                    },
-                    {
-                        "name": "Development",
-                        "desc": "Sprint-based implementation with weekly deliverable reviews"
-                    },
-                    {
-                        "name": "Validation",
-                        "desc": "QA, performance testing, and client acceptance testing"
-                    },
-                    {
-                        "name": "Deployment",
-                        "desc": "Staged release, monitoring setup, and handover documentation"
-                    }
-                ]
-            },
-            "sprintCadence": {
-                "title": "Sprint & Delivery Cadence",
-                "body": "Development is structured in two-week sprints. Each sprint begins with a planning session defining the sprint scope and ends with a review session presenting completed work. Clients receive a written sprint summary after each review. Unfinished sprint items are re-evaluated before inclusion in the next sprint — no work is silently carried over without acknowledgment.",
-                "points": [
-                    "Two-week sprint cycles with defined scope per sprint",
-                    "Sprint planning session at the start of each cycle",
-                    "Sprint review with client at the end of each cycle",
-                    "Written sprint summary delivered within 24 hours of review"
-                ]
-            },
-            "accountability": {
-                "title": "Accountability & Reporting Structure",
-                "body": "We maintain a consistent reporting cadence for all active engagements. Weekly status reports cover completed work, upcoming milestones, blockers, and budget consumption. Monthly executive reports summarize progress against the project plan and KPIs. All reports are delivered in a format appropriate for internal distribution to stakeholders and leadership.",
-                "reportTypes": [
-                    {
-                        "type": "Weekly Status Report",
-                        "covers": "Sprint progress, blockers, next week's objectives, hours consumed"
-                    },
-                    {
-                        "type": "Monthly Executive Summary",
-                        "covers": "Project health, milestone status, KPI performance, risk register"
-                    },
-                    {
-                        "type": "Project Closure Report",
-                        "covers": "Full delivery summary, performance benchmarks, handover documentation"
-                    }
-                ]
-            },
-            "riskSLA": {
-                "title": "Risk Mitigation & SLA Philosophy",
-                "body": "All engagements include a risk register maintained throughout the project lifecycle. Risks are classified by probability and impact and reviewed weekly. Our service level commitments define response times, resolution targets, and escalation procedures. We do not offer SLA guarantees without documented scope — every commitment is tied to a defined deliverable and measured objectively.",
-                "slas": [
-                    "Critical issue response within 4 business hours",
-                    "Standard support request resolution within 2 business days",
-                    "Weekly risk register review and client notification",
-                    "SLA disputes resolved through documented evidence review"
-                ]
-            },
-            "techSecurity": {
-                "title": "Technology & Security Standards",
-                "body": "We apply consistent technology and security standards across all engagements. Production systems are built with separation of environments (development, staging, production), role-based access control, encrypted data storage, and audit logging. All deployments include monitoring and alerting. Code is version-controlled and peer-reviewed before any production release.",
-                "standards": [
-                    "Separate development, staging, and production environments",
-                    "Role-based access control and principle of least privilege",
-                    "Encrypted data at rest and in transit (TLS 1.2+)",
-                    "Automated testing coverage before production deployment",
-                    "Version-controlled codebase with mandatory peer review"
-                ]
-            }
-        },
-        "faq": {
-            "title": "Governance Questions",
-            "items": [
-                {
-                    "question": "What happens if a project milestone is missed?",
-                    "answer": "Milestone slippage is addressed through a documented process, not a phone call. When a milestone is at risk, we issue a written notice within 24 hours of identifying the risk, outlining the cause, the impact on subsequent phases, and the recovery plan. If the slippage is attributable to our execution, we absorb the recovery cost. If it is attributable to delayed client inputs or changed scope, we issue a change request with timeline and budget impact before any recovery work begins. Every milestone outcome is recorded in the project log."
-                },
-                {
-                    "question": "Who bears accountability for delivery outcomes?",
-                    "answer": "Our designated Project Owner holds delivery accountability for every engagement. That individual is named in the Statement of Work, attends every sprint review, signs off on milestone completions, and is reachable via a direct communication channel — not a support queue. If a deliverable does not meet the agreed acceptance criteria, it is not accepted. We rework it. Accountability is not a shared responsibility distributed across a team. It is a named obligation with a named owner."
-                },
-                {
-                    "question": "How are compliance-sensitive or regulated projects handled?",
-                    "answer": "Regulated engagements are scoped with an additional compliance assessment phase before any development begins. We document the regulatory requirements applicable to the system, map them to specific technical and process controls, and maintain a compliance evidence log throughout delivery. All regulatory constraints are written into the Statement of Work as binding requirements — not notes or comments. If a compliance requirement emerges after scoping, it is treated as a scope change with full impact assessment."
-                },
-                {
-                    "question": "How do you handle scope changes during a project?",
-                    "answer": "All scope changes require a written change request before any work outside the original scope begins. The change request documents the nature of the change, the impact on timeline, the impact on budget, and the revised deliverable list. We do not begin out-of-scope work pending verbal or informal approval. The change request must be signed by the designated client point of contact before it is executable. No exceptions."
-                },
-                {
-                    "question": "What are the conditions under which an engagement can be terminated?",
-                    "answer": "Termination conditions are defined in the service agreement before an engagement begins. Either party may terminate with written notice under the conditions defined in the contract. In the event of termination, we provide a documented handover package: all work completed to date, all code committed to the version-controlled repository, all documentation produced, and a written summary of outstanding items. Clients are never left with an undocumented system at any stage of termination."
-                }
-            ]
-        },
-        "cta": {
-            "title": "Schedule a Technical Consultation",
-            "body": "If you are evaluating a software engineering or performance marketing partner, the first step is a structured technical consultation. We review your current system environment, define objectives, and outline a delivery approach aligned with your governance requirements — before any commitment is required on either side.",
-            "button": "Schedule Technical Consultation",
-            "whatsappLabel": "Prefer a direct conversation?",
-            "whatsappText": "WhatsApp: +20 1000061409",
-            "whatsappHref": "https://wa.me/201000061409"
         }
     },
     "whatsapp": {
-        "prefillMessage": "Hello, I would like to schedule a project discovery session.",
+        "prefillMessage": "Hello, I would like to discuss a software project.",
         "ariaLabel": "Contact us on WhatsApp"
     }
 }

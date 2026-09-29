@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
-import { Shield, FileText, Lock, Globe, Menu } from 'lucide-react';
+import { FileText, Lock, Menu } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const LegalPage = ({ type }) => {
@@ -150,10 +150,6 @@ const LegalPage = ({ type }) => {
                  <span className="px-3 py-1 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/10">
                     {lastUpdated}
                  </span>
-                 <span className="flex items-center gap-1">
-                    <Globe size={14} />
-                    {isAr ? 'تغطية عالمية' : 'Global Coverage'}
-                 </span>
               </div>
               
               <p className="mt-8 text-lg md:text-xl leading-relaxed text-slate-600 dark:text-gray-300">
@@ -181,44 +177,32 @@ const LegalPage = ({ type }) => {
                     <div className="prose prose-lg dark:prose-invert prose-slate max-w-none text-slate-600 dark:text-gray-400 leading-relaxed">
                        {section.content.split('\n').map((line, i) => {
                           if (line.startsWith('•')) {
-                             // List items with bold keys
-                             const [key, val] = line.replace('• ', '').split(':');
+                             const text = line.replace(/^•\s*/, '');
+                             const match = text.match(/^\*\*(.+?)\*\*\s*(.*)$/);
                              return (
-                                <div key={i} className="flex gap-3 mb-2 ml-4">
+                                <div key={i} className="flex gap-3 mb-2 ms-4">
                                    <div className="min-w-[6px] h-[6px] rounded-full bg-cyan mt-2.5"></div>
                                    <p className="m-0">
-                                      {val ? (
+                                      {match ? (
                                          <>
-                                            <strong className="text-slate-900 dark:text-white font-semibold">{key.replace(/\*\*/g, '')}:</strong>
-                                            {val}
+                                            <strong className="text-slate-900 dark:text-white font-semibold">{match[1]}</strong>{' '}
+                                            {match[2]}
                                          </>
                                       ) : (
-                                         line.replace('• ', '')
+                                         text
                                       )}
                                    </p>
                                 </div>
                              )
                           }
                           // Standard Paragraph
-                          return line.trim() ? <p key={i} className="mb-4">{line}</p> : null;
+                          return line.trim() ? <p key={i} className="mb-4">{line.replace(/\*\*/g, '')}</p> : null;
                        })}
                     </div>
                  </Motion.section>
                ))}
             </div>
             
-            <div className="mt-20 p-8 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-               <Shield className="text-cyan mb-4" size={32} />
-               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-                 {isAr ? 'التزامنا بالأمان' : 'Our Commitment to Security'}
-               </h3>
-               <p className="text-slate-600 dark:text-gray-400">
-                 {isAr 
-                   ? 'نحن نستخدم أحدث تقنيات التشفير وبروتوكولات الأمان لحماية بياناتك من أي تهديدات محتملة.' 
-                   : 'We employ state-of-the-art encryption via Cloudflare and rigorous security protocols to ensure your data remains inviolable.'
-                 }
-               </p>
-            </div>
 
           </div>
         </div>

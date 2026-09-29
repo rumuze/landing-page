@@ -3,8 +3,8 @@ export const siteCoreConfig = {
   supportedLocales: ["en", "ar"],
   defaultLocale: "en",
   shortDescription: {
-    en: "Rumuze is an enterprise software engineering authority building SaaS, ERP, CRM, and digital marketing infrastructure.",
-    ar: "روموز هي مؤسسة رائدة في هندسة البرمجيات تبني منصات SaaS وأنظمة ERP و CRM وبنية التسويق الرقمي.",
+    en: "Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in the Gulf and MENA region.",
+    ar: "رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في الخليج والمنطقة.",
   },
 };
 

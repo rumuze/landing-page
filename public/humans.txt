@@ -1,8 +1,8 @@
 /* TEAM */
-  Founder: Rumuze Core Group
+  Founder: Mohamed Ashraf
   Contact: connect@rumuze.com
   Twitter: @rumuze
-  From: Silicon Valley, Cairo, Lagos
+  From: Cairo, Egypt
 
 /* THANKS */
   The Open Source Community
@@ -10,7 +10,7 @@
   Tailwind CSS Authors
 
 /* SITE */
-  Last update: 2026/02/05
   Language: English, Arabic
   Doctype: HTML5
-  IDE: VS Code, Antigravity AI
+  Standards: HTML5, CSS3, JSON-LD
+  Components: React, Vite, Tailwind CSS
