@@ -13,8 +13,6 @@ export function useLeadQualificationSubmission() {
 
   return useCallback(
     async ({ intent, formData, source }) => {
-      await new Promise((resolve) => window.setTimeout(resolve, 650));
-
       return createThread({
         formData: {
           name: formData.fullName,

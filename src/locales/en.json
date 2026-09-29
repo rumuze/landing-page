@@ -52,7 +52,7 @@
                 {
                     "id": "sharing",
                     "title": "4. Who we share it with",
-                    "content": "We use service providers to run the site, such as Google (Firebase authentication, database, and functions) and Cloudflare (hosting and network). They process information on our behalf. We may also disclose information when the law requires it."
+                    "content": "We use service providers to run the site, such as Google (Firebase authentication, database, and functions) and hosting and network providers such as Cloudflare and Vercel. They process information on our behalf. If you choose to message us on WhatsApp, WhatsApp handles that conversation under its own terms. Links to our social profiles open third-party sites with their own policies. We may also disclose information when the law requires it."
                 },
                 {
                     "id": "transfers",

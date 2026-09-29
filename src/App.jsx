@@ -101,11 +101,13 @@ function AppContent() {
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Redirection logic to default to Arabic only if landing on the root English URL
+  // The English root stays English for crawlers and English browsers. Send a
+  // visitor to /ar only when they chose Arabic before or their browser is Arabic.
   useEffect(() => {
     if (location.pathname === '/') {
       const preferredLng = localStorage.getItem('i18n_lang_pref');
-      if (preferredLng !== 'en') {
+      const browserIsArabic = (navigator.language ?? '').toLowerCase().startsWith('ar');
+      if (preferredLng === 'ar' || (!preferredLng && browserIsArabic)) {
         navigate('/ar', { replace: true });
       }
     }

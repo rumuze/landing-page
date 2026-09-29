@@ -150,6 +150,7 @@ const SaudiArabiaPage = () => {
                     }`}
                   >
                     {page.servicesLink}
+                    <span className="sr-only"> {service.title[isAr ? "ar" : "en"]}</span>
                     <ArrowRight size={16} className={isAr ? 'rotate-180' : ''} />
                   </Link>
                 </li>
