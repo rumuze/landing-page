@@ -160,20 +160,4 @@
   <!-- Explicit Manifest Link for Crawlers -->
   <link rel="manifest" href="/manifest.webmanifest">
 </body>
-
-<!-- Explicit Inline Service Worker Registration for PWA Audit Tools -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js', { scope: '/' })
-        .then(registration => {
-          console.log('SW registered: ', registration);
-        })
-        .catch(registrationError => {
-          console.log('SW registration failed: ', registrationError);
-        });
-    });
-  }
-</script>
-
 </html>

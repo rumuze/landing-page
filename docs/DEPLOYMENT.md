@@ -49,6 +49,21 @@ Open Graph images live in `public/og-image-en.png` and `public/og-image-ar.png` 
 2. Rebuild and deploy.
 3. Re-scrape the URLs: [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/), LinkedIn Post Inspector, and WhatsApp (send the link in a chat; WhatsApp caches for a long time, which the version parameter avoids).
 
+## Content Security Policy
+
+`index.html` keeps `'unsafe-inline'` and `'unsafe-eval'` for the dev server (Vite injects inline scripts). `scripts/prerender.js` replaces them with hashes of the inline scripts in the built page, and fails the build if either keyword is still present in a production page's `script-src`. If you add an inline script, it is picked up automatically.
+
 ## Firebase
 
 Sign-in, Firestore and the Cloud Functions in `firebase-functions/` (chat notifications, consent-gated visit tracking) are deployed separately with the Firebase CLI. Rules are in `firestore.rules`. The page CSP in `index.html` must allow the function origin (`*.cloudfunctions.net`, `*.run.app`).
+
+### Retention of usage data
+
+`trackVisit` writes an `expireAt` timestamp (180 days ahead) on every `visits` and `visitSessions` document. Firestore only deletes on it once a TTL policy exists; enable it once per collection group:
+
+```bash
+gcloud firestore fields ttls update expireAt --collection-group=visits --enable-ttl
+gcloud firestore fields ttls update expireAt --collection-group=visitSessions --enable-ttl
+```
+
+Documents written before this change have no `expireAt` and are not deleted by the policy. When the policy is on, state the retention period in the privacy text (`legal.privacy` in `src/locales/*.json`).

@@ -16,6 +16,11 @@ const db = getFirestore();
 
 const serverTimestamp = () => FieldValue.serverTimestamp();
 
+// Usage data is kept for about six months. `expireAt` is what a Firestore TTL
+// policy deletes on (see docs/DEPLOYMENT.md, "Firebase").
+const RETENTION_MS = 180 * 24 * 60 * 60 * 1000;
+const expiryTimestamp = () => Timestamp.fromMillis(Date.now() + RETENTION_MS);
+
 function sanitizeString(value) {
   return typeof value === "string" ? value.trim() : "";
 }
@@ -95,6 +100,9 @@ function parseClientTimestamp(value) {
   return Timestamp.fromDate(parsedDate);
 }
 
+// Callers can put anything at the start of X-Forwarded-For; Google's front end
+// appends the address it actually saw as the last entry, so read that one. The
+// first entry is client-controlled and would let a caller dodge the rate limit.
 function getIpAddress(request) {
   const forwardedFor = sanitizeOptionalString(getHeader(request, "x-forwarded-for"), 512);
 
@@ -102,7 +110,8 @@ function getIpAddress(request) {
     return "";
   }
 
-  return forwardedFor.split(",")[0].trim();
+  const addresses = forwardedFor.split(",").map((address) => address.trim()).filter(Boolean);
+  return addresses[addresses.length - 1] ?? "";
 }
 
 function matchesHost(hostname, patterns) {
@@ -614,6 +623,7 @@ exports.trackVisit = onRequest(
       requestOrigin: sanitizeOptionalString(getHeader(request, "origin"), 1024),
       requestReferer: sanitizeOptionalString(getHeader(request, "referer"), 2048),
       visitedAt: serverTimestamp(),
+      expireAt: expiryTimestamp(),
       ...sourceDetails,
       ...userFields,
     };
@@ -623,6 +633,7 @@ exports.trackVisit = onRequest(
     const sessionPayload = {
       visitorId,
       lastSeenAt: serverTimestamp(),
+      expireAt: expiryTimestamp(),
       lastPagePath: pagePath,
       lastPageUrl: pageUrl.toString(),
       lastSourceLabel: sourceDetails.sourceLabel,

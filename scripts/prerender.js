@@ -15,6 +15,7 @@
  *
  * Usage: node scripts/prerender.js
  */
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -104,9 +105,29 @@ function assertRenderedPage(routePath, page) {
   if (!/<h1[\s>]/.test(page)) problems.push('missing <h1>');
   if (!/rel="canonical"/.test(page)) problems.push('missing canonical');
   if (!/type="application\/ld\+json"/.test(page)) problems.push('missing JSON-LD');
+  if (/script-src[^;"]*'unsafe-(inline|eval)'/.test(page)) problems.push("script CSP still allows 'unsafe-inline' or 'unsafe-eval'");
   if (problems.length > 0) {
     throw new Error(`prerender: ${routePath}: ${problems.join(', ')}`);
   }
+}
+
+// The dev server needs 'unsafe-inline' and 'unsafe-eval' in the page CSP, the
+// production build does not. Replace them with hashes of the inline scripts
+// that actually ship (JSON-LD blocks are data, not executed, so they need none).
+function hardenScriptCsp(template) {
+  const inlineScripts = [...template.matchAll(/<script(?![^>]*\ssrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/gi)]
+    .map((match) => match[1])
+    .filter((code) => code.trim().length > 0);
+  const hashes = inlineScripts.map(
+    (code) => `'sha256-${crypto.createHash('sha256').update(code, 'utf8').digest('base64')}'`,
+  );
+
+  return template.replace(/script-src([^;"]*)/, (_match, sources) => {
+    const cleaned = sources
+      .split(/\s+/)
+      .filter((source) => source && source !== "'unsafe-inline'" && source !== "'unsafe-eval'");
+    return `script-src ${[...cleaned, ...hashes].join(' ')}`;
+  });
 }
 
 async function main() {
@@ -116,7 +137,7 @@ async function main() {
   if (!fs.existsSync(templatePath)) throw new Error('prerender: dist/index.html is missing (run vite build)');
   if (!fs.existsSync(entryPath)) throw new Error('prerender: dist-ssr/entry-server.js is missing (run vite build --ssr)');
 
-  const template = fs.readFileSync(templatePath, 'utf8');
+  const template = hardenScriptCsp(fs.readFileSync(templatePath, 'utf8'));
   const { render } = await import(pathToFileURL(entryPath).href);
 
   // The unrendered shell is the fallback for every non-prerendered route.
