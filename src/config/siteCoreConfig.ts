@@ -22,14 +22,14 @@ export const buildServiceId = (slug: string) =>
 export const buildSubServiceId = (slug: string, subslug: string) =>
   `${siteCoreConfig.baseUrl}/services/${slug}#service-${subslug}`;
 
-export const buildProductId = (slug: string) =>
+const buildProductId = (slug: string) =>
   `${siteCoreConfig.baseUrl}/#product-${slug}`;
 
-export const buildAppId = (slug: string) =>
+const buildAppId = (slug: string) =>
   `${siteCoreConfig.baseUrl}/#app-${slug}`;
 
-export const buildResearchId = (slug: string) =>
+const buildResearchId = (slug: string) =>
   `${siteCoreConfig.baseUrl}/#research-${slug}`;
 
-export const buildArticleId = (slug: string) =>
+const buildArticleId = (slug: string) =>
   `${siteCoreConfig.baseUrl}/blog/${slug}#article`;

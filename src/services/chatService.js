@@ -35,7 +35,3 @@ export async function markNotificationsAsRead(payload) {
 export async function markThreadAsSeenByAdmin(payload) {
   return getDataProvider().markThreadAsSeenByAdmin(payload);
 }
-
-export async function getLegacyMessages(params) {
-  return getDataProvider().getLegacyMessages(params);
-}

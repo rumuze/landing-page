@@ -170,10 +170,4 @@ export const apiProvider = {
       onError,
     );
   },
-
-  async getLegacyMessages({ mode = "user", userId = null }) {
-    return requestJson("/messages", {
-      params: { mode, userId },
-    });
-  },
 };

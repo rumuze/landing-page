@@ -12,12 +12,12 @@
 // Types
 // ---------------------------------------------------------------------------
 
-export interface Localized {
+interface Localized {
   en: string;
   ar: string;
 }
 
-export interface LocalizedArray {
+interface LocalizedArray {
   en: string[];
   ar: string[];
 }
@@ -80,4 +80,4 @@ export const FOUNDER: PersonConfig = {
  * All people configs for future expansion (team members, advisors).
  * Currently contains the founder only.
  */
-export const PEOPLE: PersonConfig[] = [FOUNDER];
+const PEOPLE: PersonConfig[] = [FOUNDER];

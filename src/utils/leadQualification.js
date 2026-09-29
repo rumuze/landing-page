@@ -1,4 +1,4 @@
-export const LEAD_INTENTS = ["discovery", "audit", "build", "infrastructure"];
+const LEAD_INTENTS = ["discovery", "audit", "build", "infrastructure"];
 
 export const EMPTY_LEAD_FORM = {
   fullName: "",

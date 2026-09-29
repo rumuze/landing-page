@@ -22,7 +22,7 @@ export const getFallbackName = (firebaseUser) => {
   return "User";
 };
 
-export const normalizeUserRole = (role) =>
+const normalizeUserRole = (role) =>
   role === "admin" ? "admin" : "user";
 
 export const createUserProfileDraft = (firebaseUser, timestampFactory) => ({

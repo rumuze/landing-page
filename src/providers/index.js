@@ -12,7 +12,3 @@ const providerName = import.meta.env.VITE_DATA_PROVIDER === "api" ? "api" : "fir
 export function getDataProvider() {
   return assertProviderInterface(providerMap[providerName]);
 }
-
-export function getActiveProviderName() {
-  return providerName;
-}

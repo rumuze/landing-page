@@ -1,4 +1,4 @@
-export const dataProviderInterface = {
+const dataProviderInterface = {
   createThread: "function",
   sendMessage: "function",
   subscribeToThreads: "function",

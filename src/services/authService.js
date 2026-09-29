@@ -1,5 +1,4 @@
 import {
-  exchangeGoogleCredential,
   loginWithGooglePopup,
   logoutAuthenticatedUser,
   subscribeToAuthState,
@@ -7,17 +6,10 @@ import {
 } from "../providers/firebase/firebaseAuthProvider";
 import {
   ensureFirebaseAuthReady,
-  getFirebaseAuth,
   getFirebaseSetupStatus,
-  logFirebaseAuthChecklist,
 } from "../providers/firebase/firebaseApp";
 
-export {
-  ensureFirebaseAuthReady,
-  getFirebaseAuth,
-  getFirebaseSetupStatus,
-  logFirebaseAuthChecklist,
-};
+export { ensureFirebaseAuthReady, getFirebaseSetupStatus };
 
 export async function loginWithGoogle() {
   return loginWithGooglePopup();
@@ -33,8 +25,4 @@ export async function updateUserProfile(profile) {
 
 export function subscribeToAuthenticatedUser(callback) {
   return subscribeToAuthState(callback);
-}
-
-export async function signInWithGoogleCredentialToken(idToken) {
-  return exchangeGoogleCredential(idToken);
 }

@@ -16,7 +16,7 @@ const OG_IMAGE_VERSION = '2026-10';
  * Page-specific metadata configuration
  * Each route has EN and AR variants with optimized content
  */
-export const META_CONFIG = {
+const META_CONFIG = {
     '/': {
         en: {
             title: `${BRAND_NAME} | Software Engineering for Gulf and MENA Businesses`,
@@ -357,9 +357,3 @@ export function validateMetadata(meta) {
 }
 
 
-export default {
-    getMetaForRoute,
-    validateMetadata,
-    BASE_URL,
-    BRAND_NAME
-};

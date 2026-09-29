@@ -48,4 +48,3 @@ export const organizationSchema = {
   }
 };
 
-export default organizationSchema;

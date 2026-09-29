@@ -2,7 +2,6 @@ import {
   collection,
   doc,
   getDoc,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -21,14 +20,12 @@ import {
   getSessionPhoto,
   normalizeChatMessage,
   normalizeEmail,
-  normalizeLegacyMessage,
   normalizeNotification,
   normalizeOptionalId,
   normalizeThread,
   normalizeThreadRequestId,
   sanitizeLine,
   sanitizeMultiline,
-  sortMessagesByLatest,
   sortThreadsByLatest,
 } from "../../models/chat";
 import { createUserProfileDraft, getFallbackName, normalizeString } from "../../models/userProfile";
@@ -401,20 +398,5 @@ export const firebaseProvider = {
       (snapshot) => next(snapshot.exists() ? snapshot.data() : null),
       onError,
     );
-  },
-
-  async getLegacyMessages({ mode = "user", userId = null }) {
-    const messagesRef = collection(getFirestoreDb(), "messages");
-    const messagesQuery =
-      mode === "admin"
-        ? query(messagesRef, orderBy("createdAt", "desc"))
-        : query(messagesRef, where("userId", "==", userId));
-
-    const snapshot = await getDocs(messagesQuery);
-    const messages = snapshot.docs.map((messageDoc) =>
-      normalizeLegacyMessage(messageDoc.id, messageDoc.data()),
-    );
-
-    return mode === "admin" ? messages : sortMessagesByLatest(messages);
   },
 };

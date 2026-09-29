@@ -54,7 +54,7 @@ export function generateCanonical(baseUrl: string, path: string) {
   return `${baseUrl}${normalizePath(path)}`;
 }
 
-export function generateHreflangs(baseUrl: string, path: string) {
+function generateHreflangs(baseUrl: string, path: string) {
   const cleanPath = stripLocalePrefix(path, [DEFAULT_LOCALE, 'ar']);
 
   return {

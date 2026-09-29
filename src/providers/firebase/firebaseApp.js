@@ -63,7 +63,6 @@ let appInstance = null;
 let authInstance = null;
 let dbInstance = null;
 let authPersistencePromise = null;
-let hasLoggedConsoleChecklist = false;
 
 const createFirebaseConfigError = () => {
   const error = new Error(firebaseSetupIssues.join(" "));
@@ -87,19 +86,6 @@ export function getFirebaseSetupStatus() {
       projectId: firebaseConfig.projectId ?? null,
     },
   };
-}
-
-export function logFirebaseAuthChecklist() {
-  if (hasLoggedConsoleChecklist || typeof window === "undefined") {
-    return;
-  }
-
-  hasLoggedConsoleChecklist = true;
-
-  console.info(
-    "[Firebase Auth] Popup prerequisites:",
-    ...firebaseConsoleChecklist,
-  );
 }
 
 const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
@@ -143,7 +129,7 @@ export async function getAppCheckToken() {
   }
 }
 
-export function getFirebaseApp() {
+function getFirebaseApp() {
   assertFirebaseSetup();
 
   if (!appInstance) {
