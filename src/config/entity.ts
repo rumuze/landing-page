@@ -33,6 +33,7 @@ export interface ContactDetails {
 export interface PublicProfiles {
   linkedIn?: string;
   github?: string;
+  facebook?: string;
   website?: string;
 }
 
