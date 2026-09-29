@@ -130,7 +130,7 @@ const ogImageVersion = "2026-02-patch1"; // Match config version
 
 Monitor Worker performance:
 
-- Dashboard → Workers & Pages → rumuze-landing → Metrics
+- Dashboard → Workers & Pages → landing-page → Metrics
 - **Target**: < 10ms CPU time per request
 - **Alert**: If errors > 0.1%
 
