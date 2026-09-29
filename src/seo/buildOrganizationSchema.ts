@@ -32,7 +32,7 @@ export function buildOrganizationSchema(lang: LanguageCode) {
     },
     areaServed: ['SA', 'AE', 'EG', 'KW', 'QA', 'BH', 'OM'],
     sameAs: [
-      'https://www.linkedin.com/company/rumuze',
+      'https://www.linkedin.com/company/rumuze-%D8%B1%D9%85%D9%88%D8%B2',
       'https://x.com/rumuze',
       'https://github.com/rumuze',
     ],

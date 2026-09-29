@@ -108,7 +108,7 @@ export const ENTITY: EntityConfig = {
     },
   },
   publicProfiles: {
-    linkedIn: 'https://www.linkedin.com/company/rumuze',
+    linkedIn: 'https://www.linkedin.com/company/rumuze-%D8%B1%D9%85%D9%88%D8%B2',
     github: 'https://github.com/rumuze',
     website: 'https://www.rumuze.com',
   },
@@ -119,7 +119,7 @@ export const ENTITY: EntityConfig = {
     'SaaS Platform Development',
   ],
   sameAs: [
-    'https://www.linkedin.com/company/rumuze',
+    'https://www.linkedin.com/company/rumuze-%D8%B1%D9%85%D9%88%D8%B2',
     'https://github.com/rumuze',
   ],
   // Domains of the products Rumuze has built (see docs/CLAIMS_REGISTRY.md).
