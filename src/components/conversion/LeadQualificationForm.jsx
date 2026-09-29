@@ -89,6 +89,7 @@ const LeadQualificationForm = ({
   }, [safeIntent, user?.displayName, user?.email, user?.name]);
 
   const isModal = variant === "modal";
+  const HeadingTag = isModal ? "h3" : "h1";
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -209,13 +210,13 @@ const LeadQualificationForm = ({
         <div className="space-y-5">
           <span className={badgeClass}>
             <Sparkles size={14} />
-            {isAr ? "جلسة تشخيص ومراجعة معمارية" : "Architecture Discovery"}
+            {isAr ? "استقبال المشاريع" : "Project intake"}
           </span>
 
           <div>
-            <h3 className="type-h3 text-slate-950 dark:text-white">
+            <HeadingTag className="type-h3 text-slate-950 dark:text-white">
               {intentConfig.title}
-            </h3>
+            </HeadingTag>
             <p className="type-body mt-2 text-slate-600 dark:text-slate-300">
               {intentConfig.description}
             </p>

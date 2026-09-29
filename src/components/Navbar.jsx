@@ -22,13 +22,10 @@ const normalizePath = (path) => {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(() =>
-    typeof window !== 'undefined' ? window.scrollY > SCROLL_THRESHOLD : false
-  );
+  // Initial values must match the prerendered markup; effects below sync them.
+  const [scrolled, setScrolled] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
-  const [isMobileViewport, setIsMobileViewport] = useState(() =>
-    typeof window !== 'undefined' ? window.matchMedia(MOBILE_MEDIA_QUERY).matches : false
-  );
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
   const langMenuRef = useRef(null);
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
@@ -65,6 +62,7 @@ const Navbar = () => {
       }
     };
 
+    setIsMobileViewport(mediaQuery.matches);
     mediaQuery.addEventListener('change', handleChange);
 
     return () => mediaQuery.removeEventListener('change', handleChange);

@@ -4,7 +4,7 @@
  * Enforces the "Clean Dist Root" policy to prevent Cloudflare Pages routing issues.
  * 
  * POLICY:
- * - dist/ root MUST NOT contain any .html files except:
+ * - dist/ root MUST NOT contain any .html files except (200.html is the SPA shell):
  *   - index.html (SPA entry)
  *   - 404.html (Error page)
  *   - offline.html (PWA fallback)
@@ -25,6 +25,7 @@ const DIST_DIR = join(__dirname, '..', 'dist');
 // Allowed HTML files in the root
 const ALLOWED_HTML = [
     'index.html',
+    '200.html',
     '404.html',
     'offline.html'
 ];

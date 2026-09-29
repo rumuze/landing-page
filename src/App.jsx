@@ -96,7 +96,7 @@ function AppContent() {
   const isAdminRoute =
     location.pathname.startsWith("/admin") ||
     location.pathname.startsWith("/ar/admin");
-  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [isOffline, setIsOffline] = useState(false);
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -161,6 +161,7 @@ function AppContent() {
     const handleOnline = () => setIsOffline(false);
     const handleOffline = () => setIsOffline(true);
 
+    setIsOffline(!navigator.onLine);
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
@@ -574,32 +575,24 @@ function AppContent() {
   );
 }
 
-function App() {
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
-
-  useEffect(() => {
-    // Initial load simulation or actual asset checking
-    const timer = setTimeout(() => setIsInitialLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
+/**
+ * Root component.
+ *
+ * `RouterComponent`, `routerProps`, and `helmetContext` let the prerender build
+ * (entry-server.jsx) render the same tree with a StaticRouter and collect the
+ * <head> tags. In the browser the defaults apply.
+ */
+function App({ RouterComponent = Router, routerProps = {}, helmetContext }) {
   return (
-    <HelmetProvider>
+    <HelmetProvider context={helmetContext}>
       <ErrorBoundary>
         <ThemeProvider>
           <AuthProvider>
-            {isInitialLoading && (
-              <div
-                className="route-fade fixed inset-0 z-[10000]"
-              >
-                <LoadingSpinner fullScreen />
-              </div>
-            )}
-            <Router>
+            <RouterComponent {...routerProps}>
               <CustomCursor />
               <ScrollToTop />
               <AppContent />
-            </Router>
+            </RouterComponent>
           </AuthProvider>
         </ThemeProvider>
       </ErrorBoundary>

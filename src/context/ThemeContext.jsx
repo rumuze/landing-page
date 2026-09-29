@@ -4,6 +4,12 @@ import { ThemeContext } from './theme-core';
 const THEME_STORAGE_KEY = 'rumuze-theme';
 
 const getPreferredTheme = () => {
+  // Prerendering and the first hydration pass always use the light theme; the
+  // inline script in index.html applies the saved theme to <html> before paint.
+  if (typeof window === 'undefined') {
+    return 'light';
+  }
+
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
 
   if (savedTheme === 'light' || savedTheme === 'dark') {

@@ -5,12 +5,13 @@ import { useTranslation } from 'react-i18next';
 
 const OfflineToast = () => {
   const { t } = useTranslation();
-  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [isOffline, setIsOffline] = useState(false);
 
   useEffect(() => {
     const handleOnline = () => setIsOffline(false);
     const handleOffline = () => setIsOffline(true);
 
+    setIsOffline(!navigator.onLine);
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 

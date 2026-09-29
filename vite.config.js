@@ -2,11 +2,24 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import viteCompression from 'vite-plugin-compression';
+import { fileURLToPath } from 'node:url';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+// The same config drives two builds: the browser bundle (`vite build`) and the
+// server bundle used to prerender routes (`vite build --ssr`, see
+// scripts/prerender.js). Browser-only plugins are skipped for the latter.
+export default defineConfig(({ isSsrBuild }) => ({
   base: '/',
-  plugins: [
+  resolve: isSsrBuild
+    ? {
+        alias: {
+          'virtual:pwa-register/react': fileURLToPath(
+            new URL('./src/ssr/pwa-register-stub.js', import.meta.url),
+          ),
+        },
+      }
+    : undefined,
+  plugins: isSsrBuild ? [react()] : [
     react(),
     viteCompression({
       algorithm: 'gzip',
@@ -189,11 +202,12 @@ export default defineConfig({
           }
         ]
       },
-      workbox: {
-        // OPTIMIZED: Exclude large images from precache to keep under 2MB
-        globPatterns: ['**/*.{js,css,html,ico,woff2}'],
-        // Strict limit: only cache files under 512KB
-        maximumFileSizeToCacheInBytes: 512 * 1024,
+      injectManifest: {
+        // Precache scripts, styles, and fonts only. HTML is prerendered per
+        // route and served network-first by the service worker.
+        globPatterns: ['**/*.{js,css,ico,woff2}'],
+        // Precache files up to 1 MiB (the main bundle is ~700 KB)
+        maximumFileSizeToCacheInBytes: 1024 * 1024,
         // Ensure offline.html is always precached
         additionalManifestEntries: [
           { url: '/offline.html', revision: null }
@@ -201,8 +215,11 @@ export default defineConfig({
       }
     })
   ],
+  // Bundle dependencies so the prerender bundle runs without extra resolution.
+  // Only for the SSR build: vitest also reads `ssr` and must keep its own modules external.
+  ssr: isSsrBuild ? { noExternal: true } : undefined,
   build: {
-    minify: 'terser',
+    minify: isSsrBuild ? false : 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
@@ -212,7 +229,9 @@ export default defineConfig({
     },
     cssCodeSplit: false, // CRITICAL: Inline all CSS into single bundle for inlining
     rollupOptions: {
-      output: {
+      output: isSsrBuild
+        ? { inlineDynamicImports: true, entryFileNames: '[name].js' }
+        : {
         // Optimize chunk naming for better caching
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
@@ -262,4 +281,4 @@ export default defineConfig({
   css: {
     devSourcemap: false,
   },
-});
+}));
