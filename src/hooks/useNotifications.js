@@ -41,8 +41,6 @@ async function playNotificationSound() {
   if (now - lastNotificationSoundAt < NOTIFICATION_SOUND_COOLDOWN_MS) return;
   lastNotificationSoundAt = now;
 
-  console.log("PLAY SOUND");
-
   const audio = getNotificationAudio();
   if (audio) {
     try {
@@ -153,7 +151,6 @@ export function useNotifications() {
           { userId: userUid },
           (notifications) => {
             if (!isMounted) return;
-            console.log("NOTIFICATIONS:", notifications.length);
             const unreadCount = notifications.reduce(
               (count, notification) => count + (notification.isRead ? 0 : 1),
               0,

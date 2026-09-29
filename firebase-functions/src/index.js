@@ -256,11 +256,57 @@ async function updateUserVisitSummary(userFields, visitRecord) {
   }, { merge: true });
 }
 
-function applyCors(response) {
-  response.set("Access-Control-Allow-Origin", "*");
+const ALLOWED_ORIGINS = new Set([
+  "https://rumuze.com",
+  "https://www.rumuze.com",
+  "http://localhost:3000",
+  "http://localhost:5173",
+]);
+
+function isAllowedOrigin(origin) {
+  return ALLOWED_ORIGINS.has(origin);
+}
+
+function applyCors(request, response) {
+  const origin = getHeader(request, "origin");
+
+  if (isAllowedOrigin(origin)) {
+    response.set("Access-Control-Allow-Origin", origin);
+    response.set("Vary", "Origin");
+  }
+
   response.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   response.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
   response.set("Access-Control-Max-Age", "3600");
+}
+
+// Best-effort per-instance rate limit (resets on cold start). It blunts
+// casual abuse of the public endpoint; it is not a substitute for App Check.
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 60;
+const RATE_LIMIT_MAX_KEYS = 5000;
+const rateLimitBuckets = new Map();
+
+function isRateLimited(key) {
+  const now = Date.now();
+
+  if (rateLimitBuckets.size > RATE_LIMIT_MAX_KEYS) {
+    for (const [bucketKey, bucket] of rateLimitBuckets) {
+      if (now - bucket.windowStart > RATE_LIMIT_WINDOW_MS) {
+        rateLimitBuckets.delete(bucketKey);
+      }
+    }
+  }
+
+  const bucket = rateLimitBuckets.get(key);
+
+  if (!bucket || now - bucket.windowStart > RATE_LIMIT_WINDOW_MS) {
+    rateLimitBuckets.set(key, { windowStart: now, count: 1 });
+    return false;
+  }
+
+  bucket.count += 1;
+  return bucket.count > RATE_LIMIT_MAX_REQUESTS;
 }
 
 exports.createChatNotification = onDocumentCreated(
@@ -497,7 +543,7 @@ exports.trackVisit = onRequest(
     memory: "256MiB",
   },
   async (request, response) => {
-    applyCors(response);
+    applyCors(request, response);
 
     if (request.method === "OPTIONS") {
       response.status(204).send("");
@@ -506,6 +552,16 @@ exports.trackVisit = onRequest(
 
     if (request.method !== "POST") {
       response.status(405).json({ error: "Method not allowed." });
+      return;
+    }
+
+    if (!isAllowedOrigin(getHeader(request, "origin"))) {
+      response.status(403).json({ error: "Origin not allowed." });
+      return;
+    }
+
+    if (isRateLimited(getIpAddress(request) || "unknown")) {
+      response.status(429).json({ error: "Too many requests." });
       return;
     }
 
