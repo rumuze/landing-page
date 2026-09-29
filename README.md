@@ -19,7 +19,7 @@ npm run dev          # http://localhost:3000
 npm run lint
 npm run typecheck
 npm test             # vitest
-npm run build        # client build, SSR build, critical CSS, prerender, sitemap, robots
+npm run build        # client build, SSR build, prerender, sitemap, robots
 npm run preview
 ```
 
@@ -39,7 +39,7 @@ src/
   locales/         navigation, footer, blog, and legal strings
 functions/         Cloudflare Pages middleware (metadata injection, security headers)
 firebase-functions/ Firebase Cloud Functions (notifications, visit tracking)
-scripts/           build helpers (sitemap, critical CSS, /ar entry generation)
+scripts/           build helpers (prerender, sitemap, build verification, Open Graph image generation)
 public/            static assets, robots.txt, llms.txt
 docs/              deployment notes and CLAIMS_REGISTRY.md
 ```

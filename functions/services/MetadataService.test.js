@@ -161,7 +161,7 @@ describe('MetadataService', () => {
             expect(metadata.author).toBe('Mohamed Ashraf');
             expect(metadata.publishedTime).toBe('2026-02-12');
             expect(metadata.title).toContain('Modular Monolith');
-            expect(metadata.image).toContain('/assets/images/blog-1.webp');
+            expect(metadata.image).toContain('/assets/images/blog/modular-monolith-architecture.jpg');
         });
 
         test('resolves Arabic blog article metadata for known slug', () => {
