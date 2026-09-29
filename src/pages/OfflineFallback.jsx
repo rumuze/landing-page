@@ -39,7 +39,7 @@ const OfflineFallback = () => {
 
         <button
           onClick={() => window.location.reload()}
-          className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-3 font-semibold transition-all hover:scale-105 active:scale-95"
+          className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-cyan text-slate-950 px-8 py-3 font-semibold transition-all hover:scale-105 active:scale-95"
         >
           <RefreshCcw className="h-5 w-5 transition-transform group-hover:rotate-180" />
           <span>Try Again</span>

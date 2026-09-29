@@ -46,7 +46,7 @@ const ServiceDifferentiatorsSection = ({ service, isAr }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="group flex items-start gap-4 p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300"
+                className="group flex items-start gap-4 p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-cyan/30 hover:shadow-lg transition-all duration-300"
               >
                 <div className="w-10 h-10 rounded-xl bg-cyan/10 flex items-center justify-center shrink-0 group-hover:bg-cyan/20 transition-colors">
                   <Icon size={20} className="text-cyan" />

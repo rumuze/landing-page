@@ -35,12 +35,8 @@ const ServiceCTASection = ({ service, isAr, variant = 'technical' }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-white/[0.04] dark:via-white/[0.02] dark:to-white/[0.04] border border-white/10 p-10 md:p-14 text-center overflow-hidden"
+          className="relative rounded-3xl bg-slate-900 dark:bg-white/[0.04] border border-white/10 p-10 md:p-14 text-center overflow-hidden"
         >
-          {/* Decorative glows */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-cyan/20 blur-3xl rounded-full -z-0" />
-          <div className="absolute bottom-0 right-0 w-48 h-48 bg-purple/10 blur-3xl rounded-full -z-0" />
-
           <div className="relative z-10">
             <h2
               id="service-cta-title"
@@ -60,7 +56,7 @@ const ServiceCTASection = ({ service, isAr, variant = 'technical' }) => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to={isAr ? '/ar/contact' : '/contact'}
-                className="btn-primary px-8 py-4 text-base shadow-xl shadow-cyan/30 flex items-center gap-3 group"
+                className="btn-primary px-8 py-4 text-base flex items-center gap-3 group"
               >
                 <Icon size={20} />
                 <span>{isAr ? cta.ar : cta.en}</span>

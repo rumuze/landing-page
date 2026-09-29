@@ -40,7 +40,6 @@ const ThemeToggle = ({ className = "" }) => {
         </AnimatePresence>
       </div>
 
-      <div className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[linear-gradient(135deg,transparent,rgba(0,229,255,0.08))]"></div>
     </button>
   );
 };

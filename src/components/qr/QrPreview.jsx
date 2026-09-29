@@ -44,7 +44,6 @@ const QrPreview = ({ qrCode, url, isAr }) => {
   return (
     <div className="flex flex-col items-center gap-6 mt-8 animate-fade-in">
       <div className="relative group">
-        <div className="absolute -inset-1 bg-gradient-to-r from-cyan via-purple to-cyan rounded-2xl opacity-40 blur-md group-hover:opacity-60 transition-opacity duration-500" />
         <div
           ref={qrRef}
           id="qr-preview-container"

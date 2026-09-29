@@ -59,7 +59,7 @@ const QrInput = ({ onGenerate, isAr }) => {
           onClick={handleGenerate}
           id="qr-generate-btn"
           aria-label={isAr ? 'إنشاء رمز QR' : 'Generate QR Code'}
-          className="flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-cyan to-purple text-white font-bold rounded-xl hover:shadow-lg hover:shadow-cyan/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
+          className="flex items-center gap-2 px-6 py-3.5 bg-cyan text-slate-950 font-bold rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
         >
           <QrCode size={20} />
           <span className="hidden sm:inline">{isAr ? 'إنشاء' : 'Generate'}</span>

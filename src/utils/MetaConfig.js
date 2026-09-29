@@ -10,7 +10,7 @@
 
 const BASE_URL = 'https://www.rumuze.com';
 const BRAND_NAME = 'Rumuze';
-const OG_IMAGE_VERSION = '2026-09';
+const OG_IMAGE_VERSION = '2026-10';
 
 /**
  * Page-specific metadata configuration

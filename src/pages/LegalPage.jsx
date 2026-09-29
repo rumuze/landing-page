@@ -21,7 +21,7 @@ const LegalPage = ({ type }) => {
 
   const icon = type === 'privacy' 
     ? <Lock className="text-cyan" size={32} />
-    : <FileText className="text-purple-500" size={32} />;
+    : <FileText className="text-slate-500" size={32} />;
 
   // Scroll Spy Logic
   useEffect(() => {
@@ -125,7 +125,7 @@ const LegalPage = ({ type }) => {
                      onClick={() => scrollToSection(section.id)}
                      className={`relative block w-full text-start py-2 px-4 text-sm transition-all border-l-2 ${isAr ? 'border-r-2 border-l-0' : 'border-l-2'} ${
                        activeSection === section.id
-                         ? 'border-cyan text-cyan font-bold bg-gradient-to-r from-cyan/5 to-transparent'
+                         ? 'border-cyan text-cyan font-bold bg-cyan/5'
                          : 'border-transparent text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
                      }`}
                    >

@@ -243,7 +243,7 @@ const LeadQualificationForm = ({
                 className="h-full rounded-full transition-all duration-300"
                 style={{
                   width: step === 1 ? "50%" : "100%",
-                  background: "linear-gradient(135deg, #006B54 0%, #3CBF00 100%)",
+                  backgroundColor: "#2b8000",
                 }}
               />
             </div>

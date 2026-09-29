@@ -49,8 +49,7 @@ const Profile = () => {
         className="min-h-screen px-4 pb-24 pt-32 sm:px-6"
       >
         <div className="mx-auto max-w-3xl">
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/78 p-6 shadow-[0_30px_100px_rgba(2,6,23,0.5)] backdrop-blur-2xl sm:p-8">
-            <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,rgba(0,229,255,0.22),transparent_70%)]" />
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950 p-6 sm:p-8">
 
             <div className="relative flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
               <div className={`flex flex-col gap-5 ${isAr ? "sm:items-end" : "sm:items-start"}`}>
@@ -63,7 +62,7 @@ const Profile = () => {
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    <div className="flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-gradient-to-br from-cyan via-sky-400 to-cyan text-3xl font-semibold text-slate-950 shadow-[0_10px_30px_rgba(0,229,255,0.25)]">
+                    <div className="flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-cyan text-3xl font-semibold text-slate-950 shadow-[0_10px_30px_rgba(0,229,255,0.25)]">
                       {avatarInitial}
                     </div>
                   )}

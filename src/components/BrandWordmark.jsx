@@ -9,7 +9,7 @@ const BrandWordmark = ({ className = '' }) => (
       className
     )}
   >
-    <span className="bg-gradient-to-r from-slate-950 via-slate-800 to-cyan-500 bg-clip-text text-transparent dark:from-white dark:via-slate-100 dark:to-cyan-300">
+    <span className="text-slate-950 dark:text-white">
       RUMUZE
     </span>
   </span>

@@ -31,8 +31,7 @@ const Users = () => {
       >
         <div className="mx-auto max-w-6xl space-y-6">
           {/* Header Section */}
-          <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/82 px-6 py-7 shadow-[0_30px_100px_rgba(2,6,23,0.5)] backdrop-blur-2xl sm:px-8">
-            <div className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_top_right,rgba(225,29,72,0.12),transparent_62%)]" />
+          <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950 px-6 py-7 sm:px-8">
 
             <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">

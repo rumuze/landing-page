@@ -81,7 +81,7 @@ const BlogPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-cyan/10 transition-all duration-500 flex flex-col h-full"
+              className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[2rem] overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
             >
               <div className="relative aspect-[1200/630] overflow-hidden">
                 <div className="w-full h-full group-hover:scale-110 transition-transform duration-700">

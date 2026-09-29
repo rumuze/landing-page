@@ -16,7 +16,7 @@ const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendMessa
 
   if (!thread) {
     return (
-      <section className="flex h-full min-h-[32rem] items-center justify-center rounded-[2rem] border border-white/10 bg-slate-950/78 p-8 text-center shadow-[0_30px_100px_rgba(2,6,23,0.48)] backdrop-blur-2xl">
+      <section className="flex h-full min-h-[32rem] items-center justify-center rounded-[2rem] border border-white/10 bg-slate-950 p-8 text-center">
         <div className="max-w-md">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300">
             <Mail size={24} />
@@ -44,8 +44,7 @@ const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendMessa
   };
 
   return (
-    <section className="relative flex h-full min-h-[32rem] flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/78 shadow-[0_30px_100px_rgba(2,6,23,0.48)] backdrop-blur-2xl">
-      <div className="absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.16),transparent_64%)]" />
+    <section className="relative flex h-full min-h-[32rem] flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950">
 
       {/* Header */}
       <div className="relative border-b border-white/10 px-6 pb-5 pt-6 bg-slate-900/50">
