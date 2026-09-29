@@ -18,6 +18,7 @@ import CustomCursor from './components/CustomCursor';
 import AuthFloatingButton from './components/AuthFloatingButton';
 import ProtectedRoute from './components/ProtectedRoute';
 import VisitTracker from './components/VisitTracker';
+import ConsentBanner from './components/ConsentBanner';
 import { hasLocalePrefix } from './seo/linking';
 import { useTheme } from './context/theme-core';
 import {
@@ -257,6 +258,7 @@ function AppContent() {
         </script>
       </Helmet>
       <VisitTracker />
+      <ConsentBanner />
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan to-purple origin-left z-[100] transition-transform duration-100 ease-out"
         style={{ transform: `scaleX(${scrollProgress})` }}
@@ -554,13 +556,14 @@ function AppContent() {
       
       </main>
 
-      <div
+      <aside
+        aria-label={isAr ? 'إجراءات سريعة' : 'Quick actions'}
         className="bottom-safe-nav-clearance fixed right-4 z-[72] flex flex-col items-center gap-3 md:right-6"
       >
         <AuthFloatingButton />
         {!isAdminRoute ? <WhatsAppButton /> : null}
         {!isAdminRoute ? <ShareButton /> : null}
-      </div>
+      </aside>
 
 
       <UpdateToast 

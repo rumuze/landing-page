@@ -42,7 +42,7 @@
                 {
                     "id": "collection",
                     "title": "2. Information we collect",
-                    "content": "• **What you send us:** your name, email, company, role, website, and the message or project details you submit through the contact form or chat.\n• **Account details:** if you sign in with Google, your name, email address, profile photo, and Google account identifier.\n• **Usage data:** the pages you view, referrer and campaign parameters (such as UTM tags), language, time zone, screen size, browser user agent, IP address, and random visitor and session identifiers.\n• **Browser storage:** your theme and language preferences, your sign-in session, and the visitor and session identifiers above."
+                    "content": "• **What you send us:** your name, email, company, role, website, and the message or project details you submit through the contact form or chat.\n• **Account details:** if you sign in with Google, your name, email address, profile photo, and Google account identifier.\n• **Usage data, only if you accept:** the pages you view, referrer and campaign parameters (such as UTM tags), language, time zone, screen size, browser user agent, IP address, and random visitor and session identifiers.\n• **Browser storage:** your theme and language preferences, your sign-in session, and the visitor and session identifiers above. Usage data is recorded only after you accept in the banner, and you can withdraw at any time from \"Analytics preferences\" in the footer."
                 },
                 {
                     "id": "use",

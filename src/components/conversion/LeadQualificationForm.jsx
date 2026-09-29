@@ -302,7 +302,7 @@ const LeadQualificationForm = ({
               <div className={fieldWrapper}>
                 <label className={labelClass} htmlFor="engagementType">
                   <span>{isAr ? "ما تحتاجه بالضبط" : "What you need"}</span>
-                  <span className="type-label text-slate-400 dark:text-slate-500">
+                  <span className="type-label text-slate-600 dark:text-slate-400">
                     {copy.requiredLabel}
                   </span>
                 </label>
@@ -385,7 +385,7 @@ const LeadQualificationForm = ({
                       ? "تفاصيل المنظومة أو التحدي الحالي"
                       : "Current architecture or bottleneck"}
                   </span>
-                  <span className="type-label text-slate-400 dark:text-slate-500">
+                  <span className="type-label text-slate-600 dark:text-slate-400">
                     {isAr ? "(اختياري)" : "(Optional)"}
                   </span>
                 </label>
@@ -460,11 +460,11 @@ const FormField = ({
     <label className={labelClass} htmlFor={name}>
       <span>{label}</span>
       {requiredLabel ? (
-        <span className="type-label text-slate-400 dark:text-slate-500">
+        <span className="type-label text-slate-600 dark:text-slate-400">
           {requiredLabel}
         </span>
       ) : optionalLabel ? (
-        <span className="type-label text-slate-400 dark:text-slate-500">
+        <span className="type-label text-slate-600 dark:text-slate-400">
           {optionalLabel}
         </span>
       ) : null}

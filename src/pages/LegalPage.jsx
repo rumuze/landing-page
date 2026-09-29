@@ -115,7 +115,7 @@ const LegalPage = ({ type }) => {
                  </p>
               </div>
 
-              <nav className="space-y-1 relative">
+              <nav aria-label="Sections" className="space-y-1 relative">
                  {/* Decorative Line */}
                  <div className={`absolute top-0 bottom-0 w-px bg-slate-200 dark:bg-white/10 ${isAr ? 'right-0' : 'left-0'}`}></div>
 
@@ -146,7 +146,7 @@ const LegalPage = ({ type }) => {
               <h1 className="text-4xl md:text-5xl font-black mb-6 text-slate-900 dark:text-white tracking-tight">
                 {title}
               </h1>
-              <div className="flex items-center gap-4 text-sm font-mono text-slate-500 dark:text-gray-400">
+              <div className="flex items-center gap-4 text-sm font-mono text-slate-600 dark:text-gray-400">
                  <span className="px-3 py-1 bg-slate-100 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/10">
                     {lastUpdated}
                  </span>
