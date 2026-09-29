@@ -135,7 +135,7 @@ export const blogPosts = [
         readTime: 7,
         image: '/assets/images/blog/arabic-and-english-one-codebase.jpg',
         en: {
-            title: 'One Codebase, Two Directions: Arabic and English Done Properly',
+            title: 'One Codebase, Two Directions: Bilingual Done Right',
             excerpt: 'Right-to-left support is a design constraint, not a translation task. Here is how we structure a bilingual site so both languages are first-class.',
             content: `
                 <h2>Start with the URL</h2>
@@ -166,7 +166,7 @@ export const blogPosts = [
             `
         },
         ar: {
-            title: 'قاعدة كود واحدة واتجاهان: العربية والإنجليزية بالشكل الصحيح',
+            title: 'قاعدة كود واحدة واتجاهان: العربية والإنجليزية معاً',
             excerpt: 'دعم الكتابة من اليمين لليسار قيد تصميمي وليس مهمة ترجمة. هكذا نبني موقعاً ثنائي اللغة تكون فيه اللغتان أصيلتين.',
             content: `
                 <h2>ابدأ من الرابط</h2>

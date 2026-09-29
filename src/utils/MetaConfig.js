@@ -107,7 +107,7 @@ export const META_CONFIG = {
         },
         ar: {
             title: `الأدوات | ${BRAND_NAME}`,
-            description: 'أدوات صغيرة مجانية من رموز، تبدأ بمولّد رموز QR.',
+            description: 'أدوات مجانية صغيرة صنعتها رموز للمطورين والفرق، تبدأ بمولّد رموز QR.',
             keywords: 'أدوات مجانية, مولد رموز QR, أدوات المطورين',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'أدوات رموز'

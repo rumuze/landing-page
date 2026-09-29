@@ -272,7 +272,7 @@ export const BLOG_ARTICLE_METADATA = {
             image: `${BASE_URL}/assets/images/blog/arabic-and-english-one-codebase.jpg`,
         },
         en: {
-            title: 'One Codebase, Two Directions: Arabic and English Done Properly | Rumuze',
+            title: 'One Codebase, Two Directions: Bilingual Done Right | Rumuze',
             description: 'How to structure a bilingual site so Arabic and English are both first-class: routes, layout, mixed-script text, and search.',
             imageAlt: 'Arabic and English in one codebase article cover',
             type: 'article',

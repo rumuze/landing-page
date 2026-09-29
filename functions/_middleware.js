@@ -201,7 +201,7 @@ export async function onRequest(context) {
         "default-src 'self'",
         "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://accounts.google.com https://apis.google.com", // Firebase Google popup loads helper scripts from Google origins
         "style-src 'self' 'unsafe-inline'",  // unsafe-inline for critical CSS
-        "img-src 'self' https://images.unsplash.com https://developers.google.com https://lh3.googleusercontent.com https://*.googleusercontent.com data: blob:",
+        "img-src 'self' https://images.unsplash.com https://lh3.googleusercontent.com https://*.googleusercontent.com data: blob:",
         "font-src 'self' data:",
         "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://accounts.google.com https://accounts.google.com/gsi/ https://*.cloudfunctions.net https://*.run.app",
         `frame-src 'self' https://accounts.google.com ${FIREBASE_AUTH_ORIGIN}`,

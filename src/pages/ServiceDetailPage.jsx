@@ -159,7 +159,7 @@ const ServiceDetailPage = () => {
 
   // Page metadata
   const title = isAr ? service.title.ar : service.title.en;
-  const description = isAr ? service.summary.ar : service.summary.en;
+  const description = isAr ? service.metaDescription.ar : service.metaDescription.en;
   const currentPath = location.pathname;
   const ctaVariant = service.category === 'marketing' ? 'growth' : 'technical';
 

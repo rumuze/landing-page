@@ -20,6 +20,8 @@ export interface ServiceItem {
   title: Localized;
   shortDescription: Localized;
   summary: Localized;
+  /** Search-result description, about 155 characters */
+  metaDescription: Localized;
   keywords: string[];
   geoScope: string[];
   industries?: string[];
@@ -67,6 +69,10 @@ export const SERVICES: ServiceItem[] = [
     summary: {
       en: 'Rumuze designs and builds custom software and backend platforms with Laravel and NestJS. Systems are split into modules with clear contracts between them, and can use a transactional outbox, webhooks, and realtime channels where the problem calls for it.',
       ar: 'تصمم رموز وتبني برمجيات مخصصة ومنصات خلفية بـ Laravel وNestJS. تُقسَّم الأنظمة إلى وحدات بعقود واضحة بينها، ويمكن أن تعتمد على نمط Outbox وWebhooks وقنوات لحظية عندما تتطلب المشكلة ذلك.',
+    },
+    metaDescription: {
+      en: 'Custom software and backend platforms built with Laravel and NestJS: modular systems, transactional outbox, webhooks, and realtime channels.',
+      ar: 'برمجيات مخصصة ومنصات خلفية بـ Laravel وNestJS: أنظمة مقسمة إلى وحدات، ونمط Outbox، وWebhooks، وقنوات لحظية.',
     },
     keywords: ['custom software development', 'Laravel', 'NestJS', 'modular monolith', 'API development'],
     geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
@@ -173,6 +179,10 @@ export const SERVICES: ServiceItem[] = [
       en: 'Rumuze builds cross-platform mobile apps with Flutter for iOS and Android, connected to Laravel or NestJS backends. Typical features include live location tracking, push notifications, in-app chat, biometric lock, and Arabic and English localisation.',
       ar: 'تبني رموز تطبيقات موبايل متعددة المنصات بـ Flutter لنظامي iOS وAndroid، متصلة بأنظمة Laravel أو NestJS الخلفية. تشمل الميزات المعتادة تتبع الموقع المباشر والإشعارات الفورية والمحادثة داخل التطبيق والقفل البيومتري ودعم العربية والإنجليزية.',
     },
+    metaDescription: {
+      en: 'Cross-platform Flutter apps for iOS and Android with live location, push notifications, in-app chat, and Arabic and English support.',
+      ar: 'تطبيقات Flutter لنظامي iOS وAndroid مع تتبع الموقع المباشر والإشعارات والمحادثة داخل التطبيق ودعم العربية والإنجليزية.',
+    },
     keywords: ['Flutter app development', 'mobile app development', 'delivery app', 'iOS and Android', 'Arabic mobile app'],
     geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
     industries: ['Delivery and logistics', 'Field operations', 'Customer apps'],
@@ -277,6 +287,10 @@ export const SERVICES: ServiceItem[] = [
     summary: {
       en: 'Rumuze builds web applications and websites with React and Next.js on Laravel or Node.js backends. Arabic and English share one codebase, with routing, layout direction, metadata, and structured data handled for each language instead of translated afterwards.',
       ar: 'تبني رموز تطبيقات ومواقع ويب بـ React وNext.js فوق أنظمة Laravel أو Node.js الخلفية. تشترك العربية والإنجليزية في قاعدة كود واحدة، مع معالجة المسارات واتجاه التخطيط والبيانات الوصفية والبيانات المنظمة لكل لغة بدلاً من الترجمة لاحقاً.',
+    },
+    metaDescription: {
+      en: 'Bilingual React and Next.js web applications on Laravel or Node.js, with one codebase for Arabic and English and correct RTL, metadata, and schema.',
+      ar: 'تطبيقات ويب بـ React وNext.js فوق Laravel أو Node.js، بقاعدة كود واحدة للعربية والإنجليزية ودعم صحيح لـ RTL والبيانات الوصفية.',
     },
     keywords: ['bilingual web development', 'Arabic RTL website', 'React', 'Next.js', 'multilingual SEO'],
     geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
@@ -383,6 +397,10 @@ export const SERVICES: ServiceItem[] = [
       en: 'Rumuze builds business platforms that combine ERP, HRM, CRM, project management, payments, and support in one codebase, split into modules that can be enabled independently. RumuzePMO, our own Laravel 12 platform, is built this way.',
       ar: 'تبني رموز منصات أعمال تجمع ERP والموارد البشرية وCRM وإدارة المشاريع والمدفوعات والدعم في قاعدة كود واحدة، مقسمة إلى وحدات يمكن تفعيلها بشكل مستقل. وRumuzePMO، منصتنا الخاصة بـ Laravel 12، مبنية بهذه الطريقة.',
     },
+    metaDescription: {
+      en: 'ERP, HRM, CRM, project management, and payments in one modular codebase, built the way our own RumuzePMO platform is built.',
+      ar: 'ERP وموارد بشرية وCRM وإدارة مشاريع ومدفوعات في قاعدة كود واحدة مقسمة إلى وحدات، بالأسلوب نفسه الذي بُنيت به منصتنا RumuzePMO.',
+    },
     keywords: ['ERP development', 'CRM development', 'SaaS platform', 'multi-tenant', 'HR system'],
     geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
     industries: ['Business operations', 'Human resources', 'Sales and CRM', 'Project management'],
@@ -488,6 +506,10 @@ export const SERVICES: ServiceItem[] = [
       en: 'Rumuze connects websites, forms, CRM systems, and analytics tools: structured lead intake, source capture, event and conversion tracking, CRM field mapping, and reporting dashboards, so sales and leadership work from the same data.',
       ar: 'تربط رموز المواقع والنماذج وأنظمة CRM وأدوات التحليلات: استقبال منظم للعملاء المحتملين والتقاط المصدر وتتبع الأحداث والتحويلات وربط حقول CRM ولوحات التقارير، فتعمل المبيعات والإدارة على البيانات نفسها.',
     },
+    metaDescription: {
+      en: 'Connect websites, forms, CRM, and analytics: structured lead intake, source capture, conversion tracking, CRM field mapping, and reporting.',
+      ar: 'ربط المواقع والنماذج وCRM والتحليلات: استقبال منظم للعملاء المحتملين والتقاط المصدر وتتبع التحويلات وربط حقول CRM والتقارير.',
+    },
     keywords: ['CRM integration', 'conversion tracking', 'lead routing', 'analytics setup', 'reporting dashboards'],
     geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
     industries: ['Sales operations', 'Marketing operations', 'Reporting'],
@@ -592,6 +614,10 @@ export const SERVICES: ServiceItem[] = [
     summary: {
       en: 'Rumuze implements the technical side of search visibility for Arabic and English sites: canonical and hreflang tags, sitemaps, JSON-LD structured data, crawlable rendering, and machine-readable summaries such as llms.txt that help search and answer engines understand a site.',
       ar: 'تنفذ رموز الجانب التقني لظهور المواقع العربية والإنجليزية في البحث: وسوم canonical وhreflang وخرائط الموقع وبيانات JSON-LD المنظمة وعرضاً قابلاً للزحف وملخصات مقروءة آلياً مثل llms.txt تساعد محركات البحث والإجابة على فهم الموقع.',
+    },
+    metaDescription: {
+      en: 'Technical SEO for Arabic and English sites: canonical and hreflang, sitemaps, JSON-LD structured data, crawlable rendering, and llms.txt.',
+      ar: 'تحسين تقني لمحركات البحث للمواقع العربية والإنجليزية: canonical وhreflang وخرائط الموقع وبيانات JSON-LD وعرض قابل للزحف وllms.txt.',
     },
     keywords: ['technical SEO', 'structured data', 'JSON-LD', 'hreflang', 'answer engine optimization'],
     geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
