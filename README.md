@@ -19,6 +19,7 @@ npm run lint
 npm run typecheck
 npm test             # vitest
 npm run build        # client build, SSR build, prerender, sitemap, robots
+npm run test:e2e       # browser tests against dist/ (run the build first)
 npm run preview
 ```
 

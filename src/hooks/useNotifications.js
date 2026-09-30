@@ -6,7 +6,7 @@ import {
   subscribeToNotifications,
 } from "../services/chatService";
 
-const NOTIFICATION_SOUND_PATH = "/notification.mp3";
+const NOTIFICATION_SOUND_PATH = "/notification.wav";
 const NOTIFICATION_SOUND_COOLDOWN_MS = 1500;
 
 let notificationAudio = null;

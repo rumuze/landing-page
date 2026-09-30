@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { configDefaults } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import viteCompression from 'vite-plugin-compression';
@@ -10,6 +11,8 @@ import { fileURLToPath } from 'node:url';
 // scripts/prerender.js). Browser-only plugins are skipped for the latter.
 export default defineConfig(({ isSsrBuild }) => ({
   base: '/',
+  // Unit tests only; the browser tests in e2e/ run with Playwright.
+  test: { exclude: [...configDefaults.exclude, 'e2e/**', 'playwright-report/**', 'test-results/**'] },
   resolve: isSsrBuild
     ? {
         alias: {

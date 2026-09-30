@@ -31,3 +31,7 @@ scripts/og/.render.html
 .agents/
 .claude/
 skills-lock.json
+
+# Playwright
+test-results/
+playwright-report/
