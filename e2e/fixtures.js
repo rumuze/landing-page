@@ -40,7 +40,10 @@ export const test = base.extend({
       }
     });
     page.on('requestfailed', (request) => {
-      if (isOurs(request.url())) problems.push(`request failed: ${request.url()}`);
+      // The browser cancels a preload it ends up not using (an AVIF source wins over a WebP preload);
+      // that is not a broken asset, and broken images are checked on their own.
+      const reason = request.failure()?.errorText;
+      if (isOurs(request.url()) && reason !== 'net::ERR_ABORTED') problems.push(`request failed: ${request.url()} (${reason})`);
     });
     page.on('response', (response) => {
       if (isOurs(response.url()) && response.status() >= 400) {
