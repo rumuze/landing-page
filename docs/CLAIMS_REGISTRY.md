@@ -136,7 +136,7 @@ The homepage, portfolio page, navigation, intake form, and page metadata were re
 | CR-018 | Rumuze Core is a NestJS API with a transactional outbox, webhook engine, Socket.IO realtime, and trace ID propagation, plus a Next.js dashboard. | verified | `rumuze/core` README | confirmed |
 | CR-019 | Rveta Connector is a Flutter app with device pairing, token rotation, and a foreground command channel. It is labelled "In development". | verified | `rumuze/connector-app` README | confirmed |
 | CR-020 | ~~Every request is reviewed within one business day.~~ | removed 2026-09-29 | The time commitment was unverified; copy now says requests are read and answered by email. | retired |
-| CR-021 | RumuzePMO includes tenant-isolation tooling and request tracing (homepage, Our work page, architecture diagram, engineering habits). | derived | Read from the `rumuze/rumuzePMO` README in an earlier review; could not be re-checked when this row was added | needs owner confirmation |
+| CR-021 | RumuzePMO includes tenant-isolation tooling and request tracing (homepage, Our work page, architecture diagram, engineering habits). | verified | `rumuze/rumuzepmo` at 224d619: `Tenant*Command` classes (coverage, enforce, query guard, table classifier), `RequestExecutionTraceMiddleware` (per-request `trace_id`), `/up` health route in `bootstrap/app.php` | confirmed |
 
 Do not publish: internal architecture scores, "known risks" lists, environment details, or any client name or figure until it has been approved and evidenced.
 
@@ -161,7 +161,6 @@ Do not publish: internal architecture scores, "known risks" lists, environment d
 
 | Item | Why |
 | --- | --- |
-| Tenant isolation and request tracing for RumuzePMO (CR-021) | On the homepage and Our work page; confirm against the repository or remove the wording. |
 | Email | Published in JSON-LD and footer from earlier configuration; unverified. |
 
 ### Confirmed by the owner (2026-09-29)
