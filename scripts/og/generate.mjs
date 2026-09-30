@@ -2,8 +2,7 @@
  * Regenerates public/og-image-en.png and public/og-image-ar.png (1200x630)
  * from scripts/og/template.html.
  *
- * Needs a Chromium build and `playwright-core` (not a project dependency):
- *   npm i --no-save playwright-core
+ * Needs a Chromium build; `playwright-core` comes with the `@playwright/test` dev dependency:
  *   CHROMIUM_PATH=/path/to/chrome node scripts/og/generate.mjs
  *
  * Remember to bump OG_IMAGE_VERSION in src/utils/MetaConfig.js
@@ -17,7 +16,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 const fontsDir = pathToFileURL(path.join(root, 'node_modules', '@fontsource')).href;
 
 const { chromium } = await import('playwright-core').catch(() => {
-  throw new Error('playwright-core is required: npm i --no-save playwright-core');
+  throw new Error('playwright-core is required: run npm install (it ships with @playwright/test)');
 });
 
 const variants = {

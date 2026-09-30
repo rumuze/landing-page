@@ -133,6 +133,29 @@ describe('search snippets', () => {
   });
 });
 
+describe('blog markup', () => {
+  const headings = (html) => [...html.matchAll(/<(h[1-6])[^>]*>([\s\S]*?)<\/h[1-6]>/g)].map((m) => ({ level: Number(m[1][1]), text: m[2].trim() }));
+  const templateHeadings = /^(Statement|Context|Explanation|Common Industry Mistakes|Company Perspective|البيان|السياق|التفسير|أخطاء الصناعة الشائعة|منظور روموز)$/;
+
+  it.each(blogPosts.map((post) => [post.slug, post]))('%s has clean, parallel headings', (_slug, post) => {
+    for (const lang of ['en', 'ar']) {
+      const html = post[lang].content;
+      expect(html, `${lang} has malformed tags`).not.toMatch(/<\s+\/?\s*[a-z]|<\/[a-z0-9]+\s+>/i);
+
+      const found = headings(html);
+      expect(found[0]?.level, `${lang} starts with an h2`).toBe(2);
+      found.forEach((heading, index) => {
+        const previous = found[index - 1]?.level ?? 1;
+        expect(heading.level - previous, `${lang}: "${heading.text}" jumps from h${previous} to h${heading.level}`).toBeLessThanOrEqual(1);
+        expect(heading.text, `${lang}: template heading`).not.toMatch(templateHeadings);
+      });
+    }
+    expect(headings(post.ar.content).map((h) => h.level), 'Arabic mirrors the English heading levels').toEqual(
+      headings(post.en.content).map((h) => h.level),
+    );
+  });
+});
+
 describe('claims guard', () => {
   // Phrases that were removed because they cannot be evidenced. See docs/CLAIMS_REGISTRY.md.
   const banned = [

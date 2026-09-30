@@ -48,6 +48,19 @@ export default defineConfig([
     },
   },
   {
+    // Browser tests and their config run in Node; Playwright fixtures are not React hooks.
+    files: ['e2e/**/*.js', 'playwright.config.js', 'scripts/**/*.mjs'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      globals: { ...globals.node, ...globals.browser },
+      parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+    },
+    rules: {
+      'react-hooks/rules-of-hooks': 'off',
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
+    },
+  },
+  {
     files: ['firebase-functions/**/*.js'],
     languageOptions: {
       ecmaVersion: 2020,

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
@@ -36,6 +37,11 @@ function AppContent() {
   const { needRefresh, applyUpdate, dismissUpdate } = usePwaUpdate();
   useLanguageSync(location.pathname);
   useChunkErrorRecovery(location.pathname);
+
+  // Lets browser tests (and anyone debugging) know the app is interactive.
+  useEffect(() => {
+    document.documentElement.dataset.hydrated = 'true';
+  }, []);
 
   return (
     <div className={`surface-page min-h-screen tech-grid transition-colors duration-300 ${isAr ? 'rtl' : 'ltr'}`}>

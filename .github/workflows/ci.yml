@@ -43,3 +43,22 @@ jobs:
       # or JSON-LD, fails the build.
       - name: Build and prerender
         run: npm run build
+
+      # Browser tests against the built site: routing and redirects, the contact
+      # form and dialog, crawler-facing HTML on every page, axe accessibility in
+      # both languages, and layout on a phone.
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser tests
+        run: npm run test:e2e
+
+      - name: Upload the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

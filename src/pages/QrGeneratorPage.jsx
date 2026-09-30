@@ -188,7 +188,7 @@ const QrGeneratorPage = () => {
                 <div className="w-10 h-10 rounded-xl bg-cyan/10 flex items-center justify-center mb-4 transition-colors">
                   <Icon size={20} className="text-cyan" />
                 </div>
-                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{f.title}</h3>
+                <h2 className="font-bold text-slate-900 dark:text-white mb-2">{f.title}</h2>
                 <p className="text-sm text-slate-600 dark:text-gray-400">{f.desc}</p>
               </Motion.div>
             );

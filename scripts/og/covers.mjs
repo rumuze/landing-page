@@ -12,7 +12,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const fontsDir = pathToFileURL(path.join(root, 'node_modules', '@fontsource')).href;
 const { chromium } = await import('playwright-core').catch(() => {
-  throw new Error('playwright-core is required: npm i --no-save playwright-core');
+  throw new Error('playwright-core is required: run npm install (it ships with @playwright/test)');
 });
 
 const covers = {
