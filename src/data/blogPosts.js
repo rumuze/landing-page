@@ -334,6 +334,185 @@ export const blogPosts = [
                 <p>تحدد RumuzePMO سياق المستأجر لكل طلب، وتطبق نطاق المستأجر عبر محرك الاستعلام، وتوفر أوامر لتصنيف الجداول والتحقق من السلامة والإبلاغ عن تغطية الفرض. ويمكن لوسيط حماية الكتابة أن يعمل في وضع الظل أو الفعّال أو الصارم.</p>
             `
         }
+    },
+    {
+        id: 'architecture-boundary-checks',
+        slug: 'architecture-boundary-checks',
+        date: '2026-10-04',
+        author: 'Mohamed Ashraf',
+        category: 'tech',
+        readTime: 5,
+        image: '/assets/images/blog/architecture-boundary-checks.jpg',
+        en: {
+            title: 'Checking Module Boundaries with Commands, Not Reviews',
+            excerpt: 'A modular monolith only stays modular while the boundaries are checked. Make the checks commands that run before every merge.',
+            content: `
+                <h2>A rule nobody checks stops being a rule</h2>
+                <p>A modular monolith works while its modules stay separate. The rule is easy to state: modules talk through contracts, never through each other's internals. It is just as easy to break, one convenient import at a time, and each break looks harmless in a review.</p>
+
+                <h2>Three places drift shows up</h2>
+                <ul>
+                    <li><strong>Module boundaries:</strong> a module reaches into another module's folders instead of its public contract.</li>
+                    <li><strong>Code:</strong> classes in one domain depend directly on classes in another.</li>
+                    <li><strong>Database:</strong> a foreign key or a join couples two modules' tables, which makes the modules impossible to separate later.</li>
+                </ul>
+
+                <h2>Make each check a command</h2>
+                <p>A check that has to be remembered will be skipped. A command can run in a hook and in CI. Each of the three drifts above deserves its own scan, plus one command that applies the architecture policy and reports a score, and one that snapshots the whole picture so changes between releases are visible.</p>
+
+                <h2>Report first, then block</h2>
+                <p>Run on an existing codebase, a new scan finds violations that already exist. Blocking on all of them on day one stops the team. Record the current state as the baseline, fail only on new violations, and bring the baseline down over time.</p>
+
+                <h2>Run them before the merge</h2>
+                <p>The cheapest moment to fix a boundary violation is before it lands. A pre-commit hook gives the developer the answer while the change is still in their head, and the same commands in CI catch anything that skipped the hook.</p>
+
+                <h2>In our own products</h2>
+                <p>RumuzePMO ships these as artisan commands: an architecture check, scans for module boundaries, code dependencies and database dependencies, and a cross-module snapshot. It also ships a pre-commit hook for the architecture checks, installed with one script, so the rule is enforced by tooling instead of by memory.</p>
+            `
+        },
+        ar: {
+            title: 'فحص حدود الوحدات بالأوامر لا بالمراجعة',
+            excerpt: 'الكتلة المعيارية لا تبقى معيارية إلا إذا فُحصت حدودها. اجعل الفحوصات أوامر تعمل قبل كل دمج.',
+            content: `
+                <h2>قاعدة لا يفحصها أحد تتوقف عن كونها قاعدة</h2>
+                <p>تعمل الكتلة المعيارية ما دامت وحداتها منفصلة. والقاعدة سهلة الصياغة: تتواصل الوحدات عبر العقود لا عبر الأجزاء الداخلية لبعضها. وهي سهلة الكسر كذلك، استيرادًا مريحًا بعد آخر، وكل كسر يبدو بريئًا في المراجعة.</p>
+
+                <h2>ثلاثة أماكن يظهر فيها الانحراف</h2>
+                <ul>
+                    <li><strong>حدود الوحدات:</strong> وحدة تدخل في مجلدات وحدة أخرى بدل عقدها العام.</li>
+                    <li><strong>الكود:</strong> فئات في مجال تعتمد مباشرة على فئات في مجال آخر.</li>
+                    <li><strong>قاعدة البيانات:</strong> مفتاح أجنبي أو join يربط جداول وحدتين، فيصبح فصلهما لاحقًا مستحيلًا.</li>
+                </ul>
+
+                <h2>اجعل كل فحص أمرًا</h2>
+                <p>الفحص الذي يجب تذكّره سيُنسى. أما الأمر فيعمل في hook وفي CI. يستحق كل انحراف من الثلاثة فحصًا خاصًا، مع أمر يطبّق سياسة المعمارية ويعطي درجة، وآخر يلتقط صورة للمشهد كله ليظهر ما تغيّر بين الإصدارات.</p>
+
+                <h2>أبلِغ أولًا ثم امنع</h2>
+                <p>عند تشغيل فحص جديد على كود قائم تظهر مخالفات موجودة أصلًا. منع كل شيء من اليوم الأول يوقف الفريق. سجّل الوضع الحالي كخط أساس، وافشل فقط عند المخالفات الجديدة، ثم اخفض خط الأساس مع الوقت.</p>
+
+                <h2>شغّلها قبل الدمج</h2>
+                <p>أرخص وقت لإصلاح مخالفة حدود هو قبل أن تدخل. يعطي pre-commit hook المطوّر الجواب والتغيير ما زال في ذهنه، وتلتقط الأوامر نفسها في CI ما تجاوز الـ hook.</p>
+
+                <h2>في منتجاتنا</h2>
+                <p>تقدّم RumuzePMO هذه الفحوصات كأوامر artisan: فحص للمعمارية، وفحص لحدود الوحدات والاعتماد في الكود والاعتماد في قاعدة البيانات، ولقطة معمارية بين الوحدات. وتتضمن pre-commit hook لفحوصات المعمارية يُثبَّت بسكربت واحد، فتُفرض القاعدة بالأدوات لا بالذاكرة.</p>
+            `
+        }
+    },
+    {
+        id: 'health-checks-release-order',
+        slug: 'health-checks-release-order',
+        date: '2026-10-04',
+        author: 'Mohamed Ashraf',
+        category: 'tech',
+        readTime: 5,
+        image: '/assets/images/blog/health-checks-release-order.jpg',
+        en: {
+            title: 'Health Checks and a Fixed Release Order for a Docker Stack',
+            excerpt: 'A deploy is not finished when the command returns. Check health at every layer, wait with a timeout, and keep the release steps in one order.',
+            content: `
+                <h2>A returned command is not a healthy system</h2>
+                <p>A deploy script that exits with zero has only proved that its commands ran. The containers may be restarting, the database may still be starting, or the application may be up and unable to reach its queue. Health has to be asked, not assumed.</p>
+
+                <h2>Ask at every layer</h2>
+                <p>One check at the front door hides which layer is failing. Give each service its own check, close to what it does: the application process answers a ping, the web server serves a health path, the database answers a ping, the cache answers a ping. When something is red, the check already says where.</p>
+
+                <h2>Wait with a timeout</h2>
+                <p>Services take time to become ready, so a script should poll instead of sleeping for a guessed number of seconds. Poll every couple of seconds, stop at a clear limit, and fail with a message naming the service. A deploy that waits forever is as bad as one that does not wait.</p>
+
+                <h2>Keep the release steps in one order</h2>
+                <p>The order matters. Migrate the schema first, because the new code may need it. Rebuild caches next, so they describe the new code. Reload the workers so they stop running the old code. Verify the health endpoint last, because it is the proof that everything above worked. Write the order down once and let the script own it.</p>
+
+                <h2>Separate "alive" from "which version"</h2>
+                <p>A health check says the system is alive. It does not say what is running. A small version endpoint, separate from the health check, answers the question you ask right after a release: did the new build go live?</p>
+
+                <h2>In our own products</h2>
+                <p>The Rveta stack gives the application, the web server, MySQL and Redis each their own container check, and its bootstrap script waits for services to report healthy within a timeout before continuing. RumuzePMO's deploy script follows the order above and ends by checking its health route. Rumuze Core exposes its running version on an internal endpoint that is separate from its health check.</p>
+            `
+        },
+        ar: {
+            title: 'فحوصات الصحة وترتيب ثابت للإصدار في بيئة Docker',
+            excerpt: 'النشر لا ينتهي عند عودة الأمر. افحص الصحة في كل طبقة، وانتظر بمهلة، وأبقِ خطوات الإصدار بترتيب واحد.',
+            content: `
+                <h2>عودة الأمر لا تعني نظامًا سليمًا</h2>
+                <p>سكربت النشر الذي ينتهي بصفر أثبت فقط أن أوامره عملت. قد تكون الحاويات تعيد التشغيل، أو قاعدة البيانات ما زالت تبدأ، أو التطبيق يعمل ولا يصل إلى الطابور. الصحة تُسأل ولا تُفترض.</p>
+
+                <h2>اسأل في كل طبقة</h2>
+                <p>فحص واحد عند الباب الأمامي يخفي أي طبقة تفشل. أعطِ كل خدمة فحصها الخاص القريب مما تفعله: عملية التطبيق تجيب على ping، وخادم الويب يخدم مسار صحة، وقاعدة البيانات تجيب على ping، والكاش كذلك. وحين يظهر الأحمر يقول الفحص أين المشكلة.</p>
+
+                <h2>انتظر بمهلة</h2>
+                <p>تحتاج الخدمات وقتًا لتصبح جاهزة، فعلى السكربت أن يستعلم بدل أن ينام عددًا مخمّنًا من الثواني. استعلم كل ثانيتين تقريبًا، وتوقف عند حد واضح، وافشل برسالة تسمّي الخدمة. نشر ينتظر إلى الأبد سيئ كنشر لا ينتظر.</p>
+
+                <h2>أبقِ خطوات الإصدار بترتيب واحد</h2>
+                <p>الترتيب مهم. رحّل المخطط أولًا لأن الكود الجديد قد يحتاجه. ثم أعد بناء الكاش ليصف الكود الجديد. ثم أعد تشغيل العمّال ليتوقفوا عن تشغيل الكود القديم. وتحقق من نقطة الصحة أخيرًا لأنها دليل أن كل ما سبق نجح. اكتب الترتيب مرة واحدة ودع السكربت يملكه.</p>
+
+                <h2>افصل «حي» عن «أي إصدار»</h2>
+                <p>فحص الصحة يقول إن النظام حي، ولا يقول ما الذي يعمل. نقطة إصدار صغيرة منفصلة عن فحص الصحة تجيب على السؤال الذي تطرحه بعد كل إصدار: هل نُشر البناء الجديد؟</p>
+
+                <h2>في منتجاتنا</h2>
+                <p>تعطي بيئة Rveta كلًا من التطبيق وخادم الويب وMySQL وRedis فحص حاوية خاصًا، ويقوم سكربت التهيئة فيها بانتظار الخدمات حتى تصبح سليمة ضمن مهلة قبل المتابعة. ويتبع سكربت نشر RumuzePMO الترتيب أعلاه وينتهي بفحص مسار الصحة. وتعرض Rumuze Core الإصدار العامل على نقطة داخلية منفصلة عن فحص الصحة.</p>
+            `
+        }
+    },
+    {
+        id: 'device-token-lifecycle',
+        slug: 'device-token-lifecycle',
+        date: '2026-10-04',
+        author: 'Mohamed Ashraf',
+        category: 'tech',
+        readTime: 6,
+        image: '/assets/images/blog/device-token-lifecycle.jpg',
+        en: {
+            title: 'Device Tokens: Expiry, Revocation and Rotation',
+            excerpt: 'A paired device is not a signed-in user. Name every way its token can fail, rotate without locking it out, and never show the token.',
+            content: `
+                <h2>A device is not a user</h2>
+                <p>An app that pairs a device to a backend holds a long-lived credential that nobody types. It can expire, be revoked by an administrator, or belong to a device that was suspended. If the app treats all of these as "something went wrong", the person using it cannot tell what to do next.</p>
+
+                <h2>Name every failure</h2>
+                <p>Give each backend answer its own state: token missing, invalid, expired or revoked, and device revoked, inactive or suspended. Map them in one place, so every screen shows the same, correct message and offers the right action: pair again, wait for reactivation, or contact an administrator.</p>
+
+                <h2>Rotate without locking the device out</h2>
+                <p>Rotation replaces the credential before it becomes a problem. The order is what keeps the device connected: receive the new token, store it securely, then refresh the session state. Clearing the local session is a separate, deliberate action. It removes what is on the device and says so before it does, and it does not pretend to revoke anything on the server.</p>
+
+                <h2>Never show the token</h2>
+                <p>A token must not appear in the interface, in logs, or in an error message. Screens read a presentation status from the mapper instead of raw backend text or headers, which removes the easiest way for a secret to leak.</p>
+
+                <h2>Two credentials, two jobs</h2>
+                <p>When a person operates a device, there are two identities: the device and the person acting through it. Keep two credentials with documented rules for which request carries which, and never let the person's token stand in for the device's.</p>
+
+                <h2>Keep command polling honest</h2>
+                <p>Before a real background runtime exists, a foreground poll is the honest version. It runs on a visible timer while the screen is open, stops when the session is no longer authenticated, executes only commands it understands, and reports the rest as unsupported instead of guessing.</p>
+
+                <h2>In our own products</h2>
+                <p>Rveta Connector, still in development, follows this: seven distinct token and device states, rotation that stores the new token before refreshing, a local clear that does not touch the server, separate actor and device credentials, and a 30-second foreground poll that runs only ping and a status refresh. It has no native gateway runtime yet, and its pages say so.</p>
+            `
+        },
+        ar: {
+            title: 'رموز الأجهزة: انتهاء الصلاحية والإلغاء والتدوير',
+            excerpt: 'الجهاز المقترن ليس مستخدمًا مسجّلًا. سمِّ كل طرق فشل رمزه، وأدِّر الرمز دون أن تُقفل الجهاز، ولا تعرض الرمز أبدًا.',
+            content: `
+                <h2>الجهاز ليس مستخدمًا</h2>
+                <p>التطبيق الذي يقرن جهازًا بالخادم يحمل بيانات اعتماد طويلة العمر لا يكتبها أحد. قد تنتهي صلاحيتها، أو يلغيها مسؤول، أو تخص جهازًا أُوقف. وإن عاملها التطبيق كلها على أنها «حدث خطأ» فلن يعرف المستخدم ماذا يفعل بعد ذلك.</p>
+
+                <h2>سمِّ كل فشل</h2>
+                <p>أعطِ كل جواب من الخادم حالته: الرمز مفقود أو غير صالح أو منتهي أو ملغى، والجهاز ملغى أو غير نشط أو موقوف. حوّلها في مكان واحد ليعرض كل شاشة الرسالة الصحيحة نفسها ويقترح الإجراء المناسب: اقتران جديد، أو انتظار إعادة التفعيل، أو التواصل مع المسؤول.</p>
+
+                <h2>دوّر دون أن تُقفل الجهاز</h2>
+                <p>التدوير يستبدل بيانات الاعتماد قبل أن تصبح مشكلة. والترتيب هو ما يبقي الجهاز متصلًا: استلم الرمز الجديد، ثم خزّنه بأمان، ثم حدّث حالة الجلسة. أما مسح الجلسة المحلية فإجراء منفصل ومقصود، يزيل ما على الجهاز ويقول ذلك قبل أن يفعل، ولا يدّعي أنه ألغى شيئًا على الخادم.</p>
+
+                <h2>لا تعرض الرمز أبدًا</h2>
+                <p>يجب ألا يظهر الرمز في الواجهة ولا في السجلات ولا في رسالة خطأ. تقرأ الشاشات حالة العرض من المحوِّل بدل نص الخادم الخام أو ترويساته، فيزول أسهل طريق لتسريب سر.</p>
+
+                <h2>بيانات اعتماد اثنتان لمهمتين</h2>
+                <p>حين يشغّل شخص جهازًا توجد هويتان: الجهاز والشخص الذي يعمل عبره. أبقِ بيانات اعتماد منفصلة مع قواعد موثقة لأي طلب يحمل أيًّا منها، ولا تدع رمز الشخص يحل محل رمز الجهاز.</p>
+
+                <h2>اجعل استعلام الأوامر صادقًا</h2>
+                <p>قبل وجود تشغيل خلفي حقيقي، يكون الاستعلام في المقدمة هو النسخة الصادقة. يعمل بمؤقّت ظاهر ما دامت الشاشة مفتوحة، ويتوقف حين لا تعود الجلسة موثّقة، وينفّذ فقط الأوامر التي يفهمها، ويبلغ عن الباقي بأنه غير مدعوم بدل أن يخمّن.</p>
+
+                <h2>في منتجاتنا</h2>
+                <p>يتبع Rveta Connector، وهو ما زال قيد التطوير، هذا النهج: سبع حالات متمايزة للرمز والجهاز، وتدوير يخزّن الرمز الجديد قبل التحديث، ومسح محلي لا يمس الخادم، وبيانات اعتماد منفصلة للممثل والجهاز، واستعلام في المقدمة كل 30 ثانية ينفّذ ping وتحديث الحالة فقط. وليس له تشغيل أصلي للبوابة بعد، وصفحاته تقول ذلك.</p>
+            `
+        }
     }
 ];
 

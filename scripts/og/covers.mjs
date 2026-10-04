@@ -21,6 +21,9 @@ const covers = {
   'arabic-and-english-one-codebase': ['AR&nbsp;&#8596;&nbsp;EN', 'Bilingual systems'],
   'flutter-driver-app-risky-parts': ['Flutter<br>in the field', 'Mobile'],
   'tenant-isolation-modular-monolith': ['Tenant<br>Isolation', 'Multi-tenancy'],
+  'architecture-boundary-checks': ['Boundary<br>checks', 'Architecture'],
+  'health-checks-release-order': ['Health<br>checks', 'Operations'],
+  'device-token-lifecycle': ['Device<br>tokens', 'Security'],
 };
 
 const template = fs.readFileSync(path.join(root, 'scripts/og/template.html'), 'utf8');

@@ -141,6 +141,9 @@ The homepage, portfolio page, navigation, intake form, and page metadata were re
 | CR-023 | Rveta product page: driver app features, state management, biometric lock, background tracking, Firebase push. | verified | `rumuze/rveta-delivery-app` README and `lib/`; backend edge and workers from `rumuze/rveta.com` `compose.yml` | confirmed |
 | CR-024 | Rumuze Core product page: EventBus, outbox, webhook engine, Socket.IO, Nginx and Let's Encrypt, version endpoint. | verified | `rumuze/core` README | confirmed |
 | CR-025 | Rveta Connector product page, including the list of what is not built yet. | verified | `rumuze/connector-app` README (Current MVP Status, Not Implemented Yet) | confirmed |
+| CR-026 | Blog: RumuzePMO ships architecture and domain scan commands and an installable pre-commit hook. | verified | `rumuzepmo` README (Architecture Governance, Git Hook), `app/Console/Commands` | confirmed |
+| CR-027 | Blog: Rveta stack has per-service container checks and a bootstrap that waits for health with a timeout; RumuzePMO deploy order is migrate, optimize, reload, `/up`; Core has a separate version endpoint. | verified | `rveta.com` `compose.yml` and `scripts/prod-bootstrap.sh`; `rumuzepmo` `deploy.sh`; `core` README | confirmed |
+| CR-028 | Blog: Rveta Connector token and device states, rotation, local clear, actor and device credentials, 30-second foreground polling limited to ping and refresh_status. | verified | `connector-app` README (Connector Auth Mapping, Actor Auth Boundary, Command Channel Safety) | confirmed |
 
 Do not publish: internal architecture scores, "known risks" lists, environment details, or any client name or figure until it has been approved and evidenced.
 
