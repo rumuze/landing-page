@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const variantClasses = {
   primary:
-    "border border-cyan bg-cyan text-slate-950 shadow-[0_18px_38px_-24px_rgba(0,229,255,0.6)] hover:-translate-y-0.5 hover:bg-cyan/90 hover:shadow-[0_22px_44px_-24px_rgba(0,229,255,0.62)] active:translate-y-0",
+    "border border-cyan bg-cyan text-slate-950 shadow-none hover:-translate-y-0.5 hover:bg-cyan/90 hover:shadow-none active:translate-y-0",
   secondary:
     "border border-[rgb(var(--border-strong)/0.76)] bg-[rgb(var(--surface-card)/0.92)] text-slate-900 shadow-[0_16px_34px_-26px_rgba(15,23,42,0.18)] hover:-translate-y-0.5 hover:border-cyan/30 hover:bg-[rgb(var(--surface-card-soft)/0.98)] hover:text-slate-950 hover:shadow-[0_20px_40px_-28px_rgba(15,23,42,0.22)] active:translate-y-0 dark:border-[rgb(var(--border-subtle)/0.82)] dark:bg-[rgb(var(--surface-card)/0.72)] dark:text-white dark:hover:border-cyan/35 dark:hover:bg-[rgb(var(--surface-card-soft)/0.76)]",
   "secondary-dark":

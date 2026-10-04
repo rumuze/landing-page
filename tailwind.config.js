@@ -68,17 +68,12 @@ export default {
       },
       animation: {
         'marquee': 'marquee 25s linear infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
       },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(0%)' },
           '100%': { transform: 'translateX(-100%)' },
         },
-        glow: {
-          '0%': { boxShadow: '0 0 5px rgba(0, 229, 255, 0.2)' },
-          '100%': { boxShadow: '0 0 20px rgba(0, 229, 255, 0.6)' },
-        }
       }
     },
   },

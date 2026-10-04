@@ -62,7 +62,7 @@ const Profile = () => {
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    <div className="flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-cyan text-3xl font-semibold text-slate-950 shadow-[0_10px_30px_rgba(0,229,255,0.25)]">
+                    <div className="flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-cyan text-3xl font-semibold text-slate-950 shadow-none">
                       {avatarInitial}
                     </div>
                   )}

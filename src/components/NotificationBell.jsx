@@ -52,7 +52,7 @@ const NotificationBell = ({ isRtl = false, className = '' }) => {
           w-9 h-9 rounded-xl
           border transition-all duration-200
           ${isOpen
-            ? 'border-cyan/50 bg-cyan/10 text-cyan shadow-[0_0_0_3px_rgba(0,229,255,0.12)]'
+            ? 'border-cyan/50 bg-cyan/10 text-cyan shadow-none'
             : 'border-slate-200 dark:border-white/10 bg-transparent text-slate-600 dark:text-gray-300 hover:border-cyan/40 hover:text-cyan dark:hover:text-cyan hover:bg-cyan/5'
           }
         `}
