@@ -513,6 +513,183 @@ export const blogPosts = [
                 <p>يتبع Rveta Connector، وهو ما زال قيد التطوير، هذا النهج: سبع حالات متمايزة للرمز والجهاز، وتدوير يخزّن الرمز الجديد قبل التحديث، ومسح محلي لا يمس الخادم، وبيانات اعتماد منفصلة للممثل والجهاز، واستعلام في المقدمة كل 30 ثانية ينفّذ ping وتحديث الحالة فقط. وليس له تشغيل أصلي للبوابة بعد، وصفحاته تقول ذلك.</p>
             `
         }
+    },
+    {
+        id: 'answer-engine-optimization-basics',
+        slug: 'answer-engine-optimization-basics',
+        date: '2026-10-04',
+        author: 'Mohamed Ashraf',
+        category: 'marketing',
+        readTime: 6,
+        image: '/assets/images/blog/answer-engine-optimization-basics.jpg',
+        en: {
+            title: 'Answer Engines: What AEO and GEO Actually Change',
+            excerpt: 'Answer engines read your site and summarise it for someone else. Most of AEO and GEO is making that reading easy and accurate.',
+            content: `
+                <h2>The reader is no longer only a person</h2>
+                <p>Search engines list pages. Answer engines read pages and write an answer, often without the visitor ever opening your site. Whether your company is described correctly in that answer depends on how readable and consistent your site is to a machine. That is the whole subject of answer-engine optimisation (AEO) and generative-engine optimisation (GEO).</p>
+
+                <h2>Start with pages a crawler can read</h2>
+                <p>If the content only exists after JavaScript runs, many crawlers see an empty page. Render the page's real content into the HTML that is served, so the first response already contains the headings, the text, and the links.</p>
+
+                <h2>Say who you are in one consistent place</h2>
+                <p>Answer engines combine many sources. If your name, location, services and contact details differ between your site, your profiles and your listings, the summary will be a blend of them. Pick one wording and use it everywhere, starting with a clear description of what the company does on the home page.</p>
+
+                <h2>Structured data must match the visible page</h2>
+                <p>JSON-LD helps a machine read a page, but only when it describes what a visitor can also see. Questions and answers in structured data should be the same ones printed on the page. Data that claims more than the page does is a reason to be ignored.</p>
+
+                <h2>Write answers, not slogans</h2>
+                <p>A page that opens with the direct answer to a question, then explains it, is easy to quote. Use headings that are real questions or clear statements, keep each section to one idea, and avoid claims you cannot support, because an engine will repeat them.</p>
+
+                <h2>Give crawlers and models a summary</h2>
+                <p>A plain-text file such as llms.txt at the site root can summarise the company and link to the key pages for language models. It is a convenience, not a ranking switch, and it is only useful if it is accurate. Keep robots rules explicit about which crawlers are welcome.</p>
+
+                <h2>On our own site</h2>
+                <p>This site renders every public page to static HTML at build time in both languages, generates its structured data from the same content shown on the page, lists the search and answer-engine crawlers it welcomes in robots.txt, and publishes an llms.txt summary. None of this promises a result: it removes reasons for a machine to misread us.</p>
+            `
+        },
+        ar: {
+            title: 'محركات الإجابة: ما الذي تغيّره AEO وGEO فعلاً',
+            excerpt: 'محركات الإجابة تقرأ موقعك وتلخصه لشخص آخر. وأغلب AEO وGEO أن تجعل هذه القراءة سهلة ودقيقة.',
+            content: `
+                <h2>القارئ لم يعد شخصاً فقط</h2>
+                <p>محركات البحث تسرد الصفحات. أما محركات الإجابة فتقرأ الصفحات وتكتب إجابة، وغالباً دون أن يفتح الزائر موقعك أصلاً. ووصف شركتك في تلك الإجابة بشكل صحيح يعتمد على مدى وضوح موقعك واتساقه للآلة. وهذا هو موضوع تحسين محركات الإجابة (AEO) وتحسين المحركات التوليدية (GEO) كله.</p>
+
+                <h2>ابدأ بصفحات يستطيع الزاحف قراءتها</h2>
+                <p>إن كان المحتوى لا يظهر إلا بعد تشغيل JavaScript فإن زواحف كثيرة ترى صفحة فارغة. اعرض المحتوى الحقيقي للصفحة داخل HTML المُقدَّم، فتحتوي الاستجابة الأولى على العناوين والنص والروابط.</p>
+
+                <h2>قل من أنت في مكان واحد متسق</h2>
+                <p>تجمع محركات الإجابة بين مصادر كثيرة. فإن اختلف اسمك وموقعك وخدماتك وبيانات التواصل بين موقعك وحساباتك وقوائمك، جاء الملخص مزيجاً منها. اختر صياغة واحدة واستخدمها في كل مكان، بدءاً بوصف واضح لما تفعله الشركة في الصفحة الرئيسية.</p>
+
+                <h2>يجب أن تطابق البيانات المنظمة الصفحة المرئية</h2>
+                <p>يساعد JSON-LD الآلة على قراءة الصفحة، لكن فقط حين يصف ما يراه الزائر أيضاً. وينبغي أن تكون الأسئلة والأجوبة في البيانات المنظمة هي نفسها المطبوعة في الصفحة. فالبيانات التي تدّعي أكثر مما تقوله الصفحة سبب لتجاهلها.</p>
+
+                <h2>اكتب إجابات لا شعارات</h2>
+                <p>الصفحة التي تبدأ بالإجابة المباشرة عن سؤال ثم تشرحها سهلة الاقتباس. استخدم عناوين هي أسئلة حقيقية أو عبارات واضحة، واجعل كل قسم لفكرة واحدة، وتجنب ادعاءات لا تستطيع إثباتها لأن المحرك سيكررها.</p>
+
+                <h2>أعطِ الزواحف والنماذج ملخصاً</h2>
+                <p>يمكن لملف نصي مثل llms.txt في جذر الموقع أن يلخص الشركة ويربط بصفحاتها الرئيسية للنماذج اللغوية. وهو تسهيل لا مفتاح ترتيب، ولا يفيد إلا إذا كان دقيقاً. وأبقِ قواعد robots صريحة بشأن الزواحف المرحَّب بها.</p>
+
+                <h2>في موقعنا</h2>
+                <p>يعرض هذا الموقع كل صفحة عامة كـ HTML ثابت وقت البناء باللغتين، ويولّد بياناته المنظمة من المحتوى نفسه المعروض في الصفحة، ويسرد في robots.txt زواحف البحث والإجابة المرحَّب بها، وينشر ملخص llms.txt. لا شيء من هذا يعد بنتيجة: هو يزيل أسباب سوء قراءة الآلة لنا.</p>
+            `
+        }
+    },
+    {
+        id: 'arabic-seo-is-not-translated-seo',
+        slug: 'arabic-seo-is-not-translated-seo',
+        date: '2026-10-04',
+        author: 'Mohamed Ashraf',
+        category: 'marketing',
+        readTime: 5,
+        image: '/assets/images/blog/arabic-seo-is-not-translated-seo.jpg',
+        en: {
+            title: 'Arabic SEO Is Not Translated English SEO',
+            excerpt: 'People search in Arabic differently from English. Treat each language as its own search target, with its own metadata and content.',
+            content: `
+                <h2>Two audiences, two sets of queries</h2>
+                <p>A translated page answers the English query in Arabic words. It does not answer the question an Arabic speaker would type. Arabic has spelling variants, dialect words, and phrasing that differs from English even when the meaning is the same. Search for each language separately, with its own keyword research.</p>
+
+                <h2>Give each language its own address</h2>
+                <p>Put each language on its own URL, for example a /ar path, rather than switching the language with a cookie or a script. Search engines index addresses, so a language that only appears after a click can be invisible.</p>
+
+                <h2>Link the versions with hreflang</h2>
+                <p>Tell search engines that the English and Arabic pages are versions of each other. Each page should list both alternates and point to itself, and the sitemap should carry the same pairs. Without this, the two pages can compete or the wrong one can be shown.</p>
+
+                <h2>Write the metadata in Arabic</h2>
+                <p>Title, description, headings and structured data should be written for the Arabic page, not copied in English. A search result in the wrong language, or a title cut off by a long translation, loses the click.</p>
+
+                <h2>Check right-to-left layout is part of quality</h2>
+                <p>Mirrored layout, correct punctuation, and numbers that read properly are part of how a page is judged by visitors. Slow or broken Arabic pages lose people before the content has a chance.</p>
+
+                <h2>On our own site</h2>
+                <p>Every public page here exists at its own English and Arabic address, links both with hreflang and in the sitemap, and has Arabic titles, descriptions and headings written for it. Arabic uses its own font files, loaded before the first paint, so the page appears quickly.</p>
+            `
+        },
+        ar: {
+            title: 'SEO بالعربية ليس SEO إنجليزياً مترجماً',
+            excerpt: 'يبحث الناس بالعربية بطريقة تختلف عن الإنجليزية. تعامل مع كل لغة كهدف بحث مستقل ببياناتها الوصفية ومحتواها.',
+            content: `
+                <h2>جمهوران وصيغتا استعلام</h2>
+                <p>الصفحة المترجمة تجيب عن الاستعلام الإنجليزي بكلمات عربية، ولا تجيب عن السؤال الذي سيكتبه متحدث العربية. فللعربية تنويعات إملائية وكلمات لهجية وصياغة تختلف عن الإنجليزية حتى مع تطابق المعنى. ابحث لكل لغة على حدة، ولكلٍ منها بحث كلمات مفتاحية خاص.</p>
+
+                <h2>أعطِ كل لغة عنوانها</h2>
+                <p>ضع كل لغة على عنوان URL خاص، مثل مسار /ar، بدل تبديل اللغة بملف تعريف ارتباط أو سكربت. فمحركات البحث تفهرس العناوين، واللغة التي لا تظهر إلا بعد نقرة قد تكون غير مرئية.</p>
+
+                <h2>اربط النسختين بـ hreflang</h2>
+                <p>أخبر محركات البحث أن الصفحتين الإنجليزية والعربية نسختان من بعضهما. ينبغي أن تسرد كل صفحة البديلين وتشير إلى نفسها، وأن تحمل خريطة الموقع الأزواج نفسها. بدون ذلك قد تتنافس الصفحتان أو تظهر الصفحة الخاطئة.</p>
+
+                <h2>اكتب البيانات الوصفية بالعربية</h2>
+                <p>يجب أن يُكتب العنوان والوصف والعناوين الفرعية والبيانات المنظمة للصفحة العربية لا أن تُنسخ بالإنجليزية. فنتيجة بحث بلغة خاطئة أو عنوان مقطوع بسبب ترجمة طويلة يخسر النقرة.</p>
+
+                <h2>التخطيط من اليمين لليسار جزء من الجودة</h2>
+                <p>التخطيط المعكوس وعلامات الترقيم الصحيحة والأرقام المقروءة جزء من حكم الزوار على الصفحة. والصفحات العربية البطيئة أو المكسورة تخسر الناس قبل أن تتاح للمحتوى فرصة.</p>
+
+                <h2>في موقعنا</h2>
+                <p>كل صفحة عامة هنا لها عنوانها الإنجليزي والعربي، وتربطهما hreflang وخريطة الموقع، ولها عناوين وأوصاف عربية مكتوبة لها. وتستخدم العربية ملفات خطوطها الخاصة التي تُحمَّل قبل أول رسم، فتظهر الصفحة بسرعة.</p>
+            `
+        }
+    },
+    {
+        id: 'track-leads-before-ad-spend',
+        slug: 'track-leads-before-ad-spend',
+        date: '2026-10-04',
+        author: 'Mohamed Ashraf',
+        category: 'marketing',
+        readTime: 5,
+        image: '/assets/images/blog/track-leads-before-ad-spend.jpg',
+        en: {
+            title: 'Set Up Lead Tracking Before You Spend on Ads',
+            excerpt: 'Ad reports that count clicks cannot tell you which campaign produced a customer. Decide what counts as a lead and measure it first.',
+            content: `
+                <h2>A click is not a lead</h2>
+                <p>Most ad dashboards report impressions and clicks because those are easy to count. A business cares about enquiries and sales. Until the second kind of number is measured, spending more cannot be judged to have worked or not.</p>
+
+                <h2>Decide what counts as a result</h2>
+                <p>Write down the events that matter: a submitted form, a click on a phone number, a message sent on a chat button, a booked call. Agree on them before the campaign starts, and give each a name that will not change.</p>
+
+                <h2>Capture where the lead came from</h2>
+                <p>Record the source when a lead arrives: the campaign tag in the address, or at minimum the page and referrer. A form that records the source, the type of enquiry and the market lets you compare channels without asking customers to remember.</p>
+
+                <h2>Count the leads that do not arrive through the form</h2>
+                <p>Phone calls and chat messages are often the majority of enquiries for service businesses and are the easiest to miss. Track clicks on call and chat buttons as events, and keep a simple way to log calls that come in directly.</p>
+
+                <h2>Respect consent</h2>
+                <p>Do not record visitors before they agree where agreement is required. Measure what you are allowed to, say what you record, and make declining the same effort as accepting. Reports built on consented data are smaller and trustworthy.</p>
+
+                <h2>Test the tracking before the budget</h2>
+                <p>Submit a test enquiry from a phone, from a desktop, in Arabic and in English, and confirm that each one appears with the right source. A small test costs nothing; a month of untracked spend does.</p>
+
+                <h2>On our own site</h2>
+                <p>Our contact form records the type of enquiry, the market, the systems in use and the source of each request, and visit tracking only starts after a visitor accepts. We use the same approach when we set up measurement for clients.</p>
+            `
+        },
+        ar: {
+            title: 'جهّز تتبع العملاء المحتملين قبل أن تنفق على الإعلانات',
+            excerpt: 'تقارير الإعلانات التي تعدّ النقرات لا تخبرك أي حملة جلبت عميلاً. حدد ما يُعدّ عميلاً محتملاً وقِسه أولاً.',
+            content: `
+                <h2>النقرة ليست عميلاً</h2>
+                <p>تعرض أغلب لوحات الإعلانات مرات الظهور والنقرات لأنها سهلة العد. أما النشاط التجاري فيهمه الاستفسارات والمبيعات. وإلى أن يُقاس النوع الثاني من الأرقام لا يمكن الحكم بأن زيادة الإنفاق نجحت أو لم تنجح.</p>
+
+                <h2>حدد ما يُعدّ نتيجة</h2>
+                <p>اكتب الأحداث المهمة: نموذج مُرسَل، أو نقرة على رقم هاتف، أو رسالة عبر زر محادثة، أو مكالمة محجوزة. اتفق عليها قبل بدء الحملة وأعطِ كلًّا منها اسماً لا يتغير.</p>
+
+                <h2>سجّل مصدر العميل المحتمل</h2>
+                <p>سجّل المصدر عند وصول العميل: وسم الحملة في العنوان، أو على الأقل الصفحة والمُحيل. والنموذج الذي يسجل المصدر ونوع الاستفسار والسوق يتيح لك مقارنة القنوات دون أن تطلب من العملاء تذكّرها.</p>
+
+                <h2>عدّ العملاء الذين لا يصلون عبر النموذج</h2>
+                <p>المكالمات الهاتفية ورسائل المحادثة غالباً أكثر الاستفسارات لدى شركات الخدمات وأسهلها فوتاً. تتبع النقرات على أزرار الاتصال والمحادثة كأحداث، وأبقِ طريقة بسيطة لتسجيل المكالمات الواردة مباشرة.</p>
+
+                <h2>احترم الموافقة</h2>
+                <p>لا تسجّل الزوار قبل أن يوافقوا حيث تكون الموافقة مطلوبة. قِس ما يُسمح لك به، وقل ما تسجله، واجعل الرفض بنفس سهولة القبول. التقارير المبنية على بيانات موافَق عليها أصغر لكنها موثوقة.</p>
+
+                <h2>اختبر التتبع قبل الميزانية</h2>
+                <p>أرسل استفساراً تجريبياً من الهاتف ومن الحاسوب، بالعربية وبالإنجليزية، وتأكد أن كلًّا منها يظهر بالمصدر الصحيح. اختبار صغير لا يكلف شيئاً، أما شهر من الإنفاق غير المتتبَّع فيكلف.</p>
+
+                <h2>في موقعنا</h2>
+                <p>يسجل نموذج التواصل لدينا نوع الاستفسار والسوق والأنظمة المستخدمة ومصدر كل طلب، ولا يبدأ تتبع الزيارات إلا بعد موافقة الزائر. ونستخدم النهج نفسه عند إعداد القياس للعملاء.</p>
+            `
+        }
     }
 ];
 
