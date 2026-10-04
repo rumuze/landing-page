@@ -22,9 +22,8 @@ const DEFAULT_BUTTON_CLASSNAME = [
   'relative',
   'flex h-12 w-12 items-center justify-center rounded-full',
   'border border-white/20 bg-emerald-500 text-white',
-  'shadow-[0_18px_38px_rgba(22,163,74,0.32)]',
-  'backdrop-blur-xl transition duration-200 ease-out',
-  'hover:scale-110 hover:shadow-[0_22px_46px_rgba(22,163,74,0.42)]',
+  'shadow-sm transition duration-200 ease-out',
+  'hover:opacity-90',
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
 ].join(' ');
 
