@@ -14,7 +14,7 @@
  * Usage: node scripts/verify-build.js
  */
 
-import { readdirSync, statSync } from 'fs';
+import { readdirSync, readFileSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -61,6 +61,14 @@ function verifyBuild() {
                     hasErrors = true;
                 }
             }
+        }
+
+        // The Firebase SDK is loaded after the page settles. If the home page
+        // preloads it again, first paint slows down by the size of the SDK.
+        const homePage = readFileSync(join(DIST_DIR, 'index.html'), 'utf8');
+        if (/<link[^>]+modulepreload[^>]+assets\/firebase-/.test(homePage)) {
+            console.error('❌ dist/index.html preloads the Firebase chunk. Something in the initial bundle imports Firebase statically.');
+            hasErrors = true;
         }
 
         if (hasErrors) {

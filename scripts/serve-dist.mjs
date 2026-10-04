@@ -13,6 +13,7 @@
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -113,12 +114,18 @@ http
       file = path.join(dist, '200.html');
     }
 
+    const type = types[path.extname(file)] || 'application/octet-stream';
+    // Cloudflare compresses text responses; do the same so size-sensitive
+    // measurements (Lighthouse) are not distorted.
+    const gzip = /\bgzip\b/.test(request.headers['accept-encoding'] || '') && /^(text\/|application\/(javascript|json|xml))|svg/.test(type);
     response.writeHead(200, {
       ...headersFor(pathname),
-      'Content-Type': types[path.extname(file)] || 'application/octet-stream',
+      'Content-Type': type,
+      ...(gzip ? { 'Content-Encoding': 'gzip', Vary: 'Accept-Encoding' } : {}),
     });
     const stream = fs.createReadStream(file);
     stream.on('error', () => response.destroy());
-    stream.pipe(response);
+    if (gzip) stream.pipe(zlib.createGzip()).pipe(response);
+    else stream.pipe(response);
   })
   .listen(port, '127.0.0.1', () => console.log(`serving dist on http://127.0.0.1:${port}`));

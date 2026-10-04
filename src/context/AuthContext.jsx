@@ -1,15 +1,26 @@
 import { startTransition, useEffect, useState } from "react";
 import { AuthContext } from "./auth-core";
-import * as authService from "../services/authService";
-import {
-  buildSessionUser,
-  ensureUserProfile,
-  getUserProfile,
-  subscribeToUserProfile,
-} from "../utils/userProfiles";
+import { getFirebaseSetupStatus } from "../providers/firebase/firebaseSetup";
+import { buildSessionUser } from "../models/userProfile";
+
+// The Firebase SDK is large and public pages do not need it to render, so it
+// is loaded after the page has settled (or sooner when a visitor signs in).
+const loadFirebaseAuth = () =>
+  Promise.all([import("../services/authService"), import("../utils/userProfiles")]).then(
+    ([authService, profiles]) => ({ authService, ...profiles }),
+  );
+
+const whenIdle = (callback) => {
+  if (typeof window.requestIdleCallback === "function") {
+    const handle = window.requestIdleCallback(callback, { timeout: 3000 });
+    return () => window.cancelIdleCallback(handle);
+  }
+  const handle = window.setTimeout(callback, 1500);
+  return () => window.clearTimeout(handle);
+};
 
 export const AuthProvider = ({ children }) => {
-  const setupStatus = authService.getFirebaseSetupStatus();
+  const setupStatus = getFirebaseSetupStatus();
   const isConfigured = setupStatus.isConfigValid;
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,6 +30,7 @@ export const AuthProvider = ({ children }) => {
     let isMounted = true;
     let unsubscribeAuth = () => {};
     let unsubscribeProfile = () => {};
+    let cancelIdle = () => {};
 
     const applyUser = (firebaseUser, profile) => {
       if (!isMounted) {
@@ -46,8 +58,12 @@ export const AuthProvider = ({ children }) => {
       };
     }
 
-    void authService.ensureFirebaseAuthReady()
-      .then(() => {
+    const start = () => void loadFirebaseAuth()
+      .then(async (firebase) => {
+        await firebase.authService.ensureFirebaseAuthReady();
+        return firebase;
+      })
+      .then(({ authService, ensureUserProfile, subscribeToUserProfile }) => {
         if (!isMounted) {
           return;
         }
@@ -104,8 +120,11 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(false);
       });
 
+    cancelIdle = whenIdle(start);
+
     return () => {
       isMounted = false;
+      cancelIdle();
       unsubscribeProfile();
       unsubscribeAuth();
     };
@@ -120,6 +139,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       setError("");
+      const { authService, ensureUserProfile, getUserProfile } = await loadFirebaseAuth();
       const { user: firebaseUser } = await authService.loginWithGoogle();
 
       await ensureUserProfile(firebaseUser);
@@ -148,6 +168,7 @@ export const AuthProvider = ({ children }) => {
       setError("");
 
       if (isConfigured) {
+        const { authService } = await loadFirebaseAuth();
         await authService.logout();
       }
 
@@ -166,6 +187,7 @@ export const AuthProvider = ({ children }) => {
       throw new Error(configError);
     }
 
+    const { authService, ensureUserProfile, getUserProfile } = await loadFirebaseAuth();
     const auth = await authService.ensureFirebaseAuthReady();
 
     if (!auth.currentUser) {

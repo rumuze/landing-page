@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../context/auth-core";
-import { trackVisit } from "../services/visitService";
 import { useConsent } from "../hooks/useConsent";
 import { CONSENT_GRANTED } from "../utils/consent";
 
@@ -86,6 +85,7 @@ const getIdentifyDedupKey = (sessionId, userId) =>
 
 const sendVisit = async (payload) => {
   try {
+    const { trackVisit } = await import("../services/visitService");
     await trackVisit(payload);
   } catch (error) {
     console.warn("[VisitTracker] tracking failed:", error);
