@@ -10,6 +10,7 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 
 const PAGES = {
   portfolio: lazy(() => import('../pages/PortfolioPage')),
+  productDetail: lazy(() => import('../pages/ProductPage')),
   labs: lazy(() => import('../components/Labs')),
   services: lazy(() => import('../pages/ServicesPage')),
   serviceDetail: lazy(() => import('../pages/ServiceDetailPage')),

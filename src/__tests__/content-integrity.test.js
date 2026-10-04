@@ -188,3 +188,36 @@ describe('claims guard', () => {
     }
   });
 });
+
+describe('product pages', () => {
+  const sectionTitles = (product, locale) => product[locale].sections.map((section) => section.items.length);
+
+  it('has unique slugs, a diagram for every product, and the same shape in both languages', async () => {
+    const { products } = await import('../data/products');
+    const { architectureDiagrams } = await import('../content/architectureDiagrams');
+    const { homeContent } = await import('../content/homeContent');
+
+    expect(new Set(products.map((product) => product.slug)).size).toBe(products.length);
+    const cardTitles = homeContent.en.work.cards.map((card) => card.title);
+    expect(products.map((product) => product.title).sort()).toEqual([...cardTitles].sort());
+
+    for (const product of products) {
+      expect(architectureDiagrams[product.title], product.title).toBeTruthy();
+      expect(sectionTitles(product, 'ar'), product.slug).toEqual(sectionTitles(product, 'en'));
+      expect(product.ar.notYet.length, product.slug).toBe(product.en.notYet.length);
+      expect(Boolean(product.ar.status), product.slug).toBe(Boolean(product.en.status));
+      for (const locale of ['en', 'ar']) {
+        expect(product[locale].description.length, `${product.slug} ${locale}`).toBeLessThanOrEqual(200);
+        expect(product[locale].headline.length).toBeGreaterThan(20);
+      }
+    }
+  });
+
+  it('links only to blog posts that exist', async () => {
+    const { products } = await import('../data/products');
+    const { getPostBySlug } = await import('../data/blogPosts');
+    for (const product of products) {
+      for (const slug of product.related) expect(getPostBySlug(slug), `${product.slug} -> ${slug}`).toBeTruthy();
+    }
+  });
+});

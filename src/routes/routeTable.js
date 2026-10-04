@@ -12,6 +12,7 @@ export const localizePath = (path, locale) =>
  */
 export const PAGE_ROUTES = [
   { id: 'portfolio', path: '/portfolio', access: 'public' },
+  { id: 'productDetail', path: '/portfolio/:slug', access: 'public' },
   { id: 'labs', path: '/labs', access: 'public' },
   { id: 'services', path: '/services', access: 'public' },
   { id: 'serviceDetail', path: '/services/:slug', access: 'public' },

@@ -60,12 +60,25 @@ function extractBlogEntries() {
   });
 }
 
+function extractProductSlugs() {
+  const source = readSource('src/data/products.js');
+  return unique(extractQuotedValues(source, /^\s{4}slug:\s*'([^']+)'/gm));
+}
+
 export function getPublicRouteManifest(buildDate = new Date().toISOString().split('T')[0]) {
   const serviceDetailRoutes = extractServiceSlugs().map((slug) => ({
     path: `/services/${slug}`,
     priority: 0.82,
     changefreq: 'monthly',
     section: 'service-detail',
+    lastmod: buildDate,
+  }));
+
+  const productRoutes = extractProductSlugs().map((slug) => ({
+    path: `/portfolio/${slug}`,
+    priority: 0.7,
+    changefreq: 'monthly',
+    section: 'product-detail',
     lastmod: buildDate,
   }));
 
@@ -80,6 +93,7 @@ export function getPublicRouteManifest(buildDate = new Date().toISOString().spli
   const manifest = [
     ...STATIC_ROUTE_DEFINITIONS.map((route) => ({ ...route, lastmod: buildDate })),
     ...serviceDetailRoutes,
+    ...productRoutes,
     ...blogRoutes,
   ];
 
