@@ -168,7 +168,7 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture }) => (
         <Reveal delay={260}>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <ConversionButton
-              className="min-h-[3.5rem] w-full px-7 shadow-[0_20px_44px_-24px_rgba(0,229,255,0.75)] sm:w-auto"
+              className="min-h-[3.5rem] w-full px-7 shadow-none sm:w-auto"
               onClick={() => onOpenLeadCapture("discovery", "hero-primary")}
             >
               {copy.primaryCta}

@@ -15,6 +15,7 @@
 :root {
   /* ===== RUMUZE BRAND COLOR SYSTEM (Source of Truth - From Logo) ===== */
   /* PRIMARY — Forest Teal (حرف R الداكن) */
+  --focus-ring:           #006B54;   /* keyboard focus outline on light surfaces */
   --brand-primary:        #006B54;   /* الأخضر الغامق الرئيسي */
   --brand-primary-deep:   #004D3D;   /* للـ hover والظل */
   --brand-primary-light:  #008567;   /* للـ active states */
@@ -143,6 +144,7 @@
 }
 
 .dark {
+  --focus-ring:           #3CBF00;   /* keyboard focus outline on dark surfaces */
   --surface-page: 2 6 23;
   --surface-section: 2 6 23;
   --surface-section-alt: 15 23 42;
@@ -243,7 +245,7 @@ h6 {
 
   /* WCAG AA Focus States for Perfect Accessibility */
   *:focus-visible {
-    outline: 3px solid #00e5ff;
+    outline: 3px solid var(--focus-ring, #006b54);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -252,14 +254,14 @@ h6 {
   a:focus-visible,
   input:focus-visible,
   textarea:focus-visible {
-    outline: 3px solid #00e5ff;
+    outline: 3px solid var(--focus-ring, #006b54);
     outline-offset: 3px;
   }
 }
 
 @layer components {
   .glass {
-    @apply bg-white/70 dark:bg-white/10 backdrop-blur-2xl border border-white/50 dark:border-white/20 shadow-xl shadow-indigo-500/5;
+    @apply border border-slate-200 bg-white dark:border-white/10 dark:bg-slate-900;
   }
 
   .glass-card {

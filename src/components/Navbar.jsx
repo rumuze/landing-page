@@ -177,7 +177,7 @@ const Navbar = () => {
       return joinClasses(
         'inline-flex h-10 items-center gap-2 rounded-full border px-4 text-sm font-semibold transition-all duration-300',
         active
-          ? 'border-cyan/26 bg-cyan/[0.08] text-slate-950 shadow-[0_16px_30px_-26px_rgba(0,229,255,0.28)] dark:text-white'
+          ? 'border-cyan/26 bg-cyan/[0.08] text-slate-950 shadow-none dark:text-white'
           : 'border-cyan/18 text-slate-700 hover:border-cyan/28 hover:bg-cyan/[0.06] hover:text-slate-950 dark:text-slate-100 dark:hover:bg-cyan/[0.08] dark:hover:text-white'
       );
     }
@@ -305,7 +305,7 @@ const Navbar = () => {
                     onClick={closeMenus}
                     className="shrink-0"
                   >
-                    <span className="inline-flex h-10 items-center rounded-full border border-cyan bg-cyan px-5 text-sm font-semibold text-slate-950 shadow-[0_18px_36px_-24px_rgba(0,229,255,0.52)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan/90 hover:shadow-[0_20px_40px_-24px_rgba(0,229,255,0.56)]">
+                    <span className="inline-flex h-10 items-center rounded-full border border-cyan bg-cyan px-5 text-sm font-semibold text-slate-950 shadow-none transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan/90 hover:shadow-none">
                       {isAr ? 'ابدأ مشروعك' : 'Start a project'}
                     </span>
                   </Link>

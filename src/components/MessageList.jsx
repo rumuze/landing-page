@@ -137,7 +137,7 @@ const MessageList = ({
                 onClick={() => onSelectMessage(thread.id)}
                 className={`group w-full rounded-[1.5rem] border p-4 text-left transition-all duration-200 ${
                   isSelected
-                    ? "border-cyan-300/30 bg-cyan-400/10 shadow-[0_18px_45px_rgba(8,145,178,0.18)]"
+                    ? "border-cyan-300/30 bg-cyan-400/10 shadow-none"
                     : "border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.07]"
                 }`}
               >

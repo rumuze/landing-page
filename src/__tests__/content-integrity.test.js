@@ -235,3 +235,28 @@ describe('process page', () => {
     expect(english).not.toMatch(/\b\d+\s*(days?|weeks?|months?|hours?)\b|\$|USD|SAR|EGP|within 24|business day/i);
   });
 });
+
+describe('flat visual style', () => {
+  const read = (file) => fs.readFileSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', file), 'utf8');
+
+  it('has no decorative gradients, glows or off-brand colours in the shell and offline page', () => {
+    for (const file of ['index.html', 'public/offline.html']) {
+      const source = read(file);
+      expect(source, file).not.toMatch(/gradient\(/);
+      expect(source, file).not.toMatch(/filter:\s*blur/);
+      expect(source, file).not.toMatch(/a855f7|168,\s*85,\s*247/i);
+    }
+  });
+
+  it('has no coloured glow shadows in the source', () => {
+    const walk = (dir) =>
+      fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
+        entry.isDirectory() ? walk(path.join(dir, entry.name)) : [path.join(dir, entry.name)],
+      );
+    const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+    const offenders = walk(root)
+      .filter((file) => /\.(jsx|js|css)$/.test(file) && !file.includes('__tests__'))
+      .filter((file) => /shadow-\[[^\]]*rgba\((0,\s*229,\s*255|22,\s*163,\s*74)/.test(fs.readFileSync(file, 'utf8')));
+    expect(offenders).toEqual([]);
+  });
+});

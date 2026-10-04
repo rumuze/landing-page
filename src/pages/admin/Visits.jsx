@@ -151,7 +151,7 @@ const Visits = () => {
           </section>
 
           {error ? (
-            <div className="flex items-start gap-3 rounded-[1.5rem] border border-rose-400/20 bg-rose-500/10 px-5 py-4 text-sm text-rose-100 shadow-[0_20px_50px_rgba(127,29,29,0.18)]">
+            <div className="flex items-start gap-3 rounded-[1.5rem] border border-rose-400/20 bg-rose-500/10 px-5 py-4 text-sm text-rose-100 shadow-none">
               <ShieldAlert size={18} className="mt-0.5 shrink-0" />
               <p>{error}</p>
             </div>

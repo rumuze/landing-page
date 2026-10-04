@@ -81,7 +81,7 @@ const NavbarMobile = ({
     joinClasses(
       'flex h-full min-w-0 flex-col items-center justify-center gap-1 rounded-2xl px-1.5 text-[10px] font-semibold leading-none transition-all duration-300',
       active
-        ? 'border border-cyan/22 bg-cyan/[0.08] text-slate-950 shadow-[0_14px_28px_-24px_rgba(0,229,255,0.34)] dark:border-cyan/26 dark:text-white'
+        ? 'border border-cyan/22 bg-cyan/[0.08] text-slate-950 shadow-none dark:border-cyan/26 dark:text-white'
         : 'border border-transparent text-slate-600 hover:border-slate-200/75 hover:bg-slate-900/[0.045] hover:text-slate-950 dark:text-slate-300 dark:hover:border-white/10 dark:hover:bg-white/8 dark:hover:text-white'
     );
 
@@ -222,7 +222,7 @@ const NavbarMobile = ({
                     className={joinClasses(
                       'animate-fade-right rounded-[1.5rem] border px-5 py-4 text-xl font-semibold transition-all duration-300 sm:text-2xl',
                       isActive(link.href)
-                        ? 'border-cyan/24 bg-cyan/[0.08] text-slate-950 shadow-[0_18px_34px_-28px_rgba(0,229,255,0.32)] dark:text-white'
+                        ? 'border-cyan/24 bg-cyan/[0.08] text-slate-950 shadow-none dark:text-white'
                         : 'border-slate-200/80 bg-white/88 text-slate-950 hover:border-slate-300/80 hover:bg-white dark:border-white/10 dark:bg-slate-900/82 dark:text-white dark:hover:bg-slate-900',
                       isAr ? 'text-right' : 'text-left'
                     )}
@@ -240,7 +240,7 @@ const NavbarMobile = ({
             <div className="content-shell shrink-0 pt-6">
               <button
                 onClick={handleDiscoveryNavigate}
-                className="w-full rounded-2xl border border-cyan bg-cyan py-4 text-base font-semibold text-slate-950 shadow-[0_18px_40px_-26px_rgba(0,229,255,0.54)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan/90"
+                className="w-full rounded-2xl border border-cyan bg-cyan py-4 text-base font-semibold text-slate-950 shadow-none transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan/90"
                 type="button"
               >
                 {isAr ? 'ابدأ مشروعك' : 'Start a project'}
