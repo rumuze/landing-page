@@ -9,7 +9,7 @@ The site is static HTML plus a client app. Visitors can create a contact thread 
 - **Page CSP** (`index.html`, hardened at build): scripts run only from the site, the Google sign-in hosts and hashes of the inline scripts that ship. The build fails if `'unsafe-inline'` or `'unsafe-eval'` reaches a production page. Headers such as HSTS, `X-Frame-Options` and `frame-ancestors` come from `public/_headers`.
 - **`trackVisit`**: origin allow-list, per-address rate limit that reads the address Google appended to `X-Forwarded-For` (not the client-supplied first entry), size limits on every field, and an `expireAt` for TTL deletion.
 - **Consent**: no visit tracking until the visitor accepts (`src/utils/consent.js`).
-- **Dependencies**: `npm audit` is clean; CI runs lint, typecheck, tests and the full build.
+- **Dependencies**: CI runs lint, typecheck, tests, the unused-code check, the full build and the browser tests. `npm audit` reports one open item, described under Known gaps (5).
 - **Reporting**: `public/.well-known/security.txt`.
 
 ## App Check rollout
@@ -29,3 +29,4 @@ The privacy text discloses reCAPTCHA. If you later switch to reCAPTCHA Enterpris
 2. **The visit rate limit is per function instance** and resets on cold start. Enforcing App Check on `trackVisit` (`APP_CHECK_ENFORCE=true`) is the real fix.
 3. **Retention** only takes effect after the TTL policy is enabled (see `docs/DEPLOYMENT.md`).
 4. **IP addresses** are stored in full. Truncating them (for example the last octet) would reduce what is kept; it changes what the admin visits page can show.
+5. **`npm audit` reports `@grpc/grpc-js` (4 high, all one chain through `firebase`).** The advisories concern gRPC servers and Node transport. This site only uses the browser build of the Firebase SDK, which talks to Firestore over WebChannel and does not load `@grpc/grpc-js` (checked: the string is absent from the built bundle), and `firebase` is already on the latest release. npm's suggested fix downgrades `firebase` to 9.14, which is not an improvement. Re-run `npm audit` after each Firebase release and update when the chain is fixed. The Cloud Functions in `firebase-functions/` have their own dependencies and are audited separately.
