@@ -17,6 +17,7 @@ export const PAGE_ROUTES = [
   { id: 'services', path: '/services', access: 'public' },
   { id: 'serviceDetail', path: '/services/:slug', access: 'public' },
   { id: 'saudiArabia', path: '/saudi-arabia', access: 'public' },
+  { id: 'process', path: '/process', access: 'public' },
   { id: 'about', path: '/about', access: 'public' },
   { id: 'blog', path: '/blog', access: 'public' },
   { id: 'blogPost', path: '/blog/:slug', access: 'public' },

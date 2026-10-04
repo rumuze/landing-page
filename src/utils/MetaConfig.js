@@ -65,6 +65,22 @@ const META_CONFIG = {
             imageAlt: 'أعمال رموز - منتجات بنتها رموز'
         }
     },
+    '/process': {
+        en: {
+            title: `How We Work | ${BRAND_NAME}`,
+            description: 'How a Rumuze project moves from first request to handover: architecture choices, module checks, a fixed release order, and what you receive.',
+            keywords: 'software development process, modular monolith, release process, handover documentation',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'How Rumuze works'
+        },
+        ar: {
+            title: `كيف نعمل | ${BRAND_NAME}`,
+            description: 'كيف يتحرك مشروع رموز من أول طلب إلى التسليم: خيارات المعمارية وفحوصات الوحدات وترتيب ثابت للإصدار وما تتسلمه.',
+            keywords: 'عملية تطوير البرمجيات, كتلة معيارية, عملية الإصدار, وثائق التسليم',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'كيف تعمل رموز'
+        }
+    },
     '/about': {
         en: {
             title: `About | ${BRAND_NAME}`,

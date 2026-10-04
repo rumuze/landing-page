@@ -12,6 +12,7 @@ const copyByLocale = {
     company: 'Company',
     contactTitle: 'Contact',
     about: 'About',
+    process: 'How we work',
     work: 'Our work',
     insights: 'Insights',
     tools: 'Tools',
@@ -32,6 +33,7 @@ const copyByLocale = {
     company: 'الشركة',
     contactTitle: 'التواصل',
     about: 'من نحن',
+    process: 'كيف نعمل',
     work: 'أعمالنا',
     insights: 'مقالات',
     tools: 'الأدوات',
@@ -133,6 +135,7 @@ const Footer = () => {
             <h2 className="copy-primary mb-5 text-xs font-bold uppercase tracking-widest">{c.company}</h2>
             <ul className="copy-secondary space-y-3 text-sm">
               <li><Link to={`${prefix}/about`} className={linkClass}>{c.about}</Link></li>
+              <li><Link to={`${prefix}/process`} className={linkClass}>{c.process}</Link></li>
               <li><Link to={`${prefix}/portfolio`} className={linkClass}>{c.work}</Link></li>
               <li><Link to={`${prefix}/blog`} className={linkClass}>{c.insights}</Link></li>
               <li><Link to={`${prefix}/labs`} className={linkClass}>{c.tools}</Link></li>

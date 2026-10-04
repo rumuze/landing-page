@@ -15,6 +15,7 @@ const PAGES = {
   services: lazy(() => import('../pages/ServicesPage')),
   serviceDetail: lazy(() => import('../pages/ServiceDetailPage')),
   saudiArabia: lazy(() => import('../pages/SaudiArabiaPage')),
+  process: lazy(() => import('../pages/ProcessPage')),
   about: lazy(() => import('../pages/AboutPage')),
   blog: lazy(() => import('../pages/BlogPage')),
   blogPost: lazy(() => import('../pages/BlogPost')),
