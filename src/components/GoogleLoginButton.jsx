@@ -18,8 +18,8 @@ const GoogleMark = () => (
 const BUTTON_CLASSNAME = [
   "group relative flex h-12 w-12 items-center justify-center rounded-full",
   "border border-slate-200/80 bg-white/92 text-slate-950",
-  "shadow-[0_18px_38px_rgba(15,23,42,0.16)] backdrop-blur-2xl",
-  "transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[0_22px_46px_rgba(15,23,42,0.22)]",
+  "shadow-sm",
+  "transition-colors duration-200 ease-out hover:bg-slate-50 dark:hover:bg-slate-900",
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
   "disabled:cursor-not-allowed disabled:opacity-70",
   "dark:border-white/10 dark:bg-slate-950/88 dark:text-white",

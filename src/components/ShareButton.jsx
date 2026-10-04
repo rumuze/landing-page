@@ -8,9 +8,8 @@ const DEFAULT_BUTTON_CLASSNAME = [
   'relative',
   'flex h-12 w-12 items-center justify-center rounded-full',
   'border border-white/20 bg-slate-900 text-white',
-  'shadow-[0_18px_38px_rgba(15,23,42,0.34)]',
-  'backdrop-blur-xl transition duration-200 ease-out',
-  'hover:scale-110 hover:bg-slate-800 hover:shadow-[0_22px_46px_rgba(15,23,42,0.42)]',
+  'shadow-sm transition duration-200 ease-out',
+  'hover:bg-slate-800',
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
   'dark:border-white/10 dark:bg-slate-800 dark:hover:bg-slate-700',
 ].join(' ');
