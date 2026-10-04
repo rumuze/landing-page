@@ -40,7 +40,7 @@ export const organizationSchema = {
     "availableLanguage": ["Arabic", "English"]
   },
   "areaServed": ["SA", "AE", "EG", "KW", "QA", "BH", "OM"],
-  "description": "Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.",
+  "description": "Rumuze is a software and digital marketing company. We build custom platforms and mobile apps and run SEO, advertising, and content for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.",
   "foundingDate": "2026",
   "founder": {
     "@type": "Person",

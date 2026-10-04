@@ -72,8 +72,8 @@ export const ENTITY: EntityConfig = {
     ar: 'رموز',
   },
   slogan: {
-    en: 'We build the software your business runs on.',
-    ar: 'نبني البرمجيات التي تعتمد عليها شركتك.',
+    en: 'We build your software, and the marketing that grows it.',
+    ar: 'نبني برمجياتك، والتسويق الذي ينمّيها.',
   },
   brand: {
     id: 'https://www.rumuze.com/#brand',
@@ -127,6 +127,9 @@ export const ENTITY: EntityConfig = {
     'Custom Software Development',
     'Mobile App Development',
     'SaaS Platform Development',
+    'Digital Marketing',
+    'Search Engine Optimization',
+    'Paid Advertising Management',
   ],
   sameAs: [
     'https://www.linkedin.com/company/rumuze-%D8%B1%D9%85%D9%88%D8%B2',

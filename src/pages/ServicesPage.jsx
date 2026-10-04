@@ -8,9 +8,19 @@ import { SERVICES } from "../config/services";
 const copyByLocale = {
   en: {
     eyebrow: "Services",
-    title: "What we build, and how we work.",
+    title: "What we build, and how we grow it.",
     intro:
-      "Rumuze is a software engineering company. Each service below has its own page with what it covers, how it works, and answers to common questions.",
+      "Rumuze is a software and digital marketing company. We build the product, and we run the search, advertising, and content that bring people to it. Each service has its own page with what it covers, how it works, and answers to common questions.",
+    groups: {
+      software: {
+        title: "Software and digital products",
+        text: "From an idea to a system your team can run.",
+      },
+      marketing: {
+        title: "Digital marketing",
+        text: "Search, advertising, content, and the tracking that ties them to real leads.",
+      },
+    },
     learnMore: "Read more",
     processTitle: "How an engagement runs",
     steps: [
@@ -25,9 +35,19 @@ const copyByLocale = {
   },
   ar: {
     eyebrow: "الخدمات",
-    title: "ما الذي نبنيه، وكيف نعمل.",
+    title: "ما الذي نبنيه، وكيف ننميه.",
     intro:
-      "رموز شركة هندسة برمجيات. لكل خدمة أدناه صفحتها الخاصة بما تغطيه وكيف تعمل وإجابات عن الأسئلة الشائعة.",
+      "رموز شركة برمجيات وتسويق رقمي. نبني المنتج، وندير البحث والإعلانات والمحتوى التي تجلب الناس إليه. لكل خدمة صفحتها الخاصة بما تغطيه وكيف تعمل وإجابات عن الأسئلة الشائعة.",
+    groups: {
+      software: {
+        title: "البرمجيات والمنتجات الرقمية",
+        text: "من الفكرة إلى نظام يستطيع فريقك تشغيله.",
+      },
+      marketing: {
+        title: "التسويق الرقمي",
+        text: "البحث والإعلانات والمحتوى والتتبع الذي يربطها بعملاء حقيقيين.",
+      },
+    },
     learnMore: "اقرأ المزيد",
     processTitle: "كيف يسير التعاقد",
     steps: [
@@ -62,45 +82,53 @@ const ServicesPage = () => {
             <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
           </header>
 
-          <div className="mt-14 divide-y divide-[rgb(var(--border-subtle)/0.7)] border-y border-[rgb(var(--border-subtle)/0.7)]">
-            {SERVICES.map((service) => (
-              <article
-                key={service.slug}
-                className={`grid gap-8 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14 ${align}`}
-              >
-                <div>
-                  <h2 className="type-h2 copy-primary dark:text-white">{service.title[lang]}</h2>
-                  <p className="type-body copy-secondary mt-4 dark:text-slate-300">
-                    {service.summary[lang]}
-                  </p>
-                  <Link
-                    to={`${prefix}/services/${service.slug}`}
-                    className={`mt-6 inline-flex items-center gap-2 font-semibold text-cyan hover:underline ${
-                      isAr ? "flex-row-reverse" : ""
-                    }`}
+          {["software", "marketing"].map((category) => (
+            <div key={category} className="mt-14">
+              <div className={align}>
+                <h2 className="type-h2 copy-primary dark:text-white">{page.groups[category].title}</h2>
+                <p className="type-body copy-secondary mt-2">{page.groups[category].text}</p>
+              </div>
+              <div className="mt-6 divide-y divide-[rgb(var(--border-subtle)/0.7)] border-y border-[rgb(var(--border-subtle)/0.7)]">
+                {SERVICES.filter((service) => service.category === category).map((service) => (
+                  <article
+                    key={service.slug}
+                    className={`grid gap-8 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14 ${align}`}
                   >
-                    {page.learnMore}
-                    <span className="sr-only"> {service.title[isAr ? "ar" : "en"]}</span>
-                    <ArrowRight size={16} className={isAr ? "rotate-180" : ""} />
-                  </Link>
-                </div>
+                    <div>
+                      <h3 className="type-h3 copy-primary dark:text-white">{service.title[lang]}</h3>
+                      <p className="type-body copy-secondary mt-4 dark:text-slate-300">
+                        {service.summary[lang]}
+                      </p>
+                      <Link
+                        to={`${prefix}/services/${service.slug}`}
+                        className={`mt-6 inline-flex items-center gap-2 font-semibold text-cyan hover:underline ${
+                          isAr ? "flex-row-reverse" : ""
+                        }`}
+                      >
+                        {page.learnMore}
+                        <span className="sr-only"> {service.title[isAr ? "ar" : "en"]}</span>
+                        <ArrowRight size={16} className={isAr ? "rotate-180" : ""} />
+                      </Link>
+                    </div>
 
-                <ul className="space-y-3">
-                  {service.definitions.bullets[lang].map((item) => (
-                    <li
-                      key={item}
-                      className={`type-body copy-secondary flex items-start gap-3 dark:text-slate-300 ${
-                        isAr ? "flex-row-reverse" : ""
-                      }`}
-                    >
-                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-cyan" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
+                    <ul className="space-y-3">
+                      {service.definitions.bullets[lang].map((item) => (
+                        <li
+                          key={item}
+                          className={`type-body copy-secondary flex items-start gap-3 dark:text-slate-300 ${
+                            isAr ? "flex-row-reverse" : ""
+                          }`}
+                        >
+                          <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-cyan" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
 
           <div className="mt-20">
             <h2 className={`type-h2 copy-primary dark:text-white ${align}`}>{page.processTitle}</h2>

@@ -1,15 +1,24 @@
 # Rumuze (رموز)
 
-> Rumuze is a software engineering company based in Cairo, Egypt. It builds custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.
+> Rumuze is a software and digital marketing company based in Cairo, Egypt. It builds custom platforms, mobile apps, and backend systems, and runs SEO, advertising, and content, for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.
 
 Rumuze designs, builds, and operates its own software products, and applies the same architecture and delivery practices to client projects. Every request through the contact form is read and answered by email.
 
-## What Rumuze builds
+## What Rumuze offers
 
+### Software
+
+- From idea to digital solution: scoping, architecture, build, launch, and handover for a new product or a digitised process.
 - Custom software and SaaS: multi-module business systems (ERP, CRM, HR, project management, billing), multi-tenant SaaS, role-based access, payment gateway integration.
 - Mobile apps: cross-platform Flutter apps for customers, drivers, and field teams, with live location, push notifications, and Arabic/English localisation.
 - Backend and API platforms: Laravel and NestJS APIs, event-driven services, transactional outbox, webhooks, realtime over WebSockets, admin dashboards.
-- Integrations and data: CRM integration, tracking and attribution, reporting dashboards, and connecting existing systems.
+
+### Digital marketing
+
+- SEO, AEO and GEO: technical SEO, structured data, llms.txt, and answer-ready content for Arabic and English sites. No ranking guarantees.
+- Paid advertising management: campaign planning, conversion tracking, landing pages, optimisation, and reporting on major platforms such as Google and Meta. No promised cost per lead or return.
+- Content and social media: bilingual content strategy, writing, design, publishing, and reporting.
+- Tracking, CRM and reporting: CRM integration, attribution, reporting dashboards, and connecting existing systems.
 
 ## Products Rumuze has built
 

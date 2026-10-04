@@ -57,6 +57,113 @@ export interface ServiceItem {
 // compliance certifications until they can be evidenced.
 export const SERVICES: ServiceItem[] = [
   {
+    slug: 'digital-solutions',
+    title: {
+      en: 'From Idea to Digital Solution',
+      ar: 'من الفكرة إلى الحل الرقمي',
+    },
+    shortDescription: {
+      en: 'Turn a business idea or a manual process into a working digital product: scoped, built, launched, and handed over.',
+      ar: 'نحوّل فكرة تجارية أو عملية يدوية إلى منتج رقمي يعمل: نحدد نطاقه ونبنيه ونطلقه ونسلّمه.',
+    },
+    summary: {
+      en: 'Many projects start as an idea, a spreadsheet, or a chat group that has outgrown itself. Rumuze helps you define the problem, agree the smallest useful first version, choose the architecture, build it across web, mobile, and backend, and hand it over with documentation. The same team can then run the marketing that brings users to it.',
+      ar: 'تبدأ مشاريع كثيرة كفكرة أو جدول بيانات أو مجموعة محادثة تجاوزت حدودها. تساعدك رموز على تحديد المشكلة والاتفاق على أصغر نسخة أولى مفيدة واختيار المعمارية وبنائها عبر الويب والموبايل والخلفية، ثم تسليمها مع التوثيق. ويمكن للفريق نفسه بعد ذلك إدارة التسويق الذي يجلب المستخدمين إليها.',
+    },
+    metaDescription: {
+      en: 'Turn an idea or manual process into a digital product: scoping, architecture, web, mobile and backend build, launch, and handover with documentation.',
+      ar: 'نحوّل الفكرة أو العملية اليدوية إلى منتج رقمي: تحديد النطاق والمعمارية وبناء الويب والموبايل والخلفية والإطلاق والتسليم مع التوثيق.',
+    },
+    keywords: ['digital transformation', 'idea to product', 'MVP development', 'custom software', 'digitise business processes'],
+    geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
+    industries: ['Startups', 'Operations-heavy businesses', 'Service businesses'],
+    definitions: {
+      short: {
+        en: 'Scoping, architecture, build, launch, and handover for a new digital product or a digitised process.',
+        ar: 'تحديد النطاق والمعمارية والبناء والإطلاق والتسليم لمنتج رقمي جديد أو عملية جرت رقمنتها.',
+      },
+      medium: {
+        en: 'We start from the problem, not the feature list. Together we decide who the first users are, what the first version must do, and what can wait. Then we build it in stages, so you see working software early and can change direction while changes are still cheap.',
+        ar: 'نبدأ من المشكلة لا من قائمة الميزات. نقرر معاً من هم أوائل المستخدمين وماذا يجب أن تفعل النسخة الأولى وما الذي يمكن تأجيله. ثم نبني على مراحل لترى برمجيات تعمل مبكراً وتغيّر الاتجاه بينما التغيير ما زال رخيصاً.',
+      },
+      long: {
+        en: 'We run our own platforms, so the questions we ask come from operating software, not only building it: how data will be migrated, who administers the system, what happens when a payment fails, how the Arabic and English versions stay in step. The result is a product that can be run and extended by your team, with the architecture and runbooks written down.',
+        ar: 'نشغّل منصاتنا بأنفسنا، فأسئلتنا تأتي من تشغيل البرمجيات لا من بنائها فقط: كيف تُنقل البيانات ومن يدير النظام وماذا يحدث عند فشل دفعة وكيف تبقى النسختان العربية والإنجليزية متطابقتين. والنتيجة منتج يستطيع فريقك تشغيله وتطويره، بمعمارية ودلائل تشغيل مكتوبة.',
+      },
+      bullets: {
+        en: [
+          'Problem definition and first-version scope',
+          'Architecture and technology choice, explained in plain language',
+          'Web, mobile, and backend build in stages',
+          'Moving manual workflows and spreadsheets into a system',
+          'Launch and handover with documentation and runbooks',
+        ],
+        ar: [
+          'تحديد المشكلة ونطاق النسخة الأولى',
+          'اختيار المعمارية والتقنيات مع شرحها بلغة واضحة',
+          'بناء الويب والموبايل والخلفية على مراحل',
+          'نقل العمليات اليدوية وجداول البيانات إلى نظام',
+          'الإطلاق والتسليم مع التوثيق ودلائل التشغيل',
+        ],
+      },
+    },
+    category: 'software',
+    problemSolved: {
+      en: 'An idea that is hard to specify, a process that lives in spreadsheets and messages, or a first version that grew without a plan.',
+      ar: 'فكرة يصعب توصيفها، أو عملية تعيش في جداول ورسائل، أو نسخة أولى نمت بلا خطة.',
+    },
+    targetAudience: {
+      en: 'Founders with an idea, and businesses that want to move a manual process into software.',
+      ar: 'المؤسسون أصحاب الأفكار، والشركات التي تريد نقل عملية يدوية إلى برمجيات.',
+    },
+    differentiators: {
+      en: [
+        'We start from the problem and the first users, not a feature list',
+        'Working software in stages, so direction can change early',
+        'Built by the team that runs its own platforms',
+        'Marketing can follow from the same team once the product is live',
+      ],
+      ar: [
+        'نبدأ من المشكلة وأوائل المستخدمين لا من قائمة ميزات',
+        'برمجيات تعمل على مراحل ليتغير الاتجاه مبكراً',
+        'يبنيها الفريق الذي يشغّل منصاته الخاصة',
+        'يمكن للتسويق أن يتبع من الفريق نفسه بعد إطلاق المنتج',
+      ],
+    },
+    faqs: [
+      {
+        question: {
+          en: 'Do I need a finished specification to start?',
+          ar: 'هل أحتاج مواصفات مكتملة كي نبدأ؟',
+        },
+        answer: {
+          en: 'No. Many projects begin with a description of the problem. Defining the scope of a first version is part of the work.',
+          ar: 'لا. تبدأ مشاريع كثيرة بوصف للمشكلة. وتحديد نطاق النسخة الأولى جزء من العمل.',
+        },
+      },
+      {
+        question: {
+          en: 'Can we build only a first version and extend it later?',
+          ar: 'هل يمكن بناء نسخة أولى فقط وتطويرها لاحقاً؟',
+        },
+        answer: {
+          en: 'Yes, and it is usually the better route. We choose an architecture that lets modules be added later without rewriting what already works.',
+          ar: 'نعم، وهو غالباً المسار الأفضل. نختار معمارية تسمح بإضافة وحدات لاحقاً دون إعادة كتابة ما يعمل.',
+        },
+      },
+    ],
+    h2Sections: [
+      { en: 'How We Turn an Idea into a First Version', ar: 'كيف نحوّل الفكرة إلى نسخة أولى' },
+      { en: 'How We Choose the Architecture', ar: 'كيف نختار المعمارية' },
+      { en: 'What You Receive at Handover', ar: 'ما الذي تتسلمه عند التسليم' },
+    ],
+    relatedServices: ['software-engineering', 'web-development', 'mobile-apps', 'paid-advertising'],
+    saudiContext: {
+      en: 'Products for the Gulf often need Arabic-first interfaces, regional payment gateways, and clear decisions about where data lives. We plan for these from the first scope.',
+      ar: 'تحتاج المنتجات الموجهة للخليج غالباً إلى واجهات عربية أولاً وبوابات دفع إقليمية وقرارات واضحة حول مكان حفظ البيانات. نخطط لها منذ أول نطاق.',
+    },
+  },
+  {
     slug: 'software-engineering',
     title: {
       en: 'Custom Software and Backend Platforms',
@@ -493,6 +600,329 @@ export const SERVICES: ServiceItem[] = [
     },
   },
   {
+    slug: 'paid-advertising',
+    title: {
+      en: 'Paid Advertising Management',
+      ar: 'إدارة الإعلانات المدفوعة',
+    },
+    shortDescription: {
+      en: 'Planning, launching, and optimising paid campaigns, with conversion tracking set up properly and reporting you can read.',
+      ar: 'تخطيط الحملات المدفوعة وإطلاقها وتحسينها، مع إعداد سليم لتتبع التحويلات وتقارير يسهل فهمها.',
+    },
+    summary: {
+      en: 'Rumuze plans and manages paid campaigns on major advertising platforms such as Google and Meta, in Arabic and English. Because the same team builds websites and tracking, campaigns start from working conversion tracking and landing pages that load fast, and results are reported against what the business actually counts as a lead or a sale.',
+      ar: 'تخطط رموز وتدير الحملات المدفوعة على منصات الإعلان الكبرى مثل Google وMeta، بالعربية والإنجليزية. ولأن الفريق نفسه يبني المواقع والتتبع، تبدأ الحملات من تتبع تحويلات يعمل وصفحات هبوط سريعة، وتُقدَّم النتائج مقابل ما تعدّه الشركة فعلاً عميلاً محتملاً أو عملية بيع.',
+    },
+    metaDescription: {
+      en: 'Paid advertising management on Google and Meta in Arabic and English: campaign planning, conversion tracking, landing pages, optimisation, and clear reporting.',
+      ar: 'إدارة الإعلانات المدفوعة على Google وMeta بالعربية والإنجليزية: تخطيط الحملات وتتبع التحويلات وصفحات الهبوط والتحسين وتقارير واضحة.',
+    },
+    keywords: ['paid advertising', 'Google Ads management', 'Meta ads', 'performance marketing', 'conversion tracking'],
+    geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
+    industries: ['Service businesses', 'E-commerce', 'B2B companies'],
+    definitions: {
+      short: {
+        en: 'Campaign planning, setup, optimisation, and reporting on major ad platforms, built on working conversion tracking.',
+        ar: 'تخطيط الحملات وإعدادها وتحسينها والتقارير على منصات الإعلان الكبرى، فوق تتبع تحويلات يعمل.',
+      },
+      medium: {
+        en: 'We agree what counts as a result first, then make sure it is measured correctly before spending begins. Campaigns are structured so that each audience, message, and landing page can be compared, and changes are made one at a time so their effect can be read.',
+        ar: 'نتفق أولاً على ما يُعدّ نتيجة، ونتأكد من قياسه بشكل صحيح قبل بدء الإنفاق. تُبنى الحملات بحيث يمكن مقارنة كل جمهور ورسالة وصفحة هبوط، وتُجرى التعديلات واحداً تلو الآخر ليمكن قراءة أثرها.',
+      },
+      long: {
+        en: 'Paid campaigns fail most often at the join between the ad and the business: tracking that misses leads that arrive by phone or chat, landing pages that load slowly on mobile, and reports that count clicks instead of enquiries. We treat that join as an engineering problem. We do not promise a cost per lead or a return, because both depend on the market, the offer, and the budget. We promise that what is reported can be traced back to what happened.',
+        ar: 'تفشل الحملات المدفوعة غالباً عند الوصلة بين الإعلان والنشاط: تتبع يفوّت العملاء الذين يصلون بالهاتف أو المحادثة، وصفحات هبوط بطيئة على الموبايل، وتقارير تعدّ النقرات لا الاستفسارات. نتعامل مع هذه الوصلة كمشكلة هندسية. ولا نعد بتكلفة معينة للعميل المحتمل ولا بعائد، لأن كليهما يعتمد على السوق والعرض والميزانية. ما نعد به أن ما يُقدَّم في التقارير يمكن تتبعه إلى ما حدث فعلاً.',
+      },
+      bullets: {
+        en: [
+          'Campaign planning and account structure',
+          'Conversion tracking and attribution set up before launch',
+          'Landing pages built for speed on mobile, in Arabic and English',
+          'Creative and audience testing, one change at a time',
+          'Reporting tied to leads and sales, not only clicks',
+        ],
+        ar: [
+          'تخطيط الحملات وهيكلة الحساب',
+          'إعداد تتبع التحويلات والإسناد قبل الإطلاق',
+          'صفحات هبوط سريعة على الموبايل بالعربية والإنجليزية',
+          'اختبار المواد الإعلانية والجماهير بتغيير واحد في كل مرة',
+          'تقارير مرتبطة بالعملاء المحتملين والمبيعات لا بالنقرات فقط',
+        ],
+      },
+    },
+    category: 'marketing',
+    problemSolved: {
+      en: 'Ad spend that cannot be tied to leads or sales, tracking that misses real enquiries, and landing pages that lose visitors before they act.',
+      ar: 'إنفاق إعلاني لا يمكن ربطه بعملاء أو مبيعات، وتتبع يفوّت الاستفسارات الحقيقية، وصفحات هبوط تفقد الزوار قبل أن يتصرفوا.',
+    },
+    targetAudience: {
+      en: 'Businesses that already advertise or are about to, and want results measured against real leads and sales.',
+      ar: 'الشركات التي تعلن بالفعل أو توشك على ذلك وتريد قياس النتائج مقابل عملاء ومبيعات حقيقية.',
+    },
+    differentiators: {
+      en: [
+        'The team that builds the website and tracking also runs the campaigns',
+        'Tracking is checked before budget is spent',
+        'No promised cost per lead or return on spend',
+        'Arabic and English treated as separate audiences',
+      ],
+      ar: [
+        'الفريق الذي يبني الموقع والتتبع هو الذي يدير الحملات',
+        'يُفحص التتبع قبل إنفاق الميزانية',
+        'لا وعود بتكلفة للعميل المحتمل أو بعائد على الإنفاق',
+        'العربية والإنجليزية كجمهورين منفصلين',
+      ],
+    },
+    faqs: [
+      {
+        question: {
+          en: 'Can you promise a cost per lead or a return on ad spend?',
+          ar: 'هل تعدون بتكلفة معينة للعميل المحتمل أو بعائد على الإنفاق الإعلاني؟',
+        },
+        answer: {
+          en: 'No. Both depend on your market, offer, competition, and budget. We set up measurement so that results can be read honestly and decisions made from them.',
+          ar: 'لا. كلاهما يعتمد على سوقك وعرضك والمنافسة وميزانيتك. نعد قياساً يجعل النتائج قابلة للقراءة بصدق وتُتخذ القرارات بناءً عليها.',
+        },
+      },
+      {
+        question: {
+          en: 'Do you need access to my website to run campaigns?',
+          ar: 'هل تحتاجون إلى الوصول لموقعي كي تديروا الحملات؟',
+        },
+        answer: {
+          en: 'Usually yes, to install conversion tracking and to improve the landing pages the ads point to. If we built the site, this is already in place.',
+          ar: 'غالباً نعم، لتثبيت تتبع التحويلات وتحسين صفحات الهبوط التي تشير إليها الإعلانات. وإن كنا بنينا الموقع فهذا موجود أصلاً.',
+        },
+      },
+    ],
+    h2Sections: [
+      { en: 'How a Campaign Is Planned and Structured', ar: 'كيف تُخطط الحملة وتُهيكل' },
+      { en: 'How Conversion Tracking Is Verified', ar: 'كيف يُتحقق من تتبع التحويلات' },
+      { en: 'How Results Are Reported', ar: 'كيف تُقدَّم النتائج' },
+    ],
+    relatedServices: ['marketing-infrastructure', 'seo-services', 'web-development'],
+    saudiContext: {
+      en: 'Campaign setup follows each platform\'s consent and policy rules and, where relevant, expectations about where data is stored. Arabic and English audiences are planned separately.',
+      ar: 'يتبع إعداد الحملات قواعد الموافقة والسياسات في كل منصة، وعند الاقتضاء توقعات موقع حفظ البيانات. وتُخطط الجماهير العربية والإنجليزية بشكل منفصل.',
+    },
+  },
+  {
+    slug: 'seo-services',
+    title: {
+      en: 'SEO, AEO and GEO',
+      ar: 'تحسين محركات البحث والإجابة (SEO وAEO وGEO)',
+    },
+    shortDescription: {
+      en: 'SEO, answer-engine (AEO) and generative-engine (GEO) readiness for Arabic and English sites: technical fixes, structured data, and content that answers real questions.',
+      ar: 'جاهزية المواقع العربية والإنجليزية لمحركات البحث (SEO) والإجابة (AEO) والمحركات التوليدية (GEO): إصلاحات تقنية وبيانات منظمة ومحتوى يجيب عن أسئلة حقيقية.',
+    },
+    summary: {
+      en: 'Rumuze implements the technical side of search visibility for Arabic and English sites: canonical and hreflang tags, sitemaps, JSON-LD structured data, crawlable rendering, and machine-readable summaries such as llms.txt that help search and answer engines understand a site.',
+      ar: 'تنفذ رموز الجانب التقني لظهور المواقع العربية والإنجليزية في البحث: وسوم canonical وhreflang وخرائط الموقع وبيانات JSON-LD المنظمة وعرضاً قابلاً للزحف وملخصات مقروءة آلياً مثل llms.txt تساعد محركات البحث والإجابة على فهم الموقع.',
+    },
+    metaDescription: {
+      en: 'SEO, AEO and GEO for Arabic and English sites: canonical and hreflang, sitemaps, JSON-LD structured data, crawlable rendering, llms.txt, and answer-ready content.',
+      ar: 'SEO وAEO وGEO للمواقع العربية والإنجليزية: canonical وhreflang وخرائط الموقع وبيانات JSON-LD وعرض قابل للزحف وllms.txt ومحتوى جاهز للإجابة.',
+    },
+    keywords: ['SEO', 'AEO', 'GEO', 'technical SEO', 'structured data', 'JSON-LD', 'hreflang', 'answer engine optimization', 'generative engine optimization'],
+    geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
+    industries: ['Business websites', 'Web applications'],
+    definitions: {
+      short: {
+        en: 'Canonical and hreflang setup, sitemaps, JSON-LD, and crawlable rendering for bilingual sites.',
+        ar: 'إعداد canonical وhreflang وخرائط الموقع وJSON-LD وعرض قابل للزحف للمواقع ثنائية اللغة.',
+      },
+      medium: {
+        en: 'We audit how a site is crawled and rendered, fix duplicate and missing metadata, add structured data that matches visible content, and publish machine-readable summaries. Structured data is only added where the same information is visible on the page.',
+        ar: 'ندقق كيف يُزحف الموقع ويُعرض، ونصلح البيانات الوصفية المكررة والمفقودة، ونضيف بيانات منظمة تطابق المحتوى المرئي، وننشر ملخصات مقروءة آلياً. ولا تُضاف البيانات المنظمة إلا حيث تظهر المعلومة نفسها في الصفحة.',
+      },
+      long: {
+        en: 'On this website, structured data is generated from the same content shown on the page, including the homepage FAQ, the organisation, and the services. Sitemaps carry hreflang alternates for both languages, robots rules address search and answer-engine crawlers, and llms.txt summarises the company and its products. We apply the same discipline to client sites.',
+        ar: 'في هذا الموقع تُولَّد البيانات المنظمة من المحتوى نفسه المعروض في الصفحة، بما فيها الأسئلة الشائعة في الرئيسية والمنظمة والخدمات. وتحمل خرائط الموقع بدائل hreflang للغتين، وتخاطب قواعد robots زواحف البحث والإجابة، ويلخص llms.txt الشركة ومنتجاتها. ونطبق الانضباط نفسه على مواقع العملاء.',
+      },
+      bullets: {
+        en: [
+          'Canonical, hreflang, and sitemap setup',
+          'JSON-LD that matches visible content',
+          'Crawlable rendering and metadata fixes',
+          'Robots rules for search and answer-engine crawlers',
+          'llms.txt and machine-readable summaries',
+        ],
+        ar: [
+          'إعداد canonical وhreflang وخريطة الموقع',
+          'JSON-LD مطابق للمحتوى المرئي',
+          'عرض قابل للزحف وإصلاح البيانات الوصفية',
+          'قواعد robots لزواحف البحث والإجابة',
+          'llms.txt وملخصات مقروءة آلياً',
+        ],
+      },
+    },
+    category: 'marketing',
+    problemSolved: {
+      en: 'Bilingual sites with duplicate or missing metadata, wrong or invisible structured data, and one language that search engines barely index.',
+      ar: 'مواقع ثنائية اللغة ببيانات وصفية مكررة أو مفقودة وبيانات منظمة خاطئة أو غير مرئية ولغة واحدة بالكاد تفهرسها محركات البحث.',
+    },
+    targetAudience: {
+      en: 'Businesses whose website is technically sound but not being found or understood by search and answer engines.',
+      ar: 'الشركات التي موقعها سليم تقنياً لكنه لا يُكتشف أو لا يُفهم من محركات البحث والإجابة.',
+    },
+    differentiators: {
+      en: [
+        'Implemented by engineers who build the site',
+        'Structured data only where the content is visible',
+        'Both languages treated as separate search targets',
+        'No ranking guarantees',
+      ],
+      ar: [
+        'ينفذها مهندسون يبنون الموقع',
+        'بيانات منظمة فقط حيث يكون المحتوى مرئياً',
+        'كل لغة تُعامل كهدف بحث منفصل',
+        'لا ضمانات لترتيب النتائج',
+      ],
+    },
+    faqs: [
+      {
+        question: {
+          en: 'Can you guarantee a Google ranking?',
+          ar: 'هل تضمنون ترتيباً معيناً في Google؟',
+        },
+        answer: {
+          en: 'No one can. We make sure the site is crawlable, correctly described, and structured for search and answer engines. Rankings depend on content quality, competition, and time.',
+          ar: 'لا أحد يستطيع. نتأكد أن الموقع قابل للزحف ووصفه صحيح ومنظم لمحركات البحث والإجابة. أما الترتيب فيعتمد على جودة المحتوى والمنافسة والوقت.',
+        },
+      },
+      {
+        question: {
+          en: 'What is llms.txt?',
+          ar: 'ما هو llms.txt؟',
+        },
+        answer: {
+          en: 'A plain-text file at the site root that summarises what a company does and links to its key pages, written for language models and answer engines that read the web.',
+          ar: 'ملف نصي في جذر الموقع يلخص ما تفعله الشركة ويربط بصفحاتها الرئيسية، مكتوب للنماذج اللغوية ومحركات الإجابة التي تقرأ الويب.',
+        },
+      },
+    ],
+    h2Sections: [
+      { en: 'How Search Engines Crawl and Render a Bilingual Site', ar: 'كيف تزحف محركات البحث وتعرض موقعاً ثنائي اللغة' },
+      { en: 'How Canonical and Hreflang Tags Prevent Duplicates', ar: 'كيف تمنع وسوم canonical وhreflang التكرار' },
+      { en: 'How Structured Data Should Match the Page', ar: 'كيف يجب أن تطابق البيانات المنظمة الصفحة' },
+      { en: 'How Answer Engines Read a Site', ar: 'كيف تقرأ محركات الإجابة الموقع' },
+      { en: 'How Progress Is Measured', ar: 'كيف يُقاس التقدم' },
+    ],
+    relatedServices: ['web-development', 'marketing-infrastructure'],
+    saudiContext: {
+      en: 'Arabic search queries differ from English ones in phrasing and spelling variants. We treat each language as its own target, with its own metadata and content, rather than mirroring the English site.',
+      ar: 'تختلف استعلامات البحث العربية عن الإنجليزية في الصياغة وتنويعات الإملاء. نتعامل مع كل لغة كهدف مستقل ببياناتها الوصفية ومحتواها بدل محاكاة الموقع الإنجليزي.',
+    },
+  },
+  {
+    slug: 'content-social-media',
+    title: {
+      en: 'Content and Social Media',
+      ar: 'المحتوى ووسائل التواصل الاجتماعي',
+    },
+    shortDescription: {
+      en: 'Bilingual content strategy, writing, design, and publishing for your website and social channels.',
+      ar: 'استراتيجية محتوى ثنائية اللغة وكتابة وتصميم ونشر لموقعك وقنواتك على وسائل التواصل.',
+    },
+    summary: {
+      en: 'Rumuze plans and produces content in Arabic and English: articles and landing-page copy for search, and posts for social channels. Content is planned around the questions your customers ask, written for each language rather than translated, and published on a calendar so the work stays consistent.',
+      ar: 'تخطط رموز المحتوى وتنتجه بالعربية والإنجليزية: مقالات ونصوص صفحات هبوط للبحث، ومنشورات لقنوات التواصل. يُخطط المحتوى حول الأسئلة التي يطرحها عملاؤك، ويُكتب لكل لغة بدل أن يُترجم، ويُنشر وفق جدول ليبقى العمل متسقاً.',
+    },
+    metaDescription: {
+      en: 'Bilingual content and social media management: content strategy, Arabic and English writing, design, publishing calendars, and reporting.',
+      ar: 'إدارة المحتوى ووسائل التواصل بلغتين: استراتيجية المحتوى وكتابة بالعربية والإنجليزية وتصميم وجداول نشر وتقارير.',
+    },
+    keywords: ['content marketing', 'social media management', 'Arabic content', 'content strategy', 'bilingual copywriting'],
+    geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
+    industries: ['Service businesses', 'Technology companies', 'B2B companies'],
+    definitions: {
+      short: {
+        en: 'Content strategy, Arabic and English writing, design, and publishing for web and social channels.',
+        ar: 'استراتيجية المحتوى والكتابة بالعربية والإنجليزية والتصميم والنشر للويب وقنوات التواصل.',
+      },
+      medium: {
+        en: 'We start with the questions your customers ask and the topics you can speak about with authority, then plan a calendar across your website and social channels. Each piece is written in the language it will be read in, so Arabic content reads as Arabic and not as a translation.',
+        ar: 'نبدأ من الأسئلة التي يطرحها عملاؤك والموضوعات التي تستطيع الحديث عنها بسلطة، ثم نخطط جدولاً عبر موقعك وقنواتك الاجتماعية. ويُكتب كل محتوى باللغة التي سيُقرأ بها، فيُقرأ العربي كعربي لا كترجمة.',
+      },
+      long: {
+        en: 'Content that supports search is written to answer a specific question completely, with clear headings and, where it applies, structured data that matches the visible text. Social content supports it by pointing people to those answers. We keep claims to what you can evidence, and we do not publish invented testimonials, figures, or case studies.',
+        ar: 'المحتوى الذي يدعم البحث يُكتب ليجيب عن سؤال محدد إجابة كاملة، بعناوين واضحة وبيانات منظمة تطابق النص المرئي عند الاقتضاء. ويدعمه محتوى التواصل بتوجيه الناس إلى تلك الإجابات. ونُبقي الادعاءات في حدود ما تستطيع إثباته، ولا ننشر شهادات أو أرقاماً أو دراسات حالة مختلقة.',
+      },
+      bullets: {
+        en: [
+          'Content strategy built around customer questions',
+          'Articles and page copy written separately in Arabic and English',
+          'Social posts and visual design for your channels',
+          'Publishing calendar and account management',
+          'Reporting on reach, engagement, and enquiries',
+        ],
+        ar: [
+          'استراتيجية محتوى مبنية على أسئلة العملاء',
+          'مقالات ونصوص صفحات تُكتب بالعربية والإنجليزية بشكل منفصل',
+          'منشورات تواصل وتصميم بصري لقنواتك',
+          'جدول نشر وإدارة حسابات',
+          'تقارير عن الوصول والتفاعل والاستفسارات',
+        ],
+      },
+    },
+    category: 'marketing',
+    problemSolved: {
+      en: 'Irregular posting, content translated word for word, and articles that do not answer what customers actually search for.',
+      ar: 'نشر غير منتظم، ومحتوى مترجم حرفياً، ومقالات لا تجيب عمّا يبحث عنه العملاء فعلاً.',
+    },
+    targetAudience: {
+      en: 'Businesses that need a steady, bilingual content presence and do not have an in-house team for it.',
+      ar: 'الشركات التي تحتاج حضوراً ثابتاً ثنائي اللغة للمحتوى وليس لديها فريق داخلي لذلك.',
+    },
+    differentiators: {
+      en: [
+        'Arabic and English written for their readers, not translated',
+        'Content planned with search and answer engines in mind',
+        'Claims limited to what can be evidenced',
+        'The same team can build the pages the content lives on',
+      ],
+      ar: [
+        'عربي وإنجليزي يُكتبان لقرائهما لا يُترجمان',
+        'محتوى يُخطط مع وضع محركات البحث والإجابة في الاعتبار',
+        'ادعاءات محصورة فيما يمكن إثباته',
+        'الفريق نفسه يستطيع بناء الصفحات التي يعيش فيها المحتوى',
+      ],
+    },
+    faqs: [
+      {
+        question: {
+          en: 'Do you translate content or write it separately for each language?',
+          ar: 'هل تترجمون المحتوى أم تكتبونه بشكل منفصل لكل لغة؟',
+        },
+        answer: {
+          en: 'We write separately. A literal translation reads awkwardly and misses how Arabic and English audiences search and speak. Where a piece serves both, we adapt it.',
+          ar: 'نكتب بشكل منفصل. الترجمة الحرفية تبدو ركيكة وتفوّت طريقة بحث الجمهور العربي والإنجليزي وحديثه. وحيث يخدم المحتوى الجمهورين نكيّفه.',
+        },
+      },
+      {
+        question: {
+          en: 'Can you promise follower or traffic growth?',
+          ar: 'هل تعدون بنمو في المتابعين أو الزيارات؟',
+        },
+        answer: {
+          en: 'No. Growth depends on the topic, the competition, and how long the work continues. We commit to a consistent calendar, quality, and honest reporting.',
+          ar: 'لا. النمو يعتمد على الموضوع والمنافسة ومدة استمرار العمل. نلتزم بجدول منتظم وجودة وتقارير صادقة.',
+        },
+      },
+    ],
+    h2Sections: [
+      { en: 'How Content Topics Are Chosen', ar: 'كيف تُختار موضوعات المحتوى' },
+      { en: 'How Arabic and English Content Differ', ar: 'كيف يختلف المحتوى العربي عن الإنجليزي' },
+      { en: 'How Publishing and Reporting Work', ar: 'كيف يعمل النشر والتقارير' },
+    ],
+    relatedServices: ['seo-services', 'paid-advertising', 'marketing-infrastructure'],
+    saudiContext: {
+      en: 'Arabic content for the Gulf differs in tone and vocabulary from Egyptian or Levantine Arabic. We agree the target audience and dialect conventions before writing.',
+      ar: 'يختلف المحتوى العربي الموجه للخليج في النبرة والمفردات عن المصري أو الشامي. نتفق على الجمهور المستهدف وأعراف اللهجة قبل الكتابة.',
+    },
+  },
+  {
     slug: 'marketing-infrastructure',
     title: {
       en: 'Integrations, Tracking, and Data',
@@ -599,115 +1029,6 @@ export const SERVICES: ServiceItem[] = [
     saudiContext: {
       en: 'Tracking in the Gulf has to respect platform-specific consent rules and, where relevant, data-residency expectations. We design the collection layer around those constraints and record what is collected and where it is stored.',
       ar: 'يجب أن يحترم التتبع في الخليج قواعد الموافقة الخاصة بكل منصة، وعند الاقتضاء توقعات موقع حفظ البيانات. نصمم طبقة الجمع وفق هذه القيود ونسجل ما يُجمع وأين يُخزَّن.',
-    },
-  },
-  {
-    slug: 'seo-services',
-    title: {
-      en: 'Technical SEO and Structured Data',
-      ar: 'تحسين محركات البحث التقني والبيانات المنظمة',
-    },
-    shortDescription: {
-      en: 'Technical SEO, structured data, and answer-engine readiness for bilingual Arabic and English sites.',
-      ar: 'تحسين محركات البحث التقني والبيانات المنظمة والجاهزية لمحركات الإجابة للمواقع ثنائية اللغة عربي وإنجليزي.',
-    },
-    summary: {
-      en: 'Rumuze implements the technical side of search visibility for Arabic and English sites: canonical and hreflang tags, sitemaps, JSON-LD structured data, crawlable rendering, and machine-readable summaries such as llms.txt that help search and answer engines understand a site.',
-      ar: 'تنفذ رموز الجانب التقني لظهور المواقع العربية والإنجليزية في البحث: وسوم canonical وhreflang وخرائط الموقع وبيانات JSON-LD المنظمة وعرضاً قابلاً للزحف وملخصات مقروءة آلياً مثل llms.txt تساعد محركات البحث والإجابة على فهم الموقع.',
-    },
-    metaDescription: {
-      en: 'Technical SEO for Arabic and English sites: canonical and hreflang, sitemaps, JSON-LD structured data, crawlable rendering, and llms.txt.',
-      ar: 'تحسين تقني لمحركات البحث للمواقع العربية والإنجليزية: canonical وhreflang وخرائط الموقع وبيانات JSON-LD وعرض قابل للزحف وllms.txt.',
-    },
-    keywords: ['technical SEO', 'structured data', 'JSON-LD', 'hreflang', 'answer engine optimization'],
-    geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
-    industries: ['Business websites', 'Web applications'],
-    definitions: {
-      short: {
-        en: 'Canonical and hreflang setup, sitemaps, JSON-LD, and crawlable rendering for bilingual sites.',
-        ar: 'إعداد canonical وhreflang وخرائط الموقع وJSON-LD وعرض قابل للزحف للمواقع ثنائية اللغة.',
-      },
-      medium: {
-        en: 'We audit how a site is crawled and rendered, fix duplicate and missing metadata, add structured data that matches visible content, and publish machine-readable summaries. Structured data is only added where the same information is visible on the page.',
-        ar: 'ندقق كيف يُزحف الموقع ويُعرض، ونصلح البيانات الوصفية المكررة والمفقودة، ونضيف بيانات منظمة تطابق المحتوى المرئي، وننشر ملخصات مقروءة آلياً. ولا تُضاف البيانات المنظمة إلا حيث تظهر المعلومة نفسها في الصفحة.',
-      },
-      long: {
-        en: 'On this website, structured data is generated from the same content shown on the page, including the homepage FAQ, the organisation, and the services. Sitemaps carry hreflang alternates for both languages, robots rules address search and answer-engine crawlers, and llms.txt summarises the company and its products. We apply the same discipline to client sites.',
-        ar: 'في هذا الموقع تُولَّد البيانات المنظمة من المحتوى نفسه المعروض في الصفحة، بما فيها الأسئلة الشائعة في الرئيسية والمنظمة والخدمات. وتحمل خرائط الموقع بدائل hreflang للغتين، وتخاطب قواعد robots زواحف البحث والإجابة، ويلخص llms.txt الشركة ومنتجاتها. ونطبق الانضباط نفسه على مواقع العملاء.',
-      },
-      bullets: {
-        en: [
-          'Canonical, hreflang, and sitemap setup',
-          'JSON-LD that matches visible content',
-          'Crawlable rendering and metadata fixes',
-          'Robots rules for search and answer-engine crawlers',
-          'llms.txt and machine-readable summaries',
-        ],
-        ar: [
-          'إعداد canonical وhreflang وخريطة الموقع',
-          'JSON-LD مطابق للمحتوى المرئي',
-          'عرض قابل للزحف وإصلاح البيانات الوصفية',
-          'قواعد robots لزواحف البحث والإجابة',
-          'llms.txt وملخصات مقروءة آلياً',
-        ],
-      },
-    },
-    category: 'marketing',
-    problemSolved: {
-      en: 'Bilingual sites with duplicate or missing metadata, wrong or invisible structured data, and one language that search engines barely index.',
-      ar: 'مواقع ثنائية اللغة ببيانات وصفية مكررة أو مفقودة وبيانات منظمة خاطئة أو غير مرئية ولغة واحدة بالكاد تفهرسها محركات البحث.',
-    },
-    targetAudience: {
-      en: 'Businesses whose website is technically sound but not being found or understood by search and answer engines.',
-      ar: 'الشركات التي موقعها سليم تقنياً لكنه لا يُكتشف أو لا يُفهم من محركات البحث والإجابة.',
-    },
-    differentiators: {
-      en: [
-        'Implemented by engineers who build the site',
-        'Structured data only where the content is visible',
-        'Both languages treated as separate search targets',
-        'No ranking guarantees',
-      ],
-      ar: [
-        'ينفذها مهندسون يبنون الموقع',
-        'بيانات منظمة فقط حيث يكون المحتوى مرئياً',
-        'كل لغة تُعامل كهدف بحث منفصل',
-        'لا ضمانات لترتيب النتائج',
-      ],
-    },
-    faqs: [
-      {
-        question: {
-          en: 'Can you guarantee a Google ranking?',
-          ar: 'هل تضمنون ترتيباً معيناً في Google؟',
-        },
-        answer: {
-          en: 'No one can. We make sure the site is crawlable, correctly described, and structured for search and answer engines. Rankings depend on content quality, competition, and time.',
-          ar: 'لا أحد يستطيع. نتأكد أن الموقع قابل للزحف ووصفه صحيح ومنظم لمحركات البحث والإجابة. أما الترتيب فيعتمد على جودة المحتوى والمنافسة والوقت.',
-        },
-      },
-      {
-        question: {
-          en: 'What is llms.txt?',
-          ar: 'ما هو llms.txt؟',
-        },
-        answer: {
-          en: 'A plain-text file at the site root that summarises what a company does and links to its key pages, written for language models and answer engines that read the web.',
-          ar: 'ملف نصي في جذر الموقع يلخص ما تفعله الشركة ويربط بصفحاتها الرئيسية، مكتوب للنماذج اللغوية ومحركات الإجابة التي تقرأ الويب.',
-        },
-      },
-    ],
-    h2Sections: [
-      { en: 'How Search Engines Crawl and Render a Bilingual Site', ar: 'كيف تزحف محركات البحث وتعرض موقعاً ثنائي اللغة' },
-      { en: 'How Canonical and Hreflang Tags Prevent Duplicates', ar: 'كيف تمنع وسوم canonical وhreflang التكرار' },
-      { en: 'How Structured Data Should Match the Page', ar: 'كيف يجب أن تطابق البيانات المنظمة الصفحة' },
-      { en: 'How Answer Engines Read a Site', ar: 'كيف تقرأ محركات الإجابة الموقع' },
-      { en: 'How Progress Is Measured', ar: 'كيف يُقاس التقدم' },
-    ],
-    relatedServices: ['web-development', 'marketing-infrastructure'],
-    saudiContext: {
-      en: 'Arabic search queries differ from English ones in phrasing and spelling variants. We treat each language as its own target, with its own metadata and content, rather than mirroring the English site.',
-      ar: 'تختلف استعلامات البحث العربية عن الإنجليزية في الصياغة وتنويعات الإملاء. نتعامل مع كل لغة كهدف مستقل ببياناتها الوصفية ومحتواها بدل محاكاة الموقع الإنجليزي.',
     },
   },
 ];
