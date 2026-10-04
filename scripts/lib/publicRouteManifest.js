@@ -13,6 +13,7 @@ const STATIC_ROUTE_DEFINITIONS = [
   { path: '/services', priority: 0.95, changefreq: 'weekly', section: 'services' },
   { path: '/blog', priority: 0.85, changefreq: 'weekly', section: 'blog' },
   { path: '/contact', priority: 0.8, changefreq: 'monthly', section: 'commercial' },
+  { path: '/process', priority: 0.7, changefreq: 'monthly', section: 'commercial' },
   { path: '/about', priority: 0.75, changefreq: 'monthly', section: 'commercial' },
   { path: '/portfolio', priority: 0.75, changefreq: 'monthly', section: 'commercial' },
   { path: '/saudi-arabia', priority: 0.75, changefreq: 'monthly', section: 'authority' },

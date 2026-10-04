@@ -28,6 +28,7 @@ Laravel, NestJS, Next.js, React, Flutter, PostgreSQL, MySQL, Redis, Docker, Ngin
 - [Services](https://www.rumuze.com/services): what Rumuze builds and how engagements work.
 - [Our work](https://www.rumuze.com/portfolio): the products listed above, with stack and architecture notes.
 - Product pages: [RumuzePMO](https://www.rumuze.com/portfolio/rumuzepmo), [Rveta](https://www.rumuze.com/portfolio/rveta), [Rumuze Core](https://www.rumuze.com/portfolio/rumuze-core), [Rveta Connector](https://www.rumuze.com/portfolio/rveta-connector): what each does, how it is built, and what is not built yet.
+- [How we work](https://www.rumuze.com/process): the order of work from request to handover, with no fixed timelines or prices.
 - [About](https://www.rumuze.com/about): who is behind Rumuze.
 - [Insights](https://www.rumuze.com/blog): engineering articles.
 - [Contact](https://www.rumuze.com/contact): start a project or request a technical review.

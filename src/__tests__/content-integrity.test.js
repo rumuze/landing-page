@@ -221,3 +221,17 @@ describe('product pages', () => {
     }
   });
 });
+
+describe('process page', () => {
+  it('has the same steps in both languages, links only to existing posts, and promises no schedule or price', async () => {
+    const { processContent } = await import('../content/processContent');
+    const { getPostBySlug } = await import('../data/blogPosts');
+    expect(processContent.ar.steps.length).toBe(processContent.en.steps.length);
+    processContent.en.steps.forEach((step, index) => {
+      expect(processContent.ar.steps[index].link?.slug).toBe(step.link?.slug);
+      if (step.link) expect(getPostBySlug(step.link.slug), step.link.slug).toBeTruthy();
+    });
+    const english = JSON.stringify(processContent.en);
+    expect(english).not.toMatch(/\b\d+\s*(days?|weeks?|months?|hours?)\b|\$|USD|SAR|EGP|within 24|business day/i);
+  });
+});
