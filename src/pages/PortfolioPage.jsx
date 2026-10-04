@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 import { homeContent } from '../content/homeContent';
 import { architectureDiagrams } from '../content/architectureDiagrams';
 import ArchitectureDiagram from '../components/ArchitectureDiagram';
+import { products } from '../data/products';
 
 const copyByLocale = {
   en: {
@@ -15,6 +16,7 @@ const copyByLocale = {
     ctaTitle: 'Have something similar in mind?',
     ctaBody: 'Tell us what you want to build, fix, or take over.',
     ctaLabel: 'Start a project',
+    more: 'Read the details',
   },
   ar: {
     eyebrow: 'أعمالنا',
@@ -24,6 +26,7 @@ const copyByLocale = {
     ctaTitle: 'هل لديك فكرة مشابهة؟',
     ctaBody: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه.',
     ctaLabel: 'ابدأ مشروعك',
+    more: 'اقرأ التفاصيل',
   },
 };
 
@@ -60,6 +63,14 @@ const PortfolioPage = () => {
                   </div>
                   <h2 className="type-h2 copy-primary mt-3 dark:text-white">{card.title}</h2>
                   <p className="type-body copy-secondary mt-4 dark:text-slate-300">{card.summary}</p>
+                  {products.some((product) => product.title === card.title) ? (
+                    <Link
+                      to={`${isAr ? '/ar' : ''}/portfolio/${products.find((product) => product.title === card.title).slug}`}
+                      className="type-body mt-5 inline-block font-semibold text-cyan hover:underline"
+                    >
+                      {page.more} {isAr ? '←' : '→'}
+                    </Link>
+                  ) : null}
                 </div>
 
                 <div>

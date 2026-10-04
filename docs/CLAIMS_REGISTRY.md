@@ -137,6 +137,10 @@ The homepage, portfolio page, navigation, intake form, and page metadata were re
 | CR-019 | Rveta Connector is a Flutter app with device pairing, token rotation, and a foreground command channel. It is labelled "In development". | verified | `rumuze/connector-app` README | confirmed |
 | CR-020 | ~~Every request is reviewed within one business day.~~ | removed 2026-09-29 | The time commitment was unverified; copy now says requests are read and answered by email. | retired |
 | CR-021 | RumuzePMO includes tenant-isolation tooling and request tracing (homepage, Our work page, architecture diagram, engineering habits). | verified | `rumuze/rumuzepmo` at 224d619: `Tenant*Command` classes (coverage, enforce, query guard, table classifier), `RequestExecutionTraceMiddleware` (per-request `trace_id`), `/up` health route in `bootstrap/app.php` | confirmed |
+| CR-022 | RumuzePMO product page: modules, stack, tenant tooling, `/up` health route, trace id middleware. | verified | `rumuze/rumuzepmo` README and `app/` at 224d619 | confirmed |
+| CR-023 | Rveta product page: driver app features, state management, biometric lock, background tracking, Firebase push. | verified | `rumuze/rveta-delivery-app` README and `lib/`; backend edge and workers from `rumuze/rveta.com` `compose.yml` | confirmed |
+| CR-024 | Rumuze Core product page: EventBus, outbox, webhook engine, Socket.IO, Nginx and Let's Encrypt, version endpoint. | verified | `rumuze/core` README | confirmed |
+| CR-025 | Rveta Connector product page, including the list of what is not built yet. | verified | `rumuze/connector-app` README (Current MVP Status, Not Implemented Yet) | confirmed |
 
 Do not publish: internal architecture scores, "known risks" lists, environment details, or any client name or figure until it has been approved and evidenced.
 
