@@ -107,7 +107,7 @@ const NavbarMobile = ({
                 className={joinClasses('inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium transition-all duration-300', chipSurfaceClass)}
                 type="button"
               >
-                <span>{t('navbar.more', 'Menu')}</span>
+                <span>{t('navbar.menu', 'Menu')}</span>
                 <Menu size={18} />
               </button>
             </div>

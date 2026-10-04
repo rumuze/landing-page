@@ -37,7 +37,7 @@ const GoogleLoginButton = () => {
   );
   const tooltipLabel = isConfigured
     ? t("auth.continueWithGoogle", "Continue with Google")
-    : t("auth.firebaseConfigMissing", "Firebase Google Auth is not configured yet.");
+    : t("auth.firebaseConfigMissing", "Google sign-in is not configured yet.");
 
   const handleGoogleLogin = async () => {
     if (!isConfigured || isWorking) {

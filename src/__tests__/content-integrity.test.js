@@ -260,3 +260,32 @@ describe('flat visual style', () => {
     expect(offenders).toEqual([]);
   });
 });
+
+describe('translations', () => {
+  it('has every key used with t() in both languages', () => {
+    const here = path.dirname(fileURLToPath(import.meta.url));
+    const srcDir = path.resolve(here, '..');
+    const locales = {
+      en: JSON.parse(fs.readFileSync(path.join(srcDir, 'locales', 'en.json'), 'utf8')),
+      ar: JSON.parse(fs.readFileSync(path.join(srcDir, 'locales', 'ar.json'), 'utf8')),
+    };
+    const lookup = (object, key) => key.split('.').reduce((value, part) => value?.[part], object);
+    const walk = (dir) =>
+      fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
+        entry.isDirectory() ? walk(path.join(dir, entry.name)) : [path.join(dir, entry.name)],
+      );
+
+    const missing = [];
+    for (const file of walk(srcDir).filter((f) => /\.(jsx|js)$/.test(f) && !f.includes('__tests__'))) {
+      const source = fs.readFileSync(file, 'utf8');
+      for (const match of source.matchAll(/\bt\(\s*['"]([\w.]+)['"]/g)) {
+        for (const [language, messages] of Object.entries(locales)) {
+          if (lookup(messages, match[1]) === undefined) {
+            missing.push(`${language}: ${match[1]} (${path.relative(srcDir, file)})`);
+          }
+        }
+      }
+    }
+    expect(missing).toEqual([]);
+  });
+});

@@ -67,7 +67,7 @@ const LegalPage = ({ type }) => {
                 className="flex items-center gap-2 p-3 bg-slate-100 dark:bg-white/5 rounded-xl text-sm font-bold w-full"
              >
                 <Menu size={18} />
-                <span>{t('navbar.more', 'Table of Contents')}</span>
+                <span>{t('legal.tableOfContents', 'Table of Contents')}</span>
                 <span className="ml-auto opacity-50">{isSidebarOpen ? 'Close' : 'Open'}</span>
              </button>
              

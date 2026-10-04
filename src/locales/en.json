@@ -12,7 +12,9 @@
         "blog": "Insights",
         "about": "About",
         "contact": "Contact",
-        "startProject": "Start a project"
+        "startProject": "Start a project",
+        "menu": "Menu",
+        "more": "More"
     },
     "footer": {
         "tagline": "Software engineering for Gulf and MENA businesses.",
@@ -132,10 +134,27 @@
                     "content": "We may update these terms and will change the date above when we do. Questions can be sent to connect@rumuze.com."
                 }
             ]
-        }
+        },
+        "tableOfContents": "Table of Contents"
     },
     "whatsapp": {
         "prefillMessage": "Hello, I would like to discuss a software project.",
         "ariaLabel": "Contact us on WhatsApp"
+    },
+    "auth": {
+        "defaultUser": "User",
+        "noEmail": "Signed in with Google",
+        "account": "Account",
+        "adminMessages": "Admin Messages",
+        "adminVisits": "Visit Analytics",
+        "profile": "Profile",
+        "settings": "Settings",
+        "logout": "Logout",
+        "continueWithGoogle": "Continue with Google",
+        "firebaseConfigMissing": "Google sign-in is not configured yet."
+    },
+    "offline": {
+        "title": "You are offline",
+        "message": "Viewing cached version"
     }
 }

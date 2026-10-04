@@ -12,7 +12,9 @@
         "blog": "مقالات",
         "about": "من نحن",
         "contact": "تواصل معنا",
-        "startProject": "ابدأ مشروعك"
+        "startProject": "ابدأ مشروعك",
+        "menu": "القائمة",
+        "more": "المزيد"
     },
     "footer": {
         "tagline": "هندسة برمجيات لشركات الخليج والمنطقة.",
@@ -132,10 +134,27 @@
                     "content": "قد نحدّث هذه الشروط وسنغيّر التاريخ أعلاه عند ذلك. يمكن إرسال الأسئلة إلى connect@rumuze.com."
                 }
             ]
-        }
+        },
+        "tableOfContents": "المحتويات"
     },
     "whatsapp": {
         "prefillMessage": "مرحباً، أود مناقشة مشروع برمجي.",
         "ariaLabel": "تواصل معنا عبر واتساب"
+    },
+    "auth": {
+        "defaultUser": "مستخدم",
+        "noEmail": "سجّلت الدخول عبر Google",
+        "account": "الحساب",
+        "adminMessages": "رسائل الإدارة",
+        "adminVisits": "تحليلات الزيارات",
+        "profile": "الملف الشخصي",
+        "settings": "الإعدادات",
+        "logout": "تسجيل الخروج",
+        "continueWithGoogle": "المتابعة عبر Google",
+        "firebaseConfigMissing": "تسجيل الدخول عبر Google غير مُفعَّل بعد."
+    },
+    "offline": {
+        "title": "أنت غير متصل",
+        "message": "تعرض نسخة محفوظة"
     }
 }

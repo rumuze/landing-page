@@ -170,6 +170,12 @@ html {
   color: rgb(var(--text-primary) / 1);
 }
 [dir="rtl"] {
+  /* Arabic pages use Cairo everywhere. Without this the component classes that
+     name Inter or Sora fell back to a system Arabic font, and the page
+     downloaded five Latin font files it did not need. */
+  --font-family-body: var(--font-family-arabic);
+  --font-family-heading: var(--font-family-arabic);
+  --font-family-ui: var(--font-family-arabic);
   font-family: var(--font-family-arabic);
 }
 h1,
