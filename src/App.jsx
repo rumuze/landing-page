@@ -68,7 +68,7 @@ function AppContent() {
       >
         <AuthFloatingButton />
         {!isAdminRoute ? <WhatsAppButton /> : null}
-        {!isAdminRoute ? <ShareButton /> : null}
+        {!isAdminRoute ? <div className="hidden md:block"><ShareButton /></div> : null}
       </aside>
 
       <UpdateToast show={needRefresh} onUpdate={applyUpdate} onClose={dismissUpdate} />
