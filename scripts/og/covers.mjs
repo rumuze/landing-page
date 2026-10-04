@@ -24,6 +24,9 @@ const covers = {
   'architecture-boundary-checks': ['Boundary<br>checks', 'Architecture'],
   'health-checks-release-order': ['Health<br>checks', 'Operations'],
   'device-token-lifecycle': ['Device<br>tokens', 'Security'],
+  'answer-engine-optimization-basics': ['AEO<br>and GEO', 'Marketing'],
+  'arabic-seo-is-not-translated-seo': ['Arabic<br>SEO', 'Marketing'],
+  'track-leads-before-ad-spend': ['Lead<br>tracking', 'Marketing'],
 };
 
 const template = fs.readFileSync(path.join(root, 'scripts/og/template.html'), 'utf8');
@@ -47,6 +50,8 @@ for (const [slug, [headline, sub]] of Object.entries(covers)) {
   fs.writeFileSync(tmp, html);
   await page.goto(pathToFileURL(tmp).href);
   await page.evaluate(() => document.fonts.ready);
+  // Covers carry a topic, not the technology chips of the site's social image.
+  await page.evaluate(() => document.querySelector('.chips')?.remove());
   await page.screenshot({ path: path.join(outDir, `${slug}.jpg`), type: 'jpeg', quality: 86 });
   fs.rmSync(tmp);
   console.log(`✅ ${slug}.jpg`);
