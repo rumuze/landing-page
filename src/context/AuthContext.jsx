@@ -19,6 +19,43 @@ const whenIdle = (callback) => {
   return () => window.clearTimeout(handle);
 };
 
+// Anonymous visitors on public pages do not need Firebase until they do
+// something that uses it. Returning users (a saved session) and account pages
+// start it straight away.
+const ACCOUNT_PATH = /^(\/ar)?\/(profile|settings|my-messages|admin)(\/|$)/u;
+const INTERACTION_EVENTS = ["pointerdown", "keydown", "scroll", "touchstart"];
+const DEFERRED_START_MS = 8000;
+
+const needsFirebaseNow = () => {
+  if (ACCOUNT_PATH.test(window.location.pathname)) {
+    return true;
+  }
+
+  try {
+    return Object.keys(window.localStorage).some((key) => key.startsWith("firebase:authUser:"));
+  } catch {
+    return true;
+  }
+};
+
+const whenInteractedOrLate = (callback) => {
+  let done = false;
+  const run = () => {
+    if (!done) {
+      done = true;
+      cleanup();
+      callback();
+    }
+  };
+  const timer = window.setTimeout(run, DEFERRED_START_MS);
+  const cleanup = () => {
+    window.clearTimeout(timer);
+    INTERACTION_EVENTS.forEach((name) => window.removeEventListener(name, run));
+  };
+  INTERACTION_EVENTS.forEach((name) => window.addEventListener(name, run, { once: true, passive: true }));
+  return cleanup;
+};
+
 export const AuthProvider = ({ children }) => {
   const setupStatus = getFirebaseSetupStatus();
   const isConfigured = setupStatus.isConfigValid;
@@ -120,7 +157,15 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(false);
       });
 
-    cancelIdle = whenIdle(start);
+    if (needsFirebaseNow()) {
+      cancelIdle = whenIdle(start);
+    } else {
+      // No saved session: nothing to restore, so the page is ready as anonymous.
+      setIsLoading(false);
+      cancelIdle = whenInteractedOrLate(() => {
+        cancelIdle = whenIdle(start);
+      });
+    }
 
     return () => {
       isMounted = false;
