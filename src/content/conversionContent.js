@@ -4,9 +4,9 @@ export const conversionContent = {
   en: {
     seo: {
       home: {
-        title: "Rumuze | Software Engineering for Gulf and MENA Businesses",
+        title: "Rumuze | Software and Digital Marketing for Gulf and MENA Businesses",
         description:
-          "Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.",
+          "Rumuze is a software and digital marketing company. We build platforms and mobile apps and run SEO, ads, and content for Gulf and MENA businesses.",
       },
       contact: {
         title: "Start a Project | Rumuze",
@@ -135,9 +135,9 @@ export const conversionContent = {
   ar: {
     seo: {
       home: {
-        title: "رموز | هندسة برمجيات لشركات الخليج والمنطقة",
+        title: "رموز | برمجيات وتسويق رقمي لشركات الخليج والمنطقة",
         description:
-          "رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات والمنطقة، بالعربية والإنجليزية.",
+          "رموز شركة برمجيات وتسويق رقمي: نبني منصات وتطبيقات موبايل وندير SEO والإعلانات والمحتوى لشركات الخليج والمنطقة.",
       },
       contact: {
         title: "ابدأ مشروعك | Rumuze",

@@ -50,8 +50,8 @@ export const FOUNDER: PersonConfig = {
     ar: "المؤسس والمهندس الرئيسي",
   },
   description: {
-    en: "Mohamed Ashraf is the founder and principal engineer of Rumuze, a software engineering company in Cairo. He designs and builds the company's platforms, including RumuzePMO, Rveta, and Rumuze Core, and leads architecture and engineering standards.",
-    ar: "محمد أشرف هو مؤسس رموز ومهندسها الرئيسي، وهي شركة هندسة برمجيات في القاهرة. يصمم ويبني منصات الشركة، ومنها RumuzePMO وRveta وRumuze Core، ويقود المعمارية ومعايير الهندسة.",
+    en: "Mohamed Ashraf is the founder and principal engineer of Rumuze, a software and digital marketing company in Cairo. He designs and builds the company's platforms, including RumuzePMO, Rveta, and Rumuze Core, and leads architecture and engineering standards.",
+    ar: "محمد أشرف هو مؤسس رموز ومهندسها الرئيسي، وهي شركة برمجيات وتسويق رقمي في القاهرة. يصمم ويبني منصات الشركة، ومنها RumuzePMO وRveta وRumuze Core، ويقود المعمارية ومعايير الهندسة.",
   },
   expertise: {
     en: [

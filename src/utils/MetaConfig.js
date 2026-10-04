@@ -10,7 +10,7 @@
 
 const BASE_URL = 'https://www.rumuze.com';
 const BRAND_NAME = 'Rumuze';
-const OG_IMAGE_VERSION = '2026-10';
+const OG_IMAGE_VERSION = '2026-10b';
 
 /**
  * Page-specific metadata configuration
@@ -19,16 +19,16 @@ const OG_IMAGE_VERSION = '2026-10';
 const META_CONFIG = {
     '/': {
         en: {
-            title: `${BRAND_NAME} | Software Engineering for Gulf and MENA Businesses`,
-            description: 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.',
-            keywords: 'software engineering company, custom software development, SaaS platform development, Flutter mobile apps, backend development, Saudi Arabia, UAE, MENA',
+            title: `${BRAND_NAME} | Software and Digital Marketing for Gulf and MENA Businesses`,
+            description: 'Rumuze is a software and digital marketing company. We build platforms and mobile apps and run SEO, ads, and content for Gulf and MENA businesses.',
+            keywords: 'software and digital marketing company, custom software development, SaaS platform development, Flutter mobile apps, backend development, Saudi Arabia, UAE, MENA',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'Rumuze - Software Engineering'
         },
         ar: {
-            title: 'رموز | هندسة برمجيات لشركات الخليج والمنطقة',
-            description: 'رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات والمنطقة، بالعربية والإنجليزية.',
-            keywords: 'شركة هندسة برمجيات, تطوير برمجيات مخصصة, تطوير منصات SaaS, تطبيقات Flutter, تطوير أنظمة خلفية, السعودية, الإمارات',
+            title: 'رموز | برمجيات وتسويق رقمي لشركات الخليج والمنطقة',
+            description: 'رموز شركة برمجيات وتسويق رقمي: نبني منصات وتطبيقات موبايل وندير SEO والإعلانات والمحتوى لشركات الخليج والمنطقة.',
+            keywords: 'شركة برمجيات وتسويق رقمي, تطوير برمجيات مخصصة, تطوير منصات SaaS, تطبيقات Flutter, تطوير أنظمة خلفية, السعودية, الإمارات',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'رموز - هندسة البرمجيات'
         }
@@ -85,14 +85,14 @@ const META_CONFIG = {
         en: {
             title: `About | ${BRAND_NAME}`,
             description: 'Learn who is behind Rumuze, how we work, and the products we build and run ourselves.',
-            keywords: 'about rumuze, software engineering company Cairo, Rumuze founder, Rumuze technology stack',
+            keywords: 'about rumuze, software and digital marketing company Cairo, Rumuze founder, Rumuze technology stack',
             image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'About Rumuze'
         },
         ar: {
             title: `من نحن | ${BRAND_NAME}`,
             description: 'تعرف على من يقف وراء رموز وكيف نعمل والمنتجات التي نبنيها ونشغّلها بأنفسنا.',
-            keywords: 'عن رموز, شركة هندسة برمجيات القاهرة, مؤسس رموز, تقنيات رموز',
+            keywords: 'عن رموز, شركة برمجيات وتسويق رقمي القاهرة, مؤسس رموز, تقنيات رموز',
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'عن رموز'
         }
@@ -232,16 +232,16 @@ const META_CONFIG = {
  */
 const FALLBACK_META = {
     en: {
-        title: `${BRAND_NAME} | Software Engineering for Gulf and MENA Businesses`,
-        description: 'Rumuze is a software engineering company building custom platforms, mobile apps, and backend systems for businesses in the Gulf and MENA region.',
-        keywords: 'software engineering company, custom software, mobile apps, rumuze',
+        title: `${BRAND_NAME} | Software and Digital Marketing for Gulf and MENA Businesses`,
+        description: 'Rumuze is a software and digital marketing company. We build platforms and mobile apps and run SEO, ads, and content for Gulf and MENA businesses.',
+        keywords: 'software and digital marketing company, custom software, mobile apps, rumuze',
         image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
         imageAlt: 'Rumuze - Software Engineering'
     },
     ar: {
-        title: `${BRAND_NAME} | هندسة برمجيات لشركات الخليج والمنطقة`,
-        description: 'رموز شركة هندسة برمجيات تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات الخليج والمنطقة.',
-        keywords: 'شركة هندسة برمجيات, برمجيات مخصصة, تطبيقات موبايل, رموز',
+        title: `${BRAND_NAME} | برمجيات وتسويق رقمي لشركات الخليج والمنطقة`,
+        description: 'رموز شركة برمجيات وتسويق رقمي: نبني منصات وتطبيقات موبايل وندير SEO والإعلانات والمحتوى لشركات الخليج والمنطقة.',
+        keywords: 'شركة برمجيات وتسويق رقمي, برمجيات مخصصة, تطبيقات موبايل, رموز',
         image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
         imageAlt: 'رموز - هندسة البرمجيات'
     }

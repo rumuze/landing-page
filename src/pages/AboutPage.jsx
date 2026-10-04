@@ -10,7 +10,7 @@ import { homeContent } from '../content/homeContent';
 const copyByLocale = {
   en: {
     eyebrow: 'About',
-    title: 'A software engineering company in Cairo.',
+    title: 'A software and digital marketing company in Cairo.',
     intro:
       'Rumuze designs, builds, and operates custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.',
     whatTitle: 'What we do',
@@ -32,7 +32,7 @@ const copyByLocale = {
   },
   ar: {
     eyebrow: 'من نحن',
-    title: 'شركة هندسة برمجيات في القاهرة.',
+    title: 'شركة برمجيات وتسويق رقمي في القاهرة.',
     intro:
       'تصمم رموز وتبني وتشغّل منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا، بالعربية والإنجليزية.',
     whatTitle: 'ماذا نفعل',

@@ -22,14 +22,14 @@ const { chromium } = await import('playwright-core').catch(() => {
 const variants = {
   en: {
     lang: 'en', dir: 'ltr', brand: 'RUMUZE',
-    headline: 'We build the software your business runs on.',
-    sub: 'Custom platforms, mobile apps, and backend systems for Gulf and MENA businesses.',
+    headline: 'We build your software, and the marketing that grows it.',
+    sub: 'Software, SEO, advertising, and content for Gulf and MENA businesses.',
     headFont: "'Sora', sans-serif", bodyFont: "'Inter', sans-serif", h1Size: 70, tracking: '-0.03em', subWeight: 500,
   },
   ar: {
     lang: 'ar', dir: 'rtl', brand: 'رموز',
-    headline: 'نبني البرمجيات التي تعتمد عليها شركتك.',
-    sub: 'منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات الخليج والمنطقة.',
+    headline: 'نبني برمجياتك، والتسويق الذي ينمّيها.',
+    sub: 'برمجيات وSEO وإعلانات ومحتوى لشركات الخليج والمنطقة.',
     headFont: "'Cairo', sans-serif", bodyFont: "'Cairo', sans-serif", h1Size: 72, tracking: '0', subWeight: 400,
   },
 };

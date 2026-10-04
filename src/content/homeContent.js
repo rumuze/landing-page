@@ -5,10 +5,10 @@
 export const homeContent = {
   en: {
     hero: {
-      badge: "Software engineering for Gulf and MENA businesses",
-      headline: "We build the software your business runs on.",
+      badge: "Software and digital marketing for Gulf and MENA businesses",
+      headline: "We build your software, and the marketing that grows it.",
       subheadline:
-        "Rumuze is a software engineering company. We design and build custom platforms, mobile apps, and backend systems, in Arabic and English from day one, and built to be operated for years, not just launched.",
+        "Rumuze is a software and digital marketing company. We build custom platforms, mobile apps, and backend systems, then run the search, advertising, and content that bring customers to them, in Arabic and English from day one.",
       primaryCta: "Start a project",
       secondaryCta: "Request a technical review",
       reviewNote: "We read every request and reply by email.",
@@ -37,53 +37,107 @@ export const homeContent = {
       ],
     },
     capabilities: {
-      eyebrow: "What we build",
-      title: "Four things we do well.",
+      eyebrow: "What we do",
+      title: "Software, and the marketing around it.",
       intro:
-        "From a single mobile app to a multi-module business platform, the work falls into four areas.",
-      cards: [
+        "We build the product, then run the search, advertising, and content that bring customers to it. The work falls into two groups.",
+      groups: [
         {
-          title: "Custom software and SaaS",
-          description:
-            "Multi-module business systems such as ERP, CRM, HR, project management, and billing.",
-          points: [
-            "Multi-tenant SaaS",
-            "Modular architecture",
-            "Role-based access control",
-            "Payment gateway integration",
+          title: "Software and digital products",
+          cards: [
+            {
+              title: "From idea to digital solution",
+              description:
+                "Turning a business idea or a manual process into a working product: scoped, built, launched, and handed over.",
+              points: [
+                "Problem definition and first-version scope",
+                "Architecture explained in plain language",
+                "Built and released in stages",
+                "Documentation and runbooks at handover",
+              ],
+            },
+            {
+              title: "Custom software and SaaS",
+              description:
+                "Multi-module business systems such as ERP, CRM, HR, project management, and billing.",
+              points: [
+                "Multi-tenant SaaS",
+                "Modular architecture",
+                "Role-based access control",
+                "Payment gateway integration",
+              ],
+            },
+            {
+              title: "Mobile apps",
+              description:
+                "Cross-platform Flutter apps for customers, drivers, and field teams.",
+              points: [
+                "Delivery and field-operations apps",
+                "Live location tracking",
+                "Push notifications",
+                "Arabic and English localisation",
+              ],
+            },
+            {
+              title: "Backend and API platforms",
+              description:
+                "Event-driven backends, webhooks, and realtime services that stay reliable under load.",
+              points: [
+                "NestJS and Laravel APIs",
+                "Transactional outbox and reliable webhooks",
+                "Realtime over WebSockets",
+                "Admin dashboards",
+              ],
+            },
           ],
         },
         {
-          title: "Mobile apps",
-          description:
-            "Cross-platform Flutter apps for customers, drivers, and field teams.",
-          points: [
-            "Delivery and field-operations apps",
-            "Live location tracking",
-            "Push notifications",
-            "Arabic and English localisation",
-          ],
-        },
-        {
-          title: "Backend and API platforms",
-          description:
-            "Event-driven backends, webhooks, and realtime services that stay reliable under load.",
-          points: [
-            "NestJS and Laravel APIs",
-            "Transactional outbox and reliable webhooks",
-            "Realtime over WebSockets",
-            "Admin dashboards",
-          ],
-        },
-        {
-          title: "Integrations and data",
-          description:
-            "Connecting the systems you already run, and making the numbers trustworthy.",
-          points: [
-            "CRM integration",
-            "Tracking and attribution",
-            "Reporting dashboards",
-            "Legacy system integration",
+          title: "Digital marketing",
+          cards: [
+            {
+              title: "SEO, AEO and GEO",
+              description:
+                "Be found by search engines and quoted by answer engines, in Arabic and English.",
+              points: [
+                "Technical SEO and structured data",
+                "llms.txt and answer-ready content",
+                "Arabic and English as separate search targets",
+                "No ranking guarantees",
+              ],
+            },
+            {
+              title: "Paid advertising",
+              description:
+                "Campaigns planned, run, and measured against real leads, not only clicks.",
+              points: [
+                "Google, Meta, and other major platforms",
+                "Conversion tracking set up before launch",
+                "Landing pages built for mobile speed",
+                "Reporting tied to leads and sales",
+              ],
+            },
+            {
+              title: "Content and social media",
+              description:
+                "Bilingual content that answers what your customers ask.",
+              points: [
+                "Content strategy and calendar",
+                "Arabic and English written separately",
+                "Social posts and design",
+                "Claims limited to what can be evidenced",
+              ],
+            },
+            {
+              title: "Tracking, CRM and reporting",
+              description:
+                "Connecting the systems you already run, and making the numbers trustworthy.",
+              points: [
+                "CRM integration",
+                "Tracking and attribution",
+                "Reporting dashboards",
+                "Legacy system integration",
+              ],
+            },
           ],
         },
       ],
@@ -186,7 +240,11 @@ export const homeContent = {
       items: [
         {
           q: "What does Rumuze do?",
-          a: "Rumuze is a software engineering company. It builds custom platforms, mobile apps, backend and API systems, and integrations for businesses in Saudi Arabia, the UAE, and the wider MENA region.",
+          a: "Rumuze is a software and digital marketing company. It builds custom platforms, mobile apps, backend and API systems, and integrations, and runs SEO, answer-engine optimisation (AEO and GEO), paid advertising, and content for businesses in Saudi Arabia, the UAE, and the wider MENA region.",
+        },
+        {
+          q: "What marketing services does Rumuze offer?",
+          a: "SEO and answer-engine optimisation (AEO and GEO), paid advertising management, bilingual content and social media, and the tracking, CRM, and reporting that connect them to real leads. We do not promise rankings, a cost per lead, or follower growth.",
         },
         {
           q: "Does Rumuze build in both Arabic and English?",
@@ -229,10 +287,10 @@ export const homeContent = {
   },
   ar: {
     hero: {
-      badge: "هندسة برمجيات لشركات الخليج والمنطقة",
-      headline: "نبني البرمجيات التي تعتمد عليها شركتك.",
+      badge: "برمجيات وتسويق رقمي لشركات الخليج والمنطقة",
+      headline: "نبني برمجياتك، والتسويق الذي ينمّيها.",
       subheadline:
-        "رموز شركة هندسة برمجيات. نصمم وننفذ منصات مخصصة وتطبيقات موبايل وأنظمة خلفية، بالعربية والإنجليزية من اليوم الأول، ومصممة لتعمل سنوات طويلة لا لتُطلق فقط.",
+        "رموز شركة برمجيات وتسويق رقمي. نبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية، ثم ندير البحث والإعلانات والمحتوى التي تجلب العملاء إليها، بالعربية والإنجليزية من اليوم الأول.",
       primaryCta: "ابدأ مشروعك",
       secondaryCta: "اطلب مراجعة تقنية",
       reviewNote: "نقرأ كل طلب ونرد عليه بالبريد الإلكتروني.",
@@ -261,53 +319,107 @@ export const homeContent = {
       ],
     },
     capabilities: {
-      eyebrow: "ما الذي نبنيه",
-      title: "أربعة مجالات نتقنها.",
+      eyebrow: "ما الذي نفعله",
+      title: "البرمجيات، والتسويق من حولها.",
       intro:
-        "من تطبيق موبايل واحد إلى منصة أعمال متعددة الوحدات، يقع العمل ضمن أربعة مجالات.",
-      cards: [
+        "نبني المنتج، ثم ندير البحث والإعلانات والمحتوى التي تجلب العملاء إليه. ويقع العمل ضمن مجموعتين.",
+      groups: [
         {
-          title: "برمجيات مخصصة وSaaS",
-          description:
-            "أنظمة أعمال متعددة الوحدات مثل ERP وCRM والموارد البشرية وإدارة المشاريع والفوترة.",
-          points: [
-            "SaaS متعدد المستأجرين",
-            "معمارية وحدات",
-            "صلاحيات قائمة على الأدوار",
-            "ربط بوابات الدفع",
+          title: "البرمجيات والمنتجات الرقمية",
+          cards: [
+            {
+              title: "من الفكرة إلى الحل الرقمي",
+              description:
+                "نحوّل فكرة تجارية أو عملية يدوية إلى منتج يعمل: نحدد نطاقه ونبنيه ونطلقه ونسلّمه.",
+              points: [
+                "تحديد المشكلة ونطاق النسخة الأولى",
+                "معمارية تُشرح بلغة واضحة",
+                "بناء وإصدار على مراحل",
+                "توثيق ودلائل تشغيل عند التسليم",
+              ],
+            },
+            {
+              title: "برمجيات مخصصة وSaaS",
+              description:
+                "أنظمة أعمال متعددة الوحدات مثل ERP وCRM والموارد البشرية وإدارة المشاريع والفوترة.",
+              points: [
+                "SaaS متعدد المستأجرين",
+                "معمارية وحدات",
+                "صلاحيات قائمة على الأدوار",
+                "ربط بوابات الدفع",
+              ],
+            },
+            {
+              title: "تطبيقات الموبايل",
+              description:
+                "تطبيقات Flutter متعددة المنصات للعملاء والسائقين والفرق الميدانية.",
+              points: [
+                "تطبيقات التوصيل والعمليات الميدانية",
+                "تتبع الموقع المباشر",
+                "إشعارات فورية",
+                "دعم العربية والإنجليزية",
+              ],
+            },
+            {
+              title: "الأنظمة الخلفية وواجهات API",
+              description:
+                "أنظمة خلفية قائمة على الأحداث وWebhooks وخدمات لحظية تبقى موثوقة تحت الضغط.",
+              points: [
+                "واجهات NestJS وLaravel",
+                "نمط Outbox وWebhooks موثوقة",
+                "اتصال لحظي عبر WebSockets",
+                "لوحات إدارة",
+              ],
+            },
           ],
         },
         {
-          title: "تطبيقات الموبايل",
-          description:
-            "تطبيقات Flutter متعددة المنصات للعملاء والسائقين والفرق الميدانية.",
-          points: [
-            "تطبيقات التوصيل والعمليات الميدانية",
-            "تتبع الموقع المباشر",
-            "إشعارات فورية",
-            "دعم العربية والإنجليزية",
-          ],
-        },
-        {
-          title: "الأنظمة الخلفية وواجهات API",
-          description:
-            "أنظمة خلفية قائمة على الأحداث وWebhooks وخدمات لحظية تبقى موثوقة تحت الضغط.",
-          points: [
-            "واجهات NestJS وLaravel",
-            "نمط Outbox وWebhooks موثوقة",
-            "اتصال لحظي عبر WebSockets",
-            "لوحات إدارة",
-          ],
-        },
-        {
-          title: "التكامل والبيانات",
-          description:
-            "ربط الأنظمة التي تعمل بها اليوم وجعل الأرقام قابلة للثقة.",
-          points: [
-            "تكامل CRM",
-            "التتبع والإسناد",
-            "لوحات التقارير",
-            "الربط مع الأنظمة القديمة",
+          title: "التسويق الرقمي",
+          cards: [
+            {
+              title: "SEO وAEO وGEO",
+              description:
+                "أن تظهر في محركات البحث وتُقتبس في محركات الإجابة، بالعربية والإنجليزية.",
+              points: [
+                "SEO تقني وبيانات منظمة",
+                "llms.txt ومحتوى جاهز للإجابة",
+                "العربية والإنجليزية كهدفي بحث منفصلين",
+                "لا ضمانات لترتيب النتائج",
+              ],
+            },
+            {
+              title: "الإعلانات المدفوعة",
+              description:
+                "حملات تُخطط وتُدار وتُقاس مقابل عملاء محتملين حقيقيين لا نقرات فقط.",
+              points: [
+                "Google وMeta ومنصات كبرى أخرى",
+                "تتبع التحويلات قبل الإطلاق",
+                "صفحات هبوط سريعة على الموبايل",
+                "تقارير مرتبطة بالعملاء والمبيعات",
+              ],
+            },
+            {
+              title: "المحتوى ووسائل التواصل",
+              description:
+                "محتوى ثنائي اللغة يجيب عمّا يسأل عنه عملاؤك.",
+              points: [
+                "استراتيجية المحتوى وجدول النشر",
+                "العربية والإنجليزية تُكتبان بشكل منفصل",
+                "منشورات تواصل وتصميم",
+                "ادعاءات محصورة فيما يمكن إثباته",
+              ],
+            },
+            {
+              title: "التتبع وCRM والتقارير",
+              description:
+                "ربط الأنظمة التي تعمل بها اليوم وجعل الأرقام قابلة للثقة.",
+              points: [
+                "تكامل CRM",
+                "التتبع والإسناد",
+                "لوحات التقارير",
+                "الربط مع الأنظمة القديمة",
+              ],
+            },
           ],
         },
       ],
@@ -410,7 +522,11 @@ export const homeContent = {
       items: [
         {
           q: "ماذا تفعل رموز؟",
-          a: "رموز شركة هندسة برمجيات. تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية وواجهات API وتكاملات لشركات في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا.",
+          a: "رموز شركة برمجيات وتسويق رقمي. تبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية وواجهات API وتكاملات، وتدير SEO وتحسين محركات الإجابة (AEO وGEO) والإعلانات المدفوعة والمحتوى لشركات في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا.",
+        },
+        {
+          q: "ما خدمات التسويق التي تقدمها رموز؟",
+          a: "SEO وتحسين محركات الإجابة (AEO وGEO) وإدارة الإعلانات المدفوعة والمحتوى ووسائل التواصل بلغتين، والتتبع وCRM والتقارير التي تربطها بعملاء محتملين حقيقيين. ولا نعد بترتيب معين ولا بتكلفة للعميل المحتمل ولا بنمو في المتابعين.",
         },
         {
           q: "هل تبني رموز بالعربية والإنجليزية معاً؟",

@@ -1,6 +1,6 @@
 # Rumuze website
 
-The public website for [Rumuze](https://www.rumuze.com), a software engineering company based in Cairo, Egypt that builds custom platforms, mobile apps, and backend systems for businesses in the Gulf and MENA region. The site is bilingual (English LTR, Arabic RTL) and served from one codebase.
+The public website for [Rumuze](https://www.rumuze.com), a software and digital marketing company based in Cairo, Egypt that builds custom platforms, mobile apps, and backend systems, and runs SEO, advertising, and content, for businesses in the Gulf and MENA region. The site is bilingual (English LTR, Arabic RTL) and served from one codebase.
 
 ## Stack
 

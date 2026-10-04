@@ -4,7 +4,11 @@ import {
   CheckCircle2,
   Clock3,
   Layers,
+  Lightbulb,
+  Megaphone,
+  PenLine,
   Plug,
+  Search,
   Server,
   Smartphone,
 } from "lucide-react";
@@ -13,7 +17,7 @@ import { conversionContent } from "../../content/conversionContent";
 import ConversionButton from "./ConversionButton";
 import LeadCaptureModal from "./LeadCaptureModal";
 
-const capabilityIcons = [Layers, Smartphone, Server, Plug];
+const capabilityIcons = [Lightbulb, Layers, Smartphone, Server, Search, Megaphone, PenLine, Plug];
 
 const joinClasses = (...classes) => classes.filter(Boolean).join(" ");
 
@@ -259,42 +263,50 @@ const CapabilitiesSection = ({ copy, isAr }) => (
   <SectionShell className={sectionSpaceClass} tone="alt">
     <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
 
-    <div className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2 xl:grid-cols-4">
-      {copy.cards.map((card, index) => {
-        const Icon = capabilityIcons[index] || Layers;
+    {copy.groups.map((group, groupIndex) => (
+      <div key={group.title} className={groupIndex === 0 ? "mt-12" : "mt-16"}>
+        <Reveal className={isAr ? "text-right" : "text-left"}>
+          <h3 className="type-h3 copy-primary dark:text-white">{group.title}</h3>
+        </Reveal>
 
-        return (
-          <Reveal
-            key={card.title}
-            className={joinClasses(
-              "border-t-2 border-[rgb(var(--border-strong)/0.5)] pt-6",
-              isAr ? "text-right" : "text-left",
-            )}
-            delay={100 + index * 70}
-          >
-            <span className={joinClasses(iconBadgeClass, isAr ? "mr-0 ml-auto" : "")}>
-              <Icon size={20} />
-            </span>
-            <h3 className="type-h4 copy-primary mt-5 dark:text-white">{card.title}</h3>
-            <p className="type-body copy-secondary mt-3 dark:text-slate-300">{card.description}</p>
-            <ul className="mt-5 space-y-2.5">
-              {card.points.map((point) => (
-                <li
-                  key={point}
-                  className={joinClasses(
-                    "type-small copy-secondary flex items-start gap-2.5 dark:text-slate-300",
-                    isAr ? "flex-row-reverse" : "",
-                  )}
-                >
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan" />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        );
-      })}
-    </div>
+        <div className="mt-8 grid gap-x-10 gap-y-12 sm:grid-cols-2 xl:grid-cols-4">
+          {group.cards.map((card, index) => {
+            const Icon = capabilityIcons[groupIndex * 4 + index] || Layers;
+
+            return (
+              <Reveal
+                key={card.title}
+                className={joinClasses(
+                  "border-t-2 border-[rgb(var(--border-strong)/0.5)] pt-6",
+                  isAr ? "text-right" : "text-left",
+                )}
+                delay={100 + index * 70}
+              >
+                <span className={joinClasses(iconBadgeClass, isAr ? "mr-0 ml-auto" : "")}>
+                  <Icon size={20} />
+                </span>
+                <h4 className="type-h4 copy-primary mt-5 dark:text-white">{card.title}</h4>
+                <p className="type-body copy-secondary mt-3 dark:text-slate-300">{card.description}</p>
+                <ul className="mt-5 space-y-2.5">
+                  {card.points.map((point) => (
+                    <li
+                      key={point}
+                      className={joinClasses(
+                        "type-small copy-secondary flex items-start gap-2.5 dark:text-slate-300",
+                        isAr ? "flex-row-reverse" : "",
+                      )}
+                    >
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    ))}
   </SectionShell>
 );
 
