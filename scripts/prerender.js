@@ -63,7 +63,9 @@ const TEMPLATE_HEAD_PATTERNS = [
 // looked up in dist/assets at build time).
 const PRELOAD_FONTS = {
   en: ['inter-latin-400-normal', 'sora-latin-700-normal'],
-  ar: ['cairo-arabic-400-normal', 'cairo-arabic-700-normal'],
+  // Arabic pages also draw spaces and digits from the Latin subset, so those
+  // files gate the first paint of Arabic text too.
+  ar: ['cairo-arabic-400-normal', 'cairo-arabic-600-normal', 'cairo-arabic-700-normal', 'cairo-latin-400-normal', 'cairo-latin-600-normal', 'cairo-latin-700-normal'],
 };
 
 function fontPreloadTags(locale) {
