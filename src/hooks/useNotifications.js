@@ -1,10 +1,8 @@
 import { startTransition, useCallback, useEffect, useReducer, useRef } from "react";
 import { useAuth } from "../context/auth-core";
-import {
-  markNotificationAsRead,
-  markNotificationsAsRead,
-  subscribeToNotifications,
-} from "../services/chatService";
+
+// Loaded on first use so the Firebase SDK stays out of the initial bundle.
+const loadChatService = () => import("../services/chatService");
 
 const NOTIFICATION_SOUND_PATH = "/notification.wav";
 const NOTIFICATION_SOUND_COOLDOWN_MS = 1500;
@@ -145,8 +143,10 @@ export function useNotifications() {
 
     let isMounted = true;
 
-    const setup = () => {
+    const setup = async () => {
       try {
+        const { subscribeToNotifications } = await loadChatService();
+        if (!isMounted) return;
         const unsubscribe = subscribeToNotifications(
           { userId: userUid },
           (notifications) => {
@@ -211,7 +211,7 @@ export function useNotifications() {
       }
     };
 
-    setup();
+    void setup();
 
     return () => {
       isMounted = false;
@@ -228,6 +228,7 @@ export function useNotifications() {
     }
 
     try {
+      const { markNotificationAsRead } = await loadChatService();
       await markNotificationAsRead({ notificationId });
     } catch (err) {
       console.error("[useNotifications] markAsRead error:", err);
@@ -239,6 +240,7 @@ export function useNotifications() {
     if (unread.length === 0) return;
 
     try {
+      const { markNotificationsAsRead } = await loadChatService();
       await markNotificationsAsRead({
         notificationIds: unread.map((notification) => notification.id),
       });
