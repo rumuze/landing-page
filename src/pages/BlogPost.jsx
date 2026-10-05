@@ -43,8 +43,8 @@ const BlogPost = () => {
     return (
         <div className="surface-page tech-grid min-h-screen pt-32 pb-20">
             <SEO 
-                path={isAr ? `/ar/blog/${slug}` : `/blog/${slug}`} 
-                canonical={`https://www.rumuze.com${isAr ? `/ar/blog/${slug}` : `/blog/${slug}`}`}
+                path={isAr ? `/blog/${slug}` : `/en/blog/${slug}`} 
+                canonical={`https://www.rumuze.com${isAr ? `/blog/${slug}` : `/en/blog/${slug}`}`}
                 schemas={[blogPostingSchema]}
                 overrideMeta={{
                     title: `${content.title} | ${isAr ? 'رموز للهندسة' : 'Rumuze Engineering'}`,
@@ -64,7 +64,7 @@ const BlogPost = () => {
                     className="mb-8"
                 >
                     <Link 
-                        to={isAr ? "/ar/blog" : "/blog"}
+                        to={isAr ? "/blog" : "/en/blog"}
                         className="inline-flex items-center gap-2 text-slate-500 hover:text-cyan transition-colors"
                     >
                         {isAr ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}

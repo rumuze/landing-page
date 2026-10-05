@@ -5,7 +5,7 @@ The public website for [Rumuze](https://www.rumuze.com), a software and digital 
 ## Stack
 
 - React 19, Vite 7, Tailwind CSS 3, React Router 7
-- `react-i18next` for language state, with routes under `/` (English) and `/ar` (Arabic)
+- `react-i18next` for language state, with Arabic as the primary language at `/` and English under `/en`
 - `react-helmet-async` for per-route metadata, plus JSON-LD generated in `src/seo`
 - Firebase (Auth, Firestore, Functions) for sign-in, messaging, and consent-gated visit tracking
 - Progressive web app via `vite-plugin-pwa`

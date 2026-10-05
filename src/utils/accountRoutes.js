@@ -7,4 +7,4 @@ export const ACCOUNT_ROUTES = {
 };
 
 export const getLocalizedAccountRoute = (isAr, route) =>
-  isAr ? `/ar${route}` : route;
+  isAr ? route : `/en${route}`;

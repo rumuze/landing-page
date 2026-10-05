@@ -22,9 +22,9 @@ describe('route table', () => {
   });
 
   it('localizes paths for both languages', () => {
-    expect(localizePath('/', 'ar')).toBe('/ar');
-    expect(localizePath('/about', 'ar')).toBe('/ar/about');
-    expect(localizePath('/about', 'en')).toBe('/about');
+    expect(localizePath('/', 'en')).toBe('/en');
+    expect(localizePath('/about', 'en')).toBe('/en/about');
+    expect(localizePath('/about', 'ar')).toBe('/about');
   });
 
   it('serves every public page in the manifest in both languages', () => {
@@ -34,7 +34,7 @@ describe('route table', () => {
     for (const route of getPublicRouteManifest()) {
       for (const locale of LOCALES) {
         const url = localizePath(route.path, locale);
-        if (url === '/' || url === '/ar') continue; // home routes are defined separately
+        if (url === '/' || url === '/en') continue; // home routes are defined separately
         const sample = url.replace(/:slug/, 'sample');
         expect(
           served.some((pattern) => matchPath({ path: pattern, end: true }, sample)),
@@ -57,7 +57,9 @@ describe('route table', () => {
       .readFileSync(path.join(root, 'public/_redirects'), 'utf8')
       .split('\n')
       .filter((line) => /\s301$/.test(line))
-      .map((line) => line.trim().split(/\s+/)[0]);
+      .map((line) => line.trim().split(/\s+/)[0])
+      // Old /ar URLs are only redirected by the host; the router has no /ar routes.
+      .filter((source) => !/^\/ar(\/|$)/.test(source));
     const client = new Set(
       LOCALES.flatMap((locale) => RETIRED_REDIRECTS.map(([from]) => localizePath(from, locale))),
     );

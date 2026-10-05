@@ -145,7 +145,7 @@ export const blogPosts = [
             excerpt: 'Right-to-left support is a design constraint, not a translation task. Here is how we structure a bilingual site so both languages are first-class.',
             content: `
                 <h2>Start with the URL</h2>
-                <p>Give each language its own path (<code>/</code> and <code>/ar</code>). The route decides the language, the <code>lang</code> and <code>dir</code> attributes, and the metadata. Storing the language only in a cookie or local storage makes pages impossible to link to and invisible to search engines.</p>
+                <p>Give each language its own path (for example <code>/</code> for Arabic and <code>/en</code> for English). The route decides the language, the <code>lang</code> and <code>dir</code> attributes, and the metadata. Storing the language only in a cookie or local storage makes pages impossible to link to and invisible to search engines.</p>
 
                 <h2>Write layout once, in logical terms</h2>
                 <p>Use logical CSS properties (<code>margin-inline-start</code>, <code>text-align: start</code>, <code>padding-inline</code>) instead of left and right. The same component then works in both directions. Decide deliberately which icons mirror: arrows and back buttons should, logos and checkmarks should not.</p>
@@ -176,7 +176,7 @@ export const blogPosts = [
             excerpt: 'دعم الكتابة من اليمين لليسار قيد تصميمي وليس مهمة ترجمة. هكذا نبني موقعاً ثنائي اللغة تكون فيه اللغتان أصيلتين.',
             content: `
                 <h2>ابدأ من الرابط</h2>
-                <p>امنح كل لغة مساراً خاصاً بها (<code>/</code> و<code>/ar</code>). يحدد المسار اللغة وسمتي <code>lang</code> و<code>dir</code> والبيانات الوصفية. أما حفظ اللغة في كوكي أو التخزين المحلي فقط فيجعل الصفحات غير قابلة للربط وغير مرئية لمحركات البحث.</p>
+                <p>امنح كل لغة مساراً خاصاً بها (مثلاً <code>/</code> للعربية و<code>/en</code> للإنجليزية). يحدد المسار اللغة وسمتي <code>lang</code> و<code>dir</code> والبيانات الوصفية. أما حفظ اللغة في كوكي أو التخزين المحلي فقط فيجعل الصفحات غير قابلة للربط وغير مرئية لمحركات البحث.</p>
 
                 <h2>اكتب التخطيط مرة واحدة بمصطلحات منطقية</h2>
                 <p>استخدم خصائص CSS المنطقية (<code>margin-inline-start</code> و<code>text-align: start</code> و<code>padding-inline</code>) بدل اليمين واليسار. فيعمل المكوّن نفسه في الاتجاهين. وقرر بوعي أي الأيقونات تنعكس: الأسهم وأزرار الرجوع تنعكس، أما الشعارات وعلامات الصح فلا.</p>
@@ -591,7 +591,7 @@ export const blogPosts = [
                 <p>A translated page answers the English query in Arabic words. It does not answer the question an Arabic speaker would type. Arabic has spelling variants, dialect words, and phrasing that differs from English even when the meaning is the same. Search for each language separately, with its own keyword research.</p>
 
                 <h2>Give each language its own address</h2>
-                <p>Put each language on its own URL, for example a /ar path, rather than switching the language with a cookie or a script. Search engines index addresses, so a language that only appears after a click can be invisible.</p>
+                <p>Put each language on its own URL, for example an /en path, rather than switching the language with a cookie or a script. Search engines index addresses, so a language that only appears after a click can be invisible.</p>
 
                 <h2>Link the versions with hreflang</h2>
                 <p>Tell search engines that the English and Arabic pages are versions of each other. Each page should list both alternates and point to itself, and the sitemap should carry the same pairs. Without this, the two pages can compete or the wrong one can be shown.</p>
@@ -614,7 +614,7 @@ export const blogPosts = [
                 <p>الصفحة المترجمة تجيب عن الاستعلام الإنجليزي بكلمات عربية، ولا تجيب عن السؤال الذي سيكتبه متحدث العربية. فللعربية تنويعات إملائية وكلمات لهجية وصياغة تختلف عن الإنجليزية حتى مع تطابق المعنى. ابحث لكل لغة على حدة، ولكلٍ منها بحث كلمات مفتاحية خاص.</p>
 
                 <h2>أعطِ كل لغة عنوانها</h2>
-                <p>ضع كل لغة على عنوان URL خاص، مثل مسار /ar، بدل تبديل اللغة بملف تعريف ارتباط أو سكربت. فمحركات البحث تفهرس العناوين، واللغة التي لا تظهر إلا بعد نقرة قد تكون غير مرئية.</p>
+                <p>ضع كل لغة على عنوان URL خاص، مثل مسار /en، بدل تبديل اللغة بملف تعريف ارتباط أو سكربت. فمحركات البحث تفهرس العناوين، واللغة التي لا تظهر إلا بعد نقرة قد تكون غير مرئية.</p>
 
                 <h2>اربط النسختين بـ hreflang</h2>
                 <p>أخبر محركات البحث أن الصفحتين الإنجليزية والعربية نسختان من بعضهما. ينبغي أن تسرد كل صفحة البديلين وتشير إلى نفسها، وأن تحمل خريطة الموقع الأزواج نفسها. بدون ذلك قد تتنافس الصفحتان أو تظهر الصفحة الخاطئة.</p>

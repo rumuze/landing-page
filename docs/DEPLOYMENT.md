@@ -21,6 +21,12 @@ This runs the client build, an SSR build, the prerender step (44 static pages: e
 
 Per-route metadata is generated at build time from `src/utils/MetaConfig.js`, `src/config/*` and the page components. There is no runtime middleware.
 
+## Languages and URLs
+
+Arabic is the primary language and lives at the root; English lives under `/en`. Every public page exists in both (`/services` and `/en/services`), `x-default` in hreflang and the sitemap points at the Arabic URL, and a visitor who explicitly chose English is sent from `/` to `/en`. The language of a URL never depends on the browser, so crawlers always see the same page.
+
+Old Arabic URLs under `/ar` are redirected (301) to the same path at the root by the last rules in `public/_redirects`. After a deploy that changes URLs, submit the new sitemap in Search Console and ask for the home pages to be re-crawled.
+
 ## Cloudflare Workers Builds
 
 - Build command: `npm run build`. Deploy command: `npx wrangler deploy`.
@@ -39,7 +45,7 @@ curl -sI https://www.rumuze.com/ | grep -i -E "x-frame-options|strict-transport|
 curl -sI https://www.rumuze.com/assets/<any-hashed-file>.js | grep -i cache-control
 ```
 
-Then open the home page, `/ar`, a service page and a path that does not exist (it should show the 404 page).
+Then open the home page, `/en`, a service page and a path that does not exist (it should show the 404 page).
 
 ## Social previews and the OG image version
 

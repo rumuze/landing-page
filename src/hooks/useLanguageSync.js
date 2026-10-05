@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { hasLocalePrefix } from '../seo/linking';
+import { localeFromPath } from '../seo/linking';
 import { useTheme } from '../context/theme-core';
 
 /**
@@ -13,30 +13,24 @@ export function useLanguageSync(pathname) {
   const { theme } = useTheme();
   const navigate = useNavigate();
 
-  // The English root stays English for crawlers and English browsers. Send a
-  // visitor to /ar only when they chose Arabic before or their browser is Arabic.
+  // The root is Arabic, the primary language. A visitor who explicitly chose
+  // English before goes to /en; everyone else, crawlers included, stays on the
+  // Arabic page, so the language of a URL never depends on the browser.
   useEffect(() => {
-    if (pathname === '/') {
-      const preferredLng = localStorage.getItem('i18n_lang_pref');
-      const browserIsArabic = (navigator.language ?? '').toLowerCase().startsWith('ar');
-      if (preferredLng === 'ar' || (!preferredLng && browserIsArabic)) {
-        navigate('/ar', { replace: true });
-      }
+    if (pathname === '/' && localStorage.getItem('i18n_lang_pref') === 'en') {
+      navigate('/en', { replace: true });
     }
   }, [pathname, navigate]);
 
   // Remember the language of the last page the visitor used.
   useEffect(() => {
-    if (hasLocalePrefix(pathname, 'ar')) {
-      localStorage.setItem('i18n_lang_pref', 'ar');
-    } else if (pathname !== '/' && !pathname.startsWith('/admin')) {
-      localStorage.setItem('i18n_lang_pref', 'en');
-    }
+    if (pathname.startsWith('/admin')) return;
+    localStorage.setItem('i18n_lang_pref', localeFromPath(pathname));
   }, [pathname]);
 
   // The URL decides the language; mirror it into i18n and the <html> element.
   useEffect(() => {
-    const targetLang = hasLocalePrefix(pathname, 'ar') ? 'ar' : 'en';
+    const targetLang = localeFromPath(pathname);
 
     if (i18n.language !== targetLang) {
       i18n.changeLanguage(targetLang);

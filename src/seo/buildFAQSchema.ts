@@ -10,7 +10,7 @@ export function buildFAQSchema(lang: LanguageCode) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    '@id': isAr ? 'https://www.rumuze.com/ar#faq' : 'https://www.rumuze.com/#faq',
+    '@id': isAr ? 'https://www.rumuze.com/#faq' : 'https://www.rumuze.com/en#faq',
     inLanguage: isAr ? 'ar' : 'en',
     mainEntity: items.map((item: { q: string; a: string }) => ({
       '@type': 'Question',

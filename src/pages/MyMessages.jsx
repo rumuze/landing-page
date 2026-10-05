@@ -182,7 +182,7 @@ const MyMessages = () => {
                 and every future admin chat trace will appear here efficiently.
               </p>
               <Link
-                to={isAr ? "/ar/contact" : "/contact"}
+                to={isAr ? "/contact" : "/en/contact"}
                 className="mt-8 inline-flex h-11 items-center justify-center rounded-full border border-cyan/30 bg-cyan/10 px-5 text-sm font-semibold text-cyan transition-all duration-200 hover:bg-cyan/15"
               >
                 Send a Message

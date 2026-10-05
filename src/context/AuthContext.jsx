@@ -22,7 +22,7 @@ const whenIdle = (callback) => {
 // Anonymous visitors on public pages do not need Firebase until they do
 // something that uses it. Returning users (a saved session) and account pages
 // start it straight away.
-const ACCOUNT_PATH = /^(\/ar)?\/(profile|settings|my-messages|admin)(\/|$)/u;
+const ACCOUNT_PATH = /^(\/en)?\/(profile|settings|my-messages|admin)(\/|$)/u;
 const INTERACTION_EVENTS = ["pointerdown", "keydown", "scroll", "touchstart"];
 const DEFERRED_START_MS = 8000;
 

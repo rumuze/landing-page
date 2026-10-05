@@ -5,7 +5,7 @@ import { test as base, expect } from '@playwright/test';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-/** Every page URL in the built sitemap, as a path ("/", "/ar/services", ...). */
+/** Every page URL in the built sitemap, as a path ("/", "/en/services", ...). */
 export function sitemapPaths() {
   const sitemap = path.join(root, 'dist', 'sitemap.xml');
   if (!fs.existsSync(sitemap)) {
@@ -56,7 +56,7 @@ export const test = base.extend({
       document.addEventListener('securitypolicyviolation', (event) =>
         window.__csp.push(`${event.violatedDirective} ${event.blockedURI}`),
       );
-      localStorage.setItem('i18n_lang_pref', location.pathname.startsWith('/ar') ? 'ar' : 'en');
+      localStorage.setItem('i18n_lang_pref', /^\/en(\/|$)/.test(location.pathname) ? 'en' : 'ar');
       localStorage.setItem('rumuze.consent.analytics', 'denied');
     });
 

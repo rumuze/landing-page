@@ -4,7 +4,7 @@ import { conversionContent } from '../content/conversionContent';
 import ConversionHomepage from '../components/conversion/ConversionHomepage';
 
 const HomePage = ({ isAr = false }) => {
-  const path = isAr ? '/ar' : '/';
+  const path = isAr ? '/' : '/en';
   const { title, description } = conversionContent[isAr ? 'ar' : 'en'].seo.home;
 
   return (

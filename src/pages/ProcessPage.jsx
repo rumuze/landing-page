@@ -11,7 +11,7 @@ const ProcessPage = () => {
   const locale = isAr ? 'ar' : 'en';
   const page = processContent[locale];
   const align = isAr ? 'text-right' : 'text-left';
-  const prefix = isAr ? '/ar' : '';
+  const prefix = isAr ? '' : '/en';
 
   return (
     <>

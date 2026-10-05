@@ -61,11 +61,11 @@ const AboutPage = () => {
   const page = copyByLocale[lang];
   const { engineering } = homeContent[lang];
   const align = isAr ? 'text-right' : 'text-left';
-  const prefix = isAr ? '/ar' : '';
+  const prefix = isAr ? '' : '/en';
 
   return (
     <>
-      <SEO path={isAr ? '/ar/about' : '/about'} />
+      <SEO path={isAr ? '/about' : '/en/about'} />
 
       <section className="surface-page pb-16 pt-[calc(6.5rem+var(--safe-area-top))] md:pb-24 md:pt-[calc(7.5rem+var(--safe-area-top))]">
         <div className="content-shell">

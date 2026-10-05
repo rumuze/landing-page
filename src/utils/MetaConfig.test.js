@@ -20,17 +20,14 @@ describe('MetaConfig SEO Logic', () => {
             expect(meta.url).toBe(`${BASE_URL}/blog/post-1`);
         });
 
-        it('should handle Arabic routes by stripping /ar prefix for lookup but keeping it in canonical if needed (or not)', () => {
-            // Note: Our strategy might be to canonicalize AR pages to AR URLs.
-            // Let's check current behavior. The plan says normalize globally.
-            // Usually AR page canonical -> AR page.
-            const meta = getMetaForRoute('/ar/services', 'ar');
-            expect(meta.url).toBe(`${BASE_URL}/ar/services`);
+        it('should strip the /en prefix for lookup but keep it in the canonical URL', () => {
+            const meta = getMetaForRoute('/en/services', 'en');
+            expect(meta.url).toBe(`${BASE_URL}/en/services`);
         });
 
-        it('should not treat english routes beginning with ar as Arabic-prefixed pages', () => {
-            const meta = getMetaForRoute('/architecture-principles', 'en');
-            expect(meta.url).toBe(`${BASE_URL}/architecture-principles`);
+        it('should not treat routes beginning with en as English-prefixed pages', () => {
+            const meta = getMetaForRoute('/engineering-standards', 'ar');
+            expect(meta.url).toBe(`${BASE_URL}/engineering-standards`);
         });
     });
 

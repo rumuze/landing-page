@@ -82,12 +82,14 @@ describe('blog', () => {
 
 describe('redirects', () => {
   const routes = new Set(
-    getPublicRouteManifest().flatMap((route) => [route.path, `/ar${route.path === '/' ? '' : route.path}`]),
+    getPublicRouteManifest().flatMap((route) => [route.path, `/en${route.path === '/' ? '' : route.path}`]),
   );
   const rules = read('public/_redirects')
     .split('\n')
     .filter((line) => /\s301$/.test(line))
-    .map((line) => line.trim().split(/\s+/));
+    .map((line) => line.trim().split(/\s+/))
+    // The /ar/* catch-all sends old Arabic URLs to the same path at the root.
+    .filter(([, to]) => !to.includes(':splat'));
 
   it('point at live pages and never chain', () => {
     expect(rules.length).toBeGreaterThan(20);

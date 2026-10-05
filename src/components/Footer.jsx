@@ -72,7 +72,7 @@ const Footer = () => {
   const lang = isAr ? 'ar' : 'en';
   const isRtl = i18n.dir() === 'rtl';
   const c = copyByLocale[lang];
-  const prefix = isAr ? '/ar' : '';
+  const prefix = isAr ? '' : '/en';
 
   const socialLinks = [
     { key: 'linkedin', href: ENTITY.publicProfiles.linkedIn, label: c.linkedin, icon: <Linkedin size={20} /> },

@@ -1,10 +1,11 @@
-// Route data for the app. Every page exists in English (`/x`) and Arabic
-// (`/ar/x`); the table lists each page once and `localizePath` derives both.
+// Route data for the app. Arabic is the primary language: every page exists in
+// Arabic (`/x`) and English (`/en/x`); the table lists each page once and
+// `localizePath` derives both.
 // Components are attached in AppRoutes.jsx, so this file stays plain data that
 // tests can read without loading any page.
 
 export const localizePath = (path, locale) =>
-  locale === 'ar' ? (path === '/' ? '/ar' : `/ar${path}`) : path;
+  locale === 'en' ? (path === '/' ? '/en' : `/en${path}`) : path;
 
 /**
  * access: 'public' | 'account' (signed in) | 'admin' (signed in with the admin role)

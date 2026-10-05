@@ -3,8 +3,8 @@ import { expect, open, test } from './fixtures';
 // The browser fires beforeinstallprompt when the site can be installed; the
 // page then offers its own prompt after 30 seconds.
 for (const [url, title, install] of [
-  ['/', 'Install Rumuze', 'Install'],
-  ['/ar', 'ثبّت تطبيق رموز', 'تثبيت'],
+  ['/', 'ثبّت تطبيق رموز', 'تثبيت'],
+  ['/en', 'Install Rumuze', 'Install'],
 ]) {
   test(`${url} offers installation in the page language, once, and remembers a dismissal`, async ({ page }) => {
     await page.clock.install();

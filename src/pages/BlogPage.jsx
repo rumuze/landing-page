@@ -46,7 +46,7 @@ const BlogPage = () => {
 
   return (
     <div className="surface-page tech-grid min-h-screen pt-32 pb-20">
-      <SEO path={isAr ? '/ar/blog' : '/blog'} />
+      <SEO path={isAr ? '/blog' : '/en/blog'} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Motion.div 
@@ -73,7 +73,7 @@ const BlogPage = () => {
             posts.map((post, index) => (
             <Link 
               key={post.id} 
-              to={isAr ? `/ar/blog/${post.slug}` : `/blog/${post.slug}`}
+              to={isAr ? `/blog/${post.slug}` : `/en/blog/${post.slug}`}
               className="block h-full group"
             >
             <Motion.article 

@@ -14,7 +14,7 @@ const LeadFormSuccess = ({ backLabel, body, isAr, isModal, locale, title }) => (
       <p className="type-body mt-3 text-slate-600 dark:text-slate-300">{body}</p>
       {!isModal ? (
         <div className="mt-6 flex justify-center">
-          <ConversionButton to={locale === "ar" ? "/ar/" : "/"} variant="secondary">
+          <ConversionButton to={locale === "ar" ? "/" : "/en"} variant="secondary">
             {backLabel}
           </ConversionButton>
         </div>

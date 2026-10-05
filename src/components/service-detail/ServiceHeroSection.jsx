@@ -26,14 +26,14 @@ const ServiceHeroSection = ({ service, isAr }) => {
         >
           <ol className="flex items-center gap-2 text-sm text-slate-500 dark:text-gray-400" itemScope itemType="https://schema.org/BreadcrumbList">
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <Link to={isAr ? '/ar/' : '/'} itemProp="item" className="hover:text-cyan transition-colors">
+              <Link to={isAr ? '/' : '/en'} itemProp="item" className="hover:text-cyan transition-colors">
                 <span itemProp="name">{isAr ? 'الرئيسية' : 'Home'}</span>
               </Link>
               <meta itemProp="position" content="1" />
             </li>
             <span aria-hidden="true" className="text-slate-400">/</span>
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <Link to={isAr ? '/ar/services' : '/services'} itemProp="item" className="hover:text-cyan transition-colors">
+              <Link to={isAr ? '/services' : '/en/services'} itemProp="item" className="hover:text-cyan transition-colors">
                 <span itemProp="name">{isAr ? 'الخدمات' : 'Services'}</span>
               </Link>
               <meta itemProp="position" content="2" />
@@ -89,14 +89,14 @@ const ServiceHeroSection = ({ service, isAr }) => {
           className="flex flex-wrap gap-4"
         >
           <Link
-            to={isAr ? '/ar/contact' : '/contact'}
+            to={isAr ? '/contact' : '/en/contact'}
             className="btn-primary px-8 py-3.5 text-base flex items-center gap-2"
           >
             {isAr ? 'احجز استشارة فنية' : 'Request Technical Consultation'}
             {isAr ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
           </Link>
           <Link
-            to={isAr ? '/ar/portfolio' : '/portfolio'}
+            to={isAr ? '/portfolio' : '/en/portfolio'}
             className="px-8 py-3.5 text-base font-semibold text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-white/10 rounded-xl hover:border-cyan/30 hover:text-cyan transition-all"
           >
             {isAr ? 'شاهد أعمالنا' : 'View Case Studies'}

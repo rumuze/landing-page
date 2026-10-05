@@ -79,8 +79,8 @@ const SaudiArabiaPage = () => {
   const isAr = i18n.language === 'ar';
   const lang = isAr ? 'ar' : 'en';
   const page = copyByLocale[lang];
-  const path = isAr ? '/ar/saudi-arabia' : '/saudi-arabia';
-  const prefix = isAr ? '/ar' : '';
+  const path = isAr ? '/saudi-arabia' : '/en/saudi-arabia';
+  const prefix = isAr ? '' : '/en';
   const align = isAr ? 'text-right' : 'text-left';
 
   const schemas = React.useMemo(
@@ -89,7 +89,7 @@ const SaudiArabiaPage = () => {
         '@type': 'BreadcrumbList',
         '@id': `${BASE_URL}${path}#breadcrumb`,
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: isAr ? 'الرئيسية' : 'Home', item: `${BASE_URL}${isAr ? '/ar' : '/'}` },
+          { '@type': 'ListItem', position: 1, name: isAr ? 'الرئيسية' : 'Home', item: `${BASE_URL}${isAr ? '/' : '/en'}` },
           { '@type': 'ListItem', position: 2, name: isAr ? 'السعودية' : 'Saudi Arabia', item: `${BASE_URL}${path}` },
         ],
       },
