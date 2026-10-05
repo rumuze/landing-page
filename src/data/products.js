@@ -94,6 +94,12 @@ export const products = [
   {
     slug: 'rveta',
     title: 'Rveta',
+    image: {
+      src: '/assets/work/rveta-logo.webp',
+      width: 280,
+      height: 330,
+      alt: { en: 'The Rveta logo, the app mark used on the driver app launch screen', ar: 'شعار رفيتا، علامة التطبيق على شاشة تشغيل تطبيق السائق' },
+    },
     stack: ['Laravel', 'Flutter', 'Firebase', 'Nginx', 'MySQL', 'Redis'],
     related: ['flutter-driver-app-risky-parts'],
     en: {

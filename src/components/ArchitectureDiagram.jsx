@@ -39,8 +39,8 @@ const ArchitectureDiagram = ({ diagram, lang }) => {
             </div>
             {index < diagram.tiers.length - 1 ? (
               <div aria-hidden="true" className="flex justify-center py-1 text-cyan sm:pl-24">
-                <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
-                  <path d="M8 1v15m0 0-5-5m5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                <svg className="arch-connector" width="16" height="20" viewBox="0 0 16 20" fill="none">
+                  <path pathLength="1" d="M8 1v15m0 0-5-5m5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
             ) : null}

@@ -100,6 +100,16 @@ const ProductPage = () => {
               <span className="type-label copy-muted">{content.tag}</span>
               {content.status ? <span className="home-chip">{content.status}</span> : null}
             </div>
+            {product.image ? (
+              <img
+                src={product.image.src}
+                width={product.image.width}
+                height={product.image.height}
+                alt={product.image.alt[locale]}
+                className="mt-6 h-28 w-auto rounded-xl border border-slate-200 bg-white p-2 dark:border-slate-700"
+                decoding="async"
+              />
+            ) : null}
             <h1 className="type-h1 copy-primary mt-3 dark:text-white">{content.headline}</h1>
             <p className="type-body-lg copy-secondary mt-5">{content.summary}</p>
             <div className={`mt-6 flex flex-wrap items-center gap-2 ${isAr ? 'flex-row-reverse' : ''}`}>
