@@ -181,3 +181,4 @@ Do not publish: internal architecture scores, "known risks" lists, environment d
 | Phone / WhatsApp | +20 100 006 1409 |
 | Rveta | A Rumuze product (owner statement) |
 | Social accounts | LinkedIn company page, Facebook (rumuze), Instagram and TikTok (rumuze_flow), YouTube (@Rumuze), X (@Rumuzeflow), GitHub (rumuze) |
+| CR-032 | Work page and Rveta product page show the Rveta logo, taken from the Rveta driver app repository (`assets/image/logo.png`). No screenshots with user data are published. | verified | `public/assets/work/rveta-logo.webp`, `src/data/products.js` | confirmed |

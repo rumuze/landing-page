@@ -6,6 +6,8 @@ import { homeContent } from '../content/homeContent';
 import { architectureDiagrams } from '../content/architectureDiagrams';
 import ArchitectureDiagram from '../components/ArchitectureDiagram';
 import { products } from '../data/products';
+import CountUp from '../components/CountUp';
+import { SERVICES } from '../config/services';
 
 const copyByLocale = {
   en: {
@@ -17,6 +19,7 @@ const copyByLocale = {
     ctaBody: 'Tell us what you want to build, fix, or take over.',
     ctaLabel: 'Start a project',
     more: 'Read the details',
+    facts: { products: 'Products', services: 'Services', languages: 'Languages' },
   },
   ar: {
     eyebrow: 'أعمالنا',
@@ -27,6 +30,7 @@ const copyByLocale = {
     ctaBody: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه.',
     ctaLabel: 'ابدأ مشروعك',
     more: 'اقرأ التفاصيل',
+    facts: { products: 'منتجات', services: 'خدمات', languages: 'لغات' },
   },
 };
 
@@ -50,6 +54,21 @@ const PortfolioPage = () => {
             <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
           </header>
 
+          <dl className={`mt-10 flex flex-wrap gap-x-12 gap-y-4 ${isAr ? 'flex-row-reverse' : ''}`}>
+            {[
+              [products.length, page.facts.products],
+              [SERVICES.length, page.facts.services],
+              [2, page.facts.languages],
+            ].map(([count, label]) => (
+              <div key={label} className={`flex flex-col-reverse ${align}`}>
+                <dt className="type-label copy-muted">{label}</dt>
+                <dd className="type-h2 copy-primary dark:text-white">
+                  <CountUp value={count} />
+                </dd>
+              </div>
+            ))}
+          </dl>
+
           <div className="mt-14 divide-y divide-[rgb(var(--border-subtle)/0.7)] border-y border-[rgb(var(--border-subtle)/0.7)]">
             {work.cards.map((card) => (
               <article
@@ -61,6 +80,17 @@ const PortfolioPage = () => {
                     <span className="type-label copy-muted">{card.tag}</span>
                     {card.status ? <span className="home-chip">{card.status}</span> : null}
                   </div>
+                  {products.find((product) => product.title === card.title)?.image ? (
+                    <img
+                      src={products.find((product) => product.title === card.title).image.src}
+                      width={products.find((product) => product.title === card.title).image.width}
+                      height={products.find((product) => product.title === card.title).image.height}
+                      alt={products.find((product) => product.title === card.title).image.alt[locale]}
+                      className="mt-4 h-20 w-auto rounded-xl border border-slate-200 bg-white p-1.5 dark:border-slate-700"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : null}
                   <h2 className="type-h2 copy-primary mt-3 dark:text-white">{card.title}</h2>
                   <p className="type-body copy-secondary mt-4 dark:text-slate-300">{card.summary}</p>
                   {products.some((product) => product.title === card.title) ? (

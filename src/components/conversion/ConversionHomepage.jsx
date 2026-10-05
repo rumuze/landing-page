@@ -159,7 +159,11 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture }) => (
 
         <Reveal delay={120}>
           <h1 className="type-h1 mt-6 max-w-[22ch] text-slate-950 dark:text-white">
-            {copy.headline}
+            {copy.headline.split(" ").map((word, index) => (
+              <span key={`${word}-${index}`} className="headline-word" style={{ "--word-index": index }}>
+                {word}{" "}
+              </span>
+            ))}
           </h1>
         </Reveal>
 
