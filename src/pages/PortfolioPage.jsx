@@ -54,7 +54,7 @@ const PortfolioPage = () => {
             <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
           </header>
 
-          <dl className={`mt-10 flex flex-wrap gap-x-12 gap-y-4 ${isAr ? 'flex-row-reverse' : ''}`}>
+          <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-4">
             {[
               [products.length, page.facts.products],
               [SERVICES.length, page.facts.services],

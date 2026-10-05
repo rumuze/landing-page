@@ -15,6 +15,9 @@ import {
 import { useTranslation } from "react-i18next";
 import { conversionContent } from "../../content/conversionContent";
 import ConversionButton from "./ConversionButton";
+import CountUp from "../CountUp";
+import { products } from "../../data/products";
+import { SERVICES } from "../../config/services";
 import LeadCaptureModal from "./LeadCaptureModal";
 
 const capabilityIcons = [Lightbulb, Layers, Smartphone, Server, Search, Megaphone, PenLine, Plug];
@@ -202,6 +205,23 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture }) => (
             <Clock3 className="h-4 w-4 shrink-0 text-cyan" />
             {copy.reviewNote}
           </p>
+        </Reveal>
+
+        <Reveal delay={380}>
+          <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-3">
+            {[
+              [products.length, isAr ? "منتجات" : "Products"],
+              [SERVICES.length, isAr ? "خدمات" : "Services"],
+              [2, isAr ? "لغات" : "Languages"],
+            ].map(([count, label]) => (
+              <div key={label} className="flex flex-col-reverse">
+                <dt className="type-label copy-muted">{label}</dt>
+                <dd className="type-h2 copy-primary dark:text-white">
+                  <CountUp value={count} />
+                </dd>
+              </div>
+            ))}
+          </dl>
         </Reveal>
       </div>
 
