@@ -24,7 +24,7 @@ const NavbarMobile = ({
   const handleClose = () => setIsOpen(false);
   const handleDiscoveryNavigate = () => {
     setIsOpen(false);
-    navigate(isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery');
+    navigate(isAr ? '/contact?intent=discovery' : '/en/contact?intent=discovery');
   };
 
   useEffect(() => {
@@ -44,19 +44,19 @@ const NavbarMobile = ({
   const primaryItems = [
     {
       key: 'home',
-      href: isAr ? '/ar' : '/',
+      href: isAr ? '/' : '/en',
       icon: Home,
       label: t('navbar.home'),
     },
     {
       key: 'services',
-      href: isAr ? '/ar/services' : '/services',
+      href: isAr ? '/services' : '/en/services',
       icon: Layers3,
       label: t('navbar.services'),
     },
     {
       key: 'labs',
-      href: isAr ? '/ar/labs' : '/labs',
+      href: isAr ? '/labs' : '/en/labs',
       icon: FlaskConical,
       label: t('navbar.labs'),
     },
@@ -65,7 +65,7 @@ const NavbarMobile = ({
       icon: PhoneCall,
       label: isAr ? 'ابدأ مشروعك' : 'Start a project',
       onClick: handleDiscoveryNavigate,
-      isCurrent: isActive(isAr ? '/ar/contact' : '/contact'),
+      isCurrent: isActive(isAr ? '/contact' : '/en/contact'),
     },
   ];
 
@@ -91,7 +91,7 @@ const NavbarMobile = ({
         <div className={joinClasses('transition-all duration-300', topBarSurfaceClass)}>
           <div className="content-shell">
             <div className="flex h-16 items-center justify-between gap-3">
-              <Link to={isAr ? '/ar' : '/'} onClick={handleClose} className="flex min-w-0 items-center gap-3">
+              <Link to={isAr ? '/' : '/en'} onClick={handleClose} className="flex min-w-0 items-center gap-3">
                 <div className={joinClasses('flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl', chipSurfaceClass)}>
                   <picture>
                     <source srcSet="/rumuze-symbol-112.avif" type="image/avif" />

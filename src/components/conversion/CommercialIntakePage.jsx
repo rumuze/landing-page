@@ -18,7 +18,7 @@ const CommercialIntakePage = ({ intent = "discovery" }) => {
           className={`mb-6 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white ${
             isAr ? "flex-row-reverse" : ""
           }`}
-          to={locale === "ar" ? "/ar/" : "/"}
+          to={locale === "ar" ? "/" : "/en"}
         >
           <ArrowLeft className={isAr ? "rotate-180" : ""} size={16} />
           {copy.backToSite}

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Language" content="en-US">
+  <meta http-equiv="Content-Language" content="ar">
 
   <title>Rumuze | Software and Digital Marketing for Gulf and MENA Businesses</title>
   <meta name="description"
     content="Rumuze is a software and digital marketing company. We build platforms and mobile apps and run SEO, ads, and content for Gulf and MENA businesses.">
 
   <link rel="canonical" href="https://www.rumuze.com/">
-  <link rel="alternate" hreflang="en" href="https://www.rumuze.com/">
-  <link rel="alternate" hreflang="ar" href="https://www.rumuze.com/ar">
+  <link rel="alternate" hreflang="ar" href="https://www.rumuze.com/">
+  <link rel="alternate" hreflang="en" href="https://www.rumuze.com/en">
   <link rel="alternate" hreflang="x-default" href="https://www.rumuze.com/">
 
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -77,6 +77,13 @@
           theme = 'dark';
         }
       } catch (_) {}
+
+      // Arabic is the primary language; only /en pages are left-to-right. Set
+      // this before first paint so the shell does not flip direction.
+      if (/^\/en(\/|$)/.test(location.pathname)) {
+        root.lang = 'en';
+        root.dir = 'ltr';
+      }
 
       root.classList.toggle('dark', theme === 'dark');
       root.dataset.theme = theme;

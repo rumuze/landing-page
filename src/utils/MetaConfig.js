@@ -249,21 +249,21 @@ const FALLBACK_META = {
 
 /**
  * Normalize path for metadata lookup
- * Handles Arabic routes (/ar/...) and trailing slashes
+ * Handles English routes (/en/...) and trailing slashes
  */
 function normalizePath(path) {
     if (!path) return '/';
     if (path === '/') return '/';
-    if (path === '/ar') return '/'; // Special case for AR home
+    if (path === '/en') return '/'; // Special case for the English home
 
     // Remove trailing slash
     let normalized = path.replace(/\/$/, '');
 
-    // Remove /ar prefix for lookup (but we might need it for the final URL)
+    // Remove /en prefix for lookup (but we might need it for the final URL)
     // The lookup key in META_CONFIG is always clean (e.g. '/services')
-    const withoutAr = normalized.replace(/^\/ar(?=\/|$)/, '') || '/';
+    const withoutPrefix = normalized.replace(/^\/en(?=\/|$)/, '') || '/';
 
-    return withoutAr;
+    return withoutPrefix;
 }
 
 /**
@@ -295,7 +295,7 @@ function getCanonicalQueryString(searchParams) {
  * @param {string} queryString - URL query string (optional, e.g. '?page=2')
  * @returns {Object} Metadata object with title, description, image, etc.
  */
-export function getMetaForRoute(path, lang = 'en', queryString = '') {
+export function getMetaForRoute(path, lang = 'ar', queryString = '') {
     const normalizedKey = normalizePath(path); // Key for config lookup (e.g. '/services')
     const language = lang === 'ar' ? 'ar' : 'en';
 

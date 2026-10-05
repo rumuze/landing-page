@@ -3,7 +3,7 @@ import { Globe, ChevronDown, FlaskConical } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/theme-core';
-import { hasLocalePrefix, localizePath } from '../seo/linking';
+import { localeFromPath, localizePath } from '../seo/linking';
 import BrandWordmark from './BrandWordmark';
 import ThemeToggle from './ThemeToggle';
 import NavbarMobile from './NavbarMobile';
@@ -33,7 +33,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const isAr = i18n.language === 'ar';
-  const isHomepage = ['/', '/ar'].includes(normalizePath(location.pathname));
+  const isHomepage = ['/', '/en'].includes(normalizePath(location.pathname));
   const useHeroNav = isHomepage && !scrolled;
 
   const closeMenus = () => {
@@ -93,14 +93,14 @@ const Navbar = () => {
   }, [showLangMenu]);
 
   const navLinks = [
-    { name: t('navbar.home'), href: isAr ? '/ar' : '/' },
-    { name: t('navbar.services'), href: isAr ? '/ar/services' : '/services' },
-    { name: t('navbar.portfolio'), href: isAr ? '/ar/portfolio' : '/portfolio' },
-    { name: t('navbar.blog'), href: isAr ? '/ar/blog' : '/blog' },
-    { name: t('navbar.about'), href: isAr ? '/ar/about' : '/about' },
+    { name: t('navbar.home'), href: isAr ? '/' : '/en' },
+    { name: t('navbar.services'), href: isAr ? '/services' : '/en/services' },
+    { name: t('navbar.portfolio'), href: isAr ? '/portfolio' : '/en/portfolio' },
+    { name: t('navbar.blog'), href: isAr ? '/blog' : '/en/blog' },
+    { name: t('navbar.about'), href: isAr ? '/about' : '/en/about' },
     {
       name: t('navbar.labs'),
-      href: isAr ? '/ar/labs' : '/labs',
+      href: isAr ? '/labs' : '/en/labs',
       highlight: true,
       icon: <FlaskConical size={14} />,
     },
@@ -109,7 +109,7 @@ const Navbar = () => {
   const changeLanguage = (lng) => {
     const currentPath = location.pathname;
     const targetLocale = lng === 'ar' ? 'ar' : 'en';
-    const currentLocale = hasLocalePrefix(currentPath, 'ar') ? 'ar' : 'en';
+    const currentLocale = localeFromPath(currentPath);
     const newPath = currentLocale === targetLocale ? currentPath : localizePath(currentPath, targetLocale);
 
     // Save language preference in our independent redirection key to prevent race conditions
@@ -214,7 +214,7 @@ const Navbar = () => {
           <nav className={joinClasses('w-full transition-all duration-300', navSurfaceClass)}>
             <div className="content-shell">
               <div className="grid h-16 grid-cols-[auto_1fr_auto] items-center gap-6 lg:h-20 lg:gap-8">
-                <Link to={isAr ? '/ar' : '/'} onClick={closeMenus} className="group flex shrink-0 items-center gap-3">
+                <Link to={isAr ? '/' : '/en'} onClick={closeMenus} className="group flex shrink-0 items-center gap-3">
                   <div
                     className={joinClasses(
                       'flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl transition-all duration-300',
@@ -301,7 +301,7 @@ const Navbar = () => {
                   </div>
 
                   <Link
-                    to={isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'}
+                    to={isAr ? '/contact?intent=discovery' : '/en/contact?intent=discovery'}
                     onClick={closeMenus}
                     className="shrink-0"
                   >

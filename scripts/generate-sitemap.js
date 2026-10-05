@@ -25,11 +25,12 @@ const BUILD_DATE = new Date().toISOString().split('T')[0];
 // ============================================================================
 
 function localizePath(path, locale) {
-    if (locale === 'en') {
+    // Arabic is the primary language and lives at the root; English is under /en.
+    if (locale === 'ar') {
         return path;
     }
 
-    return path === '/' ? '/ar' : `/ar${path}`;
+    return path === '/' ? '/en' : `/en${path}`;
 }
 
 function buildAlternateLinks(path) {
@@ -102,7 +103,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin
-Disallow: /ar/admin
+Disallow: /en/admin
 
 ${crawlerBlocks}
 

@@ -48,7 +48,7 @@ const redirects = fs
   .map((line) => line.trim().split(/\s+/))
   .filter((parts) => parts.length === 3 && parts[2] === '301')
   .map(([from, to]) => {
-    if (to.includes(':')) throw new Error(`serve-dist does not support placeholders in _redirects: ${from} ${to}`);
+    if (to.replace(':splat', '').includes(':')) throw new Error(`serve-dist only supports :splat in _redirects: ${from} ${to}`);
     return { from, to };
   });
 
@@ -72,8 +72,19 @@ const matchesPattern = (pattern, pathname) => {
 const headersFor = (pathname) =>
   Object.assign({}, ...headerRules.filter((rule) => matchesPattern(rule.pattern, pathname)).map((rule) => rule.headers));
 
-const findRedirect = (pathname) =>
-  redirects.find(({ from }) => (from.endsWith('/*') ? pathname.startsWith(from.slice(0, -1)) : pathname === from));
+// Returns where a request should be redirected, or null. A trailing /* matches
+// a prefix, and :splat in the target is the part the star matched.
+const findRedirect = (pathname) => {
+  for (const { from, to } of redirects) {
+    if (from.endsWith('/*')) {
+      const prefix = from.slice(0, -1);
+      if (pathname.startsWith(prefix)) return to.replace(':splat', pathname.slice(prefix.length));
+    } else if (pathname === from) {
+      return to;
+    }
+  }
+  return null;
+};
 
 function resolvePathname(url) {
   try {
@@ -93,7 +104,7 @@ http
 
     const redirect = findRedirect(pathname);
     if (redirect) {
-      response.writeHead(301, { Location: redirect.to });
+      response.writeHead(301, { Location: redirect });
       response.end();
       return;
     }

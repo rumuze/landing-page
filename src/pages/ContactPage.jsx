@@ -21,7 +21,7 @@ const ContactPage = () => {
           title: seoCopy.title,
           description: seoCopy.description,
         }}
-        path={isAr ? '/ar/contact' : '/contact'}
+        path={isAr ? '/contact' : '/en/contact'}
       />
       <CommercialIntakePage intent={intent} />
     </>

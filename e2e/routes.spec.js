@@ -3,17 +3,23 @@ import { expect, open, test } from './fixtures';
 // [start URL, where the visitor should end up]
 const redirects = [
   ['/why-rumuze', '/about'],
-  ['/ar/why-rumuze', '/ar/about'],
+  ['/en/why-rumuze', '/en/about'],
   ['/case-studies/anything', '/portfolio'],
-  ['/ar/case-studies/anything', '/ar/portfolio'],
+  ['/en/case-studies/anything', '/en/portfolio'],
   ['/comparison/anything', '/services'],
   ['/saas-architecture', '/services/saas-erp'],
-  ['/ar/seo-revenue-systems', '/ar/services/seo-services'],
+  ['/en/seo-revenue-systems', '/en/services/seo-services'],
+  // Arabic used to live under /ar; those links keep working.
+  ['/ar', '/'],
+  ['/ar/services', '/services'],
+  ['/ar/blog/transactional-outbox-pattern', '/blog/transactional-outbox-pattern'],
+  ['/ar/why-rumuze', '/about'],
+  ['/ar/case-studies/anything', '/portfolio'],
 ];
 
 const signedOutGuards = [
   ['/profile', '/'],
-  ['/ar/profile', '/ar/'],
+  ['/en/profile', '/en'],
   ['/settings', '/'],
   ['/my-messages', '/'],
   ['/admin/inbox', '/'],
@@ -41,7 +47,7 @@ test.describe('pages that need an account', () => {
 });
 
 test.describe('unknown paths', () => {
-  for (const url of ['/does-not-exist', '/ar/nope/deeper']) {
+  for (const url of ['/does-not-exist', '/en/nope/deeper']) {
     test(`${url} shows the 404 page`, async ({ page }) => {
       await open(page, url);
       expect(new URL(page.url()).pathname).toBe(url);
@@ -51,17 +57,26 @@ test.describe('unknown paths', () => {
   }
 });
 
-test('the English root stays English for a browser that is not Arabic', async ({ page }) => {
-  await page.addInitScript(() => localStorage.removeItem('i18n_lang_pref'));
-  await open(page, '/');
+test('the root is Arabic, whatever the browser language', async ({ browser }) => {
+  const context = await browser.newContext({ locale: 'en-US' });
+  const page = await context.newPage();
+  await page.goto('/');
+  await page.waitForSelector('html[data-hydrated="true"]');
   expect(new URL(page.url()).pathname).toBe('/');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ar');
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+  await context.close();
+});
+
+test('English lives under /en and is left-to-right', async ({ page }) => {
+  await open(page, '/en');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('html')).toHaveAttribute('dir', 'ltr');
 });
 
-test('a visitor who chose Arabic is sent to /ar', async ({ page }) => {
-  await page.addInitScript(() => localStorage.setItem('i18n_lang_pref', 'ar'));
+test('a visitor who chose English is sent to /en from the root', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('i18n_lang_pref', 'en'));
   await open(page, '/');
-  expect(new URL(page.url()).pathname).toBe('/ar');
-  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+  expect(new URL(page.url()).pathname).toBe('/en');
+  await expect(page.locator('html')).toHaveAttribute('dir', 'ltr');
 });

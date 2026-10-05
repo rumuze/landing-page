@@ -1,8 +1,8 @@
 import { expect, open, test } from './fixtures';
 
 for (const [locale, url] of [
-  ['English', '/contact'],
-  ['Arabic', '/ar/contact'],
+  ['Arabic', '/contact'],
+  ['English', '/en/contact'],
 ]) {
   test.describe(`contact form (${locale})`, () => {
     test('explains errors and ties them to their fields', async ({ page }) => {
@@ -66,7 +66,7 @@ for (const [locale, url] of [
 
 test.describe('project request dialog', () => {
   test('opens above the header and is labelled', async ({ page }) => {
-    await open(page, '/');
+    await open(page, '/en');
     await page.getByRole('button', { name: /start a project/i }).first().click();
 
     const dialog = page.getByRole('dialog', { name: 'Project request' });
@@ -82,7 +82,7 @@ test.describe('project request dialog', () => {
   });
 
   test('keeps Tab and Shift+Tab inside, and Escape returns focus to the button that opened it', async ({ page }) => {
-    await open(page, '/');
+    await open(page, '/en');
     const trigger = page.getByRole('button', { name: /start a project/i }).first();
     await trigger.evaluate((element) => element.setAttribute('data-test-trigger', 'true'));
     await trigger.click();

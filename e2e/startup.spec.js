@@ -5,7 +5,7 @@ import { expect, open, test } from './fixtures';
 // needed here; what this guards is that nothing in the page's own startup
 // pulls it in.)
 test.describe('Firebase loading', () => {
-  for (const url of ['/', '/ar', '/contact', '/services', '/portfolio/rumuzepmo']) {
+  for (const url of ['/', '/en', '/contact', '/services', '/portfolio/rumuzepmo']) {
     test(`${url} does not download the SDK on load`, async ({ page }) => {
       const requested = [];
       page.on('request', (request) => {

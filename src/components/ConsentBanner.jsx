@@ -41,7 +41,7 @@ const ConsentBanner = () => {
       <p className="copy-secondary mt-2 text-sm leading-relaxed dark:text-slate-300">
         {c.body}{' '}
         <Link
-          to={lang === 'ar' ? '/ar/privacy' : '/privacy'}
+          to={lang === 'ar' ? '/privacy' : '/en/privacy'}
           className="font-semibold text-[#287700] underline-offset-2 hover:underline dark:text-cyan"
         >
           {c.policy}

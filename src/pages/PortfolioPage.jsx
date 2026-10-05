@@ -40,7 +40,7 @@ const PortfolioPage = () => {
 
   return (
     <>
-      <SEO path={isAr ? '/ar/portfolio' : '/portfolio'} />
+      <SEO path={isAr ? '/portfolio' : '/en/portfolio'} />
 
       <section className="surface-page pb-16 pt-[calc(6.5rem+var(--safe-area-top))] md:pb-24 md:pt-[calc(7.5rem+var(--safe-area-top))]">
         <div className="content-shell">
@@ -65,7 +65,7 @@ const PortfolioPage = () => {
                   <p className="type-body copy-secondary mt-4 dark:text-slate-300">{card.summary}</p>
                   {products.some((product) => product.title === card.title) ? (
                     <Link
-                      to={`${isAr ? '/ar' : ''}/portfolio/${products.find((product) => product.title === card.title).slug}`}
+                      to={`${isAr ? '' : '/en'}/portfolio/${products.find((product) => product.title === card.title).slug}`}
                       className="type-body mt-5 inline-block font-semibold text-cyan hover:underline"
                     >
                       {page.more} {isAr ? '←' : '→'}
@@ -109,7 +109,7 @@ const PortfolioPage = () => {
               <p className="type-body copy-secondary mt-2">{page.ctaBody}</p>
             </div>
             <Link
-              to={isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'}
+              to={isAr ? '/contact?intent=discovery' : '/en/contact?intent=discovery'}
               className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full bg-cyan px-7 font-semibold text-slate-950 transition hover:opacity-90"
             >
               {page.ctaLabel}

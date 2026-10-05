@@ -29,7 +29,7 @@ const copyByLocale = {
     footnote: "سنضيف أدوات أخرى هنا عند إصدارها.",
     tools: [
       {
-        to: "/ar/qr-generator",
+        to: "/qr-generator",
         title: "مولّد رموز QR",
         text: "أنشئ رموز QR للروابط والنصوص وبيانات الاتصال، وخصّص شكلها ونزّلها كصور.",
       },
@@ -45,7 +45,7 @@ const Labs = () => {
 
   return (
     <>
-      <SEO path={isAr ? "/ar/labs" : "/labs"} />
+      <SEO path={isAr ? "/labs" : "/en/labs"} />
 
       <section className="surface-page min-h-[70vh] pb-20 pt-[calc(6.5rem+var(--safe-area-top))] md:pt-[calc(7.5rem+var(--safe-area-top))]">
         <div className="content-shell">

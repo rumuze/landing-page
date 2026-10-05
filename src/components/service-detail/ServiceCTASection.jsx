@@ -55,7 +55,7 @@ const ServiceCTASection = ({ service, isAr, variant = 'technical' }) => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                to={isAr ? '/ar/contact' : '/contact'}
+                to={isAr ? '/contact' : '/en/contact'}
                 className="btn-primary px-8 py-4 text-base flex items-center gap-3 group"
               >
                 <Icon size={20} />
@@ -63,7 +63,7 @@ const ServiceCTASection = ({ service, isAr, variant = 'technical' }) => {
                 <Arrow size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                to={isAr ? '/ar/services' : '/services'}
+                to={isAr ? '/services' : '/en/services'}
                 className="px-8 py-4 text-base font-semibold text-gray-300 hover:text-white transition-colors"
               >
                 {isAr ? 'عرض جميع القدرات' : 'View All Capabilities'}

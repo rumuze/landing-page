@@ -5,7 +5,7 @@
  * Reads slug from URL params, resolves service from config/services.ts,
  * and renders modular sections with per-service schema.
  *
- * Route: /services/:slug | /ar/services/:slug
+ * Route: /services/:slug | /en/services/:slug
  *
  * Schema output: Service + FAQPage + Organization + Person (merged graph)
  * Content source: config/services.ts
@@ -99,7 +99,7 @@ function buildPageFAQSchema(service, lang) {
 
 function buildPageBreadcrumb(service, lang) {
   const isAr = lang === 'ar';
-  const prefix = isAr ? '/ar' : '';
+  const prefix = isAr ? '' : '/en';
   return {
     '@type': 'BreadcrumbList',
     '@id': `${SiteConfig.baseUrl}${prefix}/services/${service.slug}#breadcrumb`,
@@ -108,7 +108,7 @@ function buildPageBreadcrumb(service, lang) {
         '@type': 'ListItem',
         position: 1,
         name: isAr ? 'الرئيسية' : 'Home',
-        item: `${SiteConfig.baseUrl}${isAr ? '/ar/' : '/'}`,
+        item: `${SiteConfig.baseUrl}${isAr ? '/' : '/en'}`,
       },
       {
         '@type': 'ListItem',
@@ -154,7 +154,7 @@ const ServiceDetailPage = () => {
 
   // Redirect if service not found
   if (!service) {
-    return <Navigate to={isAr ? '/ar/services' : '/services'} replace />;
+    return <Navigate to={isAr ? '/services' : '/en/services'} replace />;
   }
 
   // Page metadata
@@ -202,7 +202,7 @@ const ServiceDetailPage = () => {
                 return (
                   <Link
                     key={slug}
-                    to={`${isAr ? '/ar' : ''}/services/${slug}`}
+                    to={`${isAr ? '' : '/en'}/services/${slug}`}
                     className="text-sm font-medium text-cyan-400 hover:text-cyan-300 hover:underline transition-colors"
                   >
                     {isAr ? related.title.ar : related.title.en}

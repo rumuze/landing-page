@@ -62,11 +62,11 @@ function renderPageRoute({ id, path, access, props }, locale) {
 export default function AppRoutes({ location }) {
   return (
     <Routes location={location} key={location.pathname}>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/ar" element={<HomePage isAr={true} />} />
+      <Route path="/" element={<HomePage isAr={true} />} />
+      <Route path="/en" element={<HomePage />} />
 
       <Route path="/offline" element={<OfflineFallback />} />
-      <Route path="/ar/offline" element={<OfflineFallback />} />
+      <Route path="/en/offline" element={<OfflineFallback />} />
 
       {LOCALES.flatMap((locale) => PAGE_ROUTES.map((route) => renderPageRoute(route, locale)))}
 

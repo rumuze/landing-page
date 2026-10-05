@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-Disallow: /ar/admin
+Disallow: /en/admin
 
 # Search and answer engines (SEO / AEO / GEO)
 User-agent: Googlebot

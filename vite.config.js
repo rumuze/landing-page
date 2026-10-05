@@ -44,17 +44,17 @@ export default defineConfig(({ isSsrBuild }) => ({
         'offline.html',       // Critical for offline fallback
       ],
       manifest: {
-        name: 'Rumuze | Software Engineering',
-        short_name: 'Rumuze',
-        description: 'Custom platforms, mobile apps, and backend systems for businesses in the Gulf and MENA region.',
-        theme_color: '#000B18',
-        background_color: '#000B18',
+        name: 'رموز | برمجيات وتسويق رقمي',
+        short_name: 'رموز',
+        description: 'برمجيات وتسويق رقمي لشركات الخليج والمنطقة: منصات مخصصة وتطبيقات موبايل وSEO وإعلانات ومحتوى.',
+        theme_color: '#030E09',
+        background_color: '#030E09',
         display: 'standalone',
         scope: '/',
         start_url: '/',
         id: '/',
-        dir: 'auto',
-        lang: 'en',
+        dir: 'rtl',
+        lang: 'ar',
         categories: ['business', 'productivity'],
         icons: [
           { src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' },
@@ -62,14 +62,14 @@ export default defineConfig(({ isSsrBuild }) => ({
         ],
         shortcuts: [
           {
-            name: 'Our Services',
-            short_name: 'Services',
+            name: 'خدماتنا',
+            short_name: 'الخدمات',
             url: '/services',
             icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }],
           },
           {
-            name: 'Start a project',
-            short_name: 'Contact',
+            name: 'ابدأ مشروعك',
+            short_name: 'تواصل',
             url: '/contact',
             icons: [{ src: '/rumuze-192.png', sizes: '192x192', type: 'image/png' }],
           },

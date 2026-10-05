@@ -116,7 +116,7 @@ const QrGeneratorPage = () => {
   const { i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
   const c = isAr ? CONTENT.ar : CONTENT.en;
-  const pathPrefix = isAr ? '/ar' : '';
+  const pathPrefix = isAr ? '' : '/en';
   const [openFaq, setOpenFaq] = useState(null);
 
   return (

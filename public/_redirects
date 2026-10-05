@@ -1,38 +1,61 @@
-# Retired pages (301)
+# Retired pages (301). Arabic is the primary language and lives at the root; English is under /en.
+
 /why-rumuze /about 301
-/ar/why-rumuze /ar/about 301
 /enterprise-framework /services 301
-/ar/enterprise-framework /ar/services 301
 /methodology /about 301
-/ar/methodology /ar/about 301
 /architecture-principles /about 301
-/ar/architecture-principles /ar/about 301
 /engineering-standards /about 301
-/ar/engineering-standards /ar/about 301
 /slo-framework /services 301
-/ar/slo-framework /ar/services 301
 /multilingual-systems /services/web-development 301
-/ar/multilingual-systems /ar/services/web-development 301
 /knowledge-graph-architecture /services 301
-/ar/knowledge-graph-architecture /ar/services 301
 /enterprise-web-development /services/web-development 301
-/ar/enterprise-web-development /ar/services/web-development 301
 /saas-architecture /services/saas-erp 301
-/ar/saas-architecture /ar/services/saas-erp 301
 /marketing-infrastructure /services/marketing-infrastructure 301
-/ar/marketing-infrastructure /ar/services/marketing-infrastructure 301
 /seo-revenue-systems /services/seo-services 301
-/ar/seo-revenue-systems /ar/services/seo-services 301
 /custom-software-development /services/software-engineering 301
-/ar/custom-software-development /ar/services/software-engineering 301
 /enterprise-application-development /services/saas-erp 301
-/ar/enterprise-application-development /ar/services/saas-erp 301
 /api-integration-architecture /services/software-engineering 301
-/ar/api-integration-architecture /ar/services/software-engineering 301
 /manifesto /about 301
-/ar/manifesto /ar/about 301
 /comparison/* /services 301
-/ar/comparison/* /ar/services 301
+
+/en/why-rumuze /en/about 301
+/en/enterprise-framework /en/services 301
+/en/methodology /en/about 301
+/en/architecture-principles /en/about 301
+/en/engineering-standards /en/about 301
+/en/slo-framework /en/services 301
+/en/multilingual-systems /en/services/web-development 301
+/en/knowledge-graph-architecture /en/services 301
+/en/enterprise-web-development /en/services/web-development 301
+/en/saas-architecture /en/services/saas-erp 301
+/en/marketing-infrastructure /en/services/marketing-infrastructure 301
+/en/seo-revenue-systems /en/services/seo-services 301
+/en/custom-software-development /en/services/software-engineering 301
+/en/enterprise-application-development /en/services/saas-erp 301
+/en/api-integration-architecture /en/services/software-engineering 301
+/en/manifesto /en/about 301
+/en/comparison/* /en/services 301
+
+# Old Arabic URLs under /ar now live at the root (legacy, kept for links already shared).
+/ar/why-rumuze /about 301
+/ar/enterprise-framework /services 301
+/ar/methodology /about 301
+/ar/architecture-principles /about 301
+/ar/engineering-standards /about 301
+/ar/slo-framework /services 301
+/ar/multilingual-systems /services/web-development 301
+/ar/knowledge-graph-architecture /services 301
+/ar/enterprise-web-development /services/web-development 301
+/ar/saas-architecture /services/saas-erp 301
+/ar/marketing-infrastructure /services/marketing-infrastructure 301
+/ar/seo-revenue-systems /services/seo-services 301
+/ar/custom-software-development /services/software-engineering 301
+/ar/enterprise-application-development /services/saas-erp 301
+/ar/api-integration-architecture /services/software-engineering 301
+/ar/manifesto /about 301
+/ar/comparison/* /services 301
+/ar / 301
+/ar/* /:splat 301
 
 # SPA Fallback for Client-Side Routing
 /* /200.html 200

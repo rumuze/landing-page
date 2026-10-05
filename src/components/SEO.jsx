@@ -73,11 +73,11 @@ const buildDefaultSchemasForPath = (path, lang) => {
   const normalizedPath = normalizePath(path);
 
   // The FAQ markup is only valid where the same FAQ is visible: the homepage.
-  if (normalizedPath === '/' || normalizedPath === '/ar') {
+  if (normalizedPath === '/' || normalizedPath === '/en') {
     return [...buildServiceSchemas(lang), buildFAQSchema(lang)];
   }
 
-  if (normalizedPath === '/services' || normalizedPath === '/ar/services') {
+  if (normalizedPath === '/services' || normalizedPath === '/en/services') {
     return buildServiceSchemas(lang);
   }
 
@@ -157,7 +157,7 @@ const SEO = ({ title, description, image, type, path, schemas, canonical, noinde
       '@type': 'BreadcrumbList',
       '@id': `${canonicalUrl}#breadcrumb`,
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: lang === 'ar' ? 'الرئيسية' : 'Home', item: hreflangs[lang] || `${baseUrl}${lang === 'ar' ? '/ar' : '/'}` },
+        { '@type': 'ListItem', position: 1, name: lang === 'ar' ? 'الرئيسية' : 'Home', item: hreflangs[lang] || `${baseUrl}${lang === 'ar' ? '/' : '/en'}` },
         { '@type': 'ListItem', position: 2, name: metaTitle.split('|')[0].trim(), item: canonicalUrl },
       ],
     };

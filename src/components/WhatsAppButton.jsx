@@ -14,7 +14,7 @@ const WHATSAPP_NUMBER = '201000061409';
 
 const SUPPRESSED_PATHS = [
   '/saudi-arabia',
-  '/ar/saudi-arabia',
+  '/en/saudi-arabia',
 ];
 
 const DEFAULT_BUTTON_CLASSNAME = [

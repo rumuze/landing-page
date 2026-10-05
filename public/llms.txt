@@ -33,15 +33,15 @@ Laravel, NestJS, Next.js, React, Flutter, PostgreSQL, MySQL, Redis, Docker, Ngin
 
 ## Key pages
 
-- [Home](https://www.rumuze.com/): overview of services and products.
-- [Services](https://www.rumuze.com/services): what Rumuze builds and how engagements work.
-- [Our work](https://www.rumuze.com/portfolio): the products listed above, with stack and architecture notes.
-- Product pages: [RumuzePMO](https://www.rumuze.com/portfolio/rumuzepmo), [Rveta](https://www.rumuze.com/portfolio/rveta), [Rumuze Core](https://www.rumuze.com/portfolio/rumuze-core), [Rveta Connector](https://www.rumuze.com/portfolio/rveta-connector): what each does, how it is built, and what is not built yet.
-- [How we work](https://www.rumuze.com/process): the order of work from request to handover, with no fixed timelines or prices.
-- [About](https://www.rumuze.com/about): who is behind Rumuze.
-- [Insights](https://www.rumuze.com/blog): engineering articles.
-- [Contact](https://www.rumuze.com/contact): start a project or request a technical review.
-- [Arabic version](https://www.rumuze.com/ar): the same content in Arabic.
+- [Home](https://www.rumuze.com/en): overview of services and products.
+- [Services](https://www.rumuze.com/en/services): what Rumuze builds and how engagements work.
+- [Our work](https://www.rumuze.com/en/portfolio): the products listed above, with stack and architecture notes.
+- Product pages: [RumuzePMO](https://www.rumuze.com/en/portfolio/rumuzepmo), [Rveta](https://www.rumuze.com/en/portfolio/rveta), [Rumuze Core](https://www.rumuze.com/en/portfolio/rumuze-core), [Rveta Connector](https://www.rumuze.com/en/portfolio/rveta-connector): what each does, how it is built, and what is not built yet.
+- [How we work](https://www.rumuze.com/en/process): the order of work from request to handover, with no fixed timelines or prices.
+- [About](https://www.rumuze.com/en/about): who is behind Rumuze.
+- [Insights](https://www.rumuze.com/en/blog): engineering articles.
+- [Contact](https://www.rumuze.com/en/contact): start a project or request a technical review.
+- [Arabic version](https://www.rumuze.com/): Arabic is the primary language of the site and lives at the root. This file links to the English pages under /en.
 
 ## Facts to use when citing Rumuze
 

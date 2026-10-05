@@ -30,7 +30,7 @@ function AppContent() {
   const location = useLocation();
   const isAr = i18n.language === 'ar';
   const isAdminRoute =
-    location.pathname.startsWith('/admin') || location.pathname.startsWith('/ar/admin');
+    location.pathname.startsWith('/admin') || location.pathname.startsWith('/en/admin');
 
   const isOffline = useIsOffline();
   const scrollProgress = useScrollProgress();

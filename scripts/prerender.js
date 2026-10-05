@@ -44,7 +44,7 @@ globalThis.localStorage = memoryStorage();
 globalThis.sessionStorage = memoryStorage();
 
 const localizePath = (route, locale) =>
-  locale === 'en' ? route : route === '/' ? '/ar' : `/ar${route}`;
+  locale === 'en' ? (route === '/' ? '/en' : `/en${route}`) : route;
 
 // Tags in the built template that the rendered page provides itself.
 const TEMPLATE_HEAD_PATTERNS = [

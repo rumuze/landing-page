@@ -4,7 +4,7 @@ import './fonts.js'
 import './index.css'
 import i18n from './i18n'
 import App from './App.jsx'
-import { hasLocalePrefix } from './seo/linking'
+import { localeFromPath } from './seo/linking'
 
 const container = document.getElementById('root')
 const app = (
@@ -16,7 +16,7 @@ const app = (
 async function start() {
   // The prerendered markup was produced in the route's language, so match it
   // before React hydrates.
-  await i18n.changeLanguage(hasLocalePrefix(window.location.pathname, 'ar') ? 'ar' : 'en')
+  await i18n.changeLanguage(localeFromPath(window.location.pathname))
 
   if (container.hasChildNodes()) {
     hydrateRoot(container, app, {

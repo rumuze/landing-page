@@ -48,7 +48,7 @@ const ProductPage = () => {
   const content = product[locale];
   const align = isAr ? 'text-right' : 'text-left';
   const listRow = `type-body copy-secondary flex items-start gap-3 dark:text-slate-300 ${isAr ? 'flex-row-reverse' : ''}`;
-  const portfolioPath = isAr ? '/ar/portfolio' : '/portfolio';
+  const portfolioPath = isAr ? '/portfolio' : '/en/portfolio';
   const path = `${portfolioPath}/${product.slug}`;
   const posts = product.related.map(getPostBySlug).filter(Boolean);
 
@@ -152,7 +152,7 @@ const ProductPage = () => {
                 {posts.map((post) => (
                   <li key={post.slug}>
                     <Link
-                      to={isAr ? `/ar/blog/${post.slug}` : `/blog/${post.slug}`}
+                      to={isAr ? `/blog/${post.slug}` : `/en/blog/${post.slug}`}
                       className="type-body text-cyan hover:underline"
                     >
                       {post[locale].title}
@@ -169,7 +169,7 @@ const ProductPage = () => {
               <p className="type-body copy-secondary mt-2">{page.ctaBody}</p>
             </div>
             <Link
-              to={isAr ? '/ar/contact?intent=discovery' : '/contact?intent=discovery'}
+              to={isAr ? '/contact?intent=discovery' : '/en/contact?intent=discovery'}
               className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full bg-cyan px-7 font-semibold text-slate-950 transition hover:opacity-90"
             >
               {page.ctaLabel}
