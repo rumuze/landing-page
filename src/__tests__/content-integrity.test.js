@@ -110,8 +110,9 @@ describe('Cloudflare deployment config', () => {
     expect(headers).toMatch(/\/assets\/\*\s+Cache-Control: public, max-age=31536000, immutable/);
   });
 
-  it('keeps Vercel Git deployments off', () => {
-    expect(JSON.parse(read('vercel.json')).git.deploymentEnabled).toBe(false);
+  it('keeps Vercel Git deployments on while the domain points at Vercel', () => {
+    // rumuze.com resolves to Vercel; with deployments off the domain serves a frozen build.
+    expect(JSON.parse(read('vercel.json')).git?.deploymentEnabled).not.toBe(false);
   });
 
   it('allows reCAPTCHA and App Check in the page CSP', () => {
