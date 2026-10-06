@@ -973,3 +973,351 @@ html:not(.dark) main .home-panel-strong .text-cyan,
 html:not(.dark) main .surface-card-strong .text-cyan {
   color: var(--brand-cyan);
 }
+
+/* ------------------------------------------------------------------ */
+/* Service wave (home): flat tiles floating on three flat waves.       */
+/* Colours come from the site palette; .dark switches them.            */
+/* ------------------------------------------------------------------ */
+.svc-section {
+  padding-block: 2.5rem 1rem;
+}
+
+.svc-wave {
+  --svc-tile: 64px;
+  --svc-band: #edfaf2;
+  --svc-w1: #daeee5;
+  --svc-w2: #cce7db;
+  --svc-w3: #b9ddcc;
+  --svc-tile-bg: #ffffff;
+  --svc-tile-line: #7db5a6;
+  --svc-icon: var(--brand-primary);
+  --svc-lbl-bg: #ffffff;
+  --svc-lbl-ink: #0f172a;
+  --svc-lbl-line: #9cc6b9;
+  --svc-link: var(--brand-primary);
+  --svc-pulse: var(--brand-accent);
+  --svc-card: #ffffff;
+  --svc-card-line: #e2e8f0;
+  --svc-field: #f8fafc;
+  --svc-ink: #0f172a;
+  --svc-muted: #475569;
+  position: relative;
+  margin-top: 1.25rem;
+  min-height: 300px;
+  border-radius: 1.5rem;
+  background: var(--svc-band);
+  color: var(--svc-ink);
+}
+
+.dark .svc-wave {
+  --svc-band: var(--surface-dark-card);
+  --svc-w1: var(--surface-dark-section);
+  --svc-w2: #0d2b1e;
+  --svc-w3: #11382a;
+  --svc-tile-bg: var(--surface-dark);
+  --svc-tile-line: var(--brand-accent);
+  --svc-icon: var(--brand-accent-vivid);
+  --svc-lbl-bg: var(--surface-dark);
+  --svc-lbl-ink: #f8fafc;
+  --svc-lbl-line: #2a6b16;
+  --svc-link: var(--brand-accent);
+  --svc-pulse: var(--brand-accent-vivid);
+  --svc-card: var(--surface-dark-card);
+  --svc-card-line: #1d3a2a;
+  --svc-field: var(--surface-dark);
+  --svc-ink: #f8fafc;
+  --svc-muted: #94a3b8;
+}
+
+.svc-wave__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.svc-wave__layer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  translate: var(--svc-wx, 0) 0;
+  transition: translate 0.4s ease-out;
+  animation: svcDrift var(--svc-speed, 18s) linear infinite;
+}
+
+.svc-wave__layer path { transition: fill 0.3s; }
+.svc-wave__layer--one { height: 62%; --svc-speed: 26s; }
+.svc-wave__layer--one path { fill: var(--svc-w1); }
+.svc-wave__layer--two { height: 48%; --svc-speed: 19s; animation-direction: reverse; }
+.svc-wave__layer--two path { fill: var(--svc-w2); }
+.svc-wave__layer--three { height: 32%; --svc-speed: 14s; }
+.svc-wave__layer--three path { fill: var(--svc-w3); }
+.svc-wave.is-paused .svc-wave__layer { animation-play-state: paused; }
+
+@keyframes svcDrift {
+  to { transform: translateX(-50%); }
+}
+
+.svc-wave__links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.svc-wave__links line {
+  stroke: var(--svc-link);
+  stroke-width: 1;
+  opacity: 0.3;
+  transition: opacity 0.2s, stroke-width 0.2s;
+}
+
+.svc-wave__links line.is-on { opacity: 0.95; stroke-width: 2; }
+.svc-wave__dot { fill: var(--svc-pulse); }
+
+/* Before the script runs (and without it) the chips are a centred wrapping row. */
+.svc-wave__field {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+  margin: 0;
+  padding: 34px 16px 44px;
+  list-style: none;
+}
+
+.svc-wave.is-live .svc-wave__field { display: block; padding: 0; }
+
+.svc-chip[hidden] { display: none; }
+
+.svc-wave.is-live .svc-chip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  will-change: transform;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  z-index: 2;
+}
+
+.svc-chip.is-drag { z-index: 5; }
+
+.svc-chip__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.svc-chip.is-drag .svc-chip__btn { cursor: grabbing; }
+.svc-chip__btn:focus-visible { outline: none; }
+.svc-chip__btn:focus-visible .svc-tile { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
+.dark .svc-chip__btn:focus-visible .svc-tile { outline-color: #ffffff; }
+
+.svc-tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--svc-tile);
+  height: var(--svc-tile);
+  border-radius: calc(var(--svc-tile) * 0.28);
+  background: var(--svc-tile-bg);
+  border: 1.5px solid var(--svc-tile-line);
+  color: var(--svc-icon);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.svc-tile svg { width: 42%; height: 42%; stroke-width: 1.8; }
+
+.svc-tile::before,
+.svc-tile::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 0 solid var(--svc-link);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.svc-tile::before { top: -5px; inset-inline-start: -5px; border-width: 2px 0 0 2px; border-top-left-radius: 6px; }
+.svc-tile::after { bottom: -5px; inset-inline-end: -5px; border-width: 0 2px 2px 0; border-bottom-right-radius: 6px; }
+.svc-chip.is-open .svc-tile::before,
+.svc-chip.is-open .svc-tile::after,
+.svc-chip.is-drag .svc-tile::before,
+.svc-chip.is-drag .svc-tile::after { opacity: 0.9; }
+
+.svc-ring {
+  position: absolute;
+  inset: -1.5px;
+  border: 1.5px solid var(--svc-link);
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.svc-chip.is-attn .svc-ring { animation: svcPulse 1.6s ease-out 1; }
+
+@keyframes svcPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+.svc-lbl {
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--svc-lbl-line);
+  background: var(--svc-lbl-bg);
+  color: var(--svc-lbl-ink);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.svc-hint {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgb(var(--text-muted));
+}
+
+.svc-card {
+  position: absolute;
+  z-index: 8;
+  width: min(330px, calc(100% - 24px));
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid var(--svc-card-line);
+  background: var(--svc-card);
+  color: var(--svc-ink);
+  animation: svcCardIn 0.18s ease-out;
+}
+
+.svc-card[hidden] { display: none; }
+.svc-wave:not(.is-live) .svc-card { position: static; margin: 0 auto 16px; }
+.svc-card h3 { margin: 0 0 4px; padding-inline-end: 30px; font-size: 17px; font-weight: 700; }
+.svc-card p { margin: 0 0 12px; font-size: 13px; color: var(--svc-muted); }
+
+.svc-card__x {
+  position: absolute;
+  top: 8px;
+  inset-inline-end: 10px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--svc-ink);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.svc-card__modes { display: flex; gap: 6px; margin-bottom: 10px; }
+
+.svc-card__modes button {
+  flex: 1;
+  min-height: 40px;
+  padding: 9px 4px;
+  border-radius: 999px;
+  border: 1px solid var(--svc-card-line);
+  background: var(--svc-field);
+  color: var(--svc-ink);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.svc-card__modes button[aria-pressed="true"] {
+  background: var(--brand-accent);
+  border-color: var(--brand-accent);
+  color: var(--text-on-accent);
+}
+
+.svc-card input:not([tabindex="-1"]),
+.svc-card textarea {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--svc-card-line);
+  background: var(--svc-field);
+  color: var(--svc-ink);
+  font: inherit;
+  font-size: 16px;
+  resize: none;
+}
+
+.svc-card input:focus-visible,
+.svc-card textarea:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 1px; }
+.dark .svc-card input:focus-visible,
+.dark .svc-card textarea:focus-visible { outline-color: var(--brand-accent); }
+
+.svc-card__trap { position: absolute; left: -9999px; width: 0; height: 0; overflow: hidden; }
+.svc-card__error { margin: 0 0 6px; font-size: 12.5px; color: #b42318; }
+.dark .svc-card__error { color: #fda29b; }
+.svc-card__error:empty { display: none; }
+
+.svc-card__send {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--brand-accent);
+  color: var(--text-on-accent);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.svc-card__send:disabled { opacity: 0.7; cursor: progress; }
+.svc-card .svc-card__legal { margin: 10px 0 0; font-size: 11.5px; }
+.svc-card__legal a { text-decoration: underline; color: inherit; }
+.svc-card__done { display: grid; gap: 4px; padding: 6px 0 4px; font-size: 14px; }
+.svc-card__done span { color: var(--svc-muted); font-size: 13px; }
+
+@keyframes svcCardIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 640px) {
+  .svc-wave { border-radius: 1.25rem; }
+  .svc-lbl { max-width: 92px; overflow: hidden; text-overflow: ellipsis; padding: 5px 8px; font-size: 11.5px; }
+  .svc-wave.is-live .svc-card {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    top: auto !important;
+    left: 0 !important;
+    width: auto;
+    border-radius: 20px 20px 0 0;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+    z-index: 11000;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-wave__layer { animation: none; }
+  .svc-wave .svc-chip { opacity: 1; }
+  .svc-chip.is-attn .svc-ring { animation: none; }
+  .svc-card { animation: none; }
+}

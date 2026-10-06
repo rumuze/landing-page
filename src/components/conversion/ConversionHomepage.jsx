@@ -19,6 +19,7 @@ import CountUp from "../CountUp";
 import { products } from "../../data/products";
 import { SERVICES } from "../../config/services";
 import LeadCaptureModal from "./LeadCaptureModal";
+import ServiceWave from "../home/ServiceWave";
 
 const capabilityIcons = [Lightbulb, Layers, Smartphone, Server, Search, Megaphone, PenLine, Plug];
 
@@ -116,6 +117,7 @@ const ConversionHomepage = () => {
       <div className="relative overflow-hidden">
 
         <HeroSection copy={copy.hero} isAr={isAr} onOpenLeadCapture={openLeadCapture} />
+        <ServiceWave isAr={isAr} />
         <CapabilitiesSection copy={copy.capabilities} isAr={isAr} />
         <WorkSection copy={copy.work} isAr={isAr} />
         <EngineeringSection copy={copy.engineering} isAr={isAr} />

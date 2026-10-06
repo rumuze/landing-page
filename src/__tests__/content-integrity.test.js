@@ -174,6 +174,7 @@ describe('claims guard', () => {
   const files = [
     'src/content/homeContent.js',
     'src/content/conversionContent.js',
+    'src/content/serviceWaveContent.js',
     'src/config/services.ts',
     'src/config/entity.ts',
     'src/config/person.ts',
@@ -289,5 +290,26 @@ describe('translations', () => {
       }
     }
     expect(missing).toEqual([]);
+  });
+});
+
+describe('service wave copy', () => {
+  it('describes every chip in both languages without numbers or promises', async () => {
+    const { serviceWaveContent } = await import('../content/serviceWaveContent');
+    const { WAVE_ORDER } = await import('../components/home/serviceWaveLayout');
+
+    for (const locale of ['en', 'ar']) {
+      const copy = serviceWaveContent[locale];
+      expect(Object.keys(copy.items).sort(), locale).toEqual([...WAVE_ORDER].sort());
+      for (const [key, item] of Object.entries(copy.items)) {
+        expect(item.label.length, `${locale} ${key} label`).toBeGreaterThan(1);
+        expect(item.text.length, `${locale} ${key} text`).toBeGreaterThan(10);
+        expect(item.text.length, `${locale} ${key} text`).toBeLessThanOrEqual(80);
+        expect(item.text, `${locale} ${key} has a number`).not.toMatch(/[0-9٠-٩%]/u);
+      }
+      expect(Object.keys(copy.modes).sort()).toEqual(['consult', 'explain', 'order']);
+      expect(Object.keys(copy.notePlaceholder).sort()).toEqual(['consult', 'explain', 'order']);
+    }
+    expect(Object.keys(serviceWaveContent.ar)).toEqual(Object.keys(serviceWaveContent.en));
   });
 });
