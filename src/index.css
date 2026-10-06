@@ -1342,6 +1342,9 @@ html:not(.dark) main .surface-card-strong .text-cyan {
   padding: 14px;
   border-radius: 1.25rem;
   background: var(--il-bg);
+  /* Scenes below the fold are not laid out or painted until they are near the screen. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 240px;
 }
 
 .dark .ill-frame {
