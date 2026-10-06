@@ -4,6 +4,7 @@ import {
   createMessagePreview,
   formatMessageTimestamp,
 } from "../utils/messages";
+import { inboxContactLabel } from "../utils/inboxContact";
 
 const FILTER_OPTIONS = [
   { id: "all", label: "All" },
@@ -174,7 +175,7 @@ const MessageList = ({
                         </div>
 
                         <p className="mt-1 truncate text-xs uppercase tracking-[0.2em] text-slate-500">
-                          {thread.userEmail || "No email"}
+                          {inboxContactLabel(thread.userEmail)}
                         </p>
                       </div>
                     </div>

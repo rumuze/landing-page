@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
+import { assertValidEmail, normalizeEmail } from '../models/chat';
 import {
+  buildLeadThread,
   buildLeadThreadMessage,
   buildLeadThreadSubject,
   ensureUrlProtocol,
@@ -70,5 +72,29 @@ describe('thread text', () => {
     expect(message).toContain('Systems currently used: Not provided');
     expect(message).toContain('Not provided');
     expect(message).toContain('Source: website-homepage');
+  });
+});
+
+describe('buildLeadThread', () => {
+  it('keeps an email as the address the inbox stores', () => {
+    const thread = buildLeadThread({ intent: 'discovery', formData: valid, source: 'hero-primary' });
+    expect(thread.email).toBe('sara@example.com');
+    expect(thread.name).toBe('Sara Ahmed');
+    expect(thread.message).toContain('- Work email: sara@example.com');
+    expect(thread.message).not.toContain('Phone / WhatsApp');
+  });
+
+  it('stores a phone-only request under an address that cannot receive mail and writes the number in the message', () => {
+    const thread = buildLeadThread({ intent: 'audit', formData: { ...valid, workEmail: '+20 100 006 1409' }, source: 'final-primary' });
+    expect(thread.email).toBe('phone-201000061409@no-email.rumuze.invalid');
+    expect(thread.message).toContain('- Work email: Not provided');
+    expect(thread.message).toContain('- Phone / WhatsApp: +20 100 006 1409');
+    expect(() => assertValidEmail(normalizeEmail(thread.email))).not.toThrow();
+  });
+
+  it('also accepts a number given in the WhatsApp field', () => {
+    const thread = buildLeadThread({ intent: 'build', formData: { ...valid, workEmail: '', whatsapp: '01012345678' }, source: 'x' });
+    expect(thread.email).toBe('phone-01012345678@no-email.rumuze.invalid');
+    expect(thread.message).toContain('- Phone / WhatsApp: 01012345678');
   });
 });

@@ -1,3 +1,5 @@
+import { inboxEmailFor } from "./inboxContact";
+
 const LEAD_INTENTS = ["discovery", "audit", "build", "infrastructure"];
 
 export const EMPTY_LEAD_FORM = {
@@ -109,7 +111,8 @@ export function buildLeadThreadMessage({ intent, formData, source = "website-hom
     "",
     "Company profile",
     `- Full name: ${formData.fullName}`,
-    `- Work email: ${formData.workEmail}`,
+    `- Work email: ${formData.workEmail || "Not provided"}`,
+    ...(formData.whatsapp ? [`- Phone / WhatsApp: ${formData.whatsapp}`] : []),
     `- Company name: ${formData.companyName}`,
     `- Role: ${formData.role}`,
     `- Website: ${ensureUrlProtocol(formData.website)}`,
@@ -130,4 +133,22 @@ export function buildLeadThreadMessage({ intent, formData, source = "website-hom
   ];
 
   return lines.join("\n");
+}
+
+/**
+ * What the inbox stores for a submitted intake form. The contact field takes an
+ * email or a phone number; a phone number is stored under an address that can
+ * never receive mail and is written out in the message.
+ */
+export function buildLeadThread({ intent, formData, source }) {
+  const contact = String(formData.workEmail || formData.whatsapp || "").trim();
+  const leadData = contact.includes("@") ? formData : { ...formData, whatsapp: contact, workEmail: "" };
+
+  return {
+    name: formData.fullName,
+    email: inboxEmailFor(contact),
+    company: formData.companyName,
+    subject: buildLeadThreadSubject({ intent, formData: leadData }),
+    message: buildLeadThreadMessage({ intent, formData: leadData, source }),
+  };
 }
