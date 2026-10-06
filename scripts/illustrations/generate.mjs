@@ -106,4 +106,37 @@ const scenes = {};
   [[0.6, 0.6, 0.5, 'white', 'bm'], [3.6, 0.6, 0.5, 'white', 'ba'], [6.5, 0.6, 0.5, 'white', 'bm'], [0.6, 3.0, 0.5, 'white', 'bp'], [3.6, 3.0, 1.6, 'prim', 'bw'], [6.5, 3.0, 0.5, 'white', 'bm'], [2.0, 5.5, 0.5, 'white', 'ba'], [5.2, 5.5, 0.5, 'white', 'bm']].forEach(([x, y, z, t, p]) => { if (z > 1) I.push({ key: -0.9, svg: () => poly([[x + 0.3, y + 0.3, 0.51], [x + 2.9, y + 0.3, 0.51], [x + 2.9, y + 2.2, 0.51], [x + 0.3, y + 2.2, 0.51]], 'sh') }); I.push(...post(x, y, z, t, p)); });
   scenes.content = build(I); }
 
+// About: a studio, four desks with screens around one shared table
+{ const I = [...base(10, 8)];
+  const tb = box(3.4, 2.8, 0.5, 3.2, 2.4, 0.5, 'prim'); I.push(shadowOf(tb), tb, onTop(tb, 0.4, 0.5, 1.6, 0.3, 'bw'), onTop(tb, 0.4, 1.2, 1.0, 0.25, 'bw'));
+  [[0.6, 0.6, 'bp'], [6.6, 0.6, 'ba'], [0.6, 5.4, 'ba'], [6.6, 5.4, 'bp']].forEach(([x, y, c]) => { const d = box(x, y, 0.5, 2.8, 1.8, 0.7, 'white'); I.push(shadowOf(d), d, onTop(d, 0.4, 0.3, 1.4, 0.3, 'bs'));
+    const m = box(x + 0.9, y + 0.2, 1.2, 1.0, 0.2, 1.1, 'mid'); I.push(m, onFront(m, 0.1, 0.15, 0.8, 0.8, c)); });
+  I.push(dot(4.2, 2.2, 1.6, 5, 'da'), dot(5.8, 6.0, 1.6, 5, 'dp'), dot(2.6, 4.2, 1.6, 4, 'dp'));
+  scenes.about = build(I); }
+// Contact: an envelope with a letter lifting out, and two chat cards beside it
+{ const I = [...base(9.5, 8)];
+  const env = box(1.2, 2.6, 0.5, 5.4, 3.6, 1.0, 'white'); I.push(shadowOf(env), env, onTop(env, 0.4, 0.4, 3.0, 0.3, 'bs'), onTop(env, 0.4, 1.0, 2.0, 0.3, 'bs'), onTop(env, 3.6, 2.2, 1.4, 0.9, 'bp'));
+  const letter = box(2.0, 3.0, 1.5, 3.6, 2.2, 0.25, 'prim'); I.push({ key: letter.key - 0.4, svg: () => poly([[2.3, 3.3, 1.51], [5.9, 3.3, 1.51], [5.9, 5.5, 1.51], [2.3, 5.5, 1.51]], 'sh') }, letter, onTop(letter, 0.4, 0.4, 1.8, 0.3, 'bw'), onTop(letter, 0.4, 0.95, 2.4, 0.22, 'bw'), onTop(letter, 0.4, 1.45, 1.4, 0.22, 'bw'));
+  [[6.6, 0.6, 2.6, 'white', 'bp'], [6.9, 5.4, 1.6, 'acc', 'bw']].forEach(([x, y, z, tone, c]) => { const f = box(x, y, z, 2.2, 1.4, 0.3, tone); I.push({ key: -0.9, svg: () => poly([[x + 0.3, y + 0.3, 0.51], [x + 2.5, y + 0.3, 0.51], [x + 2.5, y + 1.7, 0.51], [x + 0.3, y + 1.7, 0.51]], 'sh') }, f, onTop(f, 0.3, 0.3, 1.2, 0.25, c), onTop(f, 0.3, 0.8, 1.6, 0.2, tone === 'acc' ? 'bw' : 'bs')); });
+  I.push(dot(0.8, 1.0, 1.8, 5, 'da'), dot(1.8, 0.6, 2.4, 4, 'dp'));
+  scenes.contact = build(I); }
+// Labs: a workbench with a QR block, a tall vessel and a small gear cube
+{ const I = [...base(10, 6)];
+  const qr = box(0.8, 1.0, 0.5, 3.6, 3.6, 0.5, 'white'); I.push(shadowOf(qr), qr);
+  [[0.4, 0.4], [2.2, 0.4], [0.4, 2.2]].forEach(([dx, dy]) => I.push(onTop(qr, dx, dy, 1.0, 1.0, 'bp'), onTop(qr, dx + 0.3, dy + 0.3, 0.4, 0.4, 'bw')));
+  [[1.6, 1.4, 0.4, 0.4], [2.6, 1.2, 0.4, 0.4], [1.4, 2.6, 0.4, 0.4], [2.4, 2.4, 0.4, 0.4], [3.0, 2.8, 0.3, 0.3], [1.9, 3.1, 0.3, 0.3]].forEach(([dx, dy, w, d]) => I.push(onTop(qr, dx, dy, w, d, 'bp')));
+  const v = box(5.2, 1.2, 0.5, 1.8, 1.8, 3.4, 'acc'); I.push(shadowOf(v), v, onTop(v, 0.3, 0.4, 1.2, 0.3, 'bw'), onTop(v, 0.3, 1.0, 0.8, 0.25, 'bw'));
+  const g = box(7.4, 2.8, 0.5, 1.6, 1.6, 1.4, 'prim'); I.push(shadowOf(g), g, onTop(g, 0.3, 0.3, 1.0, 0.3, 'bw'));
+  I.push(dot(6.1, 0.8, 4.6, 6, 'da'), dot(8.2, 1.6, 2.8, 4, 'dp'), dot(4.6, 4.8, 1.4, 4, 'dp'));
+  scenes.labs = build(I); }
+// 404: a path that stops at a gap, a lone cube waiting on the near side
+{ const I = [...base(8, 8)];
+  const a = box(2.6, 0.7, 0.5, 2.8, 2.8, 0.4, 'white'); I.push(a, onTop(a, 1.0, 0.4, 0.8, 2.0, 'bs'));
+  const b = box(2.6, 4.5, 0.5, 2.8, 2.8, 0.4, 'white'); I.push(b, onTop(b, 1.0, 0.4, 0.8, 2.0, 'bs'));
+  const c = box(3.2, 1.3, 0.9, 1.6, 1.6, 1.8, 'acc'); I.push(shadowOf({ x: 3.2, y: 1.3, w: 1.6, d: 1.6 }), c, onTop(c, 0.3, 0.4, 1.0, 0.3, 'bw'));
+  const sign = box(3.5, 5.4, 0.9, 0.5, 0.5, 3.4, 'prim'); I.push(shadowOf({ x: 3.5, y: 5.4, w: 0.5, d: 0.5 }), sign, onFront(sign, 0.08, 2.4, 0.34, 0.6, 'bw'), onFront(sign, 0.08, 1.5, 0.34, 0.4, 'bw'));
+  const board = box(2.9, 5.2, 4.3, 1.7, 0.4, 0.9, 'acc'); I.push(board, onFront(board, 0.3, 0.3, 1.1, 0.3, 'bw'));
+  I.push(dot(4.0, 3.9, 1.8, 6, 'dp'), dot(4.0, 3.9, 3.0, 4, 'da'), dot(0.9, 6.6, 1.8, 4, 'da'), dot(6.8, 1.4, 1.6, 4, 'dp'));
+  scenes.notfound = build(I); }
+
 fs_write(scenes);

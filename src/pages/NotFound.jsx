@@ -15,6 +15,8 @@ import { motion as Motion } from 'framer-motion';
 import { Home, ArrowLeft, Search } from 'lucide-react';
 import SEO from '../components/SEO';
 import { localeFromPath } from '../seo/linking';
+import Illustration from '../components/illustrations/Illustration';
+import { PAGE_SCENES } from '../components/illustrations/serviceScenes';
 
 const NotFound = () => {
   const location = useLocation();
@@ -65,6 +67,8 @@ const NotFound = () => {
       >
         {/* Glassmorphism Card */}
         <div className="glass-card p-10 rounded-3xl">
+          <Illustration scene={PAGE_SCENES.notFound} className="mx-auto mb-6 w-full max-w-[15rem]" />
+
           {/* 404 Number */}
           <Motion.h1
             initial={{ scale: 0.5, opacity: 0 }}

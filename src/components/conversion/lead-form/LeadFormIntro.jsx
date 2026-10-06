@@ -1,8 +1,10 @@
 import { Sparkles } from "lucide-react";
+import Illustration from "../../illustrations/Illustration";
+import { PAGE_SCENES } from "../../illustrations/serviceScenes";
 import { badgeClass } from "./leadFormStyles";
 
 /** Left column: what the form is for, and how far along the visitor is. */
-const LeadFormIntro = ({ badge, description, headingTag: HeadingTag, step, stepHints, stepLabels, title }) => {
+const LeadFormIntro = ({ badge, description, headingTag: HeadingTag, showScene = false, step, stepHints, stepLabels, title }) => {
   const percent = step === 1 ? 50 : 100;
 
   return (
@@ -30,6 +32,8 @@ const LeadFormIntro = ({ badge, description, headingTag: HeadingTag, step, stepH
         </div>
         <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{stepHints[step - 1]}</p>
       </div>
+
+      {showScene ? <Illustration scene={PAGE_SCENES.contact} className="hidden w-full max-w-sm lg:block" /> : null}
     </div>
   );
 };

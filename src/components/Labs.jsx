@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, QrCode } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SEO from "./SEO";
+import Illustration from "./illustrations/Illustration";
+import { PAGE_SCENES } from "./illustrations/serviceScenes";
 
 const copyByLocale = {
   en: {
@@ -49,10 +51,13 @@ const Labs = () => {
 
       <section className="surface-page min-h-[70vh] pb-20 pt-[calc(6.5rem+var(--safe-area-top))] md:pt-[calc(7.5rem+var(--safe-area-top))]">
         <div className="content-shell">
-          <header className={`max-w-3xl ${align}`}>
-            <p className="eyebrow-label mb-3">{page.eyebrow}</p>
-            <h1 className="type-h1 copy-primary dark:text-white">{page.title}</h1>
-            <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
+          <header className={`grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-center lg:gap-16 ${align}`}>
+            <div>
+              <p className="eyebrow-label mb-3">{page.eyebrow}</p>
+              <h1 className="type-h1 copy-primary dark:text-white">{page.title}</h1>
+              <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
+            </div>
+            <Illustration scene={PAGE_SCENES.labs} className="mx-auto w-full max-w-sm lg:max-w-none" />
           </header>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
