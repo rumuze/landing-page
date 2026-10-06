@@ -101,16 +101,35 @@ test.describe('service wave', () => {
     await expect(page.locator('.svc-tile').first()).toHaveCSS('background-color', 'rgb(3, 14, 9)');
   });
 
-  test('is a bottom sheet on a phone', async ({ page }) => {
+  test('is a centred card above the bottom nav on a phone, and closes from the dim layer', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openHome(page);
     await tap(page, 'seo');
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible();
-    await page.waitForTimeout(400); // the sheet slides in
+    await page.waitForTimeout(400); // the card fades in
     const box = await dialog.boundingBox();
-    expect(Math.abs(box.y + box.height - 844)).toBeLessThanOrEqual(1);
-    expect(Math.round(box.width)).toBe(390);
+    const navTop = await page.evaluate(() => document.querySelector('nav.fixed').getBoundingClientRect().top);
+    // inside the screen with a margin, never touching the bottom nav
+    expect(box.x).toBeGreaterThanOrEqual(15);
+    expect(box.x + box.width).toBeLessThanOrEqual(390 - 15);
+    expect(box.y).toBeGreaterThanOrEqual(0);
+    expect(box.y + box.height).toBeLessThanOrEqual(navTop - 8);
+
+    // Nothing may be drawn over the card (the bottom nav and floating buttons used to cover its
+    // send button once the page's fade-in animation left a stacking context behind).
+    for (const selector of ['.svc-card__send', '.svc-card__legal']) {
+      const covered = await page.evaluate((sel) => {
+        const rect = document.querySelector(sel).getBoundingClientRect();
+        const top = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+        return !top?.closest('.svc-card');
+      }, selector);
+      expect(covered, `${selector} is covered`).toBe(false);
+    }
+
+    // tapping the dim layer outside the card closes it
+    await page.mouse.click(195, 8);
+    await expect(dialog).toBeHidden();
   });
 
   test('stays still and fully visible when reduced motion is requested', async ({ page }) => {
