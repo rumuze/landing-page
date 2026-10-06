@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Share2, Copy, Linkedin, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -55,23 +54,17 @@ const ShareButton = ({ title, url, className = '', showTooltip = true }) => {
         </span>
       ) : null}
 
-      <Motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+      <button
         onClick={handleShare}
-        className={`${DEFAULT_BUTTON_CLASSNAME} ${className}`.trim()}
+        className={`press-grow ${DEFAULT_BUTTON_CLASSNAME} ${className}`.trim()}
         aria-label="Share this page"
       >
         <Share2 size={18} />
-      </Motion.button>
+      </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <Motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 10 }}
-            className="absolute bottom-full right-0 mb-4 w-64 glass-card p-4 rounded-xl border border-white/10 shadow-2xl z-50 origin-bottom-right"
+      {isOpen && (
+          <div
+            className="anim-pop-in absolute bottom-full right-0 mb-4 w-64 glass-card p-4 rounded-xl border border-white/10 shadow-2xl z-50 origin-bottom-right"
           >
             <div className="space-y-3">
               <h4 className="text-sm font-bold text-white mb-2 ml-1">Share via</h4>
@@ -113,9 +106,8 @@ const ShareButton = ({ title, url, className = '', showTooltip = true }) => {
                 </button>
               </div>
             </div>
-          </Motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 };

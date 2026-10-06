@@ -1,32 +1,18 @@
 import React from 'react';
-import { motion as Motion } from 'framer-motion';
 import { WifiOff, RefreshCcw } from 'lucide-react';
 
 const OfflineFallback = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#06150f] px-4 text-center text-white">
-      <Motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="mb-8"
-      >
+      <div className="animate-zoom-in mb-8">
         <img src="/rumuze.svg" alt="Rumuze Logo" className="mx-auto h-24 w-24" />
-      </Motion.div>
+      </div>
 
-      <Motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
-      >
+      <div className="animate-fade-up">
         <div className="mb-6 flex justify-center">
           <div className="relative">
             <WifiOff className="h-16 w-16 text-cyan-500" />
-            <Motion.div
-              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="absolute -inset-4 rounded-full border-2 border-cyan-500/20"
-            />
+            <div className="absolute -inset-4 animate-pulse rounded-full border-2 border-cyan-500/20" />
           </div>
         </div>
 
@@ -48,7 +34,7 @@ const OfflineFallback = () => {
         <p className="mt-8 text-sm text-slate-700">
           Any forms you submitted while offline will be sent automatically once reconnected.
         </p>
-      </Motion.div>
+      </div>
     </div>
   );
 };
