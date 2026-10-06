@@ -1,5 +1,336 @@
 {
-  "git": {
-    "deploymentEnabled": false
-  }
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin-allow-popups"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'none'"
+        },
+        {
+          "key": "X-DNS-Prefetch-Control",
+          "value": "on"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.woff2",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/200.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/why-rumuze",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/enterprise-framework",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/methodology",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/architecture-principles",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/engineering-standards",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/slo-framework",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/multilingual-systems",
+      "destination": "/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/knowledge-graph-architecture",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/enterprise-web-development",
+      "destination": "/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/saas-architecture",
+      "destination": "/services/saas-erp",
+      "permanent": true
+    },
+    {
+      "source": "/marketing-infrastructure",
+      "destination": "/services/marketing-infrastructure",
+      "permanent": true
+    },
+    {
+      "source": "/seo-revenue-systems",
+      "destination": "/services/seo-services",
+      "permanent": true
+    },
+    {
+      "source": "/custom-software-development",
+      "destination": "/services/software-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/enterprise-application-development",
+      "destination": "/services/saas-erp",
+      "permanent": true
+    },
+    {
+      "source": "/api-integration-architecture",
+      "destination": "/services/software-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/manifesto",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/comparison/:path*",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/en/why-rumuze",
+      "destination": "/en/about",
+      "permanent": true
+    },
+    {
+      "source": "/en/enterprise-framework",
+      "destination": "/en/services",
+      "permanent": true
+    },
+    {
+      "source": "/en/methodology",
+      "destination": "/en/about",
+      "permanent": true
+    },
+    {
+      "source": "/en/architecture-principles",
+      "destination": "/en/about",
+      "permanent": true
+    },
+    {
+      "source": "/en/engineering-standards",
+      "destination": "/en/about",
+      "permanent": true
+    },
+    {
+      "source": "/en/slo-framework",
+      "destination": "/en/services",
+      "permanent": true
+    },
+    {
+      "source": "/en/multilingual-systems",
+      "destination": "/en/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/en/knowledge-graph-architecture",
+      "destination": "/en/services",
+      "permanent": true
+    },
+    {
+      "source": "/en/enterprise-web-development",
+      "destination": "/en/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/en/saas-architecture",
+      "destination": "/en/services/saas-erp",
+      "permanent": true
+    },
+    {
+      "source": "/en/marketing-infrastructure",
+      "destination": "/en/services/marketing-infrastructure",
+      "permanent": true
+    },
+    {
+      "source": "/en/seo-revenue-systems",
+      "destination": "/en/services/seo-services",
+      "permanent": true
+    },
+    {
+      "source": "/en/custom-software-development",
+      "destination": "/en/services/software-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/en/enterprise-application-development",
+      "destination": "/en/services/saas-erp",
+      "permanent": true
+    },
+    {
+      "source": "/en/api-integration-architecture",
+      "destination": "/en/services/software-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/en/manifesto",
+      "destination": "/en/about",
+      "permanent": true
+    },
+    {
+      "source": "/en/comparison/:path*",
+      "destination": "/en/services",
+      "permanent": true
+    },
+    {
+      "source": "/ar/why-rumuze",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/ar/enterprise-framework",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/ar/methodology",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/ar/architecture-principles",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/ar/engineering-standards",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/ar/slo-framework",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/ar/multilingual-systems",
+      "destination": "/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/ar/knowledge-graph-architecture",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/ar/enterprise-web-development",
+      "destination": "/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/ar/saas-architecture",
+      "destination": "/services/saas-erp",
+      "permanent": true
+    },
+    {
+      "source": "/ar/marketing-infrastructure",
+      "destination": "/services/marketing-infrastructure",
+      "permanent": true
+    },
+    {
+      "source": "/ar/seo-revenue-systems",
+      "destination": "/services/seo-services",
+      "permanent": true
+    },
+    {
+      "source": "/ar/custom-software-development",
+      "destination": "/services/software-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/ar/enterprise-application-development",
+      "destination": "/services/saas-erp",
+      "permanent": true
+    },
+    {
+      "source": "/ar/api-integration-architecture",
+      "destination": "/services/software-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/ar/manifesto",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/ar/comparison/:path*",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/ar",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    }
+  ]
 }

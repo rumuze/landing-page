@@ -1,6 +1,11 @@
 # Deployment
 
-Production runs on **Cloudflare Workers** (static assets from `dist/`, configured in `wrangler.jsonc`). Nothing else deploys this site: `vercel.json` only switches Vercel's Git deployments off.
+The same build is deployed to two hosts:
+
+- **Vercel** serves `rumuze.com` today, because the domain's DNS points there. Every merge to `main` deploys to production and every pull request gets a preview. `vercel.json` is generated from `public/_redirects` and `public/_headers` (`npm run vercel-config`); a test fails when it is stale, so the two hosts answer the same way.
+- **Cloudflare Workers** (static assets from `dist/`, configured in `wrangler.jsonc`) builds every merge and every pull request too. Its `*.workers.dev` address is the target if the domain is moved to Cloudflare later (see "The domain must point at Cloudflare").
+
+Between 29 September and the change that restored Vercel, Vercel's Git deployments were switched off while the domain still pointed at Vercel, so the domain served a frozen build.
 
 ## Build
 
@@ -34,9 +39,9 @@ Old Arabic URLs under `/ar` are redirected (301) to the same path at the root by
 - Node: Vite 7 needs Node 20.19 or newer. `.node-version` pins 22, which Workers Builds reads. If the build image ignores it, set the `NODE_VERSION` build variable to `22`.
 - If a build fails within seconds, open "View logs" in the dashboard; the first error line names the cause.
 
-## The domain must point at Cloudflare
+## Moving the domain to Cloudflare (optional)
 
-Cloudflare building the site is not enough: `rumuze.com` has to be attached to the Worker. Check what answers for the domain:
+Building on Cloudflare is not enough on its own: `rumuze.com` has to be attached to the Worker. Check what answers for the domain:
 
 ```bash
 getent hosts rumuze.com www.rumuze.com        # a Vercel address or a *.vercel-dns-*.com name means Vercel still serves the domain
@@ -44,11 +49,11 @@ curl -sI https://www.rumuze.com/ | grep -i -E "^server|x-vercel|cf-ray"
 curl -sI https://www.rumuze.com/ar/services | grep -i -E "^HTTP|^location"   # the current build answers 301 to /services
 ```
 
-If Vercel answers, visitors get Vercel's last deployment, which no longer updates because Git deployments are off. Fix: in Cloudflare, add the `rumuze.com` zone (change the nameservers at the registrar), then Workers & Pages, `landing-page`, Settings, Domains & Routes, Add Custom Domain for `rumuze.com` and `www.rumuze.com`; remove the old Vercel A and CNAME records, and remove the domain from the Vercel project. The Worker's own `*.workers.dev` address always shows the newest build, so it is the quickest way to tell a code problem from a domain problem.
+If Vercel answers, visitors get Vercel's latest production deployment. To move to Cloudflare: in Cloudflare, add the `rumuze.com` zone (change the nameservers at the registrar), then Workers & Pages, `landing-page`, Settings, Domains & Routes, Add Custom Domain for `rumuze.com` and `www.rumuze.com`; remove the old Vercel A and CNAME records, and remove the domain from the Vercel project. The Worker's own `*.workers.dev` address always shows the newest build, so it is the quickest way to tell a code problem from a domain problem.
 
-Do not turn Vercel's Git deployments back on to work around this: `public/_redirects` and `public/_headers` are Cloudflare formats, so a Vercel deployment would lose the 301s and the security headers.
+While Vercel serves the domain, keep its Git deployments on (do not set `git.deploymentEnabled` to false in `vercel.json`), otherwise the domain stops updating.
 
-## Disconnecting Vercel
+## Disconnecting Vercel (only after the domain has moved to Cloudflare)
 
 Vercel dashboard, project `landing-page`, Settings, Git, Disconnect (or delete the project), then remove the Vercel GitHub App from the repository.
 
