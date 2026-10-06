@@ -915,7 +915,8 @@ h6 {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.45s ease both;
+  /* "backwards", not "both": a forwards-filling opacity animation keeps a stacking context after it ends, which trapped fixed overlays (the phone request sheet) under the bottom nav. */
+  animation: fadeIn 0.45s ease backwards;
 }
 
 .animate-fade-up {
@@ -1353,6 +1354,9 @@ html:not(.dark) main .surface-card-strong .text-cyan {
     border-radius: 20px 20px 0 0;
     padding-bottom: calc(18px + env(safe-area-inset-bottom));
     z-index: 11000;
+    /* On a short phone the sheet scrolls instead of running off the screen. */
+    max-height: 88dvh;
+    overflow-y: auto;
   }
 }
 

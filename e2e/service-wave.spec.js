@@ -111,6 +111,17 @@ test.describe('service wave', () => {
     const box = await dialog.boundingBox();
     expect(Math.abs(box.y + box.height - 844)).toBeLessThanOrEqual(1);
     expect(Math.round(box.width)).toBe(390);
+
+    // Nothing may be drawn over the sheet (the bottom nav and floating buttons used to cover its
+    // send button once the page's fade-in animation left a stacking context behind).
+    for (const selector of ['.svc-card__send', '.svc-card__legal']) {
+      const covered = await page.evaluate((sel) => {
+        const rect = document.querySelector(sel).getBoundingClientRect();
+        const top = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+        return !top?.closest('.svc-card');
+      }, selector);
+      expect(covered, `${selector} is covered`).toBe(false);
+    }
   });
 
   test('stays still and fully visible when reduced motion is requested', async ({ page }) => {
