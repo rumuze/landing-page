@@ -71,6 +71,13 @@ function verifyBuild() {
             hasErrors = true;
         }
 
+        // Same for the animation library: the always-present UI uses CSS, so the home page does
+        // not download framer-motion before it paints.
+        if (/<link[^>]+modulepreload[^>]+assets\/framer-/.test(homePage)) {
+            console.error('❌ dist/index.html preloads the framer-motion chunk. An always-mounted component imports it statically; use CSS animations there.');
+            hasErrors = true;
+        }
+
         if (hasErrors) {
             console.error('🚫 Build verification FAILED.');
             process.exit(1);
