@@ -16,3 +16,7 @@
 
 /*.woff2
   Cache-Control: public, max-age=31536000, immutable
+
+# Read by the live check to see which build is online; never cached.
+/version.json
+  Cache-Control: no-store
