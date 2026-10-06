@@ -6,6 +6,8 @@ import SEO from '../components/SEO';
 import { ENTITY } from '../config/entity';
 import { FOUNDER } from '../config/person';
 import { homeContent } from '../content/homeContent';
+import Illustration from '../components/illustrations/Illustration';
+import { PAGE_SCENES } from '../components/illustrations/serviceScenes';
 
 const copyByLocale = {
   en: {
@@ -69,10 +71,13 @@ const AboutPage = () => {
 
       <section className="surface-page pb-16 pt-[calc(6.5rem+var(--safe-area-top))] md:pb-24 md:pt-[calc(7.5rem+var(--safe-area-top))]">
         <div className="content-shell">
-          <header className={`max-w-3xl ${align}`}>
-            <p className="eyebrow-label mb-3">{page.eyebrow}</p>
-            <h1 className="type-h1 copy-primary dark:text-white">{page.title}</h1>
-            <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
+          <header className={`grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-center lg:gap-16 ${align}`}>
+            <div>
+              <p className="eyebrow-label mb-3">{page.eyebrow}</p>
+              <h1 className="type-h1 copy-primary dark:text-white">{page.title}</h1>
+              <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
+            </div>
+            <Illustration scene={PAGE_SCENES.about} className="mx-auto w-full max-w-md lg:max-w-none" />
           </header>
 
           <div className={`mt-16 grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16 ${align}`}>

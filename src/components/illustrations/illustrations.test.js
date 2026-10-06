@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { SERVICES } from '../../config/services';
-import { PROCESS_SCENES, SERVICE_SCENES } from './serviceScenes';
+import { PAGE_SCENES, PROCESS_SCENES, SERVICE_SCENES } from './serviceScenes';
 import { SCENES } from './scenes.generated';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -16,6 +16,7 @@ describe('illustrations', () => {
       expect(SCENES[SERVICE_SCENES[service.slug]], service.slug).toBeTruthy();
     });
     PROCESS_SCENES.forEach((scene) => expect(SCENES[scene], scene).toBeTruthy());
+    Object.values(PAGE_SCENES).forEach((scene) => expect(SCENES[scene], scene).toBeTruthy());
     expect(Object.keys(SERVICE_SCENES).sort()).toEqual(SERVICES.map((s) => s.slug).sort());
   });
 

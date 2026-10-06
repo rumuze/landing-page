@@ -61,6 +61,7 @@ const LeadQualificationForm = ({
           badge={copy.badge}
           description={intentConfig.description}
           headingTag={isModal ? "h3" : "h1"}
+          showScene={!isModal}
           step={form.step}
           stepHints={copy.stepHint}
           stepLabels={copy.stepLabel}

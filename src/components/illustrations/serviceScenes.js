@@ -11,4 +11,7 @@ export const SERVICE_SCENES = {
   'marketing-infrastructure': 'automation',
 };
 
+// The standalone pages that carry one picture each.
+export const PAGE_SCENES = { about: 'about', contact: 'contact', labs: 'labs', notFound: 'notfound' };
+
 export const PROCESS_SCENES = ['idea', 'erp', 'engineering', 'automation', 'web'];
