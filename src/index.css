@@ -1321,3 +1321,50 @@ html:not(.dark) main .surface-card-strong .text-cyan {
   .svc-chip.is-attn .svc-ring { animation: none; }
   .svc-card { animation: none; }
 }
+
+/* ------------------------------------------------------------------ */
+/* Isometric illustrations: one solid colour per face, site palette.   */
+/* ------------------------------------------------------------------ */
+.ill-frame {
+  --il-bg: #edfaf2;
+  --il-t0: #e3f4ea; --il-l0: #c9e3d6; --il-r0: #b5d6c5;
+  --il-tw: #ffffff; --il-lw: #e2efe8; --il-rw: #cfe2d8;
+  --il-tp: #14876c; --il-lp: #006b54; --il-rp: #004d3d;
+  --il-ta: #58e000; --il-la: #3cbf00; --il-ra: #2e9a00;
+  --il-tm: #cbe8d8; --il-lm: #a9d2bd; --il-rm: #93c2a9;
+  --il-sh: #b9ddcc; --il-pl: #bfe0cf;
+  --il-dp: #006b54; --il-da: #3cbf00; --il-dm: #9cc6b9;
+  --il-scr: #f4fbf7; --il-hd: #dcefe5;
+  --il-bw: #ffffff; --il-bs: #cfe2d8; --il-bp: #006b54; --il-ba: #3cbf00; --il-bm: #dcefe5;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  padding: 14px;
+  border-radius: 1.25rem;
+  background: var(--il-bg);
+}
+
+.dark .ill-frame {
+  --il-bg: var(--surface-dark-card);
+  --il-t0: #12301f; --il-l0: #0c2418; --il-r0: #08190f;
+  --il-tw: #17392a; --il-lw: #10291d; --il-rw: #0b1f15;
+  --il-tp: #1f9b63; --il-lp: #157a4d; --il-rp: #0e5a38;
+  --il-ta: #6bea1a; --il-la: #4ed100; --il-ra: #37a300;
+  --il-tm: #1b4531; --il-lm: #143726; --il-rm: #0e2a1d;
+  --il-sh: #0a2117; --il-pl: #1b4531;
+  --il-dp: #4ed100; --il-da: #9dff5a; --il-dm: #2a6b16;
+  --il-scr: #0b1f15; --il-hd: #16402c;
+  --il-bw: #e7f5ec; --il-bs: #2a5a42; --il-bp: #4ed100; --il-ba: #9dff5a; --il-bm: #1f4a35;
+}
+
+.ill { display: block; width: 100%; height: 100%; }
+.il-t0 { fill: var(--il-t0); } .il-l0 { fill: var(--il-l0); } .il-r0 { fill: var(--il-r0); }
+.il-tw { fill: var(--il-tw); } .il-lw { fill: var(--il-lw); } .il-rw { fill: var(--il-rw); }
+.il-tp { fill: var(--il-tp); } .il-lp { fill: var(--il-lp); } .il-rp { fill: var(--il-rp); }
+.il-ta { fill: var(--il-ta); } .il-la { fill: var(--il-la); } .il-ra { fill: var(--il-ra); }
+.il-tm { fill: var(--il-tm); } .il-lm { fill: var(--il-lm); } .il-rm { fill: var(--il-rm); }
+.il-sh { fill: var(--il-sh); } .il-pl { fill: var(--il-pl); }
+.il-dp { fill: var(--il-dp); } .il-da { fill: var(--il-da); } .il-dm { fill: var(--il-dm); }
+.il-scr { fill: var(--il-scr); } .il-hd { fill: var(--il-hd); }
+.il-bw { fill: var(--il-bw); } .il-bs { fill: var(--il-bs); } .il-bp { fill: var(--il-bp); }
+.il-ba { fill: var(--il-ba); } .il-bm { fill: var(--il-bm); }

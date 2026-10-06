@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import Illustration from "../components/illustrations/Illustration";
+import { SERVICE_SCENES } from "../components/illustrations/serviceScenes";
 import SEO from "../components/SEO";
 import { SERVICES } from "../config/services";
 
@@ -92,8 +94,10 @@ const ServicesPage = () => {
                 {SERVICES.filter((service) => service.category === category).map((service) => (
                   <article
                     key={service.slug}
-                    className={`grid gap-8 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14 ${align}`}
+                    className={`grid gap-8 py-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-12 ${align}`}
                   >
+                    <Illustration scene={SERVICE_SCENES[service.slug]} className="mx-auto w-full max-w-md lg:max-w-none" />
+
                     <div>
                       <h3 className="type-h3 copy-primary dark:text-white">{service.title[lang]}</h3>
                       <p className="type-body copy-secondary mt-4 dark:text-slate-300">

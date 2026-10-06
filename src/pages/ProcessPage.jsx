@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Illustration from '../components/illustrations/Illustration';
+import { PROCESS_SCENES } from '../components/illustrations/serviceScenes';
 import SEO from '../components/SEO';
 import { processContent } from '../content/processContent';
 import { getPostBySlug } from '../data/blogPosts';
@@ -29,7 +31,7 @@ const ProcessPage = () => {
             {page.steps.map((step, index) => {
               const post = step.link ? getPostBySlug(step.link.slug) : null;
               return (
-                <li key={step.title} className={`grid gap-4 py-8 md:grid-cols-[8rem_minmax(0,1fr)] md:gap-10 ${align}`}>
+                <li key={step.title} className={`grid gap-4 py-8 md:grid-cols-[8rem_minmax(0,1fr)_14rem] md:items-center md:gap-10 ${align}`}>
                   <p className="type-label copy-muted">
                     {page.stepLabel} {index + 1}
                   </p>
@@ -42,6 +44,7 @@ const ProcessPage = () => {
                       </Link>
                     ) : null}
                   </div>
+                  <Illustration scene={PROCESS_SCENES[index]} className="mx-auto w-full max-w-[16rem]" />
                 </li>
               );
             })}

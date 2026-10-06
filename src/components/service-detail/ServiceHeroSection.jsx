@@ -2,6 +2,8 @@ import React from 'react';
 import { motion as Motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Illustration from '../illustrations/Illustration';
+import { SERVICE_SCENES } from '../illustrations/serviceScenes';
 
 const ServiceHeroSection = ({ service, isAr }) => {
   const title = isAr ? service.title.ar : service.title.en;
@@ -46,62 +48,73 @@ const ServiceHeroSection = ({ service, isAr }) => {
           </ol>
         </Motion.nav>
 
-        {/* Category badge */}
-        <Motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="mb-6"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-cyan/10 text-cyan border border-cyan/20">
-            {category}
-          </span>
-        </Motion.div>
-
-        {/* Title */}
-        <Motion.h1
-          id="service-hero-title"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white mb-6 max-w-4xl leading-tight"
-          itemProp="name"
-        >
-          {title}
-        </Motion.h1>
-
-        {/* Summary */}
-        <Motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
-          className="text-lg md:text-xl text-slate-600 dark:text-gray-300 max-w-3xl leading-relaxed mb-10"
-          itemProp="description"
-        >
-          {summary}
-        </Motion.p>
-
-        {/* CTA */}
-        <Motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          className="flex flex-wrap gap-4"
-        >
-          <Link
-            to={isAr ? '/contact' : '/en/contact'}
-            className="btn-primary px-8 py-3.5 text-base flex items-center gap-2"
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-center lg:gap-14">
+          <div>
+          {/* Category badge */}
+          <Motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="mb-6"
           >
-            {isAr ? 'احجز استشارة فنية' : 'Request Technical Consultation'}
-            {isAr ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
-          </Link>
-          <Link
-            to={isAr ? '/portfolio' : '/en/portfolio'}
-            className="px-8 py-3.5 text-base font-semibold text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-white/10 rounded-xl hover:border-cyan/30 hover:text-cyan transition-all"
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-cyan/10 text-cyan border border-cyan/20">
+              {category}
+            </span>
+          </Motion.div>
+
+          {/* Title */}
+          <Motion.h1
+            id="service-hero-title"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white mb-6 max-w-4xl leading-tight"
+            itemProp="name"
           >
-            {isAr ? 'شاهد أعمالنا' : 'View Case Studies'}
-          </Link>
-        </Motion.div>
+            {title}
+          </Motion.h1>
+
+          {/* Summary */}
+          <Motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="text-lg md:text-xl text-slate-600 dark:text-gray-300 max-w-3xl leading-relaxed mb-10"
+            itemProp="description"
+          >
+            {summary}
+          </Motion.p>
+
+          {/* CTA */}
+          <Motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="flex flex-wrap gap-4"
+          >
+            <Link
+              to={isAr ? '/contact' : '/en/contact'}
+              className="btn-primary px-8 py-3.5 text-base flex items-center gap-2"
+            >
+              {isAr ? 'احجز استشارة فنية' : 'Request Technical Consultation'}
+              {isAr ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
+            </Link>
+            <Link
+              to={isAr ? '/portfolio' : '/en/portfolio'}
+              className="px-8 py-3.5 text-base font-semibold text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-white/10 rounded-xl hover:border-cyan/30 hover:text-cyan transition-all"
+            >
+              {isAr ? 'شاهد أعمالنا' : 'View Case Studies'}
+            </Link>
+          </Motion.div>
+          </div>
+          <Motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Illustration scene={SERVICE_SCENES[service.slug]} className="mx-auto w-full max-w-md lg:max-w-none" />
+          </Motion.div>
+        </div>
       </div>
     </section>
   );
