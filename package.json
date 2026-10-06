@@ -8,6 +8,7 @@
   },
   "scripts": {
     "illustrations": "node scripts/illustrations/generate.mjs",
+    "og:services": "node scripts/og/services.mjs",
     "vercel-config": "node scripts/generate-vercel-config.mjs",
     "check-live": "node scripts/check-live.mjs",
     "dev": "vite --host 0.0.0.0 --port 3000",

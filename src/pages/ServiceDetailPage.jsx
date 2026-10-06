@@ -168,6 +168,7 @@ const ServiceDetailPage = () => {
       <SEO
         title={`${title} | Rumuze`}
         description={description}
+        image={`/assets/images/og/services/${service.slug}-${lang}.jpg`}
         path={currentPath}
         schemas={schemaGraph['@graph']}
       />
