@@ -1,4 +1,5 @@
 // Turns the small request form on the service wave into a message the inbox can store.
+import { phoneInboxEmail } from './inboxContact';
 
 export const WAVE_REQUEST_MODES = ['order', 'explain', 'consult'];
 
@@ -7,10 +8,6 @@ const MODE_LABEL = {
   explain: 'Explain the service',
   consult: 'Consultation',
 };
-
-// A phone-only request still needs an address the inbox accepts. `.invalid` is a
-// reserved name that can never receive mail, so nothing is ever sent to it.
-const PHONE_PLACEHOLDER_DOMAIN = 'no-email.rumuze.invalid';
 
 /** Returns { type: 'email' | 'phone', value } or null when the text is neither. */
 export function parseWaveContact(input) {
@@ -33,8 +30,7 @@ export function buildWaveThread({ service, mode, contact, note, locale = 'en' })
   const parsed = parseWaveContact(contact);
   if (!parsed) throw new Error('A phone number or email is required.');
 
-  const digits = parsed.value.replace(/\D/gu, '');
-  const email = parsed.type === 'email' ? parsed.value : `phone-${digits}@${PHONE_PLACEHOLDER_DOMAIN}`;
+  const email = parsed.type === 'email' ? parsed.value : phoneInboxEmail(parsed.value);
   const safeMode = WAVE_REQUEST_MODES.includes(mode) ? mode : 'order';
 
   const lines = [

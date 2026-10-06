@@ -3,6 +3,7 @@ import { Mail, Send, UserRound } from "lucide-react";
 import { formatMessageTimestamp } from "../utils/messages";
 import { useChat } from "../hooks/useChat";
 import { useAuth } from "../context/auth-core";
+import { inboxContactLabel } from "../utils/inboxContact";
 
 const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendMessage }) => {
   const { user } = useAuth();
@@ -61,7 +62,7 @@ const MessageDetail = ({ thread, isUpdating, locale, onToggleStatus, onSendMessa
               <h2 className="truncate text-xl font-black text-white">
                 {thread.userName || "Unknown sender"}
               </h2>
-              <p className="text-sm text-slate-400">{thread.userEmail}</p>
+              <p className="text-sm text-slate-400">{inboxContactLabel(thread.userEmail)}</p>
             </div>
           </div>
           

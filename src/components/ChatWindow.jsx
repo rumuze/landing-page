@@ -4,6 +4,7 @@ import { useAuth } from "../context/auth-core";
 import { useChat } from "../hooks/useChat";
 import { sendMessage, updateThreadStatus, markThreadAsSeenByAdmin } from "../services/chatService";
 import MessageBubble from "./MessageBubble";
+import { inboxContactLabel } from "../utils/inboxContact";
 
 const ChatWindow = ({ thread, locale }) => {
   const { user } = useAuth();
@@ -107,7 +108,7 @@ const ChatWindow = ({ thread, locale }) => {
               <h2 className="truncate text-xl font-black text-white">
                 {thread.userName || "Unknown sender"}
               </h2>
-              <p className="text-sm text-slate-400">{thread.userEmail}</p>
+              <p className="text-sm text-slate-400">{inboxContactLabel(thread.userEmail)}</p>
             </div>
           </div>
           
