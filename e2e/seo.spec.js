@@ -54,3 +54,12 @@ test('a missing asset is a real 404, not the app shell', async ({ request }) => 
   const response = await request.get('/assets/does-not-exist.js');
   expect(response.status()).toBe(404);
 });
+
+test('version.json names the build and is never cached', async ({ request }) => {
+  const response = await request.get('/version.json');
+  expect(response.status()).toBe(200);
+  expect(response.headers()['cache-control']).toBe('no-store');
+  const { commit, builtAt } = await response.json();
+  expect(commit).toMatch(/^([0-9a-f]{40}|unknown)$/);
+  expect(Number.isNaN(Date.parse(builtAt))).toBe(false);
+});

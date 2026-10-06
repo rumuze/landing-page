@@ -39,6 +39,10 @@ Old Arabic URLs under `/ar` are redirected (301) to the same path at the root by
 - Node: Vite 7 needs Node 20.19 or newer. `.node-version` pins 22, which Workers Builds reads. If the build image ignores it, set the `NODE_VERSION` build variable to `22`.
 - If a build fails within seconds, open "View logs" in the dashboard; the first error line names the cause.
 
+## Live check
+
+Every build writes `dist/version.json` with the commit it was made from. `.github/workflows/live-check.yml` runs every six hours (and on demand from the Actions tab) and compares the commit the public domain serves with the latest commit on `main`, then checks that `/` is the Arabic page with the security headers and that `/ar/services` redirects (301) to `/services`. A merge gets 30 minutes to deploy before the check calls the domain behind. A red run means the build is fine but the site is stale or answering wrongly: it is how a frozen domain gets noticed the same day. Run it by hand with `EXPECTED_SHA=<commit> npm run check-live -- https://www.rumuze.com`.
+
 ## Moving the domain to Cloudflare (optional)
 
 Building on Cloudflare is not enough on its own: `rumuze.com` has to be attached to the Worker. Check what answers for the domain:

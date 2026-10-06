@@ -3,33 +3,23 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import OfflineFallback from '../pages/OfflineFallback';
 import ProtectedRoute from '../components/ProtectedRoute';
 import RouteSkeleton from '../components/RouteSkeleton';
+import { PAGE_LOADERS, loadedPages } from './pageLoaders';
 import { localizePath, PAGE_ROUTES, RETIRED_REDIRECTS } from './routeTable';
 
-const HomePage = lazy(() => import('../pages/HomePage'));
-const NotFound = lazy(() => import('../pages/NotFound'));
+// A page renders straight away when its chunk was loaded before hydration (see main.jsx),
+// and through React.lazy otherwise (client navigation).
+function pageComponent(id) {
+  const Lazy = lazy(PAGE_LOADERS[id]);
+  return function Page(props) {
+    const Loaded = loadedPages.get(id);
+    return Loaded ? <Loaded {...props} /> : <Lazy {...props} />;
+  };
+}
 
-const PAGES = {
-  portfolio: lazy(() => import('../pages/PortfolioPage')),
-  productDetail: lazy(() => import('../pages/ProductPage')),
-  labs: lazy(() => import('../components/Labs')),
-  services: lazy(() => import('../pages/ServicesPage')),
-  serviceDetail: lazy(() => import('../pages/ServiceDetailPage')),
-  saudiArabia: lazy(() => import('../pages/SaudiArabiaPage')),
-  process: lazy(() => import('../pages/ProcessPage')),
-  about: lazy(() => import('../pages/AboutPage')),
-  blog: lazy(() => import('../pages/BlogPage')),
-  blogPost: lazy(() => import('../pages/BlogPost')),
-  privacy: lazy(() => import('../pages/LegalPage')),
-  terms: lazy(() => import('../pages/LegalPage')),
-  contact: lazy(() => import('../pages/ContactPage')),
-  qrGenerator: lazy(() => import('../pages/QrGeneratorPage')),
-  profile: lazy(() => import('../pages/Profile')),
-  settings: lazy(() => import('../pages/Settings')),
-  myMessages: lazy(() => import('../pages/MyMessages')),
-  adminInbox: lazy(() => import('../pages/admin/Inbox')),
-  adminUsers: lazy(() => import('../pages/admin/Users')),
-  adminVisits: lazy(() => import('../pages/admin/Visits')),
-};
+const HomePage = pageComponent('home');
+const NotFound = pageComponent('notFound');
+
+const PAGES = Object.fromEntries(PAGE_ROUTES.map(({ id }) => [id, pageComponent(id)]));
 
 const LOCALES = ['en', 'ar'];
 
