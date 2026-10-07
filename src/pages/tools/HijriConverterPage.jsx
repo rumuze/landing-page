@@ -133,7 +133,7 @@ const HijriConverterPage = () => {
   );
 
   return (
-    <ToolPageShell toolId="hijri">
+    <ToolPageShell wide toolId="hijri">
       <div role="group" aria-label={page.modeLabel} className="grid grid-cols-2 gap-2 rounded-2xl bg-slate-100 p-1.5 dark:bg-white/5">
         {['g', 'h'].map((key) => (
           <button

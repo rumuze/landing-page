@@ -20,7 +20,6 @@ import {
 } from '../../tools/schema';
 
 const LTR_KINDS = new Set(['url', 'urls', 'email', 'tel', 'country', 'date']);
-const LONG_FIELDS = new Set(['sameAs']);
 const EMPTY_FAQ = [{ q: '', a: '' }];
 
 const StatusIcon = ({ status }) => {
@@ -100,7 +99,7 @@ const SchemaGeneratorPage = () => {
         }));
 
   return (
-    <ToolPageShell toolId="schema">
+    <ToolPageShell wide toolId="schema">
       <div role="group" aria-label={page.typeLabel} className="flex flex-wrap gap-2">
         {SCHEMA_TYPES.map((key) => (
           <button
@@ -122,9 +121,9 @@ const SchemaGeneratorPage = () => {
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div className="min-w-0">
-          <div key={type} className="tool-rise grid gap-4 sm:grid-cols-2">
+          <div key={type} className="tool-rise grid gap-4">
             {type === 'FAQPage' ? (
-              <div className="grid gap-4 sm:col-span-2">
+              <div className="grid gap-4">
                 {faq.map((item, index) => (
                   <div key={index} className="rounded-2xl border border-[rgb(var(--border-subtle)/0.8)] p-4">
                     <div className="mb-3 flex items-center justify-between gap-3">
@@ -178,7 +177,7 @@ const SchemaGeneratorPage = () => {
                     label={`${page.fields[field.id]}${field.level === 'required' ? ' *' : ''}`}
                     hint={page.hints[field.id]}
                     error={problem}
-                    className={LONG_FIELDS.has(field.id) || field.id === 'headline' ? 'sm:col-span-2' : ''}
+                    
                   >
                     {(props) =>
                       field.kind === 'urls' ? (
@@ -220,7 +219,7 @@ const SchemaGeneratorPage = () => {
                 <span className="min-w-0">
                   <span className="font-medium">{row.label}</span>{' '}
                   <span className="text-xs text-slate-500 dark:text-slate-400">
-                    ({page.levels[row.level] ?? row.level}, {page.status[row.status]})
+                    {page.levels[row.level]} · {page.status[row.status]}
                   </span>
                   {row.note ? <span className="block text-xs text-amber-700 dark:text-amber-400">{row.note}</span> : null}
                 </span>

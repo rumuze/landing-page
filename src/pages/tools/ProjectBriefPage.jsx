@@ -83,7 +83,7 @@ const ProjectBriefPage = () => {
   const track = (id) => () => setActiveId(id);
 
   return (
-    <ToolPageShell toolId="brief">
+    <ToolPageShell wide toolId="brief">
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div className="grid min-w-0 content-start gap-5">
           <ToolField id="br-name" label={page.fields.name}>

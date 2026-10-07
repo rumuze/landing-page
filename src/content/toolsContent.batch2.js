@@ -153,7 +153,7 @@ const en = {
       invalid: 'Needs a fix',
       long: 'Long',
     },
-    levels: { required: 'required', recommended: 'recommended' },
+    levels: { required: 'required', recommended: 'recommended', optional: 'optional' },
     problems: {
       invalid: 'This value does not look right.',
       long: 'Longer than the common limit, so it may be cut off.',
@@ -465,7 +465,7 @@ const ar = {
       invalid: 'يحتاج تصحيحاً',
       long: 'طويل',
     },
-    levels: { required: 'مطلوب', recommended: 'موصى به' },
+    levels: { required: 'مطلوب', recommended: 'موصى به', optional: 'اختياري' },
     problems: {
       invalid: 'هذه القيمة لا تبدو صحيحة.',
       long: 'أطول من الحد الشائع، فقد يُقتطع.',
