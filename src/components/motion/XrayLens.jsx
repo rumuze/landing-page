@@ -62,7 +62,7 @@ const XrayLens = ({ copy, className = "" }) => {
     };
     const size = () => {
       box.style.setProperty("--r", `${Math.round(clamp(box.clientWidth * 0.2, 64, 120))}px`);
-      if (reduce || !lastTouch) place(box.clientWidth / 2, box.clientHeight / 2);
+      if (reduce || lastTouch < 0) place(box.clientWidth / 2, box.clientHeight / 2);
     };
     size();
 
@@ -94,24 +94,28 @@ const XrayLens = ({ copy, className = "" }) => {
       raf = 0;
     };
 
-    const intersection = new IntersectionObserver(
-      ([entry]) => {
-        onScreen = entry.isIntersecting;
-        if (onScreen) run();
-        else stop();
-      },
-      { threshold: 0.1 },
-    );
-    intersection.observe(box);
-    const resize = new ResizeObserver(size);
-    resize.observe(box);
+    // Older browsers without these observers keep the lens still, in the middle.
+    const intersection =
+      "IntersectionObserver" in window
+        ? new IntersectionObserver(
+            ([entry]) => {
+              onScreen = entry.isIntersecting;
+              if (onScreen) run();
+              else stop();
+            },
+            { threshold: 0.1 },
+          )
+        : null;
+    intersection?.observe(box);
+    const resize = "ResizeObserver" in window ? new ResizeObserver(size) : null;
+    resize?.observe(box);
     const onVisibility = () => (document.hidden ? stop() : run());
     document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       stop();
-      intersection.disconnect();
-      resize.disconnect();
+      intersection?.disconnect();
+      resize?.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       box.removeEventListener("pointermove", steer);
       box.removeEventListener("pointerdown", steer);

@@ -529,7 +529,10 @@ const FaqSection = ({ copy, isAr }) => (
 
 const FinalCtaSection = ({ copy, isAr, onOpenLeadCapture }) => (
   <SectionShell className={sectionSpaceClass} tone="default">
-    <Reveal className={joinClasses(darkPanelClass, "relative overflow-hidden p-6 md:p-8 lg:p-10")}>
+    <Reveal
+      className={joinClasses(darkPanelClass, "relative overflow-hidden p-6 md:p-8 lg:p-10")}
+      data-motion-scope=""
+    >
       <Deferred
         className="pointer-events-none absolute inset-0 opacity-30"
         load={loadStepTunnel}

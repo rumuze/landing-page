@@ -64,3 +64,27 @@ export function buildCity(gridSize, products) {
   }
   return buildings;
 }
+
+/**
+ * Whether the point (x, y) is on a drawn building: its two side faces and its roof, which
+ * together form a hexagon. `hit` is { cx, cy, hw, hh, h } for the building's footprint
+ * centre, half footprint width and height, and drawn height. Hit-testing the drawn body,
+ * not the ground plot beneath it, makes hovering a tall tower pick the tower.
+ */
+export function bodyContains({ cx, cy, hw, hh, h }, x, y) {
+  const polygon = [
+    [cx - hw, cy],
+    [cx - hw, cy - h],
+    [cx, cy - hh - h],
+    [cx + hw, cy - h],
+    [cx + hw, cy],
+    [cx, cy + hh],
+  ];
+  let inside = false;
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i, i += 1) {
+    const [xi, yi] = polygon[i];
+    const [xj, yj] = polygon[j];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}

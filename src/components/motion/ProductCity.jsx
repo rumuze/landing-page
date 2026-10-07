@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { buildCity, cityGridSize, hash01 } from "./cityLayout";
+import { bodyContains, buildCity, cityGridSize, hash01 } from "./cityLayout";
 import { clamp, useCanvasLoop } from "./useCanvasLoop";
 
 const CYCLE = 12500;
@@ -53,7 +53,19 @@ const ease = (t) => 1 - Math.pow(1 - t, 3);
  */
 const ProductCity = ({ products, ariaLabel, className = "" }) => {
   const canvasRef = useRef(null);
-  const world = useRef({ buildings: [], hover: new Map(), cars: [], g: 5, tw: 0, ox: 0, oy: 0, born: 0, lastDraw: 0 });
+  const world = useRef({
+    buildings: [],
+    ordered: [],
+    hover: new Map(),
+    cars: [],
+    carsFor: 0,
+    g: 5,
+    tw: 0,
+    ox: 0,
+    oy: 0,
+    born: 0,
+    lastDraw: 0,
+  });
 
   useCanvasLoop(canvasRef, {
     warm: 1,
@@ -62,18 +74,24 @@ const ProductCity = ({ products, ariaLabel, className = "" }) => {
       const w = world.current;
       w.g = cityGridSize(s.W);
       w.buildings = buildCity(w.g, products);
+      w.ordered = [...w.buildings].sort((a, b) => a.i + a.j - (b.i + b.j));
       w.tw = Math.min((s.W * 0.94) / w.g, (s.H * 0.86) / (w.g / 2 + 0.95));
       w.maxH = w.tw * 0.95;
       w.ox = s.W / 2;
       w.oy = (s.H - (w.g * (w.tw / 2) + w.maxH)) / 2 + w.maxH + s.H * 0.02;
-      w.born = performance.now();
-      w.cars = Array.from({ length: 10 }, () => ({
-        line: Math.floor(Math.random() * (w.g + 1)),
-        vertical: Math.random() < 0.5,
-        u: Math.random() * w.g,
-        speed: (0.0004 + Math.random() * 0.0006) * (Math.random() < 0.5 ? 1 : -1),
-        trail: [],
-      }));
+      // A resize re-lays the city out but must not restart the grow-in, so the clock and the
+      // cars are kept unless the grid itself changed size.
+      if (!w.born) w.born = performance.now();
+      if (w.carsFor !== w.g) {
+        w.carsFor = w.g;
+        w.cars = Array.from({ length: 10 }, () => ({
+          line: Math.floor(Math.random() * (w.g + 1)),
+          vertical: Math.random() < 0.5,
+          u: Math.random() * w.g,
+          speed: (0.0004 + Math.random() * 0.0006) * (Math.random() < 0.5 ? 1 : -1),
+          trail: [],
+        }));
+      }
     },
     frame: (s, now) => {
       const { ctx, W, H, pointer } = s;
@@ -91,13 +109,16 @@ const ProductCity = ({ products, ariaLabel, className = "" }) => {
       const hw = (tw / 2) * footprint;
       const hh = (th / 2) * footprint;
 
-      let hoverI = -1;
-      let hoverJ = -1;
+      // Which building is under the pointer: the front-most drawn body, from last frame.
+      let hovered = null;
       if (pointer.in) {
-        const px = pointer.x - ox;
-        const py = pointer.y - oy;
-        hoverI = Math.floor((px / (tw / 2) + py / th) / 2);
-        hoverJ = Math.floor((py / th - px / (tw / 2)) / 2);
+        for (let k = w.ordered.length - 1; k >= 0; k -= 1) {
+          const b = w.ordered[k];
+          if (b.hit && bodyContains(b.hit, pointer.x, pointer.y)) {
+            hovered = b;
+            break;
+          }
+        }
       }
 
       ctx.clearRect(0, 0, W, H);
@@ -153,16 +174,19 @@ const ProductCity = ({ products, ariaLabel, className = "" }) => {
       }
 
       const labels = [];
-      const ordered = [...w.buildings].sort((a, b) => a.i + a.j - (b.i + b.j));
-      for (const b of ordered) {
+      for (const b of w.ordered) {
         const key = b.i * 100 + b.j;
-        const target = b.i === hoverI && b.j === hoverJ ? 1 : 0;
+        const target = b === hovered ? 1 : 0;
         const lift = (w.hover.get(key) || 0) + (target - (w.hover.get(key) || 0)) * 0.15;
         w.hover.set(key, lift);
         const grow = s.reduce ? 1 : ease(clamp((age - b.delay) / 1300, 0, 1));
         const h = (b.height * maxH * grow + lift * maxH * 0.3 * grow) * shrink;
-        if (h < 1) continue;
+        if (h < 1) {
+          b.hit = null;
+          continue;
+        }
         const [cx, cy] = iso(b.i + 0.5, b.j + 0.5);
+        b.hit = { cx, cy, hw, hh, h };
         const top = [cx, cy - hh];
         const right = [cx + hw, cy];
         const bottom = [cx, cy + hh];

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
@@ -17,14 +17,23 @@ const isDarkTheme = () =>
  * using `warm` frames of simulated time, and never animates.
  *
  * `setup(s)` runs on mount and on every resize. `s` carries { ctx, W, H, dark, reduce,
- * pointer }, where `pointer` is tracked on `listenOn` (default: the canvas's parent).
+ * pointer }. `pointer` is tracked on the nearest ancestor marked `data-motion-scope`
+ * (use it when the canvas sits behind other content, or inside a wrapper that has
+ * `pointer-events: none`), otherwise on the canvas's parent.
+ *
+ * Returns `repaint()`. In reduced motion nothing animates, so call it after the data a
+ * scene draws from has changed; it repaints the still frame. In animated mode it does
+ * nothing, because the next frame picks the change up.
  */
 export function useCanvasLoop(canvasRef, { setup, frame, warm = 1, startDelay = 0, forceDark = false }) {
   const callbacks = useRef({ setup, frame });
+  const repaintRef = useRef(null);
 
   useEffect(() => {
     callbacks.current = { setup, frame };
   });
+
+  const repaint = useCallback(() => repaintRef.current?.(), []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -48,6 +57,10 @@ export function useCanvasLoop(canvasRef, { setup, frame, warm = 1, startDelay = 
 
     const paintStatic = () => {
       for (let i = 0; i < warm; i += 1) callbacks.current.frame(s, 1000 + i * 16, 16);
+    };
+
+    repaintRef.current = () => {
+      if (reduce && started) paintStatic();
     };
 
     const fit = () => {
@@ -80,7 +93,7 @@ export function useCanvasLoop(canvasRef, { setup, frame, warm = 1, startDelay = 
       raf = 0;
     };
 
-    const target = canvas.parentElement || canvas;
+    const target = canvas.closest("[data-motion-scope]") || canvas.parentElement || canvas;
     const track = (event) => {
       const box = canvas.getBoundingClientRect();
       pointer.x = event.clientX - box.left;
@@ -169,6 +182,7 @@ export function useCanvasLoop(canvasRef, { setup, frame, warm = 1, startDelay = 
 
     return () => {
       disposed = true;
+      repaintRef.current = null;
       stop();
       window.clearTimeout(startTimer);
       resizeObserver?.disconnect();
@@ -183,4 +197,6 @@ export function useCanvasLoop(canvasRef, { setup, frame, warm = 1, startDelay = 
     };
     // The loop is created once per canvas; setup/frame are read through `callbacks`.
   }, [canvasRef, forceDark, startDelay, warm]);
+
+  return repaint;
 }

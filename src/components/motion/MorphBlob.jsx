@@ -27,10 +27,6 @@ const MorphBlob = ({ active, labels, ariaLabel, className = "" }) => {
   const canvasRef = useRef(null);
   const world = useRef({ shapes: null, parts: [], current: 0, switchedAt: 0, active: null, caption: null });
 
-  useEffect(() => {
-    world.current.active = active;
-  }, [active]);
-
   const capRef = useRef(null);
   const setCaption = (index) => {
     const el = capRef.current;
@@ -46,7 +42,7 @@ const MorphBlob = ({ active, labels, ariaLabel, className = "" }) => {
     captionRef.current = setCaption;
   });
 
-  useCanvasLoop(canvasRef, {
+  const repaint = useCanvasLoop(canvasRef, {
     warm: 1,
     setup: (s) => {
       const w = world.current;
@@ -115,6 +111,12 @@ const MorphBlob = ({ active, labels, ariaLabel, className = "" }) => {
       ctx.fill();
     },
   });
+
+  // Animated: the next frame reads `active`. Reduced motion paints once, so repaint on change.
+  useEffect(() => {
+    world.current.active = active;
+    repaint();
+  }, [active, repaint]);
 
   return (
     <div className={`relative ${className}`} role="img" aria-label={ariaLabel}>
