@@ -75,6 +75,7 @@ const QrPreview = ({ qrCode, url, isAr, scanColors }) => {
         {scanning && (
           <QrScanReveal
             key={runId}
+            qrCode={qrCode}
             colors={scanColors}
             onDone={handleScanDone}
             targetRef={qrRef}
