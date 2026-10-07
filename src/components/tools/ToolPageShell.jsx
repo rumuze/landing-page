@@ -13,7 +13,7 @@ import { TOOL_ICONS } from './toolIcons';
  * The page around a free tool: heading, the tool itself, how to use it, questions, a call to
  * action for the related service, and the other tools. `children` is the tool.
  */
-const ToolPageShell = ({ toolId, children }) => {
+const ToolPageShell = ({ toolId, wide = false, children }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language === 'ar' ? 'ar' : 'en';
   const isAr = lang === 'ar';
@@ -40,7 +40,7 @@ const ToolPageShell = ({ toolId, children }) => {
         ]}
       />
 
-      <header className="content-shell max-w-3xl text-center">
+      <header className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-3xl text-center">
         <span className="home-chip">{common.eyebrow}</span>
         <h1 className="type-h1 copy-primary mt-5 dark:text-white">{page.h1}</h1>
         <p className="type-body-lg copy-secondary mx-auto mt-4 max-w-2xl dark:text-slate-300">{page.subtitle}</p>
@@ -50,11 +50,11 @@ const ToolPageShell = ({ toolId, children }) => {
         </p>
       </header>
 
-      <section className="content-shell mt-10 max-w-3xl">
+      <section className={`mx-auto mt-10 w-full px-4 sm:px-6 lg:px-8 ${wide ? 'max-w-5xl' : 'max-w-3xl'}`}>
         <div className="home-panel p-5 sm:p-8 md:p-10">{children}</div>
       </section>
 
-      <section className={`content-shell mt-20 max-w-3xl ${align}`}>
+      <section className={`mx-auto w-full px-4 sm:px-6 lg:px-8 mt-20 max-w-3xl ${align}`}>
         <h2 className="type-h2 copy-primary dark:text-white">{common.howTitle}</h2>
         <ol className="mt-6 space-y-4">
           {page.steps.map((step, index) => (
@@ -66,7 +66,7 @@ const ToolPageShell = ({ toolId, children }) => {
         </ol>
       </section>
 
-      <section className={`content-shell mt-16 max-w-3xl ${align}`}>
+      <section className={`mx-auto w-full px-4 sm:px-6 lg:px-8 mt-16 max-w-3xl ${align}`}>
         <h2 className="type-h2 copy-primary dark:text-white">{common.faqTitle}</h2>
         <div className="mt-6 divide-y divide-[rgb(var(--border-subtle)/0.7)] border-y border-[rgb(var(--border-subtle)/0.7)]">
           {page.faq.map((item) => (
@@ -83,7 +83,7 @@ const ToolPageShell = ({ toolId, children }) => {
         </div>
       </section>
 
-      <section className="content-shell mt-16 max-w-3xl">
+      <section className="mx-auto w-full px-4 sm:px-6 lg:px-8 mt-16 max-w-3xl">
         <div className={`home-panel-strong p-6 sm:p-10 ${align}`}>
           <h2 className="type-h2 text-white">{page.cta.title}</h2>
           <p className="type-body-lg mt-4 text-slate-300">{page.cta.text}</p>
@@ -97,7 +97,7 @@ const ToolPageShell = ({ toolId, children }) => {
         </div>
       </section>
 
-      <section className={`content-shell mt-16 max-w-3xl ${align}`}>
+      <section className={`mx-auto w-full px-4 sm:px-6 lg:px-8 mt-16 max-w-3xl ${align}`}>
         <h2 className="type-h3 copy-primary dark:text-white">{common.moreTitle}</h2>
         <ul className="mt-6 grid gap-4 sm:grid-cols-3">
           {others.map((item) => {

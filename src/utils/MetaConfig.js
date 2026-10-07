@@ -272,6 +272,54 @@ const META_CONFIG = {
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'معاينة نتيجة جوجل مجاناً - رموز'
         }
+    },
+    '/hijri-date-converter': {
+        en: {
+            title: `Free Hijri to Gregorian Date Converter | ${BRAND_NAME}`,
+            description: 'Convert between Hijri and Gregorian dates, see the weekday, the whole Hijri month and the moon phase. Umm al-Qura calendar. Free, in your browser.',
+            keywords: 'Hijri converter, Hijri to Gregorian, Gregorian to Hijri, Umm al-Qura calendar, Islamic date converter',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Hijri Date Converter - Rumuze'
+        },
+        ar: {
+            title: `محوّل التاريخ الهجري والميلادي مجاناً | ${BRAND_NAME}`,
+            description: 'حوّل بين التاريخ الهجري والميلادي، وشاهد اليوم وتقويم الشهر الهجري وطور القمر. بتقويم أم القرى. مجاني ويعمل في متصفحك.',
+            keywords: 'تحويل التاريخ, هجري إلى ميلادي, ميلادي إلى هجري, تقويم أم القرى, محول التاريخ الهجري',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'محوّل التاريخ الهجري والميلادي مجاناً - رموز'
+        }
+    },
+    '/schema-generator': {
+        en: {
+            title: `Free JSON-LD Structured Data Generator | ${BRAND_NAME}`,
+            description: 'Generate JSON-LD structured data for an organization, local business, FAQ or article, with checks as you type. Free, and nothing you type leaves your browser.',
+            keywords: 'JSON-LD generator, schema markup generator, structured data generator, FAQ schema, local business schema, organization schema',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free JSON-LD Structured Data Generator - Rumuze'
+        },
+        ar: {
+            title: `مولّد البيانات المنظمة JSON-LD مجاناً | ${BRAND_NAME}`,
+            description: 'أنشئ بيانات JSON-LD المنظمة لشركة أو نشاط محلي أو أسئلة شائعة أو مقال، مع فحص أثناء الكتابة. مجاني ولا يغادر ما تكتبه متصفحك.',
+            keywords: 'مولد JSON-LD, مولد schema, البيانات المنظمة, schema للأسئلة الشائعة, schema للنشاط المحلي',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'مولّد البيانات المنظمة JSON-LD مجاناً - رموز'
+        }
+    },
+    '/project-brief-writer': {
+        en: {
+            title: `Free Project Brief Writer | ${BRAND_NAME}`,
+            description: 'Answer a few questions and get a clear project brief for a website, store, app or campaign that you can send to any agency. Free, no sign-up.',
+            keywords: 'project brief template, website brief, creative brief generator, web project brief, brief writer',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Project Brief Writer - Rumuze'
+        },
+        ar: {
+            title: `كاتب موجز المشروع مجاناً | ${BRAND_NAME}`,
+            description: 'أجب عن بضعة أسئلة واحصل على موجز مشروع واضح لموقع أو متجر أو تطبيق أو حملة، ترسله لأي شركة. مجاني وبدون تسجيل.',
+            keywords: 'نموذج موجز مشروع, بريف مشروع, بريف موقع, كتابة بريف, موجز المشروع',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'كاتب موجز المشروع مجاناً - رموز'
+        }
     }
 };
 
