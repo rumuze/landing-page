@@ -32,7 +32,7 @@ for (const { name, prefix } of LOCALES) {
   test.describe(`free tools (${name})`, () => {
     test('the tools page lists every tool and each link opens that tool', async ({ page }) => {
       await open(page, `${prefix}/labs`);
-      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview', '/hijri-date-converter', '/schema-generator', '/project-brief-writer', '/vat-calculator', '/ad-budget-calculator', '/image-compressor']) {
+      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview', '/hijri-date-converter', '/schema-generator', '/project-brief-writer', '/vat-calculator', '/ad-budget-calculator', '/image-compressor', '/email-signature-generator', '/palette-from-image', '/social-share-preview']) {
         await expect(page.locator(`main a[href="${prefix}${path}"]`)).toHaveCount(1);
       }
       await page.locator(`main a[href="${prefix}/utm-builder"]`).click();
@@ -412,6 +412,155 @@ for (const { name, prefix } of LOCALES) {
 
       await page.locator('#ic-clear').click();
       await expect(page.getByTestId('ic-item')).toHaveCount(0);
+
+      expect(network.leaks()).toEqual([]);
+    });
+    test('Email signature: builds a safe signature, copies it as rich text and as code', async ({ page, context }) => {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await open(page, `${prefix}/email-signature-generator`);
+      const network = watchRequests(page, ['Al-Harbi', 'logo.png']);
+      const preview = page.getByTestId('sg-preview');
+
+      // It opens on an example, filled in by the browser.
+      await expect(page.locator('#sg-name')).toHaveValue('Sara Al-Harbi');
+      await expect(preview).toContainText('Sara Al-Harbi');
+      await expect(preview.locator('a[href="mailto:sara@example.com"]')).toBeVisible();
+
+      await page.locator('#sg-template-compact').click();
+      await expect(page.locator('#sg-template-compact')).toHaveAttribute('aria-checked', 'true');
+      await page.locator('#sg-template-bar').click();
+      await page.locator('#sg-accent-be123c').click();
+      await expect(preview.locator('[style*="#be123c"]').first()).toBeVisible();
+
+      // What is typed is shown as text, never as markup, and a script link is not made.
+      await page.locator('#sg-name').fill('<b>Bold</b> & <i>x</i>');
+      await expect(preview).toContainText('<b>Bold</b> & <i>x</i>');
+      await expect(preview.locator('b, i')).toHaveCount(0);
+      await page.locator('#sg-website').fill('javascript:alert(1)');
+      await expect(page.locator('#sg-website')).toHaveAttribute('aria-invalid', 'true');
+      await expect(preview.locator('a[href^="javascript"]')).toHaveCount(0);
+      await page.locator('#sg-email').fill('not an email');
+      await expect(page.locator('#sg-email')).toHaveAttribute('aria-invalid', 'true');
+      await page.locator('#sg-website').fill('example.com');
+      await page.locator('#sg-email').fill('sara@example.com');
+      await page.locator('#sg-name').fill('Sara Al-Harbi');
+
+      // The logo is in the copied HTML but the preview never loads it.
+      await page.locator('#sg-logo').fill('https://example.com/logo.png');
+      await expect(preview.locator('img')).toHaveCount(0);
+
+      await page.locator('#sg-copy').click();
+      await expect(page.locator('#sg-copy')).toContainText(/Copied|تم النسخ/);
+      const rich = await page.evaluate(async () => {
+        const [item] = await navigator.clipboard.read();
+        return { types: item.types, html: item.types.includes('text/html') ? await (await item.getType('text/html')).text() : '' };
+      });
+      expect(rich.types).toContain('text/html');
+      expect(rich.html).toContain('<img src="https://example.com/logo.png"');
+      expect(rich.html).toContain('mailto:sara@example.com');
+
+      await page.locator('#sg-copy-text').click();
+      await expect(page.locator('#sg-copy-text')).toContainText(/Copied|تم النسخ/);
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('Sara Al-Harbi\nHead of Marketing, Example Studio');
+
+      await page.locator('#sg-clear').click();
+      await expect(preview).toContainText(/\S/);
+      await expect(page.locator('#sg-copy')).toBeDisabled();
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('Palette from image: reads the colours of a picture, grades the contrast and exports CSS', async ({ page, context }) => {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await open(page, `${prefix}/palette-from-image`);
+      const network = watchRequests(page, ['picture']);
+      const swatches = page.getByTestId('pl-swatches').locator('li');
+
+      // It opens on a sample picture with five colours.
+      await expect(swatches).toHaveCount(5);
+      await page.locator('#pl-count-3').click();
+      await expect(swatches).toHaveCount(3);
+
+      // Three quarters red, one quarter blue.
+      const png = await page.evaluate(() => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 80;
+        canvas.height = 40;
+        const context = canvas.getContext('2d');
+        context.fillStyle = '#cc2222';
+        context.fillRect(0, 0, 60, 40);
+        context.fillStyle = '#2222cc';
+        context.fillRect(60, 0, 20, 40);
+        return canvas.toDataURL('image/png').split(',')[1];
+      });
+      await page.locator('#pl-input').setInputFiles({ name: 'picture.png', mimeType: 'image/png', buffer: Buffer.from(png, 'base64') });
+      await expect(swatches).toHaveCount(2);
+      await expect(swatches.nth(0).locator('button')).toHaveAttribute('data-hex', '#cc2222');
+      await expect(swatches.nth(1).locator('button')).toHaveAttribute('data-hex', '#2222cc');
+      await expect(swatches.nth(0)).toContainText('75%');
+
+      // White text on that red is readable, and the table says so.
+      const row = page.getByTestId('pl-contrast').locator('tr[data-hex="#cc2222"]');
+      await expect(row).toContainText('5.');
+      await expect(row).toContainText(/AA|Fails|لا يجتاز/);
+
+      await swatches.nth(0).locator('button').click();
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('#cc2222');
+      await expect(page.getByTestId('pl-css')).toContainText('--color-1: #cc2222;');
+      await page.locator('#pl-copy-hex').click();
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('#cc2222, #2222cc');
+
+      await page.locator('#pl-input').setInputFiles({ name: 'animation.gif', mimeType: 'image/gif', buffer: Buffer.from('GIF89a') });
+      await expect(page.getByRole('alert')).toBeVisible();
+      await expect(swatches).toHaveCount(2);
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('Social share preview: draws each platform card, shows a chosen image, and writes safe meta tags', async ({ page, context }) => {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await open(page, `${prefix}/social-share-preview`);
+      const network = watchRequests(page, ['Example Studio', 'share.jpg']);
+      const card = page.getByTestId('sp-card');
+
+      await expect(page.locator('#sp-title')).toHaveValue(/Example Studio/);
+      await expect(card).toContainText('Example Studio');
+      await expect(card).toContainText('example.com');
+      await expect(card).toContainText(/10:30|١٠:٣٠/);
+
+      for (const id of ['x', 'linkedin', 'facebook']) {
+        await page.locator(`#sp-platform-${id}`).click();
+        await expect(page.locator(`#sp-platform-${id}`)).toHaveAttribute('aria-checked', 'true');
+        await expect(card).toContainText('Example Studio');
+      }
+      await expect(card).toContainText('EXAMPLE.COM', { ignoreCase: true });
+
+      // A picture chosen here is shown from the device and is not sent anywhere.
+      const png = await page.evaluate(() => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 40;
+        canvas.height = 20;
+        canvas.getContext('2d').fillRect(0, 0, 40, 20);
+        return canvas.toDataURL('image/png').split(',')[1];
+      });
+      await expect(card.locator('img')).toHaveCount(0);
+      await page.locator('#sp-image').setInputFiles({ name: 'photo.png', mimeType: 'image/png', buffer: Buffer.from(png, 'base64') });
+      await expect(card.locator('img')).toHaveCount(1);
+      await page.locator('#sp-remove-image').click();
+      await expect(card.locator('img')).toHaveCount(0);
+
+      // The tags are written from what was typed, escaped, and the image address is not loaded.
+      const tags = page.getByLabel(/Meta tags|وسوم meta/);
+      await expect(tags).toContainText('og:image');
+      await expect(tags).toContainText('https://example.com/share.jpg');
+      await page.locator('#sp-title').fill('"><script>alert(1)</script>');
+      await page.locator('#sp-url').fill('javascript:alert(1)');
+      await expect(tags).toContainText('&quot;&gt;&lt;script&gt;');
+      await expect(tags).not.toContainText('og:url');
+      await expect(page.locator('main script:not([type])')).toHaveCount(0);
+
+      await page.locator('#sp-copy').click();
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('<meta property="og:title"');
 
       expect(network.leaks()).toEqual([]);
     });

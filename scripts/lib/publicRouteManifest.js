@@ -28,6 +28,9 @@ const STATIC_ROUTE_DEFINITIONS = [
   { path: '/vat-calculator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/ad-budget-calculator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/image-compressor', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/email-signature-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/palette-from-image', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/social-share-preview', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/privacy', priority: 0.3, changefreq: 'yearly', section: 'legal' },
   { path: '/terms', priority: 0.3, changefreq: 'yearly', section: 'legal' },
 ];

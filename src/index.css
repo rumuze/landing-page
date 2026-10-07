@@ -2163,3 +2163,99 @@ html:not(.dark) main .surface-card-strong .text-cyan {
     opacity: 0;
   }
 }
+
+/* Free tools, batch four: signature preview, palette swatches and share cards. */
+.sg-paper {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 20px 50px -34px rgba(2, 6, 23, 0.5);
+}
+.sg-assemble > table > tbody > tr,
+.sg-assemble > table > tr {
+  animation: tool-rise 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.sg-assemble tr:nth-child(2) {
+  animation-delay: 140ms;
+}
+.sg-assemble td > div {
+  animation: tool-rise 480ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.sg-assemble td > div:nth-child(2) {
+  animation-delay: 90ms;
+}
+.sg-assemble td > div:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+.swatch {
+  animation: tool-pop 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 70ms);
+  transition: transform 200ms;
+}
+.swatch:hover {
+  transform: translateY(-3px);
+}
+.swatch-share {
+  transition: width 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes typing-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+@keyframes typing-away {
+  0%,
+  70% {
+    opacity: 1;
+    max-height: 2rem;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin: 0;
+  }
+}
+.typing {
+  animation: typing-away 900ms ease-out both;
+  overflow: hidden;
+}
+.typing span {
+  animation: typing-dot 700ms ease-in-out infinite;
+}
+.typing span:nth-child(2) {
+  animation-delay: 120ms;
+}
+.typing span:nth-child(3) {
+  animation-delay: 240ms;
+}
+.share-card {
+  animation: tool-pop 480ms 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.share-card-fast {
+  animation: tool-pop 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-assemble > table > tbody > tr,
+  .sg-assemble > table > tr,
+  .sg-assemble td > div,
+  .swatch,
+  .typing,
+  .typing span,
+  .share-card,
+  .share-card-fast {
+    animation: none;
+  }
+  .swatch,
+  .swatch-share {
+    transition: none;
+  }
+}

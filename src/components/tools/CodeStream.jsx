@@ -14,8 +14,9 @@ const TOKEN_CLASS = {
  * Colours a block of code, line by line. A line is keyed by its position and its text, so a line
  * that changes is created again and flashes, while untouched lines stay still. Changing
  * `streamKey` (for example when the type of markup changes) makes every line stream in again.
+ * `tokenize` splits a line into coloured pieces; it defaults to the JSON one.
  */
-const CodeStream = ({ lines, streamKey, label, caretLine = -1 }) => (
+const CodeStream = ({ lines, streamKey, label, caretLine = -1, tokenize = tokenizeLine }) => (
   <pre
     key={streamKey}
     tabIndex={0}
@@ -34,7 +35,7 @@ const CodeStream = ({ lines, streamKey, label, caretLine = -1 }) => (
             {index + 1}
           </span>
           <span className="whitespace-pre">
-            {tokenizeLine(line).map((token, tokenIndex) => (
+            {tokenize(line).map((token, tokenIndex) => (
               <span key={tokenIndex} className={TOKEN_CLASS[token.type]}>
                 {token.text}
               </span>

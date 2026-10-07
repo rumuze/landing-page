@@ -5,6 +5,7 @@ import {
   buildSignatureHtml,
   buildSignatureText,
   escapeHtml,
+  formatHtml,
   initialsOf,
   isEmail,
   isHexColor,
@@ -90,5 +91,28 @@ describe('buildSignatureText', () => {
       'example.com',
       'King Fahd Road, Riyadh',
     ]);
+  });
+});
+
+describe('formatHtml', () => {
+  it('puts each block tag on its own line, indented by depth, and keeps inline pieces together', () => {
+    expect(formatHtml('<table><tr><td>Hi <b>there</b></td></tr></table>')).toEqual([
+      '<table>',
+      '  <tr>',
+      '    <td>',
+      '      Hi <b>there</b>',
+      '    </td>',
+      '  </tr>',
+      '</table>',
+    ]);
+  });
+  it('keeps the whole signature, line by line, as the same markup', () => {
+    for (const template of TEMPLATES) {
+      const html = buildSignatureHtml(EXAMPLE, { template });
+      expect(formatHtml(html).map((line) => line.trim()).join('')).toBe(html);
+    }
+  });
+  it('is empty for an empty string', () => {
+    expect(formatHtml('')).toEqual([]);
   });
 });

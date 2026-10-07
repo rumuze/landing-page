@@ -127,3 +127,31 @@ export const EXAMPLE = {
   address: 'King Fahd Road, Riyadh',
   logo: '',
 };
+
+const BLOCK = /<\/?(?:table|tbody|tr|td|div)\b[^>]*>/gi;
+
+/**
+ * The signature HTML laid out for reading: each table or block tag on its own line, indented by how
+ * deep it is, with the inline pieces (links, spans, images, text) kept together on the line between.
+ */
+export function formatHtml(html) {
+  const lines = [];
+  let depth = 0;
+  let last = 0;
+  const text = String(html);
+  const push = (piece, delta) => {
+    if (delta < 0) depth = Math.max(0, depth + delta);
+    lines.push(`${'  '.repeat(depth)}${piece}`);
+    if (delta > 0) depth += delta;
+  };
+  for (const match of text.matchAll(BLOCK)) {
+    const between = text.slice(last, match.index).trim();
+    if (between) push(between, 0);
+    const tag = match[0];
+    push(tag, tag.startsWith('</') ? -1 : 1);
+    last = match.index + tag.length;
+  }
+  const rest = text.slice(last).trim();
+  if (rest) push(rest, 0);
+  return lines;
+}
