@@ -446,7 +446,12 @@ for (const { name, prefix } of LOCALES) {
       await page.locator('#sg-name').fill('Sara Al-Harbi');
 
       // The logo is in the copied HTML but the preview never loads it.
-      await page.locator('#sg-logo').fill('https://example.com/logo.png');
+      // An address without https is accepted and written with it, like the website field.
+      await page.locator('#sg-logo').fill('example.com/logo.png');
+      await expect(page.locator('#sg-logo')).not.toHaveAttribute('aria-invalid', 'true');
+      await page.locator('#sg-logo').fill('javascript:alert(1)');
+      await expect(page.locator('#sg-logo')).toHaveAttribute('aria-invalid', 'true');
+      await page.locator('#sg-logo').fill('example.com/logo.png');
       await expect(preview.locator('img')).toHaveCount(0);
 
       await page.locator('#sg-copy').click();

@@ -28,7 +28,7 @@ const CHECKS = {
   email: (value) => isEmail(value),
   phone: (value) => telHref(value) !== null,
   website: (value) => normalizeUrl(value) !== null,
-  logo: (value) => normalizeUrl(value) !== null && /^https?:/i.test(value.trim()),
+  logo: (value) => normalizeUrl(value) !== null,
 };
 
 const EmailSignaturePage = () => {
