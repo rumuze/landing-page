@@ -29,12 +29,14 @@ let hijriParts = null;
 function hijriFormatter() {
   if (hijriParts === null) {
     try {
-      hijriParts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {
+      const formatter = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', {
         day: 'numeric',
         month: 'numeric',
         year: 'numeric',
         timeZone: 'UTC',
       });
+      // A browser without the calendar may quietly fall back to Gregorian instead of throwing.
+      hijriParts = formatter.resolvedOptions().calendar === 'islamic-umalqura' ? formatter : false;
     } catch {
       hijriParts = false;
     }
@@ -102,6 +104,9 @@ export function hijriToGregorian(year, month, day) {
   if (!isHijriSupported()) return { ok: false, error: 'unsupported' };
   const date = findHijri(year, month, day);
   if (!date) return { ok: false, error: 'invalid' };
+  // Both directions are limited to the same Gregorian years.
+  const gregorianYear = date.getUTCFullYear();
+  if (gregorianYear < MIN_GREGORIAN_YEAR || gregorianYear > MAX_GREGORIAN_YEAR) return { ok: false, error: 'range' };
   return { ok: true, date, hijri: { year, month, day } };
 }
 

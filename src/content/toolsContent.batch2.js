@@ -35,7 +35,7 @@ const en = {
     equals: 'which is',
     errors: {
       invalid: 'That date does not exist. Check the day and the month.',
-      range: 'Dates are supported from 1901 to 2076 (1319 to 1499 AH).',
+      range: 'Dates are supported from 1901 to 2076 (about 1318 to 1499 AH).',
       unsupported: 'This browser does not include the Umm al-Qura calendar, so it cannot convert dates.',
       day30: 'This Hijri month has 29 days.',
     },
@@ -78,7 +78,7 @@ const en = {
       },
       {
         q: 'Which years can I convert?',
-        a: 'Gregorian years 1901 to 2076, which are 1319 to 1499 in the Hijri calendar. These are the years the Umm al-Qura calendar in browsers covers.',
+        a: 'Gregorian years 1901 to 2076, which are about 1318 to 1499 in the Hijri calendar. These are the years the Umm al-Qura calendar in browsers covers.',
       },
       {
         q: 'How is the moon worked out?',
@@ -347,7 +347,7 @@ const ar = {
     equals: 'الموافق',
     errors: {
       invalid: 'هذا التاريخ غير موجود. راجع اليوم والشهر.',
-      range: 'التواريخ المدعومة من 1901 إلى 2076 (من 1319 إلى 1499 هـ).',
+      range: 'التواريخ المدعومة من 1901 إلى 2076 (من نحو 1318 إلى 1499 هـ).',
       unsupported: 'هذا المتصفح لا يتضمن تقويم أم القرى، فلا يستطيع تحويل التواريخ.',
       day30: 'هذا الشهر الهجري 29 يوماً.',
     },
@@ -390,7 +390,7 @@ const ar = {
       },
       {
         q: 'ما السنوات التي يمكن تحويلها؟',
-        a: 'من 1901 إلى 2076 ميلادي، أي من 1319 إلى 1499 هجري. وهذه هي السنوات التي يغطيها تقويم أم القرى في المتصفحات.',
+        a: 'من 1901 إلى 2076 ميلادي، أي من نحو 1318 إلى 1499 هجري. وهذه هي السنوات التي يغطيها تقويم أم القرى في المتصفحات.',
       },
       {
         q: 'كيف يُحسب القمر؟',

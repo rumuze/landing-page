@@ -212,7 +212,7 @@ const HijriConverterPage = () => {
           <button
             type="button"
             id="hj-copy"
-            disabled={!shown}
+            disabled={!shown || !result.ok}
             onClick={() => copy(copyText)}
             className={`${buttonClass} bg-cyan text-slate-950 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100`}
           >

@@ -49,6 +49,10 @@ describe('Hijri conversion', () => {
     expect(gregorianToHijri(1800, 1, 1)).toEqual({ ok: false, error: 'range' });
     expect(gregorianToHijri(Number.NaN, 1, 1)).toEqual({ ok: false, error: 'empty' });
     expect(hijriToGregorian(1000, 1, 1)).toEqual({ ok: false, error: 'range' });
+    // Hijri dates that fall outside the Gregorian years are refused too.
+    expect(hijriToGregorian(1318, 1, 1)).toEqual({ ok: false, error: 'range' });
+    expect(hijriToGregorian(1500, 12, 29)).toEqual({ ok: false, error: 'range' });
+    expect(hijriToGregorian(1318, 10, 19).ok).toBe(true);
     expect(hijriToGregorian(1447, 13, 1)).toEqual({ ok: false, error: 'invalid' });
   });
 
