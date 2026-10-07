@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { clamp, useCanvasLoop } from "./useCanvasLoop";
 
 const GLYPHS = "رموزابتثجحخدذسشصضطعغفقكلمنهي{}<>/;=()[]01".split("");
 const RINGS = 24;
 const PER_RING = 18;
+const FRAME_MS = 32;
 
+// `gate` is an index into the current `gates`, not text, so the label follows the language.
 const makeRing = (d, gate) => ({
   d,
   rot: Math.random() * Math.PI * 2,
@@ -17,19 +19,20 @@ const makeRing = (d, gate) => ({
  * A tunnel of letters and code that the viewer travels down, with a gate passing every few
  * rings. The gates carry the steps of what happens after a project request. It sits behind
  * the closing call to action, which is always dark, so it uses the dark palette. Decorative.
+ * The pointer is tracked on the panel marked `data-motion-scope`, not on this canvas.
  */
 const StepTunnel = ({ gates, className = "" }) => {
   const canvasRef = useRef(null);
-  const world = useRef({ rings: [], recycled: 0, gateIndex: 0, nx: 0, ny: 0 });
+  const world = useRef({ rings: [], recycled: 0, gateIndex: 0, nx: 0, ny: 0, lastDraw: 0 });
 
   const nextGate = () => {
     const w = world.current;
-    const label = gates[w.gateIndex % gates.length];
+    const index = w.gateIndex % gates.length;
     w.gateIndex += 1;
-    return label;
+    return index;
   };
 
-  useCanvasLoop(canvasRef, {
+  const repaint = useCanvasLoop(canvasRef, {
     forceDark: true,
     warm: 1,
     startDelay: 300,
@@ -39,9 +42,13 @@ const StepTunnel = ({ gates, className = "" }) => {
       w.rings = Array.from({ length: RINGS }, (_, i) => makeRing((i + 1) / RINGS, null));
       w.rings[RINGS - 4].gate = nextGate();
     },
-    frame: (s, now, dt) => {
+    frame: (s, now) => {
       const { ctx, W, H, pointer } = s;
       const w = world.current;
+      if (!s.reduce && now - w.lastDraw < FRAME_MS) return;
+      const dt = Math.min(64, w.lastDraw ? now - w.lastDraw : 16);
+      w.lastDraw = now;
+      const pixelRatio = ctx.canvas.width / W;
       const unit = Math.min(W, H) / 360;
       const radius0 = Math.min(W, H) * 0.95;
       const targetX = pointer.in ? (pointer.x / W - 0.5) * 2 : Math.sin(now * 0.0003);
@@ -94,16 +101,25 @@ const StepTunnel = ({ gates, className = "" }) => {
         ctx.font = `${fontSize}px Cairo, sans-serif`;
         ctx.fillStyle = index % 2 ? "#3CBF00" : "#C6F088";
         ctx.globalAlpha = alpha;
+        // One transform per glyph, set directly: cheaper than save/translate/rotate/restore.
         for (let k = 0; k < PER_RING; k += 1) {
           const angle = ring.rot + (k / PER_RING) * Math.PI * 2;
-          ctx.save();
-          ctx.translate(cx + Math.cos(angle) * radius, cy + Math.sin(angle) * radius);
-          ctx.rotate(angle + Math.PI / 2);
+          const turn = angle + Math.PI / 2;
+          const cos = Math.cos(turn) * pixelRatio;
+          const sin = Math.sin(turn) * pixelRatio;
+          ctx.setTransform(
+            cos,
+            sin,
+            -sin,
+            cos,
+            (cx + Math.cos(angle) * radius) * pixelRatio,
+            (cy + Math.sin(angle) * radius) * pixelRatio,
+          );
           ctx.fillText(ring.glyphs[k], 0, 0);
-          ctx.restore();
         }
+        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-        if (ring.gate) {
+        if (ring.gate !== null) {
           ctx.globalAlpha = alpha * clamp((d - 0.1) / 0.25, 0, 1);
           ctx.strokeStyle = "#3CBF00";
           ctx.lineWidth = 2;
@@ -114,13 +130,18 @@ const StepTunnel = ({ gates, className = "" }) => {
           ctx.fillStyle = "#C6F088";
           ctx.shadowColor = "rgba(60, 191, 0, 0.8)";
           ctx.shadowBlur = 20;
-          ctx.fillText(ring.gate, cx, cy);
+          ctx.fillText(gates[ring.gate % gates.length], cx, cy);
           ctx.shadowBlur = 0;
         }
       });
       ctx.globalAlpha = 1;
     },
   });
+
+  // Reduced motion paints once, so repaint when the language (and so the gate text) changes.
+  useEffect(() => {
+    repaint();
+  }, [gates, repaint]);
 
   return <canvas ref={canvasRef} aria-hidden="true" className={className} />;
 };

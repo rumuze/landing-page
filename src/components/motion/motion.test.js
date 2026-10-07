@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { buildWeaveGraph, nearestVertex } from './weaveGraph';
 import { decodeFrame } from './decodeText';
-import { buildCity, cityGridSize, towerSlots } from './cityLayout';
+import { bodyContains, buildCity, cityGridSize, towerSlots } from './cityLayout';
 import { MORPH_SHAPES } from './morphShapes';
 import { homeContent } from '../../content/homeContent';
 
@@ -101,5 +101,19 @@ describe('morph shapes and the copy that feeds the new visuals', () => {
       expect(copy.work.cityLabel).toBeTruthy();
       expect(copy.capabilities.visualLabel).toBeTruthy();
     }
+  });
+});
+
+describe('bodyContains', () => {
+  const tower = { cx: 100, cy: 100, hw: 20, hh: 10, h: 60 };
+  it('counts the drawn body of a tall building, not just its ground plot', () => {
+    expect(bodyContains(tower, 100, 60)).toBe(true); // the middle of the body
+    expect(bodyContains(tower, 100, 42)).toBe(true); // the roof
+    expect(bodyContains(tower, 100, 105)).toBe(true); // near the base
+  });
+  it('rejects points outside the silhouette', () => {
+    expect(bodyContains(tower, 150, 60)).toBe(false);
+    expect(bodyContains(tower, 100, 20)).toBe(false);
+    expect(bodyContains(tower, 100, 130)).toBe(false);
   });
 });

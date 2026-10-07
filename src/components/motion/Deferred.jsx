@@ -22,7 +22,9 @@ const Deferred = ({ load, props, className = "" }) => {
           if (!cancelled) setVisual(() => module.default);
         })
         .catch(() => {
-          // The visual is decoration; a failed chunk leaves the empty box in place.
+          // The visual is decoration, so a failed chunk leaves the empty box in place instead
+          // of triggering the app's reload-on-chunk-error. Retrying here cannot work: the
+          // browser remembers that this module failed and does not request it again.
         });
     };
 

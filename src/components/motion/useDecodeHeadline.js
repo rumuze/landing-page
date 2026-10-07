@@ -45,6 +45,8 @@ export function useDecodeHeadline(ref, rtl) {
 
     const start = () => {
       if (cancelled) return;
+      // Once it has begun it counts as played, even if a language change interrupts it.
+      played = true;
       // Measure everything first, then write, so there is a single layout pass.
       for (const word of words) {
         const box = word.el.getBoundingClientRect();
@@ -85,7 +87,6 @@ export function useDecodeHeadline(ref, rtl) {
           done = false;
         }
         if (done) {
-          played = true;
           restore();
           return;
         }
