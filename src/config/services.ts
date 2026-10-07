@@ -600,6 +600,333 @@ export const SERVICES: ServiceItem[] = [
     },
   },
   {
+    slug: 'delivery-marketplaces',
+    title: {
+      en: 'Delivery and Multi-Vendor Marketplace Platforms',
+      ar: 'منصات التوصيل والأسواق متعددة البائعين',
+    },
+    shortDescription: {
+      en: 'Customer, vendor, and courier apps with an admin panel: orders, live tracking, delivery zones, wallets, and commissions.',
+      ar: 'تطبيقات للعميل والبائع والمندوب مع لوحة إدارة: طلبات وتتبع مباشر ونطاقات توصيل ومحافظ وعمولات.',
+    },
+    summary: {
+      en: 'Rumuze builds delivery and marketplace platforms where customers order, vendors prepare, and couriers deliver, all driven by one backend. The same foundation covers food, grocery, pharmacy, parcels, and general e-commerce, with each business type configured rather than rebuilt.',
+      ar: 'تبني رموز منصات توصيل وأسواق يطلب فيها العميل ويجهّز البائع ويوصّل المندوب، وكلها بخلفية واحدة. وتغطي القاعدة نفسها المطاعم والبقالة والصيدليات والطرود والتجارة الإلكترونية العامة، مع ضبط كل نوع نشاط بدل إعادة بنائه.',
+    },
+    metaDescription: {
+      en: 'Delivery and multi-vendor marketplace platforms: customer, vendor, and courier apps, live tracking, delivery zones, wallets, and an admin panel.',
+      ar: 'منصات توصيل وأسواق متعددة البائعين: تطبيقات للعميل والبائع والمندوب وتتبع مباشر ونطاقات توصيل ومحافظ ولوحة إدارة.',
+    },
+    keywords: ['delivery app development', 'multi-vendor marketplace', 'food delivery platform', 'courier app', 'last-mile delivery software'],
+    geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
+    industries: ['Food and grocery', 'Pharmacy', 'Parcel delivery', 'Multi-vendor e-commerce'],
+    definitions: {
+      short: {
+        en: 'Customer, vendor, and courier apps with an admin panel for orders, delivery zones, wallets, and commissions.',
+        ar: 'تطبيقات للعميل والبائع والمندوب مع لوحة إدارة للطلبات ونطاقات التوصيل والمحافظ والعمولات.',
+      },
+      medium: {
+        en: 'An order moves through defined states from cart to delivery, and each role sees only its own part: the customer tracks it, the vendor accepts and prepares it, the courier picks it up and updates its status. The admin panel sets zones, delivery fees, commissions, and payouts.',
+        ar: 'يمر الطلب بحالات محددة من السلة حتى التسليم، ويرى كل دور جزأه فقط: العميل يتتبعه والبائع يقبله ويجهزه والمندوب يستلمه ويحدّث حالته. وتضبط لوحة الإدارة النطاقات ورسوم التوصيل والعمولات والتسويات.',
+      },
+      long: {
+        en: 'Our delivery work uses Flutter for the mobile apps and Laravel for the backend. Couriers share live location during active deliveries, customers and couriers can message each other, and push notifications carry status changes. Delivery fees can be calculated from geographic zones, and wallets and loyalty points are part of the financial model. The apps support Arabic and English.',
+        ar: 'تعتمد أعمالنا في التوصيل على Flutter لتطبيقات الموبايل وLaravel للخلفية. يشارك المندوب موقعه المباشر أثناء التوصيل النشط، ويتراسل العميل والمندوب، وتنقل الإشعارات الفورية تغيّر الحالات. ويمكن احتساب رسوم التوصيل من نطاقات جغرافية، وتدخل المحافظ ونقاط الولاء في النموذج المالي. وتدعم التطبيقات العربية والإنجليزية.',
+      },
+      bullets: {
+        en: [
+          'Customer, vendor, and courier apps on one backend',
+          'Order lifecycle from cart to delivery',
+          'Live courier location, chat, and push notifications',
+          'Delivery zones, fees, commissions, and wallets',
+          'Admin panel with Arabic and English support',
+        ],
+        ar: [
+          'تطبيقات للعميل والبائع والمندوب على خلفية واحدة',
+          'دورة حياة الطلب من السلة إلى التسليم',
+          'موقع مباشر للمندوب ومراسلة وإشعارات فورية',
+          'نطاقات توصيل ورسوم وعمولات ومحافظ',
+          'لوحة إدارة بدعم العربية والإنجليزية',
+        ],
+      },
+    },
+    category: 'software',
+    problemSolved: {
+      en: 'Orders handled over chat and phone calls, couriers tracked by calling them, and a marketplace idea that no off-the-shelf product fits.',
+      ar: 'طلبات تُدار عبر المحادثات والمكالمات، ومناديب يُتابَعون بالاتصال بهم، وفكرة سوق لا يناسبها منتج جاهز.',
+    },
+    targetAudience: {
+      en: 'Delivery startups, retailers, restaurants, pharmacies, and operators who want their own platform instead of renting one.',
+      ar: 'شركات التوصيل الناشئة والمتاجر والمطاعم والصيدليات والمشغلون الذين يريدون منصتهم الخاصة بدل استئجار منصة.',
+    },
+    differentiators: {
+      en: [
+        'One backend serves food, grocery, pharmacy, parcels, and e-commerce',
+        'Customer, vendor, and courier apps designed together',
+        'Built with Arabic and right-to-left layouts from the start',
+        'You own the platform and its data',
+      ],
+      ar: [
+        'خلفية واحدة تخدم المطاعم والبقالة والصيدليات والطرود والتجارة الإلكترونية',
+        'تطبيقات العميل والبائع والمندوب تُصمم معاً',
+        'مبنية للعربية والاتجاه من اليمين لليسار من البداية',
+        'تملك المنصة وبياناتها',
+      ],
+    },
+    faqs: [
+      {
+        question: {
+          en: 'Can one platform handle restaurants, groceries, and parcels?',
+          ar: 'هل تستطيع منصة واحدة خدمة المطاعم والبقالة والطرود؟',
+        },
+        answer: {
+          en: 'Yes, as long as the order flow is designed for it. Each business type has its own catalogue and rules, while orders, couriers, wallets, and reporting are shared.',
+          ar: 'نعم، إذا صُمم تدفق الطلب لذلك. لكل نوع نشاط كتالوجه وقواعده، بينما تُشترك الطلبات والمناديب والمحافظ والتقارير.',
+        },
+      },
+      {
+        question: {
+          en: 'Do you provide the platform as a ready-made product?',
+          ar: 'هل تقدمون المنصة كمنتج جاهز؟',
+        },
+        answer: {
+          en: 'We build it for your business rules and brand. We start from architecture we have already built, so you do not begin from an empty project, but the scope and pricing are agreed per project.',
+          ar: 'نبنيها وفق قواعد عملك وهويتك. ننطلق من معمارية سبق أن بنيناها فلا تبدأ من مشروع فارغ، لكن النطاق والسعر يُتفق عليهما لكل مشروع.',
+        },
+      },
+    ],
+    h2Sections: [
+      { en: 'What a Delivery Platform Needs Beyond an App', ar: 'ما تحتاجه منصة التوصيل غير التطبيق' },
+      { en: 'How Orders Move From Cart to Delivery', ar: 'كيف يتحرك الطلب من السلة إلى التسليم' },
+      { en: 'How Delivery Zones and Fees Work', ar: 'كيف تعمل نطاقات التوصيل والرسوم' },
+      { en: 'How Couriers Are Tracked and Notified', ar: 'كيف يُتتبَّع المناديب ويُبلَّغون' },
+      { en: 'How Wallets and Commissions Are Handled', ar: 'كيف تُدار المحافظ والعمولات' },
+    ],
+    relatedServices: ['mobile-apps', 'saas-erp', 'software-engineering'],
+    saudiContext: {
+      en: 'Delivery in the Gulf is a crowded category with large national apps, so a new platform usually wins in a niche: a vertical, a city, or a private fleet. We design the platform around that niche and keep Arabic and English in step.',
+      ar: 'التوصيل في الخليج فئة مزدحمة بتطبيقات وطنية كبيرة، لذلك تنجح المنصة الجديدة عادةً في تخصص محدد: قطاع أو مدينة أو أسطول خاص. نصمم المنصة حول هذا التخصص ونبقي العربية والإنجليزية متطابقتين.',
+    },
+  },
+  {
+    slug: 'messaging-communication-apps',
+    title: {
+      en: 'Messaging and Calling Apps',
+      ar: 'تطبيقات المراسلة والمكالمات',
+    },
+    shortDescription: {
+      en: 'Private chat, voice, and video apps on your own servers, with mobile, web, and admin clients on one API.',
+      ar: 'تطبيقات محادثة وصوت وفيديو خاصة على خوادمك، بعملاء للموبايل والويب والإدارة على واجهة واحدة.',
+    },
+    summary: {
+      en: 'Rumuze builds real-time messaging and calling products that run on infrastructure you control: one-to-one and group chat, media, voice and video calls, push notifications, and an admin portal for moderation. Your users and data stay on your servers.',
+      ar: 'تبني رموز منتجات مراسلة ومكالمات لحظية تعمل على بنية تحتية تتحكم بها: محادثات فردية وجماعية ووسائط ومكالمات صوت وفيديو وإشعارات فورية وبوابة إدارة للإشراف. يبقى مستخدموك وبياناتهم على خوادمك.',
+    },
+    metaDescription: {
+      en: 'Private chat, voice, and video apps for your own servers: Flutter mobile, web client, admin portal, WebRTC calls, and offline-ready messaging.',
+      ar: 'تطبيقات محادثة وصوت وفيديو خاصة على خوادمك: موبايل Flutter وعميل ويب وبوابة إدارة ومكالمات WebRTC ومراسلة تعمل دون اتصال.',
+    },
+    keywords: ['chat app development', 'WebRTC video calling', 'private messaging platform', 'Flutter chat app', 'Arabic messaging app'],
+    geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
+    industries: ['Enterprises', 'Communities and membership', 'Education', 'Customer support'],
+    definitions: {
+      short: {
+        en: 'Self-hosted chat, voice, and video apps with mobile, web, and admin clients.',
+        ar: 'تطبيقات محادثة وصوت وفيديو على خوادم خاصة بعملاء للموبايل والويب والإدارة.',
+      },
+      medium: {
+        en: 'We build the whole product: a Flutter mobile app, a web client, an admin portal, and a Node.js backend with Socket.IO for real-time delivery. Messages sent without a connection wait in an outbox and send when the device is back online.',
+        ar: 'نبني المنتج كاملاً: تطبيق موبايل بـ Flutter وعميل ويب وبوابة إدارة وخلفية Node.js مع Socket.IO للتسليم اللحظي. الرسائل التي تُرسل دون اتصال تنتظر في صندوق صادر وتُرسل عند عودة الجهاز للاتصال.',
+      },
+      long: {
+        en: 'Calls use WebRTC with signalling on your own server, so no third party sits in the call setup. Sign-in can use phone and one-time code, and the interface supports Arabic and English with right-to-left layouts. Traffic is encrypted in transit; end-to-end encryption is a separate piece of work that we scope with you if you need it.',
+        ar: 'تعتمد المكالمات على WebRTC مع إشارات على خادمك الخاص، فلا يتوسط طرف ثالث في إعداد المكالمة. يمكن أن يكون تسجيل الدخول برقم الهاتف ورمز لمرة واحدة، وتدعم الواجهة العربية والإنجليزية بتخطيط من اليمين لليسار. تُشفَّر الحركة أثناء النقل؛ أما التشفير من طرف إلى طرف فعمل منفصل نحدد نطاقه معك إذا احتجته.',
+      },
+      bullets: {
+        en: [
+          'One-to-one and group chat with media',
+          'Voice and video calls over WebRTC',
+          'Offline outbox and push notifications',
+          'Admin portal for users, reports, and moderation',
+          'Arabic and English with right-to-left support',
+        ],
+        ar: [
+          'محادثات فردية وجماعية مع وسائط',
+          'مكالمات صوت وفيديو عبر WebRTC',
+          'صندوق صادر دون اتصال وإشعارات فورية',
+          'بوابة إدارة للمستخدمين والبلاغات والإشراف',
+          'العربية والإنجليزية مع دعم اليمين لليسار',
+        ],
+      },
+    },
+    category: 'software',
+    problemSolved: {
+      en: 'A team, school, or community that must use public messaging apps for work, with no control over data, members, or moderation.',
+      ar: 'فريق أو مدرسة أو مجتمع يضطر لاستخدام تطبيقات مراسلة عامة في عمله دون تحكم في البيانات أو الأعضاء أو الإشراف.',
+    },
+    targetAudience: {
+      en: 'Organisations and founders who need a private or branded communication product.',
+      ar: 'المؤسسات والمؤسسون الذين يحتاجون منتج تواصل خاصاً أو بعلامتهم.',
+    },
+    differentiators: {
+      en: [
+        'Mobile, web, and admin built together on one API',
+        'Hosted where you choose, with your data on your servers',
+        'Offline-ready messaging',
+        'Arabic right-to-left interface from the first screen',
+      ],
+      ar: [
+        'الموبايل والويب والإدارة تُبنى معاً على واجهة واحدة',
+        'تُستضاف حيث تختار وبياناتك على خوادمك',
+        'مراسلة تعمل دون اتصال',
+        'واجهة عربية من اليمين لليسار منذ الشاشة الأولى',
+      ],
+    },
+    faqs: [
+      {
+        question: {
+          en: 'Is the messaging end-to-end encrypted?',
+          ar: 'هل المراسلة مشفرة من طرف إلى طرف؟',
+        },
+        answer: {
+          en: 'Traffic is encrypted in transit by default. End-to-end encryption is additional work with trade-offs for search, moderation, and multi-device use, so we discuss it with you before including it.',
+          ar: 'تُشفَّر الحركة أثناء النقل افتراضياً. التشفير من طرف إلى طرف عمل إضافي له مقايضات مع البحث والإشراف وتعدد الأجهزة، لذا نناقشه معك قبل إدراجه.',
+        },
+      },
+      {
+        question: {
+          en: 'Can calls and chat be white-labelled for our brand?',
+          ar: 'هل يمكن تخصيص المكالمات والمحادثات بعلامتنا؟',
+        },
+        answer: {
+          en: 'Yes. The apps are built with your name, colours, and domains, and you control the servers they run on.',
+          ar: 'نعم. تُبنى التطبيقات باسمك وألوانك ونطاقاتك، وتتحكم أنت في الخوادم التي تعمل عليها.',
+        },
+      },
+    ],
+    h2Sections: [
+      { en: 'What a Messaging Product Includes', ar: 'ما الذي يتضمنه منتج المراسلة' },
+      { en: 'How Real-Time Delivery Works', ar: 'كيف يعمل التسليم اللحظي' },
+      { en: 'How Voice and Video Calls Are Set Up', ar: 'كيف تُعدّ مكالمات الصوت والفيديو' },
+      { en: 'How Offline Messages Are Handled', ar: 'كيف تُعالَج الرسائل دون اتصال' },
+      { en: 'What an Admin Portal Controls', ar: 'ما الذي تتحكم به بوابة الإدارة' },
+    ],
+    relatedServices: ['mobile-apps', 'software-engineering', 'web-development'],
+    saudiContext: {
+      en: 'Gulf organisations often prefer to keep internal communication and member data under their own control. We document where the servers run and where data is stored, so the decision about hosting stays with you.',
+      ar: 'تفضل مؤسسات الخليج غالباً إبقاء الاتصال الداخلي وبيانات الأعضاء تحت سيطرتها. نوثق أين تعمل الخوادم وأين تُحفظ البيانات، ليبقى قرار الاستضافة بيدك.',
+    },
+  },
+  {
+    slug: 'vertical-saas',
+    title: {
+      en: 'Industry-Specific SaaS Platforms',
+      ar: 'منصات SaaS لقطاعات محددة',
+    },
+    shortDescription: {
+      en: 'Subscription software built around one industry: schools, clinics, fleets, or services, with web dashboards and mobile apps.',
+      ar: 'برمجيات باشتراك مبنية حول قطاع واحد: مدارس أو عيادات أو أساطيل أو خدمات، بلوحات ويب وتطبيقات موبايل.',
+    },
+    summary: {
+      en: 'Rumuze builds SaaS products for a specific industry, where the data model, roles, and notifications follow how that industry works. A school-transport platform, for example, links schools, buses, drivers, students, and parents through daily trips and alerts.',
+      ar: 'تبني رموز منتجات SaaS لقطاع محدد، حيث يتبع نموذج البيانات والأدوار والإشعارات طريقة عمل القطاع. فمنصة نقل مدرسي مثلاً تربط المدارس والحافلات والسائقين والطلاب وأولياء الأمور عبر رحلات يومية وتنبيهات.',
+    },
+    metaDescription: {
+      en: 'Industry-specific SaaS: multi-tenant dashboards, role-based access, mobile apps, notifications, and analytics built around how your sector works.',
+      ar: 'منصات SaaS لقطاعات محددة: لوحات متعددة المستأجرين وصلاحيات بالأدوار وتطبيقات موبايل وإشعارات وتحليلات حول طريقة عمل قطاعك.',
+    },
+    keywords: ['vertical SaaS development', 'school bus management system', 'multi-tenant SaaS', 'industry software', 'subscription platform'],
+    geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
+    industries: ['Education', 'Transport', 'Healthcare services', 'Field services'],
+    definitions: {
+      short: {
+        en: 'Multi-tenant SaaS with dashboards, role-based access, mobile apps, and notifications for one industry.',
+        ar: 'منصات SaaS متعددة المستأجرين بلوحات وصلاحيات بالأدوار وتطبيقات موبايل وإشعارات لقطاع واحد.',
+      },
+      medium: {
+        en: 'Each customer organisation gets its own space, and each user sees what their role allows. The platform sends notifications to individuals and to groups, runs scheduled jobs, and shows usage and activity on a dashboard.',
+        ar: 'تحصل كل مؤسسة عميلة على مساحتها الخاصة، ويرى كل مستخدم ما يسمح به دوره. ترسل المنصة إشعارات للأفراد والمجموعات وتشغّل مهاماً مجدولة وتعرض الاستخدام والنشاط في لوحة.',
+      },
+      long: {
+        en: 'Our school-transport work is built on Laravel with GraphQL and REST APIs, queue workers and a scheduler on Redis, and Firebase push notifications to topics and individual devices. The same pattern fits other sectors that coordinate people, vehicles, and schedules.',
+        ar: 'بُنيت أعمالنا في النقل المدرسي على Laravel مع واجهات GraphQL وREST وعمال طوابير ومجدول على Redis وإشعارات Firebase إلى مواضيع وأجهزة فردية. وينطبق النمط نفسه على قطاعات أخرى تنسق بين الأشخاص والمركبات والجداول.',
+      },
+      bullets: {
+        en: [
+          'Multi-tenant spaces for each customer organisation',
+          'Role-based dashboards and mobile apps',
+          'Scheduled jobs, queues, and push notifications',
+          'GraphQL and REST APIs',
+          'Usage analytics and activity timeline',
+        ],
+        ar: [
+          'مساحات متعددة المستأجرين لكل مؤسسة عميلة',
+          'لوحات وتطبيقات موبايل بحسب الدور',
+          'مهام مجدولة وطوابير وإشعارات فورية',
+          'واجهات GraphQL وREST',
+          'تحليلات استخدام وسجل نشاط',
+        ],
+      },
+    },
+    category: 'software',
+    problemSolved: {
+      en: 'An industry that runs on phone calls, paper lists, and group chats, where a generic tool never matches the way the work is organised.',
+      ar: 'قطاع يعمل بالمكالمات والقوائم الورقية ومجموعات المحادثة، ولا تطابق فيه الأدوات العامة طريقة تنظيم العمل.',
+    },
+    targetAudience: {
+      en: 'Founders turning industry know-how into a subscription product, and operators who want software built for their sector.',
+      ar: 'المؤسسون الذين يحولون خبرة قطاعهم إلى منتج باشتراك، والمشغلون الذين يريدون برمجيات مبنية لقطاعهم.',
+    },
+    differentiators: {
+      en: [
+        'Data model and roles shaped around your industry',
+        'Dashboards and mobile apps built on one API',
+        'Queues, scheduling, and notifications designed in from the start',
+        'Architecture documented for your own team',
+      ],
+      ar: [
+        'نموذج بيانات وأدوار مشكلة حول قطاعك',
+        'لوحات وتطبيقات موبايل على واجهة واحدة',
+        'طوابير وجدولة وإشعارات مصممة منذ البداية',
+        'معمارية موثقة لفريقك',
+      ],
+    },
+    faqs: [
+      {
+        question: {
+          en: 'How is this different from a general ERP?',
+          ar: 'كيف يختلف هذا عن نظام ERP عام؟',
+        },
+        answer: {
+          en: 'An ERP covers finance, HR, and inventory across any business. An industry SaaS covers the daily workflow of one sector in depth, and is often sold to many organisations as a subscription.',
+          ar: 'يغطي نظام ERP المالية والموارد البشرية والمخزون لأي نشاط. أما SaaS القطاعي فيغطي سير العمل اليومي لقطاع واحد بعمق، وغالباً يُباع لمؤسسات كثيرة باشتراك.',
+        },
+      },
+      {
+        question: {
+          en: 'Can you take an existing product and extend it?',
+          ar: 'هل تستطيعون تطوير منتج قائم؟',
+        },
+        answer: {
+          en: 'Yes. We start with a technical review of the code, data model, and deployment, then recommend whether to extend, refactor, or rebuild.',
+          ar: 'نعم. نبدأ بمراجعة تقنية للكود ونموذج البيانات والنشر، ثم نوصي بالتوسعة أو إعادة الهيكلة أو إعادة البناء.',
+        },
+      },
+    ],
+    h2Sections: [
+      { en: 'What Makes a SaaS Industry-Specific', ar: 'ما الذي يجعل المنصة خاصة بقطاع' },
+      { en: 'How Customer Organisations Are Kept Separate', ar: 'كيف تُفصل المؤسسات العميلة عن بعضها' },
+      { en: 'How Notifications Reach the Right People', ar: 'كيف تصل الإشعارات للأشخاص المناسبين' },
+      { en: 'How Scheduled Work Runs in the Background', ar: 'كيف يعمل العمل المجدول في الخلفية' },
+      { en: 'How Usage and Activity Are Reported', ar: 'كيف يُرفع تقرير الاستخدام والنشاط' },
+    ],
+    relatedServices: ['saas-erp', 'mobile-apps', 'software-engineering'],
+    saudiContext: {
+      en: 'Gulf sectors such as education, transport, and healthcare services have their own rules and workflows. We start from how your sector operates locally, and keep Arabic and English versions in step.',
+      ar: 'لقطاعات الخليج مثل التعليم والنقل والخدمات الصحية قواعدها وسير عملها الخاص. نبدأ من طريقة عمل قطاعك محلياً، ونبقي النسختين العربية والإنجليزية متطابقتين.',
+    },
+  },
+  {
     slug: 'paid-advertising',
     title: {
       en: 'Paid Advertising Management',
