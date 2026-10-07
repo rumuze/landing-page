@@ -1,42 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { motion as Motion, useMotionValue, useSpring } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 
+const INTERACTIVE_SELECTOR = 'button, a, input, .interactive';
+
+// A soft ring that trails the mouse. Plain requestAnimationFrame easing and CSS transitions,
+// so the animation library stays out of the first page load.
 const CustomCursor = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-
-  // Spring configuration for the "Ring" (Follower)
-  const springConfig = { damping: 20, stiffness: 150, mass: 0.5 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
+  const ringRef = useRef(null);
 
   useEffect(() => {
     // Only activate on devices with fine pointers (mouse)
-    const isFinePointer = window.matchMedia('(pointer: fine)').matches;
-    if (!isFinePointer) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return undefined;
 
-    const moveCursor = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+    const target = { x: -100, y: -100 };
+    const position = { x: -100, y: -100 };
+    let frame = 0;
+
+    const draw = () => {
+      position.x += (target.x - position.x) * 0.18;
+      position.y += (target.y - position.y) * 0.18;
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${position.x}px, ${position.y}px, 0) translate(-50%, -50%)`;
+      }
+      const settled = Math.abs(target.x - position.x) < 0.1 && Math.abs(target.y - position.y) < 0.1;
+      frame = settled ? 0 : window.requestAnimationFrame(draw);
     };
 
-    const handleMouseOver = (e) => {
-      const target = e.target;
-      // Check for interactive elements
-      if (
-        target.tagName === 'BUTTON' ||
-        target.tagName === 'A' ||
-        target.tagName === 'INPUT' ||
-        target.closest('button') ||
-        target.closest('a') ||
-        target.closest('.interactive') ||
-        window.getComputedStyle(target).cursor === 'pointer'
-      ) {
-        setIsHovered(true);
-      } else {
-        setIsHovered(false);
-      }
+    const moveCursor = (event) => {
+      target.x = event.clientX;
+      target.y = event.clientY;
+      if (!frame) frame = window.requestAnimationFrame(draw);
+    };
+
+    const handleMouseOver = (event) => {
+      const element = event.target;
+      setIsHovered(
+        element instanceof Element &&
+          (Boolean(element.closest(INTERACTIVE_SELECTOR)) || window.getComputedStyle(element).cursor === 'pointer'),
+      );
     };
 
     window.addEventListener('mousemove', moveCursor);
@@ -45,44 +46,26 @@ const CustomCursor = () => {
     return () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseover', handleMouseOver);
+      if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [cursorX, cursorY]);
+  }, []);
 
-  // If not fine pointer, don't render (or handle via CSS media query, but checking here saves render)
+  // If not fine pointer, don't render
   if (typeof window !== 'undefined' && window.matchMedia && !window.matchMedia('(pointer: fine)').matches) {
     return null;
   }
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden hidden md:block">
-      {/* Ghost Follower - Smooth Glow */}
-      <Motion.div
-        className="fixed top-0 left-0 rounded-full mix-blend-screen pointer-events-none"
-        style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-        animate={{
-          width: isHovered ? 64 : 40,
-          height: isHovered ? 64 : 40,
-          opacity: isHovered ? 0.6 : 0.3,
-          backgroundColor: isHovered ? 'rgba(34, 211, 238, 0.15)' : 'rgba(34, 211, 238, 0.05)',
-          boxShadow: isHovered 
-            ? '0 0 30px 5px rgba(34, 211, 238, 0.2)' 
-            : '0 0 20px 0px rgba(34, 211, 238, 0.1)',
-        }}
-        transition={{ 
-          type: "spring",
-          stiffness: 150,
-          damping: 20,
-          mass: 0.5
-        }}
+      <div
+        ref={ringRef}
+        className={`custom-cursor-ring fixed top-0 left-0 rounded-full mix-blend-screen pointer-events-none ${
+          isHovered ? 'is-hovered' : ''
+        }`}
+        style={{ transform: 'translate3d(-100px, -100px, 0) translate(-50%, -50%)' }}
       >
-        {/* Subtle border ring */}
         <div className="w-full h-full rounded-full border border-cyan/20 box-border" />
-      </Motion.div>
+      </div>
     </div>
   );
 };

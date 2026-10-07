@@ -199,6 +199,9 @@ const ServiceWave = ({ isAr }) => {
             })}
           </ul>
 
+          {/* Phones only (see .svc-scrim): tapping the dim layer closes the form. */}
+          <div aria-hidden="true" className="svc-scrim" hidden={!openKey} onClick={close} />
+
           <form
             aria-labelledby={ids.title}
             className={`svc-card${openKey ? ' is-open' : ''}`}

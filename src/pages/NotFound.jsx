@@ -49,7 +49,7 @@ const NotFound = () => {
 
   return (
     <div 
-      className={`min-h-screen bg-background flex items-center justify-center p-6 ${isArabic ? 'rtl' : 'ltr'}`}
+      className={`surface-page tech-grid min-h-screen flex items-center justify-center p-6 ${isArabic ? 'rtl' : 'ltr'}`}
       dir={isArabic ? 'rtl' : 'ltr'}
     >
       <SEO
@@ -84,7 +84,7 @@ const NotFound = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-2xl md:text-3xl font-bold text-white mb-4"
+            className="type-h3 copy-primary dark:text-white mb-4"
           >
             {t.subtitle}
           </Motion.h2>
@@ -94,7 +94,7 @@ const NotFound = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-slate-300 mb-8 leading-relaxed"
+            className="copy-secondary mb-8 leading-relaxed"
           >
             {t.description}
           </Motion.p>
@@ -116,7 +116,7 @@ const NotFound = () => {
 
             <button
               onClick={() => window.history.back()}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors duration-300"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-slate-300 text-slate-900 hover:bg-slate-100 dark:border-white/20 dark:text-white dark:hover:bg-white/10 transition-colors duration-300"
             >
               <ArrowLeft className={`w-5 h-5 ${isArabic ? 'rotate-180' : ''}`} />
               {t.goBack}
@@ -128,7 +128,7 @@ const NotFound = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="mt-8 flex items-center justify-center gap-2 text-slate-400 text-sm"
+            className="mt-8 flex items-center justify-center gap-2 copy-muted text-sm"
           >
             <Search className="w-4 h-4" />
             <span>{t.searchHint}</span>
@@ -145,7 +145,7 @@ const NotFound = () => {
             repeat: Infinity,
             ease: 'linear',
           }}
-          className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-white/5 rounded-full"
+          className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-slate-900/5 dark:border-white/5 rounded-full"
         />
       </Motion.div>
     </div>
