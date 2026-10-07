@@ -19,6 +19,9 @@ const STATIC_ROUTE_DEFINITIONS = [
   { path: '/saudi-arabia', priority: 0.75, changefreq: 'monthly', section: 'authority' },
   { path: '/labs', priority: 0.6, changefreq: 'monthly', section: 'labs' },
   { path: '/qr-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/whatsapp-link-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/utm-builder', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/serp-preview', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/privacy', priority: 0.3, changefreq: 'yearly', section: 'legal' },
   { path: '/terms', priority: 0.3, changefreq: 'yearly', section: 'legal' },
 ];

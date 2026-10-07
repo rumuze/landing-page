@@ -1,7 +1,9 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import QRCodeStyling from 'qr-code-styling';
 import QrInput from './QrInput';
 import QrPreview from './QrPreview';
+import { readPrefilledUrl } from './prefill';
 
 const LOGO_URL = '/rumuze-logo-master.png';
 
@@ -37,6 +39,8 @@ const QrGenerator = ({ isAr }) => {
   // The colours the current code was made with, for the scan reveal that covers it.
   const [scanColors, setScanColors] = useState({ cover: '#ffffff', ink: '#06150f' });
   const qrInstanceRef = useRef(null);
+  const { search } = useLocation();
+  const initialUrl = useMemo(() => readPrefilledUrl(search), [search]);
 
   const generateQr = useCallback(
     (url) => {
@@ -115,7 +119,7 @@ const QrGenerator = ({ isAr }) => {
           </div>
         </div>
 
-        <QrInput onGenerate={generateQr} isAr={isAr} />
+        <QrInput onGenerate={generateQr} isAr={isAr} initialUrl={initialUrl} />
         <QrPreview qrCode={qrCode} url={currentUrl} isAr={isAr} scanColors={scanColors} />
         <p className="sr-only" role="status">
           {currentUrl ? (isAr ? 'تم إنشاء رمز QR' : 'QR code created') : ''}

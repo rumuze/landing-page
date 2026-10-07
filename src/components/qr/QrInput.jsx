@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { QrCode } from 'lucide-react';
 
-const QrInput = ({ onGenerate, isAr }) => {
+const QrInput = ({ onGenerate, isAr, initialUrl = '' }) => {
   const [url, setUrl] = useState('');
   const [error, setError] = useState('');
 
@@ -25,6 +25,16 @@ const QrInput = ({ onGenerate, isAr }) => {
     const finalUrl = url.startsWith('http') ? url : `https://${url}`;
     onGenerate(finalUrl);
   };
+
+  // A tool that links here with "?url=…" gets the code made straight away. This happens after
+  // mount, so the server-rendered page and the first client render are the same.
+  const prefilled = useRef(false);
+  useEffect(() => {
+    if (prefilled.current || !initialUrl) return;
+    prefilled.current = true;
+    setUrl(initialUrl);
+    onGenerate(initialUrl);
+  }, [initialUrl, onGenerate]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') handleGenerate();
