@@ -368,6 +368,54 @@ const META_CONFIG = {
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'ضاغط الصور مجاناً - رموز'
         }
+    },
+    '/email-signature-generator': {
+        en: {
+            title: `Free Email Signature Generator | ${BRAND_NAME}`,
+            description: 'Make a clean HTML email signature for Gmail and Outlook, see it as you type, and copy it ready to paste. Free, and nothing you type leaves your browser.',
+            keywords: 'email signature generator, HTML email signature, Gmail signature, Outlook signature, professional email signature',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Email Signature Generator - Rumuze'
+        },
+        ar: {
+            title: `مولّد توقيع البريد الإلكتروني مجاناً | ${BRAND_NAME}`,
+            description: 'اصنع توقيع بريد HTML أنيقاً لـ Gmail وOutlook، وشاهده وأنت تكتب، وانسخه جاهزاً للصق. مجاني ولا يغادر ما تكتبه متصفحك.',
+            keywords: 'مولد توقيع البريد, توقيع ايميل, توقيع Gmail, توقيع Outlook, توقيع بريد احترافي',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'مولّد توقيع البريد الإلكتروني مجاناً - رموز'
+        }
+    },
+    '/palette-from-image': {
+        en: {
+            title: `Free Color Palette from Image | ${BRAND_NAME}`,
+            description: 'Pick the main colors of a logo or photo with their HEX, RGB and HSL codes, and check text contrast on each one. Your image is never uploaded. Free.',
+            keywords: 'color palette from image, extract colors from image, logo color picker, hex color extractor, contrast checker',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Color Palette from Image - Rumuze'
+        },
+        ar: {
+            title: `استخراج ألوان من صورة مجاناً | ${BRAND_NAME}`,
+            description: 'استخرج الألوان الرئيسية لشعار أو صورة برموز HEX وRGB وHSL، وتحقق من تباين النص فوق كل لون. لا تُرفع صورتك أبداً. مجاني.',
+            keywords: 'استخراج الألوان من صورة, لوحة ألوان من صورة, ألوان الشعار, رمز HEX للون, فاحص التباين',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'استخراج ألوان من صورة مجاناً - رموز'
+        }
+    },
+    '/social-share-preview': {
+        en: {
+            title: `Free Social Share Preview and Open Graph Tags | ${BRAND_NAME}`,
+            description: 'See how a link may look on WhatsApp, X, LinkedIn and Facebook, and copy the Open Graph and Twitter Card meta tags. Free, in your browser.',
+            keywords: 'social share preview, Open Graph preview, og tags generator, WhatsApp link preview, Twitter card preview, LinkedIn preview',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Social Share Preview - Rumuze'
+        },
+        ar: {
+            title: `معاينة المشاركة الاجتماعية ووسوم Open Graph مجاناً | ${BRAND_NAME}`,
+            description: 'شاهد كيف قد يظهر رابطك في واتساب وX ولينكدإن وفيسبوك، وانسخ وسوم Open Graph وTwitter Card. مجاني ويعمل في متصفحك.',
+            keywords: 'معاينة المشاركة, وسوم Open Graph, معاينة رابط واتساب, بطاقة تويتر, معاينة لينكدإن',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'معاينة المشاركة الاجتماعية مجاناً - رموز'
+        }
     }
 };
 

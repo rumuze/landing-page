@@ -11,6 +11,9 @@ export const TOOLS = [
   { id: 'vat', path: '/vat-calculator', service: 'digital-solutions' },
   { id: 'adbudget', path: '/ad-budget-calculator', service: 'paid-advertising' },
   { id: 'imagecompress', path: '/image-compressor', service: 'digital-solutions' },
+  { id: 'signature', path: '/email-signature-generator', service: 'digital-solutions' },
+  { id: 'palette', path: '/palette-from-image', service: 'digital-solutions' },
+  { id: 'social', path: '/social-share-preview', service: 'seo-services' },
 ];
 
 export const toolById = (id) => TOOLS.find((tool) => tool.id === id);

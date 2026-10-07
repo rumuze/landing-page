@@ -15,6 +15,9 @@ Each has its own page in Arabic (`/x`) and English (`/en/x`), and is listed on `
 | VAT calculator | `/vat-calculator` | `src/tools/vat.js` | `src/pages/tools/VatCalculatorPage.jsx` |
 | Ad budget calculator | `/ad-budget-calculator` | `src/tools/adBudget.js` | `src/pages/tools/AdBudgetPage.jsx` |
 | Image compressor | `/image-compressor` | `src/tools/imageCompress.js` | `src/pages/tools/ImageCompressorPage.jsx` |
+| Email signature generator | `/email-signature-generator` | `src/tools/emailSignature.js` | `src/pages/tools/EmailSignaturePage.jsx` |
+| Palette from image | `/palette-from-image` | `src/tools/palette.js` | `src/pages/tools/PalettePage.jsx` |
+| Social share preview | `/social-share-preview` | `src/tools/socialPreview.js` | `src/pages/tools/SocialPreviewPage.jsx` |
 
 ## Rules every tool follows
 
@@ -89,6 +92,24 @@ Use these instead of writing a new `<select>` or a new row of buttons.
 - **Image compressor** works with the browser's own decoder and canvas. The page CSP needs `blob:` in
   `img-src` (in `index.html`) to show the visitor's own pictures. If the compressed file would be larger
   than the original, the original is kept.
+
+## Fourth batch: notes
+
+- **Email signature:** every typed value is HTML-escaped and links are made only from web addresses,
+  email addresses and phone numbers (`emailSignature.js`, tested with hostile input). The logo address
+  goes into the copied HTML but the preview never loads it, so using the tool makes no request to another
+  site. "Copy signature" puts rich text on the clipboard where the browser allows it.
+- **Palette:** colours come from a scaled-down copy of the image by median cut (cut in the middle of the
+  widest colour range); contrast uses the WCAG 2 formula for white and black text only.
+- **Social preview:** the cards are approximations. A picture chosen for the preview stays on the device;
+  the image address typed for the tags is only written into the code.
+
+## The 404 page
+
+`src/pages/NotFound.jsx` follows the theme through the site's own tokens, moves with CSS only
+(`LostSignal`, stopped under reduced motion), and suggests real pages with `suggestPaths` in
+`src/seo/suggestRoutes.js`, which compares the address with the public routes in the route table.
+`e2e/not-found.spec.js` checks it in both themes and both languages, with axe.
 
 ## Linking tools together
 
