@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Check, Copy } from 'lucide-react';
 import ToolPageShell from '../../components/tools/ToolPageShell';
 import ToolField from '../../components/tools/ToolField';
-import { buttonClass, fieldClass, inputClass } from '../../components/tools/toolStyles';
-import { useCopy } from '../../components/tools/useCopy';
+import ChipGroup from '../../components/ui/ChipGroup';
+import CopyButton from '../../components/ui/CopyButton';
+import { fieldClass, inputClass } from '../../components/tools/toolStyles';
 import { toolsContent } from '../../content/toolsContent';
 import { UTM_PRESETS, buildUtmUrl } from '../../tools/utm';
 
@@ -33,7 +33,6 @@ const UtmBuilderPage = () => {
   const [touched, setTouched] = useState({});
   const [lowercase, setLowercase] = useState(true);
   const [underscores, setUnderscores] = useState(true);
-  const { copied, copy } = useCopy();
 
   const result = useMemo(() => buildUtmUrl(fields, { lowercase, underscores }), [fields, lowercase, underscores]);
 
@@ -50,6 +49,7 @@ const UtmBuilderPage = () => {
     className: fieldClass(Boolean(errorFor(name))),
     ...extra,
   });
+  const activePreset = UTM_PRESETS.find((preset) => fields.source === preset.source && fields.medium === preset.medium);
   const applyPreset = (preset) => {
     setFields((current) => ({ ...current, source: preset.source, medium: preset.medium }));
     setTouched((current) => ({ ...current, source: true, medium: true }));
@@ -64,29 +64,14 @@ const UtmBuilderPage = () => {
       </ToolField>
 
       <div className="mt-5">
-        <p className="mb-2 text-sm font-semibold text-slate-700 dark:text-gray-300" id="utm-presets-label">
-          {page.presets}
-        </p>
-        <div className="flex flex-wrap gap-2" role="group" aria-labelledby="utm-presets-label">
-          {UTM_PRESETS.map((preset) => {
-            const active = fields.source === preset.source && fields.medium === preset.medium;
-            return (
-              <button
-                key={preset.id}
-                type="button"
-                aria-pressed={active}
-                onClick={() => applyPreset(preset)}
-                className={`rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
-                  active
-                    ? 'border-cyan bg-cyan text-slate-950'
-                    : 'border-slate-200 text-slate-700 hover:border-cyan dark:border-white/15 dark:text-gray-300'
-                }`}
-              >
-                {preset.label}
-              </button>
-            );
-          })}
-        </div>
+        <ChipGroup
+          id="utm-preset"
+          label={page.presets}
+          options={UTM_PRESETS.map((preset) => ({ value: preset.id, label: preset.label }))}
+          value={activePreset?.id ?? ''}
+          onChange={(id) => applyPreset(UTM_PRESETS.find((preset) => preset.id === id))}
+          required
+        />
       </div>
 
       <div className="mt-5 grid gap-5 sm:grid-cols-3">
@@ -134,16 +119,7 @@ const UtmBuilderPage = () => {
           className={`${inputClass} resize-y text-left font-mono text-sm`}
         />
 
-        <button
-          type="button"
-          id="utm-copy"
-          disabled={!result.ok}
-          onClick={() => copy(result.url)}
-          className={`${buttonClass} mt-4 bg-cyan text-slate-950 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100`}
-        >
-          {copied ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}
-          {copied ? common.copied : common.copy}
-        </button>
+        <CopyButton id="utm-copy" text={result.ok ? result.url : ''} disabled={!result.ok} label={common.copy} copiedLabel={common.copied} className="mt-4" />
 
         {result.ok ? (
           <div className="mt-6">

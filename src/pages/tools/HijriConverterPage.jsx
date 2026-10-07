@@ -1,13 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Check, Copy, Moon } from 'lucide-react';
+import { Moon } from 'lucide-react';
 import ToolPageShell from '../../components/tools/ToolPageShell';
 import ToolField from '../../components/tools/ToolField';
 import Odometer from '../../components/tools/Odometer';
 import MoonDial from '../../components/tools/MoonDial';
 import HijriMonth from '../../components/tools/HijriMonth';
-import { buttonClass, fieldClass, inputClass } from '../../components/tools/toolStyles';
-import { useCopy } from '../../components/tools/useCopy';
+import Select from '../../components/ui/Select';
+import SegmentedControl from '../../components/ui/SegmentedControl';
+import CopyButton from '../../components/ui/CopyButton';
+import { fieldClass } from '../../components/tools/toolStyles';
 import { toolsContent } from '../../content/toolsContent';
 import { toLatinDigits } from '../../tools/whatsapp';
 import {
@@ -61,7 +63,6 @@ const HijriConverterPage = () => {
   const isAr = lang === 'ar';
   const page = toolsContent[lang].hijri;
   const common = toolsContent[lang].common;
-  const { copied, copy } = useCopy();
 
   const [mode, setMode] = useState('g');
   const [form, setForm] = useState({ day: '', month: '', year: '' });
@@ -101,7 +102,11 @@ const HijriConverterPage = () => {
     setForm({ day: String(day), month: String(shown.hijri.month), year: String(shown.hijri.year) });
   };
 
-  const months = mode === 'g' ? GREGORIAN_MONTHS[lang] : HIJRI_MONTHS[lang];
+  const monthOptions = (mode === 'g' ? GREGORIAN_MONTHS[lang] : HIJRI_MONTHS[lang]).map((name, index) => ({
+    value: String(index + 1),
+    label: name,
+    meta: String(index + 1),
+  }));
   const error = !result.ok && !empty ? page.errors[result.error] : '';
   const dimmed = !result.ok && shown;
 
@@ -134,22 +139,17 @@ const HijriConverterPage = () => {
 
   return (
     <ToolPageShell wide toolId="hijri">
-      <div role="group" aria-label={page.modeLabel} className="grid grid-cols-2 gap-2 rounded-2xl bg-slate-100 p-1.5 dark:bg-white/5">
-        {['g', 'h'].map((key) => (
-          <button
-            key={key}
-            type="button"
-            id={`hj-mode-${key}`}
-            aria-pressed={mode === key}
-            onClick={() => switchMode(key)}
-            className={`min-h-[2.75rem] rounded-xl px-3 text-sm font-semibold transition-all duration-200 ${
-              mode === key ? 'bg-cyan text-slate-950 shadow' : 'text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white'
-            }`}
-          >
-            {page.modes[key]}
-          </button>
-        ))}
-      </div>
+      <SegmentedControl
+        id="hj-mode"
+        label={page.modeLabel}
+        fill
+        options={[
+          { value: 'g', label: page.modes.g },
+          { value: 'h', label: page.modes.h },
+        ]}
+        value={mode}
+        onChange={switchMode}
+      />
 
       <div className="mt-6 grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.5fr)_minmax(0,1fr)] gap-3 sm:gap-4">
         <ToolField id="hj-day" label={page.day}>
@@ -159,16 +159,13 @@ const HijriConverterPage = () => {
         </ToolField>
         <ToolField id="hj-month" label={page.month}>
           {(props) => (
-            <select {...props} value={form.month} onChange={setField('month')} className={inputClass}>
-              <option value="" disabled>
-                –
-              </option>
-              {months.map((name, index) => (
-                <option key={name} value={index + 1}>
-                  {name}
-                </option>
-              ))}
-            </select>
+            <Select
+              {...props}
+              value={form.month}
+              onChange={(next) => setForm((current) => ({ ...current, month: next }))}
+              options={monthOptions}
+              placeholder="–"
+            />
           )}
         </ToolField>
         <ToolField id="hj-year" label={page.year}>
@@ -209,16 +206,7 @@ const HijriConverterPage = () => {
               {shown ? WEEKDAYS[lang][shown.weekday] : '–'}
             </strong>
           </p>
-          <button
-            type="button"
-            id="hj-copy"
-            disabled={!shown || !result.ok}
-            onClick={() => copy(copyText)}
-            className={`${buttonClass} bg-cyan text-slate-950 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100`}
-          >
-            {copied ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}
-            {copied ? common.copied : page.copyResult}
-          </button>
+          <CopyButton id="hj-copy" text={copyText} disabled={!shown || !result.ok} label={page.copyResult} copiedLabel={common.copied} />
         </div>
       </div>
 

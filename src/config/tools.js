@@ -8,6 +8,9 @@ export const TOOLS = [
   { id: 'hijri', path: '/hijri-date-converter', service: 'digital-solutions' },
   { id: 'schema', path: '/schema-generator', service: 'seo-services' },
   { id: 'brief', path: '/project-brief-writer', service: 'digital-solutions' },
+  { id: 'vat', path: '/vat-calculator', service: 'digital-solutions' },
+  { id: 'adbudget', path: '/ad-budget-calculator', service: 'paid-advertising' },
+  { id: 'imagecompress', path: '/image-compressor', service: 'digital-solutions' },
 ];
 
 export const toolById = (id) => TOOLS.find((tool) => tool.id === id);

@@ -25,6 +25,9 @@ const STATIC_ROUTE_DEFINITIONS = [
   { path: '/hijri-date-converter', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/schema-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/project-brief-writer', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/vat-calculator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/ad-budget-calculator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/image-compressor', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/privacy', priority: 0.3, changefreq: 'yearly', section: 'legal' },
   { path: '/terms', priority: 0.3, changefreq: 'yearly', section: 'legal' },
 ];
