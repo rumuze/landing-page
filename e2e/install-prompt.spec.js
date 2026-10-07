@@ -1,5 +1,9 @@
 import { expect, open, test } from './fixtures';
 
+// The 31 seconds below are simulated, and the fake clock would otherwise spend them painting
+// the home page's decorative canvases frame by frame. This test is about the install prompt.
+test.use({ reducedMotion: 'reduce' });
+
 // The browser fires beforeinstallprompt when the site can be installed; the
 // page then offers its own prompt after 30 seconds.
 for (const [url, title, install] of [
