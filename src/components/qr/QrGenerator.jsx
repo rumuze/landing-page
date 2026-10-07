@@ -34,6 +34,8 @@ const QrGenerator = ({ isAr }) => {
   const [currentUrl, setCurrentUrl] = useState('');
   const [dotColor, setDotColor] = useState('#06150f');
   const [bgColor, setBgColor] = useState('#ffffff');
+  // The colours the current code was made with, for the scan reveal that covers it.
+  const [scanColors, setScanColors] = useState({ cover: '#ffffff', ink: '#06150f' });
   const qrInstanceRef = useRef(null);
 
   const generateQr = useCallback(
@@ -65,6 +67,7 @@ const QrGenerator = ({ isAr }) => {
       });
 
       qrInstanceRef.current = qr;
+      setScanColors({ cover: bgColor, ink: dotColor });
       setQrCode(qr);
       setCurrentUrl(url);
     },
@@ -113,7 +116,10 @@ const QrGenerator = ({ isAr }) => {
         </div>
 
         <QrInput onGenerate={generateQr} isAr={isAr} />
-        <QrPreview qrCode={qrCode} url={currentUrl} isAr={isAr} />
+        <QrPreview qrCode={qrCode} url={currentUrl} isAr={isAr} scanColors={scanColors} />
+        <p className="sr-only" role="status">
+          {currentUrl ? (isAr ? 'تم إنشاء رمز QR' : 'QR code created') : ''}
+        </p>
       </div>
     </section>
   );

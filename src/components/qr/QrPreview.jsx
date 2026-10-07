@@ -1,17 +1,39 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useLayoutEffect, useState, useCallback } from 'react';
 import { Download, Copy, Check } from 'lucide-react';
-import { useState } from 'react';
+import QrScanReveal from './QrScanReveal';
+import { prefersReducedMotion } from '../motion/useCanvasLoop';
 
-const QrPreview = ({ qrCode, url, isAr }) => {
+// Puts the generated code into `targetRef`. It is its own component so that its layout effect
+// runs before the scan overlay's (siblings run in order): the code is in place when the overlay
+// measures it and covers it, before anything is painted.
+const QrMount = ({ qrCode, targetRef }) => {
+  useLayoutEffect(() => {
+    const target = targetRef.current;
+    if (!qrCode || !target) return;
+    target.innerHTML = '';
+    qrCode.append(target);
+  }, [qrCode, targetRef]);
+  return null;
+};
+
+// Each generated code gets an id, so the scan plays once per code and again for the next one.
+let nextRunId = 0;
+const runIds = new WeakMap();
+const runIdFor = (qrCode) => {
+  if (!runIds.has(qrCode)) {
+    nextRunId += 1;
+    runIds.set(qrCode, nextRunId);
+  }
+  return runIds.get(qrCode);
+};
+
+const QrPreview = ({ qrCode, url, isAr, scanColors }) => {
   const qrRef = useRef(null);
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (qrCode && qrRef.current) {
-      qrRef.current.innerHTML = '';
-      qrCode.append(qrRef.current);
-    }
-  }, [qrCode]);
+  const [finishedRun, setFinishedRun] = useState(0);
+  const runId = qrCode ? runIdFor(qrCode) : 0;
+  const scanning = Boolean(qrCode) && finishedRun !== runId && !prefersReducedMotion();
+  const handleScanDone = useCallback(() => setFinishedRun(runId), [runId]);
 
   const handleDownload = () => {
     if (qrCode) {
@@ -49,6 +71,15 @@ const QrPreview = ({ qrCode, url, isAr }) => {
           id="qr-preview-container"
           className="relative bg-white rounded-2xl p-4 shadow-2xl"
         />
+        <QrMount qrCode={qrCode} targetRef={qrRef} />
+        {scanning && (
+          <QrScanReveal
+            key={runId}
+            colors={scanColors}
+            onDone={handleScanDone}
+            targetRef={qrRef}
+          />
+        )}
       </div>
 
       <div className="flex gap-3 flex-wrap justify-center">
