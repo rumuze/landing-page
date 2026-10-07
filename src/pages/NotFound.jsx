@@ -1,153 +1,148 @@
 /**
- * NotFound (404) Page Component
- * 
- * High-end bilingual 404 experience with:
- * - Glassmorphism design matching site aesthetic
- * - Framer Motion animations
- * - Auto-detects locale from URL
- * - Language-aware navigation
- * - Centralized SEO metadata
+ * The 404 page. It follows the light and dark theme through the site's own colour tokens, moves with
+ * CSS only (and stops under reduced motion), reads the language from the address, and suggests the
+ * real pages closest to what was typed.
  */
 
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion as Motion } from 'framer-motion';
-import { Home, ArrowLeft, Search } from 'lucide-react';
+import { ArrowLeft, Compass, FlaskConical, Home, Layers, Mail } from 'lucide-react';
 import SEO from '../components/SEO';
+import LostSignal from '../components/LostSignal';
 import { localeFromPath } from '../seo/linking';
-import Illustration from '../components/illustrations/Illustration';
-import { PAGE_SCENES } from '../components/illustrations/serviceScenes';
+import { suggestPaths } from '../seo/suggestRoutes';
+import { PAGE_ROUTES, localizePath } from '../routes/routeTable';
+
+const CONTENT = {
+  en: {
+    subtitle: 'Page not found',
+    description: "The page you're looking for doesn't exist or has moved. Here is a way back.",
+    backHome: 'Back to home',
+    goBack: 'Go back',
+    didYouMean: 'Did you mean',
+    popular: 'Popular pages',
+    links: { home: 'Home', services: 'Services', labs: 'Free tools', contact: 'Start a project' },
+    sceneLabel: 'A signal that stops at a broken connection and finds another route to the home page',
+    seoTitle: 'Page Not Found | Rumuze',
+    seoDescription: 'The page you are looking for does not exist.',
+  },
+  ar: {
+    subtitle: 'الصفحة غير موجودة',
+    description: 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها. هذا طريق العودة.',
+    backHome: 'العودة للرئيسية',
+    goBack: 'رجوع',
+    didYouMean: 'هل تقصد',
+    popular: 'صفحات شائعة',
+    links: { home: 'الرئيسية', services: 'الخدمات', labs: 'أدوات مجانية', contact: 'ابدأ مشروعك' },
+    sceneLabel: 'إشارة تتوقف عند وصلة مقطوعة ثم تجد طريقاً آخر إلى الصفحة الرئيسية',
+    seoTitle: 'الصفحة غير موجودة | رموز',
+    seoDescription: 'الصفحة التي تبحث عنها غير موجودة.',
+  },
+};
+
+// The pages a visitor can open without an account and without a parameter in the address.
+const PUBLIC_PATHS = ['/', ...PAGE_ROUTES.filter((route) => route.access === 'public' && !route.path.includes(':')).map((route) => route.path)];
+
+const POPULAR = [
+  { id: 'home', path: '/', Icon: Home },
+  { id: 'services', path: '/services', Icon: Layers },
+  { id: 'labs', path: '/labs', Icon: FlaskConical },
+  { id: 'contact', path: '/contact', Icon: Mail },
+];
 
 const NotFound = () => {
   const location = useLocation();
-
-  // Detect locale from URL (no effect needed, computed value)
   const isArabic = useMemo(() => localeFromPath(location.pathname) === 'ar', [location.pathname]);
-
-  // Bilingual content
-  const content = {
-    en: {
-      title: '404',
-      subtitle: 'Page Not Found',
-      description: "The page you're looking for doesn't exist or has been moved. Let's get you back on track.",
-      backHome: 'Back to Home',
-      goBack: 'Go Back',
-      searchHint: 'Or try searching for what you need',
-    },
-    ar: {
-      title: '404',
-      subtitle: 'الصفحة غير موجودة',
-      description: 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها. دعنا نساعدك للعودة.',
-      backHome: 'العودة للرئيسية',
-      goBack: 'رجوع',
-      searchHint: 'أو جرب البحث عما تحتاجه',
-    },
-  };
-
-  const t = isArabic ? content.ar : content.en;
-  const homePath = isArabic ? '/' : '/en';
+  const locale = isArabic ? 'ar' : 'en';
+  const t = CONTENT[locale];
+  const suggestions = useMemo(() => suggestPaths(location.pathname, PUBLIC_PATHS), [location.pathname]);
 
   return (
-    <div 
-      className={`surface-page tech-grid min-h-screen flex items-center justify-center p-6 ${isArabic ? 'rtl' : 'ltr'}`}
+    <div
+      className="surface-page relative flex min-h-screen items-center justify-center overflow-hidden px-4 pb-16 pt-[calc(6.5rem+var(--safe-area-top))]"
       dir={isArabic ? 'rtl' : 'ltr'}
     >
-      <SEO
-        path="/404"
-        title={isArabic ? "الصفحة غير موجودة | رموز" : "Page Not Found | Rumuze"}
-        description={isArabic ? "الصفحة التي تبحث عنها غير موجودة." : "The page you are looking for does not exist."}
-        noindex={true}
-      />
-      
-      <Motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="relative z-10 max-w-lg w-full text-center"
-      >
-        {/* Glassmorphism Card */}
-        <div className="glass-card p-10 rounded-3xl">
-          <Illustration scene={PAGE_SCENES.notFound} className="mx-auto mb-6 w-full max-w-[15rem]" />
+      <SEO path="/404" title={t.seoTitle} description={t.seoDescription} noindex />
 
-          {/* 404 Number */}
-          <Motion.h1
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="text-8xl md:text-9xl font-black text-cyan mb-4"
+      <div className="nf-glow" aria-hidden="true" />
+
+      <section data-testid="nf-card" className="home-panel relative z-10 w-full max-w-2xl px-6 py-10 text-center sm:px-12">
+        <LostSignal label={t.sceneLabel} />
+
+        <h1 className="nf-digits mt-2 text-8xl font-black leading-none text-cyan-700 dark:text-cyan sm:text-9xl" dir="ltr">
+          <span className="sr-only">404</span>
+          <span aria-hidden="true" className="flex items-center justify-center gap-1">
+            <span className="nf-rise" style={{ '--i': 0 }}>
+              4
+            </span>
+            <span className="nf-zero nf-rise" style={{ '--i': 1 }} />
+            <span className="nf-rise" style={{ '--i': 2 }}>
+              4
+            </span>
+          </span>
+        </h1>
+
+        <h2 className="type-h3 copy-primary mt-5 dark:text-white nf-rise" style={{ '--i': 3 }}>
+          {t.subtitle}
+        </h2>
+        <p className="copy-secondary mx-auto mt-3 max-w-md leading-relaxed nf-rise" style={{ '--i': 4 }}>
+          {t.description}
+        </p>
+
+        {suggestions.length ? (
+          <div className="mt-6 nf-rise" style={{ '--i': 5 }} data-testid="nf-suggestions">
+            <p className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
+              <Compass size={16} aria-hidden="true" />
+              {t.didYouMean}
+            </p>
+            <ul className="mt-3 flex flex-wrap justify-center gap-2">
+              {suggestions.map((path) => (
+                <li key={path}>
+                  <Link
+                    to={localizePath(path, locale)}
+                    dir="ltr"
+                    className="inline-block rounded-full border-2 border-cyan/50 bg-cyan/10 px-4 py-1.5 font-mono text-sm font-semibold text-slate-900 transition-colors hover:border-cyan hover:bg-cyan/20 dark:text-white"
+                  >
+                    {path}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row nf-rise" style={{ '--i': 6 }}>
+          <Link
+            to={localizePath('/', locale)}
+            className="inline-flex min-h-[2.75rem] items-center justify-center gap-2 rounded-full bg-cyan px-6 py-3 font-bold text-slate-950 transition-transform duration-300 hover:scale-105"
           >
-            {t.title}
-          </Motion.h1>
-
-          {/* Subtitle */}
-          <Motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="type-h3 copy-primary dark:text-white mb-4"
+            <Home className="h-5 w-5" aria-hidden="true" />
+            {t.backHome}
+          </Link>
+          <button
+            type="button"
+            onClick={() => window.history.back()}
+            className="inline-flex min-h-[2.75rem] items-center justify-center gap-2 rounded-full border-2 border-slate-300 px-6 py-3 font-semibold text-slate-900 transition-colors hover:bg-slate-100 dark:border-white/20 dark:text-white dark:hover:bg-white/10"
           >
-            {t.subtitle}
-          </Motion.h2>
-
-          {/* Description */}
-          <Motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="copy-secondary mb-8 leading-relaxed"
-          >
-            {t.description}
-          </Motion.p>
-
-          {/* Action Buttons */}
-          <Motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Link
-              to={homePath}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-cyan text-background font-bold hover:scale-105 transition-transform duration-300"
-            >
-              <Home className="w-5 h-5" />
-              {t.backHome}
-            </Link>
-
-            <button
-              onClick={() => window.history.back()}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-slate-300 text-slate-900 hover:bg-slate-100 dark:border-white/20 dark:text-white dark:hover:bg-white/10 transition-colors duration-300"
-            >
-              <ArrowLeft className={`w-5 h-5 ${isArabic ? 'rotate-180' : ''}`} />
-              {t.goBack}
-            </button>
-          </Motion.div>
-
-          {/* Search Hint */}
-          <Motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="mt-8 flex items-center justify-center gap-2 copy-muted text-sm"
-          >
-            <Search className="w-4 h-4" />
-            <span>{t.searchHint}</span>
-          </Motion.div>
+            <ArrowLeft className={`h-5 w-5 ${isArabic ? 'rotate-180' : ''}`} aria-hidden="true" />
+            {t.goBack}
+          </button>
         </div>
 
-        {/* Decorative Element */}
-        <Motion.div
-          animate={{ 
-            rotate: [0, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-slate-900/5 dark:border-white/5 rounded-full"
-        />
-      </Motion.div>
+        <nav className="mt-8 border-t border-[rgb(var(--border-subtle)/0.7)] pt-6 nf-rise" style={{ '--i': 7 }} aria-label={t.popular}>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t.popular}</p>
+          <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+            {POPULAR.map(({ id, path, Icon }) => (
+              <li key={id}>
+                <Link to={localizePath(path, locale)} className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-800 hover:underline dark:text-cyan">
+                  <Icon size={15} aria-hidden="true" />
+                  {t.links[id]}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </section>
     </div>
   );
 };
