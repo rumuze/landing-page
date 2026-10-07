@@ -123,7 +123,7 @@ const HijriConverterPage = () => {
               {monthName}
             </span>
             <Odometer value={parts.year} />
-            <span className="text-lg font-bold text-cyan">{suffix}</span>
+            <span className="text-lg font-bold text-cyan-800 dark:text-cyan">{suffix}</span>
           </>
         ) : (
           <span className="text-slate-300 dark:text-slate-600">–</span>
@@ -182,7 +182,7 @@ const HijriConverterPage = () => {
         <p id="hj-error" role="alert" className="text-sm font-medium text-red-600 dark:text-red-400">
           {error}
         </p>
-        <button type="button" id="hj-today" onClick={useToday} className="text-sm font-semibold text-cyan hover:underline">
+        <button type="button" id="hj-today" onClick={useToday} className="text-sm font-semibold text-cyan-800 hover:underline dark:text-cyan">
           {page.today}
         </button>
       </div>

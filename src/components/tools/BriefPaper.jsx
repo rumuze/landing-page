@@ -15,10 +15,10 @@ const BriefPaper = ({ brief, copy, activeId, complete, isAr }) => {
       aria-live="polite"
       aria-label={copy.documentTitle}
     >
-      <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-slate-500">{copy.documentTitle}</p>
-      <h3 className="mt-1 text-2xl font-black leading-tight text-slate-900 sm:text-3xl">
-        {title || <span className="text-slate-300">{copy.placeholderTitle}</span>}
-      </h3>
+      <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-slate-600">{copy.documentTitle}</p>
+      <p className="mt-1 text-2xl font-black leading-tight text-slate-900 sm:text-3xl">
+        {title || <span className="text-slate-600">{copy.placeholderTitle}</span>}
+      </p>
       <div className="mt-1 h-0.5 w-12 bg-cyan" />
 
       {complete ? (
@@ -37,9 +37,9 @@ const BriefPaper = ({ brief, copy, activeId, complete, isAr }) => {
           const listed = section.id === 'features' || section.id === 'references';
           return (
             <section key={section.id} data-filled={filled ? 'true' : 'false'}>
-              <h4 className={`text-xs font-bold uppercase tracking-wide ${filled ? 'text-cyan-700' : 'text-slate-400'}`}>
+              <p className={`text-xs font-bold uppercase tracking-wide ${filled ? 'text-cyan-700' : 'text-slate-600'}`}>
                 {copy.sections[section.id]}
-              </h4>
+              </p>
               {filled ? (
                 <div key="text" className="brief-in mt-1.5 text-sm leading-6 text-slate-800">
                   {listed ? (
@@ -59,9 +59,10 @@ const BriefPaper = ({ brief, copy, activeId, complete, isAr }) => {
                   )}
                 </div>
               ) : section.core ? (
-                <div className="mt-2 grid gap-2" aria-label={copy.empty}>
-                  <span className="brief-bar w-11/12" />
-                  <span className="brief-bar w-2/3" />
+                <div className="mt-2 grid gap-2">
+                  <span className="sr-only">{copy.empty}</span>
+                  <span aria-hidden="true" className="brief-bar w-11/12" />
+                  <span aria-hidden="true" className="brief-bar w-2/3" />
                 </div>
               ) : null}
             </section>

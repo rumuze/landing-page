@@ -196,7 +196,7 @@ const SchemaGeneratorPage = () => {
             <button type="button" id="sc-example" onClick={loadExample} className={`${buttonClass} border-2 border-slate-200 text-slate-700 hover:border-cyan hover:text-cyan dark:border-white/10 dark:text-gray-300`}>
               {page.loadExample}
             </button>
-            <button type="button" id="sc-clear" onClick={clear} className="px-3 text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white">
+            <button type="button" id="sc-clear" onClick={clear} className="px-3 text-sm font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
               {page.clear}
             </button>
           </div>
