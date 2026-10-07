@@ -49,15 +49,14 @@ The home page now has five canvas or DOM visuals in `src/components/motion/`: a 
 x-ray lens in the engineering section, a morphing blob in capabilities, an isometric product
 city in work, and a letter tunnel behind the closing call to action.
 
-How they are kept cheap, and what was measured (4x CPU throttle, three runs, same machine as the
-numbers above):
+How they are kept cheap, and what was measured (4x CPU throttle, three runs each, measured on `main` after the framer-motion change):
 
 | | Before | After |
 | --- | --- | --- |
-| Largest contentful paint | 216-252 ms | 236-344 ms (inside the run-to-run noise) |
-| Long-task blocking | 281-386 ms | 380-391 ms |
+| Largest contentful paint | 272-308 ms | 308-444 ms (slightly higher; the runs overlap) |
+| Long-task blocking | 237-277 ms | 246-305 ms |
 | Layout shift | 0 | 0 |
-| `HomePage` chunk (gzip) | 11.5 kB | 15.4 kB, plus four lazy chunks of 1.4-2.7 kB |
+| `HomePage` chunk (gzip) | 11.4 kB | 15.6 kB, plus four lazy chunks of 1.4-2.7 kB |
 
 - Only the hero weave is in the home chunk. The other four load when they are within 600 px of the
   viewport (`Deferred.jsx`) into a box that already has its final size.
