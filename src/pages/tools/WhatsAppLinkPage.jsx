@@ -1,0 +1,140 @@
+import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Check, Copy, ExternalLink, QrCode } from 'lucide-react';
+import ToolPageShell from '../../components/tools/ToolPageShell';
+import ToolField from '../../components/tools/ToolField';
+import { buttonClass, fieldClass, inputClass } from '../../components/tools/toolStyles';
+import { useCopy } from '../../components/tools/useCopy';
+import { toolsContent } from '../../content/toolsContent';
+import { COUNTRIES, buildWhatsAppLink } from '../../tools/whatsapp';
+
+const WhatsAppLinkPage = () => {
+  const { i18n } = useTranslation();
+  const lang = i18n.language === 'ar' ? 'ar' : 'en';
+  const isAr = lang === 'ar';
+  const prefix = isAr ? '' : '/en';
+  const page = toolsContent[lang].whatsapp;
+  const common = toolsContent[lang].common;
+
+  const [countryId, setCountryId] = useState('SA');
+  const [number, setNumber] = useState('');
+  const [message, setMessage] = useState('');
+  const { copied, copy } = useCopy();
+
+  const country = COUNTRIES.find((item) => item.id === countryId) ?? COUNTRIES[0];
+  const result = useMemo(
+    () => buildWhatsAppLink({ dial: country.dial, number, message }),
+    [country.dial, number, message],
+  );
+  const numberError = !result.ok && result.error !== 'empty' ? page.errors[result.error] : '';
+
+  return (
+    <ToolPageShell toolId="whatsapp">
+      <div className="grid gap-5 sm:grid-cols-[minmax(0,13rem)_minmax(0,1fr)]">
+        <ToolField id="wa-country" label={page.country}>
+          {(props) => (
+            <select {...props} value={countryId} onChange={(event) => setCountryId(event.target.value)} className={inputClass}>
+              {COUNTRIES.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item[lang]} (+{item.dial})
+                </option>
+              ))}
+            </select>
+          )}
+        </ToolField>
+
+        <ToolField id="wa-number" label={page.number} hint={page.numberHint} error={numberError}>
+          {(props) => (
+            <input
+              {...props}
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel-national"
+              dir="ltr"
+              value={number}
+              onChange={(event) => setNumber(event.target.value)}
+              placeholder="055 123 4567"
+              className={`${fieldClass(Boolean(numberError))} text-left`}
+            />
+          )}
+        </ToolField>
+      </div>
+
+      <ToolField id="wa-message" label={page.message} hint={page.messageHint} className="mt-5">
+        {(props) => (
+          <textarea
+            {...props}
+            rows={4}
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+            placeholder={page.messagePlaceholder}
+            className={`${inputClass} resize-y`}
+          />
+        )}
+      </ToolField>
+
+      <div className="mt-8 border-t border-[rgb(var(--border-subtle)/0.7)] pt-6">
+        <label htmlFor="wa-result" className="mb-2 block text-sm font-semibold text-slate-700 dark:text-gray-300">
+          {page.result}
+        </label>
+        <textarea
+          id="wa-result"
+          readOnly
+          dir="ltr"
+          rows={2}
+          value={result.ok ? result.url : ''}
+          placeholder="https://wa.me/…"
+          onFocus={(event) => event.target.select()}
+          className={`${inputClass} resize-y text-left font-mono text-sm`}
+        />
+
+        <p className="mt-2 min-h-[1.5rem] text-sm text-slate-600 dark:text-gray-400" role="status">
+          {result.ok ? (
+            <>
+              {page.opensChat} <bdi dir="ltr" className="font-semibold">{result.display}</bdi>
+            </>
+          ) : null}
+        </p>
+        {result.ok && result.longUrl ? (
+          <p className="mt-1 text-sm font-medium text-amber-700 dark:text-amber-400">{page.longUrl}</p>
+        ) : null}
+
+        <div className="mt-4 flex flex-wrap gap-3">
+          <button
+            type="button"
+            id="wa-copy"
+            disabled={!result.ok}
+            onClick={() => copy(result.url)}
+            className={`${buttonClass} bg-cyan text-slate-950 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100`}
+          >
+            {copied ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}
+            {copied ? common.copied : common.copy}
+          </button>
+          {result.ok ? (
+            <>
+              <a
+                href={result.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${buttonClass} border-2 border-slate-200 text-slate-700 hover:border-cyan hover:text-cyan dark:border-white/10 dark:text-gray-300`}
+              >
+                <ExternalLink size={18} aria-hidden="true" />
+                {page.test}
+              </a>
+              <Link
+                to={`${prefix}/qr-generator?url=${encodeURIComponent(result.url)}`}
+                className={`${buttonClass} border-2 border-slate-200 text-slate-700 hover:border-cyan hover:text-cyan dark:border-white/10 dark:text-gray-300`}
+              >
+                <QrCode size={18} aria-hidden="true" />
+                {page.makeQr}
+              </Link>
+            </>
+          ) : null}
+        </div>
+      </div>
+    </ToolPageShell>
+  );
+};
+
+export default WhatsAppLinkPage;

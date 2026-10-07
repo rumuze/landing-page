@@ -224,6 +224,54 @@ const META_CONFIG = {
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'مولد رمز QR مجاني مع شعار - رموز'
         }
+    },
+    '/whatsapp-link-generator': {
+        en: {
+            title: `Free WhatsApp Link Generator | ${BRAND_NAME}`,
+            description: 'Make a wa.me link that opens a WhatsApp chat with your number and a message already written. Free, no sign-up, runs in your browser.',
+            keywords: 'WhatsApp link generator, wa.me link, WhatsApp link with message, click to chat link, WhatsApp QR code',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free WhatsApp Link Generator - Rumuze'
+        },
+        ar: {
+            title: `مولد رابط واتساب مجاني | ${BRAND_NAME}`,
+            description: 'اصنع رابط wa.me يفتح محادثة واتساب مع رقمك برسالة مكتوبة مسبقاً. مجاني، بدون تسجيل، ويعمل داخل متصفحك.',
+            keywords: 'مولد رابط واتساب, رابط واتساب برسالة, رابط wa.me, رابط محادثة واتساب, رمز QR واتساب',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'مولد رابط واتساب مجاني - رموز'
+        }
+    },
+    '/utm-builder': {
+        en: {
+            title: `Free UTM Link Builder | ${BRAND_NAME}`,
+            description: 'Add UTM campaign tags to any link so analytics shows where each visit came from. Free, no sign-up, and nothing you type leaves your browser.',
+            keywords: 'UTM builder, UTM link generator, campaign URL builder, Google Analytics UTM, utm_source utm_medium utm_campaign',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free UTM Link Builder - Rumuze'
+        },
+        ar: {
+            title: `منشئ روابط UTM مجاني | ${BRAND_NAME}`,
+            description: 'أضف وسوم UTM إلى أي رابط لتعرف من أين جاءت كل زيارة في التحليلات. مجاني وبدون تسجيل، ولا يغادر ما تكتبه متصفحك.',
+            keywords: 'منشئ روابط UTM, مولد UTM, وسوم UTM, روابط الحملات, Google Analytics',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'منشئ روابط UTM مجاني - رموز'
+        }
+    },
+    '/serp-preview': {
+        en: {
+            title: `Free Google Result Preview and Length Checker | ${BRAND_NAME}`,
+            description: 'Preview how a page title and meta description may look in Google on desktop and mobile, and check their length. Works with Arabic. Free.',
+            keywords: 'SERP preview, Google snippet preview, title length checker, meta description length, meta description checker',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Google Result Preview - Rumuze'
+        },
+        ar: {
+            title: `معاينة نتيجة جوجل وفاحص الطول مجاناً | ${BRAND_NAME}`,
+            description: 'شاهد كيف قد يظهر عنوان الصفحة ووصفها في جوجل على الحاسوب والجوال، وتحقق من طولهما. يدعم العربية. مجاني.',
+            keywords: 'معاينة نتيجة جوجل, فاحص طول العنوان, طول الوصف, meta description, SERP preview',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'معاينة نتيجة جوجل مجاناً - رموز'
+        }
     }
 };
 
