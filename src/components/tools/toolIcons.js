@@ -1,4 +1,4 @@
-import { Braces, CalendarDays, FileText, Link2, MessageCircle, QrCode, Search } from 'lucide-react';
+import { Braces, CalendarDays, FileText, ImageDown, Link2, MessageCircle, Megaphone, QrCode, Receipt, Search } from 'lucide-react';
 
 /** The icon shown for each tool, by tool id. */
 export const TOOL_ICONS = {
@@ -9,4 +9,7 @@ export const TOOL_ICONS = {
   hijri: CalendarDays,
   schema: Braces,
   brief: FileText,
+  vat: Receipt,
+  adbudget: Megaphone,
+  imagecompress: ImageDown,
 };

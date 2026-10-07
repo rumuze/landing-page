@@ -18,7 +18,8 @@ const watchRequests = (page, typed) => {
       requests
         .filter(
           (request) =>
-            !request.url().startsWith(origin) ||
+            // Pictures shown from the visitor's own files are blob: addresses, which are not network requests.
+            (!request.url().startsWith(origin) && !/^(blob|data):/.test(request.url())) ||
             !['GET', 'HEAD'].includes(request.method()) ||
             request.postData() ||
             typed.some((needle) => decodeURIComponent(request.url()).includes(needle)),
@@ -31,7 +32,7 @@ for (const { name, prefix } of LOCALES) {
   test.describe(`free tools (${name})`, () => {
     test('the tools page lists every tool and each link opens that tool', async ({ page }) => {
       await open(page, `${prefix}/labs`);
-      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview', '/hijri-date-converter', '/schema-generator', '/project-brief-writer']) {
+      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview', '/hijri-date-converter', '/schema-generator', '/project-brief-writer', '/vat-calculator', '/ad-budget-calculator', '/image-compressor']) {
         await expect(page.locator(`main a[href="${prefix}${path}"]`)).toHaveCount(1);
       }
       await page.locator(`main a[href="${prefix}/utm-builder"]`).click();
@@ -287,6 +288,130 @@ for (const { name, prefix } of LOCALES) {
       const clipboard = await page.evaluate(() => navigator.clipboard.readText());
       expect(clipboard).toContain('Dana Perfumes');
       expect(clipboard).toContain('a.com');
+
+      expect(network.leaks()).toEqual([]);
+    });
+    test('VAT calculator: prints the receipt, adds and removes VAT, and takes a custom rate', async ({ page }) => {
+      await open(page, `${prefix}/vat-calculator`);
+      const network = watchRequests(page, ['98765']);
+
+      // It opens on an example amount, filled in by the browser, at the Saudi rate.
+      await expect(page.locator('#vat-amount')).toHaveValue('1000');
+      await expect(page.getByTestId('receipt-gross')).toContainText('1,150.00');
+      await expect(page.getByTestId('receipt-vat')).toContainText('150.00');
+
+      await page.locator('#vat-country').click();
+      await page.getByRole('option', { name: /Emirates|الإمارات/ }).click();
+      await expect(page.getByTestId('receipt-gross')).toContainText('1,050.00');
+
+      await page.locator('#vat-country').click();
+      await page.getByRole('option', { name: /Saudi|السعودية/ }).click();
+      await page.locator('#vat-mode-remove').click();
+      await page.locator('#vat-amount').fill('115');
+      await expect(page.getByTestId('receipt-net')).toContainText('100.00');
+      await expect(page.getByTestId('receipt-vat')).toContainText('15.00');
+
+      // Arabic digits and a decimal mark are read as numbers.
+      await page.locator('#vat-mode-add').click();
+      await page.locator('#vat-amount').fill('١٢٣٫٤٥');
+      await expect(page.getByTestId('receipt-net')).toContainText('123.45');
+
+      await page.locator('#vat-country').click();
+      await page.getByRole('option', { name: /Another rate|نسبة أخرى/ }).click();
+      await page.locator('#vat-rate').fill('7.5');
+      await page.locator('#vat-amount').fill('98765');
+      await expect(page.getByTestId('receipt-gross')).toContainText('106,172.38');
+
+      await page.locator('#vat-amount').fill('abc');
+      await expect(page.locator('#vat-amount')).toHaveAttribute('aria-invalid', 'true');
+      await expect(page.locator('#vat-copy')).toBeDisabled();
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('Ad budget: plans from a target and from a budget, and says when the ads lose money', async ({ page }) => {
+      await open(page, `${prefix}/ad-budget-calculator`);
+      const network = watchRequests(page, ['54321']);
+
+      // Example numbers are filled in by the browser: 100 results at 2% and 1.50 a click.
+      await expect(page.getByTestId('stat-budget')).toContainText('7,500');
+      await expect(page.getByTestId('funnel-clicks')).toContainText('5,000');
+      await expect(page.getByTestId('funnel-views')).toContainText('500,000');
+      await expect(page.getByTestId('stat-profit')).toContainText('500');
+      await expect(page.locator('#ab-verdict')).toContainText('500');
+
+      await page.locator('#ab-margin').fill('20');
+      await expect(page.getByTestId('stat-profit')).toContainText('-3,500');
+      await expect(page.locator('#ab-verdict')).toContainText('3,500');
+
+      await page.locator('#ab-mode-budget').click();
+      await expect(page.locator('#ab-budget')).toBeVisible();
+      await page.locator('#ab-budget').fill('54321');
+      await expect(page.getByTestId('funnel-clicks')).toContainText('36,214');
+      await expect(page.getByTestId('funnel-results')).toContainText('724');
+
+      await page.locator('#ab-cpc').fill('0');
+      await expect(page.locator('#ab-cpc')).toHaveAttribute('aria-invalid', 'true');
+
+      await page.locator('#ab-clear').click();
+      await expect(page.locator('#ab-budget')).toHaveValue('');
+      await expect(page.getByTestId('funnel-clicks')).toHaveCount(0);
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('Image compressor: compresses in the browser, compares, downloads, and refuses other files', async ({ page }) => {
+      await open(page, `${prefix}/image-compressor`);
+      const network = watchRequests(page, ['photo']);
+
+      // A noisy picture that compresses well, made in the page.
+      const png = await page.evaluate(() => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1200;
+        canvas.height = 800;
+        const context = canvas.getContext('2d');
+        const gradient = context.createLinearGradient(0, 0, 1200, 800);
+        gradient.addColorStop(0, '#2d6a4f');
+        gradient.addColorStop(1, '#f4a261');
+        context.fillStyle = gradient;
+        context.fillRect(0, 0, 1200, 800);
+        for (let i = 0; i < 4000; i += 1) {
+          context.fillStyle = `rgba(${(i * 37) % 255}, ${(i * 91) % 255}, ${(i * 53) % 255}, 0.5)`;
+          context.fillRect((i * 97) % 1200, (i * 61) % 800, 14, 14);
+        }
+        return canvas.toDataURL('image/png').split(',')[1];
+      });
+
+      await page.locator('#ic-input').setInputFiles({ name: 'photo.png', mimeType: 'image/png', buffer: Buffer.from(png, 'base64') });
+      const item = page.getByTestId('ic-item');
+      await expect(item).toHaveCount(1);
+      await expect(item).toHaveAttribute('data-status', 'done', { timeout: 15000 });
+      await expect(page.getByTestId('ic-saved')).toBeVisible();
+      await expect(item).toContainText('1200 × 800');
+
+      // The compare slider shows up and moves with the keyboard.
+      const slider = page.getByRole('slider', { name: /Compare|قارن/ });
+      await expect(slider).toBeVisible();
+      await slider.focus();
+      await page.keyboard.press('End');
+      await expect(slider).toHaveAttribute('aria-valuenow', '100');
+
+      // Changing the largest width compresses again at the smaller size.
+      await page.locator('#ic-width').click();
+      await page.getByRole('option', { name: /800/ }).click();
+      await expect(item).toContainText('800 × 533', { timeout: 15000 });
+
+      await page.locator('#ic-format-jpeg').click();
+      const [download] = await Promise.all([page.waitForEvent('download'), item.getByRole('link').click()]);
+      expect(download.suggestedFilename()).toBe('photo-compressed.jpg');
+
+      // A file of the wrong type is refused with a message.
+      await page.locator('#ic-input').setInputFiles({ name: 'animation.gif', mimeType: 'image/gif', buffer: Buffer.from('GIF89a') });
+      await expect(page.getByRole('alert')).toContainText('animation.gif');
+      await expect(page.getByTestId('ic-item')).toHaveCount(1);
+
+      await page.locator('#ic-clear').click();
+      await expect(page.getByTestId('ic-item')).toHaveCount(0);
 
       expect(network.leaks()).toEqual([]);
     });

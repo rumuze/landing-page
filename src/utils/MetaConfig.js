@@ -320,6 +320,54 @@ const META_CONFIG = {
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'كاتب موجز المشروع مجاناً - رموز'
         }
+    },
+    '/vat-calculator': {
+        en: {
+            title: `Free VAT Calculator for the Gulf, Egypt and Jordan | ${BRAND_NAME}`,
+            description: 'Add VAT to a price or take it out of one for Saudi Arabia, the UAE, Bahrain, Oman, Egypt and Jordan, or use your own rate. Free, in your browser.',
+            keywords: 'VAT calculator, Saudi VAT calculator, UAE VAT calculator, add VAT, remove VAT, VAT inclusive exclusive',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free VAT Calculator - Rumuze'
+        },
+        ar: {
+            title: `حاسبة ضريبة القيمة المضافة مجاناً | ${BRAND_NAME}`,
+            description: 'أضف ضريبة القيمة المضافة إلى سعر أو استخرجها منه للسعودية والإمارات والبحرين وعُمان ومصر والأردن، أو بنسبة تحددها. مجانية وتعمل في متصفحك.',
+            keywords: 'حاسبة ضريبة القيمة المضافة, حاسبة الضريبة السعودية, حساب الضريبة 15%, استخراج الضريبة من السعر, ضريبة القيمة المضافة الإمارات',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'حاسبة ضريبة القيمة المضافة مجاناً - رموز'
+        }
+    },
+    '/ad-budget-calculator': {
+        en: {
+            title: `Free Ad Budget Calculator | ${BRAND_NAME}`,
+            description: 'Work out what a number of sales or leads will cost, or what a budget can buy, from your own conversion rate and cost per click. Free, in your browser.',
+            keywords: 'ad budget calculator, advertising budget calculator, cost per acquisition calculator, ROAS calculator, break-even ROAS',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Ad Budget Calculator - Rumuze'
+        },
+        ar: {
+            title: `حاسبة ميزانية الإعلانات مجاناً | ${BRAND_NAME}`,
+            description: 'اعرف تكلفة عدد من المبيعات أو العملاء المحتملين، أو ما تشتريه ميزانيتك، من نسبة تحويلك وتكلفة النقرة. مجانية وتعمل في متصفحك.',
+            keywords: 'حاسبة ميزانية الإعلانات, حاسبة تكلفة الإعلان, حاسبة ROAS, تكلفة اكتساب العميل, ميزانية الحملة الإعلانية',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'حاسبة ميزانية الإعلانات مجاناً - رموز'
+        }
+    },
+    '/image-compressor': {
+        en: {
+            title: `Free Image Compressor: JPEG, PNG and WebP | ${BRAND_NAME}`,
+            description: 'Make JPEG, PNG and WebP images smaller and compare the result with a slider. Your images are processed in your browser and never uploaded. Free.',
+            keywords: 'image compressor, compress images online, reduce image size, convert to WebP, compress JPEG, compress PNG',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Image Compressor - Rumuze'
+        },
+        ar: {
+            title: `ضاغط الصور مجاناً: JPEG وPNG وWebP | ${BRAND_NAME}`,
+            description: 'صغّر حجم صور JPEG وPNG وWebP وقارن النتيجة بشريط. تُعالج الصور داخل متصفحك ولا تُرفع أبداً. مجاني.',
+            keywords: 'ضغط الصور, تصغير حجم الصورة, تحويل إلى WebP, ضغط صور JPEG, ضغط صور PNG, ضاغط صور اونلاين',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'ضاغط الصور مجاناً - رموز'
+        }
     }
 };
 

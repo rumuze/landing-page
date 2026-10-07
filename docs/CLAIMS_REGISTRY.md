@@ -185,3 +185,19 @@ Do not publish: internal architecture scores, "known risks" lists, environment d
 | CR-033 | Home page service wave: nine services shown as tiles (ERP, CRM, Odoo, your project, websites, SEO, mobile apps, ads, automation), each with one general sentence and a small request form (order, explain, consultation). Odoo: owner statement that Rumuze builds apps and solutions on Odoo. The other sentences describe the service in general terms with no result, price, time or client. A phone-only request is stored with an unreachable `.invalid` address and the phone number in the message. | owner statement (Odoo); the rest general | `src/content/serviceWaveContent.js`, `src/utils/serviceWaveRequest.js`, `src/components/home/ServiceWave.jsx` | confirmed |
 | CR-034 | The contact and intake forms accept a phone number or an email. A phone-only request is stored under an address that can never receive mail and the number is written in the message; admin screens label such a thread "Phone only". | verified | `src/utils/inboxContact.js`, `src/utils/leadQualification.js` (`buildLeadThread`), tests in `src/utils/leadQualification.test.js` | confirmed |
 | CR-035 | Services, service and process pages show decorative isometric illustrations (idea to product, layered software, mobile, web, ERP, ads, SEO, content, automation). They are drawings, not screenshots of any product or client, and carry no numbers, results or names. | not a claim (decorative) | `scripts/illustrations/generate.mjs`, `src/components/illustrations/` | confirmed |
+
+## 8. Update 2026-10-07: free tools
+
+The free tools (QR generator, WhatsApp link, UTM builder, Google result preview, Hijri converter, structured
+data generator, project brief writer, VAT calculator, ad budget calculator, image compressor) carry these
+claims. Each is scoped on the page itself.
+
+| Claim | Type | Status | Scope on the page |
+| --- | --- | --- | --- |
+| "Runs in your browser. What you type is not sent anywhere." | verified | confirmed | Checked for every tool by `e2e/tools.spec.js` (no cross-origin request, no request with a body, nothing typed in an address). |
+| Standard VAT rates: Saudi Arabia 15%, UAE 5%, Bahrain 10%, Oman 5%, Egypt 14%, Jordan 16% | verified (published tax summaries) | needs validation against each tax authority | Labelled as standard rates checked in October 2026; zero-rated and exempt goods excluded; "confirm with your tax authority". Re-check before each release that touches `src/tools/vat.js`. |
+| Hijri dates use the Umm al-Qura calendar, 1901 to 2076 | verified | confirmed | Comes from the browser's own calendar; the page says a month can start a day earlier or later where the crescent is sighted. |
+| Moon phase | internal calculation | confirmed | Labelled approximate: mean lunar cycle, up to about half a day from the real new and full moon. |
+| Structured data checks | internal | confirmed | Labelled common guidance; the page says valid markup does not promise a rich result. |
+| Ad budget results | illustrative | confirmed | Arithmetic on the visitor's own numbers; the page says nothing predicts a campaign and the example numbers are marked as examples. |
+| Image compression savings | measured per file on the visitor's device | confirmed | Shown per file; the page says results depend on the picture and that details removed cannot be restored. |

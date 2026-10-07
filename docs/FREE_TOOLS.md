@@ -12,6 +12,9 @@ Each has its own page in Arabic (`/x`) and English (`/en/x`), and is listed on `
 | Hijri date converter | `/hijri-date-converter` | `src/tools/hijri.js` | `src/pages/tools/HijriConverterPage.jsx` |
 | Structured data generator | `/schema-generator` | `src/tools/schema.js` | `src/pages/tools/SchemaGeneratorPage.jsx` |
 | Project brief writer | `/project-brief-writer` | `src/tools/brief.js` | `src/pages/tools/ProjectBriefPage.jsx` |
+| VAT calculator | `/vat-calculator` | `src/tools/vat.js` | `src/pages/tools/VatCalculatorPage.jsx` |
+| Ad budget calculator | `/ad-budget-calculator` | `src/tools/adBudget.js` | `src/pages/tools/AdBudgetPage.jsx` |
+| Image compressor | `/image-compressor` | `src/tools/imageCompress.js` | `src/pages/tools/ImageCompressorPage.jsx` |
 
 ## Rules every tool follows
 
@@ -60,6 +63,32 @@ Notes on correctness: Hijri dates come from the browser's Umm al-Qura calendar (
 years it covers; the moon is the mean lunar cycle and is called approximate on the page; the structured
 data checks follow common guidance and the page says a valid result does not promise a rich result; a
 `<` inside a value is written as `\u003c` so a value cannot close the script tag.
+
+## Shared components
+
+Controls that more than one tool needs live in `src/components/ui/`, so they look and behave the same:
+
+- `Select`: a drop-down that replaces the native `<select>`. It follows the ARIA collapsible listbox
+  pattern, works with the keyboard (arrows, Home, End, Enter, Escape, type-ahead), flips upward near the
+  bottom of the screen, works in both text directions, and with `searchable` filters long lists in
+  Arabic or English (`selectLogic.js` holds the tested search and key logic). Pass `triggerClassName` to
+  match a form that has its own look. The contact form uses it too.
+- `SegmentedControl`: a short choice drawn as one control, built as a radio group.
+- `ChipGroup`: toggle chips, one choice or many (`multiple`).
+- `CopyButton`: copies text and shows the tick.
+
+Use these instead of writing a new `<select>` or a new row of buttons.
+
+## Third batch: notes
+
+- **VAT rates** are the standard rates only (Saudi Arabia 15%, UAE 5%, Bahrain 10%, Oman 5%, Egypt 14%,
+  Jordan 16%), checked in October 2026 against published tax summaries. The page says they can change
+  and that zero-rated and exempt goods are not covered. Update `VAT_COUNTRIES` and the FAQ together.
+- **Ad budget** is arithmetic on the visitor's own numbers; it must not state typical conversion rates
+  or click prices.
+- **Image compressor** works with the browser's own decoder and canvas. The page CSP needs `blob:` in
+  `img-src` (in `index.html`) to show the visitor's own pictures. If the compressed file would be larger
+  than the original, the original is kept.
 
 ## Linking tools together
 

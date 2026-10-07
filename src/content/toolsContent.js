@@ -2,6 +2,7 @@
 // English and Arabic must keep the same shape (a test checks it).
 
 import { batch2Content } from './toolsContent.batch2';
+import { batch3Content } from './toolsContent.batch3';
 
 export const toolsContent = {
   en: {
@@ -386,9 +387,11 @@ export const toolsContent = {
   },
 };
 
-// The second batch of tools lives in its own file; merge it in so there is one place to read from.
+// The second and third batches of tools live in their own files; merge it in so there is one place to read from.
 for (const lang of ['en', 'ar']) {
-  const { hub, ...pages } = batch2Content[lang];
-  Object.assign(toolsContent[lang].hub, hub);
-  Object.assign(toolsContent[lang], pages);
+  for (const batch of [batch2Content, batch3Content]) {
+    const { hub, ...pages } = batch[lang];
+    Object.assign(toolsContent[lang].hub, hub);
+    Object.assign(toolsContent[lang], pages);
+  }
 }
