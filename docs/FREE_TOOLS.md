@@ -116,3 +116,11 @@ Use these instead of writing a new `<select>` or a new row of buttons.
 A tool can send its result to another with a query string. The WhatsApp generator links to the QR
 generator with `?url=…`; `src/components/qr/prefill.js` accepts only http and https addresses and the
 generator then makes the code straight away.
+
+## Batch 5 notes
+
+- **Word counter:** all numbers are computed in the page; times are estimates from stated speeds.
+- **Robots.txt and sitemap:** robots.txt is advisory and is not a security control. Sitemaps accept
+  up to 50,000 addresses, all on one host.
+- **Invoice:** prints through the browser (`window.print()`, `.invoice-print` only). It is not a
+  Fatoora/ZATCA e-invoice; the tax number is printed as typed.

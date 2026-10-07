@@ -416,6 +416,54 @@ const META_CONFIG = {
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'معاينة المشاركة الاجتماعية مجاناً - رموز'
         }
+    },
+    '/word-counter': {
+        en: {
+            title: `Free Word and Character Counter for Arabic and English | ${BRAND_NAME}`,
+            description: 'Count words, characters, sentences and reading time, see the most used words, and check common length limits. Works for Arabic. Free, in your browser.',
+            keywords: 'word counter, character counter, Arabic word counter, reading time calculator, keyword density checker, character limit checker',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Word and Character Counter - Rumuze'
+        },
+        ar: {
+            title: `عدّاد الكلمات والحروف مجاناً | ${BRAND_NAME}`,
+            description: 'عدّ الكلمات والحروف والجمل ووقت القراءة، وشاهد أكثر الكلمات تكراراً، وراجع حدود الطول الشائعة. يدعم العربية. مجاني ويعمل في متصفحك.',
+            keywords: 'عداد الكلمات, عداد الحروف, حساب عدد الكلمات, وقت القراءة, كثافة الكلمات المفتاحية, عدد الاحرف',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'عدّاد الكلمات والحروف مجاناً - رموز'
+        }
+    },
+    '/robots-txt-sitemap-generator': {
+        en: {
+            title: `Free Robots.txt and Sitemap.xml Generator | ${BRAND_NAME}`,
+            description: 'Build a robots.txt and a sitemap.xml, check the rules, and test whether a crawler may open a path. Free, and nothing you type leaves your browser.',
+            keywords: 'robots.txt generator, sitemap generator, sitemap.xml generator, robots.txt tester, block AI crawlers robots.txt',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Robots.txt and Sitemap Generator - Rumuze'
+        },
+        ar: {
+            title: `مولّد robots.txt وخريطة الموقع sitemap.xml مجاناً | ${BRAND_NAME}`,
+            description: 'ابنِ ملفي robots.txt وsitemap.xml، وراجع القواعد، واختبر هل يستطيع زاحف فتح مسار. مجاني ولا يغادر ما تكتبه متصفحك.',
+            keywords: 'مولد robots.txt, مولد خريطة الموقع, sitemap.xml, اختبار robots.txt, حظر زواحف الذكاء الاصطناعي',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'مولّد robots.txt وخريطة الموقع مجاناً - رموز'
+        }
+    },
+    '/invoice-generator': {
+        en: {
+            title: `Free Invoice Generator with VAT | ${BRAND_NAME}`,
+            description: 'Make a clean invoice with VAT per line, then print it or save it as a PDF from your browser. Free, no sign-up, and nothing you type leaves your browser.',
+            keywords: 'invoice generator, free invoice maker, invoice with VAT, invoice template, create invoice PDF online',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Invoice Generator - Rumuze'
+        },
+        ar: {
+            title: `مولّد فواتير مجاني بالضريبة | ${BRAND_NAME}`,
+            description: 'اصنع فاتورة أنيقة بضريبة لكل بند، ثم اطبعها أو احفظها PDF من متصفحك. مجاني وبدون تسجيل، ولا يغادر ما تكتبه متصفحك.',
+            keywords: 'مولد فواتير, انشاء فاتورة, فاتورة بالضريبة, نموذج فاتورة, فاتورة PDF مجانا',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'مولّد الفواتير مجاناً - رموز'
+        }
     }
 };
 
