@@ -1,11 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Check, Copy, ExternalLink, QrCode } from 'lucide-react';
+import { ExternalLink, QrCode } from 'lucide-react';
 import ToolPageShell from '../../components/tools/ToolPageShell';
 import ToolField from '../../components/tools/ToolField';
+import Select from '../../components/ui/Select';
+import CopyButton from '../../components/ui/CopyButton';
 import { buttonClass, fieldClass, inputClass } from '../../components/tools/toolStyles';
-import { useCopy } from '../../components/tools/useCopy';
 import { toolsContent } from '../../content/toolsContent';
 import { COUNTRIES, buildWhatsAppLink } from '../../tools/whatsapp';
 
@@ -20,12 +21,21 @@ const WhatsAppLinkPage = () => {
   const [countryId, setCountryId] = useState('SA');
   const [number, setNumber] = useState('');
   const [message, setMessage] = useState('');
-  const { copied, copy } = useCopy();
 
   const country = COUNTRIES.find((item) => item.id === countryId) ?? COUNTRIES[0];
   const result = useMemo(
     () => buildWhatsAppLink({ dial: country.dial, number, message }),
     [country.dial, number, message],
+  );
+  const countryOptions = useMemo(
+    () =>
+      COUNTRIES.map((item) => ({
+        value: item.id,
+        label: item[lang],
+        meta: `+${item.dial}`,
+        keywords: `${item.en} ${item.ar} ${item.id}`,
+      })),
+    [lang],
   );
   const numberError = !result.ok && result.error !== 'empty' ? page.errors[result.error] : '';
 
@@ -34,13 +44,15 @@ const WhatsAppLinkPage = () => {
       <div className="grid gap-5 sm:grid-cols-[minmax(0,13rem)_minmax(0,1fr)]">
         <ToolField id="wa-country" label={page.country}>
           {(props) => (
-            <select {...props} value={countryId} onChange={(event) => setCountryId(event.target.value)} className={inputClass}>
-              {COUNTRIES.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item[lang]} (+{item.dial})
-                </option>
-              ))}
-            </select>
+            <Select
+              {...props}
+              value={countryId}
+              onChange={setCountryId}
+              options={countryOptions}
+              searchable
+              searchPlaceholder={common.search}
+              noResults={common.noResults}
+            />
           )}
         </ToolField>
 
@@ -101,16 +113,7 @@ const WhatsAppLinkPage = () => {
         ) : null}
 
         <div className="mt-4 flex flex-wrap gap-3">
-          <button
-            type="button"
-            id="wa-copy"
-            disabled={!result.ok}
-            onClick={() => copy(result.url)}
-            className={`${buttonClass} bg-cyan text-slate-950 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100`}
-          >
-            {copied ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}
-            {copied ? common.copied : common.copy}
-          </button>
+          <CopyButton id="wa-copy" text={result.ok ? result.url : ''} disabled={!result.ok} label={common.copy} copiedLabel={common.copied} />
           {result.ok ? (
             <>
               <a

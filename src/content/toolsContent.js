@@ -15,6 +15,8 @@ export const toolsContent = {
       moreTitle: 'More free tools',
       allTools: 'All tools',
       openTool: 'Open tool',
+      search: 'Search',
+      noResults: 'No matches',
     },
     hub: {
       qr: {
@@ -203,6 +205,8 @@ export const toolsContent = {
       moreTitle: 'المزيد من الأدوات المجانية',
       allTools: 'كل الأدوات',
       openTool: 'افتح الأداة',
+      search: 'ابحث',
+      noResults: 'لا توجد نتائج',
     },
     hub: {
       qr: {

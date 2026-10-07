@@ -1,12 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Check, Copy, ExternalLink, Plus, Trash2, X, AlertTriangle } from 'lucide-react';
+import { ExternalLink, Plus, Trash2, X, AlertTriangle } from 'lucide-react';
 import ToolPageShell from '../../components/tools/ToolPageShell';
 import ToolField from '../../components/tools/ToolField';
 import CodeStream from '../../components/tools/CodeStream';
 import ReadinessRing from '../../components/tools/ReadinessRing';
 import { buttonClass, inputClass } from '../../components/tools/toolStyles';
-import { useCopy } from '../../components/tools/useCopy';
+import ChipGroup from '../../components/ui/ChipGroup';
+import CopyButton from '../../components/ui/CopyButton';
 import { toolsContent } from '../../content/toolsContent';
 import {
   EXAMPLES,
@@ -46,7 +47,6 @@ const SchemaGeneratorPage = () => {
   const lang = i18n.language === 'ar' ? 'ar' : 'en';
   const page = toolsContent[lang].schema;
   const common = toolsContent[lang].common;
-  const { copied, copy } = useCopy();
 
   const [type, setType] = useState('Organization');
   const [values, setValues] = useState({});
@@ -100,24 +100,14 @@ const SchemaGeneratorPage = () => {
 
   return (
     <ToolPageShell wide toolId="schema">
-      <div role="group" aria-label={page.typeLabel} className="flex flex-wrap gap-2">
-        {SCHEMA_TYPES.map((key) => (
-          <button
-            key={key}
-            type="button"
-            id={`sc-type-${key}`}
-            aria-pressed={type === key}
-            onClick={() => switchType(key)}
-            className={`min-h-[2.5rem] rounded-full border-2 px-4 text-sm font-semibold transition-all duration-200 ${
-              type === key
-                ? 'border-cyan bg-cyan text-slate-950'
-                : 'border-slate-200 text-slate-700 hover:border-cyan dark:border-white/10 dark:text-slate-200'
-            }`}
-          >
-            {page.types[key]}
-          </button>
-        ))}
-      </div>
+      <ChipGroup
+        id="sc-type"
+        label={page.typeLabel}
+        options={SCHEMA_TYPES.map((key) => ({ value: key, label: page.types[key] }))}
+        value={type}
+        onChange={switchType}
+        required
+      />
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div className="min-w-0">
@@ -233,15 +223,7 @@ const SchemaGeneratorPage = () => {
           </div>
 
           <div className="mt-4 flex flex-wrap gap-3">
-            <button
-              type="button"
-              id="sc-copy"
-              onClick={() => copy(code)}
-              className={`${buttonClass} bg-cyan text-slate-950`}
-            >
-              {copied ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}
-              {copied ? common.copied : page.copyCode}
-            </button>
+            <CopyButton id="sc-copy" text={code} label={page.copyCode} copiedLabel={common.copied} />
             <a
               href="https://search.google.com/test/rich-results"
               target="_blank"

@@ -1,5 +1,6 @@
 import { ChevronRight, Loader2 } from "lucide-react";
 import FormField from "./FormField";
+import Select from "../../ui/Select";
 import { errorInputClass, fieldWrapper, inputClass, labelClass } from "./leadFormStyles";
 
 const SERVICE_KEYS = ["build", "audit", "infrastructure"];
@@ -35,20 +36,14 @@ const LeadFormStepOne = ({ copy, errors, formData, intakeCopy, isAr, isSubmittin
         <span>{copy.need}</span>
         <span className="type-label text-slate-600 dark:text-slate-400">{intakeCopy.requiredLabel}</span>
       </label>
-      <select
-        aria-invalid={errors.engagementType ? true : undefined}
-        className={`${inputClass} ${errors.engagementType ? errorInputClass : ""}`}
+      <Select
+        triggerClassName={`${inputClass} ${errors.engagementType ? errorInputClass : ""}`}
         id="engagementType"
-        name="engagementType"
-        onChange={onChange}
+        invalid={Boolean(errors.engagementType)}
+        onChange={(next) => onChange({ target: { name: "engagementType", value: next } })}
+        options={SERVICE_KEYS.map((key) => ({ value: key, label: copy.serviceOptions[key] }))}
         value={formData.engagementType || "build"}
-      >
-        {SERVICE_KEYS.map((key) => (
-          <option key={key} value={key}>
-            {copy.serviceOptions[key]}
-          </option>
-        ))}
-      </select>
+      />
       {errors.engagementType ? (
         <p className="type-small text-red-600 dark:text-red-300">{copy.errors.required}</p>
       ) : null}

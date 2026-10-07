@@ -51,7 +51,8 @@ for (const { name, prefix } of LOCALES) {
       const link = `https://wa.me/966551234567?text=${encodeURIComponent('مرحبا\nأريد عرض سعر')}`;
       await expect(page.locator('#wa-result')).toHaveValue(link);
 
-      await page.locator('#wa-country').selectOption('EG');
+      await page.locator('#wa-country').click();
+      await page.getByRole('option', { name: /Egypt|مصر/ }).click();
       await page.locator('#wa-number').fill('٠١٠١٢٣٤٥٦٧٨');
       await expect(page.locator('#wa-result')).toHaveValue(/^https:\/\/wa\.me\/201012345678\?text=/);
 
@@ -60,7 +61,8 @@ for (const { name, prefix } of LOCALES) {
       await expect(page.locator('#wa-number-error')).toBeVisible();
       await expect(page.locator('#wa-copy')).toBeDisabled();
 
-      await page.locator('#wa-country').selectOption('SA');
+      await page.locator('#wa-country').click();
+      await page.getByRole('option', { name: /Saudi|السعودية/ }).click();
       await page.locator('#wa-number').fill('0551234567');
       await page.locator('#wa-message').fill('');
       await page.locator('#wa-copy').click();
@@ -72,6 +74,66 @@ for (const { name, prefix } of LOCALES) {
       await expect(page).toHaveURL(new RegExp(`${prefix}/qr-generator\\?url=`));
       await expect(page.locator('#qr-url-input')).toHaveValue('https://wa.me/966551234567');
       await expect(page.locator('#qr-preview-container canvas')).toHaveCount(1);
+    });
+
+    test('Select: opens by keyboard, searches in Arabic and English, jumps by letter, and closes on Escape', async ({ page }) => {
+      await open(page, `${prefix}/whatsapp-link-generator`);
+      const trigger = page.locator('#wa-country');
+      await expect(trigger).toHaveAttribute('aria-haspopup', 'listbox');
+      await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+      // Keyboard: arrow opens, the search box takes the focus, Escape closes and gives the focus back.
+      await trigger.focus();
+      await page.keyboard.press('ArrowDown');
+      await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      const search = page.getByRole('combobox');
+      await expect(search).toBeFocused();
+      await page.keyboard.press('Escape');
+      await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      await expect(trigger).toBeFocused();
+
+      // Search finds a country by its Arabic name written another way, by English, and by dial code.
+      await trigger.click();
+      await search.fill('الامارات');
+      await expect(page.getByRole('option')).toHaveCount(1);
+      await search.fill('kuwait');
+      await expect(page.getByRole('option')).toHaveCount(1);
+      await search.fill('974');
+      await page.keyboard.press('Enter');
+      await expect(trigger).toContainText('+974');
+      await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+      // No match shows a message and Enter does not change anything.
+      await trigger.click();
+      await search.fill('zzzz');
+      await expect(page.getByRole('option')).toHaveCount(0);
+      await page.keyboard.press('Enter');
+      await expect(trigger).toContainText('+974');
+      await page.keyboard.press('Escape');
+
+      // The selected option is marked, and arrows move through the list.
+      await trigger.click();
+      await expect(page.getByRole('option', { selected: true })).toHaveCount(1);
+      await page.keyboard.press('ArrowDown');
+      await page.keyboard.press('Enter');
+      await expect(trigger).not.toContainText('+974');
+
+      // A list without search jumps by the letter typed.
+      await open(page, `${prefix}/hijri-date-converter`);
+      const month = page.locator('#hj-month');
+      await month.click();
+      await expect(page.getByRole('combobox')).toHaveCount(0);
+      await expect(page.getByRole('listbox')).toBeFocused();
+      if (prefix) {
+        await page.keyboard.type('ju');
+        await page.keyboard.press('Enter');
+        await expect(month).toContainText(/June|July/);
+      } else {
+        // Playwright cannot type Arabic letters as key presses, so check Home and End instead.
+        await page.keyboard.press('End');
+        await page.keyboard.press('Enter');
+        await expect(month).toContainText('ديسمبر');
+      }
     });
 
     test('UTM builder: builds a tagged link, keeps what was there, and explains what is missing', async ({ page }) => {
@@ -126,7 +188,8 @@ for (const { name, prefix } of LOCALES) {
       await expect(page.locator('#hj-year')).toHaveValue(/^\d{4}$/);
 
       await page.locator('#hj-day').fill('18');
-      await page.locator('#hj-month').selectOption('2');
+      await page.locator('#hj-month').click();
+      await page.getByRole('option').nth(1).click();
       await page.locator('#hj-year').fill('2026');
       await expect(page.getByTestId('hj-hijri')).toContainText('1447');
       await expect(page.getByTestId('hj-hijri')).toContainText('1');
@@ -134,7 +197,8 @@ for (const { name, prefix } of LOCALES) {
 
       await page.locator('#hj-mode-h').click();
       await expect(page.locator('#hj-year')).toHaveValue('1447');
-      await page.locator('#hj-month').selectOption('10');
+      await page.locator('#hj-month').click();
+      await page.getByRole('option').nth(9).click();
       await page.locator('#hj-day').fill('1');
       await expect(page.getByTestId('hj-gregorian')).toContainText('2026');
       await expect(page.getByTestId('hj-gregorian')).toContainText('20');

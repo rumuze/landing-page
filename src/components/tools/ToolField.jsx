@@ -8,7 +8,7 @@ const ToolField = ({ id, label, hint, error, className = '', children }) => {
   const describedBy = [hint ? `${id}-hint` : null, error ? `${id}-error` : null].filter(Boolean).join(' ') || undefined;
   return (
     <div className={className}>
-      <label htmlFor={id} className="mb-2 block text-sm font-semibold text-slate-700 dark:text-gray-300">
+      <label id={`${id}-label`} htmlFor={id} className="mb-2 block text-sm font-semibold text-slate-700 dark:text-gray-300">
         {label}
       </label>
       {children({ id, 'aria-describedby': describedBy, 'aria-invalid': error ? 'true' : undefined })}

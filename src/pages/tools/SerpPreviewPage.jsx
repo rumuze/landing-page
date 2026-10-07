@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ToolPageShell from '../../components/tools/ToolPageShell';
+import SegmentedControl from '../../components/ui/SegmentedControl';
 import ToolField from '../../components/tools/ToolField';
 import { inputClass } from '../../components/tools/toolStyles';
 import { toolsContent } from '../../content/toolsContent';
@@ -132,22 +133,16 @@ const SerpPreviewPage = () => {
       <div className="mt-8 border-t border-[rgb(var(--border-subtle)/0.7)] pt-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="type-h4 copy-primary dark:text-white">{page.preview}</h2>
-          <div role="radiogroup" aria-label={page.device} className="inline-flex rounded-xl border-2 border-slate-200 p-1 dark:border-white/10">
-            {['desktop', 'mobile'].map((value) => (
-              <button
-                key={value}
-                type="button"
-                role="radio"
-                aria-checked={device === value}
-                onClick={() => setDevice(value)}
-                className={`rounded-lg px-4 py-1.5 text-sm font-semibold transition-colors ${
-                  device === value ? 'bg-cyan text-slate-950' : 'text-slate-700 hover:text-cyan dark:text-gray-300'
-                }`}
-              >
-                {page[value]}
-              </button>
-            ))}
-          </div>
+          <SegmentedControl
+            id="serp-device"
+            label={page.device}
+            options={[
+              { value: 'desktop', label: page.desktop },
+              { value: 'mobile', label: page.mobile },
+            ]}
+            value={device}
+            onChange={setDevice}
+          />
         </div>
 
         <div className="mt-4 overflow-x-auto rounded-2xl bg-slate-100 p-4 dark:bg-white/5" data-testid="serp-preview">
