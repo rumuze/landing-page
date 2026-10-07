@@ -205,3 +205,6 @@ claims. Each is scoped on the page itself.
 | Structured data checks | internal | confirmed | Labelled common guidance; the page says valid markup does not promise a rich result. |
 | Ad budget results | illustrative | confirmed | Arithmetic on the visitor's own numbers; the page says nothing predicts a campaign and the example numbers are marked as examples. |
 | Image compression savings | measured per file on the visitor's device | confirmed | Shown per file; the page says results depend on the picture and that details removed cannot be restored. |
+| Email signature | internal | confirmed | Says mail programs differ: some block images and change fonts, so send yourself a test. |
+| Palette from image | internal calculation | confirmed | Says colours are close to, not exactly, the colours in the file; contrast is for white and black text only. |
+| Social share preview | illustrative | confirmed | Labelled approximate: each platform decides its own card, may change it, and may cache an old one. Image-size advice is worded as a common choice. |

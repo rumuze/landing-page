@@ -8,8 +8,8 @@ const VARIANTS = {
   outline: 'border-2 border-slate-200 text-slate-700 hover:border-cyan hover:text-cyan dark:border-white/10 dark:text-gray-300',
 };
 
-/** A button that copies `text` and shows a tick and `copiedLabel` for a couple of seconds. */
-const CopyButton = ({ id, text, label, copiedLabel, variant = 'primary', disabled = false, className = '', onCopied }) => {
+/** A button that copies `text` (and `html`, as rich text, when given) and shows a tick for a couple of seconds. */
+const CopyButton = ({ id, text, html, label, copiedLabel, variant = 'primary', disabled = false, className = '', onCopied }) => {
   const { copied, copy } = useCopy();
   return (
     <button
@@ -17,7 +17,7 @@ const CopyButton = ({ id, text, label, copiedLabel, variant = 'primary', disable
       type="button"
       disabled={disabled}
       onClick={() => {
-        copy(text);
+        copy(text, html);
         onCopied?.();
       }}
       className={`${buttonClass} ${VARIANTS[variant]} ${className}`}

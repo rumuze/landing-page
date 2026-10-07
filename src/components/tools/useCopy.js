@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-/** Copies text to the clipboard and reports `copied` for a couple of seconds. */
+/**
+ * Copies text to the clipboard and reports `copied` for a couple of seconds. `copy(text, html)` also
+ * puts `html` on the clipboard as rich text where the browser allows it, so it pastes with its
+ * formatting into a mail program; the plain text is the fallback.
+ */
 export function useCopy(resetAfter = 2000) {
   const [copied, setCopied] = useState(false);
   const timer = useRef(0);
@@ -8,9 +12,18 @@ export function useCopy(resetAfter = 2000) {
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
   const copy = useCallback(
-    async (text) => {
+    async (text, html) => {
       try {
-        await navigator.clipboard.writeText(text);
+        if (html && typeof ClipboardItem !== 'undefined' && navigator.clipboard?.write) {
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              'text/html': new Blob([html], { type: 'text/html' }),
+              'text/plain': new Blob([text], { type: 'text/plain' }),
+            }),
+          ]);
+        } else {
+          await navigator.clipboard.writeText(text);
+        }
       } catch {
         // Older browsers and some embedded views refuse the clipboard API.
         const area = document.createElement('textarea');

@@ -1914,3 +1914,348 @@ html:not(.dark) main .surface-card-strong .text-cyan {
     transition: none;
   }
 }
+
+/* The 404 page. Colours come from tokens that follow the theme, so the scene works in both. */
+:root {
+  --nf-trace: 15 23 42;
+  --nf-pulse: 0 133 103;
+  --nf-warn: 217 119 6;
+  --nf-glow: 60 191 0;
+}
+.dark {
+  --nf-trace: 226 232 240;
+  --nf-pulse: 198 240 136;
+  --nf-warn: 251 191 36;
+  --nf-glow: 60 191 0;
+}
+
+.nf-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 50% at 50% 38%, rgb(var(--nf-glow) / 0.14), transparent 70%);
+}
+.dark .nf-glow {
+  background: radial-gradient(60% 50% at 50% 38%, rgb(var(--nf-glow) / 0.2), transparent 70%);
+}
+
+.nf-dot {
+  fill: rgb(var(--nf-trace) / 0.14);
+}
+.nf-trace {
+  fill: none;
+  stroke: rgb(var(--nf-trace) / 0.45);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.nf-ghost {
+  stroke-dasharray: 2 8;
+  stroke: rgb(var(--nf-trace) / 0.28);
+}
+.nf-detour {
+  fill: none;
+  stroke: rgb(var(--nf-pulse) / 0.55);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: nf-detour 6s ease-in-out infinite;
+}
+.nf-pulse {
+  fill: none;
+  stroke: rgb(var(--nf-pulse));
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 9 91;
+  stroke-dashoffset: 9;
+  opacity: 0;
+}
+.nf-pulse-a {
+  animation: nf-pulse-a 6s linear infinite;
+}
+.nf-pulse-b {
+  animation: nf-pulse-b 6s linear infinite;
+}
+.nf-node {
+  fill: rgb(var(--nf-trace) / 0.8);
+}
+.nf-home {
+  fill: rgb(var(--nf-pulse) / 0.25);
+  stroke: rgb(var(--nf-pulse));
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nf-home 6s ease-out infinite;
+}
+.nf-break path {
+  fill: none;
+  stroke: rgb(var(--nf-warn));
+  stroke-width: 3;
+  stroke-linecap: round;
+  animation: nf-break 6s linear infinite;
+}
+.nf-ripple {
+  fill: none;
+  stroke: rgb(var(--nf-warn));
+  stroke-width: 2;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nf-ripple 6s ease-out infinite;
+}
+
+/* One 6 second loop: pulse runs to the break, the break flickers, the detour draws, the pulse arrives. */
+@keyframes nf-pulse-a {
+  0% {
+    opacity: 1;
+    stroke-dashoffset: 9;
+  }
+  30% {
+    opacity: 1;
+    stroke-dashoffset: -91;
+  }
+  31%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -91;
+  }
+}
+@keyframes nf-ripple {
+  0%,
+  29% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  31% {
+    opacity: 0.9;
+    transform: scale(0.8);
+  }
+  48% {
+    opacity: 0;
+    transform: scale(3);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes nf-break {
+  0%,
+  29% {
+    opacity: 0.55;
+  }
+  32% {
+    opacity: 1;
+  }
+  36% {
+    opacity: 0.3;
+  }
+  40%,
+  100% {
+    opacity: 0.75;
+  }
+}
+@keyframes nf-detour {
+  0%,
+  34% {
+    stroke-dashoffset: 100;
+    opacity: 1;
+  }
+  58% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  92% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+@keyframes nf-pulse-b {
+  0%,
+  58% {
+    opacity: 0;
+    stroke-dashoffset: 9;
+  }
+  59% {
+    opacity: 1;
+    stroke-dashoffset: 9;
+  }
+  88% {
+    opacity: 1;
+    stroke-dashoffset: -91;
+  }
+  89%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -91;
+  }
+}
+@keyframes nf-home {
+  0%,
+  86% {
+    transform: scale(1);
+    fill-opacity: 0.25;
+  }
+  90% {
+    transform: scale(1.5);
+    fill-opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    fill-opacity: 0.25;
+  }
+}
+
+/* The middle zero of 404 is a ring with a sweep that turns, like a search. */
+.nf-zero {
+  position: relative;
+  display: inline-block;
+  width: 0.78em;
+  height: 0.9em;
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, currentColor, rgb(var(--nf-pulse) / 0.15) 70%, currentColor);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 0.17em), #000 calc(100% - 0.17em + 1px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 0.17em), #000 calc(100% - 0.17em + 1px));
+  animation: nf-turn 5s linear infinite;
+}
+@keyframes nf-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes nf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.9rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.nf-rise {
+  animation: nf-rise 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-rise,
+  .nf-zero,
+  .nf-home,
+  .nf-break path,
+  .nf-ripple,
+  .nf-pulse {
+    animation: none;
+  }
+  /* Show the finished picture: the detour drawn and the break marked. */
+  .nf-detour {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .nf-pulse {
+    opacity: 0;
+  }
+}
+
+/* Free tools, batch four: signature preview, palette swatches and share cards. */
+.sg-paper {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 20px 50px -34px rgba(2, 6, 23, 0.5);
+}
+.sg-assemble > table > tbody > tr,
+.sg-assemble > table > tr {
+  animation: tool-rise 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.sg-assemble tr:nth-child(2) {
+  animation-delay: 140ms;
+}
+.sg-assemble td > div {
+  animation: tool-rise 480ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.sg-assemble td > div:nth-child(2) {
+  animation-delay: 90ms;
+}
+.sg-assemble td > div:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+.swatch {
+  animation: tool-pop 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 70ms);
+  transition: transform 200ms;
+}
+.swatch:hover {
+  transform: translateY(-3px);
+}
+.swatch-share {
+  transition: width 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes typing-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+@keyframes typing-away {
+  0%,
+  70% {
+    opacity: 1;
+    max-height: 2rem;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin: 0;
+  }
+}
+.typing {
+  animation: typing-away 900ms ease-out both;
+  overflow: hidden;
+}
+.typing span {
+  animation: typing-dot 700ms ease-in-out infinite;
+}
+.typing span:nth-child(2) {
+  animation-delay: 120ms;
+}
+.typing span:nth-child(3) {
+  animation-delay: 240ms;
+}
+.share-card {
+  animation: tool-pop 480ms 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.share-card-fast {
+  animation: tool-pop 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-assemble > table > tbody > tr,
+  .sg-assemble > table > tr,
+  .sg-assemble td > div,
+  .swatch,
+  .typing,
+  .typing span,
+  .share-card,
+  .share-card-fast {
+    animation: none;
+  }
+  .swatch,
+  .swatch-share {
+    transition: none;
+  }
+}

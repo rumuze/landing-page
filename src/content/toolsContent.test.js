@@ -32,7 +32,7 @@ describe('tools content', () => {
 
   it('gives each new tool steps, questions and a call to action', () => {
     for (const lang of ['en', 'ar']) {
-      for (const id of ['whatsapp', 'utm', 'serp', 'hijri', 'schema', 'brief', 'vat', 'adbudget', 'imagecompress']) {
+      for (const id of ['whatsapp', 'utm', 'serp', 'hijri', 'schema', 'brief', 'vat', 'adbudget', 'imagecompress', 'signature', 'palette', 'social']) {
         const page = toolsContent[lang][id];
         expect(page.steps.length, `${lang} ${id} steps`).toBeGreaterThanOrEqual(3);
         expect(page.faq.length, `${lang} ${id} faq`).toBeGreaterThanOrEqual(4);
