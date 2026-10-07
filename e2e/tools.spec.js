@@ -31,7 +31,7 @@ for (const { name, prefix } of LOCALES) {
   test.describe(`free tools (${name})`, () => {
     test('the tools page lists every tool and each link opens that tool', async ({ page }) => {
       await open(page, `${prefix}/labs`);
-      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview']) {
+      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview', '/hijri-date-converter', '/schema-generator', '/project-brief-writer']) {
         await expect(page.locator(`main a[href="${prefix}${path}"]`)).toHaveCount(1);
       }
       await page.locator(`main a[href="${prefix}/utm-builder"]`).click();
@@ -114,6 +114,115 @@ for (const { name, prefix } of LOCALES) {
 
       await page.getByRole('radio').nth(1).click();
       await expect(page.getByRole('radio').nth(1)).toHaveAttribute('aria-checked', 'true');
+
+      expect(network.leaks()).toEqual([]);
+    });
+    test('Hijri converter: converts both ways, rolls the digits, and draws the month and the moon', async ({ page }) => {
+      await open(page, `${prefix}/hijri-date-converter`);
+      const network = watchRequests(page, ['1447']);
+
+      // It opens on today's date, filled in by the browser.
+      await expect(page.getByTestId('hj-hijri')).toContainText(/\d{4}/);
+      await expect(page.locator('#hj-year')).toHaveValue(/^\d{4}$/);
+
+      await page.locator('#hj-day').fill('18');
+      await page.locator('#hj-month').selectOption('2');
+      await page.locator('#hj-year').fill('2026');
+      await expect(page.getByTestId('hj-hijri')).toContainText('1447');
+      await expect(page.getByTestId('hj-hijri')).toContainText('1');
+      await expect(page.locator('#hj-weekday')).toHaveText(prefix ? 'Wednesday' : 'الأربعاء');
+
+      await page.locator('#hj-mode-h').click();
+      await expect(page.locator('#hj-year')).toHaveValue('1447');
+      await page.locator('#hj-month').selectOption('10');
+      await page.locator('#hj-day').fill('1');
+      await expect(page.getByTestId('hj-gregorian')).toContainText('2026');
+      await expect(page.getByTestId('hj-gregorian')).toContainText('20');
+
+      // The month calendar has one cell per day and a click on a day moves to it.
+      const cells = page.locator('button[aria-pressed]').filter({ has: page.locator('span.text-sm') });
+      expect(await cells.count()).toBeGreaterThanOrEqual(29);
+      await cells.nth(14).click();
+      await expect(page.locator('#hj-day')).toHaveValue('15');
+      await expect(page.locator('#hj-phase')).toBeVisible();
+      await expect(page.locator('svg[role="img"]').first()).toBeVisible();
+
+      await page.locator('#hj-day').fill('31');
+      await expect(page.locator('#hj-error')).not.toHaveText('');
+      await page.locator('#hj-year').fill('1000');
+      await expect(page.locator('#hj-error')).not.toHaveText('');
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('Structured data: builds checked JSON-LD, switches type, and cannot be closed early', async ({ page, context }) => {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await open(page, `${prefix}/schema-generator`);
+      const network = watchRequests(page, ['Example Studio', 'Zed Company']);
+      const code = page.locator('pre[tabindex="0"]');
+
+      await expect(page.locator('#sc-ready')).toContainText('0%');
+      await page.locator('#sc-example').click();
+      await expect(page.locator('#sc-ready')).toContainText('100%');
+      await expect(code).toContainText('"@type": "Organization"');
+      await expect(code).toContainText('"name": "Example Studio"');
+
+      await page.locator('#sc-url').fill('not a url');
+      await expect(page.locator('#sc-url')).toHaveAttribute('aria-invalid', 'true');
+      await expect(page.locator('#sc-ready')).not.toContainText('100%');
+
+      await page.locator('#sc-name').fill('Zed </script><b>Company');
+      const text = await code.textContent();
+      expect(text).not.toContain('</script><b>');
+      expect(text).toContain('\\u003c/script>');
+
+      await page.locator('#sc-type-FAQPage').click();
+      await page.locator('#sc-example').click();
+      await expect(code).toContainText('"@type": "FAQPage"');
+      await expect(code).toContainText('"acceptedAnswer"');
+      await page.locator('#sc-add').click();
+      await expect(page.locator('#sc-q2')).toBeVisible();
+      await page.locator('#sc-clear').click();
+      await expect(page.locator('#sc-ready')).toContainText('0%');
+
+      await page.locator('#sc-type-Article').click();
+      await page.locator('#sc-example').click();
+      await page.locator('#sc-copy').click();
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('"@type": "Article"');
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('Project brief: fills the sheet as you answer, stamps it when ready, and sends it on', async ({ page, context }) => {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await open(page, `${prefix}/project-brief-writer`);
+      const network = watchRequests(page, ['Dana Perfumes', 'Double our sales']);
+
+      await expect(page.locator('#br-progress')).toContainText('0%');
+      await expect(page.getByTestId('brief-stamp')).toHaveCount(0);
+
+      await page.locator('#br-name').fill('Dana Perfumes');
+      await page.locator('#br-type-store').click();
+      await page.locator('#br-goal').fill('Double our sales');
+      await page.locator('#br-audience').fill('Women in the Gulf');
+      await page.locator('#br-budget-b2').click();
+      await expect(page.locator('[data-filled="true"]')).toHaveCount(4);
+      await expect(page.locator('#br-progress')).not.toContainText('100%');
+      await page.locator('#br-timeline-t2').click();
+      await expect(page.locator('#br-progress')).toContainText('100%');
+      await expect(page.getByTestId('brief-stamp')).toBeVisible();
+
+      await page.locator('#br-feature-payments').click();
+      await page.locator('#br-references').fill('a.com, b.com');
+
+      const [download] = await Promise.all([page.waitForEvent('download'), page.locator('#br-download').click()]);
+      expect(download.suggestedFilename()).toBe('project-brief.txt');
+
+      await page.locator('#br-send').click();
+      await expect(page).toHaveURL(new RegExp(`${prefix}/contact$`));
+      const clipboard = await page.evaluate(() => navigator.clipboard.readText());
+      expect(clipboard).toContain('Dana Perfumes');
+      expect(clipboard).toContain('a.com');
 
       expect(network.leaks()).toEqual([]);
     });

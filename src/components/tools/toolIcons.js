@@ -1,4 +1,4 @@
-import { Link2, MessageCircle, QrCode, Search } from 'lucide-react';
+import { Braces, CalendarDays, FileText, Link2, MessageCircle, QrCode, Search } from 'lucide-react';
 
 /** The icon shown for each tool, by tool id. */
 export const TOOL_ICONS = {
@@ -6,4 +6,7 @@ export const TOOL_ICONS = {
   whatsapp: MessageCircle,
   utm: Link2,
   serp: Search,
+  hijri: CalendarDays,
+  schema: Braces,
+  brief: FileText,
 };

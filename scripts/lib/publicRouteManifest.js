@@ -22,6 +22,9 @@ const STATIC_ROUTE_DEFINITIONS = [
   { path: '/whatsapp-link-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/utm-builder', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/serp-preview', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/hijri-date-converter', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/schema-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/project-brief-writer', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/privacy', priority: 0.3, changefreq: 'yearly', section: 'legal' },
   { path: '/terms', priority: 0.3, changefreq: 'yearly', section: 'legal' },
 ];
