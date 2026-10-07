@@ -20,6 +20,15 @@ import { products } from "../../data/products";
 import { SERVICES } from "../../config/services";
 import LeadCaptureModal from "./LeadCaptureModal";
 import ServiceWave from "../home/ServiceWave";
+import HeroWeave from "../motion/HeroWeave";
+import Deferred from "../motion/Deferred";
+import { useDecodeHeadline } from "../motion/useDecodeHeadline";
+
+// Below the fold: each loads its own chunk when it is about to scroll into view.
+const loadMorphBlob = () => import("../motion/MorphBlob");
+const loadProductCity = () => import("../motion/ProductCity");
+const loadStepTunnel = () => import("../motion/StepTunnel");
+const loadXrayLens = () => import("../motion/XrayLens");
 
 const capabilityIcons = [Lightbulb, Layers, Smartphone, Server, Search, Megaphone, PenLine, Plug];
 
@@ -62,12 +71,13 @@ const useReveal = (threshold = 0.16) => {
   return [ref, isVisible];
 };
 
-const Reveal = ({ as = "div", children, className = "", delay = 0 }) => {
+const Reveal = ({ as = "div", children, className = "", delay = 0, ...rest }) => {
   const [ref, isVisible] = useReveal();
 
   return React.createElement(
     as,
     {
+      ...rest,
       ref,
       className: joinClasses("motion-reveal", isVisible && "is-visible", className),
       style: { "--reveal-delay": `${delay}ms` },
@@ -135,8 +145,9 @@ const ConversionHomepage = () => {
   );
 };
 
-const SectionShell = ({ children, className = "", tone = "default" }) => (
+const SectionShell = ({ children, className = "", tone = "default", background = null }) => (
   <section className={joinClasses(sectionToneClasses[tone], className)}>
+    {background}
     <div className="content-shell relative z-10">{children}</div>
   </section>
 );
@@ -151,8 +162,15 @@ const SectionHeading = ({ eyebrow, title, intro, isAr, className = "" }) => (
   </Reveal>
 );
 
-const HeroSection = ({ copy, isAr, onOpenLeadCapture }) => (
+const HeroSection = ({ copy, isAr, onOpenLeadCapture }) => {
+  const headlineRef = useRef(null);
+  useDecodeHeadline(headlineRef, isAr);
+
+  return (
   <SectionShell
+    background={
+      <HeroWeave className="pointer-events-none absolute inset-0 h-full w-full" />
+    }
     className="pt-[calc(5.75rem+var(--safe-area-top))] md:pt-[calc(6.5rem+var(--safe-area-top))] lg:pt-[calc(7rem+var(--safe-area-top))]"
     tone="default"
   >
@@ -163,11 +181,14 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture }) => (
         </Reveal>
 
         <Reveal delay={120}>
-          <h1 className="type-h1 mt-6 max-w-[22ch] text-slate-950 dark:text-white">
+          <h1 ref={headlineRef} className="type-h1 mt-6 max-w-[22ch] text-slate-950 dark:text-white">
             {copy.headline.split(" ").map((word, index) => (
-              <span key={`${word}-${index}`} className="headline-word" style={{ "--word-index": index }}>
-                {word}{" "}
-              </span>
+              <React.Fragment key={`${word}-${index}`}>
+                {/* The space sits outside the inline-block; inside it, it collapses and the words touch. */}
+                <span className="headline-word" style={{ "--word-index": index }}>
+                  {word}
+                </span>{" "}
+              </React.Fragment>
             ))}
           </h1>
         </Reveal>
@@ -283,11 +304,38 @@ const HeroSection = ({ copy, isAr, onOpenLeadCapture }) => (
       </dl>
     </div>
   </SectionShell>
-);
+  );
+};
 
-const CapabilitiesSection = ({ copy, isAr }) => (
+const CapabilitiesSection = ({ copy, isAr }) => {
+  const [activeShape, setActiveShape] = useState(null);
+  const shapeLabels = useMemo(
+    () => copy.groups.flatMap((group) => group.cards.map((card) => card.title)),
+    [copy.groups],
+  );
+  const hoverProps = (shape) => ({
+    onPointerEnter: () => setActiveShape(shape),
+    onPointerLeave: () => setActiveShape(null),
+    onPointerDown: () => setActiveShape(shape),
+  });
+
+  return (
   <SectionShell className={sectionSpaceClass} tone="alt">
-    <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
+    <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(260px,0.85fr)] lg:gap-14">
+      <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
+      <Reveal delay={120}>
+        <Deferred
+          className="mx-auto h-[15rem] w-full max-w-[26rem] sm:h-[17rem] lg:h-[19rem]"
+          load={loadMorphBlob}
+          props={{
+            active: activeShape,
+            ariaLabel: copy.visualLabel,
+            className: "h-full w-full",
+            labels: shapeLabels,
+          }}
+        />
+      </Reveal>
+    </div>
 
     {copy.groups.map((group, groupIndex) => (
       <div key={group.title} className={groupIndex === 0 ? "mt-12" : "mt-16"}>
@@ -297,7 +345,8 @@ const CapabilitiesSection = ({ copy, isAr }) => (
 
         <div className="mt-8 grid gap-x-10 gap-y-12 sm:grid-cols-2 xl:grid-cols-4">
           {group.cards.map((card, index) => {
-            const Icon = capabilityIcons[groupIndex * 4 + index] || Layers;
+            const shapeIndex = groupIndex * 4 + index;
+            const Icon = capabilityIcons[shapeIndex] || Layers;
 
             return (
               <Reveal
@@ -307,6 +356,7 @@ const CapabilitiesSection = ({ copy, isAr }) => (
                   isAr ? "text-right" : "text-left",
                 )}
                 delay={100 + index * 70}
+                {...hoverProps(shapeIndex)}
               >
                 <span className={joinClasses(iconBadgeClass, isAr ? "mr-0 ml-auto" : "")}>
                   <Icon size={20} />
@@ -334,13 +384,27 @@ const CapabilitiesSection = ({ copy, isAr }) => (
       </div>
     ))}
   </SectionShell>
-);
+  );
+};
 
 const WorkSection = ({ copy, isAr }) => (
   <SectionShell className={sectionSpaceClass} tone="default">
     <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
 
-    <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-2">
+    <Reveal className={joinClasses(panelClass, "mt-12 overflow-hidden p-2 md:p-4")} delay={80}>
+      <Deferred
+        className="h-[19rem] w-full sm:h-[22rem] lg:h-[25rem]"
+        load={loadProductCity}
+        props={{
+          ariaLabel: copy.cityLabel,
+          className: "block h-full w-full",
+          products: copy.cards.map((card) => ({ name: card.title, pending: Boolean(card.status) })),
+        }}
+      />
+      <p className="type-small copy-muted px-3 pb-2 text-center dark:text-slate-400">{copy.cityHint}</p>
+    </Reveal>
+
+    <div className="mt-6 grid items-stretch gap-6 lg:grid-cols-2">
       {copy.cards.map((card, index) => (
         <Reveal
           key={card.title}
@@ -401,7 +465,16 @@ const WorkSection = ({ copy, isAr }) => (
 const EngineeringSection = ({ copy, isAr }) => (
   <SectionShell className={sectionSpaceClass} tone="alt">
     <div className="grid gap-10 lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-      <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
+      <div className="flex flex-col gap-8">
+        <SectionHeading eyebrow={copy.eyebrow} intro={copy.intro} isAr={isAr} title={copy.title} />
+        <Reveal delay={140}>
+          <Deferred
+            className="min-h-[24rem]"
+            load={loadXrayLens}
+            props={{ className: isAr ? "text-right" : "text-left", copy: copy.xray }}
+          />
+        </Reveal>
+      </div>
 
       <ol className="divide-y divide-[rgb(var(--border-subtle)/0.7)] border-y border-[rgb(var(--border-subtle)/0.7)]">
         {copy.points.map((point, index) => (
@@ -456,8 +529,13 @@ const FaqSection = ({ copy, isAr }) => (
 
 const FinalCtaSection = ({ copy, isAr, onOpenLeadCapture }) => (
   <SectionShell className={sectionSpaceClass} tone="default">
-    <Reveal className={joinClasses(darkPanelClass, "overflow-hidden p-6 md:p-8 lg:p-10")}>
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(280px,0.95fr)] lg:items-center">
+    <Reveal className={joinClasses(darkPanelClass, "relative overflow-hidden p-6 md:p-8 lg:p-10")}>
+      <Deferred
+        className="pointer-events-none absolute inset-0 opacity-30"
+        load={loadStepTunnel}
+        props={{ className: "h-full w-full", gates: copy.gates }}
+      />
+      <div className="relative z-10 grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(280px,0.95fr)] lg:items-center">
         <div className={isAr ? "text-right" : "text-left"}>
           <h2 className="type-h2 max-w-3xl text-white">{copy.title}</h2>
           <p className="type-body-lg mt-5 max-w-2xl text-slate-300">{copy.body}</p>

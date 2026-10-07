@@ -1371,3 +1371,175 @@ html:not(.dark) main .surface-card-strong .text-cyan {
 .il-scr { fill: var(--il-scr); } .il-hd { fill: var(--il-hd); }
 .il-bw { fill: var(--il-bw); } .il-bs { fill: var(--il-bs); } .il-bp { fill: var(--il-bp); }
 .il-ba { fill: var(--il-ba); } .il-bm { fill: var(--il-bm); }
+
+/* ============================================================================
+   X-ray lens (engineering section): a finished screen, and the engineering behind it
+   shown through a moving lens. The blueprint layer is dark in both themes on purpose.
+   ============================================================================ */
+.xray {
+  position: relative;
+  height: 21rem;
+  overflow: hidden;
+  border: 1px solid rgb(var(--border-subtle) / 0.8);
+  border-radius: 1.5rem;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  --x: 50%;
+  --y: 50%;
+  --r: 96px;
+}
+.xr-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1rem 1.25rem;
+}
+.xr-real {
+  background: linear-gradient(160deg, #ffffff, #eef7f1);
+  color: #0f172a;
+}
+.dark .xr-real {
+  background: linear-gradient(160deg, #0b2a1c, #04120b);
+  color: #e8f5ec;
+}
+.xr-x {
+  background-color: #020a06;
+  background-image:
+    linear-gradient(rgba(60, 191, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(60, 191, 0, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 96%, transparent 100%);
+  mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 96%, transparent 100%);
+}
+.xr-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.xr-bar b {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #006b54;
+}
+.dark .xr-bar b {
+  color: #3cbf00;
+}
+.xr-pill {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(60, 191, 0, 0.16);
+  color: #006b54;
+  white-space: nowrap;
+}
+.dark .xr-pill {
+  color: #c6f088;
+}
+.xr-map {
+  position: relative;
+  flex: 1;
+  min-height: 5.5rem;
+  border-radius: 0.9rem;
+  background-color: #dff0e6;
+  background-image:
+    linear-gradient(rgba(0, 107, 84, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 107, 84, 0.16) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+.dark .xr-map {
+  background-color: #0a2117;
+  background-image:
+    linear-gradient(rgba(198, 240, 136, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(198, 240, 136, 0.12) 1px, transparent 1px);
+}
+.xr-pin {
+  position: absolute;
+  inset-inline-start: 58%;
+  top: 42%;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: #3cbf00;
+  box-shadow: 0 0 0 6px rgba(60, 191, 0, 0.25);
+}
+.xr-order h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.xr-order p {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  color: #475569;
+}
+.dark .xr-order p {
+  color: #94aea0;
+}
+.xr-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+.xr-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.45rem 0.5rem;
+  border-radius: 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: #3cbf00;
+  color: #001a09;
+  min-width: 0;
+}
+.xr-btn.xr-ghost {
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgba(100, 116, 139, 0.45);
+}
+.xr-x * {
+  position: relative;
+  color: transparent !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: 1px dashed rgba(60, 191, 0, 0.6) !important;
+  border-radius: 3px !important;
+}
+.xr-x [data-c]::before {
+  content: attr(data-c);
+  position: absolute;
+  top: -1px;
+  left: 2px;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0 3px;
+  font: 10px/1.25 ui-monospace, Menlo, Consolas, monospace;
+  color: #9be26a;
+  white-space: nowrap;
+  direction: ltr;
+  background: #020a06;
+  z-index: 2;
+}
+.xray .xr-x .xr-pin {
+  border-radius: 50% !important;
+}
+.xr-lens {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  border-radius: 50%;
+  border: 1.5px solid #3cbf00;
+  box-shadow: 0 0 30px rgba(60, 191, 0, 0.35), inset 0 0 30px rgba(60, 191, 0, 0.12);
+  transform: translate(calc(var(--x) - var(--r)), calc(var(--y) - var(--r)));
+  pointer-events: none;
+  z-index: 4;
+}
+@media (max-width: 640px) {
+  .xray {
+    height: 19rem;
+  }
+}

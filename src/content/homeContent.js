@@ -38,6 +38,7 @@ export const homeContent = {
     },
     capabilities: {
       eyebrow: "What we do",
+      visualLabel: "A liquid shape that becomes the capability you point at",
       title: "Software, and the marketing around it.",
       intro:
         "We build the product, then run the search, advertising, and content that bring customers to it. The work falls into two groups.",
@@ -148,6 +149,8 @@ export const homeContent = {
       intro:
         "These are platforms we design, build, and operate ourselves. They show the engineering standard we bring to client projects.",
       stackLabel: "Stack",
+      cityLabel: "A city made of the platforms we have built and run, one tower for each product",
+      cityHint: "Each tower is one of our products.",
       cards: [
         {
           tag: "SaaS platform",
@@ -211,6 +214,16 @@ export const homeContent = {
       title: "Engineering habits, visible in the code.",
       intro:
         "The practices below are not slogans. They are how our own repositories are organised today.",
+      xray: {
+        label: "Illustration: a delivery app screen, and the engineering behind it shown through a lens",
+        hint: "Move the lens to see what is behind the screen.",
+        brand: "Rveta",
+        status: "On delivery",
+        order: "New order assigned",
+        chat: "Customer chat and live location",
+        deliver: "Mark delivered",
+        lock: "Biometric lock",
+      },
       points: [
         {
           title: "Architecture with boundaries",
@@ -278,6 +291,7 @@ export const homeContent = {
       primaryCta: "Start a project",
       secondaryCta: "Request a technical review",
       nextLabel: "What happens next",
+      gates: ["We read it", "A short call", "A written proposal"],
       nextSteps: [
         "We read your request and reply by email.",
         "A short call to confirm scope and constraints.",
@@ -320,6 +334,7 @@ export const homeContent = {
     },
     capabilities: {
       eyebrow: "ما الذي نفعله",
+      visualLabel: "شكل سائل يتحول إلى القدرة التي تشير إليها",
       title: "البرمجيات، والتسويق من حولها.",
       intro:
         "نبني المنتج، ثم ندير البحث والإعلانات والمحتوى التي تجلب العملاء إليه. ويقع العمل ضمن مجموعتين.",
@@ -430,6 +445,8 @@ export const homeContent = {
       intro:
         "هذه منصات نصممها ونبنيها ونشغّلها بأنفسنا، وهي تعكس المعيار الهندسي الذي نطبقه على مشاريع العملاء.",
       stackLabel: "التقنيات",
+      cityLabel: "مدينة مصنوعة من المنصات التي بنيناها ونديرها، وبرج لكل منتج",
+      cityHint: "كل برج هو أحد منتجاتنا.",
       cards: [
         {
           tag: "منصة SaaS",
@@ -493,6 +510,16 @@ export const homeContent = {
       title: "عادات هندسية تظهر في الكود.",
       intro:
         "هذه الممارسات ليست شعارات، بل هي طريقة تنظيم مستودعاتنا الحالية.",
+      xray: {
+        label: "رسم توضيحي: شاشة تطبيق توصيل، والهندسة التي خلفها تظهر عبر عدسة",
+        hint: "حرّك العدسة لترى ما خلف الشاشة.",
+        brand: "Rveta",
+        status: "في الطريق",
+        order: "طلب جديد تم إسناده",
+        chat: "محادثة العميل والموقع المباشر",
+        deliver: "تم التسليم",
+        lock: "القفل البيومتري",
+      },
       points: [
         {
           title: "معمارية بحدود واضحة",
@@ -560,6 +587,7 @@ export const homeContent = {
       primaryCta: "ابدأ مشروعك",
       secondaryCta: "اطلب مراجعة تقنية",
       nextLabel: "ماذا يحدث بعد ذلك",
+      gates: ["نقرأ طلبك", "مكالمة قصيرة", "عرض مكتوب"],
       nextSteps: [
         "نقرأ طلبك ونرد عليك بالبريد الإلكتروني.",
         "مكالمة قصيرة لتأكيد النطاق والقيود.",
