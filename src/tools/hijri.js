@@ -2,10 +2,10 @@
 // built-in Umm al-Qura calendar (Intl), so no tables are shipped. All dates are handled as UTC
 // midnights so the visitor's time zone never moves a date by a day.
 
-export const MIN_GREGORIAN_YEAR = 1901;
-export const MAX_GREGORIAN_YEAR = 2076;
-export const MIN_HIJRI_YEAR = 1318;
-export const MAX_HIJRI_YEAR = 1500;
+const MIN_GREGORIAN_YEAR = 1901;
+const MAX_GREGORIAN_YEAR = 2076;
+const MIN_HIJRI_YEAR = 1318;
+const MAX_HIJRI_YEAR = 1500;
 
 export const HIJRI_MONTHS = {
   ar: ['محرم', 'صفر', 'ربيع الأول', 'ربيع الآخر', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'],

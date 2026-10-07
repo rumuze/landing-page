@@ -5,7 +5,7 @@
 export const SCHEMA_TYPES = ['Organization', 'LocalBusiness', 'FAQPage', 'Article'];
 
 export const MAX_FAQ_ITEMS = 8;
-export const HEADLINE_LIMIT = 110;
+const HEADLINE_LIMIT = 110;
 
 // level: required fields must be filled for the markup to be useful; recommended ones help.
 export const SCHEMA_FIELDS = {
@@ -53,12 +53,12 @@ export function isWebUrl(value) {
   }
 }
 
-export const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
-export const isPhone = (value) => {
+const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+const isPhone = (value) => {
   const digits = value.replace(/\D/g, '');
   return /^[+\d\s().-]+$/.test(value) && digits.length >= 7 && digits.length <= 15;
 };
-export const isCountryCode = (value) => /^[A-Za-z]{2}$/.test(value);
+const isCountryCode = (value) => /^[A-Za-z]{2}$/.test(value);
 
 export function isIsoDate(value) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
@@ -68,14 +68,14 @@ export function isIsoDate(value) {
   return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
 }
 
-export const splitLines = (value) =>
+const splitLines = (value) =>
   String(value ?? '')
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean);
 
 /** The question and answer pairs that are complete, in order. */
-export const completeFaq = (faq) =>
+const completeFaq = (faq) =>
   (Array.isArray(faq) ? faq : [])
     .map((item) => ({ q: clean(item?.q), a: clean(item?.a) }))
     .filter((item) => item.q && item.a)
