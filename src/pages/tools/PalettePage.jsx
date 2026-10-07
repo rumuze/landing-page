@@ -262,9 +262,13 @@ const PalettePage = () => {
                       return (
                         <td className="py-2 pe-4">
                           <span className="inline-flex items-center gap-2">
-                            <span className="grid h-9 w-14 place-items-center rounded-lg text-sm font-bold" style={{ backgroundColor: color.hex, color: rgbToHex(textRgb) }}>
-                              Aa
-                            </span>
+                            {/* A drawn sample, not text: it is meant to show a poor pairing when the contrast fails. */}
+                            <svg viewBox="0 0 56 36" width="56" height="36" role="img" aria-label={`Aa ${color.hex} ${rgbToHex(textRgb)}`} className="rounded-lg">
+                              <rect width="56" height="36" fill={color.hex} />
+                              <text x="28" y="24" textAnchor="middle" fontSize="16" fontWeight="700" fill={rgbToHex(textRgb)}>
+                                Aa
+                              </text>
+                            </svg>
                             <span className="tabular-nums" dir="ltr">
                               {ratio.toFixed(2)}:1
                             </span>

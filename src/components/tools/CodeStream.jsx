@@ -31,7 +31,7 @@ const CodeStream = ({ lines, streamKey, label, caretLine = -1, tokenize = tokeni
           className={`code-line flex px-4 ${index === caretLine ? 'code-caret' : ''}`}
           style={{ '--d': `${Math.min(index, 14) * 18}ms` }}
         >
-          <span aria-hidden="true" className="w-7 shrink-0 select-none pe-3 text-right text-slate-600">
+          <span aria-hidden="true" className="w-7 shrink-0 select-none pe-3 text-right text-slate-400">
             {index + 1}
           </span>
           <span className="whitespace-pre">

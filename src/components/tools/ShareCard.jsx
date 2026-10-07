@@ -36,13 +36,13 @@ const ShareCard = ({ platform, title, description, domain, image, noImage, time 
               <p {...common} className="text-sm font-semibold leading-snug" style={clamp(2)}>
                 {text.title}
               </p>
-              <p {...common} className="mt-0.5 text-xs leading-snug opacity-70" style={clamp(2)}>
+              <p {...common} className="mt-0.5 text-xs leading-snug opacity-80" style={clamp(2)}>
                 {text.description}
               </p>
-              <p className="mt-1 text-[0.7rem] opacity-60">{domain}</p>
+              <p className="mt-1 text-[0.7rem] opacity-80">{domain}</p>
             </div>
           </div>
-          <p className="flex items-center justify-end gap-1 px-2 pb-0.5 pt-1 text-[0.65rem] opacity-60">
+          <p className="flex items-center justify-end gap-1 px-2 pb-0.5 pt-1 text-[0.65rem] opacity-80">
             {time}
             <Check size={12} aria-hidden="true" />
           </p>
