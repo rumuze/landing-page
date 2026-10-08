@@ -2318,7 +2318,7 @@ html:not(.dark) main .surface-card-strong .text-cyan {
 
 /* /labs hub: card entrance, icon motion on hover, and a looping preview for the tools without motion of their own. */
 .labs-card {
-  animation: labs-in 600ms calc(var(--i, 0) * 70ms) cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: labs-in 600ms calc(var(--i, 0) * 70ms) cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 }
 @keyframes labs-in {
   from { opacity: 0; transform: translateY(26px); }
