@@ -7,6 +7,10 @@ The same build is deployed to two hosts:
 
 Between 29 September and the change that restored Vercel, Vercel's Git deployments were switched off while the domain still pointed at Vercel, so the domain served a frozen build.
 
+## Alias domain (rumuz.org)
+
+`worker/index.js` is the Worker entry (`main` in `wrangler.jsonc`, with `assets.run_worker_first`). It answers `rumuz.org` and `www.rumuz.org` with a 301 to the same path and query on `https://www.rumuze.com`, and hands every other request to the static assets. To use it, add `rumuz.org` and `www.rumuz.org` as Custom Domains on the `landing-page` Worker, set SSL/TLS to Full (strict), and delete any Redirect Rules, Page Rules or Bulk Redirects for those hosts, since a second redirect layer is what causes loops. Check with `curl -sIL https://rumuz.org/`: one 301 to `https://www.rumuze.com/`, then 200. Then use Validate fix in Search Console. The redirect only applies to hosts served by Cloudflare; Vercel does not run this Worker.
+
 ## Build
 
 ```bash
