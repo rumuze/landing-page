@@ -32,7 +32,7 @@ for (const { name, prefix } of LOCALES) {
   test.describe(`free tools (${name})`, () => {
     test('the tools page lists every tool and each link opens that tool', async ({ page }) => {
       await open(page, `${prefix}/labs`);
-      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview', '/hijri-date-converter', '/schema-generator', '/project-brief-writer', '/vat-calculator', '/ad-budget-calculator', '/image-compressor', '/email-signature-generator', '/palette-from-image', '/social-share-preview', '/word-counter', '/robots-txt-sitemap-generator', '/invoice-generator']) {
+      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview', '/hijri-date-converter', '/schema-generator', '/project-brief-writer', '/vat-calculator', '/ad-budget-calculator', '/image-compressor', '/email-signature-generator', '/palette-from-image', '/social-share-preview', '/word-counter', '/robots-txt-sitemap-generator', '/invoice-generator', '/json-formatter', '/favicon-generator', '/css-unit-converter']) {
         await expect(page.locator(`main a[href="${prefix}${path}"]`)).toHaveCount(1);
       }
       await page.locator(`main a[href="${prefix}/utm-builder"]`).click();
@@ -732,6 +732,167 @@ for (const { name, prefix } of LOCALES) {
       await page.locator('#iv-copy').click();
       await expect(page.locator('#iv-copy')).toContainText(/Copied|تم النسخ/);
       expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('INV-0002');
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('JSON formatter: formats, minifies, sorts, and points at a mistake with a hint', async ({ page, context }) => {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await open(page, `${prefix}/json-formatter`);
+      const network = watchRequests(page, ['secretvalue']);
+      const status = page.getByTestId('json-status');
+
+      // It opens on an example, put in by the browser.
+      await expect(status).toHaveAttribute('data-state', 'valid');
+      await expect(page.locator('#json-input')).toHaveValue(/Rumuze/);
+
+      await page.locator('#json-input').fill('{"b":{"z":1,"a":[1,2]},"a":"secretvalue"}');
+      await expect(page.getByTestId('json-keys').locator('.sr-only').first()).toHaveText('4');
+      await page.locator('#json-copy').click();
+      await expect(page.locator('#json-copy')).toContainText(/Copied|تم النسخ/);
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('{\n  "b": {\n    "z": 1,\n    "a": [\n      1,\n      2\n    ]\n  },\n  "a": "secretvalue"\n}');
+
+      await page.locator('#json-sort').check();
+      await page.locator('#json-indent-4').click();
+      await page.locator('#json-copy').click();
+      await expect(page.locator('#json-copy')).toContainText(/Copied|تم النسخ/);
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(/^\{\n {4}"a": "secretvalue",\n {4}"b": \{\n {8}"a": \[/);
+
+      await page.locator('#json-mode-minify').click();
+      await page.locator('#json-copy').click();
+      await expect(page.locator('#json-copy')).toContainText(/Copied|تم النسخ/);
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('{"a":"secretvalue","b":{"a":[1,2],"z":1}}');
+
+      const [download] = await Promise.all([page.waitForEvent('download'), page.locator('#json-download').click()]);
+      expect(download.suggestedFilename()).toBe('data.json');
+
+      // A mistake is placed on its line, with a hint and no output.
+      await page.locator('#json-input').fill('{\n  "a": 1,\n  "b": [1, 2,],\n}');
+      await expect(status).toHaveAttribute('data-state', 'invalid');
+      await expect(status).toContainText(/3/);
+      await expect(page.getByTestId('json-error-line')).toContainText('"b": [1, 2,],');
+      await expect(page.getByTestId('json-hint')).toBeVisible();
+      await expect(page.locator('#json-copy')).toHaveCount(0);
+
+      await page.locator('#json-input').fill('{"id":12345678901234567890}');
+      await expect(page.getByTestId('json-unsafe')).toBeVisible();
+
+      await page.locator('#json-clear').click();
+      await expect(status).toHaveAttribute('data-state', 'empty');
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('Favicon generator: draws every size, warns about contrast, and saves the files', async ({ page }) => {
+      await open(page, `${prefix}/favicon-generator`);
+      const network = watchRequests(page, ['ZQ']);
+
+      // Every size is drawn, with pixels in them.
+      const painted = (size) =>
+        page.getByTestId(`fv-canvas-${size}`).evaluate((canvas) => {
+          const data = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+          let colored = 0;
+          for (let i = 3; i < data.length; i += 4) if (data[i] > 0) colored += 1;
+          return { width: canvas.width, colored };
+        });
+      for (const size of [16, 32, 180, 192, 512]) {
+        const result = await painted(size);
+        expect(result.width).toBe(size);
+        expect(result.colored).toBeGreaterThan(size);
+      }
+
+      // A circle leaves the corners clear; a square fills them.
+      const corner = () => page.getByTestId('fv-canvas-512').evaluate((canvas) => canvas.getContext('2d').getImageData(1, 1, 1, 1).data[3]);
+      await page.locator('#fv-shape-circle').click();
+      await expect.poll(corner).toBe(0);
+      await page.locator('#fv-shape-square').click();
+      await expect.poll(corner).toBe(255);
+
+      // The letters change the picture; low contrast is reported.
+      const before = await page.getByTestId('fv-canvas-180').evaluate((canvas) => canvas.toDataURL());
+      await page.locator('#fv-text').fill('ZQ');
+      await expect.poll(() => page.getByTestId('fv-canvas-180').evaluate((canvas) => canvas.toDataURL())).not.toBe(before);
+      await expect(page.getByTestId('fv-contrast')).toHaveCount(0);
+      await page.locator('#fv-fg').fill('#106f68');
+      await expect(page.getByTestId('fv-contrast')).toBeVisible();
+      await page.locator('#fv-fg').fill('#ffffff');
+      await expect(page.getByTestId('fv-contrast')).toHaveCount(0);
+
+      // The files: a real ICO, a PNG at the right size, and the manifest.
+      const [ico] = await Promise.all([page.waitForEvent('download'), page.locator('#fv-save-ico').click()]);
+      expect(ico.suggestedFilename()).toBe('favicon.ico');
+      const bytes = await (await import('node:fs/promises')).readFile(await ico.path());
+      expect([bytes[0], bytes[1], bytes[2], bytes[3], bytes[4]]).toEqual([0, 0, 1, 0, 2]);
+      expect(bytes.subarray(38, 46).toString('hex')).toMatch(/^89504e47/);
+      const [png] = await Promise.all([page.waitForEvent('download'), page.locator('#fv-save-180').click()]);
+      expect(png.suggestedFilename()).toBe('apple-touch-icon.png');
+      const pngBytes = await (await import('node:fs/promises')).readFile(await png.path());
+      expect(pngBytes.readUInt32BE(16)).toBe(180);
+
+      // A picture replaces the letters; another kind of file is refused.
+      await page.locator('#fv-picture').setInputFiles({ name: 'notes.txt', mimeType: 'text/plain', buffer: Buffer.from('hello') });
+      await expect(page.getByRole('alert')).toBeVisible();
+      const dot = await page.evaluate(() => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 40;
+        canvas.height = 20;
+        const context = canvas.getContext('2d');
+        context.fillStyle = '#ff0000';
+        context.fillRect(0, 0, 40, 20);
+        return canvas.toDataURL('image/png').split(',')[1];
+      });
+      await page.locator('#fv-picture').setInputFiles({ name: 'logo.png', mimeType: 'image/png', buffer: Buffer.from(dot, 'base64') });
+      await expect(page.getByTestId('fv-picture-name')).toHaveText('logo.png');
+      await expect.poll(() => page.getByTestId('fv-canvas-180').evaluate((canvas) => Array.from(canvas.getContext('2d').getImageData(90, 90, 1, 1).data).join(','))).toBe('255,0,0,255');
+
+      await expect(page.locator('main')).toContainText('apple-touch-icon.png');
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('CSS unit converter: converts px and rem, builds a scale, and writes a clamp()', async ({ page, context }) => {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await open(page, `${prefix}/css-unit-converter`);
+      const network = watchRequests(page, ['7777']);
+      const value = (id) => page.getByTestId(id).locator('.sr-only').first();
+
+      await expect(value('cu-rem')).toHaveText('1.5');
+      await page.locator('#cu-value').fill('20');
+      await expect(value('cu-rem')).toHaveText('1.25');
+      await page.locator('#cu-unit-rem').click();
+      await page.locator('#cu-value').fill('٢');
+      await expect(value('cu-px')).toHaveText('32');
+      await page.locator('#cu-base').fill('10');
+      await expect(value('cu-px')).toHaveText('20');
+      await page.locator('#cu-base').fill('16');
+
+      await page.locator('#cu-value').fill('abc');
+      await expect(page.locator('#cu-value-error')).toBeVisible();
+
+      // A common size can be picked to convert it.
+      await page.getByTestId('cu-table').getByRole('button', { name: /^48px/ }).click();
+      await expect(page.locator('#cu-value')).toHaveValue('48');
+
+      // The scale grows by the ratio.
+      await expect(page.getByTestId('cu-scale').locator('li')).toHaveCount(8);
+      await page.locator('#cu-scale-base').fill('7777');
+      await expect(page.getByTestId('cu-scale')).toContainText('9721.25');
+      await page.locator('#cu-scale-base').fill('16');
+
+      // The clamp() line, and the size at a chosen width.
+      await expect(page.getByTestId('cu-clamp')).toHaveText('font-size: clamp(1rem, 0.5rem + 2vw, 2rem);');
+      await page.locator('#cu-width').fill('800');
+      await expect(page.getByTestId('cu-width-label')).toContainText('24px');
+      await page.locator('#cu-minPx').fill('20');
+      await page.locator('#cu-maxPx').fill('64');
+      await page.locator('#cu-minWidth').fill('600');
+      await page.locator('#cu-maxWidth').fill('1000');
+      await expect(page.getByTestId('cu-clamp')).toHaveText('font-size: clamp(1.25rem, -2.875rem + 11vw, 4rem);');
+      await page.locator('#cu-copy-css').click();
+      await expect(page.locator('#cu-copy-css')).toContainText(/Copied|تم النسخ/);
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('font-size: clamp(1.25rem, -2.875rem + 11vw, 4rem);');
+
+      await page.locator('#cu-maxPx').fill('');
+      await expect(page.getByTestId('cu-clamp')).toHaveCount(0);
 
       expect(network.leaks()).toEqual([]);
     });

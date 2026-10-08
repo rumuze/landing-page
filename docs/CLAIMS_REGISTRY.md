@@ -211,6 +211,9 @@ claims. Each is scoped on the page itself.
 | Word and character counter | internal | confirmed | Counts words by Unicode letters and numbers; reading and speaking times use stated words-per-minute averages and are labelled estimates. Platform limits (title, description, SMS, X, caption) are worded as commonly used limits that platforms may change. |
 | Robots.txt and sitemap generator | internal | confirmed | Says robots.txt is a request to well-behaved crawlers, not access control or security, and that blocked pages can still appear in results if linked elsewhere. The path test follows the common longest-rule-wins matching and may differ from a given crawler. |
 | Invoice generator | internal | confirmed | Arithmetic in whole minor units with per-line half-up VAT. The page says it is a printable invoice, not an e-invoice registered with ZATCA/Fatoora or any tax authority, and rates are the same standard rates as the VAT calculator. |
+| JSON formatter and validator | internal | confirmed | Uses the browser's own JSON parser; the page says very large whole numbers may be rounded (it warns when it sees one), duplicate keys keep the last value, and the error place is where the text first stops being valid. |
+| Favicon generator | internal | confirmed | Icons are drawn on a canvas from the visitor's own choices; the page says letters use the fonts on the device, to check at 16 pixels, and that browsers cache favicons for a long time. The file list (ico, 16/32, 180, 192/512, manifest) is a common set, not a promise for every platform. |
+| CSS unit converter and fluid type | internal calculation | confirmed | Plain arithmetic on the visitor's numbers; the page says rem follows the root font size and to test zoom and large text on real devices. |
 
 ## 9. Update 2026-10-08: market study and claim clean-up
 
