@@ -4,6 +4,7 @@ import { Download, Plus, Trash2 } from 'lucide-react';
 import ToolPageShell from '../../components/tools/ToolPageShell';
 import ToolField from '../../components/tools/ToolField';
 import CodeStream from '../../components/tools/CodeStream';
+import { saveText } from '../../components/tools/saveFile';
 import SegmentedControl from '../../components/ui/SegmentedControl';
 import ChipGroup from '../../components/ui/ChipGroup';
 import CopyButton from '../../components/ui/CopyButton';
@@ -46,19 +47,6 @@ const fromEditor = (editor) => {
 const presetGroups = (name) => PRESETS[name].groups.map(toEditor);
 
 const fill = (text, values) => text.replace(/\{(\w+)\}/g, (_, key) => values[key]);
-
-// A file saved from the page: the text as a Blob with a name, with a link made and removed on the spot.
-function saveFile(name, text, type) {
-  const blob = new Blob([text], { type });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = name;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
 
 const SeoFilesPage = () => {
   const { i18n } = useTranslation();
@@ -192,7 +180,7 @@ const SeoFilesPage = () => {
                 type="button"
                 id="sf-download-robots"
                 disabled={!robots}
-                onClick={() => saveFile('robots.txt', `${robots}\n`, 'text/plain;charset=utf-8')}
+                onClick={() => saveText('robots.txt', `${robots}\n`, 'text/plain;charset=utf-8')}
                 className={`${buttonClass} border-2 border-slate-200 text-slate-700 hover:border-cyan hover:text-cyan disabled:opacity-50 dark:border-white/10 dark:text-gray-300`}
               >
                 <Download size={18} aria-hidden="true" />
@@ -280,7 +268,7 @@ const SeoFilesPage = () => {
                 type="button"
                 id="sf-download-sitemap"
                 disabled={!sitemap}
-                onClick={() => saveFile('sitemap.xml', `${sitemap}\n`, 'application/xml;charset=utf-8')}
+                onClick={() => saveText('sitemap.xml', `${sitemap}\n`, 'application/xml;charset=utf-8')}
                 className={`${buttonClass} border-2 border-slate-200 text-slate-700 hover:border-cyan hover:text-cyan disabled:opacity-50 dark:border-white/10 dark:text-gray-300`}
               >
                 <Download size={18} aria-hidden="true" />

@@ -124,3 +124,9 @@ generator then makes the code straight away.
   up to 50,000 addresses, all on one host.
 - **Invoice:** prints through the browser (`window.print()`, `.invoice-print` only). It is not a
   Fatoora/ZATCA e-invoice; the tax number is printed as typed.
+
+## Batch 6 notes
+
+- **JSON formatter:** the error line comes from `locateError` in `src/tools/jsonFormat.js`, a small scanner, because browsers word their errors differently. A test checks it agrees with `JSON.parse`.
+- **Favicon generator:** `buildIco` writes an ICO around PNG images (16 and 32). Pictures stay on the device (blob and canvas only); the `blob:` allowance in the CSP is already in place.
+- **CSS units:** `fluidClamp` writes the middle value as an offset in rem plus a slope in vw, so the size still follows the visitor's text size setting.
