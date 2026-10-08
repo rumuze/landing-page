@@ -87,8 +87,8 @@ export const SERVICES: ServiceItem[] = [
         ar: 'نبدأ من المشكلة لا من قائمة الميزات. نقرر معاً من هم أوائل المستخدمين وماذا يجب أن تفعل النسخة الأولى وما الذي يمكن تأجيله. ثم نبني على مراحل لترى برمجيات تعمل مبكراً وتغيّر الاتجاه بينما التغيير ما زال رخيصاً.',
       },
       long: {
-        en: 'We run our own platforms, so the questions we ask come from operating software, not only building it: how data will be migrated, who administers the system, what happens when a payment fails, how the Arabic and English versions stay in step. The result is a product that can be run and extended by your team, with the architecture and runbooks written down.',
-        ar: 'نشغّل منصاتنا بأنفسنا، فأسئلتنا تأتي من تشغيل البرمجيات لا من بنائها فقط: كيف تُنقل البيانات ومن يدير النظام وماذا يحدث عند فشل دفعة وكيف تبقى النسختان العربية والإنجليزية متطابقتين. والنتيجة منتج يستطيع فريقك تشغيله وتطويره، بمعمارية ودلائل تشغيل مكتوبة.',
+        en: 'We build our own platforms, so the questions we ask go beyond the feature list: how data will be migrated, who administers the system, what happens when a payment fails, how the Arabic and English versions stay in step. The result is a product that can be run and extended by your team, with the architecture and runbooks written down.',
+        ar: 'نبني منصاتنا بأنفسنا، فأسئلتنا تتجاوز قائمة الميزات: كيف تُنقل البيانات ومن يدير النظام وماذا يحدث عند فشل دفعة وكيف تبقى النسختان العربية والإنجليزية متطابقتين. والنتيجة منتج يستطيع فريقك تشغيله وتطويره، بمعمارية ودلائل تشغيل مكتوبة.',
       },
       bullets: {
         en: [
@@ -225,13 +225,13 @@ export const SERVICES: ServiceItem[] = [
     },
     differentiators: {
       en: [
-        'We run our own platforms on the same architecture',
+        'We build our own platforms on the same architecture',
         'Modular by default, distributed only when justified',
         'Runbooks and architecture notes delivered with the code',
         'Arabic and English supported from the data layer up',
       ],
       ar: [
-        'نشغّل منصاتنا الخاصة على المعمارية نفسها',
+        'نبني منصاتنا الخاصة على المعمارية نفسها',
         'وحدات معيارية افتراضياً، وتوزيع فقط عند الحاجة',
         'دلائل تشغيل وملاحظات معمارية تُسلَّم مع الكود',
         'دعم العربية والإنجليزية من طبقة البيانات فصاعداً',
@@ -552,13 +552,13 @@ export const SERVICES: ServiceItem[] = [
     },
     differentiators: {
       en: [
-        'We build and run a platform of this kind ourselves',
+        'We build a platform of this kind ourselves',
         'Modules can be switched on independently',
         'Tenant-isolation checks built into the tooling',
         'Documented architecture and deployment runbooks',
       ],
       ar: [
-        'نبني ونشغّل بأنفسنا منصة من هذا النوع',
+        'نبني بأنفسنا منصة من هذا النوع',
         'يمكن تفعيل الوحدات بشكل مستقل',
         'فحوصات عزل المستأجرين مدمجة في الأدوات',
         'معمارية موثقة ودلائل نشر',

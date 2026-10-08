@@ -56,10 +56,10 @@ No claim should be promoted as factual unless it has a classification, a status,
 | CR-012 | Rumuze improved ecommerce ROAS from 1.8x to 4.6x in three months. | illustrative | Case study content in `src/config/caseStudies.ts` | needs validation | Requires client-approved analytics exports or should remain explicitly illustrative/composite. |
 | CR-013 | Rumuze builds enterprise web platforms with API-first backends and multilingual SEO readiness. | verified | Service pages and engineering content | confirmed | Safe capability claim grounded in product/service positioning and code structure. |
 | CR-014 | Rumuze provides structured delivery governance with sprint reviews, weekly reporting, and scope control. | verified | Public methodology and enterprise framework content | needs validation | Confirm against actual operating process before presenting as universal delivery standard. |
-| CR-015 | Rumuze builds delivery and multi-vendor marketplace platforms (customer, vendor, courier apps, admin panel, zones, wallets). | verified | Repository README of the Wasal delivery platform and the Rveta delivery app | needs validation | Capability claim only. Does not state that any platform is live or that it has users; no market-share or client claims. |
-| CR-016 | Rumuze builds self-hosted messaging and WebRTC calling apps (Flutter, web, admin, Node.js). Traffic is encrypted in transit; end-to-end encryption is not included. | verified | Repository README of the Chix platform | needs validation | The service page states E2E encryption is separate work. Re-check wording if E2E ships. |
-| CR-017 | Rumuze builds industry-specific multi-tenant SaaS (school-transport example on Laravel, GraphQL/REST, Redis queues, Firebase push). | verified | Repository README of the Busaty platform | needs validation | Capability claim only. No customer counts or school names. |
-| CR-018 | Hosting inside Saudi Arabia and ZATCA e-invoicing compliance are NOT claimed. | verified | Owner confirmed neither exists (session, 2026-10-07) | confirmed | Do not add either claim until evidenced. Service pages say only that hosting location is documented and chosen by the client. |
+| CR-036 | Rumuze builds delivery and multi-vendor marketplace platforms (customer, vendor, courier apps, admin panel, zones, wallets). | verified | Repository README of the Wasal delivery platform and the Rveta delivery app | needs validation | Capability claim only. Does not state that any platform is live or that it has users; no market-share or client claims. |
+| CR-037 | Rumuze builds self-hosted messaging and WebRTC calling apps (Flutter, web, admin, Node.js). Traffic is encrypted in transit; end-to-end encryption is not included. | verified | Repository README of the Chix platform | needs validation | The service page states E2E encryption is separate work. Re-check wording if E2E ships. |
+| CR-038 | Rumuze builds industry-specific multi-tenant SaaS (school-transport example on Laravel, GraphQL/REST, Redis queues, Firebase push). | verified | Repository README of the Busaty platform | needs validation | Capability claim only. No customer counts or school names. |
+| CR-039 | Hosting inside Saudi Arabia and ZATCA e-invoicing compliance are NOT claimed. | verified | Owner confirmed neither exists (session, 2026-10-07) | confirmed | Do not add either claim until evidenced. Service pages say only that hosting location is documented and chosen by the client. |
 
 ## 5. Recommended Labeling Policy
 
@@ -211,3 +211,14 @@ claims. Each is scoped on the page itself.
 | Word and character counter | internal | confirmed | Counts words by Unicode letters and numbers; reading and speaking times use stated words-per-minute averages and are labelled estimates. Platform limits (title, description, SMS, X, caption) are worded as commonly used limits that platforms may change. |
 | Robots.txt and sitemap generator | internal | confirmed | Says robots.txt is a request to well-behaved crawlers, not access control or security, and that blocked pages can still appear in results if linked elsewhere. The path test follows the common longest-rule-wins matching and may differ from a given crawler. |
 | Invoice generator | internal | confirmed | Arithmetic in whole minor units with per-line half-up VAT. The page says it is a printable invoice, not an e-invoice registered with ZATCA/Fatoora or any tax authority, and rates are the same standard rates as the VAT calculator. |
+
+## 9. Update 2026-10-08: market study and claim clean-up
+
+See `docs/market-research/` for the study, the decision and the plan. Claims changed in this update:
+
+| ID | Claim | Type | Status | Note |
+| --- | --- | --- | --- | --- |
+| CR-040 | ~~"We ship and operate our own SaaS platforms" and "Products we have built and run."~~ Now: "We design and build our own SaaS platforms" and "Products we have designed and built." | removed 2026-10-08 | removed | Repositories show builds and deployment runbooks, not live users, uptime or operating history. The company founding year in this registry is 2026. Restore "operate" only with production evidence (uptime monitor, user counts the owner approves). |
+| CR-041 | ~~"Works with clients in Saudi Arabia, the UAE and MENA."~~ Now: "builds for businesses in Saudi Arabia, the UAE and the wider MENA region." | removed 2026-10-08 | removed | No client in those markets is evidenced. The wording states the market served, not clients served. |
+| CR-042 | RumuzePMO is described as a "modular business management platform covering operations, CRM and HR", not as an ERP. | verified | confirmed | The README lists finance and inventory modules, but the project has a known boot blocker in its HRM module and no e-invoicing integration. |
+| CR-043 | The intake form asks for market and timeline (optional). | verified | confirmed | `src/components/conversion/lead-form/LeadFormStepTwo.jsx`. Used only to qualify and reply to the request. |

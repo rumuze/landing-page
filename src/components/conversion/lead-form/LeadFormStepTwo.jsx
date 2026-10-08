@@ -1,6 +1,27 @@
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import FormField from "./FormField";
-import { fieldWrapper, labelClass, textareaClass } from "./leadFormStyles";
+import Select from "../../ui/Select";
+import { fieldWrapper, inputClass, labelClass, textareaClass } from "./leadFormStyles";
+
+const MARKET_KEYS = ["egypt", "saudi", "uae", "other-gulf", "other"];
+const TIMELINE_KEYS = ["now", "quarter", "exploring"];
+
+const OptionalSelect = ({ id, label, optionalLabel, options, onChange, placeholder, value }) => (
+  <div className={fieldWrapper}>
+    <label className={labelClass} htmlFor={id}>
+      <span>{label}</span>
+      <span className="type-label text-slate-600 dark:text-slate-400">{optionalLabel}</span>
+    </label>
+    <Select
+      id={id}
+      onChange={(next) => onChange({ target: { name: id, value: next } })}
+      options={options}
+      placeholder={placeholder}
+      triggerClassName={inputClass}
+      value={value}
+    />
+  </div>
+);
 
 const LeadFormStepTwo = ({ copy, errors, formData, intakeCopy, isAr, isSubmitting, onBack, onChange, onSubmit }) => (
   <form className="space-y-4" noValidate onSubmit={onSubmit}>
@@ -14,6 +35,26 @@ const LeadFormStepTwo = ({ copy, errors, formData, intakeCopy, isAr, isSubmittin
       optionalLabel={copy.optional}
       placeholder={copy.companyPlaceholder}
       value={formData.companyName}
+    />
+
+    <OptionalSelect
+      id="market"
+      label={copy.market}
+      onChange={onChange}
+      optionalLabel={copy.optional}
+      options={MARKET_KEYS.map((key) => ({ value: key, label: copy.marketOptions[key] }))}
+      placeholder={copy.marketPlaceholder}
+      value={formData.market}
+    />
+
+    <OptionalSelect
+      id="timeline"
+      label={copy.timeline}
+      onChange={onChange}
+      optionalLabel={copy.optional}
+      options={TIMELINE_KEYS.map((key) => ({ value: key, label: copy.timelineOptions[key] }))}
+      placeholder={copy.timelinePlaceholder}
+      value={formData.timeline}
     />
 
     <div className={fieldWrapper}>

@@ -12,9 +12,9 @@ import { SERVICES } from '../config/services';
 const copyByLocale = {
   en: {
     eyebrow: 'Our work',
-    title: 'Products we have built and run.',
+    title: 'Products we have designed and built.',
     intro:
-      'Rumuze designs, builds, and operates its own platforms. Each one is described below with the architecture and practices it is built on.',
+      'Rumuze designs and builds its own platforms. Each one is described below with the architecture and practices it is built on.',
     ctaTitle: 'Have something similar in mind?',
     ctaBody: 'Tell us what you want to build, fix, or take over.',
     ctaLabel: 'Start a project',
@@ -23,9 +23,9 @@ const copyByLocale = {
   },
   ar: {
     eyebrow: 'أعمالنا',
-    title: 'منتجات بنيناها ونشغّلها.',
+    title: 'منتجات صممناها وبنيناها.',
     intro:
-      'تصمم رموز منصاتها الخاصة وتبنيها وتشغّلها. نعرض هنا كل منصة مع المعمارية والممارسات التي تقوم عليها.',
+      'تصمم رموز منصاتها الخاصة وتبنيها. نعرض هنا كل منصة مع المعمارية والممارسات التي تقوم عليها.',
     ctaTitle: 'هل لديك فكرة مشابهة؟',
     ctaBody: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه.',
     ctaLabel: 'ابدأ مشروعك',

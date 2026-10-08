@@ -27,8 +27,11 @@ for (const [locale, url] of [
       await page.locator('#workEmail').fill('sara@example.com');
       await page.locator('form button[type=submit]').first().click();
       await expect(page.locator('#description')).toBeVisible();
+      await expect(page.locator('#market')).toBeVisible();
+      await expect(page.locator('#timeline')).toBeVisible();
 
-      await page.locator('form button[type=button]').first().click();
+      // Step two has two drop-down triggers (also type=button) before the Back button.
+      await page.locator('form button[type=button]').last().click();
       await expect(page.locator('#engagementType')).toBeVisible();
       await expect(page.locator('#fullName')).toHaveValue('Sara Ahmed');
       expect(page.problems).toEqual([]);
