@@ -464,7 +464,55 @@ const META_CONFIG = {
             image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
             imageAlt: 'مولّد الفواتير مجاناً - رموز'
         }
-    }
+    },
+    '/json-formatter': {
+        en: {
+            title: `Free JSON Formatter and Validator | ${BRAND_NAME}`,
+            description: 'Check JSON, find the exact line of a mistake, then format, minify or sort it. Free, no sign-up, and nothing you paste leaves your browser.',
+            keywords: 'JSON formatter, JSON validator, JSON beautifier, minify JSON, JSON error line',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free JSON Formatter - Rumuze'
+        },
+        ar: {
+            title: `منسّق JSON ومدقّقه مجاناً | ${BRAND_NAME}`,
+            description: 'افحص JSON واعرف سطر الخطأ بدقة، ثم نسّقه أو ضغطه أو رتّب مفاتيحه. مجاني وبدون تسجيل، ولا يغادر ما تلصقه متصفحك.',
+            keywords: 'منسق JSON, مدقق JSON, تنسيق JSON, ضغط JSON, فحص JSON',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'منسّق JSON مجاناً - رموز'
+        }
+        },
+    '/favicon-generator': {
+        en: {
+            title: `Free Favicon Generator | ${BRAND_NAME}`,
+            description: 'Make a favicon from letters, an emoji or a picture, with every size, favicon.ico and the code to paste. Free, and your picture never leaves your browser.',
+            keywords: 'favicon generator, favicon.ico generator, apple touch icon, favicon from text, favicon from image',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free Favicon Generator - Rumuze'
+        },
+        ar: {
+            title: `مولّد أيقونة الموقع Favicon مجاناً | ${BRAND_NAME}`,
+            description: 'اصنع أيقونة الموقع من حروف أو إيموجي أو صورة، بكل الأحجام وملف favicon.ico والكود الجاهز. مجاني ولا تغادر صورتك متصفحك.',
+            keywords: 'مولد favicon, ايقونة الموقع, favicon.ico, انشاء فافيكون, ايقونة التبويب',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'مولّد أيقونة الموقع مجاناً - رموز'
+        }
+        },
+    '/css-unit-converter': {
+        en: {
+            title: `Free CSS Unit Converter and Fluid Type Calculator | ${BRAND_NAME}`,
+            description: 'Convert px to rem, build a type scale, and write a clamp() size that grows smoothly with the screen. Free, and worked out in your browser.',
+            keywords: 'px to rem, rem to px, css clamp generator, fluid typography calculator, type scale generator',
+            image: `${BASE_URL}/og-image-en.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'Free CSS Unit Converter - Rumuze'
+        },
+        ar: {
+            title: `محوّل وحدات CSS وحاسبة الخط المتجاوب مجاناً | ${BRAND_NAME}`,
+            description: 'حوّل px إلى rem، وابنِ سلّم خطوط، واكتب حجماً بـ clamp() يكبر بسلاسة مع الشاشة. مجاني ويُحسب في متصفحك.',
+            keywords: 'تحويل px الى rem, مولد clamp, خط متجاوب, سلم خطوط CSS, محول وحدات css',
+            image: `${BASE_URL}/og-image-ar.png?v=${OG_IMAGE_VERSION}`,
+            imageAlt: 'محوّل وحدات CSS مجاناً - رموز'
+        }
+        }
 };
 
 /**

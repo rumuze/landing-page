@@ -17,6 +17,9 @@ export const TOOLS = [
   { id: 'wordcount', path: '/word-counter', service: 'content-social-media' },
   { id: 'seofiles', path: '/robots-txt-sitemap-generator', service: 'seo-services' },
   { id: 'invoice', path: '/invoice-generator', service: 'digital-solutions' },
+  { id: 'json', path: '/json-formatter', service: 'digital-solutions' },
+  { id: 'favicon', path: '/favicon-generator', service: 'digital-solutions' },
+  { id: 'cssunits', path: '/css-unit-converter', service: 'digital-solutions' },
 ];
 
 export const toolById = (id) => TOOLS.find((tool) => tool.id === id);

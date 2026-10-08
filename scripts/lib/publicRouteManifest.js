@@ -34,6 +34,9 @@ const STATIC_ROUTE_DEFINITIONS = [
   { path: '/word-counter', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/robots-txt-sitemap-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/invoice-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/json-formatter', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/favicon-generator', priority: 0.5, changefreq: 'monthly', section: 'tools' },
+  { path: '/css-unit-converter', priority: 0.5, changefreq: 'monthly', section: 'tools' },
   { path: '/privacy', priority: 0.3, changefreq: 'yearly', section: 'legal' },
   { path: '/terms', priority: 0.3, changefreq: 'yearly', section: 'legal' },
 ];
