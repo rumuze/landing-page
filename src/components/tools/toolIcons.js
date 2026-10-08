@@ -1,4 +1,4 @@
-import { Braces, CalendarDays, FileText, ImageDown, Link2, MessageCircle, Megaphone, Palette, QrCode, Receipt, Search, Share2, SquarePen } from 'lucide-react';
+import { Braces, FileSpreadsheet, CalendarDays, FileText, ImageDown, Link2, MessageCircle, Megaphone, Palette, QrCode, Receipt, ScrollText, Search, Share2, SquarePen, Type } from 'lucide-react';
 
 /** The icon shown for each tool, by tool id. */
 export const TOOL_ICONS = {
@@ -15,4 +15,7 @@ export const TOOL_ICONS = {
   signature: SquarePen,
   palette: Palette,
   social: Share2,
+  wordcount: Type,
+  seofiles: ScrollText,
+  invoice: FileSpreadsheet,
 };

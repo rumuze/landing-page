@@ -2259,3 +2259,34 @@ html:not(.dark) main .surface-card-strong .text-cyan {
     transition: none;
   }
 }
+
+/* Free tools, batch five: the invoice sheet and its print rules. */
+.invoice-paper {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 20px 50px -34px rgba(2, 6, 23, 0.5);
+}
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body * {
+    visibility: hidden !important;
+  }
+  .invoice-print,
+  .invoice-print * {
+    visibility: visible !important;
+  }
+  .invoice-print {
+    position: absolute !important;
+    inset: 0 auto auto 0 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    animation: none !important;
+  }
+  .invoice-print .item-in,
+  .invoice-print .brief-stamp {
+    animation: none !important;
+  }
+}

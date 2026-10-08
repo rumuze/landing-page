@@ -4,6 +4,7 @@
 import { batch2Content } from './toolsContent.batch2';
 import { batch3Content } from './toolsContent.batch3';
 import { batch4Content } from './toolsContent.batch4';
+import { batch5Content } from './toolsContent.batch5';
 
 export const toolsContent = {
   en: {
@@ -390,7 +391,7 @@ export const toolsContent = {
 
 // The later batches of tools live in their own files; merge it in so there is one place to read from.
 for (const lang of ['en', 'ar']) {
-  for (const batch of [batch2Content, batch3Content, batch4Content]) {
+  for (const batch of [batch2Content, batch3Content, batch4Content, batch5Content]) {
     const { hub, ...pages } = batch[lang];
     Object.assign(toolsContent[lang].hub, hub);
     Object.assign(toolsContent[lang], pages);

@@ -32,7 +32,7 @@ for (const { name, prefix } of LOCALES) {
   test.describe(`free tools (${name})`, () => {
     test('the tools page lists every tool and each link opens that tool', async ({ page }) => {
       await open(page, `${prefix}/labs`);
-      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview', '/hijri-date-converter', '/schema-generator', '/project-brief-writer', '/vat-calculator', '/ad-budget-calculator', '/image-compressor', '/email-signature-generator', '/palette-from-image', '/social-share-preview']) {
+      for (const path of ['/qr-generator', '/whatsapp-link-generator', '/utm-builder', '/serp-preview', '/hijri-date-converter', '/schema-generator', '/project-brief-writer', '/vat-calculator', '/ad-budget-calculator', '/image-compressor', '/email-signature-generator', '/palette-from-image', '/social-share-preview', '/word-counter', '/robots-txt-sitemap-generator', '/invoice-generator']) {
         await expect(page.locator(`main a[href="${prefix}${path}"]`)).toHaveCount(1);
       }
       await page.locator(`main a[href="${prefix}/utm-builder"]`).click();
@@ -566,6 +566,172 @@ for (const { name, prefix } of LOCALES) {
 
       await page.locator('#sp-copy').click();
       expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('<meta property="og:title"');
+
+      expect(network.leaks()).toEqual([]);
+    });
+    test('Word counter: counts Arabic and English, estimates reading time, and checks limits and repeated words', async ({ page, context }) => {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await open(page, `${prefix}/word-counter`);
+      const network = watchRequests(page, ['alpha beta']);
+      const value = (id) => page.getByTestId(id).locator('.sr-only').first();
+
+      // It opens on an example text, put in by the browser.
+      await expect(page.locator('#wc-text')).toHaveValue(/\S/);
+      expect(Number(await value('wc-words').textContent())).toBeGreaterThan(10);
+
+      await page.locator('#wc-text').fill('alpha beta alpha. Gamma alpha!\n\nDelta?');
+      await expect(value('wc-words')).toHaveText('6');
+      await expect(value('wc-sentences')).toHaveText('3');
+      await expect(value('wc-paragraphs')).toHaveText('2');
+      await expect(page.getByTestId('wc-keywords').locator('li').first()).toContainText('alpha');
+      await expect(page.getByTestId('wc-keywords').locator('li').first()).toContainText('3');
+
+      // Arabic words, with the vowel signs left in, are counted as words.
+      await page.locator('#wc-text').fill('الكِتَابُ جَمِيلٌ جداً. هل قرأتَه؟');
+      await expect(value('wc-words')).toHaveText('5');
+      await expect(value('wc-sentences')).toHaveText('2');
+
+      // Length limits fill and turn amber when they are passed.
+      await page.locator('#wc-text').fill('x'.repeat(70));
+      await expect(page.getByTestId('wc-limit-title')).toHaveAttribute('data-over', 'true');
+      await expect(page.getByTestId('wc-limit-description')).toHaveAttribute('data-over', 'false');
+
+      // A faster reader needs less time.
+      const words = Array(400).fill('word').join(' ');
+      await page.locator('#wc-text').fill(words);
+      await page.locator('#wc-speed-slow').click();
+      const slow = await page.getByTestId('wc-reading').locator('.sr-only').allTextContents();
+      await page.locator('#wc-speed-fast').click();
+      const fast = await page.getByTestId('wc-reading').locator('.sr-only').allTextContents();
+      expect(Number(slow[0]) * 60 + Number(slow[1])).toBeGreaterThan(Number(fast[0]) * 60 + Number(fast[1]));
+
+      await page.locator('#wc-text').fill('one two three');
+      await page.locator('#wc-copy').click();
+      await expect(page.locator('#wc-copy')).toContainText(/Copied|تم النسخ/);
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(/3/);
+
+      await page.locator('#wc-clear').click();
+      await expect(value('wc-words')).toHaveText('0');
+      await expect(page.getByTestId('wc-keywords')).toHaveCount(0);
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('Robots.txt and sitemap: builds both files, checks the rules, and tests a path', async ({ page }) => {
+      await open(page, `${prefix}/robots-txt-sitemap-generator`);
+      const network = watchRequests(page, ['mysite.example']);
+      const code = page.locator('pre[tabindex="0"]').first();
+
+      // It opens on an online-store example with a sitemap address.
+      await expect(code).toContainText('User-agent: *');
+      await expect(code).toContainText('Disallow: /checkout');
+      await expect(code).toContainText('Sitemap: https://example.com/sitemap.xml');
+      await expect(page.getByTestId('sf-verdict')).toHaveAttribute('data-allowed', 'false');
+      await expect(page.getByTestId('sf-verdict')).toContainText('/checkout');
+
+      await page.locator('#sf-path').fill('/about');
+      await expect(page.getByTestId('sf-verdict')).toHaveAttribute('data-allowed', 'true');
+
+      // The AI preset blocks those crawlers and lets the rest in.
+      await page.locator('#sf-preset-ai').click();
+      await expect(code).toContainText('User-agent: GPTBot');
+      await page.locator('#sf-crawler').fill('GPTBot');
+      await expect(page.getByTestId('sf-verdict')).toHaveAttribute('data-allowed', 'false');
+      await page.locator('#sf-crawler').fill('Googlebot');
+      await expect(page.getByTestId('sf-verdict')).toHaveAttribute('data-allowed', 'true');
+
+      // A path that does not start with / is reported, and block everything is warned about.
+      await page.locator('#sf-preset-allow').click();
+      await page.locator('#sf-disallow-0').fill('admin');
+      await expect(page.getByTestId('sf-checks').locator('[data-level="error"]')).toHaveCount(1);
+      await page.locator('#sf-preset-block').click();
+      await expect(page.getByTestId('sf-checks').locator('[data-level="warning"]')).toHaveCount(1);
+
+      await page.locator('#sf-preset-wordpress').click();
+      const [robots] = await Promise.all([page.waitForEvent('download'), page.locator('#sf-download-robots').click()]);
+      expect(robots.suggestedFilename()).toBe('robots.txt');
+
+      // The sitemap tab turns a list of addresses into XML, escaped, and reports what it could not use.
+      await page.locator('#sf-tab-sitemap').click();
+      await expect(page.getByTestId('sf-sitemap-checks')).toContainText('4');
+      await page.locator('#sf-urls').fill('mysite.example/a?x=1&y=2, 2026-09-01\nnot a url\nmysite.example/b\nmysite.example/b\nother.example/c');
+      const xml = page.locator('pre[tabindex="0"]').first();
+      await expect(xml).toContainText('https://mysite.example/a?x=1&amp;y=2');
+      await expect(xml).toContainText('<lastmod>2026-09-01</lastmod>');
+      await expect(page.getByTestId('sf-sitemap-checks')).toContainText('not a url');
+      await expect(page.getByTestId('sf-sitemap-checks')).toContainText('other.example');
+      const [sitemap] = await Promise.all([page.waitForEvent('download'), page.locator('#sf-download-sitemap').click()]);
+      expect(sitemap.suggestedFilename()).toBe('sitemap.xml');
+
+      expect(network.leaks()).toEqual([]);
+    });
+
+    test('Invoice: adds VAT per line, totals roll, prints, and copies as text', async ({ page, context }) => {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await open(page, `${prefix}/invoice-generator`);
+      const network = watchRequests(page, ['Client Trading']);
+      const value = (id) => page.getByTestId(id).locator('.sr-only').first();
+
+      // It opens on an example invoice dated today, filled in by the browser.
+      await expect(page.getByTestId('invoice-line')).toHaveCount(3);
+      await expect(value('invoice-subtotal')).toHaveText('6,120.00');
+      await expect(value('invoice-vat-15')).toHaveText('828.00');
+      await expect(value('invoice-vat-0')).toHaveText('0.00');
+      await expect(value('invoice-total')).toHaveText('6,948.00');
+
+      // A changed quantity changes the line and the totals.
+      const hosting = page.getByTestId('iv-row').nth(1);
+      await hosting.getByLabel(/^(Qty|الكمية)$/).fill('24');
+      await expect(value('invoice-subtotal')).toHaveText('7,140.00');
+      await expect(value('invoice-total')).toHaveText('8,121.00');
+
+      // A bad price is reported, and the line is left out until it is fixed.
+      await hosting.getByLabel(/^(Unit price|سعر الوحدة)/).fill('8x');
+      await expect(hosting.getByLabel(/^(Unit price|سعر الوحدة)/)).toHaveAttribute('aria-invalid', 'true');
+      await expect(page.getByTestId('invoice-line')).toHaveCount(2);
+
+      // Lines can be added and removed, and the VAT rate is chosen per line.
+      await page.locator('#iv-add').click();
+      await expect(page.getByTestId('iv-row')).toHaveCount(4);
+      const added = page.getByTestId('iv-row').nth(3);
+      await added.getByLabel(/^(Description|الوصف)/).fill('Extra work');
+      await added.getByLabel(/^(Unit price|سعر الوحدة)/).fill('100');
+      await added.getByRole('button', { name: /VAT|الضريبة/ }).click();
+      await page.getByRole('option', { name: '5%', exact: true }).click();
+      await expect(value('invoice-vat-5')).toHaveText('5.00');
+      await added.getByRole('button', { name: /Remove line|احذف البند/ }).click();
+      await expect(page.getByTestId('iv-row')).toHaveCount(3);
+
+      // The due date follows the issue date and the terms; the next number raises the number.
+      await page.locator('#iv-date').fill('2026-01-15');
+      await expect(page.getByTestId('invoice-paper')).toContainText(prefix ? '29 January 2026' : '29 يناير 2026');
+      await page.locator('#iv-terms').click();
+      await page.getByRole('option', { name: /30/ }).click();
+      await expect(page.getByTestId('invoice-paper')).toContainText(prefix ? '14 February 2026' : '14 فبراير 2026');
+      await page.locator('#iv-next').click();
+      await expect(page.locator('#iv-number')).toHaveValue('INV-0002');
+
+      // The paid status puts a stamp on the sheet.
+      await expect(page.getByTestId('invoice-stamp')).toHaveCount(0);
+      await page.locator('#iv-status-paid').click();
+      await expect(page.getByTestId('invoice-stamp')).toBeVisible();
+
+      // Printing asks the browser to print, with the invoice number as the page title meanwhile.
+      await page.evaluate(() => {
+        window.__printed = 0;
+        window.__title = '';
+        window.print = () => {
+          window.__printed += 1;
+          window.__title = document.title;
+        };
+      });
+      await page.locator('#iv-print').click();
+      expect(await page.evaluate(() => window.__printed)).toBe(1);
+      expect(await page.evaluate(() => window.__title)).toContain('INV-0002');
+
+      await page.locator('#iv-copy').click();
+      await expect(page.locator('#iv-copy')).toContainText(/Copied|تم النسخ/);
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('INV-0002');
 
       expect(network.leaks()).toEqual([]);
     });

@@ -14,6 +14,9 @@ export const TOOLS = [
   { id: 'signature', path: '/email-signature-generator', service: 'digital-solutions' },
   { id: 'palette', path: '/palette-from-image', service: 'digital-solutions' },
   { id: 'social', path: '/social-share-preview', service: 'seo-services' },
+  { id: 'wordcount', path: '/word-counter', service: 'content-social-media' },
+  { id: 'seofiles', path: '/robots-txt-sitemap-generator', service: 'seo-services' },
+  { id: 'invoice', path: '/invoice-generator', service: 'digital-solutions' },
 ];
 
 export const toolById = (id) => TOOLS.find((tool) => tool.id === id);
