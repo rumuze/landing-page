@@ -114,31 +114,41 @@ export function hintFor(text) {
 
 const typeOf = (value) => (value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value);
 
-/** Counts for the summary: values by type, how deep it goes, and the number of keys. */
+/** Counts for the summary: values by type, how deep it goes, and the number of keys. Walks with a list, not recursion, so very deep JSON cannot overflow the stack. */
 export function statsOf(value) {
   const counts = { object: 0, array: 0, string: 0, number: 0, boolean: 0, null: 0 };
   let depth = 0;
   let keys = 0;
-  const walk = (node, level) => {
+  const pending = [[value, 1]];
+  while (pending.length) {
+    const [node, level] = pending.pop();
     counts[typeOf(node)] += 1;
     depth = Math.max(depth, level);
-    if (Array.isArray(node)) node.forEach((child) => walk(child, level + 1));
-    else if (node && typeof node === 'object') {
+    if (Array.isArray(node)) {
+      for (const child of node) pending.push([child, level + 1]);
+    } else if (node && typeof node === 'object') {
       for (const key of Object.keys(node)) {
         keys += 1;
-        walk(node[key], level + 1);
+        pending.push([node[key], level + 1]);
       }
     }
-  };
-  walk(value, 1);
+  }
   return { counts, depth, keys };
 }
 
-/** True when the text holds a whole number JSON.parse cannot keep exactly. */
+/**
+ * True when the text holds a number that formatting would change: a whole number (written with or
+ * without a decimal part or exponent) with 16 or more significant digits beyond what a JavaScript number keeps.
+ */
 export function hasUnsafeNumber(text) {
   const bare = String(text).replace(/"(?:[^"\\\n]|\\.)*"/g, '""');
-  const whole = bare.match(/-?\d{16,}(?![\d.eE])/g) ?? [];
-  return whole.some((digits) => !Number.isSafeInteger(Number(digits)));
+  const tokens = bare.match(/-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g) ?? [];
+  return tokens.some((token) => {
+    const value = Math.abs(Number(token));
+    if (!Number.isFinite(value) || value <= Number.MAX_SAFE_INTEGER || !Number.isInteger(value)) return false;
+    const digits = token.split(/[eE]/)[0].replace('-', '').replace('.', '').replace(/^0+/, '').replace(/0+$/, '');
+    return digits.length >= 16;
+  });
 }
 
 const sortDeep = (node) => {
@@ -168,12 +178,21 @@ export function processJson(text, { mode = 'format', indent = '2', sortKeys = fa
   } catch (error) {
     return { status: 'invalid', error: readError(source, error), hint: hintFor(source) };
   }
-  const shaped = sortKeys ? sortDeep(value) : value;
-  const output = mode === 'minify' ? JSON.stringify(shaped) : JSON.stringify(shaped, null, indentOf(indent));
+  let output;
+  let stats;
+  try {
+    const shaped = sortKeys ? sortDeep(value) : value;
+    output = mode === 'minify' ? JSON.stringify(shaped) : JSON.stringify(shaped, null, indentOf(indent));
+    stats = statsOf(value);
+  } catch (error) {
+    // Valid but nested so deeply that the browser cannot walk it.
+    if (error instanceof RangeError) return { status: 'tooDeep' };
+    throw error;
+  }
   return {
     status: 'valid',
     output,
-    stats: statsOf(value),
+    stats,
     bytesIn: byteLength(source),
     bytesOut: byteLength(output),
     unsafeNumber: hasUnsafeNumber(source),

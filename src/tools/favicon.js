@@ -20,13 +20,22 @@ export function cornerRadius(shape, size) {
 
 /** What goes on the icon: the first two letters or symbols the visitor typed, kept as whole characters. */
 export function glyphOf(text) {
-  const characters = Array.from(String(text ?? '').trim().replace(/\s+/g, ' '));
-  return characters.slice(0, 2).join('');
+  return graphemes(String(text ?? '').trim().replace(/\s+/g, ' '))
+    .slice(0, 2)
+    .join('');
+}
+
+// A character as a person sees it: an emoji made of several code points (a family, a profession) stays whole.
+function graphemes(text) {
+  if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+    return Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(text), (part) => part.segment);
+  }
+  return Array.from(text);
 }
 
 /** Font size, as a share of the icon, that keeps one or two characters inside it. */
 export function glyphScale(glyph) {
-  const length = Array.from(glyph).length;
+  const length = graphemes(glyph).length;
   if (length <= 1) return 0.62;
   return 0.46;
 }

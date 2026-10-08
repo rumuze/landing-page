@@ -123,6 +123,12 @@ const JsonFormatterPage = () => {
                 {result.hint ? <p className="mt-2" data-testid="json-hint">{page.hints[result.hint]}</p> : null}
               </div>
             ) : null}
+            {result.status === 'tooDeep' ? (
+              <p className="flex items-center gap-2 rounded-2xl bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-900 dark:bg-amber-500/10 dark:text-amber-200">
+                <AlertTriangle size={18} aria-hidden="true" className="shrink-0" />
+                {page.tooDeep}
+              </p>
+            ) : null}
             {result.status === 'empty' ? <p className="px-1 py-3 text-sm text-slate-500 dark:text-slate-400">{page.empty}</p> : null}
           </div>
 

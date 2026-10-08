@@ -74,6 +74,10 @@ describe('hasUnsafeNumber', () => {
     expect(hasUnsafeNumber('{"id":12345678901234567890}')).toBe(true);
     expect(hasUnsafeNumber('{"id":1234567890123456}')).toBe(false);
     expect(hasUnsafeNumber('{"id":"12345678901234567890"}')).toBe(false);
+    // The same number written with a decimal part or an exponent is rounded just as much.
+    expect(hasUnsafeNumber('{"id":9007199254740993.0}')).toBe(true);
+    expect(hasUnsafeNumber('{"id":9007199254740993e0}')).toBe(true);
+    expect(hasUnsafeNumber('[1e21, 1.5e300, 0.1, 3.14159]')).toBe(false);
   });
 });
 
@@ -98,5 +102,21 @@ describe('locateError', () => {
       }
       expect(locateError(text) === -1, text).toBe(valid);
     }
+  });
+});
+
+describe('very deep JSON', () => {
+  it('counts a deep structure without recursion', () => {
+    let value = 1;
+    for (let i = 0; i < 50000; i += 1) value = [value];
+    const stats = statsOf(value);
+    expect(stats.depth).toBe(50001);
+    expect(stats.counts.array).toBe(50000);
+  });
+
+  it('answers with a status, not an error, when the text is too deep to format', () => {
+    const text = '['.repeat(100000) + ']'.repeat(100000);
+    const result = processJson(text);
+    expect(['valid', 'tooDeep']).toContain(result.status);
   });
 });

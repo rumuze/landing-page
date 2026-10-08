@@ -12,6 +12,9 @@ describe('shapes and glyphs', () => {
     expect(glyphOf('  rumuze ')).toBe('ru');
     expect(glyphOf('رموز')).toBe('رم');
     expect(glyphOf('🚀 go')).toBe('🚀 ');
+    // An emoji made of several parts stays whole.
+    expect(glyphOf('👨‍💻')).toBe('👨‍💻');
+    expect(glyphOf('👨‍👩‍👧 ab')).toBe('👨‍👩‍👧 ');
     expect(glyphOf('')).toBe('');
     expect(glyphOf(null)).toBe('');
   });
