@@ -493,47 +493,47 @@ export const SERVICES: ServiceItem[] = [
   {
     slug: 'saas-erp',
     title: {
-      en: 'SaaS, ERP, and Business Systems',
-      ar: 'أنظمة SaaS وERP وأنظمة الأعمال',
+      en: 'Custom Business Management Systems',
+      ar: 'أنظمة إدارة أعمال مخصصة',
     },
     shortDescription: {
-      en: 'Multi-module business platforms: ERP, CRM, HR, project management, and billing, with multi-tenant options.',
-      ar: 'منصات أعمال متعددة الوحدات: ERP وCRM وموارد بشرية وإدارة مشاريع وفوترة، مع خيارات تعدد المستأجرين.',
+      en: 'Modular business management platforms: operations, CRM, HR, project management, and payments, with multi-tenant options.',
+      ar: 'منصات إدارة أعمال معيارية: عمليات وCRM وموارد بشرية وإدارة مشاريع ومدفوعات، مع خيارات تعدد المستأجرين.',
     },
     summary: {
-      en: 'Rumuze builds business platforms that combine ERP, HRM, CRM, project management, payments, and support in one codebase, split into modules that can be enabled independently. RumuzePMO, our own Laravel 12 platform, is built this way.',
-      ar: 'تبني رموز منصات أعمال تجمع ERP والموارد البشرية وCRM وإدارة المشاريع والمدفوعات والدعم في قاعدة كود واحدة، مقسمة إلى وحدات يمكن تفعيلها بشكل مستقل. وRumuzePMO، منصتنا الخاصة بـ Laravel 12، مبنية بهذه الطريقة.',
+      en: 'Rumuze builds business platforms that combine operations and inventory, HR, CRM, project management, payments, and support in one codebase, split into modules that can be enabled independently. RumuzePMO, our own Laravel 12 platform, is built this way.',
+      ar: 'تبني رموز منصات أعمال تجمع العمليات والمخزون والموارد البشرية وCRM وإدارة المشاريع والمدفوعات والدعم في قاعدة كود واحدة، مقسمة إلى وحدات يمكن تفعيلها بشكل مستقل. وRumuzePMO، منصتنا الخاصة بـ Laravel 12، مبنية بهذه الطريقة.',
     },
     metaDescription: {
-      en: 'ERP, HRM, CRM, project management, and payments in one modular codebase, built the way our own RumuzePMO platform is built.',
-      ar: 'ERP وموارد بشرية وCRM وإدارة مشاريع ومدفوعات في قاعدة كود واحدة مقسمة إلى وحدات، بالأسلوب نفسه الذي بُنيت به منصتنا RumuzePMO.',
+      en: 'Custom business management systems: operations, HR, CRM, project management, and payments in one modular codebase, built like our RumuzePMO platform.',
+      ar: 'أنظمة إدارة أعمال مخصصة: عمليات وموارد بشرية وCRM وإدارة مشاريع ومدفوعات في قاعدة كود واحدة مقسمة إلى وحدات، بأسلوب منصتنا RumuzePMO.',
     },
     keywords: ['ERP development', 'CRM development', 'SaaS platform', 'multi-tenant', 'HR system'],
     geoScope: ['Saudi Arabia', 'UAE', 'Egypt', 'MENA'],
     industries: ['Business operations', 'Human resources', 'Sales and CRM', 'Project management'],
     definitions: {
       short: {
-        en: 'Modular ERP, CRM, HR, and project-management platforms with role-based access and payment integration.',
-        ar: 'منصات معيارية للـ ERP وCRM والموارد البشرية وإدارة المشاريع بصلاحيات قائمة على الأدوار وتكامل مع الدفع.',
+        en: 'Modular operations, CRM, HR, and project-management platforms with role-based access and payment integration.',
+        ar: 'منصات معيارية للعمليات وCRM والموارد البشرية وإدارة المشاريع بصلاحيات قائمة على الأدوار وتكامل مع الدفع.',
       },
       medium: {
         en: 'We build systems where each business area is a module with its own routes, services, and data, activated through configuration. Multi-tenant designs isolate each customer, with tooling to check that queries and writes respect tenant boundaries.',
         ar: 'نبني أنظمة يكون فيها كل مجال عمل وحدة بمساراتها وخدماتها وبياناتها، تُفعَّل عبر الإعدادات. وتعزل التصاميم متعددة المستأجرين كل عميل، مع أدوات للتحقق من أن الاستعلامات والكتابة تحترم حدود المستأجر.',
       },
       long: {
-        en: 'RumuzePMO covers finance and inventory (ERP), employees and payroll (HRM), leads and pipelines (CRM), projects and timesheets, multi-gateway billing, and support workflows. It uses contract-first module boundaries, tenant-isolation tooling, request tracing, a Docker and FrankenPHP deployment stack, and Redis-backed queues, and integrates a wide range of payment gateways.',
-        ar: 'تغطي RumuzePMO المالية والمخزون (ERP) والموظفين والرواتب (HRM) والعملاء المحتملين وخطوط المبيعات (CRM) والمشاريع وسجلات الوقت والفوترة عبر بوابات دفع متعددة وسير عمل الدعم. وتعتمد حدود وحدات قائمة على العقود وأدوات عزل المستأجرين وتتبع الطلبات وحزمة نشر بـ Docker وFrankenPHP وطوابير Redis، وتتكامل مع مجموعة واسعة من بوابات الدفع.',
+        en: 'RumuzePMO covers finance and inventory, employees and payroll (HRM), leads and pipelines (CRM), projects and timesheets, multi-gateway billing, and support workflows. It uses contract-first module boundaries, tenant-isolation tooling, request tracing, a Docker and FrankenPHP deployment stack, and Redis-backed queues, and integrates a wide range of payment gateways.',
+        ar: 'تغطي RumuzePMO المالية والمخزون والموظفين والرواتب (HRM) والعملاء المحتملين وخطوط المبيعات (CRM) والمشاريع وسجلات الوقت والفوترة عبر بوابات دفع متعددة وسير عمل الدعم. وتعتمد حدود وحدات قائمة على العقود وأدوات عزل المستأجرين وتتبع الطلبات وحزمة نشر بـ Docker وFrankenPHP وطوابير Redis، وتتكامل مع مجموعة واسعة من بوابات الدفع.',
       },
       bullets: {
         en: [
-          'ERP, HRM, CRM, and project management modules',
+          'Operations, HR, CRM, and project management modules',
           'Module-level activation through configuration',
           'Multi-tenant isolation and role-based access',
           'Multi-gateway payment integration',
           'Docker-based deployment with health checks',
         ],
         ar: [
-          'وحدات ERP والموارد البشرية وCRM وإدارة المشاريع',
+          'وحدات العمليات والموارد البشرية وCRM وإدارة المشاريع',
           'تفعيل على مستوى الوحدة عبر الإعدادات',
           'عزل متعدد المستأجرين وصلاحيات قائمة على الأدوار',
           'تكامل مع بوابات دفع متعددة',
@@ -567,8 +567,8 @@ export const SERVICES: ServiceItem[] = [
     faqs: [
       {
         question: {
-          en: 'What is a modular monolith and why use one for an ERP?',
-          ar: 'ما هو Modular Monolith ولماذا يُستخدم في أنظمة ERP؟',
+          en: 'What is a modular monolith and why use one for a business system?',
+          ar: 'ما هو Modular Monolith ولماذا يُستخدم في أنظمة الأعمال؟',
         },
         answer: {
           en: 'It is a single deployable application divided into modules with strict boundaries. It keeps deployment and data consistency simple, while letting teams work on modules independently.',
@@ -595,8 +595,8 @@ export const SERVICES: ServiceItem[] = [
     ],
     relatedServices: ['software-engineering', 'marketing-infrastructure'],
     saudiContext: {
-      en: 'Gulf businesses often need Arabic reports and invoices, regional payment gateways, and role structures that match local organisations. We build these into the modules rather than customising afterwards, and we document where data is stored.',
-      ar: 'تحتاج شركات الخليج غالباً إلى تقارير وفواتير بالعربية وبوابات دفع إقليمية وهياكل صلاحيات تناسب المؤسسات المحلية. نبني ذلك داخل الوحدات بدل التخصيص لاحقاً، ونوثق مكان حفظ البيانات.',
+      en: 'Gulf businesses often need Arabic reports and documents, regional payment gateways, and role structures that match local organisations. We build these into the modules rather than customising afterwards, and we document where data is stored. Regulated e-invoicing integrations, such as Saudi ZATCA, are outside our standard modules.',
+      ar: 'تحتاج شركات الخليج غالباً إلى تقارير ومستندات بالعربية وبوابات دفع إقليمية وهياكل صلاحيات تناسب المؤسسات المحلية. نبني ذلك داخل الوحدات بدل التخصيص لاحقاً، ونوثق مكان حفظ البيانات. أما ربط الفوترة الإلكترونية المنظَّمة، مثل «فاتورة» السعودية (ZATCA)، فخارج وحداتنا القياسية.',
     },
   },
   {
