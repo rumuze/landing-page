@@ -2438,3 +2438,9 @@ html:not(.dark) main .surface-card-strong .text-cyan {
   .labs-gauge i { width: 62%; background: var(--brand-accent); }
   .labs-swatch-pick::after { opacity: 1; }
 }
+
+/* Preview text colours that stay readable on the dark card surface. */
+.labs-gauge-label { color: rgb(71 85 105); }
+.dark .labs-gauge-label { color: rgb(203 213 225); }
+.dark .labs-wlink { color: var(--brand-accent-soft); }
+.dark .labs-state-cut { color: #ff8a7e; }
