@@ -8,7 +8,7 @@ const TIMELINE_KEYS = ["now", "quarter", "exploring"];
 
 const OptionalSelect = ({ id, label, optionalLabel, options, onChange, placeholder, value }) => (
   <div className={fieldWrapper}>
-    <label className={labelClass} htmlFor={id}>
+    <label className={labelClass} htmlFor={id} id={`${id}-label`}>
       <span>{label}</span>
       <span className="type-label text-slate-600 dark:text-slate-400">{optionalLabel}</span>
     </label>
@@ -42,7 +42,7 @@ const LeadFormStepTwo = ({ copy, errors, formData, intakeCopy, isAr, isSubmittin
       label={copy.market}
       onChange={onChange}
       optionalLabel={copy.optional}
-      options={MARKET_KEYS.map((key) => ({ value: key, label: copy.marketOptions[key] }))}
+      options={[{ value: "", label: copy.notSpecified }, ...MARKET_KEYS.map((key) => ({ value: key, label: copy.marketOptions[key] }))]}
       placeholder={copy.marketPlaceholder}
       value={formData.market}
     />
@@ -52,7 +52,7 @@ const LeadFormStepTwo = ({ copy, errors, formData, intakeCopy, isAr, isSubmittin
       label={copy.timeline}
       onChange={onChange}
       optionalLabel={copy.optional}
-      options={TIMELINE_KEYS.map((key) => ({ value: key, label: copy.timelineOptions[key] }))}
+      options={[{ value: "", label: copy.notSpecified }, ...TIMELINE_KEYS.map((key) => ({ value: key, label: copy.timelineOptions[key] }))]}
       placeholder={copy.timelinePlaceholder}
       value={formData.timeline}
     />

@@ -25,6 +25,7 @@ export const leadFormCopy = {
     companyPlaceholder: "Your company or project",
     market: "Where are your customers?",
     marketPlaceholder: "Choose a market",
+    notSpecified: "Not specified",
     marketOptions: {
       egypt: "Egypt",
       saudi: "Saudi Arabia",
@@ -76,6 +77,7 @@ export const leadFormCopy = {
     companyPlaceholder: "اسم شركتك أو مشروعك",
     market: "أين عملاؤك؟",
     marketPlaceholder: "اختر السوق",
+    notSpecified: "غير محدد",
     marketOptions: {
       egypt: "مصر",
       saudi: "السعودية",
