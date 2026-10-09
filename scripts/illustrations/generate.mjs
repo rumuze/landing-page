@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CELL, DATA_CELLS, FINDERS, cellOn } from '../../src/components/illustrations/labsPattern.js';
 
 const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../src/components/illustrations/scenes.generated.js');
 const fs_write = (scenes) => {
@@ -120,14 +121,18 @@ const scenes = {};
   [[6.6, 0.6, 2.6, 'white', 'bp'], [6.9, 5.4, 1.6, 'acc', 'bw']].forEach(([x, y, z, tone, c]) => { const f = box(x, y, z, 2.2, 1.4, 0.3, tone); I.push({ key: -0.9, svg: () => poly([[x + 0.3, y + 0.3, 0.51], [x + 2.5, y + 0.3, 0.51], [x + 2.5, y + 1.7, 0.51], [x + 0.3, y + 1.7, 0.51]], 'sh') }, f, onTop(f, 0.3, 0.3, 1.2, 0.25, c), onTop(f, 0.3, 0.8, 1.6, 0.2, tone === 'acc' ? 'bw' : 'bs')); });
   I.push(dot(0.8, 1.0, 1.8, 5, 'da'), dot(1.8, 0.6, 2.4, 4, 'dp'));
   scenes.contact = build(I); }
-// Labs: a workbench with a QR block, a tall vessel and a small gear cube
+// Labs: a workbench with a QR block, a tall vessel and a small gear cube. The parts sit in groups
+// (lh-*) so the hero in src/components/LabsHero.jsx can move them; the QR modules are separate cells.
 { const I = [...base(10, 6)];
-  const qr = box(0.8, 1.0, 0.5, 3.6, 3.6, 0.5, 'white'); I.push(shadowOf(qr), qr);
-  [[0.4, 0.4], [2.2, 0.4], [0.4, 2.2]].forEach(([dx, dy]) => I.push(onTop(qr, dx, dy, 1.0, 1.0, 'bp'), onTop(qr, dx + 0.3, dy + 0.3, 0.4, 0.4, 'bw')));
-  [[1.6, 1.4, 0.4, 0.4], [2.6, 1.2, 0.4, 0.4], [1.4, 2.6, 0.4, 0.4], [2.4, 2.4, 0.4, 0.4], [3.0, 2.8, 0.3, 0.3], [1.9, 3.1, 0.3, 0.3]].forEach(([dx, dy, w, d]) => I.push(onTop(qr, dx, dy, w, d, 'bp')));
-  const v = box(5.2, 1.2, 0.5, 1.8, 1.8, 3.4, 'acc'); I.push(shadowOf(v), v, onTop(v, 0.3, 0.4, 1.2, 0.3, 'bw'), onTop(v, 0.3, 1.0, 0.8, 0.25, 'bw'));
-  const g = box(7.4, 2.8, 0.5, 1.6, 1.6, 1.4, 'prim'); I.push(shadowOf(g), g, onTop(g, 0.3, 0.3, 1.0, 0.3, 'bw'));
-  I.push(dot(6.1, 0.8, 4.6, 6, 'da'), dot(8.2, 1.6, 2.8, 4, 'dp'), dot(4.6, 4.8, 1.4, 4, 'dp'));
+  const group = (cls, key, parts) => ({ key, svg: () => `<g class="${cls}">${[...parts].sort((a, b) => a.key - b.key).map((i) => i.svg()).join('')}</g>` });
+  const qr = box(0.8, 1.0, 0.5, 3.6, 3.6, 0.5, 'white'); I.push(shadowOf(qr));
+  const inset = 0.15, qrParts = [qr];
+  FINDERS.forEach(([gx, gy]) => qrParts.push(onTop(qr, inset + gx * CELL, inset + gy * CELL, 3 * CELL, 3 * CELL, 'bp'), onTop(qr, inset + (gx + 1) * CELL, inset + (gy + 1) * CELL, CELL, CELL, 'bw')));
+  DATA_CELLS.forEach(({ x, y }) => qrParts.push({ key: qr.key + 0.02, svg: () => `<g class="lh-cell" data-x="${x}" data-y="${y}" data-on="${cellOn(x, y, 0) ? 1 : 0}">${onTop(qr, inset + x * CELL + 0.02, inset + y * CELL + 0.02, CELL - 0.04, CELL - 0.04, 'bp').svg()}</g>` }));
+  I.push(group('lh-qr', qr.key, qrParts));
+  const v = box(5.2, 1.2, 0.5, 1.8, 1.8, 3.4, 'acc'); I.push(shadowOf(v), group('lh-vessel', v.key, [v, onTop(v, 0.3, 0.4, 1.2, 0.3, 'bw'), onTop(v, 0.3, 1.0, 0.8, 0.25, 'bw')]));
+  const g = box(7.4, 2.8, 0.5, 1.6, 1.6, 1.4, 'prim'); I.push(shadowOf(g), group('lh-gear', g.key, [g, onTop(g, 0.3, 0.3, 1.0, 0.3, 'bw')]));
+  [[6.1, 0.8, 4.6, 6, 'da', 1], [8.2, 1.6, 2.8, 4, 'dp', 2], [4.6, 4.8, 1.4, 4, 'dp', 3]].forEach(([x, y, z, r, c, n]) => { const d = dot(x, y, z, r, c); I.push({ key: d.key, svg: () => `<g class="lh-dot lh-dot-${n}">${d.svg()}</g>` }); });
   scenes.labs = build(I); }
 // 404: a path that stops at a gap, a lone cube waiting on the near side
 { const I = [...base(8, 8)];
