@@ -24,7 +24,6 @@ export const leadFormCopy = {
     company: "Company / organization",
     companyPlaceholder: "Your company or project",
     market: "Where are your customers?",
-    marketPlaceholder: "Choose a market",
     notSpecified: "Not specified",
     marketOptions: {
       egypt: "Egypt",
@@ -34,7 +33,6 @@ export const leadFormCopy = {
       other: "Somewhere else",
     },
     timeline: "When do you want to start?",
-    timelinePlaceholder: "Choose a timeframe",
     timelineOptions: {
       now: "As soon as possible",
       quarter: "Within three months",
@@ -76,7 +74,6 @@ export const leadFormCopy = {
     company: "اسم الشركة / المنظمة",
     companyPlaceholder: "اسم شركتك أو مشروعك",
     market: "أين عملاؤك؟",
-    marketPlaceholder: "اختر السوق",
     notSpecified: "غير محدد",
     marketOptions: {
       egypt: "مصر",
@@ -86,7 +83,6 @@ export const leadFormCopy = {
       other: "مكان آخر",
     },
     timeline: "متى تريد أن تبدأ؟",
-    timelinePlaceholder: "اختر الإطار الزمني",
     timelineOptions: {
       now: "في أقرب وقت",
       quarter: "خلال ثلاثة أشهر",
