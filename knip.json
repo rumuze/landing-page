@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@latest/schema.json",
-  "entry": ["src/entry-server.jsx", "scripts/**/*.{js,mjs}", "e2e/**/*.spec.js"],
-  "project": ["src/**/*.{js,jsx,ts,tsx}", "scripts/**/*.{js,mjs}", "e2e/**/*.js"],
+  "entry": ["src/entry-server.jsx", "worker/index.js", "scripts/**/*.{js,mjs}", "e2e/**/*.spec.js"],
+  "project": ["worker/**/*.js", "src/**/*.{js,jsx,ts,tsx}", "scripts/**/*.{js,mjs}", "e2e/**/*.js"],
   "ignoreBinaries": ["wrangler"]
 }
