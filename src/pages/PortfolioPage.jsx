@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
@@ -23,6 +23,8 @@ const copyByLocale = {
     githubTitle: 'More on GitHub',
     githubIntro:
       'Open repositories from our founder\'s GitHub profile: frameworks, tools, integrations and small apps.',
+    githubShowAll: 'Show all projects',
+    githubShowLess: 'Show fewer',
     githubAll: 'See all repositories on GitHub',
     githubLive: 'Live site',
     facts: { products: 'Products', services: 'Services', languages: 'Languages' },
@@ -38,11 +40,15 @@ const copyByLocale = {
     more: 'اقرأ التفاصيل',
     githubTitle: 'المزيد على GitHub',
     githubIntro: 'مستودعات مفتوحة من حساب مؤسسنا على GitHub: أطر عمل وأدوات وتكاملات وتطبيقات صغيرة.',
+    githubShowAll: 'عرض كل المشاريع',
+    githubShowLess: 'عرض أقل',
     githubAll: 'شاهد كل المستودعات على GitHub',
     githubLive: 'الموقع المباشر',
     facts: { products: 'منتجات', services: 'خدمات', languages: 'لغات' },
   },
 };
+
+const GITHUB_INITIAL_COUNT = 12;
 
 const PortfolioPage = () => {
   const { i18n } = useTranslation();
@@ -51,6 +57,8 @@ const PortfolioPage = () => {
   const page = copyByLocale[locale];
   const { work } = homeContent[locale];
   const align = isAr ? 'text-right' : 'text-left';
+  const [showAllGithub, setShowAllGithub] = useState(false);
+  const visibleGithub = showAllGithub ? githubProjects : githubProjects.slice(0, GITHUB_INITIAL_COUNT);
 
   return (
     <>
@@ -149,7 +157,7 @@ const PortfolioPage = () => {
             </h2>
             <p className="type-body copy-secondary mt-3 max-w-3xl">{page.githubIntro}</p>
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {githubProjects.map((project) => (
+              {visibleGithub.map((project) => (
                 <li
                   key={project.name}
                   className="rounded-2xl border border-[rgb(var(--border-subtle)/0.7)] p-5"
@@ -167,9 +175,11 @@ const PortfolioPage = () => {
                     <p className="type-body copy-secondary mt-2 dark:text-slate-300">{project.summary[locale]}</p>
                   ) : null}
                   <div className={`mt-3 flex flex-wrap items-center gap-2 ${isAr ? 'flex-row-reverse' : ''}`}>
-                    <span className="home-chip" dir="ltr">
-                      {project.language}
-                    </span>
+                    {project.language ? (
+                      <span className="home-chip" dir="ltr">
+                        {project.language}
+                      </span>
+                    ) : null}
                     {project.homepage ? (
                       <a
                         href={project.homepage}
@@ -184,14 +194,26 @@ const PortfolioPage = () => {
                 </li>
               ))}
             </ul>
-            <a
-              href={GITHUB_PROFILE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="type-body mt-6 inline-block font-semibold text-cyan hover:underline"
-            >
+            <div className={`mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 ${isAr ? 'flex-row-reverse' : ''}`}>
+              {githubProjects.length > GITHUB_INITIAL_COUNT ? (
+                <button
+                  type="button"
+                  onClick={() => setShowAllGithub((value) => !value)}
+                  aria-expanded={showAllGithub}
+                  className="type-body font-semibold text-cyan hover:underline"
+                >
+                  {showAllGithub ? page.githubShowLess : `${page.githubShowAll} (${githubProjects.length})`}
+                </button>
+              ) : null}
+              <a
+                href={GITHUB_PROFILE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="type-body font-semibold text-cyan hover:underline"
+              >
               {page.githubAll} {isAr ? '←' : '→'}
-            </a>
+              </a>
+            </div>
           </section>
 
           <div className={`mt-14 flex flex-col gap-4 md:flex-row md:items-center md:justify-between ${align}`}>
