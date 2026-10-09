@@ -2482,7 +2482,20 @@ html:not(.dark) main .surface-card-strong .text-cyan {
 @keyframes lh-float { 50% { transform: translateY(-9px) scale(1.12); } }
 @keyframes lh-pop { 0% { transform: none; } 35% { transform: translateY(-14px) rotate(-6deg); } 70% { transform: translateY(0) rotate(3deg); } 100% { transform: none; } }
 
+/* A press or timer redraw: every module flashes and swells in a wave, and the code hops. */
+.lh-cell polygon { transform-box: fill-box; transform-origin: center; }
+.lh-frame.is-burst .lh-cell polygon { animation: lh-burst 900ms var(--w, 0ms) both; }
+.lh-frame.is-burst .lh-qr { animation: lh-hop-code 700ms cubic-bezier(0.3, 1.4, 0.5, 1); }
+@keyframes lh-burst {
+  0% { fill: var(--il-ba); transform: scale(1); }
+  35% { fill: var(--il-da); transform: scale(1.7); }
+  100% { fill: var(--il-bp); transform: scale(1); }
+}
+@keyframes lh-hop-code { 40% { transform: translateY(-10px); } }
+.lh-button:active { transform: scale(0.96); }
+
 @media (prefers-reduced-motion: reduce) {
+  .lh-frame.is-burst .lh-cell polygon, .lh-frame.is-burst .lh-qr { animation: none; }
   .lh-stage, .lh-qr, .lh-cell, .lh-vessel, .lh-gear, .lh-dot { transition: none; animation: none; }
   .lh-cell polygon { animation: none; }
   .lh-stage { transform: none; }

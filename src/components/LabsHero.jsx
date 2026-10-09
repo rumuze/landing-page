@@ -19,6 +19,7 @@ const LabsHero = ({ isAr, className = '' }) => {
   const frame = useRef(null);
   const svg = useRef(null);
   const paused = useRef(false);
+  const burstTimer = useRef(0);
   const [seed, setSeed] = useState(0);
   const copy = COPY[isAr ? 'ar' : 'en'];
 
@@ -35,14 +36,27 @@ const LabsHero = ({ isAr, className = '' }) => {
     });
   }, [seed]);
 
-  const next = useCallback(() => setSeed((value) => value + 1), []);
+  // A redraw also plays a short scan over the whole code, so the press is felt even when few modules change.
+  const next = useCallback(() => {
+    setSeed((value) => value + 1);
+    const node = frame.current;
+    if (!node) return;
+    node.classList.remove('is-burst');
+    void node.getBoundingClientRect();
+    node.classList.add('is-burst');
+    clearTimeout(burstTimer.current);
+    burstTimer.current = setTimeout(() => node.classList.remove('is-burst'), 1400);
+  }, []);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
     const timer = setInterval(() => {
       if (!paused.current && !document.hidden) next();
     }, AUTO_MS);
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      clearTimeout(burstTimer.current);
+    };
   }, [next]);
 
   const lean = (event) => {
