@@ -8,6 +8,7 @@ import ArchitectureDiagram from '../components/ArchitectureDiagram';
 import { products } from '../data/products';
 import CountUp from '../components/CountUp';
 import { SERVICES } from '../config/services';
+import { githubProjects, GITHUB_PROFILE_URL } from '../data/githubProjects';
 
 const copyByLocale = {
   en: {
@@ -19,6 +20,11 @@ const copyByLocale = {
     ctaBody: 'Tell us what you want to build, fix, or take over.',
     ctaLabel: 'Start a project',
     more: 'Read the details',
+    githubTitle: 'More on GitHub',
+    githubIntro:
+      'Open repositories from our founder\'s GitHub profile: frameworks, tools, integrations and small apps.',
+    githubAll: 'See all repositories on GitHub',
+    githubLive: 'Live site',
     facts: { products: 'Products', services: 'Services', languages: 'Languages' },
   },
   ar: {
@@ -30,6 +36,10 @@ const copyByLocale = {
     ctaBody: 'أخبرنا بما تريد بناءه أو إصلاحه أو تسلّمه.',
     ctaLabel: 'ابدأ مشروعك',
     more: 'اقرأ التفاصيل',
+    githubTitle: 'المزيد على GitHub',
+    githubIntro: 'مستودعات مفتوحة من حساب مؤسسنا على GitHub: أطر عمل وأدوات وتكاملات وتطبيقات صغيرة.',
+    githubAll: 'شاهد كل المستودعات على GitHub',
+    githubLive: 'الموقع المباشر',
     facts: { products: 'منتجات', services: 'خدمات', languages: 'لغات' },
   },
 };
@@ -132,6 +142,57 @@ const PortfolioPage = () => {
               </article>
             ))}
           </div>
+
+          <section className={`mt-16 ${align}`} aria-labelledby="github-projects">
+            <h2 id="github-projects" className="type-h2 copy-primary dark:text-white">
+              {page.githubTitle}
+            </h2>
+            <p className="type-body copy-secondary mt-3 max-w-3xl">{page.githubIntro}</p>
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {githubProjects.map((project) => (
+                <li
+                  key={project.name}
+                  className="rounded-2xl border border-[rgb(var(--border-subtle)/0.7)] p-5"
+                >
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="type-body break-all font-semibold text-cyan hover:underline"
+                    dir="ltr"
+                  >
+                    {project.name}
+                  </a>
+                  {project.summary ? (
+                    <p className="type-body copy-secondary mt-2 dark:text-slate-300">{project.summary[locale]}</p>
+                  ) : null}
+                  <div className={`mt-3 flex flex-wrap items-center gap-2 ${isAr ? 'flex-row-reverse' : ''}`}>
+                    <span className="home-chip" dir="ltr">
+                      {project.language}
+                    </span>
+                    {project.homepage ? (
+                      <a
+                        href={project.homepage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="type-label text-cyan hover:underline"
+                      >
+                        {page.githubLive}
+                      </a>
+                    ) : null}
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={GITHUB_PROFILE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="type-body mt-6 inline-block font-semibold text-cyan hover:underline"
+            >
+              {page.githubAll} {isAr ? '←' : '→'}
+            </a>
+          </section>
 
           <div className={`mt-14 flex flex-col gap-4 md:flex-row md:items-center md:justify-between ${align}`}>
             <div>
