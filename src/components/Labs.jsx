@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SEO from "./SEO";
-import Illustration from "./illustrations/Illustration";
-import { PAGE_SCENES } from "./illustrations/serviceScenes";
+import LabsHero from "./LabsHero";
 import { TOOLS } from "../config/tools";
 import { toolsContent } from "../content/toolsContent";
 import { TOOL_ICONS } from "./tools/toolIcons";
@@ -49,7 +48,7 @@ const Labs = () => {
               <h1 className="type-h1 copy-primary dark:text-white">{page.title}</h1>
               <p className="type-body-lg copy-secondary mt-5">{page.intro}</p>
             </div>
-            <Illustration scene={PAGE_SCENES.labs} className="mx-auto w-full max-w-sm lg:max-w-none" />
+            <LabsHero isAr={isAr} className="mx-auto w-full max-w-sm lg:max-w-none" />
           </header>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
