@@ -6,9 +6,9 @@
 
 export const GITHUB_PROFILE_URL = 'https://github.com/elbayoumi';
 
-export const githubProjects = [
+const projects = [
   {
-    name: 'crewloom',
+    name: 'crewloom', featured: true,
     language: 'Python',
     summary: {
       en: 'Repository-native specialist agent skills, working memory, bilingual context packs, and checks. Apache-2.0.',
@@ -16,7 +16,7 @@ export const githubProjects = [
     },
   },
   {
-    name: 'app.busatyapp.com',
+    name: 'app.busatyapp.com', featured: true,
     language: 'CSS',
     homepage: 'https://app.elbayoumi.net',
     summary: {
@@ -24,11 +24,11 @@ export const githubProjects = [
       ar: 'منصة موحّدة على Docker تجمع Laravel (PHP 8.2) وNode.js (Socket.IO) مع Caddy وNginx وMySQL وRedis وphpMyAdmin.',
     },
   },
-  { name: 'Rveta-Framework', language: 'Rust' },
-  { name: 'Forge-Framework', language: 'JavaScript' },
-  { name: 'forge-web-builder', language: 'JavaScript' },
-  { name: 'ai-cli', language: 'JavaScript' },
-  { name: 'laravel-tap-payment', language: 'PHP' },
+  { name: 'Rveta-Framework', featured: true, language: 'Rust' },
+  { name: 'Forge-Framework', featured: true, language: 'JavaScript' },
+  { name: 'forge-web-builder', featured: true, language: 'JavaScript' },
+  { name: 'ai-cli', featured: true, language: 'JavaScript' },
+  { name: 'laravel-tap-payment', featured: true, language: 'PHP' },
   { name: 'payment-paypal', language: 'PHP' },
   { name: 'store-notifications', language: 'PHP' },
   {
@@ -45,7 +45,7 @@ export const githubProjects = [
   { name: 'abouhashim-lnding-page', language: 'JavaScript', homepage: 'https://abouhashim-lnding-page.vercel.app' },
   { name: 'abdallah.ww0.uk', language: 'TypeScript', homepage: 'https://abdallah-dusky.vercel.app' },
   { name: 'elbayoumi.github.io', language: 'HTML', homepage: 'https://elbayoumi.vercel.app' },
-  { name: 'delivary', language: 'TypeScript', summary: { en: 'Delivery app feature built for an ITI project.', ar: 'ميزة جديدة لتطبيق توصيل ضمن مشروع ITI.' } },
+  { name: 'delivary', featured: true, language: 'TypeScript', summary: { en: 'Delivery app feature built for an ITI project.', ar: 'ميزة جديدة لتطبيق توصيل ضمن مشروع ITI.' } },
   { name: 'erp', language: 'JavaScript' },
   { name: 'hr-dashboard', language: 'CSS' },
   { name: 'Order-handel', language: 'PHP' },
@@ -77,3 +77,6 @@ export const githubProjects = [
   { name: 'tailwind-slider', language: 'CSS' },
   { name: 'maps', language: 'HTML' },
 ].map((project) => ({ ...project, url: `${GITHUB_PROFILE_URL}/${project.name}` }));
+
+// Featured projects first; the original order is kept inside each group.
+export const githubProjects = [...projects.filter((p) => p.featured), ...projects.filter((p) => !p.featured)];

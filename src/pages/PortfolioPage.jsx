@@ -27,6 +27,7 @@ const copyByLocale = {
     githubShowLess: 'Show fewer',
     githubAll: 'See all repositories on GitHub',
     githubLive: 'Live site',
+    githubFeatured: 'Featured',
     facts: { products: 'Products', services: 'Services', languages: 'Languages' },
   },
   ar: {
@@ -44,6 +45,7 @@ const copyByLocale = {
     githubShowLess: 'عرض أقل',
     githubAll: 'شاهد كل المستودعات على GitHub',
     githubLive: 'الموقع المباشر',
+    githubFeatured: 'مميز',
     facts: { products: 'منتجات', services: 'خدمات', languages: 'لغات' },
   },
 };
@@ -175,6 +177,7 @@ const PortfolioPage = () => {
                     <p className="type-body copy-secondary mt-2 dark:text-slate-300">{project.summary[locale]}</p>
                   ) : null}
                   <div className={`mt-3 flex flex-wrap items-center gap-2 ${isAr ? 'flex-row-reverse' : ''}`}>
+                    {project.featured ? <span className="home-chip">{page.githubFeatured}</span> : null}
                     {project.language ? (
                       <span className="home-chip" dir="ltr">
                         {project.language}
