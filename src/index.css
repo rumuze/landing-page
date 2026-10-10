@@ -2585,9 +2585,9 @@ html:not(.dark) main .surface-card-strong .text-cyan {
 
 /* Ad budget: a funnel that narrows while a drop falls through */
 .labs-funnel { position: relative; display: flex; width: 180px; flex-direction: column; align-items: center; gap: 8px; }
-.labs-tier { display: block; height: 18px; border-radius: 6px; background: var(--ls-solid); animation: labs-grow 6s calc(var(--k) * 450ms) infinite both; }
+.labs-tier { display: block; height: 18px; border-radius: 6px; background: var(--ls-solid); animation: labs-tier-in 6s calc(var(--k) * 450ms) infinite both; }
 .labs-tier:nth-child(3) { background: var(--brand-accent); }
-@keyframes labs-grow { 0% { opacity: 0; transform: scaleX(0); } 12%, 86% { opacity: 1; transform: none; } 100% { opacity: 0; transform: scaleX(0); } }
+@keyframes labs-tier-in { 0% { opacity: 0; transform: scaleX(0); } 12%, 86% { opacity: 1; transform: none; } 100% { opacity: 0; transform: scaleX(0); } }
 .labs-drip { position: absolute; top: -6px; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--brand-accent); animation: labs-drip 3s infinite; }
 @keyframes labs-drip { 0% { opacity: 0; transform: translateY(0); } 10% { opacity: 1; } 80% { opacity: 1; transform: translateY(86px); } 100% { opacity: 0; transform: translateY(96px); } }
 
