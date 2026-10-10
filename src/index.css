@@ -2526,3 +2526,157 @@ html:not(.dark) main .surface-card-strong .text-cyan {
   .lh-stage { transform: none; }
   .lh-dot, .lh-vessel, .lh-gear, .lh-qr { translate: none; }
 }
+
+/* The rest of the /labs previews: one small loop per tool, final state when motion is off. */
+.labs-strip {
+  --ls-card: rgb(var(--surface-card) / 1);
+  --ls-line: rgb(148 163 184 / 0.35);
+  --ls-bar: rgb(100 116 139 / 0.45);
+  --ls-solid: var(--brand-primary);
+  color: rgb(51 65 85);
+}
+.dark .labs-strip { --ls-bar: rgb(148 163 184 / 0.5); --ls-solid: var(--brand-accent); color: rgb(226 232 240); }
+@keyframes labs-pop { 0% { opacity: 0; transform: scale(0); } 8% { opacity: 1; transform: scale(1.25); } 14%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: scale(0); } }
+@keyframes labs-slide { 0% { opacity: 0; transform: translateY(12px); } 10%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes labs-fade { 0%, 10% { opacity: 0; } 20%, 88% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes labs-reveal { 0% { clip-path: inset(0 100% 0 0); } 12%, 88% { clip-path: inset(0); } 100% { clip-path: inset(0 100% 0 0); } }
+@keyframes labs-reveal-rtl { 0% { clip-path: inset(0 0 0 100%); } 12%, 88% { clip-path: inset(0); } 100% { clip-path: inset(0 0 0 100%); } }
+
+/* Hijri converter: a moon through its phases beside a month that fills in */
+.labs-hijri { display: flex; align-items: center; gap: 22px; }
+.labs-moon { position: relative; width: 64px; height: 64px; overflow: hidden; border-radius: 50%; background: var(--brand-accent-soft); }
+.labs-moon i { position: absolute; inset: 0; border-radius: 50%; background: rgb(var(--surface-card-soft) / 1); transform: translateX(45%); animation: labs-phase 6s ease-in-out infinite; }
+@keyframes labs-phase { 0% { transform: translateX(-100%); } 50% { transform: translateX(0); } 100% { transform: translateX(100%); } }
+.labs-month { display: grid; grid-template-columns: repeat(7, 10px); gap: 5px; }
+.labs-day { display: block; width: 10px; height: 10px; border-radius: 3px; background: var(--ls-bar); animation: labs-pop 6s calc(var(--k) * 50ms) infinite both; }
+.labs-day-on { background: var(--brand-accent); }
+
+/* Structured data and JSON: code that types in, then a check or a minified line */
+.labs-code { position: relative; display: flex; flex-direction: column; padding-inline-end: 44px; font: 600 0.8rem/1.5 ui-monospace, Menlo, monospace; white-space: pre; }
+.labs-line { animation: labs-reveal 6.5s calc(var(--k) * 450ms) steps(24, end) infinite both; }
+.labs-badge {
+  position: absolute; inset-inline-end: 0; top: 50%; display: grid; width: 32px; height: 32px; margin-top: -16px; place-items: center;
+  border-radius: 50%; background: var(--brand-accent); color: #04210f; animation: labs-badge 6.5s infinite both;
+}
+@keyframes labs-badge { 0%, 35% { opacity: 0; transform: scale(0); } 42% { opacity: 1; transform: scale(1.2); } 48%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.labs-json { position: relative; display: grid; font: 600 0.8rem/1.5 ui-monospace, Menlo, monospace; }
+.labs-json-pretty, .labs-json-min { grid-area: 1 / 1; margin: 0; font: inherit; }
+.labs-json-pretty { animation: labs-pretty 6s infinite; }
+.labs-json-min { align-self: center; opacity: 0; animation: labs-min 6s infinite; }
+@keyframes labs-pretty { 0%, 40% { opacity: 1; transform: none; } 50%, 90% { opacity: 0; transform: scale(0.96); } 100% { opacity: 1; transform: none; } }
+@keyframes labs-min { 0%, 45% { opacity: 0; } 55%, 88% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Project brief: a sheet whose bars fill in, then a stamp */
+.labs-paper { position: relative; display: flex; width: 150px; flex-direction: column; gap: 9px; padding: 14px; border-radius: 10px; background: var(--ls-card); border: 1px solid var(--ls-line); }
+.labs-bar { display: block; height: 8px; border-radius: 4px; background: var(--ls-solid); animation: labs-fillbar 6s calc(var(--k) * 500ms) infinite both; }
+@keyframes labs-fillbar { 0%, 10% { background: var(--ls-bar); opacity: 0.6; } 20%, 90% { background: var(--ls-solid); opacity: 1; } 100% { background: var(--ls-bar); opacity: 0.6; } }
+.labs-stamp {
+  position: absolute; inset-inline-end: -14px; bottom: -12px; display: grid; width: 34px; height: 34px; place-items: center;
+  border-radius: 50%; background: var(--brand-accent); color: #04210f; transform: rotate(-12deg); animation: labs-stamp 6s infinite both;
+}
+@keyframes labs-stamp { 0%, 62% { opacity: 0; transform: scale(2.2) rotate(-30deg); } 70% { opacity: 1; transform: scale(1) rotate(-12deg); } 90% { opacity: 1; transform: rotate(-12deg); } 100% { opacity: 0; } }
+
+/* VAT: a receipt that adds up */
+.labs-receipt { display: flex; width: 150px; flex-direction: column; gap: 6px; padding: 12px 16px; border-radius: 10px; background: var(--ls-card); border: 1px solid var(--ls-line); font: 700 0.95rem ui-monospace, Menlo, monospace; text-align: right; }
+.labs-row { display: block; animation: labs-slide 6s calc(var(--k) * 400ms) infinite both; }
+.labs-row em { font-style: normal; }
+.labs-total { padding-top: 6px; border-top: 2px solid var(--ls-solid); color: var(--brand-primary); }
+.dark .labs-total { color: var(--brand-accent-soft); }
+
+/* Ad budget: a funnel that narrows while a drop falls through */
+.labs-funnel { position: relative; display: flex; width: 180px; flex-direction: column; align-items: center; gap: 8px; }
+.labs-tier { display: block; height: 18px; border-radius: 6px; background: var(--ls-solid); animation: labs-grow 6s calc(var(--k) * 450ms) infinite both; }
+.labs-tier:nth-child(3) { background: var(--brand-accent); }
+@keyframes labs-grow { 0% { opacity: 0; transform: scaleX(0); } 12%, 86% { opacity: 1; transform: none; } 100% { opacity: 0; transform: scaleX(0); } }
+.labs-drip { position: absolute; top: -6px; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--brand-accent); animation: labs-drip 3s infinite; }
+@keyframes labs-drip { 0% { opacity: 0; transform: translateY(0); } 10% { opacity: 1; } 80% { opacity: 1; transform: translateY(86px); } 100% { opacity: 0; transform: translateY(96px); } }
+
+/* Image compressor: a divider sweeping between a sharp and a softened picture */
+.labs-compare { position: relative; width: 190px; height: 104px; overflow: hidden; border-radius: 10px; border: 1px solid var(--ls-line); }
+.labs-pic {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 25% 35%, #f2b134 0 16%, transparent 17%), radial-gradient(circle at 72% 30%, #1d6f8a 0 24%, transparent 25%), radial-gradient(circle at 55% 82%, #c5503f 0 20%, transparent 21%), linear-gradient(120deg, #16313a, #0d1b21);
+}
+.labs-pic-soft { filter: blur(2.5px) saturate(0.7); clip-path: inset(0 0 0 50%); animation: labs-clip 5s ease-in-out infinite alternate; }
+@keyframes labs-clip { from { clip-path: inset(0 0 0 15%); } to { clip-path: inset(0 0 0 85%); } }
+.labs-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; margin-left: -1px; background: #fff; box-shadow: 0 0 6px rgb(0 0 0 / 0.4); animation: labs-handle 5s ease-in-out infinite alternate; }
+@keyframes labs-handle { from { left: 15%; } to { left: 85%; } }
+.labs-down { position: absolute; inset-inline-end: 8px; bottom: 6px; padding: 1px 8px; border-radius: 999px; background: var(--brand-accent); color: #04210f; font-size: 0.7rem; font-weight: 700; }
+
+/* Email signature */
+.labs-sig { position: relative; display: flex; min-width: 220px; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; background: var(--ls-card); border: 1px solid var(--ls-line); }
+.labs-avatar { display: block; width: 40px; height: 40px; flex: none; border-radius: 50%; background: var(--brand-primary); animation: labs-pop 6.5s infinite both; }
+.labs-sig-text { display: flex; flex: 1; flex-direction: column; gap: 6px; }
+.labs-sig-name { font-weight: 800; animation: labs-reveal 6.5s steps(8, end) infinite both; }
+[dir="rtl"] .labs-sig-name { animation-name: labs-reveal-rtl; }
+.labs-sig-line { display: block; width: 100%; height: 7px; border-radius: 4px; background: var(--ls-bar); animation: labs-fade 6.5s infinite both; }
+.labs-sig-short { width: 60%; }
+.labs-copy { position: absolute; inset-inline-end: 10px; top: 8px; padding: 2px 10px; border-radius: 999px; background: var(--brand-accent); color: #04210f; font-size: 0.72rem; font-weight: 700; animation: labs-qchip 6.5s infinite; }
+
+/* Social share preview */
+.labs-share { position: relative; display: flex; width: 150px; flex-direction: column; gap: 7px; padding: 8px; border-radius: 12px; background: var(--ls-card); border: 1px solid var(--ls-line); }
+.labs-share-img { display: block; height: 48px; border-radius: 7px; background: linear-gradient(120deg, var(--brand-primary), var(--brand-accent)); }
+.labs-share-line { display: block; height: 7px; border-radius: 4px; background: var(--ls-bar); }
+.labs-share-short { width: 60%; }
+.labs-heart { position: absolute; inset-inline-end: 10px; top: 42px; color: #e0426b; font-size: 1.3rem; animation: labs-heart 3.5s infinite; }
+@keyframes labs-heart { 0%, 40% { opacity: 0; transform: scale(0); } 50% { opacity: 1; transform: scale(1.5); } 60%, 85% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+.labs-dots-row { display: flex; justify-content: center; gap: 5px; }
+.labs-net { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--ls-bar); animation: labs-net 3.5s calc(var(--k) * 1.1s) infinite; }
+@keyframes labs-net { 0%, 30% { background: var(--brand-accent); transform: scale(1.4); } 40%, 100% { background: var(--ls-bar); transform: none; } }
+
+/* Word counter: lines that light up and a counter that runs */
+@property --n { syntax: "<integer>"; inherits: false; initial-value: 214; }
+.labs-words { position: relative; display: flex; width: 170px; flex-direction: column; gap: 8px; padding: 12px; border-radius: 10px; background: var(--ls-card); border: 1px solid var(--ls-line); }
+.labs-wline {
+  display: block; height: 7px; border-radius: 4px; background: linear-gradient(var(--brand-accent), var(--brand-accent)) no-repeat, var(--ls-bar);
+  background-size: 100% 100%, 100% 100%; animation: labs-sweep 6s calc(var(--k) * 450ms) infinite both;
+}
+@keyframes labs-sweep { 0% { background-size: 0 100%, 100% 100%; } 25%, 88% { background-size: 100% 100%, 100% 100%; } 100% { background-size: 0 100%, 100% 100%; } }
+.labs-count {
+  position: absolute; inset-inline-end: -10px; top: -10px; min-width: 46px; padding: 3px 10px; border-radius: 999px; background: var(--brand-accent); color: #04210f;
+  font: 800 0.8rem ui-monospace, Menlo, monospace; text-align: center; counter-reset: n var(--n); animation: labs-num 6s infinite;
+}
+.labs-count::after { content: counter(n); }
+@keyframes labs-num { 0% { --n: 0; } 55%, 100% { --n: 214; } }
+
+/* robots.txt and sitemap.xml */
+.labs-files { display: flex; gap: 14px; }
+.labs-file { position: relative; display: flex; width: 96px; flex-direction: column; gap: 6px; padding: 10px 10px 24px; border-radius: 8px 18px 8px 8px; background: var(--ls-card); border: 1px solid var(--ls-line); animation: labs-pop 6.5s calc(var(--k) * 600ms) infinite both; }
+.labs-file span { position: absolute; inset-inline: 0; bottom: 5px; text-align: center; font: 700 0.7rem ui-monospace, Menlo, monospace; }
+.labs-file-line { display: block; height: 6px; border-radius: 3px; background: var(--ls-solid); }
+.labs-file-short { width: 60%; }
+
+/* Invoice */
+.labs-invoice { position: relative; display: flex; width: 150px; flex-direction: column; gap: 7px; padding: 12px; border-radius: 8px; background: var(--ls-card); border: 1px solid var(--ls-line); }
+.labs-inv-head { display: block; width: 55%; height: 9px; border-radius: 4px; background: var(--ls-solid); }
+.labs-inv-row { display: flex; justify-content: space-between; gap: 10px; animation: labs-slide 6.5s calc(var(--k) * 350ms) infinite both; }
+.labs-inv-row i, .labs-inv-row b { display: block; height: 6px; border-radius: 3px; background: var(--ls-bar); }
+.labs-inv-row i { width: 50%; }
+.labs-inv-row b { width: 22%; }
+.labs-inv-total { display: flex; justify-content: space-between; gap: 10px; padding-top: 6px; border-top: 2px solid var(--ls-solid); animation: labs-slide 6.5s 1.2s infinite both; }
+.labs-inv-total i { display: block; width: 35%; height: 8px; border-radius: 4px; background: var(--ls-solid); }
+.labs-inv-total b { display: block; width: 30%; height: 8px; border-radius: 4px; background: var(--brand-accent); }
+.labs-pdf { position: absolute; inset-inline-end: -12px; bottom: -10px; padding: 2px 10px; border-radius: 999px; background: var(--brand-accent); color: #04210f; font: 800 0.7rem ui-monospace, Menlo, monospace; font-style: normal; animation: labs-qchip 6.5s infinite; }
+
+/* Favicon sizes */
+.labs-fav { display: flex; align-items: flex-end; gap: 18px; }
+.labs-fav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; animation: labs-pop 6s calc(var(--k) * 350ms) infinite both; }
+.labs-fav-box { display: block; border-radius: 22%; background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent)); }
+.labs-fav-item em { font: 700 0.72rem ui-monospace, Menlo, monospace; font-style: normal; }
+
+/* CSS units: a knob sliding between px and rem */
+.labs-units { display: flex; align-items: center; gap: 12px; font: 700 0.85rem ui-monospace, Menlo, monospace; }
+.labs-unit { padding: 4px 10px; border-radius: 8px; background: var(--ls-card); border: 1px solid var(--ls-line); animation: labs-unit 4s infinite; }
+.labs-unit-b { animation-delay: -2s; }
+@keyframes labs-unit { 0%, 40% { background: var(--brand-accent); color: #04210f; transform: scale(1.08); } 50%, 100% { background: var(--ls-card); color: inherit; transform: none; } }
+.labs-track { position: relative; width: 110px; height: 6px; border-radius: 3px; background: var(--ls-bar); }
+.labs-knob { position: absolute; top: 50%; left: 0; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; background: var(--brand-primary); animation: labs-knob 4s ease-in-out infinite; }
+.dark .labs-knob { background: var(--brand-accent); }
+@keyframes labs-knob { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(94px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .labs-moon i, .labs-day, .labs-line, .labs-badge, .labs-json-pretty, .labs-json-min, .labs-bar, .labs-stamp, .labs-row, .labs-tier, .labs-drip,
+  .labs-pic-soft, .labs-handle, .labs-avatar, .labs-sig-name, .labs-sig-line, .labs-copy, .labs-heart, .labs-net, .labs-wline, .labs-count,
+  .labs-file, .labs-inv-row, .labs-inv-total, .labs-pdf, .labs-fav-item, .labs-unit, .labs-knob { animation: none !important; }
+  .labs-json-min, .labs-drip { display: none; }
+}

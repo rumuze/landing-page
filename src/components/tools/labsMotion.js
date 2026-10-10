@@ -5,4 +5,4 @@ export const HOVER_MOTION = {
   wordcount: 'wig', seofiles: 'hop', invoice: 'grow', json: 'wig', favicon: 'hop', cssunits: 'spin',
 };
 
-export const STRIP_TOOLS = ['qr', 'whatsapp', 'utm', 'serp', 'palette'];
+export const STRIP_TOOLS = ['qr', 'whatsapp', 'utm', 'serp', 'hijri', 'schema', 'brief', 'vat', 'adbudget', 'imagecompress', 'signature', 'palette', 'social', 'wordcount', 'seofiles', 'invoice', 'json', 'favicon', 'cssunits'];

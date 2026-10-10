@@ -7,8 +7,7 @@ describe('labs hub motion', () => {
     for (const tool of TOOLS) expect(['hop', 'wig', 'spin', 'grow']).toContain(HOVER_MOTION[tool.id]);
   });
 
-  it('only previews tools that exist', () => {
-    const ids = TOOLS.map((tool) => tool.id);
-    for (const id of STRIP_TOOLS) expect(ids).toContain(id);
+  it('previews every tool, and only tools that exist', () => {
+    expect([...STRIP_TOOLS].sort()).toEqual(TOOLS.map((tool) => tool.id).sort());
   });
 });
