@@ -45,7 +45,7 @@ Old Arabic URLs under `/ar` are redirected (301) to the same path at the root by
 
 ## Live check
 
-Every build writes `dist/version.json` with the commit it was made from. `.github/workflows/live-check.yml` runs every six hours (and on demand from the Actions tab) and compares the commit the public domain serves with the latest commit on `main`, then checks that `/` is the Arabic page with the security headers and that `/ar/services` redirects (301) to `/services`. A merge gets 30 minutes to deploy before the check calls the domain behind. A red run means the build is fine but the site is stale or answering wrongly: it is how a frozen domain gets noticed the same day. Run it by hand with `EXPECTED_SHA=<commit> npm run check-live -- https://www.rumuze.com`.
+Every build writes `dist/version.json` with the commit it was made from. `.github/workflows/live-check.yml` runs every six hours (and on demand from the Actions tab) and compares the commit the public domain serves with the latest commit on `main`, then checks that `/` is the Arabic page with the security headers and that `/ar/services` redirects permanently (301 on Cloudflare, 308 on Vercel) to `/services`. A merge gets 30 minutes to deploy before the check calls the domain behind. A red run means the build is fine but the site is stale or answering wrongly: it is how a frozen domain gets noticed the same day. Run it by hand with `EXPECTED_SHA=<commit> npm run check-live -- https://www.rumuze.com`.
 
 ## Moving the domain to Cloudflare (optional)
 
@@ -54,7 +54,7 @@ Building on Cloudflare is not enough on its own: `rumuze.com` has to be attached
 ```bash
 getent hosts rumuze.com www.rumuze.com        # a Vercel address or a *.vercel-dns-*.com name means Vercel still serves the domain
 curl -sI https://www.rumuze.com/ | grep -i -E "^server|x-vercel|cf-ray"
-curl -sI https://www.rumuze.com/ar/services | grep -i -E "^HTTP|^location"   # the current build answers 301 to /services
+curl -sI https://www.rumuze.com/ar/services | grep -i -E "^HTTP|^location"   # the current build answers 301 (Cloudflare) or 308 (Vercel) to /services
 ```
 
 If Vercel answers, visitors get Vercel's latest production deployment. To move to Cloudflare: in Cloudflare, add the `rumuze.com` zone (change the nameservers at the registrar), then Workers & Pages, `landing-page`, Settings, Domains & Routes, Add Custom Domain for `rumuze.com` and `www.rumuze.com`; remove the old Vercel A and CNAME records, and remove the domain from the Vercel project. The Worker's own `*.workers.dev` address always shows the newest build, so it is the quickest way to tell a code problem from a domain problem.

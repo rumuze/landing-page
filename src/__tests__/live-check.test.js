@@ -60,8 +60,13 @@ describe('live check', () => {
     expect(result.problems[0]).toMatch(/\/version\.json answered 404/);
   });
 
+  it('accepts the 308 that Vercel uses for a permanent redirect', async () => {
+    expect((await run({ legacy: { status: 308, location: 'https://x.test/services' } })).ok).toBe(true);
+  });
+
   it('fails when the redirect, the language or the security header is wrong', async () => {
     expect((await run({ legacy: { status: 200, location: '' } })).problems.join()).toMatch(/\/ar\/services should redirect/);
+    expect((await run({ legacy: { status: 302, location: 'https://x.test/services' } })).problems.join()).toMatch(/\/ar\/services should redirect/);
     expect((await run({ home: '<html lang="en">' })).problems.join()).toMatch(/not the Arabic home page/);
     expect((await run({ hsts: false })).problems.join()).toMatch(/Strict-Transport-Security/);
     expect((await run({ homeStatus: 500 })).problems.join()).toMatch(/\/ answered 500/);
