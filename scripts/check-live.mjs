@@ -47,7 +47,8 @@ export async function checkLive({ baseUrl, expectedSha, expectedTime, now = new 
   try {
     const legacy = await fetchFn(`${base}/ar/services`, { redirect: 'manual' });
     const target = legacy.headers.get('location') || '';
-    if (legacy.status !== 301 || !/\/services$/.test(target)) problems.push(`/ar/services should redirect (301) to /services, but answered ${legacy.status} ${target}`.trim());
+    // Cloudflare answers a permanent redirect with 301, Vercel with 308; both mean the same to browsers and crawlers.
+    if (![301, 308].includes(legacy.status) || !/\/services$/.test(target)) problems.push(`/ar/services should redirect permanently (301 or 308) to /services, but answered ${legacy.status} ${target}`.trim());
   } catch (error) {
     problems.push(`/ar/services could not be read: ${error.message}`);
   }
