@@ -2429,7 +2429,32 @@ html:not(.dark) main .surface-card-strong .text-cyan {
 }
 @keyframes labs-tick { 0%, 58% { opacity: 0; transform: scale(0.3); } 66%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 
+/* QR code */
+.labs-qr { position: relative; display: flex; align-items: center; justify-content: center; }
+.labs-qr-grid {
+  position: relative; display: grid; grid-template: repeat(9, 1fr) / repeat(9, 1fr); gap: 2px;
+  width: 112px; height: 112px; padding: 7px; overflow: hidden; border-radius: 10px; background: #fff;
+}
+.labs-qr-module, .labs-qr-finder {
+  display: block; border-radius: 2px; background: #0b3d2e; transform-origin: center;
+  animation: labs-qmod 6.5s calc(var(--d) * 45ms) infinite both;
+}
+.labs-qr-finder { border-radius: 4px; box-shadow: inset 0 0 0 5px #0b3d2e, inset 0 0 0 9px #fff; background: #0b3d2e; }
+@keyframes labs-qmod { 0% { opacity: 0; transform: scale(0); } 9% { opacity: 1; transform: scale(1.25); } 14%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: scale(0); } }
+.labs-qr-beam {
+  position: absolute; inset-inline: 0; top: 0; height: 12px; background: var(--brand-accent); opacity: 0;
+  box-shadow: 0 0 14px 4px rgb(60 191 0 / 0.55); animation: labs-qbeam 6.5s infinite;
+}
+@keyframes labs-qbeam { 0%, 46% { opacity: 0; transform: translateY(-14px); } 50% { opacity: 0.85; } 68% { opacity: 0.85; transform: translateY(116px); } 72%, 100% { opacity: 0; transform: translateY(116px); } }
+.labs-qr-chip {
+  position: absolute; inset-inline-end: 22%; bottom: 4px; padding: 2px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+  background: var(--brand-accent); color: #04210f; animation: labs-qchip 6.5s infinite;
+}
+@keyframes labs-qchip { 0%, 70% { opacity: 0; transform: translateY(10px) scale(0.7); } 76% { opacity: 1; transform: scale(1.12); } 80%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+
 @media (prefers-reduced-motion: reduce) {
+  .labs-qr-module, .labs-qr-finder, .labs-qr-beam, .labs-qr-chip { animation: none !important; }
+  .labs-qr-beam { display: none; }
   .labs-card, .labs-card:hover .home-icon-badge, .labs-typing, .labs-typing i, .labs-msg, .labs-msg span, .labs-wlink,
   .labs-piece, .labs-result b span, .labs-gauge i, .labs-state-ok, .labs-state-cut, .labs-swatch, .labs-swatch::after {
     animation: none !important;
