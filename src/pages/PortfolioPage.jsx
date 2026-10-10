@@ -20,6 +20,15 @@ const copyByLocale = {
     ctaLabel: 'Start a project',
     more: 'Read the details',
     facts: { products: 'Products', services: 'Services', languages: 'Languages' },
+    earlier: {
+      title: 'Earlier client work',
+      intro: 'Websites built for clients before the products above. Client names are not published.',
+      stackLabel: 'Built with',
+      items: [
+        { tag: 'Landing page', text: 'A static landing page written in HTML and CSS for a client.', stack: ['HTML', 'CSS'] },
+        { tag: 'Landing page', text: 'A single-page landing page written in HTML for a client.', stack: ['HTML'] },
+      ],
+    },
   },
   ar: {
     eyebrow: 'أعمالنا',
@@ -31,6 +40,15 @@ const copyByLocale = {
     ctaLabel: 'ابدأ مشروعك',
     more: 'اقرأ التفاصيل',
     facts: { products: 'منتجات', services: 'خدمات', languages: 'لغات' },
+    earlier: {
+      title: 'أعمال سابقة لعملاء',
+      intro: 'مواقع بنيناها لعملاء قبل المنتجات أعلاه. لا ننشر أسماء العملاء.',
+      stackLabel: 'بُني بـ',
+      items: [
+        { tag: 'صفحة هبوط', text: 'صفحة هبوط ثابتة مكتوبة بـ HTML وCSS لعميل.', stack: ['HTML', 'CSS'] },
+        { tag: 'صفحة هبوط', text: 'صفحة هبوط من صفحة واحدة مكتوبة بـ HTML لعميل.', stack: ['HTML'] },
+      ],
+    },
   },
 };
 
@@ -132,6 +150,31 @@ const PortfolioPage = () => {
               </article>
             ))}
           </div>
+
+          <section className={`mt-14 ${align}`} aria-labelledby="earlier-work-title">
+            <h2 id="earlier-work-title" className="type-h2 copy-primary dark:text-white">
+              {page.earlier.title}
+            </h2>
+            <p className="type-body copy-secondary mt-3 max-w-3xl">{page.earlier.intro}</p>
+            <ul className="mt-6 divide-y divide-[rgb(var(--border-subtle)/0.7)] border-y border-[rgb(var(--border-subtle)/0.7)]">
+              {page.earlier.items.map((item, index) => (
+                <li key={index} className="grid gap-3 py-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-10">
+                  <div>
+                    <span className="type-label copy-muted">{item.tag}</span>
+                    <p className="type-body copy-secondary mt-2 dark:text-slate-300">{item.text}</p>
+                  </div>
+                  <div className={`flex flex-wrap items-center gap-2 ${isAr ? 'flex-row-reverse' : ''}`}>
+                    <span className="type-label copy-muted">{page.earlier.stackLabel}</span>
+                    {item.stack.map((tech) => (
+                      <span key={tech} className="home-chip" dir="ltr">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
 
           <div className={`mt-14 flex flex-col gap-4 md:flex-row md:items-center md:justify-between ${align}`}>
             <div>
