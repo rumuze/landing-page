@@ -25,7 +25,7 @@ export const serviceWaveContent = {
     items: {
       erp: { label: 'ERP', text: 'A system that brings sales, stock and accounts into one place.' },
       crm: { label: 'CRM', text: 'Follow customers, opportunities and every conversation.' },
-      odoo: { label: 'Odoo', text: 'Apps and solutions built on Odoo to fit how you work.' },
+      odoo: { label: 'Odoo', text: 'Custom add-ons and integrations for Odoo, built to fit how you work.' },
       project: { label: 'Your project', text: 'Tell us your idea and we start from there.' },
       websites: { label: 'Websites', text: 'A fast website that search engines can read.' },
       seo: { label: 'SEO', text: 'Better visibility in search and in AI answers.' },
@@ -57,7 +57,7 @@ export const serviceWaveContent = {
     items: {
       erp: { label: 'ERP', text: 'نظام يجمع المبيعات والمخزون والحسابات في مكان واحد.' },
       crm: { label: 'CRM', text: 'متابعة العملاء والفرص وسجل كل تواصل.' },
-      odoo: { label: 'Odoo', text: 'تطبيقات وحلول مبنية على Odoo حسب شغلك.' },
+      odoo: { label: 'Odoo', text: 'إضافات وتكاملات مخصصة لـ Odoo تُبنى حسب شغلك.' },
       project: { label: 'مشروعك', text: 'قل لنا فكرتك ونبدأ منها.' },
       websites: { label: 'مواقع', text: 'موقع سريع تقرؤه محركات البحث.' },
       seo: { label: 'SEO', text: 'ظهور أفضل في البحث وفي إجابات الذكاء الاصطناعي.' },
