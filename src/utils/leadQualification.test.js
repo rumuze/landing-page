@@ -98,3 +98,17 @@ describe('buildLeadThread', () => {
     expect(thread.message).toContain('- Phone / WhatsApp: 01012345678');
   });
 });
+
+describe('buildLeadThreadMessage market and timeline', () => {
+  it('writes the market and timeline when they are chosen', () => {
+    const message = buildLeadThreadMessage({ intent: 'build', formData: { ...valid, market: 'saudi', timeline: 'quarter' } });
+    expect(message).toContain('- Primary market: Saudi');
+    expect(message).toContain('- Timeline: Quarter');
+  });
+
+  it('says "Not provided" when they are left empty', () => {
+    const message = buildLeadThreadMessage({ intent: 'build', formData: valid });
+    expect(message).toContain('- Primary market: Not provided');
+    expect(message).toContain('- Timeline: Not provided');
+  });
+});

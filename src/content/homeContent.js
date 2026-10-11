@@ -32,7 +32,7 @@ export const homeContent = {
         },
         {
           label: "Products we own",
-          value: "We ship and operate our own SaaS platforms.",
+          value: "We design and build our own SaaS platforms.",
         },
       ],
     },
@@ -60,7 +60,7 @@ export const homeContent = {
             {
               title: "Custom software and SaaS",
               description:
-                "Multi-module business systems such as ERP, CRM, HR, project management, and billing.",
+                "Modular business management systems: operations, CRM, HR, project management, and payments.",
               points: [
                 "Multi-tenant SaaS",
                 "Modular architecture",
@@ -145,11 +145,11 @@ export const homeContent = {
     },
     work: {
       eyebrow: "Selected work",
-      title: "Products we have built and run.",
+      title: "Products we have designed and built.",
       intro:
-        "These are platforms we design, build, and operate ourselves. They show the engineering standard we bring to client projects.",
+        "These are platforms we design and build ourselves. They show the engineering standard we bring to client projects.",
       stackLabel: "Stack",
-      cityLabel: "A city made of the platforms we have built and run, one tower for each product",
+      cityLabel: "A city made of the platforms we have built, one tower for each product",
       cityHint: "Each tower is one of our products.",
       cards: [
         {
@@ -273,7 +273,7 @@ export const homeContent = {
         },
         {
           q: "Which products has Rumuze built?",
-          a: "RumuzePMO (a modular ERP, CRM, and HR platform), Rveta (a delivery operations platform with a Flutter driver app), and Rumuze Core (an event-driven API kernel with an admin dashboard). Rveta Connector, a device control app, is in development.",
+          a: "RumuzePMO (a modular business management platform covering operations, CRM, and HR), Rveta (a delivery operations platform with a Flutter driver app), and Rumuze Core (an event-driven API kernel with an admin dashboard). Rveta Connector, a device control app, is in development.",
         },
         {
           q: "How do I start a project with Rumuze?",
@@ -281,7 +281,7 @@ export const homeContent = {
         },
         {
           q: "Where is Rumuze based?",
-          a: "Rumuze is based in Obour City, Cairo, Egypt, and works with clients in Saudi Arabia, the UAE, and the wider MENA region.",
+          a: "Rumuze is based in Obour City, Cairo, Egypt, and builds for businesses in Saudi Arabia, the UAE, and the wider MENA region.",
         },
       ],
     },
@@ -328,7 +328,7 @@ export const homeContent = {
         },
         {
           label: "منتجات نملكها",
-          value: "نطلق ونشغّل منصات SaaS خاصة بنا.",
+          value: "نصمم ونبني منصات SaaS خاصة بنا.",
         },
       ],
     },
@@ -356,7 +356,7 @@ export const homeContent = {
             {
               title: "برمجيات مخصصة وSaaS",
               description:
-                "أنظمة أعمال متعددة الوحدات مثل ERP وCRM والموارد البشرية وإدارة المشاريع والفوترة.",
+                "أنظمة إدارة أعمال معيارية: عمليات وCRM وموارد بشرية وإدارة مشاريع ومدفوعات.",
               points: [
                 "SaaS متعدد المستأجرين",
                 "معمارية وحدات",
@@ -441,11 +441,11 @@ export const homeContent = {
     },
     work: {
       eyebrow: "أعمال مختارة",
-      title: "منتجات بنيناها ونشغّلها.",
+      title: "منتجات صممناها وبنيناها.",
       intro:
-        "هذه منصات نصممها ونبنيها ونشغّلها بأنفسنا، وهي تعكس المعيار الهندسي الذي نطبقه على مشاريع العملاء.",
+        "هذه منصات نصممها ونبنيها بأنفسنا، وهي تعكس المعيار الهندسي الذي نطبقه على مشاريع العملاء.",
       stackLabel: "التقنيات",
-      cityLabel: "مدينة مصنوعة من المنصات التي بنيناها ونديرها، وبرج لكل منتج",
+      cityLabel: "مدينة مصنوعة من المنصات التي بنيناها، وبرج لكل منتج",
       cityHint: "كل برج هو أحد منتجاتنا.",
       cards: [
         {
@@ -569,7 +569,7 @@ export const homeContent = {
         },
         {
           q: "ما المنتجات التي بنتها رموز؟",
-          a: "RumuzePMO (منصة معيارية للـ ERP وCRM والموارد البشرية)، وRveta (منصة عمليات توصيل مع تطبيق Flutter للسائقين)، وRumuze Core (نواة API قائمة على الأحداث مع لوحة إدارة). أما Rveta Connector، وهو تطبيق للتحكم بالأجهزة، فقيد التطوير.",
+          a: "RumuzePMO (منصة إدارة أعمال معيارية تغطي العمليات وCRM والموارد البشرية)، وRveta (منصة عمليات توصيل مع تطبيق Flutter للسائقين)، وRumuze Core (نواة API قائمة على الأحداث مع لوحة إدارة). أما Rveta Connector، وهو تطبيق للتحكم بالأجهزة، فقيد التطوير.",
         },
         {
           q: "كيف أبدأ مشروعاً مع رموز؟",
@@ -577,7 +577,7 @@ export const homeContent = {
         },
         {
           q: "أين مقر رموز؟",
-          a: "مقر رموز في مدينة العبور بالقاهرة، مصر، وتعمل مع عملاء في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا.",
+          a: "مقر رموز في مدينة العبور بالقاهرة، مصر، وتبني لشركات في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا.",
         },
       ],
     },

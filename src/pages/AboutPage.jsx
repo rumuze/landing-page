@@ -14,7 +14,7 @@ const copyByLocale = {
     eyebrow: 'About',
     title: 'A software and digital marketing company in Cairo.',
     intro:
-      'Rumuze designs, builds, and operates custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.',
+      'Rumuze designs and builds custom platforms, mobile apps, and backend systems for businesses in Saudi Arabia, the UAE, and the wider MENA region, in Arabic and English.',
     whatTitle: 'What we do',
     whatText:
       'We build our own products and apply the same architecture and delivery practices to client work. The products are described on the work page, with the stack and architecture behind each.',
@@ -36,7 +36,7 @@ const copyByLocale = {
     eyebrow: 'من نحن',
     title: 'شركة برمجيات وتسويق رقمي في القاهرة.',
     intro:
-      'تصمم رموز وتبني وتشغّل منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا، بالعربية والإنجليزية.',
+      'تصمم رموز وتبني منصات مخصصة وتطبيقات موبايل وأنظمة خلفية لشركات في السعودية والإمارات ومنطقة الشرق الأوسط وشمال أفريقيا، بالعربية والإنجليزية.',
     whatTitle: 'ماذا نفعل',
     whatText:
       'نبني منتجاتنا الخاصة ونطبق المعمارية وممارسات التسليم نفسها على أعمال العملاء. تُشرح المنتجات في صفحة الأعمال مع التقنيات والمعمارية خلف كل منها.',

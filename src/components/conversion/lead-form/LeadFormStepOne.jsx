@@ -32,7 +32,7 @@ const LeadFormStepOne = ({ copy, errors, formData, intakeCopy, isAr, isSubmittin
     />
 
     <div className={fieldWrapper}>
-      <label className={labelClass} htmlFor="engagementType">
+      <label className={labelClass} htmlFor="engagementType" id="engagementType-label">
         <span>{copy.need}</span>
         <span className="type-label text-slate-600 dark:text-slate-400">{intakeCopy.requiredLabel}</span>
       </label>
